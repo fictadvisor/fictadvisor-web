@@ -22,6 +22,7 @@ const config = {
     { text: 'Предмети', href: '/subjects' },
     { text: 'Супергерої', href: '/superheroes' },
     { text: 'Допомога', href: '/help' },
+    { text: 'Електронна черга', href: '/queues' },
   ],
 };
 

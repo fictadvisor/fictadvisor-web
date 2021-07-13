@@ -55,7 +55,7 @@ const PageLayout = ({ meta, title, children }: PageLayoutProperties) => {
 
         <div className="main">
           <div className="content">
-            <p className="title">{title}</p>
+            {title && <p className="title">{title}</p>}
             {children}
           </div>
         </div>

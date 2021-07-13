@@ -1,0 +1,15 @@
+.queue-block
+  > *
+    background-color: #161b22
+    padding: 24px
+  > .queue-block-header
+    display: flex
+    border-radius: 8px 8px 0 0
+    border-bottom: 1px solid #323D4D
+  > .queue-block-content
+    border-radius: 0 0 8px 8px
+    
+.queue-block-group
+  > .queue-block
+    &:not(:last-child)
+      margin-bottom: $spacing

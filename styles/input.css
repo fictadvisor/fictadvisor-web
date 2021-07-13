@@ -62,6 +62,7 @@ button {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 button.dropdown {
