@@ -1,13 +1,9 @@
 .arrow-desktop {
+  transition: 0.2s ease-in-out;
   padding: 6px 6px 6px 6px;
-  width: 36px;
   height: 36px;
   border-radius: 6px;
-  border: none;
 
-  position: absolute;
-  left: 260px;
-  top: 209px;
 
   &:hover{
       background: $arrow-hover-color;
@@ -20,14 +16,8 @@
 
 .arrow-mobile {
   padding: 4px 4px 4px 4px;
-  width: 28px;
   height: 28px;
   border-radius: 6px;
-  border: none;
-
-  position: absolute;
-  left: 395px;
-  top: 209px;
 
   &:hover{
     background: $arrow-hover-color;
