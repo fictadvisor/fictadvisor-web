@@ -34,7 +34,7 @@ const Table: React.FC<TableProps> = props => {
           !field.checkBox &&
           !field.secondButton
         )
-          userWidth = '288px';
+          userWidth = '200px';
         return (
           <div key={index} className={styles['table-container']}>
             <div
