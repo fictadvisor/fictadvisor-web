@@ -32,7 +32,7 @@ const RightBlock = () => {
 
   return (
     <div className={styles['right-block']}>
-        <Link href="/" className={styles['mobile-login-logo']}>
+        <Link href="/">
             <img
                 className={styles['mobile-login-logo']}
                 src="/assets/login-page/new_logo.png"
