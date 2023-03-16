@@ -49,14 +49,6 @@
   align-self: flex-start;
 }
 
-.mobile-login-logo{
-  width: calc(100% - 40px);
-  min-width: 200px;
-  display: none;
-  margin: 8vh 4vh 8vh 4vh;
-  justify-content: center;
-}
-
 .mobile-register-logo-container{
   @include flex-center;
   margin: 8vh 4vh 8vh 4vh;
