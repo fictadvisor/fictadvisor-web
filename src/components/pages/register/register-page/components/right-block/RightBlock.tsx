@@ -11,7 +11,7 @@ const RightBlock = () => {
 
   return (
     <div className={styles['left-block']}>
-      <Link href="/">
+      <Link href="/" className={styles['login-logo']}>
         <img
           className={styles['login-logo']}
           src="/assets/login-page/new_logo.png"
