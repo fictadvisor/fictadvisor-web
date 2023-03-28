@@ -15,49 +15,6 @@ import * as styles from './Footer.styles';
 
 const Footer: React.FC = () => {
   const isMobile = useIsMobile(768);
-  const linkGroups = [
-    {
-      title: 'Основні посилання',
-      links: [
-        { href: '/', text: 'Головна' },
-        { href: '/poll', text: 'Опитування' },
-        { href: '/teachers', text: 'Викладачі' },
-        { href: '/subjects', text: 'Предмети' },
-      ],
-    },
-    {
-      title: 'Підтримка',
-      links: [
-        { href: '/privacy', text: 'Конфіденційність' },
-        { href: 'https://t.me/fict_robot', text: 'FICT robot' },
-      ],
-    },
-    {
-      title: 'Соцмережі',
-      links: [
-        {
-          href: isMobile
-            ? 'https://t.me/fict_time'
-            : 'https://github.com/fictadvisor/',
-          text: !isMobile && 'GitHub',
-          startIcon: isMobile ? <TelegramIcon /> : <GitHubIcon />,
-        },
-        {
-          href: 'https://www.instagram.com/sr_fiot/',
-          text: !isMobile && 'Instagram',
-          startIcon: <InstagramIcon />,
-        },
-        {
-          href: isMobile
-            ? 'https://github.com/fictadvisor/'
-            : 'https://t.me/fict_time',
-          text: !isMobile && 'Telegram',
-          startIcon: isMobile ? <GitHubIcon /> : <TelegramIcon />,
-        },
-      ],
-    },
-  ];
-
   return (
     <Grid container sx={styles.footerContainer}>
       <Grid item sx={styles.footerLogoContainer}>
@@ -68,25 +25,115 @@ const Footer: React.FC = () => {
         </Container>
         <Typography sx={styles.signature}>By Dev-відділ СР ФІОТ</Typography>
       </Grid>
-
-      {linkGroups.map(group => (
-        <Grid item key={group.title}>
-          <Container sx={styles.mainReferences}>
-            <Typography sx={styles.title}>{group.title}</Typography>
-            {group.links.map((link, index) => (
-              <Link key={index} href={link.href} style={{ height: '36px' }}>
-                <Button
-                  style={{ paddingLeft: '12px' }}
-                  text={link.text}
-                  startIcon={link.startIcon}
-                  size={ButtonSize.SMALL}
-                  variant={ButtonVariant.TEXT}
-                />
-              </Link>
-            ))}
+      <Grid item>
+        <Container sx={styles.mainReferences}>
+          <Typography sx={styles.title}>Основні посилання</Typography>
+          <Link href={'/'} style={{ height: '36px' }}>
+            <Button
+              style={{ paddingLeft: '12px' }}
+              text="Головна"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
+            />
+          </Link>
+          <Link href={'/poll'} style={{ height: '36px' }}>
+            <Button
+              style={{ paddingLeft: '12px' }}
+              text="Опитування"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
+            />
+          </Link>
+          <Link href={'/teachers'} style={{ height: '36px' }}>
+            <Button
+              style={{ paddingLeft: '12px' }}
+              text="Викладачі"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
+            />
+          </Link>
+          <Link href={'/subjects'} style={{ height: '36px' }}>
+            <Button
+              style={{ paddingLeft: '12px' }}
+              text="Предмети"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
+            />
+          </Link>
+        </Container>
+      </Grid>
+      <Grid item>
+        <Container sx={styles.support}>
+          <Typography sx={styles.title}>Підтримка</Typography>
+          <Link href={'/privacy'} style={{ height: '36px' }}>
+            <Button
+              style={{ paddingLeft: '12px' }}
+              text="Конфіденційність"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
+            />
+          </Link>
+          <Link href={'https://t.me/fict_robot'} style={{ height: '36px' }}>
+            <Button
+              style={{ paddingLeft: '12px' }}
+              text="FICT robot"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
+            />
+          </Link>
+        </Container>
+      </Grid>
+      <Grid item>
+        <Container sx={styles.socialMedia}>
+          <Typography sx={styles.title}>Соцмережі</Typography>
+          <Container sx={styles.socialButtons}>
+            <Link
+              href={
+                isMobile
+                  ? 'https://t.me/fict_time'
+                  : 'https://github.com/fictadvisor/'
+              }
+              style={{ height: '36px', width: '36px' }}
+            >
+              <Button
+                style={{ paddingLeft: '12px' }}
+                text={!isMobile && 'GitHub'}
+                startIcon={isMobile ? <TelegramIcon /> : <GitHubIcon />}
+                size={ButtonSize.SMALL}
+                variant={ButtonVariant.TEXT}
+              />
+            </Link>
+            <Link
+              href={'https://www.instagram.com/sr_fiot/'}
+              style={{ height: '36px', width: '36px' }}
+            >
+              <Button
+                style={{ paddingLeft: '12px' }}
+                text={!isMobile && 'Instagram'}
+                startIcon={<InstagramIcon />}
+                size={ButtonSize.SMALL}
+                variant={ButtonVariant.TEXT}
+              />
+            </Link>
+            <Link
+              href={
+                isMobile
+                  ? 'https://github.com/fictadvisor/'
+                  : 'https://t.me/fict_time'
+              }
+              style={{ height: '36px', width: '36px' }}
+            >
+              <Button
+                style={{ paddingLeft: '12px' }}
+                text={!isMobile && 'Telegram'}
+                startIcon={isMobile ? <GitHubIcon /> : <TelegramIcon />}
+                size={ButtonSize.SMALL}
+                variant={ButtonVariant.TEXT}
+              />
+            </Link>
           </Container>
-        </Grid>
-      ))}
+        </Container>
+      </Grid>
     </Grid>
   );
 };
