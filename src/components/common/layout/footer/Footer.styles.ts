@@ -54,12 +54,10 @@ export const title: SxProps<Theme> = {
   // width: '187px',
   whiteSpace: 'nowrap',
   height: '30px',
-  '& p': {
-    fontWeight: 400,
-    fontSize: '16px',
-    lineHeight: '150%',
-    color: '#A3A3A3',
-  },
+  fontWeight: 400,
+  fontSize: '16px',
+  lineHeight: '150%',
+  color: '#A3A3A3',
 };
 
 export const support: SxProps<Theme> = {
