@@ -15,42 +15,6 @@ import * as styles from './Footer.styles';
 
 const Footer: React.FC = () => {
   const isMobile = useIsMobile(768);
-  const socialLabels = isMobile
-    ? [
-        {
-          text: '',
-          icon: <TelegramIcon />,
-          url: 'https://t.me/fict_time',
-        },
-        {
-          text: '',
-          icon: <InstagramIcon />,
-          url: 'https://www.instagram.com/sr_fiot/',
-        },
-        {
-          text: '',
-          icon: <GitHubIcon />,
-          url: 'https://github.com/fictadvisor/',
-        },
-      ]
-    : [
-        {
-          text: 'GitHub',
-          icon: <GitHubIcon />,
-          url: 'https://github.com/fictadvisor/',
-        },
-        {
-          text: 'Instagram',
-          icon: <InstagramIcon />,
-          url: 'https://www.instagram.com/sr_fiot/',
-        },
-        {
-          text: 'Telegram',
-          icon: <TelegramIcon />,
-          url: 'https://t.me/fict_time',
-        },
-      ];
-
   return (
     <Grid container sx={styles.footerContainer}>
       <Grid item sx={styles.footerLogoContainer}>
@@ -63,9 +27,7 @@ const Footer: React.FC = () => {
       </Grid>
       <Grid item>
         <Container sx={styles.mainReferences}>
-          <Container sx={styles.title}>
-            <p>Основні посилання</p>
-          </Container>
+          <Typography sx={styles.title}>Основні посилання</Typography>
           <Link href={'/'} style={{ height: '36px' }}>
             <Button
               style={{ paddingLeft: '12px' }}
@@ -99,6 +61,8 @@ const Footer: React.FC = () => {
             />
           </Link>
         </Container>
+      </Grid>
+      <Grid item>
         <Container sx={styles.support}>
           <Container sx={styles.title}>
             <p>Підтримка</p>
@@ -120,48 +84,58 @@ const Footer: React.FC = () => {
             />
           </Link>
         </Container>
+      </Grid>
+      <Grid item>
         <Container sx={styles.socialMedia}>
           <Container sx={styles.title}>
             <p>Соцмережі</p>
           </Container>
           <Container sx={styles.socialButtons}>
             <Link
+              href={
+                isMobile
+                  ? 'https://t.me/fict_time'
+                  : 'https://github.com/fictadvisor/'
+              }
               style={{ height: '36px', width: '36px' }}
-              href={socialLabels[0].url}
             >
               <Button
                 style={{ paddingLeft: '12px' }}
-                text={socialLabels[0].text}
-                startIcon={socialLabels[0].icon}
+                text={!isMobile && 'GitHub'}
+                startIcon={isMobile ? <TelegramIcon /> : <GitHubIcon />}
                 size={ButtonSize.SMALL}
                 variant={ButtonVariant.TEXT}
               />
             </Link>
             <Link
-              href={socialLabels[1].url}
+              href={'https://www.instagram.com/sr_fiot/'}
               style={{ height: '36px', width: '36px' }}
             >
               <Button
                 style={{ paddingLeft: '12px' }}
-                text={socialLabels[1].text}
-                startIcon={socialLabels[1].icon}
+                text={!isMobile && 'Instagram'}
+                startIcon={<InstagramIcon />}
                 size={ButtonSize.SMALL}
                 variant={ButtonVariant.TEXT}
               />
             </Link>
             <Link
-              href={socialLabels[2].url}
+              href={
+                isMobile
+                  ? 'https://github.com/fictadvisor/'
+                  : 'https://t.me/fict_time'
+              }
               style={{ height: '36px', width: '36px' }}
             >
               <Button
                 style={{ paddingLeft: '12px' }}
-                text={socialLabels[2].text}
-                startIcon={socialLabels[2].icon}
+                text={!isMobile && 'Telegram'}
+                startIcon={isMobile ? <GitHubIcon /> : <TelegramIcon />}
                 size={ButtonSize.SMALL}
                 variant={ButtonVariant.TEXT}
               />
             </Link>
-          </Container>{' '}
+          </Container>
         </Container>
       </Grid>
     </Grid>
