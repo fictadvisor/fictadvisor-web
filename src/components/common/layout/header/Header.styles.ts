@@ -1,6 +1,9 @@
 import { SxProps, Theme } from '@mui/material/styles';
+import { alpha } from '@mui/system';
 
-export const headerContainer: SxProps<Theme> = {
+import theme from '@/styles/theme';
+
+export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
   overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
@@ -22,9 +25,11 @@ export const headerContainer: SxProps<Theme> = {
     desktopSemiMedium: 'unset',
     mobile: 'relative',
   },
-  backgroundColor: 'rgba(23, 23, 23, 0.63)',
+  background: isOpened
+    ? theme.palette.backgroundDark[0]
+    : alpha(theme.palette.gray[10], 0.62),
   backdropFilter: 'blur(8px)',
-};
+});
 
 export const menu: SxProps<Theme> = {
   display: 'flex',
@@ -53,7 +58,7 @@ export const headerLogo: SxProps<Theme> = {
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: {
-    desktop: '280px',
+    desktopSemiMedium: '280px',
     mobile: 'fit-content',
   },
   '& img': {
@@ -78,7 +83,8 @@ export const shadow: SxProps<Theme> = {
   width: '100%',
   height: '100%',
   position: 'fixed',
-  backgroundColor: 'rgba(23, 23, 23, 0.65)',
+  background: theme.palette.gray[10],
+  opacity: 0.6,
 };
 
 export const mobileButton: SxProps<Theme> = {
@@ -99,10 +105,24 @@ export const drop: SxProps<Theme> = {
   position: 'absolute',
   paddingTop: '8px',
   paddingBottom: '16px',
-  backgroundColor: '#1e1e1e',
+  backgroundColor: theme.palette.backgroundDark[0],
   gap: '16px',
   flexDirection: 'column',
   animationDuration: '0.4s',
+};
+
+export const registerButton: SxProps<Theme> = {
+  width: {
+    desktopSemiMedium: 'unset',
+    mobile: '192px',
+  },
+};
+
+export const loginButton: SxProps<Theme> = {
+  width: {
+    desktopSemiMedium: 'unset',
+    mobile: '120px',
+  },
 };
 
 export const accountButtons = mobileMenu;
