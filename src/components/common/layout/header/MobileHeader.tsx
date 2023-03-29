@@ -27,6 +27,7 @@ import { TabItemContentSize } from '../../ui/tab/tab-item/TabItem';
 
 import HeaderDivider from './components/header-divider';
 import { HeaderMobileCard } from './components/header-mobile-card';
+import HeaderMobileMenu from './components/header-mobile-menu/HeaderMobileMenu';
 import { DesktopHeaderProps } from './DesktopHeader';
 import * as styles from './Header.styles';
 
@@ -41,48 +42,13 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
   user,
   isLoggedIn,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
   const handleClick = () => {
-    setIsOpen(isOpen => !isOpen);
+    setIsOpened(isOpened => !isOpened);
   };
-  const mobileMenu = (
-    <Box sx={styles.mobileMenu}>
-      <Link href={'/'} onClick={handleClick}>
-        <TabItem
-          text="Головна"
-          position={TabItemContentPosition.LEFT}
-          icon={<HomeIcon />}
-          size={TabItemContentSize.SMAll}
-        />
-      </Link>
-      <Link href={'/poll'} onClick={handleClick}>
-        <TabItem
-          text="Опитування"
-          position={TabItemContentPosition.LEFT}
-          icon={<ClipboardIcon />}
-          size={TabItemContentSize.SMAll}
-        />
-      </Link>
-      <Link href={'/teachers'} onClick={handleClick}>
-        <TabItem
-          text="Викладачі"
-          position={TabItemContentPosition.LEFT}
-          icon={<BriefcaseIcon />}
-          size={TabItemContentSize.SMAll}
-        />
-      </Link>
-      <Link href={'/subjects'} onClick={handleClick}>
-        <TabItem
-          text="Предмети"
-          position={TabItemContentPosition.LEFT}
-          icon={<AcademicCapIcon />}
-          size={TabItemContentSize.SMAll}
-        />
-      </Link>
-    </Box>
-  );
+
   if (isLoggedIn) {
-    return isOpen ? (
+    return isOpened ? (
       <Box>
         <Box sx={styles.shadow} onClick={handleClick} />
         <Box sx={styles.headerContainer} style={{ backgroundColor: '#1e1e1e' }}>
@@ -91,7 +57,6 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
               <img src={`/assets/logo.png`} alt="logo" />
             </Box>
           </Link>
-
           <Box sx={styles.mobileButton}>
             <CloseButton
               onClick={handleClick}
@@ -135,10 +100,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
               />
             </Link>
           </Box>
-
           <HeaderDivider />
-
-          {mobileMenu}
+          <HeaderMobileMenu setIsOpened={handleClick} />
         </Box>
       </Box>
     ) : (
@@ -161,7 +124,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
   }
 
   if (!isLoggedIn) {
-    return isOpen ? (
+    return isOpened ? (
       <Box>
         <Box sx={styles.shadow} onClick={handleClick}></Box>
         <Box sx={styles.headerContainer} style={{ backgroundColor: '#1e1e1e' }}>
@@ -199,10 +162,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
               </Link>
             </Box>
           </Box>
-
           <HeaderDivider />
-
-          {mobileMenu}
+          <HeaderMobileMenu setIsOpened={handleClick} />
         </Box>
       </Box>
     ) : (
@@ -223,7 +184,6 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
       </Box>
     );
   }
-  return <div></div>;
 };
 
 export default MobileHeader;

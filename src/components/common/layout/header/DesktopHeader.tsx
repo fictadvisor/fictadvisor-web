@@ -8,6 +8,7 @@ import Button, {
 } from '@/components/common/ui/button';
 
 import { HeaderDesktopCard } from './components/header-desktop-card';
+import Constants from './constants/constants.json';
 import * as styles from './Header.styles';
 
 export interface DesktopHeaderProps {
@@ -34,34 +35,17 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
         </Box>
       </Link>
       <Box sx={styles.menu}>
-        <Link href={'/'}>
-          <Button
-            text="Головна"
-            size={ButtonSize.MEDIUM}
-            variant={ButtonVariant.TEXT}
-          />
-        </Link>
-        <Link href={'/poll'}>
-          <Button
-            text="Опитування"
-            size={ButtonSize.MEDIUM}
-            variant={ButtonVariant.TEXT}
-          />
-        </Link>
-        <Link href={'/teachers'}>
-          <Button
-            text="Викладачі"
-            size={ButtonSize.MEDIUM}
-            variant={ButtonVariant.TEXT}
-          />
-        </Link>
-        <Link href={'/subjects'}>
-          <Button
-            text="Предмети"
-            size={ButtonSize.MEDIUM}
-            variant={ButtonVariant.TEXT}
-          />
-        </Link>
+        {Constants.map((record, index) => {
+          return (
+            <Link key={index} href={record.link}>
+              <Button
+                text={record.text}
+                size={ButtonSize.MEDIUM}
+                variant={ButtonVariant.TEXT}
+              />
+            </Link>
+          );
+        })}
       </Box>
       {isLoggedIn ? (
         <div className={styles['header-desktop-card']}>

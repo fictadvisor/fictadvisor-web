@@ -7,19 +7,19 @@ export const headerContainer: SxProps<Theme> = {
   width: '100%',
   height: '64px',
   justifyContent: {
-    desktop: 'space-around',
+    desktopSemiMedium: 'space-around',
     mobile: 'center',
   },
   paddingLeft: {
-    desktop: '80px',
+    desktopSemiMedium: '80px',
     mobile: '0',
   },
   paddingRight: {
-    desktop: '80px',
+    desktopSemiMedium: '80px',
     mobile: '0',
   },
   position: {
-    desktop: 'unset',
+    desktopSemiMedium: 'unset',
     mobile: 'relative',
   },
   backgroundColor: 'rgba(23, 23, 23, 0.63)',
@@ -52,12 +52,15 @@ export const headerLogo: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '280px',
+  width: {
+    desktop: '280px',
+    mobile: 'fit-content',
+  },
   '& img': {
     width: '197px',
     height: '20px',
     marginRight: {
-      desktop: '16px',
+      desktopSemiMedium: '16px',
       mobile: '0',
     },
   },
@@ -80,11 +83,11 @@ export const shadow: SxProps<Theme> = {
 
 export const mobileButton: SxProps<Theme> = {
   position: {
-    desktop: 'unset',
+    desktopSemiMedium: 'unset',
     mobile: 'absolute',
   },
   right: {
-    desktop: 'unset',
+    desktopSemiMedium: 'unset',
     mobile: '10px',
   },
 };

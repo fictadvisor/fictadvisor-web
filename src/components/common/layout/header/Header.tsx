@@ -1,7 +1,7 @@
 import React from 'react';
+import { useMediaQuery } from '@mui/material';
 
 import useAuthentication from '@/hooks/use-authentication';
-import useIsMobile from '@/hooks/use-is-mobile/UseIsMobile';
 
 import DesktopHeader from './DesktopHeader';
 import MobileHeader from './MobileHeader';
@@ -18,8 +18,7 @@ const Header: React.FC = () => {
   const groupName = user?.group.state === 'APPROVED' ? user?.group.code : null;
   const position = roleMapper[user?.group.role];
   const avatar = user?.avatar;
-  const isMobile = useIsMobile(1024);
-
+  const isMobile = useMediaQuery('(max-width:1200px)');
   return isMobile ? (
     <MobileHeader
       name={name}
