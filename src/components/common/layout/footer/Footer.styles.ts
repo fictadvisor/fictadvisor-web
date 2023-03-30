@@ -1,43 +1,40 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const footerContainer: SxProps<Theme> = {
-  display: 'grid',
+  display: {
+    desktop: 'flex',
+    mobile: 'grid',
+  },
   overflow: 'hidden',
   maxWidth: '100%',
   minWidth: 'fit-content',
+  position: {
+    desktop: 'unset',
+    mobile: 'relative',
+  },
   bottom: 0,
   backgroundColor: 'rgba(23, 23, 23, 0.62)',
   height: {
     desktop: '300px',
     mobile: '286px',
   },
-  gridTemplateRows: {
-    desktop: '',
-    mobile: '4rem auto 74px',
-  },
-  gridTemplateColumns: {
-    desktop: '3fr 1fr 1fr 1fr',
-    mobile: 'auto',
-  },
 };
 
 export const footerLogoContainer: SxProps<Theme> = {
   width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
   marginTop: {
     desktop: '40px',
     mobile: '10px',
   },
   marginLeft: {
-    desktop: '8.4%',
-    mobile: '50%',
+    desktop: '5%',
   },
-  display: {
+  bottom: 0,
+  position: {
     desktop: 'unset',
-    mobile: 'flex',
-  },
-  flexDirection: {
-    desktop: 'unset',
-    mobile: 'column',
+    mobile: 'absolute',
   },
   justifyContent: {
     desktop: 'unset',
@@ -60,33 +57,15 @@ export const footerLogo: SxProps<Theme> = {
   marginLeft: 'unset',
   width: {
     desktop: '197px',
-    mobile: '155px',
   },
   paddingLeft: '0px',
   paddingRight: '0px',
   height: {
     desktop: '28px',
-    mobile: 'fit-content',
+    mobile: '22',
   },
   '& img': {
     height: '20px',
-  },
-
-  gridRowStart: {
-    desktop: 'unset',
-    mobile: 3,
-  },
-  gridColumnStart: {
-    desktop: 'unset',
-    mobile: 1,
-  },
-  gridRowEnd: {
-    desktop: 'unset',
-    mobile: 4,
-  },
-  gridColumnEnd: {
-    desktop: 'unset',
-    mobile: 3,
   },
   marginTop: {
     desktop: 'unset',
@@ -96,6 +75,7 @@ export const footerLogo: SxProps<Theme> = {
 export const signature: SxProps<Theme> = {
   marginTop: '8px',
   fontWeight: 400,
+  color: '#FFFFFF',
   fontSize: {
     desktop: '16px',
     mobile: '11px',
@@ -104,13 +84,41 @@ export const signature: SxProps<Theme> = {
     desktop: '24px',
     mobile: '17.6px',
   },
-  color: '#FFFFFF',
 };
+export const title: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'left',
+  whiteSpace: 'nowrap',
+  lineHeight: '150%',
+  color: '#A3A3A3',
+  width: {
+    desktop: 'unset',
+    mobile: 'fit-content',
+  },
+  height: {
+    desktop: '30px',
+    mobile: '20px',
+  },
+  fontWeight: 400,
+  fontSize: {
+    desktop: '16px',
+    mobile: '11px',
+  },
+  padding: {
+    desktop: '2px 12px',
+    mobile: '2px 8px',
+  },
+};
+
 export const mainReferences: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: '2px',
+  width: {
+    desktop: 'unset',
+    mobile: 'fit-content',
+  },
   height: {
     desktop: '220px',
     mobile: '204px',
@@ -120,10 +128,11 @@ export const mainReferences: SxProps<Theme> = {
     mobile: '8px',
   },
   marginLeft: {
-    desktop: '20%',
-    mobile: '5%',
+    mobile: '16px',
   },
-
+  marginRight: {
+    desktop: '7%',
+  },
   gridRowStart: {
     desktop: 'unset',
     mobile: 1,
@@ -139,30 +148,6 @@ export const mainReferences: SxProps<Theme> = {
   gridColumnEnd: {
     desktop: 'unset',
     mobile: 2,
-  },
-  width: {
-    desktop: 'unset',
-    mobile: 'fit-content',
-  },
-};
-
-export const title: SxProps<Theme> = {
-  display: 'flex',
-  justifyContent: 'left',
-  // width: '187px',
-  whiteSpace: 'nowrap',
-  width: { desktop: 'unset', mobile: 'fit-content' },
-  height: {
-    desktop: '30px',
-    mobile: '20px',
-  },
-  fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '150%',
-  color: '#A3A3A3',
-  padding: {
-    desktop: '2px 12px',
-    mobile: '2px 8px',
   },
 };
 
@@ -170,55 +155,78 @@ export const support: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
+  gap: '2px',
+  width: 'fit-content',
+  gridRowStart: 1,
+  gridColumnStart: 2,
+  gridRowEnd: 2,
+  gridColumnEnd: 3,
   marginTop: {
     desktop: '40px',
     mobile: '8px',
   },
+  marginRight: {
+    desktop: '7%',
+  },
   marginLeft: {
-    desktop: '15%',
-    mobile: '2%',
+    desktop: 'unset',
+    mobile: '10%',
   },
   height: {
-    desktop: '106px',
-    mobile: '144px',
+    desktop: '144px',
+    mobile: '106px',
   },
-  gap: '2px',
-  gridRowStart: {
-    mobile: 1,
-  },
-  gridColumnStart: {
-    mobile: 2,
-  },
-  gridRowEnd: {
-    mobile: 2,
-  },
-  gridColumnEnd: {
-    mobile: 3,
-  },
-  width: { mobile: 'fit-content' },
 };
 export const socialMedia: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
+  width: 'fit-content',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  // flexDirection: 'column',
-  marginTop: '40px',
-  height: 'fit-content',
   gap: '4px',
+  gridRowStart: 2,
+  gridColumnStart: 2,
+  gridRowEnd: 3,
+  gridColumnEnd: 3,
+  height: {
+    desktop: 'fit-content',
+    mobile: '60px',
+  },
+  marginTop: {
+    desktop: '40px',
+    mobile: '0px',
+  },
+  marginBottom: {
+    desktop: '0px',
+    mobile: '100px',
+  },
+  marginRight: {
+    desktop: '11%',
+  },
+  marginLeft: {
+    desktop: 'unset',
+    mobile: '5%',
+  },
 };
 
 export const socialButtons: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
   height: 'fit-content',
-  gap: '2px',
-  '@media screen and (max-width: 768px)': {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 'fit-content',
-    gap: '4px',
+  flexDirection: {
+    desktop: 'column',
+    mobile: 'row',
+  },
+  alignItems: {
+    desktop: 'flex-start',
+    mobile: 'center',
+  },
+  gap: {
+    desktop: '2px',
+    mobile: '4px',
+  },
+  width: {
+    desktop: 'unset',
+    mobile: 'fit-content',
   },
 };
