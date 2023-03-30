@@ -1,4 +1,4 @@
-const supportData = [
+const supportLinks = [
   {
     link: '/privacy',
     text: 'Конфіденційність',
@@ -9,4 +9,4 @@ const supportData = [
   },
 ];
 
-export default supportData;
+export default supportLinks;

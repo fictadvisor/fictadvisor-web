@@ -1,4 +1,4 @@
-const mainData = [
+const mainLinks = [
   {
     link: '/',
     text: 'Головна',
@@ -17,4 +17,4 @@ const mainData = [
   },
 ];
 
-export default mainData;
+export default mainLinks;

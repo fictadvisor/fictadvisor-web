@@ -4,7 +4,7 @@ import { GitHubIcon } from '@/components/common/custom-svg/GitHub';
 import { InstagramIcon } from '@/components/common/custom-svg/Instagram';
 import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
 
-const socialData = [
+const socialLinks = [
   {
     link: 'https://github.com/fictadvisor/',
     text: 'GitHub',
@@ -22,4 +22,4 @@ const socialData = [
   },
 ];
 
-export default socialData;
+export default socialLinks;
