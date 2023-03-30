@@ -2,11 +2,11 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
-import Button, { ButtonSize, ButtonVariant } from '../../../ui/button/Button';
-import mainData from '../constants/mainData';
-import socialData from '../constants/socialData';
-import supportData from '../constants/supportData';
-import * as styles from '../Footer.styles';
+import Button, { ButtonSize, ButtonVariant } from '../../../../ui/button/Button';
+import mainData from '../../constants/mainData';
+import socialData from '../../constants/socialData';
+import supportData from '../../constants/supportData';
+import * as styles from '../../Footer.styles';
 
 const DesktopFooter: React.FC = () => {
   return (
