@@ -6,7 +6,7 @@ const ColorMap: Record<TagColorType, string[]> = {
   error: ['error.400', 'error.300', 'error.500'],
   warning: ['warning.400', 'warning.200', 'warning.400'],
   info: ['info.300', 'info.50', 'info.300'],
-  secondary: ['gray.300', 'backgroundDark.200', 'gray.300'],
+  secondary: ['grey.300', 'backgroundDark.200', 'grey.300'],
   violet: ['violet.300', 'violet.400', 'violet.600'],
   mint: ['mint.600', 'mint.400', 'mint.600'],
   orange: ['orange.600', 'orange.400', 'orange.600'],
