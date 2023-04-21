@@ -6,10 +6,10 @@ const ColorMap: Record<TagColorType, string[]> = {
   error: ['error.400', 'error.300', 'error.500'],
   warning: ['warning.400', 'warning.200', 'warning.400'],
   info: ['info.300', 'info.50', 'info.300'],
-  secondary: ['grey.300', 'backgroundDark.200', 'grey.300'],
-  violet: ['violet.300', 'violet.400', 'violet.600'],
-  mint: ['mint.600', 'mint.400', 'mint.600'],
-  orange: ['orange.600', 'orange.400', 'orange.600'],
+  secondary: ['grey.200', 'backgroundDark.200', 'grey.300'],
+  violet: ['violet.600', 'violet.500', 'violet.700'],
+  mint: ['mint.600', 'mint.500', 'mint.700'],
+  orange: ['orange.600', 'orange.500', 'orange.700'],
 };
 
 const VariantIndexMap = {
