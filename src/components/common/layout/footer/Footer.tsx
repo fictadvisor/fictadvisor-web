@@ -1,69 +1,83 @@
-import React from 'react';
-import { Box, Typography, useMediaQuery } from '@mui/material';
-import Link from 'next/link';
+import { FC } from 'react';
+import { Box, Link, Typography, useMediaQuery } from '@mui/material';
+import NextLink from 'next/link';
 
-import Button, {
-  ButtonSize,
-  ButtonVariant,
-} from '@/components/common/ui/button/Button';
+import Button from '../../ui/button-mui';
+import IconButton from '../../ui/icon-button-mui/IconButton';
 
-import mainLinks from './constants/mainLinks';
-import socialLinks from './constants/socialLinks';
-import supportLinks from './constants/supportLinks';
+import { mainLinks, socialLinks, supportLinks } from './constants';
 import * as styles from './Footer.styles';
 
-const Footer: React.FC = () => {
-  // TODO: replace with fontSize: 0 in styles
+const Footer: FC = () => {
   const isMobile = useMediaQuery('(max-width:1024px)');
 
   return (
     <Box sx={styles.footerContainer}>
       <Box sx={styles.footerLogoContainer}>
-        <Box sx={styles.footerLogo}>
-          <Link href="/">
-            <Box component="img" src="/assets/logo.png" alt="logo" />
-          </Link>
-        </Box>
+        <Link href="/" component={NextLink} sx={styles.footerLogo}>
+          <Box component="img" src="/assets/logo.png" alt="logo" />
+        </Link>
         <Typography sx={styles.signature}>By Dev-відділ СР ФІОТ</Typography>
       </Box>
+
       <Box sx={styles.mainReferences}>
         <Typography sx={styles.title}>Основні посилання</Typography>
         {mainLinks.map((data, index) => (
-          <Link key={index} href={data.link}>
+          <Link
+            key={index}
+            component={NextLink}
+            href={data.link}
+            underline="none"
+          >
             <Button
-              style={{ paddingLeft: '12px' }} // TODO: when button will be refactored to mui, remove inline style to extarnal
+              sx={styles.button}
               text={data.text}
-              size={ButtonSize.SMALL}
-              variant={ButtonVariant.TEXT}
+              size="small"
+              variant="text"
             />
           </Link>
         ))}
       </Box>
+
       <Box sx={styles.support}>
         <Typography sx={styles.title}>Підтримка</Typography>
         {supportLinks.map((data, index) => (
-          <Link key={index} href={data.link}>
+          <Link
+            key={index}
+            component={NextLink}
+            href={data.link}
+            underline="none"
+          >
             <Button
-              style={{ paddingLeft: '12px' }} // TODO: when button will be refactored to mui, remove inline style to extarnal
+              sx={styles.button}
               text={data.text}
-              size={ButtonSize.SMALL}
-              variant={ButtonVariant.TEXT}
+              size="small"
+              variant="text"
             />
           </Link>
         ))}
       </Box>
+
       <Box sx={styles.socialMedia}>
         <Typography sx={styles.title}>Соцмережі</Typography>
         <Box sx={styles.socialButtons}>
           {socialLinks.map((data, index) => (
-            <Link key={index} href={data.link} target="_blanket">
-              <Button
-                style={{ paddingLeft: '12px', width: '36px' }} // TODO: when button will be refactored to mui, remove inline style to extarnal
-                startIcon={data.icon}
-                size={ButtonSize.SMALL}
-                variant={ButtonVariant.TEXT}
-                text={isMobile ? '' : data.text} // TODO: replace with fontSize: 0 in styles
+            <Link
+              sx={styles.iconLink}
+              key={index}
+              component={NextLink}
+              href={data.link}
+              target="_blanket"
+              underline="none"
+            >
+              <IconButton
+                sx={styles.button}
+                icon={data.icon}
+                color="transparent"
               />
+              <Typography variant="body1Bold" color="grey.600">
+                {!isMobile && data.text}
+              </Typography>
             </Link>
           ))}
         </Box>

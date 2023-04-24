@@ -4,7 +4,37 @@ import { GitHubIcon } from '@/components/common/custom-svg/GitHub';
 import { InstagramIcon } from '@/components/common/custom-svg/Instagram';
 import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
 
-const socialLinks = [
+export const mainLinks = [
+  {
+    link: '/',
+    text: 'Головна',
+  },
+  {
+    link: '/poll',
+    text: 'Опитування',
+  },
+  {
+    link: '/teachers',
+    text: 'Викладачі',
+  },
+  {
+    link: '/subjects',
+    text: 'Предмети',
+  },
+];
+
+export const supportLinks = [
+  {
+    link: '/privacy',
+    text: 'Конфіденційність',
+  },
+  {
+    link: 'https://t.me/fict_robot',
+    text: 'FICT robot',
+  },
+];
+
+export const socialLinks = [
   {
     link: 'https://github.com/fictadvisor/',
     text: 'GitHub',
@@ -21,5 +51,3 @@ const socialLinks = [
     icon: <TelegramIcon />,
   },
 ];
-
-export default socialLinks;

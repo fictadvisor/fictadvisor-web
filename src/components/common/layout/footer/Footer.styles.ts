@@ -9,7 +9,7 @@ export const footerContainer: SxProps<Theme> = theme => ({
   overflow: 'hidden',
   width: '100%',
   minWidth: 'fit-content',
-  backgroundColor: alpha(theme.palette.gray[10], 0.62),
+  backgroundColor: alpha(theme.palette.grey[50], 0.62),
   height: {
     desktop: '300px',
     mobile: '286px',
@@ -61,34 +61,31 @@ export const footerLogo: SxProps<Theme> = {
     mobile: '10px',
   },
 };
+
 export const signature: SxProps<Theme> = {
   marginTop: '10px',
-  fontWeight: 400,
-  fontSize: {
-    desktop: '16px',
-    mobile: '11px',
-  },
-  lineHeight: {
-    desktop: '24px',
-    mobile: '17.6px',
+  textTransform: 'none !important',
+  typography: {
+    desktop: 'body2',
+    mobile: 'overline',
   },
 };
-export const title: SxProps<Theme> = theme => ({
+
+export const title: SxProps<Theme> = () => ({
   display: 'flex',
   justifyContent: 'left',
   whiteSpace: 'nowrap',
-  color: theme.palette.gray[300],
+  color: 'grey.500',
   width: '100%',
+  textTransform: 'none !important',
+  typography: {
+    desktop: 'body2',
+    mobile: 'overline',
+  },
   height: {
     desktop: '30px',
     mobile: '20px',
   },
-  fontWeight: 400,
-  fontSize: {
-    desktop: '16px',
-    mobile: '11px',
-  },
-  lineHeight: '150%',
   padding: {
     desktop: '2px 12px',
     mobile: '2px 8px',
@@ -100,6 +97,7 @@ export const mainReferences: SxProps<Theme> = {
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: '2px',
+  typography: 'body2',
   marginTop: {
     desktop: '40px',
     mobile: '10px',
@@ -122,6 +120,7 @@ export const support: SxProps<Theme> = {
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: '2px',
+  typography: 'body1Medium',
   marginTop: {
     desktop: '40px',
     mobile: '10px',
@@ -138,8 +137,10 @@ export const support: SxProps<Theme> = {
   gridRowEnd: 3,
   gridColumnEnd: 3,
 };
+
 export const socialMedia: SxProps<Theme> = {
   display: 'flex',
+  typography: 'body1Medium',
   flexDirection: 'column',
   gap: {
     desktop: '2px',
@@ -164,8 +165,27 @@ export const socialMedia: SxProps<Theme> = {
 
 export const socialButtons: SxProps<Theme> = {
   display: 'flex',
+  typography: 'body1Bold',
   flexDirection: {
     desktop: 'column',
     mobile: 'row',
   },
+};
+
+export const iconLink: SxProps<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
+  typography: 'body1Bold',
+  flexDirection: 'row',
+  width: {
+    desktop: 'fit-content',
+    mobile: '36px',
+  },
+};
+
+export const button: SxProps<Theme> = {
+  width: 'fit-content',
+  paddingLeft: '12px',
+  typography: 'body1Medium',
 };
