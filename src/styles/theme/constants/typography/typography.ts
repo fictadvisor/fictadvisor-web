@@ -67,6 +67,11 @@ const typography: TypographyOptions = {
     fontWeight: 400,
     lineHeight: 1.4,
   },
+  body1Medium: {
+    fontSize: 14,
+    fontWeight: 500,
+    lineHeight: 1.4,
+  },
   body1Bold: {
     fontSize: 14,
     fontWeight: 400,
@@ -75,6 +80,11 @@ const typography: TypographyOptions = {
   body2: {
     fontSize: 16,
     fontWeight: 400,
+    lineHeight: 1.22,
+  },
+  body2Medium: {
+    fontSize: 16,
+    fontWeight: 500,
     lineHeight: 1.22,
   },
   body2Bold: {
