@@ -8,7 +8,7 @@ const ColorMap: Record<TagColorType, string[]> = {
   info: ['info.300', 'info.50', 'info.300'],
   secondary: ['grey.200', 'backgroundDark.200', 'grey.300'],
   violet: ['violet.600', 'violet.500', 'violet.700'],
-  mint: ['mint.600', 'mint.500', 'mint.700'],
+  mint: ['mint.400', 'mint.500', 'mint.500'],
   orange: ['orange.600', 'orange.500', 'orange.700'],
 };
 
