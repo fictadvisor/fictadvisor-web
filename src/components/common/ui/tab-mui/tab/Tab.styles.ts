@@ -14,7 +14,7 @@ export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   gap: '8px',
   cursor: 'pointer',
   textAlign: 'center',
-  color: 'inherit',
+  color: 'grey.800',
   minHeight: '0',
   textTransform: 'none',
   justifyContent: textPosition == 'center' ? 'center' : 'start',
@@ -38,23 +38,23 @@ export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   '&:hover': {
     border: {
       mobile: `1px solid ${palette.backgroundDark[300]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark['300']}`,
+      desktopSemiMedium: `2px solid ${palette.backgroundDark[300]}`,
     },
     color: 'inherit',
   },
   '&.Mui-selected': {
     backgroundColor: 'backgroundDark.300',
     border: {
-      mobile: '1px solid backgroundDark.400',
-      desktopSemiMedium: '2px solid backgroundDark.400',
+      mobile: `1px solid ${palette.backgroundDark[400]}`,
+      desktopSemiMedium: `2px solid ${palette.backgroundDark[400]}`,
     },
     color: 'inherit',
   },
-  '&.Mui-focusVisible': {
+  '&:active': {
     backgroundColor: 'backgroundDark.200',
     border: {
-      mobile: '1px solid backgroundDark.200',
-      desktopSemiMedium: '2px solid backgroundDark.200',
+      mobile: `1px solid ${palette.backgroundDark[200]}`,
+      desktopSemiMedium: `2px solid ${palette.backgroundDark[200]}`,
     },
     color: 'inherit',
   },
