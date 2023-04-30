@@ -128,7 +128,7 @@ export const input = (
 });
 
 export const dropdown: SxProps<Theme> = {
-  width: 500,
+  width: '100%',
   p: 2,
   pb: 0,
 };

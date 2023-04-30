@@ -28,7 +28,11 @@ const TagTestPage = () => {
           console.log(values);
         }}
       >
-        <Form>
+        <Form
+          style={{
+            width: '50%',
+          }}
+        >
           <Dropdown
             showRemark={true}
             isSuccessOnDefault={true}
