@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
+import { DropDownSize } from '@/components/common/ui/form';
 import { Dropdown } from '@/components/common/ui/form/dropdown-mui/Dropdown';
 
 import * as styles from './dropdownTest.styles';
@@ -32,21 +33,21 @@ const TagTestPage = () => {
             showRemark={true}
             isSuccessOnDefault={true}
             defaultRemark="Some defualt text"
-            size="large"
+            size={DropDownSize.LARGE}
             options={options}
             onChange={() => console.log('works')}
             name="teacherId"
           />
           <Dropdown
             defaultRemark="Some defualt text"
-            size="medium"
+            size={DropDownSize.MEDIUM}
             options={options}
             onChange={() => console.log('works')}
             name="teacherId"
           />
           <Dropdown
             defaultRemark="Some defualt text"
-            size="small"
+            size={DropDownSize.SMALL}
             options={options}
             onChange={() => console.log('works')}
             name="teacherId"

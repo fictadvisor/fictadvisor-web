@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Box, Popper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -24,7 +24,7 @@ interface DropdownProps {
   isSuccessOnDefault?: boolean;
   defaultRemark?: string;
   showRemark?: boolean;
-  size?: `${DropDownSize}`;
+  size?: DropDownSize;
   noOptionsText?: string;
   onChange?: () => void;
 }
@@ -49,24 +49,25 @@ export const Dropdown: React.FC<DropdownProps> = ({
   name,
   onChange,
 }) => {
-  const inpRef = useRef<HTMLElement | null>(null);
+  const inputRef = useRef<HTMLElement | null>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState('');
-  const popperRef = useRef<HTMLElement | null>(null);
+  const popperRef = useRef<HTMLDivElement | null>(null);
   const [filteredOptions, setFilteredOptions] = useState<number>(
-    options!.length,
+    options.length,
   );
 
   const [{}, { touched, error }, { setTouched, setValue }] = useField(name);
 
-  let state = FieldState.DEFAULT;
-  if (isDisabled) state = FieldState.DISABLED;
-  else if (touched && error) state = FieldState.ERROR;
-  else if (touched && isSuccessOnDefault) state = FieldState.SUCCESS;
+  const dropdownState = useMemo(() => {
+    if (isDisabled) return FieldState.DISABLED;
+    else if (touched && error) return FieldState.ERROR;
+    else if (touched && isSuccessOnDefault) return FieldState.SUCCESS;
+    else return FieldState.DEFAULT;
+  }, [touched, error, isSuccessOnDefault, isDisabled]);
 
   const handleChange = (_: any, option: DropDownOption) => {
     setTouched(true);
-
     setValue(option ? option.id : '');
     if (option !== null && onChange) onChange();
   };
@@ -86,7 +87,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         return (
           <Popper
             {...props}
-            anchorEl={inpRef.current}
+            anchorEl={inputRef.current}
             placement="bottom"
             modifiers={[{ name: 'flip', enabled: false }]}
             ref={popperRef}
@@ -109,7 +110,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onBlur={() => {
           setIsFocused(false);
         }}
-        ref={inpRef}
+        ref={inputRef}
         sx={dropdown}
         fullWidth
         disablePortal
@@ -118,13 +119,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onInputChange={(_, newInputValue) => {
           setInputValue(newInputValue);
         }}
+        blurOnSelect={true}
         options={options}
         getOptionLabel={(opt: DropDownOption) => opt.label}
         renderInput={params => (
           <TextField
             {...params}
             label={label}
-            sx={input(isFocused, state, size)}
+            sx={input(isFocused, dropdownState, size)}
             placeholder={placeholder}
             disabled={isDisabled}
           />
@@ -134,7 +136,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         noOptionsText={noOptionsText}
       />
       {showRemark && (
-        <Typography sx={remark(state)}>
+        <Typography sx={remark(dropdownState)}>
           {touched && error ? error : defaultRemark}
         </Typography>
       )}
