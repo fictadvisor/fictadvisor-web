@@ -100,7 +100,7 @@ const typography: TypographyOptions = {
   button: {
     fontSize: 18,
     fontWeight: 400,
-    lineHeight: 1.32,
+    lineHeight: 1.42,
   },
   buttonBold: {
     fontSize: 18,
