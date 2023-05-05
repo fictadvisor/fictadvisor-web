@@ -72,14 +72,6 @@ export const input = (
   inputState: FieldState,
   size: DropDownSize = DropDownSize.MEDIUM,
 ): SxProps<Theme> => {
-  console.log(
-    isInputFocused
-      ? color[FieldState.DEFAULT]
-      : inputState === FieldState.DEFAULT
-      ? color[FieldState.DISABLED]
-      : color[inputState],
-  );
-
   return {
     pointerEvents: inputState === FieldState.DISABLED ? 'none' : 'all',
     '& .MuiInputBase-root': {
@@ -148,8 +140,9 @@ export const dropdown: SxProps<Theme> = {
   pb: 0,
 };
 
-export const remark = (dropDownState: FieldState) => ({
+export const remark = (dropDownState: FieldState, isFocused: boolean) => ({
   color: color[dropDownState],
   pl: '24px',
   fontSize: '11px',
+  opacity: isFocused ? 0 : 1,
 });

@@ -74,6 +74,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     if (option !== null && onChange) onChange();
   };
 
+  console.log(isFocused);
+
   useEffect(() => {
     const ul = popperRef.current?.querySelector('ul');
     if (ul) {
@@ -142,7 +144,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         noOptionsText={noOptionsText}
       />
       {showRemark && (
-        <Typography sx={remark(dropdownState)}>
+        <Typography sx={remark(dropdownState, isFocused)}>
           {touched && error ? error : defaultRemark}
         </Typography>
       )}

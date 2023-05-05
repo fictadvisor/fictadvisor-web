@@ -30,7 +30,7 @@ const TagTestPage = () => {
       >
         <Form
           style={{
-            width: '50%',
+            width: '60%',
           }}
         >
           <Dropdown
