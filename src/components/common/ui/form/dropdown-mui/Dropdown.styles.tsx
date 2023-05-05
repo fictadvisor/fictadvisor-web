@@ -71,61 +71,76 @@ export const input = (
   isInputFocused: boolean,
   inputState: FieldState,
   size: DropDownSize = DropDownSize.MEDIUM,
-): SxProps<Theme> => ({
-  pointerEvents: inputState === FieldState.DISABLED ? 'none' : 'all',
-  '& .MuiInputBase-root': {
-    height: inputHeight[size],
-    position: 'relative',
-    display: 'flex',
-    alignContent: 'center',
-  },
-  '& .MuiInputBase-input,& label ,& label.Mui-focused,& svg,& .Mui-disabled': {
-    color: 'grey.800',
-  },
-  '& label': {
-    top: 'calc((100% - 50px)/2)', //to center label
-  },
-  '& .MuiInputLabel-shrink': {
-    transform: `matrix(.75,0,0,.75,14,${-(9 + (inputHeight[size] - 53) / 2)})`,
-    color: color[inputState],
-  },
+): SxProps<Theme> => {
+  console.log(
+    isInputFocused
+      ? color[FieldState.DEFAULT]
+      : inputState === FieldState.DEFAULT
+      ? color[FieldState.DISABLED]
+      : color[inputState],
+  );
 
-  '& .Mui-disabled': {
-    color: 'grey.300',
-  },
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'backgroundDark.100',
-    color: 'grey.600',
-    paddingLeft: '16px',
-    '&:hover': {
-      '& fieldset': {
-        borderColor:
-          inputState === FieldState.DEFAULT
+  return {
+    pointerEvents: inputState === FieldState.DISABLED ? 'none' : 'all',
+    '& .MuiInputBase-root': {
+      height: inputHeight[size],
+      position: 'relative',
+      display: 'flex',
+      alignContent: 'center',
+    },
+    '& .MuiInputBase-input,& label ,& label.Mui-focused,& svg,& .Mui-disabled':
+      {
+        color: 'grey.800',
+      },
+    '& label': {
+      top: 'calc((100% - 50px)/2)', //to center label
+    },
+    '& .MuiInputLabel-shrink': {
+      transform: `matrix(.75,0,0,.75,14,${-(
+        9 +
+        (inputHeight[size] - 53) / 2
+      )})`,
+      color: color[inputState],
+    },
+    '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'grey.600',
+    },
+    '& .Mui-disabled': {
+      color: 'grey.300',
+    },
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'backgroundDark.100',
+      color: 'grey.600',
+      paddingLeft: '16px',
+      '&:hover': {
+        '& fieldset': {
+          borderColor: isInputFocused
+            ? color[FieldState.DEFAULT]
+            : inputState === FieldState.DEFAULT
             ? color[FieldState.DEFAULT]
             : color[inputState],
+        },
       },
     },
-  },
-  '& .MuiAutocomplete-inputRoot': {
-    borderRadius: '8px',
-  },
-  '& fieldset': {
-    borderColor: `${
-      isInputFocused
-        ? color[inputState]
+    '& .MuiAutocomplete-inputRoot': {
+      borderRadius: '8px',
+    },
+    '& fieldset': {
+      borderColor: isInputFocused
+        ? color[FieldState.DEFAULT]
         : inputState === FieldState.DEFAULT
         ? color[FieldState.DISABLED]
-        : color[inputState]
-    }`,
-    borderWidth: '2px',
-    borderStyle: 'solid',
-    borderRadius: '8px',
-    transition: 'all .2s ease-in-out',
-  },
-  '& .MuiAutocomplete-endAdornment': {
-    marginRight: '16px',
-  },
-});
+        : color[inputState],
+      borderWidth: '2px',
+      borderStyle: 'solid',
+      borderRadius: '8px',
+      transition: 'all .2s ease-in-out',
+    },
+    '& .MuiAutocomplete-endAdornment': {
+      marginRight: '16px',
+    },
+  };
+};
 
 export const dropdown: SxProps<Theme> = {
   width: '100%',

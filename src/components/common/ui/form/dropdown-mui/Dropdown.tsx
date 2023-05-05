@@ -66,6 +66,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     else return FieldState.DEFAULT;
   }, [touched, error, isSuccessOnDefault, isDisabled]);
 
+  console.log(isFocused, dropdownState);
+
   const handleChange = (_: any, option: DropDownOption) => {
     setTouched(true);
     setValue(option ? option.id : '');
@@ -106,9 +108,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <Box>
       <Autocomplete
-        onFocus={() => setIsFocused(true)}
+        onFocus={() => {
+          setIsFocused(true);
+          debugger;
+        }}
         onBlur={() => {
           setIsFocused(false);
+          debugger;
         }}
         ref={inputRef}
         sx={dropdown}
