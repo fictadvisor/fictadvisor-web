@@ -1,4 +1,4 @@
-import MUIAlertPage from '@/components/pages/mui-alert-page';
+import MUIAlertPage from '@/components/pages/test-pages/mui-alert-page';
 
 const Alert = () => <MUIAlertPage />;
 

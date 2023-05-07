@@ -12,6 +12,11 @@ export const alert = (color, variant): SxProps<Theme> => ({
   color: 'grey.800',
   transition: 'none !important',
 
+  ...(variant !== 'border-top' &&
+    variant !== 'border-left' && {
+      borderRadius: '8px',
+    }),
+
   ...(variant !== 'outlined' && {
     backgroundColor: getColor(color, variant),
   }),
@@ -22,12 +27,12 @@ export const alert = (color, variant): SxProps<Theme> => ({
 
   ...(variant === 'border-top' && {
     borderTop: `solid 4px`,
-    borderColor: getColor(color, 'filled'),
+    borderColor: getColor(color, 'outlined'),
   }),
 
   ...(variant === 'border-left' && {
     borderLeft: `solid 4px`,
-    borderColor: getColor(color, 'filled'),
+    borderColor: getColor(color, 'outlined'),
   }),
 
   '.MuiAlert-icon, .MuiAlert-action': {

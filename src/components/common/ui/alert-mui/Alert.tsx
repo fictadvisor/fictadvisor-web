@@ -4,11 +4,11 @@ import {
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
-  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { Alert as MUIAlert, AlertColor, Typography } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 
+import { AlertXMark } from '@/components/common/custom-svg/AlertXMark';
 import * as styles from '@/components/common/ui/alert-mui/Alert.styles';
 
 export type AlertType = 'info' | 'warning' | 'error' | 'success';
@@ -50,7 +50,7 @@ const Alert: FC<AlertProps> = ({
       severity={type}
       variant={MUIVariant}
       iconMapping={AlertIconMap}
-      action={onClose && <XMarkIcon onClick={onClose} />}
+      action={onClose && <AlertXMark onClick={onClose} />}
       sx={styles.alert(type, variant)}
     >
       <Typography variant="body2Medium">{title}</Typography>
