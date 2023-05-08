@@ -7,6 +7,7 @@ export const forContainer: SxProps<Theme> = {
 
 export const forBox: SxProps<Theme> = {
   display: 'flex',
+  flexWrap: 'wrap',
   gap: 10,
   mt: 20,
 };
