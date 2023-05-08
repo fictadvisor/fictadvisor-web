@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 
@@ -36,7 +36,7 @@ const CircleDiagram: FC<CircleDiagramProps> = ({
       />
       <Box sx={styles.boxCounter}>
         <Typography sx={styles.textCounter(roundValue)}>
-          {`${roundValue}%`}
+          {roundValue}%
         </Typography>
       </Box>
     </Box>
