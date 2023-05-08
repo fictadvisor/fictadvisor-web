@@ -2,7 +2,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 import typography from '@/styles/theme/constants/typography';
 
-export const boxCircle = (): SxProps<Theme> => ({
+export const boxCircle: SxProps<Theme> = {
   position: 'relative',
   display: 'inline-flex',
   '.MuiCircularProgress-svg': {
@@ -18,9 +18,9 @@ export const boxCircle = (): SxProps<Theme> => ({
       desktopSemiMedium: '200px !important',
     },
   },
-});
+};
 
-export const boxCounter = (): SxProps<Theme> => ({
+export const boxCounter: SxProps<Theme> = {
   top: 0,
   left: 0,
   bottom: 0,
@@ -29,23 +29,26 @@ export const boxCounter = (): SxProps<Theme> => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-});
+};
 
 export const progressFront = (value): SxProps<Theme> => ({
-  color: value <= 40 ? 'primary.400' : value <= 70 ? 'amber.500' : 'green.700',
+  ...progressColor(value),
 });
 
-export const progressBack = (): SxProps<Theme> => ({
+export const progressBack: SxProps<Theme> = {
   color: 'backgroundDark.300',
   position: 'absolute',
   left: 0,
-});
+};
 
 export const textCounter = (value): SxProps<Theme> => ({
   typography: {
     mobile: typography.h4Medium,
     desktopSemiMedium: typography.h3SemiBold,
   },
-  // color: 'red'
+  ...progressColor(value),
+});
+
+const progressColor = (value): SxProps<Theme> => ({
   color: value <= 40 ? 'primary.400' : value <= 70 ? 'amber.500' : 'green.700',
 });

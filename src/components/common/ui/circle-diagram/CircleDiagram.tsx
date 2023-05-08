@@ -19,23 +19,24 @@ const CircleDiagram: FC<CircleDiagramProps> = ({
   thickness = 3.5,
   sx,
 }) => {
+  const roundValue = value > 100 ? 100 : value < 0 ? 0 : Math.round(value);
   return (
-    <Box sx={mergeSx(styles.boxCircle(), sx)}>
+    <Box sx={mergeSx(styles.boxCircle, sx)}>
       <CircularProgress
-        sx={styles.progressBack()}
+        sx={styles.progressBack}
         variant={variant}
         thickness={thickness}
         value={100}
       />
       <CircularProgress
-        sx={styles.progressFront(value)}
+        sx={styles.progressFront(roundValue)}
         variant={variant}
         thickness={thickness}
-        value={value}
+        value={roundValue}
       />
-      <Box sx={styles.boxCounter()}>
-        <Typography sx={styles.textCounter(value)}>
-          {`${Math.round(value)}%`}
+      <Box sx={styles.boxCounter}>
+        <Typography sx={styles.textCounter(roundValue)}>
+          {`${roundValue}%`}
         </Typography>
       </Box>
     </Box>
