@@ -2,7 +2,6 @@ import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { SxProps, Theme } from '@mui/material/styles';
 
 import colorInfo from '@/components/common/ui/line_graph/utils/constrants';
-import palette from '@/styles/theme/constants/pallete';
 
 export const wrapper: SxProps<Theme> = {
   display: 'grid',
@@ -21,9 +20,9 @@ export const label: SxProps<Theme> = {
 export const graph = (value): SxProps<Theme> => ({
   height: '7px',
   borderRadius: '5px',
-  bgcolor: palette.backgroundDark['300'],
+  backgroundColor: 'backgroundDark.300',
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: '5px',
-    bgcolor: colorInfo(value),
+    backgroundColor: colorInfo(value),
   },
 });
