@@ -21,9 +21,9 @@ export const label: SxProps<Theme> = {
 export const graph = (value): SxProps<Theme> => ({
   height: '7px',
   borderRadius: '5px',
-  background: palette.backgroundDark['300'],
+  bgcolor: palette.backgroundDark['300'],
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: '5px',
-    backgroundColor: colorInfo(value),
+    bgcolor: colorInfo(value),
   },
 });

@@ -6,19 +6,22 @@ export interface LineGraphProps {
   label: string;
 }
 
+import { checkValue } from '@/components/common/ui/line_graph/utils/utils';
+
 import * as styles from './LineGraph.styles';
 
 const LineGraph: FC<LineGraphProps> = ({ label, value }) => {
+  const checkedValue = checkValue(value);
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.label}>
         <Typography>{label}</Typography>
-        <Typography>{`${value}%`}</Typography>
+        <Typography>{checkedValue}%</Typography>
       </Box>
       <LinearProgress
-        sx={styles.graph(value)}
+        sx={styles.graph(checkedValue)}
         variant="determinate"
-        value={value}
+        value={checkedValue}
       />
     </Box>
   );

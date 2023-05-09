@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@mui/material';
 
 import LineGraph from '@/components/common/ui/line_graph';
