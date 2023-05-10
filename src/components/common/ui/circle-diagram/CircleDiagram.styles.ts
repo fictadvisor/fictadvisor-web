@@ -43,12 +43,12 @@ export const progressBack: SxProps<Theme> = {
 
 export const textCounter = (value): SxProps<Theme> => ({
   typography: {
-    mobile: typography.h4Medium,
+    mobile: typography.h5,
     desktopSemiMedium: typography.h3SemiBold,
   },
   ...progressColor(value),
 });
 
 const progressColor = (value): SxProps<Theme> => ({
-  color: value <= 40 ? 'primary.400' : value <= 70 ? 'amber.500' : 'green.700',
+  color: value <= 30 ? 'error.400' : value <= 70 ? 'amber.500' : 'green.700',
 });

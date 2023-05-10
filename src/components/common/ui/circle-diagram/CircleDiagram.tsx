@@ -28,7 +28,7 @@ const CircleDiagram: FC<CircleDiagramProps> = ({
         thickness={thickness}
         value={100}
       />
-      <CircularProgress
+      <CircularProgress //bug when scaling, the solution is to set default thickness
         sx={styles.progressFront(roundValue)}
         variant={variant}
         thickness={thickness}
