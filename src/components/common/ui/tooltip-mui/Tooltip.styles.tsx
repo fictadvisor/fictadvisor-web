@@ -1,17 +1,13 @@
-import { styled } from '@mui/material/styles';
-import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
+import { SxProps, Theme } from '@mui/material/styles';
 
-export const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    p: '4px 12px',
-    textAlign: 'center',
-    borderRadius: '4px',
-    backgroundColor: '#FFE0E0',
-    color: '#151515',
-  },
-  [`& .${tooltipClasses.arrow}`]: {
-    color: '#FFE0E0',
-  },
-}));
+export const tooltip: SxProps<Theme> = {
+  bgcolor: 'primary.A100',
+  color: 'backgroundDark.50',
+  padding: '4px 12px',
+  textAlign: 'center',
+  borderRadius: '4px',
+};
+
+export const arrow: SxProps<Theme> = {
+  color: 'primary.A100',
+};
