@@ -6,6 +6,7 @@ import * as styles from './LineGraph.styles';
 
 const LineGraphPage = () => (
   <Box sx={styles.wrapper}>
+    <LineGraph value={0} label="1. Доступність оцінок" />
     <LineGraph value={10} label="1. Доступність оцінок" />
     <LineGraph value={20} label="2. Комунікативність" />
     <LineGraph value={30} label="3. Якась еще хуйня" />
