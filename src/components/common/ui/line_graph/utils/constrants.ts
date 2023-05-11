@@ -5,13 +5,13 @@ const ColorMap: Record<string, string> = {
 };
 
 const colorInfo = value => {
-  if (value > 75) {
+  if (value > 70) {
     return ColorMap.good;
   }
-  if (value < 50) {
+  if (value < 40) {
     return ColorMap.bad;
   }
-  if (value < 75) {
+  if (value <= 70) {
     return ColorMap.average;
   }
 };
