@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
+import * as yup from 'yup';
 
 import { DropDownSize } from '@/components/common/ui/form';
 import { Dropdown } from '@/components/common/ui/form/dropdown-mui/Dropdown';
@@ -19,10 +20,15 @@ const options = [
   { label: 'Option 9', id: 'o9' },
 ];
 
+const scheme = yup.object({
+  teacherId: yup.string().required(`Обов'язкове поле`),
+});
+
 const TagTestPage = () => {
   return (
     <Box sx={styles.wrapper}>
       <Formik
+        validationSchema={scheme}
         initialValues={{ teacherId: '' }}
         onSubmit={values => {
           console.log(values);
@@ -42,20 +48,20 @@ const TagTestPage = () => {
             onChange={() => console.log('works')}
             name="teacherId"
           />
-          <Dropdown
+          {/* <Dropdown
             defaultRemark="Some defualt text"
             size={DropDownSize.MEDIUM}
             options={options}
             onChange={() => console.log('works')}
-            name="teacherId"
+            name="teacherId2"
           />
           <Dropdown
             defaultRemark="Some defualt text"
             size={DropDownSize.SMALL}
             options={options}
             onChange={() => console.log('works')}
-            name="teacherId"
-          />
+            name="teacherId3"
+          /> */}
 
           <button type="submit">submit</button>
         </Form>

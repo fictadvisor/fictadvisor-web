@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import type { PopperProps } from '@mui/material';
 import { Box, Popper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -8,12 +9,13 @@ import { useField } from 'formik';
 
 import { FieldState } from '@/components/common/ui/form/common/types';
 
-import { dropdown, input, popper, remark } from './Dropdown.styles';
+import * as styles from './Dropdown.styles';
 
 interface DropDownOption {
   label: string;
   id: string;
 }
+
 interface DropdownProps {
   options: DropDownOption[];
   label?: string;
@@ -47,34 +49,29 @@ export const Dropdown: React.FC<DropdownProps> = ({
   size = DropDownSize.MEDIUM,
   isDisabled = false,
   name,
-  onChange,
 }) => {
-  const inputRef = useRef<HTMLElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState('');
-  const popperRef = useRef<HTMLDivElement | null>(null);
+  const popperRef = useRef<HTMLDivElement>(null);
   const [filteredOptions, setFilteredOptions] = useState<number>(
     options.length,
   );
 
-  const [{}, { touched, error }, { setTouched, setValue }] = useField(name);
+  const [values, { touched, error }, { setTouched, setValue, setError }] =
+    useField(name);
 
   const dropdownState = useMemo(() => {
     if (isDisabled) return FieldState.DISABLED;
     else if (touched && error) return FieldState.ERROR;
     else if (touched && isSuccessOnDefault) return FieldState.SUCCESS;
     else return FieldState.DEFAULT;
-  }, [touched, error, isSuccessOnDefault, isDisabled]);
-
-  console.log(isFocused, dropdownState);
+  }, [touched, error]);
 
   const handleChange = (_: any, option: DropDownOption) => {
     setTouched(true);
     setValue(option ? option.id : '');
-    if (option !== null && onChange) onChange();
+    setError(null);
   };
-
-  console.log(isFocused);
 
   useEffect(() => {
     const ul = popperRef.current?.querySelector('ul');
@@ -82,59 +79,51 @@ export const Dropdown: React.FC<DropdownProps> = ({
       const num = ul.children.length;
       setFilteredOptions(num);
     }
-  }, [inputValue]);
+  }, [popperRef.current?.querySelector('ul')?.children.length]);
 
-  const CustomPopper = useCallback(
-    props => {
-      if (isDisabled) return <></>;
-      else
-        return (
-          <Popper
-            {...props}
-            anchorEl={inputRef.current}
-            placement="bottom"
-            modifiers={[{ name: 'flip', enabled: false }]}
-            ref={popperRef}
-            sx={popper(
-              filteredOptions < numberOfOptions
-                ? filteredOptions
-                : numberOfOptions,
-              36,
-            )}
-          />
-        );
-    },
-    [filteredOptions],
-  );
+  const CustomPopper = memo(function CustomPopper(props: PopperProps) {
+    if (isDisabled) return <></>;
+    else
+      return (
+        <Popper
+          {...props}
+          anchorEl={inputRef.current}
+          placement="bottom"
+          modifiers={[{ name: 'flip', enabled: false }]}
+          ref={popperRef}
+          sx={styles.getPopperStyles(
+            Math.min(filteredOptions, numberOfOptions),
+            36,
+          )}
+        />
+      );
+  });
 
   return (
     <Box>
       <Autocomplete
         onFocus={() => {
           setIsFocused(true);
-          debugger;
+          // debugger;
         }}
         onBlur={() => {
           setIsFocused(false);
-          debugger;
+          // debugger;
         }}
         ref={inputRef}
-        sx={dropdown}
+        sx={styles.dropdown}
         fullWidth
         disablePortal
         onChange={handleChange}
-        inputValue={inputValue}
-        onInputChange={(_, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
         blurOnSelect={true}
         options={options}
         getOptionLabel={(opt: DropDownOption) => opt.label}
         renderInput={params => (
           <TextField
+            {...values}
             {...params}
             label={label}
-            sx={input(isFocused, dropdownState, size)}
+            sx={styles.input(isFocused, dropdownState, size)}
             placeholder={placeholder}
             disabled={isDisabled}
           />
@@ -144,7 +133,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         noOptionsText={noOptionsText}
       />
       {showRemark && (
-        <Typography sx={remark(dropdownState, isFocused)}>
+        <Typography sx={styles.getRemarkStyles(dropdownState, isFocused)}>
           {touched && error ? error : defaultRemark}
         </Typography>
       )}

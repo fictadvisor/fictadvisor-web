@@ -17,7 +17,7 @@ const inputHeight = {
   large: 52,
 };
 
-export const popper = (
+export const getPopperStyles = (
   numberOfOptions: number,
   size: number,
 ): SxProps<Theme> => ({
@@ -140,7 +140,10 @@ export const dropdown: SxProps<Theme> = {
   pb: 0,
 };
 
-export const remark = (dropDownState: FieldState, isFocused: boolean) => ({
+export const getRemarkStyles = (
+  dropDownState: FieldState,
+  isFocused: boolean,
+): SxProps<Theme> => ({
   color: color[dropDownState],
   pl: '24px',
   fontSize: '11px',
