@@ -28,7 +28,6 @@ interface DropdownProps {
   showRemark?: boolean;
   size?: DropDownSize;
   noOptionsText?: string;
-  onChange?: () => void;
 }
 
 export enum DropDownSize {
@@ -104,11 +103,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
       <Autocomplete
         onFocus={() => {
           setIsFocused(true);
-          // debugger;
         }}
         onBlur={() => {
           setIsFocused(false);
-          // debugger;
         }}
         ref={inputRef}
         sx={styles.dropdown}

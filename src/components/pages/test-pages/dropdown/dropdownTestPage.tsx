@@ -45,7 +45,6 @@ const TagTestPage = () => {
             defaultRemark="Some defualt text"
             size={DropDownSize.LARGE}
             options={options}
-            onChange={() => console.log('works')}
             name="teacherId"
           />
           {/* <Dropdown
