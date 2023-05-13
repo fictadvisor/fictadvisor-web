@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, SyntheticEvent } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import type { PopperProps } from '@mui/material';
-import { Box, Popper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useField } from 'formik';
@@ -36,12 +35,11 @@ export enum DropDownSize {
   LARGE = 'large',
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown: FC<DropdownProps> = ({
   options,
   label = 'АНУ ТИЦЬНУВ',
   placeholder = 'МОЛОДЧИНА! Тепер піди поспи солдат',
   noOptionsText = 'Опції відсутні',
-  numberOfOptions = 4,
   isSuccessOnDefault = false,
   defaultRemark,
   showRemark,
@@ -49,15 +47,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   isDisabled = false,
   name,
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const popperRef = useRef<HTMLDivElement>(null);
-  const [filteredOptions, setFilteredOptions] = useState<number>(
-    options.length,
-  );
-
-  const [values, { touched, error }, { setTouched, setValue, setError }] =
-    useField(name);
+  const [values, { touched, error }, { setTouched, setValue }] = useField(name);
 
   const dropdownState = useMemo(() => {
     if (isDisabled) return FieldState.DISABLED;
@@ -66,49 +57,22 @@ export const Dropdown: React.FC<DropdownProps> = ({
     else return FieldState.DEFAULT;
   }, [touched, error]);
 
-  const handleChange = (_: any, option: DropDownOption) => {
+  const handleChange = (_: SyntheticEvent, option: DropDownOption) => {
     setTouched(true);
-    setValue(option ? option.id : '');
-    setError(null);
+    setValue(option?.id || '');
   };
 
-  useEffect(() => {
-    const ul = popperRef.current?.querySelector('ul');
-    if (ul) {
-      const num = ul.children.length;
-      setFilteredOptions(num);
-    }
-  }, [popperRef.current?.querySelector('ul')?.children.length]);
-
-  const CustomPopper = memo(function CustomPopper(props: PopperProps) {
-    if (isDisabled) return <></>;
-    else
-      return (
-        <Popper
-          {...props}
-          anchorEl={inputRef.current}
-          placement="bottom"
-          modifiers={[{ name: 'flip', enabled: false }]}
-          ref={popperRef}
-          sx={styles.getPopperStyles(
-            Math.min(filteredOptions, numberOfOptions),
-            36,
-          )}
-        />
-      );
-  });
-
   return (
-    <Box>
+    <Box sx={styles.dropdown(36)}>
       <Autocomplete
+        disabled={isDisabled}
         onFocus={() => {
           setIsFocused(true);
         }}
         onBlur={() => {
           setIsFocused(false);
+          debugger;
         }}
-        ref={inputRef}
-        sx={styles.dropdown}
         fullWidth
         disablePortal
         onChange={handleChange}
@@ -120,12 +84,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {...values}
             {...params}
             label={label}
-            sx={styles.input(isFocused, dropdownState, size)}
+            sx={styles.input(dropdownState, size)}
             placeholder={placeholder}
             disabled={isDisabled}
           />
         )}
-        PopperComponent={CustomPopper}
+        componentsProps={{
+          popper: {
+            placement: 'bottom',
+            modifiers: [{ name: 'flip', enabled: false }],
+          },
+        }}
         popupIcon={<ChevronDownIcon width={24} height={24} strokeWidth={1.5} />}
         noOptionsText={noOptionsText}
       />
