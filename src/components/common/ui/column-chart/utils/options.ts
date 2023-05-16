@@ -73,6 +73,5 @@ export const getOptions = (): ChartOptions<'bar'> => {
         },
       },
     },
-    responsive: true,
   };
 };
