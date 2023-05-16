@@ -1,4 +1,4 @@
-import CommentTestPage from "@/components/pages/test-pages/comment-page";
+import CommentTestPage from '@/components/pages/test-pages/comment-page';
 
 const Comment = () => <CommentTestPage />;
 

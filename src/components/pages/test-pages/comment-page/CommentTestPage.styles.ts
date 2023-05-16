@@ -1,4 +1,4 @@
-import {SxProps, Theme} from "@mui/material/styles";
+import { SxProps, Theme } from '@mui/material/styles';
 
 const wrapper: SxProps<Theme> = {
   width: '100%',
@@ -6,6 +6,6 @@ const wrapper: SxProps<Theme> = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-}
+};
 
-export { wrapper }
+export { wrapper };
