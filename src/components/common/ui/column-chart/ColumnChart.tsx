@@ -1,8 +1,12 @@
 import { FC } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart, ChartData, type ChartOptions, registerables } from 'chart.js';
+import { Box } from '@mui/material';
+import { Chart, registerables } from 'chart.js';
 
-import styles from './ColumnChart.module.scss';
+import { getOptions } from '@/components/common/ui/column-chart/utils/options';
+
+import * as styles from './ColumnChart.styles';
+import { getData } from '@/components/common/ui/column-chart/utils/data';
 
 Chart.register(...registerables);
 
@@ -24,100 +28,11 @@ const response = {
   },
 };
 
-const ColumnChart: FC = () => {
-  const options: ChartOptions<'bar'> = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          boxWidth: 0,
-          font: {
-            size: 16,
-            family: 'Manrope',
-          },
-          color: '#fff',
-        },
-      },
-    },
-    scales: {
-      y: {
-        border: {
-          display: false,
-        },
-        title: {
-          display: true,
-          text: 'Кількість голосів',
-          font: {
-            size: 16,
-          },
-        },
-        type: 'linear',
-        beginAtZero: true,
-        grid: {
-          color: context => {
-            const index = context.index;
-            const ticks = context.chart.scales.y.ticks.length;
-            if (index === ticks - 1 || index === 0) {
-              return 'rgba(0, 0, 0, 0)';
-            }
-            const chart = context.chart;
-            const { ctx, chartArea } = chart;
-            const gradient = ctx.createLinearGradient(
-              chartArea.left,
-              0,
-              chartArea.right,
-              0,
-            );
-            gradient.addColorStop(0, 'rgba(64, 64, 64, 0.1)');
-            gradient.addColorStop(0.1, 'rgba(64, 64, 64, 0.9)');
-            gradient.addColorStop(0.5, 'rgba(64, 64, 64, 1)');
-            gradient.addColorStop(0.9, 'rgba(64, 64, 64, 0.9)');
-            gradient.addColorStop(1, 'rgba(64, 64, 64, 0.1)');
-
-            return gradient;
-          },
-          tickWidth: 0,
-        },
-        ticks: {
-          callback: function (value, index, values) {
-            if (index === values.length - 1) {
-              return '';
-            }
-            return value;
-          },
-        },
-      },
-      x: {
-        border: {
-          display: false,
-        },
-        type: 'category',
-        grid: {
-          display: false,
-        },
-      },
-    },
-    responsive: true,
-  };
-
-  const data: ChartData<'bar'> = {
-    labels: Object.keys(response.mark),
-    datasets: [
-      {
-        label: response.name,
-        data: Object.values(response.mark),
-        backgroundColor: '#B83838',
-        borderWidth: 0,
-        borderRadius: 3,
-        barThickness: 17,
-      },
-    ],
-  };
-
+const ColumnChart: FC = (response) => {
   return (
-    <div className={styles['chartContainer']}>
-      <Bar data={data} options={options} />
-    </div>
+    <Box sx={styles.chartContainer}>
+      <Bar data={getData(response)} options={getOptions()} />
+    </Box>
   );
 };
 
