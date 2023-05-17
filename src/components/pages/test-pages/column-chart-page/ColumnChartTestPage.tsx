@@ -5,7 +5,7 @@ import ColumnChart from '@/components/common/ui/column-chart';
 
 import * as styles from './ColumnChartTestPage.styles';
 
-const response = {
+const data = {
   name: 'Академічна доброчесність',
   amount: 2,
   type: 'AMOUNT',
@@ -26,7 +26,7 @@ const response = {
 const ColumnChartTestPage = () => {
   return (
     <Box sx={styles.wrapper}>
-      <ColumnChart response={response} />
+      <ColumnChart data={data} />
     </Box>
   );
 };

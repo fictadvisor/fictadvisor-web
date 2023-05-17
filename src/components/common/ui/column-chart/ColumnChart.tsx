@@ -12,13 +12,13 @@ import * as styles from './ColumnChart.styles';
 Chart.register(...registerables);
 
 interface ColumnChartProps {
-  response: GetTeacherEvaluationsDTO;
+  data: GetTeacherEvaluationsDTO;
 }
 
-const ColumnChart: FC<ColumnChartProps> = ({ response }) => {
+const ColumnChart: FC<ColumnChartProps> = ({ data }) => {
   return (
     <Box sx={styles.chartContainer}>
-      <Bar data={getData(response)} options={getOptions()} />
+      <Bar data={getData(data)} options={getOptions()} />
     </Box>
   );
 };

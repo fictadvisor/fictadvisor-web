@@ -2,9 +2,14 @@ import { ChartOptions } from 'chart.js';
 
 export const getOptions = (): ChartOptions<'bar'> => {
   return {
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      tooltip: {
+        enabled: false,
+      },
       legend: {
+        onClick: () => {},
         labels: {
           boxWidth: 0,
           font: {
