@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, List } from '@mui/material';
 
 import Rating from '@/components/common/ui/rating-mui/Rating';

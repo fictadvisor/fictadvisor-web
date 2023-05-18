@@ -1,12 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 import { Icon, Rating as RatingMui, SxProps, Theme } from '@mui/material';
 
-type RatingProps = {
+interface RatingProps {
   rating: number;
   sx?: SxProps<Theme>;
-};
+}
 
-const Rating: React.FC<RatingProps> = ({ rating, sx }) => {
+const Rating: FC<RatingProps> = ({ rating, sx }) => {
   return (
     <RatingMui
       value={rating}
@@ -14,12 +14,12 @@ const Rating: React.FC<RatingProps> = ({ rating, sx }) => {
       precision={0.1}
       emptyIcon={
         <Icon>
-          <img src={'/assets/stars-empty.svg'} />
+          <img src="/assets/stars-empty.svg" />
         </Icon>
       }
       icon={
         <Icon>
-          <img src={'/assets/stars-full.svg'} />
+          <img src="/assets/stars-full.svg" />
         </Icon>
       }
       readOnly

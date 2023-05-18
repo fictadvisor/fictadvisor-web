@@ -4,7 +4,6 @@ export const wrapper: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: 'white',
   width: '100vw',
   height: '100vh',
 };
