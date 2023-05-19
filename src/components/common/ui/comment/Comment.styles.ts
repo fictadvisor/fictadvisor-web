@@ -1,34 +1,35 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+import palette from '@/styles/theme/constants/pallete';
+import typography from '@/styles/theme/constants/typography';
+
 const wrapper: SxProps<Theme> = {
   maxWidth: '740px',
   height: '100%',
   padding: '11px 16px 12px 16px',
-  backgroundColor: '#292929',
+  backgroundColor: palette.backgroundDark['200'],
   borderRadius: '4px',
   margin: '10px',
 };
 
 const text: SxProps<Theme> = {
-  fontFamily: 'Manrope',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '140%',
   marginBottom: '2px',
   textAlign: 'left',
+  typography: {
+    mobile: typography.body1,
+    desktopSemiMedium: typography.body1Medium,
+  },
 };
 
 const date: SxProps<Theme> = {
   height: '17px',
   width: '100%',
-  fontFamily: 'Manrope',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '140%',
+  typography: {
+    mobile: typography.body1,
+    desktopSemiMedium: typography.body1Medium,
+  },
   textAlign: 'right',
-  color: '#737373',
+  color: palette.grey['400'],
 };
 
 export { date, text, wrapper };
