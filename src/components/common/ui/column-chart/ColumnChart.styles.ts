@@ -11,4 +11,5 @@ export const chartContainer: SxProps<Theme> = {
   border: '1px solid rgba(64, 64, 64)',
   borderRadius: '8px',
   padding: '10px',
+  backgroundColor: 'rgb(33,33,33)',
 };

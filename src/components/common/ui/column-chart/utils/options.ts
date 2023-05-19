@@ -15,6 +15,7 @@ export const getOptions = (): ChartOptions<'bar'> => {
           font: {
             size: 16,
             family: 'Manrope',
+            weight: '700',
           },
           color: '#fff',
         },
@@ -30,6 +31,7 @@ export const getOptions = (): ChartOptions<'bar'> => {
           text: 'Кількість голосів',
           font: {
             size: 16,
+            weight: '500',
           },
         },
         type: 'linear',
