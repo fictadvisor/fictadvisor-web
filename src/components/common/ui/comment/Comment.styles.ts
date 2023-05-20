@@ -14,7 +14,7 @@ const wrapper: SxProps<Theme> = {
 
 const text: SxProps<Theme> = {
   marginBottom: '2px',
-  textAlign: 'left',
+  textAlign: 'justify',
   typography: {
     mobile: typography.body1,
     desktopSemiMedium: typography.body1Medium,
