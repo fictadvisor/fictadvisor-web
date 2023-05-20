@@ -6,6 +6,7 @@ const wrapper: SxProps<Theme> = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  gap: '10px',
 };
 
 export { wrapper };

@@ -9,7 +9,6 @@ const wrapper: SxProps<Theme> = {
   padding: '11px 16px 12px 16px',
   backgroundColor: palette.backgroundDark['200'],
   borderRadius: '4px',
-  margin: '10px',
 };
 
 const text: SxProps<Theme> = {
