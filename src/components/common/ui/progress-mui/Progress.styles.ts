@@ -1,5 +1,14 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import palette from '@/styles/theme/constants/pallete';
-import typography from '@/styles/theme/constants/typography';
-export const tab: SxProps<Theme> = {};
+export const progressFront: SxProps<Theme> = {
+  position: 'relative',
+  '.MuiCircularProgress-svg': {
+    strokeLinecap: 'round',
+  },
+};
+
+export const progressBack: SxProps<Theme> = {
+  color: 'backgroundDark.300',
+  position: 'absolute',
+  left: 0,
+};

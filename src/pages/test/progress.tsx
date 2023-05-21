@@ -1,4 +1,4 @@
-import ProgressPage from '@/components/pages/test-pages/progress-tab-page';
+import ProgressPage from 'src/components/pages/test-pages/mui-progress-page';
 
 const Progress = () => <ProgressPage />;
 
