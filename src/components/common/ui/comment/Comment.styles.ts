@@ -1,13 +1,12 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import palette from '@/styles/theme/constants/pallete';
 import typography from '@/styles/theme/constants/typography';
 
 const wrapper: SxProps<Theme> = {
   maxWidth: '740px',
   height: '100%',
   padding: '11px 16px 12px 16px',
-  backgroundColor: palette.backgroundDark['200'],
+  backgroundColor: 'backgroundDark.200',
   borderRadius: '4px',
 };
 
@@ -28,7 +27,7 @@ const date: SxProps<Theme> = {
     desktopSemiMedium: typography.body1Medium,
   },
   textAlign: 'right',
-  color: palette.grey['400'],
+  color: 'grey.400',
 };
 
 export { date, text, wrapper };
