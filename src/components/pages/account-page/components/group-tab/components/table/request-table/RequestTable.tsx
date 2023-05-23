@@ -1,16 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import { CustomCheck } from '@/components/common/custom-svg/CustomCheck';
-import { AlertColor } from '@/components/common/ui/alert';
 import AlertButton, {
   AlertButtonVariant,
 } from '@/components/common/ui/alert-button';
 import CustomDivider from '@/components/pages/account-page/components/divider';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './RequestTable.module.scss';
 
@@ -28,7 +26,7 @@ interface StudentTableProps {
 
 const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
   const { user, token } = useAuthentication();
-  const dispatch = useDispatch();
+  const toast = useToast();
   const handleApprove = async (userId: string) => {
     try {
       await GroupAPI.verifyStudent(user.group.id, userId, token, {
@@ -36,12 +34,7 @@ const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
       });
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 
@@ -52,12 +45,7 @@ const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
       });
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 

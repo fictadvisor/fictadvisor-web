@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   AcademicCapIcon,
   LockClosedIcon,
@@ -61,13 +60,12 @@ const AccountPage = () => {
   }, [tab, isReady, push, query]);
 
   const { isLoggedIn } = useAuthentication();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isLoggedIn) {
       void replace('/login?~account');
     }
-  }, [dispatch, isLoggedIn, push, replace]);
+  }, [isLoggedIn, push, replace]);
 
   return (
     <PageLayout hasFooter={true}>

@@ -1,18 +1,16 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { RadioGroup } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import ArrowButton from '@/components/common/ui/arrow-button/ArrowButton';
 import Button from '@/components/common/ui/button/Button';
 import { Slider, TextArea } from '@/components/common/ui/form';
 import Radio from '@/components/common/ui/form/radio';
 import Loader from '@/components/common/ui/loader/Loader';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import { Category } from '../../PollPage';
 import { Answer, SendingStatus } from '../poll-form/PollForm';
@@ -76,7 +74,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   sendingStatus,
   setIsSendingStatus,
 }) => {
-  const dispatch = useDispatch();
+  const toast = useToast();
   const [initialValues, setInitialValues] = useState({});
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
@@ -228,56 +226,28 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         } catch (e) {
                           const errorName = e.response.data.error;
                           if (errorName === 'InvalidEntityIdException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description:
-                                  'Не знайдено опитування з таким Id!',
-                                color: AlertColor.ERROR,
-                              }),
+                            toast.error(
+                              'Помилка!',
+                              'Не знайдено опитування з таким Id!',
                             );
                           } else if (errorName === 'ExcessiveAnswerException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: 'Знайдено зайві відповіді!',
-                                color: AlertColor.ERROR,
-                              }),
+                            toast.error(
+                              'Помилка!',
+                              'Знайдено зайві відповіді!',
                             );
                           } else if (
                             errorName === 'NotEnoughAnswersException'
                           ) {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Ви відповіли не на всі обов'язкові запитання!`,
-                                color: AlertColor.ERROR,
-                              }),
+                            toast.error(
+                              'Помилка!',
+                              `Ви відповіли не на всі обов'язкові запитання!`,
                             );
                           } else if (errorName === 'AlreadyAnsweredException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Ви вже відповіли!`,
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка!', `Ви вже відповіли!`);
                           } else if (errorName === 'NoPermissionException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Недостатньо прав!`,
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка!', `Недостатньо прав!`);
                           } else {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Помилка на сервері :(`,
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка!', `Помилка на сервері :(`);
                           }
                           setIsSendingStatus(SendingStatus.ERROR);
                         }

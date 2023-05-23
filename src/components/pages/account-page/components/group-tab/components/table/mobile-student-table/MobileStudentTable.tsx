@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
 
 import { CaptainIcon } from '@/components/common/custom-svg/CaptainIcon';
 import { ModeratorIcon } from '@/components/common/custom-svg/ModeratorIcon';
-import { AlertColor } from '@/components/common/ui/alert';
 import {
   IconButton,
   IconButtonShape,
@@ -15,8 +13,8 @@ import MobileStudentTableButtons from '@/components/pages/account-page/component
 import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './MobileStudentTable.module.scss';
 
@@ -43,7 +41,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
 
   const { user, token } = useAuthentication();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const dispatch = useDispatch();
+  const toast = useToast();
   const handleAddStudents = async value => {
     try {
       const emails = value
@@ -57,19 +55,9 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
     } catch (e) {
       const name = e.response?.data.error;
       if (name === 'AlreadyRegisteredException') {
-        dispatch(
-          showAlert({
-            title: 'Один або декілька користувачів вже зареєстровані!',
-            color: AlertColor.ERROR,
-          }),
-        );
+        toast.error('Один або декілька користувачів вже зареєстровані!');
       } else {
-        dispatch(
-          showAlert({
-            title: 'Здається ти ввів неправильні значення!',
-            color: AlertColor.ERROR,
-          }),
-        );
+        toast.error('Здається ти ввів неправильні значення!');
       }
     }
   };

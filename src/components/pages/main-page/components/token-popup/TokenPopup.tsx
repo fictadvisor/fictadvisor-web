@@ -1,20 +1,18 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import { Popup } from '@/components/common/composite/popup';
-import { AlertColor } from '@/components/common/ui/alert';
 import Button, {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import UserAPI from '@/lib/api/user/UserAPI';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 interface TokenPopupProps {
   token: string;
@@ -23,7 +21,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
   const { push } = useRouter();
   const { user, isLoggedIn, update, token: accessToken } = useAuthentication();
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
+  const toast = useToast();
 
   const loadData = useCallback(
     async token => {
@@ -33,17 +31,12 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
       if (isRegistered) {
         setIsOpen(true);
       } else {
-        dispatch(
-          showAlert({
-            title: 'Поганий токен!',
-            color: AlertColor.ERROR,
-          }),
-        );
+        toast.error('Поганий токен!');
         if (isLoggedIn) await push('/account');
         else await push('/register');
       }
     },
-    [dispatch, isLoggedIn, push],
+    [isLoggedIn, push, toast],
   );
 
   useEffect(() => {
@@ -59,29 +52,14 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
         });
         update();
         StorageUtil.deleteTelegramInfo();
-        dispatch(
-          showAlert({
-            title: 'Telegram успішно приєднано!',
-            color: AlertColor.SUCCESS,
-          }),
-        );
+        toast.success('Telegram успішно приєднано!');
         await push('/account');
       } else {
-        dispatch(
-          showAlert({
-            title: 'Telegram успішно приєднано, дозаповни усі поля!',
-            color: AlertColor.SUCCESS,
-          }),
-        );
+        toast.success('Telegram успішно приєднано, дозаповни усі поля!');
         await push('/register');
       }
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Не вдалось підключити Telegram, спробуй ще раз',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Не вдалось підключити Telegram, спробуй ще раз');
     } finally {
       setIsOpen(false);
     }

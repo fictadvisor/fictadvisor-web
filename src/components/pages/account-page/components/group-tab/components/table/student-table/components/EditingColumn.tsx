@@ -1,12 +1,10 @@
 import React, { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
 } from '@heroicons/react/24/outline';
 
 import { Popup } from '@/components/common/composite/popup';
-import { AlertColor } from '@/components/common/ui/alert';
 import Button, {
   ButtonColor,
   ButtonSize,
@@ -19,8 +17,8 @@ import {
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
+import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from '../StudentTable.module.scss';
 
@@ -34,19 +32,14 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenChange, setIsOpenChange] = useState(false);
 
-  const dispatch = useDispatch();
+  const toast = useToast();
   const handleDelete = async () => {
     try {
       setIsOpenDelete(false);
       await GroupAPI.removeStudent(user.group.id, student.id, token);
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 
@@ -59,12 +52,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
       });
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 

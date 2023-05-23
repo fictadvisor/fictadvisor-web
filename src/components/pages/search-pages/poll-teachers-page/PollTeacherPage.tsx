@@ -1,9 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button, {
   ButtonColor,
@@ -12,9 +10,9 @@ import Button, {
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import PollTeacherSearchList from '@/components/pages/search-pages/poll-teachers-page/PollTeacherSearchList';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import { PollTeachersDTO } from '@/lib/api/poll/dto/PollTeachersDTO';
 import PollAPI from '@/lib/api/poll/PollAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 
@@ -36,20 +34,15 @@ const PollTeacherPage: FC = () => {
   const [curPage, setCurPage] = useState(0);
   const { push, replace } = useRouter();
   const { user, isLoggedIn } = useAuthentication();
-  const dispatch = useDispatch();
+  const toast = useToast();
   const { token } = useAuthentication();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      dispatch(
-        showAlert({
-          title: 'Для проходження опитування потрібно авторизуватися',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Для проходження опитування потрібно авторизуватися');
       void replace('/login?redirect=~poll');
     }
-  }, [dispatch, isLoggedIn, push, replace]);
+  }, [toast, isLoggedIn, push, replace]);
 
   const { data, isLoading, isFetching } = useQuery<PollTeachersDTO>(
     'pollTeachers',

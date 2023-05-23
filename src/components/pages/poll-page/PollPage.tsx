@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs/Breadcrumbs';
 import Loader from '@/components/common/ui/loader/Loader';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import PageLayout from '../../common/layout/page-layout/PageLayout';
 
@@ -73,19 +71,14 @@ const PollPage = () => {
       keepPreviousData: false,
     },
   );
-  const dispatch = useDispatch();
+  const toast = useToast();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      dispatch(
-        showAlert({
-          title: 'Для проходження опитування потрібно авторизуватися',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Для проходження опитування потрібно авторизуватися');
       void router.replace('login/?redirect=~poll');
     }
-  }, [dispatch, isLoggedIn, router]);
+  }, [toast, isLoggedIn, router]);
 
   useEffect(() => {
     setIsLoading(isQuestionsLoading);
@@ -94,21 +87,17 @@ const PollPage = () => {
   const status = error && (error as any).response?.data?.error;
 
   if (error && !isLoading) {
-    dispatch(
-      showAlert({
-        title: 'Помилка!',
-        description:
-          status === 'InvalidEntityIdException'
-            ? 'Не знайдено опитування з таким id'
-            : status === 'AnswerInDatabasePermissionException'
-            ? 'Ти вже пройшов опитування за цього викладача!'
-            : status === 'NoPermissionException'
-            ? 'У тебе недостатньо прав для цієї дії'
-            : status === 'WrongTimeException'
-            ? 'Час проходження опитування сплив або опитування ще не почалось'
-            : 'Помилка на сервері =(',
-        color: AlertColor.ERROR,
-      }),
+    toast.error(
+      'Помилка!',
+      status === 'InvalidEntityIdException'
+        ? 'Не знайдено опитування з таким id'
+        : status === 'AnswerInDatabasePermissionException'
+        ? 'Ти вже пройшов опитування за цього викладача!'
+        : status === 'NoPermissionException'
+        ? 'У тебе недостатньо прав для цієї дії'
+        : status === 'WrongTimeException'
+        ? 'Час проходження опитування сплив або опитування ще не почалось'
+        : 'Помилка на сервері =(',
     );
     void router.push('/poll');
   }

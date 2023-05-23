@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 
@@ -11,8 +10,8 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
+import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './PasswordResetEmailConfirmationPage.module.scss';
 
@@ -27,7 +26,7 @@ const PasswordResetEmailConfirmationPage = () => {
   };
 
   let tries = 0;
-  const dispatch = useDispatch();
+  const toast = useToast();
   const handleSendAgain = async () => {
     try {
       await AuthAPI.forgotPassword({ email });
@@ -41,12 +40,7 @@ const PasswordResetEmailConfirmationPage = () => {
       } else if (errorName === 'NotRegisteredException') {
         errorMessage = 'Упс, реєструйся заново';
       }
-      dispatch(
-        showAlert({
-          title: errorMessage,
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error(errorMessage);
     }
   };
 
