@@ -15,7 +15,7 @@ import { showAlert } from '@/redux/reducers/alert.reducer';
 import styles from '../../GeneralTab.module.scss';
 
 const PersonalInfoBlock: FC = () => {
-  const { user, update } = useAuthentication();
+  const { user, update, token } = useAuthentication();
   const initialValues: PersonalInfoForm = {
     lastName: user.lastName,
     firstName: user.firstName,
@@ -35,7 +35,7 @@ const PersonalInfoBlock: FC = () => {
     if (!data.middleName) delete data.middleName;
 
     try {
-      await UserAPI.changeInfo(user.id, data);
+      await UserAPI.changeInfo(user.id, token, data);
       update();
     } catch (e) {
       dispatch(

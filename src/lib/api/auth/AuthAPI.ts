@@ -41,17 +41,23 @@ class AuthAPI {
     return data;
   }
 
-  async changePassword(body: ChangePasswordBody): Promise<TokensDTO> {
+  async changePassword(
+    token: string,
+    body: ChangePasswordBody,
+  ): Promise<TokensDTO> {
     const { data } = await client.put(
       '/auth/updatePassword',
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async getMe(): Promise<GetMeDTO> {
-    const { data } = await client.get(`/auth/me`, getAuthorizationHeader());
+  async getMe(token: string): Promise<GetMeDTO> {
+    const { data } = await client.get(
+      `/auth/me`,
+      getAuthorizationHeader(token),
+    );
     return data;
   }
 

@@ -54,7 +54,7 @@ export interface FetchedTeacherPollData {
 
 const PollPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { user, isLoggedIn } = useAuthentication();
+  const { user, isLoggedIn, token } = useAuthentication();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
@@ -65,7 +65,7 @@ const PollPage = () => {
     isLoading: isQuestionsLoading,
   } = useQuery(
     ['pollQuestions', disciplineTeacherId],
-    async () => await PollAPI.getTeacherQuestions(disciplineTeacherId),
+    async () => await PollAPI.getTeacherQuestions(disciplineTeacherId, token),
     {
       retry: false,
       enabled: Boolean(user),

@@ -12,47 +12,59 @@ import { UpdateDynamicLessonBody } from './dto/UpdateDynamicLessonBody';
 import { UpdateStaticLessonBody } from './dto/UpdateStaticLessonBody';
 
 class ScheduleAPI {
-  async getSession(groupId: string): Promise<GetSessionScheduleDTO> {
+  async getSession(
+    groupId: string,
+    token: string,
+  ): Promise<GetSessionScheduleDTO> {
     const { data } = await client.get(
       `/group/${groupId}/session`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async getSchedule(id: string, fortnight?: string): Promise<GetScheduleDTO> {
+  async getSchedule(
+    id: string,
+    token: string,
+    fortnight?: string,
+  ): Promise<GetScheduleDTO> {
     const { data } = await client.get(
       `/groups/${id}/static/${fortnight}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
   async getDynamicLessons(
     id: string,
+    token: string,
     fortnight?: string,
   ): Promise<GetDynamicLessonsDTO> {
     const { data } = await client.get(
       `schedule/groups/${id}/temporary/${fortnight}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async createLesson(body: CreateLessonBody) {
+  async createLesson(token: string, body: CreateLessonBody) {
     const { data } = await client.post(
       `/schedule`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async updateStaticLesson(lessonId: string, body: UpdateStaticLessonBody) {
+  async updateStaticLesson(
+    lessonId: string,
+    token: string,
+    body: UpdateStaticLessonBody,
+  ) {
     const { data } = await client.patch(
       `/schedule/lessons/static/${lessonId}`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
@@ -60,39 +72,49 @@ class ScheduleAPI {
   async updateDynamicLesson(
     id: string,
     fortnight: string,
+    token: string,
     body: UpdateDynamicLessonBody,
   ) {
     const { data } = await client.patch(
       `/schedule/lessons/static/${id}/${fortnight}}`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async getStaticLesson(id: string, groupId: string): Promise<GetLessonDTO> {
+  async getStaticLesson(
+    id: string,
+    groupId: string,
+    token: string,
+  ): Promise<GetLessonDTO> {
     const { data } = await client.get(
       `/schedule/group/${groupId}/lessons/static/${id}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async getTemporaryLesson(id: string, groupId: string): Promise<GetLessonDTO> {
+  async getTemporaryLesson(
+    id: string,
+    groupId: string,
+    token: string,
+  ): Promise<GetLessonDTO> {
     const { data } = await client.get(
       `/schedule/group/${groupId}/lessons/temporary/${id}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
   async getTeacherSchedule(
     teacherId: string,
+    token: string,
     fortnight?: string,
   ): Promise<GetTeacherScheduleDTO> {
     const { data } = await client.get(
       `/schedule/teachers/${teacherId}/static/${fortnight}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }

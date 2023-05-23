@@ -17,7 +17,7 @@ import { showAlert } from '@/redux/reducers/alert.reducer';
 import styles from './NoGroupBlock.module.scss';
 
 const NoGroupBlock: FC = () => {
-  const { user, update } = useAuthentication();
+  const { user, update, token } = useAuthentication();
   const { isLoading, data } = useQuery(['groups'], () => GroupAPI.getAll(), {
     refetchOnWindowFocus: false,
   });
@@ -25,7 +25,7 @@ const NoGroupBlock: FC = () => {
 
   const handleSubmitGroup = async data => {
     try {
-      await UserAPI.requestNewGroup(data, user.id);
+      await UserAPI.requestNewGroup(data, user.id, token);
       update();
     } catch (e) {
       const errorName = e.response.data.error;

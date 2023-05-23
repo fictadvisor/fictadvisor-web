@@ -18,12 +18,14 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 
 import styles from './GroupTab.module.scss';
 
-const getStudents = user => {
+const getStudents = (user, token) => {
   return async function () {
     let students, requests;
     try {
-      students = (await GroupAPI.getGroupStudents(user.group.id)).students;
-      requests = (await GroupAPI.getRequestStudents(user.group.id)).students;
+      students = (await GroupAPI.getGroupStudents(user.group.id, token))
+        .students;
+      requests = (await GroupAPI.getRequestStudents(user.group.id, token))
+        .students;
     } finally {
       return {
         students,
@@ -36,10 +38,11 @@ const getStudents = user => {
 const GroupTab: FC = () => {
   const isMobile = useIsMobile(1024);
   const { user } = useAuthentication();
+  const { token } = useAuthentication();
 
   const { data, isLoading, refetch } = useQuery(
     ['students'],
-    getStudents(user),
+    getStudents(user, token),
     {
       retry: false,
       refetchOnWindowFocus: false,

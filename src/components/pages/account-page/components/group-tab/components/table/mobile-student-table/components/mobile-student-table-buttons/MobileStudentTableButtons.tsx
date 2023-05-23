@@ -44,14 +44,14 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   student,
   refetch,
 }) => {
-  const { user } = useAuthentication();
+  const { user, token } = useAuthentication();
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenChange, setIsOpenChange] = useState(false);
   const dispatch = useDispatch();
   const handleDelete = async () => {
     try {
       setIsOpenDelete(false);
-      await GroupAPI.removeStudent(user.group.id, student.id);
+      await GroupAPI.removeStudent(user.group.id, student.id, token);
       await refetch();
     } catch (e) {
       dispatch(
@@ -66,7 +66,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   const handleChangeStatus = async () => {
     try {
       setIsOpenChange(false);
-      await GroupAPI.switchStudentRole(user.group.id, student.id, {
+      await GroupAPI.switchStudentRole(user.group.id, student.id, token, {
         roleName:
           student.role === StudentRole.MODERATOR ? 'STUDENT' : 'MODERATOR',
       });

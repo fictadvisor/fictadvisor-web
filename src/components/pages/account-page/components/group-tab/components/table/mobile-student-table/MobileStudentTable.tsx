@@ -41,7 +41,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
 }) => {
   const [openedIndex, setOpenedIndex] = useState(-1);
 
-  const { user } = useAuthentication();
+  const { user, token } = useAuthentication();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const dispatch = useDispatch();
   const handleAddStudents = async value => {
@@ -51,7 +51,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
         .map(line => line.trim())
         .filter(line => line !== '' && line !== '\n');
 
-      await GroupAPI.addStudentsByMail(user.group.id, { emails });
+      await GroupAPI.addStudentsByMail(user.group.id, token, { emails });
       setIsPopupOpen(false);
       refetch();
     } catch (e) {

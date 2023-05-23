@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthenticationContext } from '@/hooks/use-authentication/authentication-context';
 
 const useAuthentication = () => {
-  const { user, update } = useContext(AuthenticationContext);
+  const { user, update, token } = useContext(AuthenticationContext);
 
   const isLoggedIn = user != null;
 
@@ -11,6 +11,7 @@ const useAuthentication = () => {
     user,
     isLoggedIn,
     update,
+    token,
   };
 };
 

@@ -30,7 +30,7 @@ interface EditingColumnProps {
 }
 
 const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
-  const { user } = UseAuthentication();
+  const { user, token } = UseAuthentication();
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenChange, setIsOpenChange] = useState(false);
 
@@ -38,7 +38,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const handleDelete = async () => {
     try {
       setIsOpenDelete(false);
-      await GroupAPI.removeStudent(user.group.id, student.id);
+      await GroupAPI.removeStudent(user.group.id, student.id, token);
       await refetch();
     } catch (e) {
       dispatch(
@@ -53,7 +53,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const handleChangeStatus = async () => {
     try {
       setIsOpenChange(false);
-      await GroupAPI.switchStudentRole(user.group.id, student.id, {
+      await GroupAPI.switchStudentRole(user.group.id, student.id, token, {
         roleName:
           student.role === StudentRole.MODERATOR ? 'STUDENT' : 'MODERATOR',
       });

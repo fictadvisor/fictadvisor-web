@@ -9,30 +9,35 @@ import { GetTeacherQuestionsDTO } from './dto/GetTeacherQuestionsDTO';
 class PollAPI {
   async getTeacherQuestions(
     disciplineTeacherId: string,
+    token: string,
   ): Promise<GetTeacherQuestionsDTO> {
     const { data } = await client.get(
       `/disciplineTeachers/${disciplineTeacherId}/questions`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
   async createTeacherGrade(
-    body: CreateTeacherGradeBody,
     disciplineTeacherId: string,
+    token: string,
+    body: CreateTeacherGradeBody,
   ) {
     const { data } = await client.post(
       `/disciplineTeachers/${disciplineTeacherId}/answers`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async getUserTeachers(userId: string): Promise<PollTeachersDTO> {
+  async getUserTeachers(
+    userId: string,
+    token: string,
+  ): Promise<PollTeachersDTO> {
     const { data } = await client.get(
       `/poll/teachers/${userId}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
 
     return data;

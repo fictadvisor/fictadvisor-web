@@ -49,7 +49,7 @@ const PersonalTeacherPage = () => {
         {isLoading ? (
           <div className={styles['personal-teacher-page-content']}>
             <div className={styles['loader']}>
-              <Loader></Loader>
+              <Loader />
             </div>
           </div>
         ) : (

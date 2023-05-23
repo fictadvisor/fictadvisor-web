@@ -15,10 +15,11 @@ import styles from '../../GeneralTab.module.scss';
 
 const ContactsBlock: FC = () => {
   const [isOpened, setIsOpened] = useState(false);
-  const { user } = useAuthentication();
+  const { user, token } = useAuthentication();
+
   const { data, refetch } = useQuery(
     'contacts',
-    () => UserAPI.getContacts(user.id),
+    () => UserAPI.getContacts(user.id, token),
     { refetchOnWindowFocus: false },
   );
   const contacts = data?.contacts || [];

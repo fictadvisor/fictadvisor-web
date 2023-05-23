@@ -21,7 +21,7 @@ interface TokenPopupProps {
 }
 const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
   const { push } = useRouter();
-  const { user, isLoggedIn, update } = useAuthentication();
+  const { user, isLoggedIn, update, token: accessToken } = useAuthentication();
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -54,7 +54,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
     try {
       await AuthService.registerTelegram();
       if (isLoggedIn) {
-        await UserAPI.linkTelegram(user.id, {
+        await UserAPI.linkTelegram(user.id, accessToken, {
           ...StorageUtil.getTelegramInfo().telegram,
         });
         update();

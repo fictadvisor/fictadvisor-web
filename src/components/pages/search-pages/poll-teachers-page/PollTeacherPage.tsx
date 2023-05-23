@@ -37,6 +37,7 @@ const PollTeacherPage: FC = () => {
   const { push, replace } = useRouter();
   const { user, isLoggedIn } = useAuthentication();
   const dispatch = useDispatch();
+  const { token } = useAuthentication();
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -52,7 +53,7 @@ const PollTeacherPage: FC = () => {
 
   const { data, isLoading, isFetching } = useQuery<PollTeachersDTO>(
     'pollTeachers',
-    () => PollAPI.getUserTeachers(user.id),
+    () => PollAPI.getUserTeachers(user.id, token),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,

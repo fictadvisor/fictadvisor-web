@@ -27,11 +27,11 @@ interface RequestTableProps {
 }
 
 const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
-  const { user } = useAuthentication();
+  const { user, token } = useAuthentication();
   const dispatch = useDispatch();
   const handleApprove = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group.id, userId, {
+      await GroupAPI.verifyStudent(user.group.id, userId, token, {
         state: 'APPROVED',
       });
       await refetch();
@@ -47,7 +47,7 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
 
   const handleDecline = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group.id, userId, {
+      await GroupAPI.verifyStudent(user.group.id, userId, token, {
         state: 'DECLINED',
       });
       await refetch();

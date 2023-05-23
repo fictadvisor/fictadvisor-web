@@ -16,9 +16,9 @@ const ContactItem: FC<ContactProps> = ({
   name,
   displayName,
 }) => {
-  const { user } = useAuthentication();
+  const { user, token } = useAuthentication();
   const handleDeleteClick = async () => {
-    await UserAPI.deleteContact(user.id, name);
+    await UserAPI.deleteContact(user.id, name, token);
     refetchContacts();
   };
 

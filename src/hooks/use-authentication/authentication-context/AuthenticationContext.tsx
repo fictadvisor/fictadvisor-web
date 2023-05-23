@@ -18,7 +18,7 @@ const AuthenticationProvider: FC<AuthenticationProviderProps> = ({
 
   const { error, isFetching, isFetched, isError, data, refetch } = useQuery(
     ['oauth', jwt?.accessToken, jwt?.refreshToken],
-    () => AuthAPI.getMe(),
+    () => AuthAPI.getMe(jwt?.accessToken),
     {
       retry: false,
       refetchOnWindowFocus: false,
@@ -45,6 +45,7 @@ const AuthenticationProvider: FC<AuthenticationProviderProps> = ({
       setJwt(StorageUtil.getTokens());
       await refetch();
     },
+    token: jwt?.accessToken,
   };
 
   return (

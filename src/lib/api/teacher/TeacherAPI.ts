@@ -10,16 +10,14 @@ import { GetTeacherStatsDTO } from './dto/GetTeacherStatsDTO';
 
 class TeacherAPI {
   async get(teacherId: string): Promise<GetTeacherDTO> {
-    const { data } = await client.get(
-      `/teachers/${teacherId}`,
-      getAuthorizationHeader(),
-    );
+    const { data } = await client.get(`/teachers/${teacherId}`);
     return data;
   }
 
   async getAll(
     { search, order, sort, group }: TeacherSearchFormFields,
     pageSize: number,
+    token: string,
   ): Promise<{ teachers: GetTeacherDTO[] }> {
     const url = `/teachers?${search ? `search=${search}` : ''}${
       order ? `&order=${order}` : ''
@@ -27,7 +25,7 @@ class TeacherAPI {
       pageSize ? `&pageSize=${pageSize}` : ''
     }`;
 
-    const { data } = await client.get(url, getAuthorizationHeader());
+    const { data } = await client.get(url, getAuthorizationHeader(token));
     return data;
   }
 

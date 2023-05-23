@@ -9,54 +9,58 @@ import { client } from '../instance';
 import { AddContactBody } from './dto/AddContactBody';
 
 class UserAPI {
-  async changeInfo(userId: string, body: ChangeInfoBody) {
+  async changeInfo(userId: string, token: string, body: ChangeInfoBody) {
     const { data } = await client.patch(
       `/users/${userId}/student`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async linkTelegram(userId: string, body: LinkTelegramBody) {
+  async linkTelegram(userId: string, token: string, body: LinkTelegramBody) {
     const { data } = await client.post(
       `/users/${userId}/telegram`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async addContact(userId: string, body: AddContactBody) {
+  async addContact(userId: string, token: string, body: AddContactBody) {
     const { data } = await client.post(
       `/users/${userId}/contacts`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async getContacts(userId: string): Promise<GetContactsDTO> {
+  async getContacts(userId: string, token: string): Promise<GetContactsDTO> {
     const { data } = await client.get(
       `/users/${userId}/contacts`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async deleteContact(userId: string, contactName: string) {
+  async deleteContact(userId: string, contactName: string, token: string) {
     const { data } = await client.delete(
       `/users/${userId}/contacts/${contactName}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }
 
-  async requestNewGroup(body: RequestNewGroupBody, userId: string) {
+  async requestNewGroup(
+    body: RequestNewGroupBody,
+    userId: string,
+    token: string,
+  ) {
     const { data } = await client.patch(
       `/users/${userId}/requestNewGroup`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }

@@ -1,7 +1,5 @@
-import StorageUtil from '@/lib/utils/StorageUtil';
-
-export const getAuthorizationHeader = () => {
+export const getAuthorizationHeader = (token: string) => {
   return {
-    headers: { Authorization: `Bearer ${StorageUtil.getAccessToken()}` },
+    headers: { Authorization: `Bearer ${token}` },
   };
 };

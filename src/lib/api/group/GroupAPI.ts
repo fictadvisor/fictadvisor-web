@@ -12,12 +12,13 @@ import { client } from '../instance';
 class GroupAPI {
   async addStudentsByMail(
     groupId: string,
+    token: string,
     body: AddStudentsByMailBody,
   ): Promise<AddStudentsByMailDTO> {
     return await client.post(
       `/groups/${groupId}/addEmails`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
   }
 
@@ -26,46 +27,58 @@ class GroupAPI {
     return res.data;
   }
 
-  async getGroupStudents(groupId: string): Promise<GetGroupStudentsDTO> {
+  async getGroupStudents(
+    groupId: string,
+    token: string,
+  ): Promise<GetGroupStudentsDTO> {
     const res = await client.get(
       `/groups/${groupId}/students`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return res.data;
   }
 
-  async getRequestStudents(groupId: string): Promise<GetRequestDTO> {
+  async getRequestStudents(
+    groupId: string,
+    token: string,
+  ): Promise<GetRequestDTO> {
     const res = await client.get(
       `/groups/${groupId}/unverifiedStudents`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return res.data;
   }
 
-  async removeStudent(groupId, studentId) {
+  async removeStudent(groupId: string, studentId: string, token: string) {
     await client.delete(
       `/groups/${groupId}/remove/${studentId}`,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
   }
 
-  async switchStudentRole(groupId, studentId, body) {
+  async switchStudentRole(
+    groupId: string,
+    studentId: string,
+    token: string,
+    body,
+  ) {
     await client.patch(
       `/groups/${groupId}/switch/${studentId}`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
   }
 
   async verifyStudent(
     groupId: string,
     userId: string,
+    token: string,
     body: VerifyStudentBody,
   ): Promise<VerifyStudentDTO> {
     const { data } = await client.patch(
       `/groups/${groupId}/verify/${userId}`,
       body,
-      getAuthorizationHeader(),
+      getAuthorizationHeader(token),
     );
     return data;
   }

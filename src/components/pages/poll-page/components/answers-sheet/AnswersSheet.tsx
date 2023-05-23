@@ -10,6 +10,7 @@ import Button from '@/components/common/ui/button/Button';
 import { Slider, TextArea } from '@/components/common/ui/form';
 import Radio from '@/components/common/ui/form/radio';
 import Loader from '@/components/common/ui/loader/Loader';
+import useAuthentication from '@/hooks/use-authentication';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
@@ -79,6 +80,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const [initialValues, setInitialValues] = useState({});
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
+  const { token } = useAuthentication();
 
   useEffect(() => {
     for (const question of questions.questions) {
@@ -218,8 +220,9 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         setIsSendingStatus(SendingStatus.LOADING);
                         try {
                           await PollAPI.createTeacherGrade(
-                            { answers },
                             disciplineTeacherId,
+                            token,
+                            { answers },
                           );
                           setIsSendingStatus(SendingStatus.SUCCESS);
                         } catch (e) {

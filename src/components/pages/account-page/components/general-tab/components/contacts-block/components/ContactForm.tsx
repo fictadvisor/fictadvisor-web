@@ -18,7 +18,7 @@ interface ContactFormProps {
 }
 
 const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
-  const { user } = useAuthentication();
+  const { user, token } = useAuthentication();
   const dispatch = useDispatch();
   const options = Object.values(ContactType).map(contact => ({
     label: contact,
@@ -27,7 +27,7 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
 
   const handleSubmit = async data => {
     try {
-      await UserAPI.addContact(user.id, data);
+      await UserAPI.addContact(user.id, token, data);
       refetchContacts();
     } catch (e) {
       dispatch(

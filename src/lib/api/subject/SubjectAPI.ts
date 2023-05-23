@@ -17,6 +17,7 @@ class SubjectsAPI {
   async getAll(
     { search, order, sort, group }: SubjectSearchFormFields,
     pageSize: number,
+    token: string,
   ): Promise<GetListOfSubjectsDTO> {
     const url = `/subjects?${search ? `search=${search}` : ''}${
       order ? `&order=${order}` : ''
@@ -24,7 +25,7 @@ class SubjectsAPI {
       pageSize ? `&pageSize=${pageSize}` : ''
     }`;
 
-    const { data } = await client.get(url, getAuthorizationHeader());
+    const { data } = await client.get(url, getAuthorizationHeader(token));
     return data;
   }
 }
