@@ -7,7 +7,7 @@ import { AlertColor } from '@/components/common/ui/alert';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs/Breadcrumbs';
 import Loader from '@/components/common/ui/loader/Loader';
 import useAuthentication from '@/hooks/use-authentication';
-import { PollAPI } from '@/lib/api/poll/PollAPI';
+import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import PageLayout from '../../common/layout/page-layout/PageLayout';

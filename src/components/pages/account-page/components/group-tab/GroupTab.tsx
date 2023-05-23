@@ -14,7 +14,7 @@ import {
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
 import useIsMobile from '@/hooks/use-is-mobile';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 
 import styles from './GroupTab.module.scss';
 

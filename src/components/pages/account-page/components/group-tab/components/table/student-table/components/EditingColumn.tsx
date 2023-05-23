@@ -19,7 +19,7 @@ import {
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from '../StudentTable.module.scss';

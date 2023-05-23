@@ -10,7 +10,7 @@ import { initialValues } from '@/components/pages/password-recovery/forgot-passw
 import { ForgotPasswordFormFields } from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form/types';
 import { validationSchema } from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form/validation';
 import styles from '@/components/pages/password-recovery/forgot-password-page/ForgotPasswordPage.module.scss';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 const ForgotPasswordForm: FC = () => {

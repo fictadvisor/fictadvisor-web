@@ -10,8 +10,8 @@ import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import { transformGroups } from '@/components/pages/account-page/components/group-tab/components/no-group-block/utils';
 import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/no-group-block/validation';
 import useAuthentication from '@/hooks/use-authentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
-import { UserAPI } from '@/lib/api/user/UserAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
+import UserAPI from '@/lib/api/user/UserAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './NoGroupBlock.module.scss';

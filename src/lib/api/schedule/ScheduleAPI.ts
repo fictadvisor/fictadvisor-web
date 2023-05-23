@@ -11,8 +11,8 @@ import { GetTeacherScheduleDTO } from './dto/GetTeacherScheduleDTO';
 import { UpdateDynamicLessonBody } from './dto/UpdateDynamicLessonBody';
 import { UpdateStaticLessonBody } from './dto/UpdateStaticLessonBody';
 
-export class ScheduleAPI {
-  static async getSession(groupId: string): Promise<GetSessionScheduleDTO> {
+class ScheduleAPI {
+  async getSession(groupId: string): Promise<GetSessionScheduleDTO> {
     const { data } = await client.get(
       `/group/${groupId}/session`,
       getAuthorizationHeader(),
@@ -20,10 +20,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async getSchedule(
-    id: string,
-    fortnight?: string,
-  ): Promise<GetScheduleDTO> {
+  async getSchedule(id: string, fortnight?: string): Promise<GetScheduleDTO> {
     const { data } = await client.get(
       `/groups/${id}/static/${fortnight}`,
       getAuthorizationHeader(),
@@ -31,7 +28,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async getDynamicLessons(
+  async getDynamicLessons(
     id: string,
     fortnight?: string,
   ): Promise<GetDynamicLessonsDTO> {
@@ -42,7 +39,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async createLesson(body: CreateLessonBody) {
+  async createLesson(body: CreateLessonBody) {
     const { data } = await client.post(
       `/schedule`,
       body,
@@ -51,10 +48,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async updateStaticLesson(
-    lessonId: string,
-    body: UpdateStaticLessonBody,
-  ) {
+  async updateStaticLesson(lessonId: string, body: UpdateStaticLessonBody) {
     const { data } = await client.patch(
       `/schedule/lessons/static/${lessonId}`,
       body,
@@ -63,7 +57,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async updateDynamicLesson(
+  async updateDynamicLesson(
     id: string,
     fortnight: string,
     body: UpdateDynamicLessonBody,
@@ -76,10 +70,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async getStaticLesson(
-    id: string,
-    groupId: string,
-  ): Promise<GetLessonDTO> {
+  async getStaticLesson(id: string, groupId: string): Promise<GetLessonDTO> {
     const { data } = await client.get(
       `/schedule/group/${groupId}/lessons/static/${id}`,
       getAuthorizationHeader(),
@@ -87,10 +78,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async getTemporaryLesson(
-    id: string,
-    groupId: string,
-  ): Promise<GetLessonDTO> {
+  async getTemporaryLesson(id: string, groupId: string): Promise<GetLessonDTO> {
     const { data } = await client.get(
       `/schedule/group/${groupId}/lessons/temporary/${id}`,
       getAuthorizationHeader(),
@@ -98,7 +86,7 @@ export class ScheduleAPI {
     return data;
   }
 
-  static async getTeacherSchedule(
+  async getTeacherSchedule(
     teacherId: string,
     fortnight?: string,
   ): Promise<GetTeacherScheduleDTO> {
@@ -109,3 +97,5 @@ export class ScheduleAPI {
     return data;
   }
 }
+
+export default new ScheduleAPI();

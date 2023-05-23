@@ -9,7 +9,7 @@ import Button, {
 } from '@/components/common/ui/button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import CreatePasswordForm from '@/components/pages/password-recovery/create-password-page/components/create-password-form';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 

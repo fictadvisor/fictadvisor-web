@@ -23,7 +23,7 @@ import { StudentRole } from '@/components/pages/account-page/components/group-ta
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
 import useOutsideClick from '@/hooks/use-outside-click';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './MobileStudentTableButtons.module.scss';

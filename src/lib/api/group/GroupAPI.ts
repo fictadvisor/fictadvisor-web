@@ -9,27 +9,8 @@ import { getAuthorizationHeader } from '@/lib/api/utils';
 
 import { client } from '../instance';
 
-import { GetDisciplineDTO } from './dto/GetDisciplineDTO';
-import { GetTeachersDisciplineDTO } from './dto/GetTeachersDisciplineDTO';
-
-export class GroupAPI {
-  static async getDiscipline(groupId: string): Promise<GetDisciplineDTO> {
-    return await client.get(
-      `/groups/${groupId}/disciplines`,
-      getAuthorizationHeader(),
-    );
-  }
-
-  static async getDisciplineTeachers(
-    groupId: string,
-  ): Promise<GetTeachersDisciplineDTO> {
-    return await client.get(
-      `/groups/${groupId}/disciplineTeachers`,
-      getAuthorizationHeader(),
-    );
-  }
-
-  static async addStudentsByMail(
+class GroupAPI {
+  async addStudentsByMail(
     groupId: string,
     body: AddStudentsByMailBody,
   ): Promise<AddStudentsByMailDTO> {
@@ -40,12 +21,12 @@ export class GroupAPI {
     );
   }
 
-  static async getAll(): Promise<GetAllDTO> {
+  async getAll(): Promise<GetAllDTO> {
     const res = await client.get('/groups');
     return res.data;
   }
 
-  static async getGroupStudents(groupId: string): Promise<GetGroupStudentsDTO> {
+  async getGroupStudents(groupId: string): Promise<GetGroupStudentsDTO> {
     const res = await client.get(
       `/groups/${groupId}/students`,
       getAuthorizationHeader(),
@@ -53,7 +34,7 @@ export class GroupAPI {
     return res.data;
   }
 
-  static async getRequestStudents(groupId: string): Promise<GetRequestDTO> {
+  async getRequestStudents(groupId: string): Promise<GetRequestDTO> {
     const res = await client.get(
       `/groups/${groupId}/unverifiedStudents`,
       getAuthorizationHeader(),
@@ -61,14 +42,14 @@ export class GroupAPI {
     return res.data;
   }
 
-  static async removeStudent(groupId, studentId) {
+  async removeStudent(groupId, studentId) {
     await client.delete(
       `/groups/${groupId}/remove/${studentId}`,
       getAuthorizationHeader(),
     );
   }
 
-  static async switchStudentRole(groupId, studentId, body) {
+  async switchStudentRole(groupId, studentId, body) {
     await client.patch(
       `/groups/${groupId}/switch/${studentId}`,
       body,
@@ -76,7 +57,7 @@ export class GroupAPI {
     );
   }
 
-  static async verifyStudent(
+  async verifyStudent(
     groupId: string,
     userId: string,
     body: VerifyStudentBody,
@@ -89,3 +70,5 @@ export class GroupAPI {
     return data;
   }
 }
+
+export default new GroupAPI();

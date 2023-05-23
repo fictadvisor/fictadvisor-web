@@ -1,7 +1,6 @@
 import { AuthBody } from '@/lib/api/auth/dto/AuthBody';
 import { AuthTelegramBody } from '@/lib/api/auth/dto/AuthTelegramBody';
 import { CheckRegisterTelegramDTO } from '@/lib/api/auth/dto/CheckRegisterTelegramDTO';
-import { ConfirmPasswordResetBody } from '@/lib/api/auth/dto/ConfirmPasswordResetBody';
 import { ForgotPasswordBody } from '@/lib/api/auth/dto/ForgotPasswordBody';
 import { GetMeDTO } from '@/lib/api/auth/dto/GetMeDTO';
 import { RefreshAccessTokenDTO } from '@/lib/api/auth/dto/RefreshAccesTokenDTO';
@@ -16,22 +15,13 @@ import { client } from '../instance';
 import { ChangePasswordBody } from './dto/ChangePasswordBody';
 import { RegisterBody } from './dto/RegisterBody';
 
-export class AuthAPI {
-  static async groupHasCaptain(groupId: string): Promise<boolean> {
+class AuthAPI {
+  async groupHasCaptain(groupId: string): Promise<boolean> {
     const { data } = await client.get(`/auth/checkCaptain/${groupId}`);
     return data;
   }
 
-  static async recoverPassword(body: ResetPasswordBody) {
-    const { data } = await client.post(
-      `user/resetPassword`,
-      body,
-      getAuthorizationHeader(),
-    );
-    return data;
-  }
-
-  static async resetPassword(
+  async resetPassword(
     resetToken: string,
     body: ResetPasswordBody,
   ): Promise<ResetPasswordDTO> {
@@ -42,7 +32,7 @@ export class AuthAPI {
     return data;
   }
 
-  static async refreshAccessToken(
+  async refreshAccessToken(
     refreshToken: string,
   ): Promise<RefreshAccessTokenDTO> {
     const { data } = await client.patch('/auth/refresh', null, {
@@ -51,7 +41,7 @@ export class AuthAPI {
     return data;
   }
 
-  static async changePassword(body: ChangePasswordBody): Promise<TokensDTO> {
+  async changePassword(body: ChangePasswordBody): Promise<TokensDTO> {
     const { data } = await client.put(
       '/auth/updatePassword',
       body,
@@ -60,55 +50,52 @@ export class AuthAPI {
     return data;
   }
 
-  static async getMe(): Promise<GetMeDTO> {
+  async getMe(): Promise<GetMeDTO> {
     const { data } = await client.get(`/auth/me`, getAuthorizationHeader());
     return data;
   }
 
-  static async authTelegram(body: AuthTelegramBody): Promise<TokensDTO> {
+  async authTelegram(body: AuthTelegramBody): Promise<TokensDTO> {
     const { data } = await client.post('/auth/loginTelegram', body);
     return data;
   }
 
-  static async auth(body: AuthBody): Promise<TokensDTO> {
+  async auth(body: AuthBody): Promise<TokensDTO> {
     const { data } = await client.post('/auth/login', body);
     return data;
   }
 
-  static async register(body: RegisterBody): Promise<TokensDTO> {
+  async register(body: RegisterBody): Promise<TokensDTO> {
     const { data } = await client.post('/auth/register', body);
     return data;
   }
 
-  static async confirmPasswordReset(body: ConfirmPasswordResetBody) {
-    const { data } = await client.post('/users/resetPassword', body);
-    return data;
-  }
-
-  static async forgotPassword(body: ForgotPasswordBody) {
+  async forgotPassword(body: ForgotPasswordBody) {
     const { data } = await client.post('/auth/forgotPassword', body);
     return data;
   }
 
-  static async checkResetToken(token: string) {
+  async checkResetToken(token: string) {
     const { data } = await client.get(`auth/checkResetToken/${token}`);
     return data;
   }
 
-  static async verifyEmail(body: VerifyEmailBody) {
+  async verifyEmail(body: VerifyEmailBody) {
     const { data } = await client.post('/auth/register/verifyEmail', body);
     return data;
   }
 
-  static async verifyEmailToken(token: string): Promise<TokensDTO> {
+  async verifyEmailToken(token: string): Promise<TokensDTO> {
     const { data } = await client.post(`/auth/register/verifyEmail/${token}`);
     return data;
   }
 
-  static async checkRegisterTelegram(
+  async checkRegisterTelegram(
     token: string,
   ): Promise<CheckRegisterTelegramDTO> {
     const { data } = await client.get(`/auth/checkRegisterTelegram/${token}`);
     return data;
   }
 }
+
+export default new AuthAPI();

@@ -1,6 +1,6 @@
 import { NextRouter } from 'next/router';
 
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { AuthBody } from '@/lib/api/auth/dto/AuthBody';
 import TelegramService from '@/lib/services/telegram';
 import StorageUtil from '@/lib/utils/StorageUtil';

@@ -7,7 +7,7 @@ import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import styles from '@/components/pages/search-pages/SearchPage.module.scss';
 import { SubjectTeacherSearchList } from '@/components/pages/search-pages/subject-teacher-search/SubjectTeacherSearchList';
 import { GetTeachersBySubjectDTO } from '@/lib/api/subject/dto/GetTeachersBySubjectDTO';
-import { SubjectsAPI } from '@/lib/api/subject/SubjectAPI';
+import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
 
 const SubjectTeacherPage = () => {
   const breadcrumbs = [

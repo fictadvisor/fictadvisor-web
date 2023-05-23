@@ -8,7 +8,7 @@ import Button, {
 } from '@/components/common/ui/button/Button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
-import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
+import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { TeacherInitialValues } from '../search-form/constants';

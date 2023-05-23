@@ -10,7 +10,7 @@ import Button from '@/components/common/ui/button/Button';
 import { Slider, TextArea } from '@/components/common/ui/form';
 import Radio from '@/components/common/ui/form/radio';
 import Loader from '@/components/common/ui/loader/Loader';
-import { PollAPI } from '@/lib/api/poll/PollAPI';
+import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import { Category } from '../../PollPage';

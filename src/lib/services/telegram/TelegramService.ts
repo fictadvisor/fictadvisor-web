@@ -1,6 +1,6 @@
 import * as process from 'process';
 
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { AuthTelegramBody } from '@/lib/api/auth/dto/AuthTelegramBody';
 import StorageUtil from '@/lib/utils/StorageUtil';
 

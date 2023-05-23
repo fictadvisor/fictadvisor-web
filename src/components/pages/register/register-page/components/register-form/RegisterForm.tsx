@@ -17,7 +17,7 @@ import {
   transformData,
   transformGroups,
 } from '@/components/pages/register/register-page/components/register-form/utils';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';
 import { showAlert } from '@/redux/reducers/alert.reducer';

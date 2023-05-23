@@ -13,7 +13,7 @@ import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import PollTeacherSearchList from '@/components/pages/search-pages/poll-teachers-page/PollTeacherSearchList';
 import useAuthentication from '@/hooks/use-authentication';
 import { PollTeachersDTO } from '@/lib/api/poll/dto/PollTeachersDTO';
-import { PollAPI } from '@/lib/api/poll/PollAPI';
+import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';

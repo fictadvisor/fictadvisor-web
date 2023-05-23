@@ -13,7 +13,7 @@ import Button, {
 import Loader from '@/components/common/ui/loader';
 import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import useAuthentication from '@/hooks/use-authentication';
-import { StudentResourcesAPI } from '@/lib/api/student-resources/StudentResourcesAPI';
+import StudentResourcesAPI from '@/lib/api/student-resources/StudentResourcesAPI';
 
 import ResourceCard from './components/resource-card/ResourceCard';
 

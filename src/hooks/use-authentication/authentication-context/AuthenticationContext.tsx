@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useState } from 'react';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 export const AuthenticationContext = React.createContext(null);

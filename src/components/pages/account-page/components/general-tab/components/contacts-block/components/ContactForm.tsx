@@ -10,7 +10,7 @@ import { Dropdown, Input, InputSize } from '@/components/common/ui/form';
 import { ContactType } from '@/components/pages/account-page/components/general-tab/components/contacts-block/types';
 import styles from '@/components/pages/account-page/components/general-tab/GeneralTab.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
-import { UserAPI } from '@/lib/api/user/UserAPI';
+import UserAPI from '@/lib/api/user/UserAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 interface ContactFormProps {

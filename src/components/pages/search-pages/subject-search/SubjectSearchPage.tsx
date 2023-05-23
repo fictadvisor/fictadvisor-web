@@ -8,7 +8,7 @@ import Button, {
 } from '@/components/common/ui/button/Button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import { GetListOfSubjectsDTO } from '@/lib/api/subject/dto/GetListOfSubjectsDTO';
-import { SubjectsAPI } from '@/lib/api/subject/SubjectAPI';
+import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { SubjectInitialValues } from '../search-form/constants';

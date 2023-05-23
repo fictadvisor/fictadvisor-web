@@ -9,7 +9,7 @@ import Loader from '@/components/common/ui/loader';
 import PersonalTeacherSubjectCard from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card';
 import PersonalTeacherSubjectTabs from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-tabs';
 import styles from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage.module.scss';
-import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
+import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 const PersonalTeacherSubjectPage = () => {

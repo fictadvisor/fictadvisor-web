@@ -9,7 +9,7 @@ import AlertButton, {
 } from '@/components/common/ui/alert-button';
 import CustomDivider from '@/components/pages/account-page/components/divider';
 import useAuthentication from '@/hooks/use-authentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './RequestTable.module.scss';
