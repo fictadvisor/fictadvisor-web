@@ -22,9 +22,7 @@ const ForgotPasswordForm: FC = () => {
     try {
       const email = data.emailAddress.toLowerCase();
       await AuthAPI.forgotPassword({ email });
-      await router.push(
-        `/password-recovery/email-verification?email=${email}`,
-      );
+      await router.push(`/password-recovery/email-verification?email=${email}`);
     } catch (e) {
       const errorName = e.response.data.error;
       if (errorName == 'InvalidBodyException') {
