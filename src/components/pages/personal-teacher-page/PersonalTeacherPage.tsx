@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -12,9 +13,43 @@ import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
+export enum TeachersPageTabs {
+  GENERAL = 'general',
+  SUBJECTS = 'subjects',
+  REVIEWS = 'reviews',
+  SEMESTERS = 'semesters',
+}
+
 const PersonalTeacherPage = () => {
-  const router = useRouter();
-  const teacherId = router.query.teacherId as string;
+  const { push, query, isReady } = useRouter();
+
+  const { tab } = query;
+  const [index, setIndex] = useState<TeachersPageTabs>(
+    TeachersPageTabs.GENERAL,
+  );
+
+  useEffect(() => {
+    if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
+      setIndex(tab as TeachersPageTabs);
+    } else {
+      void push(
+        { query: { ...query, tab: TeachersPageTabs.GENERAL } },
+        undefined,
+        {
+          shallow: true,
+        },
+      );
+    }
+  }, [tab, isReady, push, query]);
+
+  const handleChange = async value => {
+    await push({ query: { ...query, tab: value } }, undefined, {
+      shallow: true,
+    });
+    setIndex(value as TeachersPageTabs);
+  };
+
+  const teacherId = query.teacherId as string;
   const { isLoading, isError, data } = useQuery(
     ['teacher', teacherId],
     () => TeacherAPI.get(teacherId),
@@ -23,7 +58,7 @@ const PersonalTeacherPage = () => {
       retry: false,
     },
   );
-  const { data: subjecktsData } = useQuery(
+  const { data: subjectsData } = useQuery(
     ['teacherSubjects', teacherId],
     () => TeacherAPI.getTeacherSubjects(teacherId),
     {
@@ -40,7 +75,7 @@ const PersonalTeacherPage = () => {
       }),
     );
     setTimeout(() => {
-      void router.push('/teachers');
+      void push('/teachers');
     }, 3000);
   }
   return (
@@ -79,7 +114,12 @@ const PersonalTeacherPage = () => {
                 <PersonalTeacherCard {...data} />
               </div>
               <div className={styles['tabs']}>
-                <PersonalTeacherTabs id={data.id} {...subjecktsData} />
+                <PersonalTeacherTabs
+                  id={data.id}
+                  tabIndex={index}
+                  handleChange={handleChange}
+                  {...subjectsData}
+                />
               </div>
             </div>
           )
