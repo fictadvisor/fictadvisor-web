@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -12,8 +13,41 @@ import styles from '@/components/pages/personal-teacher-subject-page/PersonalTea
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
+export enum TeachersPageTabs {
+  GENERAL = 'general',
+  REVIEWS = 'reviews',
+  SEMESTERS = 'semesters',
+}
+
 const PersonalTeacherSubjectPage = () => {
   const router = useRouter();
+  const { push, query, isReady } = router;
+
+  const { tab } = query;
+  const [index, setIndex] = useState<TeachersPageTabs>(
+    TeachersPageTabs.GENERAL,
+  );
+
+  useEffect(() => {
+    if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
+      setIndex(tab as TeachersPageTabs);
+    } else {
+      void push(
+        { query: { ...query, tab: TeachersPageTabs.GENERAL } },
+        undefined,
+        {
+          shallow: true,
+        },
+      );
+    }
+  }, [tab, isReady, push, query]);
+
+  const handleChange = async value => {
+    await push({ query: { ...query, tab: value } }, undefined, {
+      shallow: true,
+    });
+    setIndex(value as TeachersPageTabs);
+  };
 
   const teacherId = router.query.teacherId as string;
   const subjectId = router.query.subjectId as string;
@@ -77,7 +111,10 @@ const PersonalTeacherSubjectPage = () => {
                 <PersonalTeacherSubjectCard {...data} />
               </div>
               <div className={styles['tabs']}>
-                <PersonalTeacherSubjectTabs />
+                <PersonalTeacherSubjectTabs
+                  tabIndex={index}
+                  handleChange={handleChange}
+                />
               </div>
             </div>
           )

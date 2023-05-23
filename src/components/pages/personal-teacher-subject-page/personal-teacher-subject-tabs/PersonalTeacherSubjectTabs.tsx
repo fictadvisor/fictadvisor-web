@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Button, {
@@ -14,28 +14,33 @@ import {
 import { TabList } from '@/components/common/ui/tab/tab-list/TabList';
 import { TabPanel } from '@/components/common/ui/tab/tab-panel/TabPanel';
 import { TabPanelsList } from '@/components/common/ui/tab/tab-panels-list/TabPanelsList';
+import { TeachersPageTabs } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
 import { GetTeacherSubjectsDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectsDTO';
 
 import styles from './PersonalTeacherSubjectTabs.module.scss';
 export type PersonalTeacherTabsProps = GetTeacherSubjectsDTO;
 
-const TabsPage = () => {
-  const [index, setIndex] = useState<string>('1');
+export type TabsPageProps = {
+  tabIndex: string;
+  handleChange: (value) => void;
+};
+
+const TabsPage: FC<TabsPageProps> = props => {
   const router = useRouter();
   return (
     <div className={styles['tabs']}>
       <div className={styles['karusel']}>
         <TabList
           className={styles['tab-list-desktop']}
-          onChange={setIndex}
-          currentValue={index}
+          onChange={props.handleChange}
+          currentValue={props.tabIndex}
         >
           <TabItem
             size={TabItemContentSize.NORMAL}
             className="tab-item"
             text="Загальне"
             position={TabItemContentPosition.LEFT}
-            value={'1'}
+            value={TeachersPageTabs.GENERAL}
           ></TabItem>
           <TabItem
             size={TabItemContentSize.NORMAL}
@@ -43,27 +48,27 @@ const TabsPage = () => {
             text="Відгуки"
             position={TabItemContentPosition.LEFT}
             count={'0'}
-            value={'2'}
+            value={TeachersPageTabs.REVIEWS}
           ></TabItem>
           <TabItem
             size={TabItemContentSize.NORMAL}
             className="tab-item"
             text="Семестри"
             position={TabItemContentPosition.LEFT}
-            value={'3'}
+            value={TeachersPageTabs.SEMESTERS}
           ></TabItem>
         </TabList>
         <TabList
           className={styles['tab-list-mobile']}
-          onChange={setIndex}
-          currentValue={index}
+          onChange={props.handleChange}
+          currentValue={props.tabIndex}
         >
           <TabItem
             size={TabItemContentSize.SMAll}
             className="tab-item"
             text="Загальне"
             position={TabItemContentPosition.LEFT}
-            value={'1'}
+            value={TeachersPageTabs.GENERAL}
           ></TabItem>
           <TabItem
             size={TabItemContentSize.SMAll}
@@ -71,20 +76,23 @@ const TabsPage = () => {
             text="Відгуки"
             position={TabItemContentPosition.LEFT}
             count={'0'}
-            value={'2'}
+            value={TeachersPageTabs.REVIEWS}
           ></TabItem>
           <TabItem
             size={TabItemContentSize.SMAll}
             className="tab-item"
             text="Семестри"
             position={TabItemContentPosition.LEFT}
-            value={'3'}
+            value={TeachersPageTabs.SEMESTERS}
           ></TabItem>
         </TabList>
       </div>
 
-      <TabPanelsList className={styles['tab-panels-list']} currentValue={index}>
-        <TabPanel className="tab-panel" value={'1'}>
+      <TabPanelsList
+        className={styles['tab-panels-list']}
+        currentValue={props.tabIndex}
+      >
+        <TabPanel className="tab-panel" value={TeachersPageTabs.GENERAL}>
           <div className={styles['my-tab-panel']}>
             <div className={styles['text']}>
               <p>
@@ -113,7 +121,7 @@ const TabsPage = () => {
             </div>
           </div>
         </TabPanel>
-        <TabPanel className="tab-panel" value={'2'}>
+        <TabPanel className="tab-panel" value={TeachersPageTabs.REVIEWS}>
           <div className={styles['my-tab-panel']}>
             <div className={styles['text']}>
               <p>
@@ -142,7 +150,7 @@ const TabsPage = () => {
             </div>
           </div>
         </TabPanel>
-        <TabPanel className="tab-panel" value={'3'}>
+        <TabPanel className="tab-panel" value={TeachersPageTabs.SEMESTERS}>
           <div className={styles['my-tab-panel']}>
             <div className={styles['text']}>
               <p>
