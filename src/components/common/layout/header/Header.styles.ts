@@ -1,14 +1,18 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/system';
 
-import theme from '@/styles/theme';
 import palette from '@/styles/theme/constants/pallete';
 
 export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
   overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
+  width: '100%',
   height: '64px',
+  justifyContent: {
+    desktopSemiMedium: 'space-between',
+    mobile: 'center',
+  },
   paddingLeft: {
     desktopSemiMedium: '80px',
     mobile: '0',
@@ -29,8 +33,9 @@ export const menu: SxProps<Theme> = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '100%',
-  gap: '10px',
+  textAlign: 'center',
+  width: 'fit-content',
+  gap: '28px',
 };
 
 export const loginButtons: SxProps<Theme> = {
@@ -42,28 +47,15 @@ export const loginButtons: SxProps<Theme> = {
 
 export const headerDesktopCard: SxProps<Theme> = {
   width: 'fit-content',
-  justifyContent: 'center',
-  maxWidth: '280px',
 };
 
 export const headerLogo: SxProps<Theme> = {
   display: 'flex',
-  justifyContent: {
-    desktopSemiMedium: 'flex-start',
-    mobile: 'center',
-  },
+  justifyContent: 'flex-start',
   alignItems: 'center',
-  width: {
-    desktopSemiMedium: '280px',
-    mobile: 'fit-content',
-  },
+  width: '197px',
   '& img': {
-    width: '197px',
     height: '20px',
-    marginRight: {
-      desktopSemiMedium: '16px',
-      mobile: '0',
-    },
   },
 };
 
@@ -71,7 +63,7 @@ export const mobileMenu: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '16px',
-  marginTight: '16px',
+  marginRight: '16px',
   gap: '8px',
 };
 
@@ -84,6 +76,10 @@ export const shadow: SxProps<Theme> = {
 };
 
 export const mobileButton: SxProps<Theme> = {
+  position: {
+    desktopSemiMedium: 'unset',
+    mobile: 'absolute',
+  },
   right: {
     desktopSemiMedium: 'unset',
     mobile: '10px',

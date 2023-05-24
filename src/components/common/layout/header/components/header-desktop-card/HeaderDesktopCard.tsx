@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Avatar, Box, Typography } from '@mui/material';
 
 import * as styles from './HeaderDesktopCard.styles';
 
@@ -23,20 +23,17 @@ const HeaderDesktopCard: FC<HeaderCardProps> = ({
           {name}
         </Typography>
         <Box>
-          <Typography variant="overline">{position}</Typography>
+          <Typography variant="overline" sx={styles.position}>
+            {position}
+          </Typography>
           {groupName && (
-            <Box component="span" sx={styles.groupName}>
+            <Typography variant="overline" sx={styles.groupName}>
               {groupName}
-            </Box>
+            </Typography>
           )}
         </Box>
       </Box>
-      <Box
-        component="img"
-        src={url}
-        alt="Картинка профілю"
-        style={{ borderRadius: '100%' }}
-      />
+      <Avatar src={url} alt="Картинка профілю" sx={styles.avatar} />
     </Box>
   );
 };
