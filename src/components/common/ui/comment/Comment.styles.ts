@@ -1,7 +1,5 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import typography from '@/styles/theme/constants/typography';
-
 const wrapper: SxProps<Theme> = {
   maxWidth: '740px',
   height: '100%',
@@ -13,19 +11,13 @@ const wrapper: SxProps<Theme> = {
 const text: SxProps<Theme> = {
   marginBottom: '2px',
   textAlign: 'justify',
-  typography: {
-    mobile: typography.body1,
-    desktopSemiMedium: typography.body1Medium,
-  },
+  fontWeight: 'body1',
 };
 
 const date: SxProps<Theme> = {
   height: '17px',
   width: '100%',
-  typography: {
-    mobile: typography.body1,
-    desktopSemiMedium: typography.body1Medium,
-  },
+  fontWeight: 'body1',
   textAlign: 'right',
   color: 'grey.400',
 };
