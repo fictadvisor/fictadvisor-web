@@ -2,17 +2,13 @@ import { SxProps, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/system';
 
 import theme from '@/styles/theme';
+import palette from '@/styles/theme/constants/pallete';
 
 export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
   overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
-  width: '100%',
   height: '64px',
-  justifyContent: {
-    desktopSemiMedium: 'space-around',
-    mobile: 'center',
-  },
   paddingLeft: {
     desktopSemiMedium: '80px',
     mobile: '0',
@@ -21,13 +17,10 @@ export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
     desktopSemiMedium: '80px',
     mobile: '0',
   },
-  position: {
-    desktopSemiMedium: 'unset',
-    mobile: 'relative',
-  },
-  background: isOpened
-    ? theme.palette.backgroundDark[0]
-    : alpha(theme.palette.gray[10], 0.62),
+
+  backgroundColor: isOpened
+    ? palette.backgroundDark[100]
+    : alpha(palette.grey[50], 0.62),
   backdropFilter: 'blur(8px)',
 });
 
@@ -55,7 +48,10 @@ export const headerDesktopCard: SxProps<Theme> = {
 
 export const headerLogo: SxProps<Theme> = {
   display: 'flex',
-  justifyContent: 'flex-start',
+  justifyContent: {
+    desktopSemiMedium: 'flex-start',
+    mobile: 'center',
+  },
   alignItems: 'center',
   width: {
     desktopSemiMedium: '280px',
@@ -83,15 +79,11 @@ export const shadow: SxProps<Theme> = {
   width: '100%',
   height: '100%',
   position: 'fixed',
-  background: theme.palette.gray[10],
+  backgroundColor: 'backgroundDark.100',
   opacity: 0.6,
 };
 
 export const mobileButton: SxProps<Theme> = {
-  position: {
-    desktopSemiMedium: 'unset',
-    mobile: 'absolute',
-  },
   right: {
     desktopSemiMedium: 'unset',
     mobile: '10px',
@@ -105,7 +97,7 @@ export const drop: SxProps<Theme> = {
   position: 'absolute',
   paddingTop: '8px',
   paddingBottom: '16px',
-  backgroundColor: theme.palette.backgroundDark[0],
+  backgroundColor: 'backgroundDark.100',
   gap: '16px',
   flexDirection: 'column',
   animationDuration: '0.4s',
@@ -123,6 +115,10 @@ export const loginButton: SxProps<Theme> = {
     desktopSemiMedium: 'unset',
     mobile: '120px',
   },
+};
+
+export const button: SxProps<Theme> = {
+  typography: 'body1Medium',
 };
 
 export const accountButtons = mobileMenu;

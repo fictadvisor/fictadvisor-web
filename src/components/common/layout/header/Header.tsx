@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { Box, Link, useMediaQuery } from '@mui/material';
 
 import useAuthentication from '@/hooks/use-authentication';
 
 import { BurgerMenu } from '../../custom-svg/BurgerMenu';
-import Button, { ButtonSize, ButtonVariant } from '../../ui/button';
-import {
-  IconButton,
-  IconButtonColor,
-  IconButtonSize,
-} from '../../ui/icon-button';
-import { CloseButton } from '../../ui/icon-button/variants';
-import { TabItem, TabItemContentPosition } from '../../ui/tab';
-import { TabItemContentSize } from '../../ui/tab/tab-item/TabItem';
+import Button from '../../ui/button-mui';
+import Divider from '../../ui/divider/Divider';
+import IconButton from '../../ui/icon-button-mui';
+import { CloseButton } from '../../ui/icon-button-mui/variants';
+import Tab from '../../ui/tab-mui/tab';
 
-import { HeaderDesktopCard } from './components/header-desktop-card/HeaderDesktopCard';
-import HeaderDivider from './components/header-divider';
-import { HeaderMobileCard } from './components/header-mobile-card';
-import accountButtons from './constants/accountButtons';
-import mainLinks from './constants/mainLinks';
+import HeaderDesktopCard from './components/header-desktop-card';
+import HeaderMobileCard from './components/header-mobile-card';
 import transformData from './utils/transformData';
+import { accountButtons, mainLinks } from './constants';
 import * as styles from './Header.styles';
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   const { isLoggedIn, user } = useAuthentication();
   const User = transformData(user);
   const isMobile = useMediaQuery('(max-width:1200px)');
@@ -42,8 +36,8 @@ const Header: React.FC = () => {
           <Box sx={styles.mobileButton}>
             <CloseButton
               onClick={handleClick}
-              size={IconButtonSize.MEDIUM}
-              color={IconButtonColor.TRANSPARENT}
+              size="normal"
+              color="transparent"
             />
           </Box>
         </Box>
@@ -72,11 +66,10 @@ const Header: React.FC = () => {
                     underline="none"
                     color="inherit"
                   >
-                    <TabItem
-                      text={button.text}
-                      position={TabItemContentPosition.LEFT}
+                    <Tab
+                      label={button.text}
+                      textPosition="left"
                       icon={button.icon}
-                      size={TabItemContentSize.SMAll}
                     />
                   </Link>
                 ))}
@@ -90,11 +83,7 @@ const Header: React.FC = () => {
                 underline="none"
                 color="inherit"
               >
-                <Button
-                  text="Зареєструватись"
-                  size={ButtonSize.SMALL}
-                  variant={ButtonVariant.OUTLINE}
-                />
+                <Button text="Зареєструватись" size="small" variant="outline" />
               </Link>
               <Link
                 href="/login"
@@ -102,15 +91,11 @@ const Header: React.FC = () => {
                 underline="none"
                 color="inherit"
               >
-                <Button
-                  text="Увійти"
-                  size={ButtonSize.SMALL}
-                  variant={ButtonVariant.FILLED}
-                />
+                <Button text="Увійти" size="small" variant="filled" />
               </Link>
             </Box>
           )}
-          <HeaderDivider />
+          <Divider />
           <Box sx={styles.mobileMenu}>
             {mainLinks.map((data, index) => (
               <Link
@@ -120,12 +105,7 @@ const Header: React.FC = () => {
                 underline="none"
                 color="inherit"
               >
-                <TabItem
-                  text={data.text}
-                  position={TabItemContentPosition.LEFT}
-                  icon={data.icon}
-                  size={TabItemContentSize.SMAll}
-                />
+                <Tab label={data.text} textPosition="left" icon={data.icon} />
               </Link>
             ))}
           </Box>
@@ -136,14 +116,13 @@ const Header: React.FC = () => {
         <Link href="/" sx={styles.headerLogo}>
           <Box component="img" src="/assets/logo.png" alt="logo" />
         </Link>
-        <Box sx={styles.mobileButton}>
-          <IconButton
-            onClick={handleClick}
-            size={IconButtonSize.MEDIUM}
-            color={IconButtonColor.TRANSPARENT}
-            icon={<BurgerMenu />}
-          />
-        </Box>
+        <IconButton
+          sx={styles.mobileButton}
+          onClick={handleClick}
+          size="normal"
+          color="transparent"
+          icon={<BurgerMenu />}
+        />
       </Box>
     )
   ) : (
@@ -155,24 +134,23 @@ const Header: React.FC = () => {
         {mainLinks.map((record, index) => (
           <Link key={index} href={record.link} underline="none">
             <Button
+              sx={styles.button}
               text={record.text}
-              size={ButtonSize.MEDIUM}
-              variant={ButtonVariant.TEXT}
+              size="medium"
+              variant="text"
             />
           </Link>
         ))}
       </Box>
       {isLoggedIn ? (
-        <div className={styles['header-desktop-card']}>
-          <Link href="/account" underline="none">
-            <HeaderDesktopCard
-              name={User.name}
-              groupName={User.groupName}
-              position={User.position}
-              url={User.avatar}
-            />
-          </Link>
-        </div>
+        <Link sx={styles.headerDesktopCard} href="/account" underline="none">
+          <HeaderDesktopCard
+            name={User.name}
+            groupName={User.groupName}
+            position={User.position}
+            url={User.avatar}
+          />
+        </Link>
       ) : (
         <Box sx={styles.loginButtons}>
           <Link
@@ -181,11 +159,7 @@ const Header: React.FC = () => {
             underline="none"
             color="inherit"
           >
-            <Button
-              text="Зареєструватись"
-              size={ButtonSize.SMALL}
-              variant={ButtonVariant.OUTLINE}
-            />
+            <Button text="Зареєструватись" size="small" variant="outline" />
           </Link>
           <Link
             href="/login"
@@ -193,11 +167,7 @@ const Header: React.FC = () => {
             underline="none"
             color="inherit"
           >
-            <Button
-              text="Увійти"
-              size={ButtonSize.SMALL}
-              variant={ButtonVariant.FILLED}
-            />
+            <Button text="Увійти" size="small" variant="filled" />
           </Link>
         </Box>
       )}

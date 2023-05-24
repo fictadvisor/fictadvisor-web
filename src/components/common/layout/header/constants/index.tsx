@@ -3,9 +3,29 @@ import {
   BriefcaseIcon,
   ClipboardIcon,
   HomeIcon,
+  LockClosedIcon,
+  UsersIcon,
 } from '@heroicons/react/24/solid';
 
-const mainLinks = [
+export const accountButtons = [
+  {
+    link: '/account?tab=general',
+    text: 'Загальне',
+    icon: <AcademicCapIcon />,
+  },
+  {
+    link: '/account?tab=security',
+    text: 'Безпека',
+    icon: <LockClosedIcon />,
+  },
+  {
+    link: '/account?tab=group',
+    text: 'Група',
+    icon: <UsersIcon />,
+  },
+];
+
+export const mainLinks = [
   {
     link: '/',
     text: 'Головна',
@@ -27,5 +47,3 @@ const mainLinks = [
     icon: <AcademicCapIcon />,
   },
 ];
-
-export default mainLinks;
