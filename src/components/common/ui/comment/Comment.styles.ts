@@ -11,13 +11,13 @@ export const wrapper: SxProps<Theme> = {
 export const text: SxProps<Theme> = {
   marginBottom: '2px',
   textAlign: 'justify',
-  fontWeight: 'body1',
+  typography: 'body1',
 };
 
 export const date: SxProps<Theme> = {
   height: '17px',
   width: '100%',
-  fontWeight: 'body1',
+  typography: 'body1',
   textAlign: 'right',
   color: 'grey.400',
 };
