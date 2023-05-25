@@ -1,30 +1,28 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useMediaQuery } from '@mui/material';
+import dynamic from 'next/dynamic';
 
 import useAuthentication from '@/hooks/use-authentication';
+import theme from '@/styles/theme';
 
-import DesktopHeader from './components/DesktopHeader';
-import MobileHeader from './components/MobileHeader/MobileHeader';
 import transformData from './utils/transformData';
+
+const DesktopHeader = dynamic(() => import('./components/desktop-header'));
+const MobileHeader = dynamic(() => import('./components/mobile-header'));
 
 const Header: FC = () => {
   const { isLoggedIn, user } = useAuthentication();
-  const User = transformData(user);
-  const isMobile = useMediaQuery('(max-width:1200px)');
-  const [isOpened, setIsOpened] = useState(false);
-  const handleClick = () => {
-    setIsOpened(isOpened => !isOpened);
-  };
+  const transformedUser = transformData(user);
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
 
-  return isMobile ? (
-    <MobileHeader
-      isLoggedIn={isLoggedIn}
-      isOpened={false}
-      User={User}
-      onClick={handleClick}
-    />
-  ) : (
-    <DesktopHeader isLoggedIn={isLoggedIn} isOpened={false} User={User} />
+  return (
+    <>
+      {isMobile ? (
+        <MobileHeader isLoggedIn={isLoggedIn} user={transformedUser} />
+      ) : (
+        <DesktopHeader isLoggedIn={isLoggedIn} user={transformedUser} />
+      )}
+    </>
   );
 };
 

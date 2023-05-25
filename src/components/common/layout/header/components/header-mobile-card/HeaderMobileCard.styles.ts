@@ -17,10 +17,12 @@ export const headerCardInfo: SxProps<Theme> = {
   flexDirection: 'row',
   justifyContent: 'center',
   gap: '4px',
-};
-
-export const name: SxProps<Theme> = {
-  color: 'grey.600',
+  '&:hover': {
+    '& *': {
+      color: 'grey.700',
+      borderColor: 'grey.700',
+    },
+  },
 };
 
 export const headerCardGroupName: SxProps<Theme> = {

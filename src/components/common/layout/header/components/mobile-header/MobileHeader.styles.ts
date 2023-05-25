@@ -9,44 +9,18 @@ export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
   alignItems: 'center',
   width: '100%',
   height: '64px',
-  justifyContent: {
-    desktopSemiMedium: 'space-between',
-    mobile: 'center',
-  },
-  paddingLeft: {
-    desktopSemiMedium: '80px',
-    mobile: '0',
-  },
-  paddingRight: {
-    desktopSemiMedium: '80px',
-    mobile: '0',
-  },
-
+  justifyContent: 'center',
   backgroundColor: isOpened
     ? palette.backgroundDark[100]
     : alpha(palette.grey[50], 0.62),
   backdropFilter: 'blur(8px)',
 });
 
-export const menu: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  width: 'fit-content',
-  gap: '28px',
-};
-
 export const loginButtons: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   gap: '8px',
-};
-
-export const headerDesktopCard: SxProps<Theme> = {
-  width: 'fit-content',
 };
 
 export const headerLogo: SxProps<Theme> = {
@@ -76,14 +50,8 @@ export const shadow: SxProps<Theme> = {
 };
 
 export const mobileButton: SxProps<Theme> = {
-  position: {
-    desktopSemiMedium: 'unset',
-    mobile: 'absolute',
-  },
-  right: {
-    desktopSemiMedium: 'unset',
-    mobile: '10px',
-  },
+  position: 'absolute',
+  right: '10px',
 };
 
 export const drop: SxProps<Theme> = {
@@ -100,21 +68,9 @@ export const drop: SxProps<Theme> = {
 };
 
 export const registerButton: SxProps<Theme> = {
-  width: {
-    desktopSemiMedium: 'unset',
-    mobile: '192px',
-  },
+  width: '192px',
 };
 
 export const loginButton: SxProps<Theme> = {
-  width: {
-    desktopSemiMedium: 'unset',
-    mobile: '120px',
-  },
+  width: '120px',
 };
-
-export const button: SxProps<Theme> = {
-  typography: 'body1Medium',
-};
-
-export const accountButtons = mobileMenu;

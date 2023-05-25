@@ -6,6 +6,12 @@ export const container: SxProps<Theme> = {
   transition: 'all linear 0.1s',
   flexWrap: 'nowrap',
   gap: '8px',
+  '&:hover': {
+    '& *': {
+      color: 'grey.700',
+      borderColor: 'grey.700',
+    },
+  },
 };
 
 export const name: SxProps<Theme> = {
