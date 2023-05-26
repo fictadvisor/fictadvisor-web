@@ -1,12 +1,8 @@
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
-import { Box, Typography } from '@mui/material';
 
 import Button from '@/components/common/ui/button-mui';
 import Popup from '@/components/common/ui/pop-ups-mui/Popup';
-import PopupsActions from '@/components/common/ui/pop-ups-mui/PopupActions';
-import PopupsContent from '@/components/common/ui/pop-ups-mui/PopupContent';
-import PopupsTitle from '@/components/common/ui/pop-ups-mui/PopupTitle';
 
 import * as styles from './MUIPopUpsPage.styles';
 const PopUpsPage = () => {
@@ -55,59 +51,47 @@ const PopUpsPage = () => {
           size="large"
           onClick={handleClickOpen1}
         />
-        <Popup open={open1} onClose={handleClose1}>
-          <PopupsTitle sx={styles.popupsTitle}>
-            <Box sx={styles.checkCircleIcon}>
-              <CheckCircleIcon />
-            </Box>
-            <Typography sx={styles.popupsTitleText}>
-              Application Received
-            </Typography>
-          </PopupsTitle>
-          <PopupsContent sx={styles.popupsContent}>
-            This will remove all data relating to Alex. This action cannot be
-            reversed. Deleted data can not be recovered.
-          </PopupsContent>
-          <PopupsActions>
+        <Popup
+          icon={<CheckCircleIcon />}
+          open={open1}
+          onClose={handleClose1}
+          firstButton={
             <Button
               text="Post"
               size="small"
               variant={'outline'}
               onClick={handleClose1}
             />
+          }
+          secondButton={
             <Button
               text="Post"
               size="small"
               onClick={handleClose1}
               sx={styles.leftButton}
             />
-          </PopupsActions>
-        </Popup>
+          }
+          text="This will remove all data relating to Alex. This action cannot be reversed. Deleted data can not be recovered."
+          title="Application Received"
+        />
       </div>
 
       <div>
         <Button
-          text="Open form dialog 2"
+          text="Open form dialog2"
           size="large"
           onClick={handleClickOpen2}
         />
-        <Popup open={open2} onClose={handleClose2}>
-          <PopupsTitle sx={styles.popupsTitle}>
-            <Box sx={styles.checkCircleIcon}>
-              <CheckCircleIcon />
-            </Box>
-            <Typography sx={styles.popupsTitleText}>
-              Application Received
-            </Typography>
-          </PopupsTitle>
-          <PopupsContent sx={styles.popupsContent}>
-            This will remove all data relating to Alex. This action cannot be
-            reversed. Deleted data can not be recovered.
-          </PopupsContent>
-          <PopupsActions>
+        <Popup
+          icon={<CheckCircleIcon />}
+          open={open2}
+          onClose={handleClose2}
+          firstButton={
             <Button text="Post" size="small" onClick={handleClose2} />
-          </PopupsActions>
-        </Popup>
+          }
+          text="This will remove all data relating to Alex. This action cannot be reversed. Deleted data can not be recovered."
+          title="Application Received"
+        />
       </div>
 
       <div>
@@ -116,38 +100,30 @@ const PopUpsPage = () => {
           size="large"
           onClick={handleClickOpen3}
         />
-        <Popup open={open3} onClose={handleClose3}>
-          <PopupsTitle
-            withCross={true}
-            onClose={handleClose3}
-            sx={styles.popupsTitle}
-          >
-            <Box sx={styles.checkCircleIcon}>
-              <CheckCircleIcon />
-            </Box>
-            <Typography sx={styles.popupsTitleText}>
-              Application Received
-            </Typography>
-          </PopupsTitle>
-          <PopupsContent sx={styles.popupsContent}>
-            This will remove all data relating to Alex. This action cannot be
-            reversed. Deleted data can not be recovered.
-          </PopupsContent>
-          <PopupsActions>
+        <Popup
+          icon={<CheckCircleIcon />}
+          hasCross={true}
+          open={open3}
+          onClose={handleClose3}
+          firstButton={
             <Button
               text="Post"
               size="small"
               variant={'outline'}
               onClick={handleClose3}
             />
+          }
+          secondButton={
             <Button
               text="Post"
               size="small"
-              onClick={handleClose3}
+              onClick={handleClose1}
               sx={styles.leftButton}
             />
-          </PopupsActions>
-        </Popup>
+          }
+          text="This will remove all data relating to Alex. This action cannot be reversed. Deleted data can not be recovered."
+          title="Application Received"
+        />
       </div>
 
       <div>
@@ -156,32 +132,31 @@ const PopUpsPage = () => {
           size="large"
           onClick={handleClickOpen4}
         />
-        <Popup open={open4} onClose={handleClose4} sx={styles.popup}>
-          <PopupsTitle withCross={true} onClose={handleClose4}>
-            <Typography sx={styles.popupsTitleTextLeft}>
-              Application Received
-            </Typography>
-          </PopupsTitle>
-          <PopupsContent sx={styles.popupsContentLeft}>
-            This will remove all data relating to Alex. This action cannot be
-            reversed. Deleted data can not be recovered.
-          </PopupsContent>
-          <PopupsActions>
+        <Popup
+          hasCross={true}
+          contentLeft={true}
+          open={open4}
+          onClose={handleClose4}
+          firstButton={
             <Button
-              text="Post"
+              text="Cancel"
               size="small"
               variant={'outline'}
               onClick={handleClose4}
               sx={styles.maxButton}
             />
+          }
+          secondButton={
             <Button
-              text="Post"
+              text="Delete"
               size="small"
               onClick={handleClose4}
               sx={styles.maxLeftButton}
             />
-          </PopupsActions>
-        </Popup>
+          }
+          text="This will remove all data relating to Alex. This action cannot be reversed. Deleted data can not be recovered."
+          title="Application Received"
+        />
       </div>
     </>
   );
