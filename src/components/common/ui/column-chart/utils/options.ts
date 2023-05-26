@@ -28,11 +28,7 @@ export const getOptions = (): ChartOptions<'bar'> => {
         },
         title: {
           display: true,
-          text: 'Кількість голосів',
-          font: {
-            size: 16,
-            weight: '500',
-          },
+          text: '',
         },
         type: 'linear',
         beginAtZero: true,
