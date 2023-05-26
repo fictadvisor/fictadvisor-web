@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Radar } from 'react-chartjs-2';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import {
   Chart as ChartJS,
   Filler,
@@ -29,25 +29,26 @@ interface RadarProps {
     mark: number;
   }[];
 }
-import getAngelLines from '@/components/common/ui/radar/utils/drawAngelLines';
 import getData from '@/components/common/ui/radar/utils/drawData';
-import getChartBackground from '@/components/common/ui/radar/utils/fillBackground';
+import getBackgroundImage from '@/components/common/ui/radar/utils/findImage';
 import getOptions from '@/components/common/ui/radar/utils/getOptions';
+import theme from '@/styles/theme';
 
 import * as styles from './Radar.styles';
 
 const RadarChart: FC<RadarProps> = ({ info }) => {
-  const values = info.map(a => a.mark / 10);
-  const lables = info.map(a => a.name);
-  const data = getData(values);
-  getAngelLines(values, data.datasets);
-  getChartBackground(values, data.datasets);
+  const labels = info.map(a => a.name);
+  const data = getData(info.map(({ mark }) => mark));
   const options = getOptions();
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
   return (
-    <Box sx={styles.background(lables)}>
-      <Box sx={styles.wrapper}>
-        <Radar options={options} data={data} />
-      </Box>
+    <Box sx={styles.background(isMobile)}>
+      <Radar options={options} data={data} />
+      {getBackgroundImage(labels, isMobile, [
+        'Lecturer',
+        'Practician',
+        'Laborant',
+      ])}
     </Box>
   );
 };

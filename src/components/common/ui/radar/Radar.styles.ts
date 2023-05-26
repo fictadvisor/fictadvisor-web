@@ -1,32 +1,26 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import findImage from '@/components/common/ui/radar/utils/findImage';
+export const background = (isMobile): SxProps<Theme> => ({
+  width: isMobile ? '600px' : '1200px',
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 
-export const background = (lables): SxProps<Theme> => ({
-  width: '100%',
-  aspectRatio: {
-    mobile: '1/1',
-    desktopSemiMedium: '1200/742',
+  canvas: {
+    marginLeft: '3px',
+    marginBottom: '3px',
+    position: 'relative',
+    zIndex: '5',
+    width: isMobile ? '440px !important' : '570px !important',
+
+    height: isMobile ? '440px !important' : '570px !important',
   },
-  backgroundImage: {
-    mobile: findImage(lables, 'mobile'),
-    desktopSemiMedium: findImage(lables),
+
+  svg: {
+    zIndex: '1',
+    position: 'absolute',
+    right: 0,
+    width: '100%',
   },
-  backgroundSize: '100% 100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
 });
-export const wrapper: SxProps<Theme> = {
-  width: {
-    mobile: '80%',
-    desktopSemiMedium: '50%',
-  },
-  height: {
-    mobile: '80%',
-    desktopSemiMedium: '100%',
-  },
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};

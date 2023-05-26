@@ -1,5 +1,6 @@
 const getOptions = () => {
   return {
+    events: [],
     scales: {
       r: {
         angleLines: {
@@ -7,6 +8,7 @@ const getOptions = () => {
         },
         grid: {
           circular: true,
+          color: 'transparent',
         },
         beginAtZero: true,
         display: true,
