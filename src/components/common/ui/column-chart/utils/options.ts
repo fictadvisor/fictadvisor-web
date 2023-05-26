@@ -9,26 +9,13 @@ export const getOptions = (): ChartOptions<'bar'> => {
         enabled: false,
       },
       legend: {
-        onClick: () => {},
-        labels: {
-          boxWidth: 0,
-          font: {
-            size: 16,
-            family: 'Manrope',
-            weight: '700',
-          },
-          color: '#fff',
-        },
+        display: false,
       },
     },
     scales: {
       y: {
         border: {
           display: false,
-        },
-        title: {
-          display: true,
-          text: '',
         },
         type: 'linear',
         beginAtZero: true,

@@ -18,8 +18,11 @@ interface ColumnChartProps {
 const ColumnChart: FC<ColumnChartProps> = ({ data }) => {
   return (
     <Box sx={styles.chartContainer}>
+      <Typography sx={styles.legend}>{data.name}</Typography>
       <Typography sx={styles.yTitle}>Кількість голосів</Typography>
-      <Bar data={getData(data)} options={getOptions()} />
+      <Box sx={styles.chart}>
+        <Bar data={getData(data)} options={getOptions()} />
+      </Box>
     </Box>
   );
 };
