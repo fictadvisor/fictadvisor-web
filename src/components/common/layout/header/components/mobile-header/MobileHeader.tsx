@@ -31,7 +31,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
         <Link href="/" component={NextLink} sx={styles.headerLogo}>
           <Box component="img" src="/assets/logo.png" alt="logo" />
         </Link>
-        <Box sx={styles.mobileButton}>
+        <Box sx={styles.iconButton}>
           <CloseButton
             onClick={handleClick}
             size="normal"
@@ -56,7 +56,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
                 url={user.avatar}
               />
             </Link>
-            <Box sx={styles.mobileMenu}>
+            <Box sx={styles.menu}>
               {accountButtons.map((button, index) => (
                 <Link
                   component={NextLink}
@@ -70,6 +70,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
                     label={button.text}
                     textPosition="left"
                     icon={button.icon}
+                    sx={styles.menuTab}
                   />
                 </Link>
               ))}
@@ -80,25 +81,25 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
             <Link
               component={NextLink}
               href="/register"
-              sx={styles.registerButton}
               underline="none"
               color="inherit"
+              sx={styles.registerButton}
             >
               <Button text="Зареєструватись" size="small" variant="outline" />
             </Link>
             <Link
               component={NextLink}
               href="/login"
-              sx={styles.loginButton}
               underline="none"
               color="inherit"
+              sx={styles.loginButton}
             >
               <Button text="Увійти" size="small" variant="filled" />
             </Link>
           </Box>
         )}
-        <Divider />
-        <Box sx={styles.mobileMenu}>
+        <Divider sx={styles.divider} />
+        <Box sx={styles.menu}>
           {mainLinks.map((data, index) => (
             <Link
               component={NextLink}
@@ -108,7 +109,12 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
               underline="none"
               color="inherit"
             >
-              <Tab label={data.text} textPosition="left" icon={data.icon} />
+              <Tab
+                label={data.text}
+                sx={styles.menuTab}
+                textPosition="left"
+                icon={data.icon}
+              />
             </Link>
           ))}
         </Box>
@@ -120,7 +126,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
         <Box component="img" src="/assets/logo.png" alt="logo" />
       </Link>
       <IconButton
-        sx={styles.mobileButton}
+        sx={styles.iconButton}
         onClick={handleClick}
         size="normal"
         color="transparent"

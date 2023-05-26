@@ -1,11 +1,9 @@
-import {
-  AcademicCapIcon,
-  BriefcaseIcon,
-  ClipboardIcon,
-  HomeIcon,
-  LockClosedIcon,
-  UsersIcon,
-} from '@heroicons/react/24/solid';
+import { AcademicCapIcon } from '@/components/common/custom-svg/AcademicCap';
+import { BriefcaseIcon } from '@/components/common/custom-svg/Briefcase';
+import { ClipboardIcon } from '@/components/common/custom-svg/Clipboard';
+import { HomeIcon } from '@/components/common/custom-svg/Home';
+import { LockClosedIcon } from '@/components/common/custom-svg/LockClosed';
+import { UsersIcon } from '@/components/common/custom-svg/Users';
 
 export const accountButtons = [
   {

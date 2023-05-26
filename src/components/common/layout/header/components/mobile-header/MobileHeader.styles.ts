@@ -18,9 +18,22 @@ export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
 
 export const loginButtons: SxProps<Theme> = {
   display: 'flex',
-  alignItems: 'center',
+  flexDirection: 'column',
   justifyContent: 'center',
-  gap: '8px',
+  alignItems: 'center',
+  marginLeft: '16px',
+  marginRight: '16px',
+  gap: '16px',
+};
+
+export const registerButton: SxProps<Theme> = {
+  maxWidth: '328px',
+  width: '100%',
+};
+
+export const loginButton: SxProps<Theme> = {
+  maxWidth: '328px',
+  width: '100%',
 };
 
 export const headerLogo: SxProps<Theme> = {
@@ -33,7 +46,7 @@ export const headerLogo: SxProps<Theme> = {
   },
 };
 
-export const mobileMenu: SxProps<Theme> = {
+export const menu: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '16px',
@@ -49,9 +62,19 @@ export const shadow: SxProps<Theme> = {
   opacity: 0.6,
 };
 
-export const mobileButton: SxProps<Theme> = {
+export const menuTab: SxProps<Theme> = {
+  maxWidth: {
+    mobile: '100%',
+  },
+};
+
+export const iconButton: SxProps<Theme> = {
   position: 'absolute',
   right: '10px',
+};
+
+export const divider: SxProps<Theme> = {
+  borderColor: 'grey.400',
 };
 
 export const drop: SxProps<Theme> = {
@@ -64,13 +87,5 @@ export const drop: SxProps<Theme> = {
   backgroundColor: 'backgroundDark.100',
   gap: '16px',
   flexDirection: 'column',
-  animationDuration: '0.4s',
-};
-
-export const registerButton: SxProps<Theme> = {
-  width: '192px',
-};
-
-export const loginButton: SxProps<Theme> = {
-  width: '120px',
+  animation: '0.4s',
 };
