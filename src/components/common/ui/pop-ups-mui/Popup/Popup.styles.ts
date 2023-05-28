@@ -21,7 +21,7 @@ export const checkCircleIcon: SxProps<Theme> = {
 
 export const popupsTitleText = (contentLeft): SxProps<Theme> => ({
   paddingTop: contentLeft ? '0px' : '12px',
-  paddingBottom: contentLeft ? '25px' : '9.5px',
+  paddingBottom: contentLeft ? '29px' : '25px',
   textAlign: contentLeft ? 'left' : 'center',
 });
 
