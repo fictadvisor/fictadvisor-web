@@ -6,13 +6,14 @@ import palette from '@/styles/theme/constants/pallete';
 export const headerContainer: SxProps<Theme> = {
   overflow: 'hidden',
   display: 'flex',
+  flexDirection: 'row',
   alignItems: 'center',
   width: '100%',
   height: '64px',
   justifyContent: 'space-between',
   paddingLeft: '80px',
   paddingRight: '80px',
-
+  boxShadow: 'unset',
   backgroundColor: alpha(palette.grey[50], 0.62),
   backdropFilter: 'blur(8px)',
 };
@@ -27,25 +28,14 @@ export const menu: SxProps<Theme> = {
   gap: '28px',
 };
 
-export const loginButtons: SxProps<Theme> = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '8px',
-};
-
 export const headerDesktopCard: SxProps<Theme> = {
   width: 'fit-content',
 };
 
-export const headerLogo: SxProps<Theme> = {
+export const logoContainer: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '197px',
-  '& img': {
-    height: '20px',
-  },
 };
 
 export const button: SxProps<Theme> = {

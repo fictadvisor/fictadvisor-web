@@ -1,10 +1,12 @@
 import { FC } from 'react';
-import { Box, Link } from '@mui/material';
+import { AppBar, Link, Toolbar } from '@mui/material';
+import Image from 'next/image';
 import NextLink from 'next/link';
 
 import Button from '@/components/common/ui/button-mui';
 
 import { mainLinks } from '../../constants';
+import AuthenticationButtons from '../authentication-buttons';
 import HeaderDesktopCard from '../header-desktop-card';
 
 import * as styles from './DesktopHeader.styles';
@@ -16,11 +18,11 @@ interface DesktopHeaderProps {
 
 const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
   return (
-    <Box sx={styles.headerContainer}>
-      <Link href="/" component={NextLink} sx={styles.headerLogo}>
-        <Box component="img" src="/assets/logo.png" alt="logo" />
+    <AppBar sx={styles.headerContainer}>
+      <Link href="/" component={NextLink} sx={styles.logoContainer}>
+        <Image src="/assets/logo.png" alt="FA logo" width={197} height={20} />
       </Link>
-      <Box sx={styles.menu}>
+      <Toolbar sx={styles.menu}>
         {mainLinks.map((record, index) => (
           <Link
             key={index}
@@ -36,42 +38,27 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
             />
           </Link>
         ))}
-      </Box>
-      {isLoggedIn ? (
-        <Link
-          sx={styles.headerDesktopCard}
-          component={NextLink}
-          href="/account"
-          underline="none"
-        >
-          <HeaderDesktopCard
-            name={user.name}
-            groupName={user.groupName}
-            position={user.position}
-            url={user.avatar}
-          />
-        </Link>
-      ) : (
-        <Box sx={styles.loginButtons}>
+      </Toolbar>
+      <Toolbar>
+        {isLoggedIn ? (
           <Link
-            href="/register"
+            sx={styles.headerDesktopCard}
             component={NextLink}
+            href="/account"
             underline="none"
-            color="inherit"
           >
-            <Button text="Зареєструватись" size="small" variant="outline" />
+            <HeaderDesktopCard
+              name={user.name}
+              groupName={user.groupName}
+              position={user.position}
+              url={user.avatar}
+            />
           </Link>
-          <Link
-            component={NextLink}
-            href="/login"
-            underline="none"
-            color="inherit"
-          >
-            <Button text="Увійти" size="small" variant="filled" />
-          </Link>
-        </Box>
-      )}
-    </Box>
+        ) : (
+          <AuthenticationButtons />
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 

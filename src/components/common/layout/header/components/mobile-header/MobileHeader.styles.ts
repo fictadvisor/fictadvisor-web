@@ -4,46 +4,23 @@ import { alpha } from '@mui/system';
 import palette from '@/styles/theme/constants/pallete';
 
 export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
-  overflow: 'hidden',
+  // overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
-  width: '100%',
-  height: '64px',
   justifyContent: 'center',
+  // width: '100%',
+  height: '64px',
+
   backgroundColor: isOpened
     ? palette.backgroundDark[100]
     : alpha(palette.grey[50], 0.62),
   backdropFilter: 'blur(8px)',
+  boxShadow: 'unset',
 });
-
-export const loginButtons: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginLeft: '16px',
-  marginRight: '16px',
-  gap: '16px',
-};
-
-export const registerButton: SxProps<Theme> = {
-  maxWidth: '328px',
-  width: '100%',
-};
-
-export const loginButton: SxProps<Theme> = {
-  maxWidth: '328px',
-  width: '100%',
-};
 
 export const headerLogo: SxProps<Theme> = {
   display: 'flex',
-  justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '197px',
-  '& img': {
-    height: '20px',
-  },
 };
 
 export const menu: SxProps<Theme> = {
@@ -52,14 +29,17 @@ export const menu: SxProps<Theme> = {
   marginLeft: '16px',
   marginRight: '16px',
   gap: '8px',
+  paddingBottom: '16px',
+  paddingTop: '8px',
 };
 
 export const shadow: SxProps<Theme> = {
-  width: '100%',
-  height: '100%',
+  width: '100vh',
+  height: '100vh',
   position: 'fixed',
   backgroundColor: 'backgroundDark.100',
   opacity: 0.6,
+  zIndex: 0,
 };
 
 export const menuTab: SxProps<Theme> = {
@@ -73,8 +53,20 @@ export const iconButton: SxProps<Theme> = {
   right: '10px',
 };
 
-export const divider: SxProps<Theme> = {
+export const divider = (isLoggined): SxProps<Theme> => ({
+  marginTop: isLoggined ? '12px' : '24px',
+  marginBottom: '12px',
   borderColor: 'grey.400',
+});
+
+export const drawer: SxProps<Theme> = {
+  height: 'fit-content',
+  '.MuiDrawer-paper': {
+    backgroundColor: 'backgroundDark.100',
+    marginTop: '64px',
+    color: 'unset',
+    boxShadow: 'unset',
+  },
 };
 
 export const drop: SxProps<Theme> = {
@@ -82,7 +74,7 @@ export const drop: SxProps<Theme> = {
   height: 'fit-content',
   width: '100%',
   position: 'absolute',
-  paddingTop: '8px',
+  paddingTop: '16px',
   paddingBottom: '16px',
   backgroundColor: 'backgroundDark.100',
   gap: '16px',

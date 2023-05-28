@@ -4,19 +4,36 @@ export const authenticationButtons: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '8px',
+  flexDirection: {
+    desktopSemiMedium: 'unset',
+    mobile: 'column',
+  },
+  marginLeft: {
+    desktopSemiMedium: '0px',
+    mobile: '16px',
+  },
+  marginRight: {
+    desktopSemiMedium: '0px',
+    mobile: '16px',
+  },
+  gap: {
+    desktopSemiMedium: '8px',
+    mobile: '16px',
+  },
 };
 
 export const registerButton: SxProps<Theme> = {
-  width: {
+  width: '100%',
+  maxWidth: {
     desktopSemiMedium: 'unset',
-    mobile: '192px',
+    mobile: '328px',
   },
 };
 
 export const loginButton: SxProps<Theme> = {
-  width: {
+  width: '100%',
+  maxWidth: {
     desktopSemiMedium: 'unset',
-    mobile: '120px',
+    mobile: '328px',
   },
 };
