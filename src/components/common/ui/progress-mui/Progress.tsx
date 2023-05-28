@@ -5,40 +5,37 @@ import { SxProps, Theme } from '@mui/material/styles';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Progress.styles';
-import { ProgressColours } from './types';
+import { ProgressColours, ProgressSize } from './types';
 
 interface ProgressProps {
   value?: number;
   variant?: 'determinate' | 'indeterminate';
   sx?: SxProps<Theme>;
-  size?: 58 | 144 | 180 | 216 | 252;
+  size?: ProgressSize;
   color?: ProgressColours;
-  disableShrink?: boolean;
 }
 const Progress: FC<ProgressProps> = ({
-  value = 100,
   variant = 'determinate',
   sx,
   size,
   color = 'primary',
-  disableShrink = true,
 }) => {
   return (
     <Box>
       <CircularProgress
         variant={variant}
-        value={value}
+        value={100}
         size={size}
         color={color}
-        disableShrink={disableShrink}
+        disableShrink={false}
         sx={styles.progressBack}
       />
       <CircularProgress
         variant={'indeterminate'}
-        value={value}
+        value={100}
         size={size}
         color={color}
-        disableShrink={disableShrink}
+        disableShrink={true}
         sx={mergeSx(styles.progressFront, sx)}
       />
     </Box>
