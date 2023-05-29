@@ -2,15 +2,11 @@ import { SxProps, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/system';
 
 import palette from '@/styles/theme/constants/pallete';
-
 export const headerContainer = (isOpened: boolean): SxProps<Theme> => ({
-  // overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  // width: '100%',
   height: '64px',
-
   backgroundColor: isOpened
     ? palette.backgroundDark[100]
     : alpha(palette.grey[50], 0.62),
@@ -33,15 +29,6 @@ export const menu: SxProps<Theme> = {
   paddingTop: '8px',
 };
 
-export const shadow: SxProps<Theme> = {
-  width: '100vh',
-  height: '100vh',
-  position: 'fixed',
-  backgroundColor: 'backgroundDark.100',
-  opacity: 0.6,
-  zIndex: 0,
-};
-
 export const menuTab: SxProps<Theme> = {
   maxWidth: {
     mobile: '100%',
@@ -53,20 +40,20 @@ export const iconButton: SxProps<Theme> = {
   right: '10px',
 };
 
-export const divider = (isLoggined): SxProps<Theme> => ({
+export const divider = (isLoggined: boolean): SxProps<Theme> => ({
   marginTop: isLoggined ? '12px' : '24px',
   marginBottom: '12px',
   borderColor: 'grey.400',
 });
 
 export const drawer: SxProps<Theme> = {
-  height: 'fit-content',
   '.MuiDrawer-paper': {
     backgroundColor: 'backgroundDark.100',
     marginTop: '64px',
     color: 'unset',
     boxShadow: 'unset',
   },
+  zIndex: 1,
 };
 
 export const drop: SxProps<Theme> = {
