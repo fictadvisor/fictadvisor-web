@@ -41,7 +41,6 @@ export const userInfo: SxProps<Theme> = {
 export const avatar: SxProps<Theme> = {
   marginRight: '8px',
   marginTop: '4px',
-  aspectRatio: 1 / 1,
   width: '48px',
   height: '48px',
 };

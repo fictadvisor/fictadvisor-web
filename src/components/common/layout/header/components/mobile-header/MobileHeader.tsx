@@ -1,19 +1,13 @@
 import { FC, useState } from 'react';
 import { AppBar, Box, Link } from '@mui/material';
-import Drawer from '@mui/material/Drawer';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
 import { BurgerMenu } from '@/components/common/custom-svg/BurgerMenu';
-import Divider from '@/components/common/ui/divider-mui';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import CloseButton from '@/components/common/ui/icon-button-mui/variants/CloseButton';
-import Tab from '@/components/common/ui/tab-mui/tab';
 
-import { accountButtons, mainLinks } from '../../constants';
-import AuthenticationButtons from '../authentication-buttons';
-import HeaderMobileCard from '../header-mobile-card';
-
+import Drawer from './components/drawer/Drawer';
 import * as styles from './MobileHeader.styles';
 
 interface MobileHeaderProps {
@@ -50,72 +44,11 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
         />
       )}
       <Drawer
-        anchor="top"
-        open={isOpened}
-        sx={styles.drawer}
-        disableScrollLock
-        onClose={handleClick}
-      >
-        {isLoggedIn ? (
-          <>
-            <Link
-              href="/account"
-              component={NextLink}
-              onClick={handleClick}
-              underline="none"
-              color="inherit"
-            >
-              <HeaderMobileCard
-                name={user.name}
-                groupName={user.groupName}
-                position={user.position}
-                url={user.avatar}
-              />
-            </Link>
-            <Box sx={styles.menu}>
-              {accountButtons.map((button, index) => (
-                <Link
-                  component={NextLink}
-                  key={index}
-                  href={button.link}
-                  onClick={handleClick}
-                  underline="none"
-                  color="inherit"
-                >
-                  <Tab
-                    label={button.text}
-                    textPosition="left"
-                    icon={button.icon}
-                    sx={styles.menuTab}
-                  />
-                </Link>
-              ))}
-            </Box>
-          </>
-        ) : (
-          <AuthenticationButtons />
-        )}
-        <Divider sx={styles.divider(isLoggedIn)} />
-        <Box sx={styles.menu}>
-          {mainLinks.map((data, index) => (
-            <Link
-              component={NextLink}
-              key={index}
-              href={data.link}
-              onClick={handleClick}
-              underline="none"
-              color="inherit"
-            >
-              <Tab
-                label={data.text}
-                sx={styles.menuTab}
-                textPosition="left"
-                icon={data.icon}
-              />
-            </Link>
-          ))}
-        </Box>
-      </Drawer>
+        isLoggedIn={isLoggedIn}
+        isOpened={isOpened}
+        handleClick={handleClick}
+        user={user}
+      />
     </AppBar>
   );
 };

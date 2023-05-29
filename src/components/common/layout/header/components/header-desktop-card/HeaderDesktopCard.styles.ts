@@ -44,7 +44,6 @@ export const cardInfo: SxProps<Theme> = {
 
 export const avatar: SxProps<Theme> = {
   marginTop: '3px',
-  aspectRatio: 1 / 1,
   width: '36px',
   height: '36px',
 };
