@@ -18,9 +18,6 @@ const useTabState = ({ tab, router, setIndex }: UseTabStateProps) => {
       void router.push(
         { query: { ...query, tab: TeachersPageTabs.GENERAL } },
         undefined,
-        {
-          shallow: true,
-        },
       );
     }
   }, [tab, isReady, push, query]);
