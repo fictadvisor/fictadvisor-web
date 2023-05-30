@@ -22,7 +22,7 @@ import styles from './PersonalTeacherTabs.module.scss';
 export type PersonalTeacherTabsProps = {
   id: string;
   tabIndex: string;
-  handleChange: (value) => void;
+  handleChange: (value: string) => void;
   subjects: {
     id: string;
     name: string;
