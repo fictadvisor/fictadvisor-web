@@ -29,15 +29,20 @@ export type PersonalTeacherTabsProps = {
   }[];
 };
 
-const TabsPage: FC<PersonalTeacherTabsProps> = props => {
+const TabsPage: FC<PersonalTeacherTabsProps> = ({
+  id,
+  tabIndex,
+  handleChange,
+  subjects,
+}) => {
   const router = useRouter();
   return (
     <div className={styles['tabs']}>
       <div className={styles['karusel']}>
         <TabList
           className={styles['tab-list-desktop']}
-          onChange={props.handleChange}
-          currentValue={props.tabIndex}
+          onChange={handleChange}
+          currentValue={tabIndex}
         >
           <TabItem
             size={TabItemContentSize.NORMAL}
@@ -71,8 +76,8 @@ const TabsPage: FC<PersonalTeacherTabsProps> = props => {
         </TabList>
         <TabList
           className={styles['tab-list-mobile']}
-          onChange={props.handleChange}
-          currentValue={props.tabIndex}
+          onChange={handleChange}
+          currentValue={tabIndex}
         >
           <TabItem
             size={TabItemContentSize.SMAll}
@@ -108,7 +113,7 @@ const TabsPage: FC<PersonalTeacherTabsProps> = props => {
 
       <TabPanelsList
         className={styles['tab-panels-list']}
-        currentValue={props.tabIndex}
+        currentValue={tabIndex}
       >
         <TabPanel className="tab-panel" value={TeachersPageTabs.GENERAL}>
           <div className={styles['my-tab-panel']}>
@@ -145,11 +150,11 @@ const TabsPage: FC<PersonalTeacherTabsProps> = props => {
         >
           <div className={styles['my-tab-panel-subjects']}>
             <ul className={styles['subject-search-list']}>
-              {props.subjects &&
-                props.subjects.map(subject => (
+              {subjects &&
+                subjects.map(subject => (
                   <li key={subject.id}>
                     <Link
-                      href={`/discipline?teacherId=${props.id}&subjectId=${subject.id}`}
+                      href={`/discipline?teacherId=${id}&subjectId=${subject.id}`}
                     >
                       <SubjectCard name={`${subject.name}`} />
                     </Link>
