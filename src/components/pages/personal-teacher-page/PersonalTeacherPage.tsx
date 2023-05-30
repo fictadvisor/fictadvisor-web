@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import * as Url from 'url';
 
 import PageLayout from '@/components/common/layout/page-layout';
 import { AlertColor } from '@/components/common/ui/alert';
@@ -10,6 +11,7 @@ import Loader from '@/components/common/ui/loader';
 import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
+import useTabState from '@/hooks/use-tab-state';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
@@ -21,33 +23,15 @@ export enum TeachersPageTabs {
 }
 
 const PersonalTeacherPage = () => {
-  const { push, query, isReady } = useRouter();
+  const router = useRouter();
+  const { push, query } = router;
 
   const { tab } = query;
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,
   );
 
-  useEffect(() => {
-    if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
-      setIndex(tab as TeachersPageTabs);
-    } else {
-      void push(
-        { query: { ...query, tab: TeachersPageTabs.GENERAL } },
-        undefined,
-        {
-          shallow: true,
-        },
-      );
-    }
-  }, [tab, isReady, push, query]);
-
-  const handleChange = async value => {
-    await push({ query: { ...query, tab: value } }, undefined, {
-      shallow: true,
-    });
-    setIndex(value as TeachersPageTabs);
-  };
+  const handleChange = useTabState({ tab, router, setIndex });
 
   const teacherId = query.teacherId as string;
   const { isLoading, isError, data } = useQuery(

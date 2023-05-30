@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -10,6 +10,7 @@ import Loader from '@/components/common/ui/loader';
 import PersonalTeacherSubjectCard from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card';
 import PersonalTeacherSubjectTabs from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-tabs';
 import styles from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage.module.scss';
+import useTabState from '@/hooks/use-tab-state';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
@@ -21,36 +22,17 @@ export enum TeachersPageTabs {
 
 const PersonalTeacherSubjectPage = () => {
   const router = useRouter();
-  const { push, query, isReady } = router;
+  const { push, query } = router;
 
   const { tab } = query;
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,
   );
 
-  useEffect(() => {
-    if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
-      setIndex(tab as TeachersPageTabs);
-    } else {
-      void push(
-        { query: { ...query, tab: TeachersPageTabs.GENERAL } },
-        undefined,
-        {
-          shallow: true,
-        },
-      );
-    }
-  }, [tab, isReady, push, query]);
+  const handleChange = useTabState({ tab, router, setIndex });
 
-  const handleChange = async value => {
-    await push({ query: { ...query, tab: value } }, undefined, {
-      shallow: true,
-    });
-    setIndex(value as TeachersPageTabs);
-  };
-
-  const teacherId = router.query.teacherId as string;
-  const subjectId = router.query.subjectId as string;
+  const teacherId = query.teacherId as string;
+  const subjectId = query.subjectId as string;
   const { isLoading, isError, data } = useQuery(
     ['teachersubject', teacherId, subjectId],
     () => TeacherAPI.getTeacherSubject(teacherId, subjectId),
@@ -68,7 +50,7 @@ const PersonalTeacherSubjectPage = () => {
       }),
     );
     setTimeout(() => {
-      void router.push('/teachers');
+      void push('/teachers');
     }, 3000);
   }
   return (
