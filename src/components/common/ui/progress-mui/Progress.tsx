@@ -28,14 +28,14 @@ const Progress: FC<ProgressProps> = ({
         size={size}
         color={color}
         sx={styles.progressBack}
-        thickness={4.5}
+        thickness={4.3}
       />
       <CircularProgress
         variant={'indeterminate'}
         value={40}
         size={size}
         color={color}
-        thickness={4.5}
+        thickness={4.3}
         sx={mergeSx(styles.progressFront, sx)}
       />
     </Box>
