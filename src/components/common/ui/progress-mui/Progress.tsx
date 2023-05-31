@@ -32,7 +32,7 @@ const Progress: FC<ProgressProps> = ({
       />
       <CircularProgress
         variant={'indeterminate'}
-        value={40}
+        value={100}
         size={size}
         color={color}
         thickness={4.3}
