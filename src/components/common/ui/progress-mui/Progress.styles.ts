@@ -4,9 +4,10 @@ export const progressFront: SxProps<Theme> = {
   '.MuiCircularProgress-svg': {
     strokeLinecap: 'round',
   },
+  color: 'primary.300',
 };
 
 export const progressBack: SxProps<Theme> = {
-  color: 'backgroundDark.300',
+  color: 'backgroundDark.200',
   position: 'absolute',
 };
