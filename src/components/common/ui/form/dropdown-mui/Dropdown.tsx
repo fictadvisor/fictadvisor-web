@@ -1,5 +1,5 @@
 import { FC, SyntheticEvent } from 'react';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Box, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -8,15 +8,24 @@ import { useField } from 'formik';
 
 import { FieldState } from '@/components/common/ui/form/common/types';
 
+import type { TagProps } from '../../tag-mui/Tag';
+import Tag from '../../tag-mui/Tag';
+
 import * as styles from './Dropdown.styles';
 
-interface DropDownOption {
-  label: string;
+interface OptionBase {
   id: string;
 }
+interface DropDownTextOption extends OptionBase {
+  label: string;
+}
+
+interface DropDownTagOption extends OptionBase, TagProps {}
+
+type DropDownOption = DropDownTagOption | DropDownTextOption;
 
 interface DropdownProps {
-  options: DropDownOption[];
+  options: readonly DropDownTextOption[] | readonly DropDownTagOption[];
   label?: string;
   name?: string;
   isDisabled?: boolean;
@@ -71,14 +80,12 @@ export const Dropdown: FC<DropdownProps> = ({
         }}
         onBlur={() => {
           setIsFocused(false);
-          debugger;
         }}
         fullWidth
         disablePortal
         onChange={handleChange}
         blurOnSelect={true}
         options={options}
-        getOptionLabel={(opt: DropDownOption) => opt.label}
         renderInput={params => (
           <TextField
             {...values}
@@ -89,6 +96,9 @@ export const Dropdown: FC<DropdownProps> = ({
             disabled={isDisabled}
           />
         )}
+        getOptionLabel={option =>
+          'text' in option ? option.text : option.label
+        }
         componentsProps={{
           popper: {
             placement: 'bottom',
@@ -97,6 +107,18 @@ export const Dropdown: FC<DropdownProps> = ({
         }}
         popupIcon={<ChevronDownIcon width={24} height={24} strokeWidth={1.5} />}
         noOptionsText={noOptionsText}
+        renderOption={(props, option: DropDownOption) => {
+          console.log(option);
+          if ('text' in option) {
+            return (
+              <span {...props}>
+                <Tag {...option} />
+              </span>
+            );
+          } else {
+            return <span {...props}>{option.label}</span>;
+          }
+        }}
       />
       {showRemark && (
         <Typography sx={styles.getRemarkStyles(dropdownState, isFocused)}>

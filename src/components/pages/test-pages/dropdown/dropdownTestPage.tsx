@@ -41,21 +41,13 @@ const TagTestPage = () => {
           }}
         >
           <Dropdown
-            showRemark={true}
-            isSuccessOnDefault={true}
-            defaultRemark="Some defualt text"
-            size={DropDownSize.LARGE}
-            options={options}
-            name="teacherId11"
-          />
-          <Dropdown
             defaultRemark="Some defualt text"
             size={DropDownSize.LARGE}
             options={options}
             isDisabled={true}
             name="teacherId21"
           />
-          <Dropdown
+          {/* <Dropdown
             defaultRemark="Some defualt text"
             size={DropDownSize.LARGE}
             options={options}
@@ -81,6 +73,39 @@ const TagTestPage = () => {
             size={DropDownSize.MEDIUM}
             options={options}
             name="teacherId32"
+          /> */}
+          <Dropdown
+            defaultRemark="Some defualt text"
+            size={DropDownSize.MEDIUM}
+            options={options}
+            name="teacherId11"
+            showRemark
+          />
+          <Dropdown
+            defaultRemark="Some defualt text"
+            size={DropDownSize.MEDIUM}
+            options={[
+              { text: 'Лекція', id: 'lection', color: 'info', size: 'small' },
+              {
+                text: 'Практика',
+                id: 'practice',
+                color: 'orange',
+                size: 'small',
+              },
+              {
+                text: 'Лабораторна',
+                id: 'laboratory',
+                color: 'mint',
+                size: 'small',
+              },
+              {
+                text: 'Інша подія',
+                id: 'otherOccasion',
+                color: 'violet',
+                size: 'small',
+              },
+            ]}
+            name="teacherIddas32"
           />
 
           <button type="submit">submit</button>
