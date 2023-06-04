@@ -108,7 +108,6 @@ export const Dropdown: FC<DropdownProps> = ({
         popupIcon={<ChevronDownIcon width={24} height={24} strokeWidth={1.5} />}
         noOptionsText={noOptionsText}
         renderOption={(props, option: DropDownOption) => {
-          console.log(option);
           if ('text' in option) {
             return (
               <span {...props}>
