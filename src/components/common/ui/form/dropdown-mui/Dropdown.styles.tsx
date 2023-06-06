@@ -134,7 +134,7 @@ export const dropdown = (): SxProps<Theme> => {
   };
 };
 
-export const getRemarkStyles = (
+export const remark = (
   dropDownState: FieldState,
   isFocused: boolean,
 ): SxProps<Theme> => ({

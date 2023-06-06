@@ -113,7 +113,7 @@ export const Dropdown: FC<DropdownProps> = ({
         )}
       />
       {showRemark && (
-        <Typography sx={styles.getRemarkStyles(dropdownState, isFocused)}>
+        <Typography sx={styles.remark(dropdownState, isFocused)}>
           {touched && error ? error : defaultRemark}
         </Typography>
       )}
