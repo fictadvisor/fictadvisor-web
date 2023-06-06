@@ -1,26 +1,35 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const background = (isMobile): SxProps<Theme> => ({
-  width: isMobile ? '600px' : '1200px',
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+export const background = (isMobile): SxProps<Theme> => {
+  const y = isMobile ? '100%' : '1200px';
 
-  canvas: {
-    marginLeft: '3px',
-    marginBottom: '3px',
+  // Calculate the canvas width based on the first width (y)
+  const canvasWidth = `calc(0.76 * ${y} + 59.2px)`;
+
+  return {
+    width: y,
     position: 'relative',
-    zIndex: '5',
-    width: isMobile ? '440px !important' : '570px !important',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-    height: isMobile ? '440px !important' : '570px !important',
-  },
+    canvas: {
+      marginLeft: '3px',
+      marginBottom: '3px',
+      position: 'relative',
+      zIndex: '5',
+      width: `${canvasWidth} !important`,
+      height: `${canvasWidth} !important`,
+      maxWidth: isMobile ? '455px' : '600px', // Added maximum width
+      maxHeight: isMobile ? '455px' : '600px', // Added maximum width
+      boxSizing: 'border-box',
+    },
 
-  svg: {
-    zIndex: '1',
-    position: 'absolute',
-    right: 0,
-    width: '100%',
-  },
-});
+    svg: {
+      zIndex: '1',
+      position: 'absolute',
+      right: 0,
+      width: '100%',
+    },
+  };
+};
