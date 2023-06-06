@@ -12,6 +12,12 @@ import styles from './Dropdown.module.scss';
 
 const dropDownOptionHeight = 36; //px
 
+export enum DropDownSize {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large',
+}
+
 interface DropDownOption {
   value: string;
   label: string;
