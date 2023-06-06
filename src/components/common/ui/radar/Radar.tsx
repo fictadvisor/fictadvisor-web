@@ -12,6 +12,13 @@ import {
   Tooltip,
 } from 'chart.js';
 
+import getData from '@/components/common/ui/radar/utils/drawData';
+import getBackgroundImage from '@/components/common/ui/radar/utils/findImage';
+import getOptions from '@/components/common/ui/radar/utils/getOptions';
+import theme from '@/styles/theme';
+
+import * as styles from './Radar.styles';
+
 ChartJS.register(
   RadialLinearScale,
   LinearScale,
@@ -29,12 +36,6 @@ interface RadarProps {
     mark: number;
   }[];
 }
-import getData from '@/components/common/ui/radar/utils/drawData';
-import getBackgroundImage from '@/components/common/ui/radar/utils/findImage';
-import getOptions from '@/components/common/ui/radar/utils/getOptions';
-import theme from '@/styles/theme';
-
-import * as styles from './Radar.styles';
 
 const RadarChart: FC<RadarProps> = ({ info }) => {
   const labels = info.map(a => a.name);

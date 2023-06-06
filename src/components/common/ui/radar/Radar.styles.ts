@@ -1,13 +1,13 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const background = (isMobile): SxProps<Theme> => {
-  const y = isMobile ? '100%' : '1200px';
+  const containerWidth = isMobile ? '100%' : '1200px';
 
-  // Calculate the canvas width based on the first width (y)
-  const canvasWidth = `calc(0.76 * ${y} + 59.2px)`;
+  // Calculate the canvas width based on the first width (containerWidth)
+  const canvasWidth = `calc(0.76 * ${containerWidth} + 59.2px)`;
 
   return {
-    width: y,
+    width: containerWidth,
     position: 'relative',
     display: 'flex',
     justifyContent: 'center',
@@ -21,7 +21,7 @@ export const background = (isMobile): SxProps<Theme> => {
       width: `${canvasWidth} !important`,
       height: `${canvasWidth} !important`,
       maxWidth: isMobile ? '455px' : '600px', // Added maximum width
-      maxHeight: isMobile ? '455px' : '600px', // Added maximum width
+      maxHeight: isMobile ? '455px' : '600px', // Added maximum height
       boxSizing: 'border-box',
     },
 
