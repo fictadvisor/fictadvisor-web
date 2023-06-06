@@ -44,13 +44,6 @@ const TagTestPage = () => {
             defaultRemark="Some defualt text"
             size={DropDownSize.LARGE}
             options={options}
-            isDisabled={true}
-            name="teacherId21"
-          />
-          {/* <Dropdown
-            defaultRemark="Some defualt text"
-            size={DropDownSize.LARGE}
-            options={options}
             name="teacherId31"
           />
           <Dropdown
@@ -73,7 +66,7 @@ const TagTestPage = () => {
             size={DropDownSize.MEDIUM}
             options={options}
             name="teacherId32"
-          /> */}
+          />
           <Dropdown
             defaultRemark="Some defualt text"
             size={DropDownSize.MEDIUM}

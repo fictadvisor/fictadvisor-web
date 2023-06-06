@@ -27,10 +27,9 @@ export const input = (
       display: 'flex',
       alignContent: 'center',
     },
-    '& .MuiInputBase-input,& label ,& label.Mui-focused,& svg,& .Mui-disabled':
-      {
-        color: 'grey.800',
-      },
+    '& .MuiInputBase-input,& label ,& label.Mui-focused,& svg': {
+      color: 'grey.800',
+    },
     '& label': {
       top: 'calc((100% - 50px)/2)', //to center label
     },
@@ -61,7 +60,7 @@ export const input = (
     '& .MuiAutocomplete-inputRoot': {
       borderRadius: '8px',
     },
-    '& .MuiOutlinedInput-notchedOutline, & .Mui-disabled .MuiOutlinedInput-notchedOutline':
+    '& .MuiOutlinedInput-notchedOutline,& .Mui-disabled .MuiOutlinedInput-notchedOutline':
       {
         borderColor:
           inputState === FieldState.DEFAULT
@@ -75,8 +74,7 @@ export const input = (
     '& .MuiAutocomplete-endAdornment': {
       marginRight: '16px',
     },
-
-    '& .Mui-disabled': {
+    '& label.Mui-disabled': {
       color: 'grey.400',
     },
   };
