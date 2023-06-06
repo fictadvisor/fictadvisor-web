@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent } from 'react';
 import { useMemo, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Box, Typography } from '@mui/material';
@@ -12,9 +12,9 @@ import {
 } from '@/components/common/ui/form/common/types';
 
 import type { TagProps } from '../../tag-mui/Tag';
-import Tag from '../../tag-mui/Tag';
 
 import * as styles from './Dropdown.styles';
+import { Option } from './Option';
 
 interface OptionBase {
   id: string;
@@ -25,7 +25,7 @@ interface DropDownTextOption extends OptionBase {
 
 interface DropDownTagOption extends OptionBase, TagProps {}
 
-type DropDownOption = DropDownTagOption | DropDownTextOption;
+export type DropDownOption = DropDownTagOption | DropDownTextOption;
 
 interface DropdownProps {
   options: DropDownTextOption[] | DropDownTagOption[];
@@ -38,11 +38,6 @@ interface DropdownProps {
   showRemark?: boolean;
   size?: FieldSize;
   noOptionsText?: string;
-}
-
-interface OptionProps {
-  option: DropDownOption;
-  props: HTMLAttributes<HTMLLIElement>;
 }
 
 export const Dropdown: FC<DropdownProps> = ({
@@ -73,7 +68,7 @@ export const Dropdown: FC<DropdownProps> = ({
   };
 
   return (
-    <Box sx={styles.dropdown()}>
+    <Box sx={styles.dropdown}>
       <Autocomplete
         disabled={isDisabled}
         onFocus={() => {
@@ -119,16 +114,4 @@ export const Dropdown: FC<DropdownProps> = ({
       )}
     </Box>
   );
-};
-
-const Option: FC<OptionProps> = ({ option, props }) => {
-  if ('text' in option) {
-    return (
-      <span {...props}>
-        <Tag {...option} />
-      </span>
-    );
-  } else {
-    return <span {...props}>{option.label}</span>;
-  }
 };

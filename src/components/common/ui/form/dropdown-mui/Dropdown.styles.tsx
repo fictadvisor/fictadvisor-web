@@ -81,57 +81,54 @@ export const input = (
   };
 };
 
-export const dropdown = (): SxProps<Theme> => {
-  const optionHeight = 36;
-  return {
-    width: '100%',
-    p: 2,
-    pb: 0,
+export const dropdown: SxProps<Theme> = {
+  width: '100%',
+  p: 2,
+  pb: 0,
 
-    '& .MuiAutocomplete-popper': {
-      top: '8px !important',
-      '& ul': {
-        borderColor: 'grey.400',
+  '& .MuiAutocomplete-popper': {
+    top: '8px !important',
+    '& ul': {
+      borderColor: 'grey.400',
+      border: '2px solid',
+      borderRadius: '8px',
+    },
+    '& .MuiPaper-root': {
+      borderRadius: '8px',
+      backgroundColor: 'backgroundDark.100',
+
+      '& .MuiAutocomplete-noOptions': {
         border: '2px solid',
+        borderColor: 'grey.600',
         borderRadius: '8px',
-      },
-      '& .MuiPaper-root': {
-        borderRadius: '8px',
-        backgroundColor: 'backgroundDark.100',
-
-        '& .MuiAutocomplete-noOptions': {
-          border: '2px solid',
-          borderColor: 'grey.600',
-          borderRadius: '8px',
-          color: 'grey.400',
-        },
-      },
-      '& .MuiAutocomplete-listbox': {
-        minHeight: 'min-content',
-        maxHeight: `${optionHeight * 4 + 16}px`,
-        color: 'grey.600',
-        borderRadius: '8px',
-        gap: '0px',
-        '&::-webkit-scrollbar': {
-          width: '11.5px',
-          '&-thumb': {
-            border: '5px solid transparent',
-            backgroundClip: 'content-box',
-          },
-        },
-
-        '& .MuiAutocomplete-option': {
-          minHeight: `${optionHeight}px`,
-          pt: '0px',
-          pb: '0px',
-          '&[aria-selected="true"],&[aria-selected="true"].Mui-focused, &:hover':
-            {
-              backgroundColor: 'grey.200',
-            },
-        },
+        color: 'grey.400',
       },
     },
-  };
+    '& .MuiAutocomplete-listbox': {
+      minHeight: 'min-content',
+      maxHeight: '160px',
+      color: 'grey.600',
+      borderRadius: '8px',
+      gap: '0px',
+      '&::-webkit-scrollbar': {
+        width: '11.5px',
+        '&-thumb': {
+          border: '5px solid transparent',
+          backgroundClip: 'content-box',
+        },
+      },
+
+      '& .MuiAutocomplete-option': {
+        minHeight: '36px',
+        pt: '0px',
+        pb: '0px',
+        '&[aria-selected="true"],&[aria-selected="true"].Mui-focused, &:hover':
+          {
+            backgroundColor: 'grey.200',
+          },
+      },
+    },
+  },
 };
 
 export const remark = (
