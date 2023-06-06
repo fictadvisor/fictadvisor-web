@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-import { DropDownSize } from '@/components/common/ui/form';
+import { FieldSize } from '@/components/common/ui/form/common/types';
 import { Dropdown } from '@/components/common/ui/form/dropdown-mui/Dropdown';
 
 import * as styles from './dropdownTest.styles';
@@ -42,7 +42,7 @@ const TagTestPage = () => {
         >
           <Dropdown
             defaultRemark="Some defualt text"
-            size={DropDownSize.LARGE}
+            size={FieldSize.LARGE}
             options={options}
             name="teacherId31"
           />
@@ -50,33 +50,33 @@ const TagTestPage = () => {
             showRemark={true}
             isSuccessOnDefault={true}
             defaultRemark="Some defualt text"
-            size={DropDownSize.MEDIUM}
+            size={FieldSize.MEDIUM}
             options={options}
             name="teacherId12"
           />
           <Dropdown
             defaultRemark="Some defualt text"
-            size={DropDownSize.MEDIUM}
+            size={FieldSize.MEDIUM}
             options={options}
             isDisabled={true}
             name="teacherId22"
           />
           <Dropdown
             defaultRemark="Some defualt text"
-            size={DropDownSize.MEDIUM}
+            size={FieldSize.MEDIUM}
             options={options}
             name="teacherId32"
           />
           <Dropdown
             defaultRemark="Some defualt text"
-            size={DropDownSize.MEDIUM}
+            size={FieldSize.MEDIUM}
             options={options}
             name="teacherId11"
             showRemark
           />
           <Dropdown
             defaultRemark="Some defualt text"
-            size={DropDownSize.MEDIUM}
+            size={FieldSize.MEDIUM}
             options={[
               { text: 'Лекція', id: 'lection', color: 'info', size: 'small' },
               {

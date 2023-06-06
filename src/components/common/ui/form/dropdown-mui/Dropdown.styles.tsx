@@ -1,25 +1,26 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import { FieldState } from '@/components/common/ui/form/common/types';
-
-import { DropDownSize } from './Dropdown';
+import {
+  FieldSize,
+  FieldState,
+} from '@/components/common/ui/form/common/types';
 
 const color = {
-  default: 'grey.600',
-  disabled: 'grey.400',
-  error: 'error.500',
-  success: 'success.600',
+  [FieldState.DEFAULT]: 'grey.600',
+  [FieldState.DISABLED]: 'grey.400',
+  [FieldState.ERROR]: 'error.500',
+  [FieldState.SUCCESS]: 'success.600',
 };
 
 const inputHeight = {
-  small: 40,
-  medium: 46,
-  large: 52,
+  [FieldSize.SMALL]: 40,
+  [FieldSize.MEDIUM]: 46,
+  [FieldSize.LARGE]: 52,
 };
 
 export const input = (
   inputState: FieldState,
-  size: DropDownSize = DropDownSize.MEDIUM,
+  size: FieldSize = FieldSize.MEDIUM,
 ): SxProps<Theme> => {
   return {
     '& .MuiInputBase-root': {
@@ -80,55 +81,58 @@ export const input = (
   };
 };
 
-export const dropdown = (size: number): SxProps<Theme> => ({
-  width: '100%',
-  p: 2,
-  pb: 0,
+export const dropdown = (): SxProps<Theme> => {
+  const optionHeight = 36;
+  return {
+    width: '100%',
+    p: 2,
+    pb: 0,
 
-  '& .MuiAutocomplete-popper': {
-    top: '8px !important',
-    '& ul': {
-      borderColor: 'grey.400',
-      border: '2px solid',
-      borderRadius: '8px',
-    },
-    '& .MuiPaper-root': {
-      borderRadius: '8px',
-      backgroundColor: 'backgroundDark.100',
-
-      '& .MuiAutocomplete-noOptions': {
+    '& .MuiAutocomplete-popper': {
+      top: '8px !important',
+      '& ul': {
+        borderColor: 'grey.400',
         border: '2px solid',
-        borderColor: 'grey.600',
         borderRadius: '8px',
-        color: 'grey.400',
       },
-    },
-    '& .MuiAutocomplete-listbox': {
-      minHeight: 'min-content',
-      maxHeight: `${size * 4 + 16}px`,
-      color: 'grey.600',
-      borderRadius: '8px',
-      gap: '0px',
-      '&::-webkit-scrollbar': {
-        width: '11.5px',
-        '&-thumb': {
-          border: '5px solid transparent',
-          backgroundClip: 'content-box',
+      '& .MuiPaper-root': {
+        borderRadius: '8px',
+        backgroundColor: 'backgroundDark.100',
+
+        '& .MuiAutocomplete-noOptions': {
+          border: '2px solid',
+          borderColor: 'grey.600',
+          borderRadius: '8px',
+          color: 'grey.400',
         },
       },
-
-      '& .MuiAutocomplete-option': {
-        minHeight: `${size}px`,
-        pt: '0px',
-        pb: '0px',
-        '&[aria-selected="true"],&[aria-selected="true"].Mui-focused, &:hover':
-          {
-            backgroundColor: 'grey.200',
+      '& .MuiAutocomplete-listbox': {
+        minHeight: 'min-content',
+        maxHeight: `${optionHeight * 4 + 16}px`,
+        color: 'grey.600',
+        borderRadius: '8px',
+        gap: '0px',
+        '&::-webkit-scrollbar': {
+          width: '11.5px',
+          '&-thumb': {
+            border: '5px solid transparent',
+            backgroundClip: 'content-box',
           },
+        },
+
+        '& .MuiAutocomplete-option': {
+          minHeight: `${optionHeight}px`,
+          pt: '0px',
+          pb: '0px',
+          '&[aria-selected="true"],&[aria-selected="true"].Mui-focused, &:hover':
+            {
+              backgroundColor: 'grey.200',
+            },
+        },
       },
     },
-  },
-});
+  };
+};
 
 export const getRemarkStyles = (
   dropDownState: FieldState,
