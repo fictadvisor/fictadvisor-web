@@ -1,6 +1,13 @@
-const buttonColorsMap = {
-  filled: {
-    primary: {
+import {
+  ButtonColor,
+  ButtonColorsMap,
+  ButtonState,
+  ButtonVariant,
+} from '../types';
+
+const buttonColorsMap: ButtonColorsMap = {
+  [ButtonVariant.FILLED]: {
+    [ButtonColor.PRIMARY]: {
       backgroundColor: [
         'primary.800',
         'primary.500',
@@ -15,9 +22,9 @@ const buttonColorsMap = {
         'primary.200',
         'transparent',
       ],
-      textColorDisabled: ['grey.600'],
+      textColorDisabled: 'grey.600',
     },
-    secondary: {
+    [ButtonColor.SECONDARY]: {
       backgroundColor: [
         'backgroundDark.200',
         'backgroundDark.300',
@@ -32,12 +39,12 @@ const buttonColorsMap = {
         'backgroundDark.400',
         'transparent',
       ],
-      textColorDisabled: ['backgroundDark.400'],
+      textColorDisabled: 'backgroundDark.400',
     },
   },
 
-  outline: {
-    primary: {
+  [ButtonVariant.OUTLINE]: {
+    [ButtonColor.PRIMARY]: {
       backgroundColor: [
         'transparent',
         'primary.50',
@@ -52,9 +59,9 @@ const buttonColorsMap = {
         'primary.500',
         'grey.400',
       ],
-      textColorDisabled: ['grey.400'],
+      textColorDisabled: 'grey.400',
     },
-    secondary: {
+    [ButtonColor.SECONDARY]: {
       backgroundColor: [
         'transparent',
         'backgroundDark.200',
@@ -69,25 +76,29 @@ const buttonColorsMap = {
         'backgroundDark.500',
         'transparent',
       ],
-      textColorDisabled: ['grey.200'],
+      textColorDisabled: 'grey.200',
     },
   },
 };
 
-const stateMap = {
-  default: 0,
-  hover: 1,
-  active: 2,
-  focused: 3,
-  disabled: 4,
+const stateMap: Record<ButtonState, number> = {
+  [ButtonState.DEFAULT]: 0,
+  [ButtonState.HOVER]: 1,
+  [ButtonState.ACTIVE]: 2,
+  [ButtonState.FOCUSED]: 3,
+  [ButtonState.DISABLED]: 4,
 };
-const getColors = (color, variant, state) => {
+const getColors = (
+  color: ButtonColor,
+  variant: Exclude<ButtonVariant, ButtonVariant.TEXT>,
+  state: ButtonState,
+) => {
   const stateIndex = stateMap[state];
   return {
     backgroundColor:
       buttonColorsMap[variant][color].backgroundColor[stateIndex],
     borderColor: buttonColorsMap[variant][color].borderColor[stateIndex],
-    colorDisabled: buttonColorsMap[variant][color].textColorDisabled[0],
+    colorDisabled: buttonColorsMap[variant][color].textColorDisabled,
   };
 };
 

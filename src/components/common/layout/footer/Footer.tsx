@@ -2,7 +2,12 @@ import { FC } from 'react';
 import { Box, Link, Typography, useMediaQuery } from '@mui/material';
 import NextLink from 'next/link';
 
-import Button from '../../ui/button-mui';
+import Button from '@/components/common/ui/button-mui';
+import {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
+
 import IconButton from '../../ui/icon-button-mui/IconButton';
 
 import { mainLinks, socialLinks, supportLinks } from './constants';
@@ -32,8 +37,8 @@ const Footer: FC = () => {
             <Button
               sx={styles.button}
               text={data.text}
-              size="small"
-              variant="text"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
             />
           </Link>
         ))}
@@ -51,8 +56,8 @@ const Footer: FC = () => {
             <Button
               sx={styles.button}
               text={data.text}
-              size="small"
-              variant="text"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
             />
           </Link>
         ))}
