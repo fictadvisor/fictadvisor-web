@@ -26,7 +26,7 @@ interface PopupProps {
 const Popup: FC<PopupProps> = ({
   open,
   onClose,
-  sx,
+  sx = {},
   hasCross = false,
   icon,
   title,
