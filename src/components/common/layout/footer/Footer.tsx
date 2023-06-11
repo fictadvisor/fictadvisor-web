@@ -7,8 +7,8 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
-
-import IconButton from '../../ui/icon-button-mui/IconButton';
+import IconButton from '@/components/common/ui/icon-button-mui/IconButton';
+import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 
 import { mainLinks, socialLinks, supportLinks } from './constants';
 import * as styles from './Footer.styles';
@@ -78,7 +78,7 @@ const Footer: FC = () => {
               <IconButton
                 sx={styles.button}
                 icon={data.icon}
-                color="transparent"
+                color={IconButtonColor.TRANSPARENT}
               />
               <Typography variant="body1Bold" color="grey.600">
                 {!isMobile && data.text}

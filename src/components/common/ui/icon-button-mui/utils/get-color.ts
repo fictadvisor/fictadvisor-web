@@ -1,35 +1,38 @@
-import { IconButtonColorType } from '@/components/common/ui/icon-button-mui/IconButton';
-const ColorMap: Record<IconButtonColorType, string[]> = {
-  primary: [
+import {
+  IconButtonColor,
+  IconButtonState,
+} from '@/components/common/ui/icon-button-mui/types';
+
+const ColorMap: Record<IconButtonColor, string[]> = {
+  [IconButtonColor.PRIMARY]: [
     'primary.800',
     'primary.500',
     'primary.logo',
     'primary.800',
     'primary.900',
   ],
-  error: [
+  [IconButtonColor.ERROR]: [
     'backgroundDark.400',
     'error.400',
     'error.500',
     'backgroundDark.400',
     'error.500',
   ],
-  success: [
+  [IconButtonColor.SUCCESS]: [
     'success.500',
     'success.400',
     'success.300',
     'success.500',
     'success.800',
   ],
-
-  secondary: [
+  [IconButtonColor.SECONDARY]: [
     'backgroundDark.200',
     'backgroundDark.400',
     'backgroundDark.500',
     'backgroundDark.400',
     'backgroundDark.600',
   ],
-  transparent: [
+  [IconButtonColor.TRANSPARENT]: [
     'transparent',
     'transparent',
     'transparent',
@@ -37,14 +40,15 @@ const ColorMap: Record<IconButtonColorType, string[]> = {
     'transparent',
   ],
 };
-const ColorIndexMap = {
-  default: 0,
-  hover: 1,
-  active: 2,
-  focused: 3,
-  border: 4,
+const ColorIndexMap: Record<IconButtonState, number> = {
+  [IconButtonState.DEFAULT]: 0,
+  [IconButtonState.HOVER]: 1,
+  [IconButtonState.ACTIVE]: 2,
+  [IconButtonState.FOCUSED]: 3,
+  [IconButtonState.BORDER]: 4,
 };
-const getColor = (color, state) => {
+
+const getColor = (color: IconButtonColor, state: IconButtonState) => {
   const index = ColorIndexMap[state];
   return ColorMap[color][index];
 };

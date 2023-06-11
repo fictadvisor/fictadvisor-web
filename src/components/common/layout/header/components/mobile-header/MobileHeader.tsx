@@ -5,7 +5,11 @@ import NextLink from 'next/link';
 
 import { BurgerMenu } from '@/components/common/custom-svg/BurgerMenu';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import CloseButton from '@/components/common/ui/icon-button-mui/variants/CloseButton';
+import {
+  IconButtonColor,
+  IconButtonSize,
+} from '@/components/common/ui/icon-button-mui/types';
+import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
 
 import Drawer from './components/drawer/Drawer';
 import * as styles from './MobileHeader.styles';
@@ -30,16 +34,16 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
         <Box sx={styles.iconButton}>
           <CloseButton
             onClick={handleClick}
-            size="normal"
-            color="transparent"
+            size={IconButtonSize.NORMAL}
+            color={IconButtonColor.TRANSPARENT}
           />
         </Box>
       ) : (
         <IconButton
           sx={styles.iconButton}
           onClick={handleClick}
-          size="normal"
-          color="transparent"
+          size={IconButtonSize.NORMAL}
+          color={IconButtonColor.TRANSPARENT}
           icon={<BurgerMenu />}
         />
       )}
