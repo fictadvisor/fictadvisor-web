@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Icon, Rating as RatingMui, SxProps, Theme } from '@mui/material';
+import { Icon, Rating as MuiRating, SxProps, Theme } from '@mui/material';
 
 interface RatingProps {
   rating: number;
@@ -8,7 +8,7 @@ interface RatingProps {
 
 const Rating: FC<RatingProps> = ({ rating, sx }) => {
   return (
-    <RatingMui
+    <MuiRating
       value={rating}
       sx={sx}
       precision={0.1}
