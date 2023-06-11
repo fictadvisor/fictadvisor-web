@@ -1,38 +1,42 @@
-const buttonColorsMap = {
-  error_fill: {
-    backgroundColor: [
-      'error.300',
-      'error.400',
-      'error.500',
-      'error.300',
-      'backgroundDark.100',
-    ],
-    borderColor: [
-      'transparent',
-      'transparent',
-      'transparent',
-      'error.500',
-      'transparent',
-    ],
-  },
-  error_outline: {
-    backgroundColor: [
-      'transparent',
-      'error.300',
-      'error.400',
-      'error.300',
-      'backgroundDark.100',
-    ],
-    borderColor: [
-      'error.500',
-      'error.500',
-      'error.500',
-      'error.500',
-      'transparent',
-    ],
-  },
+import {
+  AlertButtonState,
+  AlertButtonVariant,
+} from '@/components/common/ui/alert-button-mui/types';
 
-  success: {
+const buttonColorsMap = {
+  [AlertButtonVariant.ERROR_FILL]: {
+    backgroundColor: [
+      'error.300',
+      'error.400',
+      'error.500',
+      'error.300',
+      'backgroundDark.100',
+    ],
+    borderColor: [
+      'transparent',
+      'transparent',
+      'transparent',
+      'error.500',
+      'transparent',
+    ],
+  },
+  [AlertButtonVariant.ERROR_OUTLINE]: {
+    backgroundColor: [
+      'transparent',
+      'error.300',
+      'error.400',
+      'error.300',
+      'backgroundDark.100',
+    ],
+    borderColor: [
+      'error.500',
+      'error.500',
+      'error.500',
+      'error.500',
+      'transparent',
+    ],
+  },
+  [AlertButtonVariant.SUCCESS]: {
     backgroundColor: [
       'success.500',
       'success.400',
@@ -51,13 +55,14 @@ const buttonColorsMap = {
 };
 
 const stateMap = {
-  default: 0,
-  hover: 1,
-  active: 2,
-  focus: 3,
-  disabled: 4,
+  [AlertButtonState.DEFAULT]: 0,
+  [AlertButtonState.HOVER]: 1,
+  [AlertButtonState.ACTIVE]: 2,
+  [AlertButtonState.FOCUS]: 3,
+  [AlertButtonState.DISABLED]: 4,
 };
-const getColors = (variant, state) => {
+
+const getColors = (variant: AlertButtonVariant, state: AlertButtonState) => {
   const stateIndex = stateMap[state];
   return {
     backgroundColor: buttonColorsMap[variant].backgroundColor[stateIndex],
