@@ -1,4 +1,3 @@
-import mergeClassNames from 'merge-class-names';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -18,7 +17,7 @@ const RightBlock = () => {
           alt="fict advisor logo"
         />
       </Link>
-      <h3 className={mergeClassNames(styles['login-text'])}>
+      <h3 className={styles['login-text']}>
         Вже маєш акаунт? Заходь!
       </h3>
       <Button

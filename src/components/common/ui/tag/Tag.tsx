@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import styles from './Tag.module.scss';
 
@@ -41,7 +41,7 @@ const Tag: FC<TagProps> = ({
   icon,
   className,
 }) => {
-  const tagClassName = mergeClassNames(
+  const tagClassName = cn(
     styles['tag'],
     styles[size],
     styles[color + '-' + variant],

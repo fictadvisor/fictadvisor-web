@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import Select from 'react-select';
+import cn from 'classnames';
 import { useField } from 'formik';
-import mergeClassNames from 'merge-class-names';
 
 import { FieldState } from '@/components/common/ui/form/common/types';
 
@@ -69,7 +69,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={mergeClassNames(styles['dropdown'], className)}>
+    <div className={cn(styles['dropdown'], className)}>
       <span className={state ? styles[`dropdown-${state}-label`] : ''}>
         {label}
       </span>
@@ -96,7 +96,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         maxMenuHeight={dropDownOptionHeight * numberOfOptions}
         classNames={{
           control: () => {
-            const control = mergeClassNames(
+            const control = cn(
               styles[`dropdown-control`],
               styles[`dropdown-control-${size}`],
               styles[`dropdown-control-${state}`],
@@ -119,7 +119,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             state.isDisabled
               ? styles['dropdown-placeholder-disabled']
               : state.isFocused
-              ? mergeClassNames(
+              ? cn(
                   styles['dropdown-placeholder-disabled'],
                   styles['dropdown-placeholder'],
                 )

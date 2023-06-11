@@ -1,5 +1,5 @@
 import React from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import Tag, { TagColor, TagSize, TagVariant } from '@/components/common/ui/tag';
 
@@ -24,7 +24,7 @@ const TagColors = {
 
 export const CardRoles: React.FC<CardRolesProps> = ({ roles, className }) => {
   return (
-    <div className={mergeClassNames(styles['card-roles'], className)}>
+    <div className={cn(styles['card-roles'], className)}>
       {roles.map(role => (
         <Tag
           size={TagSize.SMALL}

@@ -1,5 +1,5 @@
 import { FC, ReactNode, useContext } from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import { TabContext } from '../tab-list/TabList';
 
@@ -46,7 +46,7 @@ export const TabItem: FC<ITabItemProps> = ({
   return (
     <button
       onClick={handleClick}
-      className={mergeClassNames(
+      className={cn(
         styles[className],
         styles[position],
         styles[size],

@@ -1,5 +1,5 @@
 import React from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import styles from './Rating.module.scss';
 
@@ -14,10 +14,7 @@ type RatingProps = {
 
 const Rating: React.FC<RatingProps> = ({ rating, className, ...rest }) => {
   return (
-    <div
-      className={mergeClassNames(styles[`rating-conatainer`], className)}
-      {...rest}
-    >
+    <div className={cn(styles[`rating-conatainer`], className)} {...rest}>
       <div className={styles['ratings']}>
         <div className={styles['empty-stars']}></div>
         <div

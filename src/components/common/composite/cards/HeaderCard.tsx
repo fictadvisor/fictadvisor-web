@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import styles from '@/components/common/composite/cards/Cards.module.scss';
 
@@ -28,7 +28,7 @@ export const HeaderCard: React.FC<HeaderCardProps> = ({
   ...rest
 }) => {
   return (
-    <div className={mergeClassNames(styles[`header-card-container`])} {...rest}>
+    <div className={styles[`header-card-container`]} {...rest}>
       <div className={styles[`header-card-info`]}>
         <h4 className={styles[`card-name`]}>{name}</h4>
         <div>
@@ -57,10 +57,7 @@ export const LecturerHeaderCard: React.FC<LecturerHeaderCardProps> = ({
 
   return (
     <div
-      className={mergeClassNames(
-        styles['card'],
-        styles['header-lecturer-card-container'],
-      )}
+      className={cn(styles['card'], styles['header-lecturer-card-container'])}
       {...rest}
     >
       <img src={url} alt="картинка викладача" />

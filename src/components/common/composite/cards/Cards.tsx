@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import styles from '@/components/common/composite/cards/Cards.module.scss';
 import Button, {
@@ -62,11 +62,11 @@ export const LecturerPollCard: React.FC<LecturerPollCardProps> = ({
 
   return (
     <article
-      className={mergeClassNames(
-        disabled && styles['card-disabled'],
+      className={cn(
         styles['card'],
         styles['card-effect'],
         styles['lecturer-poll-card-container'],
+        { [styles['card-disabled']]: disabled },
       )}
       {...rest}
     >
@@ -113,11 +113,11 @@ export const RatingCard: React.FC<RatingCardProps> = ({
 }) => {
   return (
     <article
-      className={mergeClassNames(
+      className={cn(
         styles['card'],
         styles['card-effect'],
         styles['rating-card-container'],
-        disabled && styles['card-disabled'],
+        { [styles['card-disabled']]: disabled },
       )}
       {...rest}
     >
@@ -146,20 +146,15 @@ export const SimpleCard: React.FC<SimpleCardProps> = ({
 }) => {
   return (
     <article
-      className={mergeClassNames(
-        disabled && styles['card-disabled'],
+      className={cn(
         styles['card'],
         styles['card-effect'],
         styles['simple-card-container'],
+        { [styles['card-disabled']]: disabled },
       )}
       {...rest}
     >
-      <div
-        className={mergeClassNames(
-          styles['card-name'],
-          styles['simple-card-name'],
-        )}
-      >
+      <div className={cn(styles['card-name'], styles['simple-card-name'])}>
         {name}
       </div>
       {details && <p>{details}</p>}

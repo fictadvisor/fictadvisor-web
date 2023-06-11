@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from 'react';
+import cn from 'classnames';
 import { useField } from 'formik';
-import mergeClassNames from 'merge-class-names';
 
 import styles from './Slider.module.scss';
 
@@ -46,7 +46,7 @@ const Slider: FunctionComponent<SliderProps> = ({
   }, []);
 
   return (
-    <div className={mergeClassNames(styles['slider-container'], className)}>
+    <div className={cn(styles['slider-container'], className)}>
       <input
         ref={sliderRef}
         type="range"

@@ -1,5 +1,5 @@
 import React from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import { CardRoles } from '@/components/common/composite/cards/card-roles';
 import { DivProps } from '@/components/common/composite/cards/Cards';
@@ -22,10 +22,10 @@ export const SubjectTeacherCard: React.FC<SubjectTeacherCardProps> = ({
 }) => {
   return (
     <div
-      className={mergeClassNames(
+      className={cn(
         styles['subject-teacher-card'],
         styles['subject-teacher-card-effect'],
-        disabled && styles['card-disabled'],
+        { [styles['card-disabled']]: disabled },
       )}
       {...rest}
     >

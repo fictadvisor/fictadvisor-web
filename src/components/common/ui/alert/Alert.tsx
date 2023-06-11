@@ -4,7 +4,7 @@ import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import styles from './Alert.module.scss';
 
@@ -72,7 +72,7 @@ const Alert: React.FC<AlertProps> = ({
   const Icon = AlertColorMap[color];
   return (
     <div
-      className={mergeClassNames(
+      className={cn(
         styles['alert'],
         className,
         classSizeName,

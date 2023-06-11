@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import { DivProps } from '@/components/common/composite/cards/Cards';
 import Tooltip from '@/components/common/ui/tooltip';
@@ -28,10 +28,7 @@ const TeacherHeaderCard: React.FC<TeacherHeaderCardProps> = ({
 
   return (
     <div
-      className={mergeClassNames(
-        styles['card'],
-        styles['header-lecturer-card-container'],
-      )}
+      className={cn(styles['card'], styles['header-lecturer-card-container'])}
       {...rest}
     >
       <img src={url} alt="картинка викладача" />

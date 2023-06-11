@@ -1,5 +1,5 @@
 import React from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import { DivProps } from '@/components/common/composite/cards/Cards';
 import styles from '@/components/common/composite/cards/teacher-card/TeacherCard.module.scss';
@@ -18,11 +18,9 @@ export const TeacherCard: React.FC<TeacherCardProps> = ({
 }) => {
   return (
     <div
-      className={mergeClassNames(
-        styles['teacher-card'],
-        styles['teacher-card-effect'],
-        disabled && styles['card-disabled'],
-      )}
+      className={cn(styles['teacher-card'], styles['teacher-card-effect'], {
+        [styles['card-disabled']]: disabled,
+      })}
       {...rest}
     >
       <div className={styles['teacher-card-shift']}>

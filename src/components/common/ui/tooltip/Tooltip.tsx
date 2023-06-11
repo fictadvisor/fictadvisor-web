@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 
 import styles from './Tooltip.module.scss';
 
@@ -140,10 +140,9 @@ const Tooltip: React.FC<TooltipProps> = ({
           ref={toolTipRef}
         >
           <span
-            className={mergeClassNames(
-              styles['tooltip-text'],
-              hasArrow && styles[`tooltip-text-${tooltipState.position}`],
-            )}
+            className={cn(styles['tooltip-text'], {
+              [styles[`tooltip-text-${tooltipState.position}`]]: hasArrow,
+            })}
           >
             {text}
           </span>

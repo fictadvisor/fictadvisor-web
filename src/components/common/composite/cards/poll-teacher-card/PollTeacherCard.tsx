@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import mergeClassNames from 'merge-class-names';
+import cn from 'classnames';
 import Link from 'next/link';
 
 import { CardRoles } from '@/components/common/composite/cards/card-roles';
@@ -40,10 +40,10 @@ export const PollTeacherCard: React.FC<PollTeacherCardProps> = ({
 
   return (
     <article
-      className={mergeClassNames(
+      className={cn(
         styles['poll-teacher-card'],
         styles['poll-teacher-card-effect'],
-        disabled && styles['card-disabled'],
+        { [styles['card-disabled']]: disabled },
       )}
       {...rest}
     >
