@@ -62,13 +62,9 @@ export const Dropdown: FC<DropdownProps> = ({
     else return FieldState.DEFAULT;
   }, [touched, error]);
 
-  window.addEventListener('zoom', () => {
-    console.log('resized');
-  });
-
   const handleChange = (_: SyntheticEvent, option: DropDownOption) => {
     setTouched(true);
-    setValue(option?.id || '');
+    setValue(option?.id || '', true);
   };
 
   return (
@@ -84,7 +80,7 @@ export const Dropdown: FC<DropdownProps> = ({
         options={options}
         renderInput={params => (
           <TextField
-            {...values}
+            inputProps={values}
             {...params}
             label={label}
             sx={styles.input(dropdownState, size)}

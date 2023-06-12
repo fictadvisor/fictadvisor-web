@@ -27,14 +27,17 @@ export const input = (
       height: inputHeight[size],
       display: 'flex',
       alignContent: 'center',
+      paddingRight: '30px',
     },
     '& .MuiInputBase-input,& label ,& label.Mui-focused,& svg': {
       color: 'grey.800',
     },
     '& label': {
       top: 'calc((100% - 50px)/2)', //to center label
+      paddingRight: '30px',
     },
     '& .MuiInputLabel-shrink': {
+      paddingRight: '0px',
       transform: `matrix(.75,0,0,.75,14,${-(
         9 +
         (inputHeight[size] - 53) / 2
@@ -82,6 +85,7 @@ export const input = (
 };
 
 export const dropdown: SxProps<Theme> = {
+  minWidth: '150px',
   width: '100%',
   p: 2,
   pb: 0,
