@@ -1,38 +1,32 @@
-import { useQuery } from 'react-query';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout';
 import { AlertColor } from '@/components/common/ui/alert';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
-import Loader from '@/components/common/ui/loader';
 import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
-import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
+import type { GetTeacherDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
+import type { GetTeacherSubjectsDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectsDTO';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+export interface PersonalTeacherPageProps {
+  isError: boolean;
+  data: GetTeacherDTO;
+  subjectData: GetTeacherSubjectsDTO;
+}
 
-const PersonalTeacherPage = () => {
+const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
+  isError,
+  data,
+  subjectData,
+}) => {
   const router = useRouter();
-  const teacherId = router.query.teacherId as string;
-  const { isLoading, isError, data } = useQuery(
-    ['teacher', teacherId],
-    () => TeacherAPI.get(teacherId),
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  );
-  const { data: subjecktsData } = useQuery(
-    ['teacherSubjects', teacherId],
-    () => TeacherAPI.getTeacherSubjects(teacherId),
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  );
   const dispatch = useDispatch();
+  console.log(isError, data, subjectData);
   if (isError) {
+    console.log('here');
     dispatch(
       showAlert({
         color: AlertColor.ERROR,
@@ -46,43 +40,35 @@ const PersonalTeacherPage = () => {
   return (
     <PageLayout description={'Сторінка викладача'}>
       <div className={styles['personal-teacher-page']}>
-        {isLoading ? (
+        {!isError && (
           <div className={styles['personal-teacher-page-content']}>
-            <div className={styles['loader']}>
-              <Loader></Loader>
+            <Breadcrumbs
+              className={styles['breadcrumbs']}
+              items={[
+                {
+                  label: 'Головна',
+                  href: '/',
+                },
+                { label: 'Викладачі', href: '/teachers' },
+                {
+                  label: `${
+                    data.teacher.lastName +
+                    ' ' +
+                    data.teacher.firstName +
+                    ' ' +
+                    data.teacher.middleName
+                  }`,
+                  href: `/teachers/${data.teacher.id}`,
+                },
+              ]}
+            />
+            <div className={styles['card-wrapper']}>
+              <PersonalTeacherCard {...data} />
+            </div>
+            <div className={styles['tabs']}>
+              <PersonalTeacherTabs id={data.teacher.id} {...subjectData} />
             </div>
           </div>
-        ) : (
-          !isError && (
-            <div className={styles['personal-teacher-page-content']}>
-              <Breadcrumbs
-                className={styles['breadcrumbs']}
-                items={[
-                  {
-                    label: 'Головна',
-                    href: '/',
-                  },
-                  { label: 'Викладачі', href: '/teachers' },
-                  {
-                    label: `${
-                      data.teacher.lastName +
-                      ' ' +
-                      data.teacher.firstName +
-                      ' ' +
-                      data.teacher.middleName
-                    }`,
-                    href: `/teachers/${teacherId}`,
-                  },
-                ]}
-              />
-              <div className={styles['card-wrapper']}>
-                <PersonalTeacherCard {...data} />
-              </div>
-              <div className={styles['tabs']}>
-                <PersonalTeacherTabs id={data.teacher.id} {...subjecktsData} />
-              </div>
-            </div>
-          )
         )}
       </div>
     </PageLayout>
