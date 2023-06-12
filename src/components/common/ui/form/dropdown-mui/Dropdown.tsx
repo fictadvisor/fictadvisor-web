@@ -62,6 +62,10 @@ export const Dropdown: FC<DropdownProps> = ({
     else return FieldState.DEFAULT;
   }, [touched, error]);
 
+  window.addEventListener('zoom', () => {
+    console.log('resized');
+  });
+
   const handleChange = (_: SyntheticEvent, option: DropDownOption) => {
     setTouched(true);
     setValue(option?.id || '');
@@ -71,12 +75,8 @@ export const Dropdown: FC<DropdownProps> = ({
     <Box sx={styles.dropdown}>
       <Autocomplete
         disabled={isDisabled}
-        onFocus={() => {
-          setIsFocused(true);
-        }}
-        onBlur={() => {
-          setIsFocused(false);
-        }}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         fullWidth
         disablePortal
         onChange={handleChange}
@@ -97,14 +97,31 @@ export const Dropdown: FC<DropdownProps> = ({
         }
         componentsProps={{
           popper: {
-            placement: 'bottom',
-            modifiers: [{ name: 'flip', enabled: false }],
+            placement: 'bottom-start',
+            modifiers: [
+              { name: 'flip', enabled: false },
+              {
+                name: 'preventOverflow',
+                options: {
+                  mainAxis: false,
+                },
+              },
+              {
+                name: 'sameWidth',
+                enabled: true,
+                fn: ({ state }) => {
+                  state.styles.popper.width = `${state.rects.reference.width}px`;
+                },
+                phase: 'beforeWrite',
+                requires: ['computeStyles'],
+              },
+            ],
           },
         }}
         popupIcon={<ChevronDownIcon width={24} height={24} strokeWidth={1.5} />}
         noOptionsText={noOptionsText}
         renderOption={(props, option: DropDownOption) => (
-          <Option props={props} option={option} />
+          <Option props={props} option={option} key={option.id} />
         )}
       />
       {showRemark && (

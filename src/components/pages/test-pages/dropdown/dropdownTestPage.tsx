@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
