@@ -1,8 +1,15 @@
+import { ReactNode } from 'react';
 import { SxProps, Theme } from '@mui/material/styles';
 
 import palette from '@/styles/theme/constants/pallete';
-import typography from '@/styles/theme/constants/typography';
-export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
+
+import { TabTextPosition } from './types';
+
+export const tab = (
+  counter: string | number,
+  textPosition: TabTextPosition,
+  icon?: ReactNode,
+): SxProps<Theme> => ({
   width: '100%',
   minWidth: 'fit-content',
   alignItems: 'center',
@@ -17,11 +24,11 @@ export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   color: 'grey.800',
   minHeight: '0',
   textTransform: 'none',
-  justifyContent: textPosition == 'center' ? 'center' : 'start',
+  justifyContent: textPosition === TabTextPosition.CENTER ? 'center' : 'start',
 
   typography: {
-    mobile: typography.body2Medium,
-    desktopSemiMedium: typography.body2Bold,
+    mobile: 'body2Medium',
+    desktopSemiMedium: 'body2Bold',
   },
   padding: {
     mobile: '6px 19px',
@@ -74,7 +81,7 @@ export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
     margin: '0',
   },
 });
-export const counter = (disabled): SxProps<Theme> => ({
+export const counter = (disabled: boolean): SxProps<Theme> => ({
   borderRadius: '24px',
   marginLeft: '8px',
   display: 'flex',
@@ -98,8 +105,8 @@ export const counter = (disabled): SxProps<Theme> => ({
     desktopSemiMedium: '1px 8px',
   },
   typography: {
-    mobile: typography.body1Medium,
-    desktopSemiMedium: typography.body2Medium,
+    mobile: 'body1Medium',
+    desktopSemiMedium: 'body2Medium',
   },
 });
 

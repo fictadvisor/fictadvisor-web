@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { TabPanel as Panel, TabPanelProps } from '@mui/lab';
+import { TabPanel as MuiTabPanel, TabPanelProps } from '@mui/lab';
 
 const TabPanel: FC<TabPanelProps> = props => {
-  return <Panel {...props} />;
+  return <MuiTabPanel {...props} />;
 };
 export default TabPanel;
