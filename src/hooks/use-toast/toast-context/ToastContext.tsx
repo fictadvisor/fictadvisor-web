@@ -1,10 +1,10 @@
 import React, { FC, PropsWithChildren, useState } from 'react';
 
-import { AlertType } from '@/components/common/ui/alert-mui/Alert';
+import { AlertType } from '@/components/common/ui/alert-mui/types';
 import Toast from '@/components/common/ui/toast-mui';
 
 interface ToastContextType {
-  showToast: (OptionsType) => void;
+  showToast: (options: OptionsType) => void;
 }
 
 export const ToastContext = React.createContext<ToastContextType>({
@@ -20,7 +20,7 @@ interface OptionsType {
 
 const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [options, setOptions] = useState<OptionsType>({
-    type: 'error',
+    type: AlertType.ERROR,
     title: '',
     description: '',
     open: false,
@@ -28,7 +28,11 @@ const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const hideToast = () => setOptions({ ...options, open: false });
 
-  const showToast = ({ title, type = 'error', description }: OptionsType) => {
+  const showToast = ({
+    title,
+    type = AlertType.ERROR,
+    description,
+  }: OptionsType) => {
     setOptions({
       open: true,
       type,

@@ -2,7 +2,10 @@ import React, { FC } from 'react';
 import { Box, Slide, Snackbar } from '@mui/material';
 
 import Alert from '@/components/common/ui/alert-mui';
-import { AlertType } from '@/components/common/ui/alert-mui/Alert';
+import {
+  AlertType,
+  AlertVariant,
+} from '@/components/common/ui/alert-mui/types';
 
 import * as styles from './Toast.styles';
 
@@ -37,7 +40,7 @@ const Toast: FC<ToastProps> = ({ open, onClose, title, type, description }) => {
           title={title}
           description={description}
           onClose={onClose}
-          variant="filled"
+          variant={AlertVariant.FILLED}
         />
       </Box>
     </Snackbar>

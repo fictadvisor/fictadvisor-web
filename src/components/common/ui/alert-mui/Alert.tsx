@@ -8,9 +8,9 @@ import {
 import { Alert as MuiAlert, AlertColor, Typography } from '@mui/material';
 
 import { AlertXMark } from '@/components/common/custom-svg/AlertXMark';
-import * as styles from '@/components/common/ui/alert-mui/Alert.styles';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
+import * as styles from './Alert.styles';
 import { AlertProps, AlertType, AlertVariant } from './types';
 
 const AlertIconMap: Record<AlertColor, React.ReactNode> = {
