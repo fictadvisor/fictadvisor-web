@@ -15,7 +15,7 @@ const Footer: FC = () => {
     <Box sx={styles.footerContainer}>
       <Box sx={styles.footerLogoContainer}>
         <Link href="/" component={NextLink} sx={styles.footerLogo}>
-          <Box component="img" src="/assets/logo.png" alt="logo" />
+          <Box component="img" src="/images/logo.png" alt="logo" />
         </Link>
         <Typography sx={styles.signature}>By Dev-відділ СР ФІОТ</Typography>
       </Box>

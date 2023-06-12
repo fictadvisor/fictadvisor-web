@@ -1,7 +1,7 @@
 import React, { ReactNode, SetStateAction } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-import { TelegramOutlineIcon } from '@/components/common/custom-svg/TelegramOutline';
+import { TelegramOutline } from '@/components/common/icons/TelegramOutline';
 import useIsMobile from '@/hooks/use-is-mobile/UseIsMobile';
 
 import { CloseButton } from '../../ui/icon-button/variants';
@@ -44,7 +44,7 @@ export const Popup: React.FC<PopupProps> = ({
         {hasIcon ? (
           <div className={styles.titleWrapper}>
             {isTelegramIcon ? (
-              <TelegramOutlineIcon />
+              <TelegramOutline />
             ) : (
               <CheckCircleIcon
                 width="24px"

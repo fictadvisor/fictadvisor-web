@@ -19,7 +19,6 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
         subjects.map(subject => (
           <li key={subject.id}>
             <SubjectCard
-              // className={'subject-card'}
               onClick={() => redirect(subject.id)}
               name={`${subject.name}`}
               details={`${
