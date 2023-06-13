@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import Select from 'react-select';
+import Select, { SingleValue } from 'react-select';
 import cn from 'classnames';
 import { useField } from 'formik';
 
@@ -57,14 +57,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [{}, { touched, error }, { setTouched, setValue }] = useField(name);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  let state;
+  let state: FieldState | undefined;
   if (isDisabled) state = FieldState.DISABLED;
   else if (touched && error) state = FieldState.ERROR;
   else if (touched && isSuccessOnDefault) state = FieldState.SUCCESS;
 
-  const handleChange = option => {
+  const handleChange = (option: SingleValue<DropDownOption>) => {
     setTouched(true);
-    setValue(option?.value ? option.value : '');
+    setValue(option?.value || '');
     if (onChange) onChange();
   };
 
