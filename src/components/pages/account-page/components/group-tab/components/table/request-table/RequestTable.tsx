@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -23,7 +24,7 @@ export interface RequestTableItem {
 
 interface StudentTableProps {
   rows: RequestTableItem[];
-  refetch;
+  refetch: QueryObserverBaseResult['refetch'];
 }
 
 const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
