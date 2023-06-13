@@ -9,7 +9,7 @@ import * as styles from './RadarTestPage.styles';
 const RadarTestPage = () => {
   return (
     <Box sx={styles.wrapper}>
-      <RadarChart info={data} />
+      <RadarChart marks={data} />
     </Box>
   );
 };

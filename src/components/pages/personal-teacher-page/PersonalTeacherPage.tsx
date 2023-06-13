@@ -1,55 +1,47 @@
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import { AlertColor } from '@/components/common/ui/alert';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Loader from '@/components/common/ui/loader';
 import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
-import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
+import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
+import TeacherService from '@/lib/services/teacher';
 
 const PersonalTeacherPage = () => {
   const router = useRouter();
   const teacherId = router.query.teacherId as string;
+  const { user } = useAuthentication();
   const { isLoading, isError, data } = useQuery(
     ['teacher', teacherId],
-    () => TeacherAPI.get(teacherId),
+    () => TeacherService.getTeacherPageInfo(teacherId, user?.id),
     {
       refetchOnWindowFocus: false,
       retry: false,
     },
   );
-  const { data: subjecktsData } = useQuery(
-    ['teacherSubjects', teacherId],
-    () => TeacherAPI.getTeacherSubjects(teacherId),
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  );
-  const dispatch = useDispatch();
-  if (isError) {
-    dispatch(
-      showAlert({
-        color: AlertColor.ERROR,
-        title: 'Куди ти лізеш, цієї людини не існує',
-      }),
-    );
-    setTimeout(() => {
+  const toast = useToast();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Куди ти лізеш, цієї людини не існує');
       void router.push('/teachers');
-    }, 3000);
-  }
+    }
+  }, [isError]);
+
+  const teacher = data?.info?.teacher;
+
   return (
     <PageLayout description={'Сторінка викладача'}>
       <div className={styles['personal-teacher-page']}>
         {isLoading ? (
           <div className={styles['personal-teacher-page-content']}>
             <div className={styles['loader']}>
-              <Loader></Loader>
+              <Loader />
             </div>
           </div>
         ) : (
@@ -64,22 +56,16 @@ const PersonalTeacherPage = () => {
                   },
                   { label: 'Викладачі', href: '/teachers' },
                   {
-                    label: `${
-                      data.teacher.lastName +
-                      ' ' +
-                      data.teacher.firstName +
-                      ' ' +
-                      data.teacher.middleName
-                    }`,
+                    label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
                     href: `/teachers/${teacherId}`,
                   },
                 ]}
               />
               <div className={styles['card-wrapper']}>
-                <PersonalTeacherCard {...data} />
+                <PersonalTeacherCard {...data.info} />
               </div>
               <div className={styles['tabs']}>
-                <PersonalTeacherTabs id={data.teacher.id} {...subjecktsData} />
+                <PersonalTeacherTabs {...data} />
               </div>
             </div>
           )

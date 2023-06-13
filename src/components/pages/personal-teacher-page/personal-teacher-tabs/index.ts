@@ -1,1 +1,1 @@
-export { default } from './PersonalTeacherTabs';
+export { default } from './PersonalTeacherTabs2';

@@ -28,20 +28,21 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
-interface RadarProps {
-  info: {
+export interface RadarProps {
+  marks: {
     name: string;
     amount: number;
-    type: string;
+    type: 'RADAR' | 'CIRCLE';
     mark: number;
   }[];
 }
 
-const RadarChart: FC<RadarProps> = ({ info }) => {
-  const labels = info.map(a => a.name);
-  const data = getData(info.map(({ mark }) => mark));
+const RadarChart: FC<RadarProps> = ({ marks }) => {
+  const labels = marks.map(mark => mark.name);
+  const data = getData(marks.map(mark => mark.mark));
   const options = getOptions();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
+
   return (
     <Box sx={styles.background(isMobile)}>
       <Radar options={options} data={data} />
