@@ -1,6 +1,6 @@
 import { ChartOptions } from 'chart.js';
 
-export const getOptions = (): ChartOptions<'bar'> => {
+const getOptions = (): ChartOptions<'bar'> => {
   return {
     responsive: true,
     maintainAspectRatio: false,
@@ -65,3 +65,5 @@ export const getOptions = (): ChartOptions<'bar'> => {
     },
   };
 };
+
+export default getOptions;

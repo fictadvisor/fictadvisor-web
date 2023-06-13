@@ -2,7 +2,7 @@ import { ChartData } from 'chart.js';
 
 import { GetTeacherEvaluationsDTO } from '@/lib/api/teacher/dto/GetTeacherEvaluationsDTO';
 
-export const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
+const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
   console.log(data);
   const { mark, name } = data;
   return {
@@ -20,3 +20,5 @@ export const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
     ],
   };
 };
+
+export default getData;

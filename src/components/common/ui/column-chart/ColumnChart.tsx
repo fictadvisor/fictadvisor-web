@@ -3,8 +3,8 @@ import { Bar } from 'react-chartjs-2';
 import { Box, Typography } from '@mui/material';
 import { Chart, registerables } from 'chart.js';
 
-import { getData } from '@/components/common/ui/column-chart/utils/data';
-import { getOptions } from '@/components/common/ui/column-chart/utils/options';
+import getData from '@/components/common/ui/column-chart/utils/get-data';
+import getOptions from '@/components/common/ui/column-chart/utils/get-options';
 import { GetTeacherEvaluationsDTO } from '@/lib/api/teacher/dto/GetTeacherEvaluationsDTO';
 
 import * as styles from './ColumnChart.styles';
