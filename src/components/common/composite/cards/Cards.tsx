@@ -47,17 +47,21 @@ type SimpleCardProps = {
 export const LecturerPollCard: React.FC<LecturerPollCardProps> = ({
   name,
   description,
-  roles,
+  roles = [],
   avatar,
   disabled,
   ...rest
 }) => {
-  const divRef = useRef<HTMLDivElement | null>(null);
+  const divRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
 
   const onMouseOverHandler = () => {
     const elem = divRef.current;
-    setIsTruncated(elem.scrollHeight - 1 > elem.getBoundingClientRect().height);
+    if (elem) {
+      setIsTruncated(
+        elem?.scrollHeight - 1 > elem?.getBoundingClientRect()?.height,
+      );
+    }
   };
 
   return (

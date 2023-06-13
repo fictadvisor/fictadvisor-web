@@ -3,6 +3,7 @@ import cn from 'classnames';
 import Link from 'next/link';
 
 import { CardRoles } from '@/components/common/composite/cards/card-roles';
+import { Role } from '@/components/common/composite/cards/card-roles/CardRoles';
 import { DivProps } from '@/components/common/composite/cards/Cards';
 import styles from '@/components/common/composite/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import Button, {
@@ -15,7 +16,7 @@ import Tooltip from '@/components/common/ui/tooltip';
 type PollTeacherCardProps = {
   name: string;
   description: string;
-  roles?: string[];
+  roles?: Role[];
   avatar?: string;
   disabled?: boolean;
   href?: string;
@@ -24,18 +25,22 @@ type PollTeacherCardProps = {
 export const PollTeacherCard: React.FC<PollTeacherCardProps> = ({
   name,
   description,
-  roles,
+  roles = [],
   avatar,
   disabled,
-  href,
+  href = '/',
   ...rest
 }) => {
-  const divRef = useRef<HTMLDivElement | null>(null);
+  const divRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
 
   const onMouseOverHandler = () => {
     const elem = divRef.current;
-    setIsTruncated(elem.scrollHeight - 1 > elem.getBoundingClientRect().height);
+    if (elem) {
+      setIsTruncated(
+        elem.scrollHeight - 1 > elem.getBoundingClientRect().height,
+      );
+    }
   };
 
   return (

@@ -2,20 +2,21 @@ import React from 'react';
 import cn from 'classnames';
 
 import { CardRoles } from '@/components/common/composite/cards/card-roles';
+import { Role } from '@/components/common/composite/cards/card-roles/CardRoles';
 import { DivProps } from '@/components/common/composite/cards/Cards';
 import styles from '@/components/common/composite/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
 
 type SubjectTeacherCardProps = {
   name: string;
   rating?: number;
-  roles?: string[];
+  roles?: Role[];
   avatar?: string;
   disabled?: boolean;
 } & DivProps;
 
 export const SubjectTeacherCard: React.FC<SubjectTeacherCardProps> = ({
   name,
-  roles,
+  roles = [],
   avatar,
   disabled,
   ...rest
