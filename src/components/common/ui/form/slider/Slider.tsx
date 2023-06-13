@@ -21,23 +21,23 @@ const Slider: FunctionComponent<SliderProps> = ({
   ...rest
 }) => {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLInputElement>(null);
   const [{ value }, {}, { setTouched, setValue }] = useField(rest.name);
 
   const handleInput = () => {
-    sliderRef.current.style.setProperty(
+    sliderRef.current?.style.setProperty(
       '--background-size',
       `${calculateBackgroundSize()}%`,
     );
-    setValue(sliderRef.current.value);
+    setValue(sliderRef.current?.value);
     setTouched(true);
   };
 
   const calculateBackgroundSize = () => {
-    const min = sliderRef.current.min || 0;
-    const max = sliderRef.current.max || 100;
-    const value = sliderRef.current.value;
-    const addedValue = value == 2 ? 2 : value == 9 ? -1 : 0;
+    const min = Number(sliderRef.current?.min) || 0;
+    const max = Number(sliderRef.current?.max) || 100;
+    const value = Number(sliderRef.current?.value);
+    const addedValue = value === 2 ? 2 : value === 9 ? -1 : 0;
     return ((value - min) / (max - min)) * 100 + addedValue;
   };
 
