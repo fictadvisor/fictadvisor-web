@@ -23,4 +23,6 @@ export interface RadarCircleMarkType {
   mark: number;
 }
 
-export type GetTeacherMarksDTO = (RadarCircleMarkType | AmountMarkType)[];
+export interface GetTeacherMarksDTO {
+  marks: (RadarCircleMarkType | AmountMarkType)[];
+}

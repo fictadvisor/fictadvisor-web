@@ -1,6 +1,13 @@
-import { FC } from 'react';
-import { Box } from '@mui/material';
+import { FC, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
+import CircleDiagram from '@/components/common/ui/circle-diagram';
+import ColumnChart from '@/components/common/ui/column-chart';
+import LineGraph from '@/components/common/ui/line_graph';
 import Radar from '@/components/common/ui/radar';
 import {
   AmountMarkType,
@@ -10,7 +17,13 @@ import {
 
 import * as styles from './GeneralTab.styles';
 
-const GeneralTab: FC<GetTeacherMarksDTO> = marks => {
+const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
+  const [open, setOpen] = useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   const updatedMarks = Object.values(marks);
 
   const radarMarks = updatedMarks?.filter(
@@ -28,10 +41,40 @@ const GeneralTab: FC<GetTeacherMarksDTO> = marks => {
   console.log(radarMarks);
   console.log(circleMarks);
   console.log(columnMarks);
-
   return (
     <Box sx={styles.wrapper}>
-      <Radar marks={radarMarks} />
+      <Box sx={styles.radarWrapper}>
+        <Radar marks={radarMarks} />
+      </Box>
+      <List>
+        <ListItemButton onClick={handleClick}>
+          <ListItemText primary="Детальніше" />
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit sx={styles.collapse}>
+          {radarMarks.map(mark => (
+            <List key={mark.name} component="div">
+              <LineGraph label={mark.name} value={mark.mark} />
+            </List>
+          ))}
+        </Collapse>
+      </List>
+      <Box sx={styles.circleWrapper}>
+        {circleMarks.map(mark => (
+          <Box key={mark.name} sx={styles.circleGraph}>
+            <CircleDiagram value={mark.mark} />
+            <Typography variant="body1" sx={styles.circleGraphNameWrapper}>
+              {mark.name}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+      <Box sx={styles.columnWrapper}>
+        {columnMarks.map(mark => (
+          <Box key={mark.name}>
+            <ColumnChart data={mark} />
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 };

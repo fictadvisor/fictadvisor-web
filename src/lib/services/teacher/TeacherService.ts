@@ -11,7 +11,7 @@ export interface GetTeacherResponse {
   info: GetTeacherDTO;
   subjects: GetTeacherSubjectsDTO['subjects'];
   comments: GetTeacherCommentsDTO;
-  marks: GetTeacherMarksDTO;
+  marks: GetTeacherMarksDTO['marks'];
   hasEnoughMarks: boolean;
   buttonInfo: {
     text: string;
@@ -22,7 +22,7 @@ export interface GetTeacherResponse {
 export interface GetTeacherSubjectResponse {
   info: GetTeacherSubjectDTO;
   comments: GetTeacherCommentsDTO;
-  marks: GetTeacherMarksDTO;
+  marks: GetTeacherMarksDTO['marks'];
   hasEnoughMarks: boolean;
   buttonInfo: {
     text: string;
@@ -38,7 +38,7 @@ class TeacherService {
     const info = await TeacherAPI.get(teacherId);
     const subjects = (await TeacherAPI.getTeacherSubjects(teacherId)).subjects;
     const comments = await TeacherAPI.getTeacherComments(teacherId);
-    const marks = await TeacherAPI.getTeacherMarks(teacherId);
+    const marks = (await TeacherAPI.getTeacherMarks(teacherId)).marks;
     const hasEnoughMarks = marks.length >= MIN_MARKS_LENGTH;
     let buttonInfo = [
       {
@@ -77,7 +77,8 @@ class TeacherService {
   ): Promise<GetTeacherSubjectResponse> {
     const info = await TeacherAPI.getTeacherSubject(teacherId, subjectId);
     const comments = await TeacherAPI.getTeacherComments(teacherId, subjectId);
-    const marks = await TeacherAPI.getTeacherMarks(teacherId, subjectId);
+    const marks = (await TeacherAPI.getTeacherMarks(teacherId, subjectId))
+      .marks;
 
     const hasEnoughMarks = marks.length >= MIN_MARKS_LENGTH;
     let buttonInfo = [
