@@ -26,14 +26,14 @@ const Toast: FC = () => {
     dispatch(hideAlert());
   };
 
+  if (!open) return null;
+
   return (
-    open && (
-      <AlertPopup
-        variant={AlertVariant.FILLED}
-        closeFunction={handleClose}
-        {...rest}
-      />
-    )
+    <AlertPopup
+      variant={AlertVariant.FILLED}
+      closeFunction={handleClose}
+      {...rest}
+    />
   );
 };
 
