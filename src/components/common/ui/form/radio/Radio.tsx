@@ -26,7 +26,7 @@ const Radio: FC<RadioProps> = ({
   value,
   label,
   textType = 'body1',
-  sx,
+  sx = {},
   disabled = false,
   name,
   ...props
