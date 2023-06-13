@@ -4,7 +4,7 @@ const ColorMap: Record<string, string> = {
   bad: 'error.400',
 };
 
-const colorInfo = value => {
+const getColor = (value: number) => {
   if (value > 70) {
     return ColorMap.good;
   }
@@ -16,4 +16,4 @@ const colorInfo = value => {
   }
 };
 
-export default colorInfo;
+export default getColor;
