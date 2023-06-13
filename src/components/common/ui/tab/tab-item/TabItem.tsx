@@ -22,12 +22,12 @@ interface ITabItemProps {
   icon?: ReactNode;
   isDisabled?: boolean;
   count?: string;
-  value?: string;
+  value: string;
   size: TabItemContentSize;
 }
 
 export const TabItem: FC<ITabItemProps> = ({
-  className,
+  className = '',
   text,
   position,
   icon,
