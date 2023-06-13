@@ -5,15 +5,11 @@ import PersonalTeacherPage from '@/components/pages/personal-teacher-page';
 import type { PersonalTeacherPageProps } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 
-const PersonalTeacher: FC<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = props => <PersonalTeacherPage {...props} />;
-
 export const getServerSideProps: GetServerSideProps<
   PersonalTeacherPageProps
 > = async context => {
-  let data = null,
-    subjectData = null,
+  let data: PersonalTeacherPageProps['data'] = null,
+    subjectData: PersonalTeacherPageProps['subjectData'] = null,
     isError = false;
 
   try {
@@ -28,5 +24,9 @@ export const getServerSideProps: GetServerSideProps<
     props: { data, subjectData, isError },
   };
 };
+
+const PersonalTeacher: FC<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = props => <PersonalTeacherPage {...props} />;
 
 export default PersonalTeacher;

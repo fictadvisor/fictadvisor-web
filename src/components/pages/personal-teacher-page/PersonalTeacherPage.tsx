@@ -24,9 +24,7 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(isError, data, subjectData);
   if (isError) {
-    console.log('here');
     dispatch(
       showAlert({
         color: AlertColor.ERROR,
