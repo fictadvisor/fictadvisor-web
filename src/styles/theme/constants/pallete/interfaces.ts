@@ -1,6 +1,14 @@
+import { Color } from '@mui/material';
+
 import '@mui/material/styles';
 
 declare module '@mui/material/styles' {
+  interface SimplePaletteColorOptions {
+    logo?: string;
+  }
+
+  interface PaletteColor extends Color {}
+
   interface Palette {
     gray: Palette['primary'];
     backgroundDark: Palette['primary'];
