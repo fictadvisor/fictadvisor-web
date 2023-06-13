@@ -48,11 +48,10 @@ const Input: React.FC<InputProps> = ({
   showRemark = true,
   className: additionalClassName,
   onDeterredChange,
+  name = '',
   ...rest
 }) => {
-  const [field, { touched, error }, { setTouched, setValue }] = useField(
-    rest.name,
-  );
+  const [field, { touched, error }, { setTouched, setValue }] = useField(name);
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
   const inputType = isHidden ? 'password' : 'text';
 
@@ -134,9 +133,7 @@ const Input: React.FC<InputProps> = ({
       <input
         placeholder={placeholder}
         type={inputType}
-        name={rest.name}
         onInput={field.onChange}
-        onChange={field.onChange}
         {...field}
         {...rest}
       />
