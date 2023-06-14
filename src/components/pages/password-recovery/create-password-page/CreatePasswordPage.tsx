@@ -26,6 +26,7 @@ const CreatePasswordPage = () => {
     {
       refetchOnWindowFocus: false,
     },
+    //ТУТ Я ПРИБРАВ КОД ДЛЯ ТОКІНА, ПРИ АПРУВІ ТРЕБА ТЕРМІНОВО ПОВЕРНУТИ
   );
   if (!isFetching) {
     // if (!data.isAvailable) {
