@@ -5,7 +5,7 @@ import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO
 import { GetTeacherSubjectsDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectsDTO';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 
-const MIN_MARKS_LENGTH = 8;
+const MIN_MARKS_LENGTH = 1;
 
 export interface GetTeacherResponse {
   info: GetTeacherDTO;
