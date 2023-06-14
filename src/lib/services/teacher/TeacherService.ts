@@ -47,17 +47,19 @@ class TeacherService {
       },
     ];
 
-    if (!hasEnoughMarks && userId) {
+    if (userId) {
       const disciplines = await TeacherAPI.getTeacherDisciplines(
         teacherId,
         true,
         userId,
       );
 
-      buttonInfo = disciplines.map(discipline => ({
-        text: `Перейти до опитування ${discipline.subjectName}`,
-        href: `/poll/${discipline.disciplineTeacherId}`,
-      }));
+      if (disciplines.length > 0) {
+        buttonInfo = disciplines.map(discipline => ({
+          text: `Перейти до опитування ${discipline.subjectName}`,
+          href: `/poll/${discipline.disciplineTeacherId}`,
+        }));
+      }
     }
 
     return {
@@ -88,19 +90,23 @@ class TeacherService {
       },
     ];
 
-    if (!hasEnoughMarks && userId) {
+    if (userId) {
       const disciplines = await TeacherAPI.getTeacherDisciplines(
         teacherId,
         true,
         userId,
       );
 
-      buttonInfo = disciplines
-        .filter(discipline => discipline.disciplineTeacherId === info.id)
-        .map(discipline => ({
+      const thisDiscipline = disciplines.filter(
+        discipline => discipline.disciplineTeacherId === info.id,
+      );
+
+      if (thisDiscipline.length > 0) {
+        buttonInfo = thisDiscipline.map(discipline => ({
           text: `Перейти до опитування ${discipline.subjectName}`,
           href: `/poll/${discipline.disciplineTeacherId}`,
         }));
+      }
     }
 
     return {

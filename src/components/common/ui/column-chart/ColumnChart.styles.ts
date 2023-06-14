@@ -12,10 +12,10 @@ export const chartContainer: SxProps<Theme> = {
   border: '1px solid rgba(64, 64, 64)',
   borderRadius: '8px',
   padding: '10px',
-  backgroundColor: 'rgb(33,33,33)',
   display: 'grid',
   gridTemplateColumns: '30px 1fr',
   gridTemplateRows: '30px 1fr',
+  backgroundColor: 'backgroundDark.200',
 };
 
 export const yTitle: SxProps<Theme> = {

@@ -11,46 +11,12 @@ const CommentTab: FC<GetTeacherCommentsDTO> = ({ questions }) => {
     <Box sx={styles.wrapper}>
       {questions?.map(question =>
         question.comments.map((comment, index) => (
-          <>
-            <Comment
-              key={index}
-              text={
-                'ashjdsajkhsadjkhkhjdsajkhlasdjkhlsadjkhlasdjkl asjhdk askjld askjld akjsd kjlasdhkj askjdh askjld hjkasd kjsadkj asjkd askjld asjkd kjasldjkasdkj hlasjdkl askjld asjlkhdashjlkd'
-              }
-              semester={2}
-              year={comment.year}
-            />
-            <Comment
-              key={index}
-              text={
-                'ashjdsajkhsadjkhkhjdsajkhlasdjkhlsadjkhlasdjkl asjhdk askjld askjld akjsd kjlasdhkj askjdh askjld hjkasd kjsadkj asjkd askjld asjkd kjasldjkasdkj hlasjdkl askjld asjlkhdashjlkd'
-              }
-              semester={comment.semester}
-              year={comment.year}
-            />
-            <Comment
-              key={index}
-              text={
-                'ashjdsajkhsadjkhkhjdsajkhlasdjkhlsadjkhlasdjkl asjhdk askjld askjld akjsd kjlasdhkj askjdh askjld hjkasd kjsadkj asjkd askjld asjkd kjasldjkasdkj hlasjdkl askjld asjlkhdashjlkd'
-              }
-              semester={comment.semester}
-              year={comment.year}
-            />
-            <Comment
-              key={index}
-              text={'lol'}
-              semester={comment.semester}
-              year={comment.year}
-            />
-            <Comment
-              key={index}
-              text={
-                'ashjdsajkhsadjkhkhjdsajkhlasdjkhlsadjkhlasdjkl asjhdk askjld askjld akjsd kjlasdhkj askjdh askjld hjkasd kjsadkj asjkd askjld asjkd kjasldjkasdkj hlasjdkl askjld asjlkhdashjlkd'
-              }
-              semester={comment.semester}
-              year={comment.year}
-            />
-          </>
+          <Comment
+            key={index}
+            text={comment.comment}
+            semester={comment.semester}
+            year={comment.year}
+          />
         )),
       )}
     </Box>

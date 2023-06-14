@@ -1,23 +1,64 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const wrapper: SxProps<Theme> = {
-  margin: '-14px -24px 10px -24px',
-  backgroundColor: 'backgroundDark.200',
+  marginTop: '-15px',
+  backgroundColor: {
+    mobile: 'inherit',
+    desktopSemiMedium: 'backgroundDark.200',
+  },
   borderRadius: '4px',
+  padding: {
+    mobile: '20px 0 38px',
+    desktopSemiMedium: '40px',
+  },
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+
+  gap: {
+    mobile: '32px',
+    desktopSemiMedium: '46px',
+  },
 };
 
 export const radarWrapper: SxProps<Theme> = {
   width: '100%',
-  padding: '120px 40px 40px 40px',
+  paddingTop: {
+    mobile: '0',
+    desktopSemiMedium: '80px',
+  },
+
+  paddingBottom: {
+    mobile: '0',
+    desktopSemiMedium: '10px',
+  },
+
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
 };
 
+export const listButton = (isOpened: boolean): SxProps<Theme> => ({
+  backgroundColor: 'backgroundDark.200',
+  '&:hover, &:active, &:focus': {
+    backgroundColor: 'backgroundDark.200',
+  },
+  marginBottom: '6px',
+  borderRadius: '4px',
+  svg: {
+    transition: 'transform .2s linear',
+    transform: isOpened ? 'none' : 'rotate(180deg)',
+    width: '16px',
+    height: '16px',
+    color: 'white',
+  },
+});
+
 export const collapse: SxProps<Theme> = {
   backgroundColor: 'backgroundDark.200',
   borderRadius: '4px',
+  padding: '10px',
 };
 
 export const circleWrapper: SxProps<Theme> = {
@@ -28,8 +69,14 @@ export const circleWrapper: SxProps<Theme> = {
   justifyContent: 'center',
   alignItems: 'flex-start',
   alignContent: 'flex-start',
-  paddingTop: '66px',
-  paddingBottom: '46px',
+  paddingTop: {
+    mobile: '0',
+    desktopSemiMedium: '66px',
+  },
+  paddingBottom: {
+    mobile: '0',
+    desktopSemiMedium: '46px',
+  },
   gap: '30px',
 };
 
@@ -55,5 +102,4 @@ export const columnWrapper: SxProps<Theme> = {
   justifyContent: 'center',
   alignItems: 'center',
   gap: '10px',
-  paddingBottom: '40px',
 };

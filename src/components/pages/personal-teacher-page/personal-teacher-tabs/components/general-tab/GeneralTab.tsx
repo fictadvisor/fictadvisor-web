@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { ChevronUpIcon } from '@heroicons/react/24/outline';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -9,16 +10,22 @@ import CircleDiagram from '@/components/common/ui/circle-diagram';
 import ColumnChart from '@/components/common/ui/column-chart';
 import LineGraph from '@/components/common/ui/line_graph';
 import Radar from '@/components/common/ui/radar';
+import FillerBox from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab/components';
 import {
   AmountMarkType,
   GetTeacherMarksDTO,
   RadarCircleMarkType,
 } from '@/lib/api/teacher/dto/GetTeacherMarksDTO';
+import theme from '@/styles/theme';
 
 import * as styles from './GeneralTab.styles';
 
 const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
   const [open, setOpen] = useState(true);
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
+  const isLargeDesktop = useMediaQuery(
+    theme.breakpoints.up('desktopSemiLarge'),
+  );
 
   const handleClick = () => {
     setOpen(!open);
@@ -38,26 +45,26 @@ const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
     mark => mark.type === 'AMOUNT',
   ) as AmountMarkType[];
 
-  console.log(radarMarks);
-  console.log(circleMarks);
-  console.log(columnMarks);
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.radarWrapper}>
         <Radar marks={radarMarks} />
       </Box>
-      <List>
-        <ListItemButton onClick={handleClick}>
-          <ListItemText primary="Детальніше" />
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit sx={styles.collapse}>
-          {radarMarks.map(mark => (
-            <List key={mark.name} component="div">
-              <LineGraph label={mark.name} value={mark.mark} />
-            </List>
-          ))}
-        </Collapse>
-      </List>
+      {isMobile && (
+        <List>
+          <ListItemButton onClick={handleClick} sx={styles.listButton(open)}>
+            <ListItemText primary="Детальніше" />
+            <ChevronUpIcon />
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit sx={styles.collapse}>
+            {radarMarks.map(mark => (
+              <List key={mark.name} component="div">
+                <LineGraph label={mark.name} value={mark.mark} />
+              </List>
+            ))}
+          </Collapse>
+        </List>
+      )}
       <Box sx={styles.circleWrapper}>
         {circleMarks.map(mark => (
           <Box key={mark.name} sx={styles.circleGraph}>
@@ -67,13 +74,13 @@ const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
             </Typography>
           </Box>
         ))}
+        {!isLargeDesktop && <FillerBox width={isMobile ? '150px' : '200px'} />}
       </Box>
       <Box sx={styles.columnWrapper}>
         {columnMarks.map(mark => (
-          <Box key={mark.name}>
-            <ColumnChart data={mark} />
-          </Box>
+          <ColumnChart key={mark.name} data={mark} />
         ))}
+        {!isLargeDesktop && <FillerBox width="404px" />}
       </Box>
     </Box>
   );

@@ -3,7 +3,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 export const wrapper: SxProps<Theme> = {
   columns: {
     mobile: '1',
-    mobileMedium: '2',
+    mobileSemiMedium: '2',
     tablet: '3',
     desktop: '4',
   },

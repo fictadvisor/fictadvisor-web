@@ -7,15 +7,12 @@ import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
 import CommentTab from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/comment-tab';
 import GeneralTab from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab';
-import PollButton from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/poll-button';
-import SubjectTab from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/subject-tab';
-import { GetTeacherResponse } from '@/lib/services/teacher/TeacherService';
+import PollButtons from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/poll-buttons';
+import { GetTeacherSubjectResponse } from '@/lib/services/teacher/TeacherService';
 
-import * as stylesMUI from './PersonalTeacherTabs.styles';
+import * as stylesMUI from './PersonalSubjectTeacherTabs.styles';
 
-import styles from './PersonalTeacherTabs.module.scss';
-
-const TabsPage: FC<GetTeacherResponse> = props => {
+const PersonalSubjectTeacherTabs: FC<GetTeacherSubjectResponse> = props => {
   const [index, setIndex] = useState<string>('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -29,8 +26,7 @@ const TabsPage: FC<GetTeacherResponse> = props => {
       <TabContext value={index}>
         <TabList id="lol" onChange={handleChange} sx={stylesMUI.tabList}>
           <Tab label="Загальне" textPosition="center" value="1" />
-          <Tab label="Предмети" textPosition="center" value="2" />
-          <Tab label="Відгуки" count={count} textPosition="center" value="3" />
+          <Tab label="Відгуки" count={count} textPosition="center" value="2" />
         </TabList>
 
         <Box sx={stylesMUI.tabPanelList}>
@@ -39,18 +35,16 @@ const TabsPage: FC<GetTeacherResponse> = props => {
               <GeneralTab {...props.marks} />
             ) : (
               props.buttonInfo.map((button, index) => (
-                <PollButton key={index} />
+                <PollButtons key={index} buttonInfo={props.buttonInfo} />
               ))
             )}
           </TabPanel>
           <TabPanel value="2">
-            <SubjectTab
-              subjects={props.subjects}
-              teacherId={props.info.teacher.id}
-            />
-          </TabPanel>
-          <TabPanel value="3">
-            <CommentTab {...props.comments} />
+            {count === 0 ? (
+              <PollButtons buttonInfo={props.buttonInfo} />
+            ) : (
+              <CommentTab {...props.comments} />
+            )}
           </TabPanel>
         </Box>
       </TabContext>
@@ -58,4 +52,4 @@ const TabsPage: FC<GetTeacherResponse> = props => {
   );
 };
 
-export default TabsPage;
+export default PersonalSubjectTeacherTabs;
