@@ -30,6 +30,7 @@
     "**/*.tsx",
     "src/lib/component",
     "mui.d.ts",
+    "custom-svg.d.ts"
   ],
   "exclude": [
     "node_modules"
