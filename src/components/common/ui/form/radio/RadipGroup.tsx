@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Box, SxProps, Theme } from '@mui/material';
 import { useField } from 'formik';
 
@@ -15,10 +15,19 @@ interface RadioGroupProps {
   options: RadioGroupOption[];
   disabled?: boolean;
   name?: string;
+  textType?: 'body1' | 'body2Medium';
+  onChange?: (event) => void;
   sx?: SxProps<Theme>;
 }
 
-const RadioGroup: React.FC<RadioGroupProps> = ({ options, sx, ...rest }) => {
+const RadioGroup: FC<RadioGroupProps> = ({
+  options,
+  onChange,
+  textType = 'body1',
+  sx,
+  disabled = false,
+  ...rest
+}) => {
   const [field, { touched, error }] = useField(rest.name);
 
   const state = touched && error ? FieldState.ERROR : FieldState.DEFAULT;
@@ -28,14 +37,18 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ options, sx, ...rest }) => {
       key={index}
       state={state}
       selectedValue={field.value}
-      onChange={field.onChange}
-      disabled={rest.disabled}
+      textType={textType}
+      disabled={disabled}
       {...option}
       {...rest}
     />
   ));
 
-  return <Box sx={sx}> {radioButtons} </Box>;
+  return (
+    <Box onChange={onChange} sx={sx}>
+      {radioButtons}
+    </Box>
+  );
 };
 
 export default RadioGroup;

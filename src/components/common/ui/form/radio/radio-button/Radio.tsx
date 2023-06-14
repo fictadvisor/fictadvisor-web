@@ -17,18 +17,16 @@ interface RadioProps {
   label: string;
   textType?: 'body1' | 'body2Medium';
   sx?: SxProps<Theme>;
-  disabled?: boolean;
   state: FieldState;
-  onChange: (value: any) => void;
+  disabled?: boolean;
   selectedValue: string;
 }
 
 const Radio: FC<RadioProps> = ({
-  label,
-  textType = 'body1',
+  textType,
   sx,
+  disabled,
   selectedValue,
-  disabled = false,
   state = FieldState.DEFAULT,
   ...rest
 }) => {
@@ -41,8 +39,8 @@ const Radio: FC<RadioProps> = ({
         checked={rest.value === selectedValue}
         {...rest}
       />
-      <Typography sx={styles.label(disabled, label)} variant={textType}>
-        {label}
+      <Typography sx={styles.label(disabled, rest.label)} variant={textType}>
+        {rest.label}
       </Typography>
     </Box>
   );

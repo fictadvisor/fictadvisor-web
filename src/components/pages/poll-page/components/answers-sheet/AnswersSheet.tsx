@@ -188,6 +188,11 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                             { value: '1', label: 'так' },
                             { value: '0', label: 'ні' },
                           ]}
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            gap: '36px',
+                          }} //TODO remove inline styles when refactor
                           name={question.id}
                         />
                       ) : (
