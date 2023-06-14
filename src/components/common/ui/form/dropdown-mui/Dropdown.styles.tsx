@@ -76,7 +76,7 @@ export const input = (
         transition: 'all .2s ease-in-out',
       },
     '& .MuiAutocomplete-endAdornment': {
-      marginRight: '16px',
+      marginRight: '8px',
     },
     '& label.Mui-disabled': {
       color: 'grey.400',
@@ -140,7 +140,7 @@ export const remark = (
   isFocused: boolean,
 ): SxProps<Theme> => ({
   color: color[dropDownState],
-  pl: '24px',
+  pl: '16px',
   fontSize: '11px',
   opacity: isFocused ? 0 : 1,
 });

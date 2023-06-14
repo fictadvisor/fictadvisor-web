@@ -47,25 +47,31 @@ const TagTestPage = () => {
           }}
         >
           <Dropdown
+            placeholder="NO LABEL MFCKRS"
             defaultRemark="Some defualt text"
             size={FieldSize.SMALL}
             options={options}
             name="teacherId1"
             showRemark
+            label=""
           />
           <Dropdown
+            placeholder="NO LABEL MFCKRS"
             defaultRemark="Some defualt text"
             size={FieldSize.MEDIUM}
             options={options}
             name="teacherId2"
             showRemark
+            label=""
           />
           <Dropdown
+            placeholder="NO LABEL MFCKRS"
             defaultRemark="Some defualt text"
             size={FieldSize.LARGE}
             options={options}
             name="teacherId3"
             showRemark
+            label=""
           />
 
           <Dropdown
