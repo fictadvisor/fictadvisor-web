@@ -1,25 +1,18 @@
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren, useContext, useState } from 'react';
 
 import { AlertType } from '@/components/common/ui/alert-mui/types';
 import Toast from '@/components/common/ui/toast-mui';
 
-interface ToastContextType {
-  showToast: (options: OptionsType) => void;
-}
+import { ToastActionProps, ToastContext, ToastState } from '../types';
 
-export const ToastContext = React.createContext<ToastContextType>({
+export const toastContext = React.createContext<ToastContext>({
   showToast: () => {},
 });
 
-interface OptionsType {
-  open: boolean;
-  title: string;
-  type: AlertType;
-  description?: string;
-}
+export const useToastContext = () => useContext(toastContext);
 
 const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [options, setOptions] = useState<OptionsType>({
+  const [options, setOptions] = useState<ToastState>({
     type: AlertType.ERROR,
     title: '',
     description: '',
@@ -32,7 +25,7 @@ const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
     title,
     type = AlertType.ERROR,
     description,
-  }: OptionsType) => {
+  }: ToastActionProps) => {
     setOptions({
       open: true,
       type,
@@ -42,10 +35,10 @@ const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <toastContext.Provider value={{ showToast }}>
       <Toast onClose={hideToast} {...options} />
       {children}
-    </ToastContext.Provider>
+    </toastContext.Provider>
   );
 };
 

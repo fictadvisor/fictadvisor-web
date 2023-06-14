@@ -1,10 +1,10 @@
-import { useContext } from 'react';
-
 import { AlertType } from '@/components/common/ui/alert-mui/types';
-import { ToastContext } from '@/hooks/use-toast/toast-context';
 
-const useToast = () => {
-  const { showToast } = useContext(ToastContext);
+import { useToastContext } from './toast-context';
+import { UseToastReturn } from './types';
+
+const useToast = (): UseToastReturn => {
+  const { showToast } = useToastContext();
 
   return {
     error: (title, description) =>
