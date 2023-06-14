@@ -57,9 +57,12 @@ const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
             <ChevronUpIcon />
           </ListItemButton>
           <Collapse in={open} timeout="auto" sx={styles.collapse}>
-            {radarMarks.map(mark => (
+            {radarMarks.map((mark, index) => (
               <List key={mark.name} component="div">
-                <LineGraph label={mark.name} value={mark.mark} />
+                <LineGraph
+                  label={`${index + 1}. ${mark.name}`}
+                  value={mark.mark}
+                />
               </List>
             ))}
           </Collapse>

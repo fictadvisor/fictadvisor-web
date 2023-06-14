@@ -65,13 +65,20 @@ const PersonalSubjectTeacherTabs: FC<PersonalSubjectTeacherProps> = ({
               <GeneralTab {...data.marks} />
             ) : (
               data.buttonInfo.map((button, index) => (
-                <PollButtons key={index} buttonInfo={data.buttonInfo} />
+                <PollButtons
+                  key={index}
+                  text={data.marksText}
+                  buttonInfo={data.buttonInfo}
+                />
               ))
             )}
           </TabPanel>
           <TabPanel value={TeachersPageTabs.COMMENTS}>
             {count === 0 ? (
-              <PollButtons buttonInfo={data.buttonInfo} />
+              <PollButtons
+                text={data.commentText}
+                buttonInfo={data.buttonInfo}
+              />
             ) : (
               <CommentTab {...data.comments} />
             )}

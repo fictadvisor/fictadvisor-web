@@ -7,8 +7,8 @@ export const wrapper: SxProps<Theme> = {
     desktopSemiMedium: 'backgroundDark.200',
   },
   borderRadius: '4px',
-  padding: {
-    mobile: '20px 0 38px',
+  paddingTop: {
+    mobile: '20px',
     desktopSemiMedium: '40px',
   },
   width: '100%',
@@ -58,7 +58,7 @@ export const listButton = (isOpened: boolean): SxProps<Theme> => ({
 export const collapse: SxProps<Theme> = {
   backgroundColor: 'backgroundDark.200',
   borderRadius: '4px',
-  padding: '10px',
+  padding: '2px 10px',
 };
 
 export const circleWrapper: SxProps<Theme> = {
@@ -101,5 +101,5 @@ export const columnWrapper: SxProps<Theme> = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '10px',
+  gap: '14px',
 };

@@ -77,7 +77,11 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabs> = ({
               <GeneralTab {...data.marks} />
             ) : (
               data.buttonInfo.map((button, index) => (
-                <PollButtons key={index} buttonInfo={data.buttonInfo} />
+                <PollButtons
+                  key={index}
+                  text={data.marksText}
+                  buttonInfo={data.buttonInfo}
+                />
               ))
             )}
           </TabPanel>
@@ -89,7 +93,10 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabs> = ({
           </TabPanel>
           <TabPanel value={TeachersPageTabs.COMMENTS}>
             {count === 0 ? (
-              <PollButtons buttonInfo={data.buttonInfo} />
+              <PollButtons
+                text={data.commentText}
+                buttonInfo={data.buttonInfo}
+              />
             ) : (
               <CommentTab {...data.comments} />
             )}

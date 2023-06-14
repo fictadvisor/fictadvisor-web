@@ -134,8 +134,8 @@ class TeacherService {
       info,
       comments,
       marks,
-      marksText: `На жаль, оцінок недостатньо для розрахунку статистики (${MIN_MARKS_LENGTH}). ${text}`,
-      commentText: `На жаль, ніхто не залишив відгук. ${text}`,
+      marksText: `На жаль, оцінок недостатньо для розрахунку статистики (${MIN_MARKS_LENGTH}).\n${text}`,
+      commentText: `На жаль, ніхто не залишив відгук.\n${text}`,
       hasEnoughMarks,
       buttonInfo,
     };

@@ -1,6 +1,15 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const wrapper: SxProps<Theme> = {
+  textAlign: {
+    mobile: 'left',
+    tablet: 'center',
+  },
+
+  '.MuiTypography-root': {
+    maxWidth: '430px',
+  },
+
   width: '100%',
   display: 'flex',
   flexDirection: 'column',

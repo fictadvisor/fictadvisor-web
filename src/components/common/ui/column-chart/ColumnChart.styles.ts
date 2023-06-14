@@ -10,7 +10,7 @@ export const chartContainer: SxProps<Theme> = {
   },
   width: '100%',
   maxWidth: '404px',
-  minWidth: '328px',
+  // minWidth: '328px',
   border: `1px solid ${palette.grey['200']}`,
   borderRadius: '8px',
   padding: '10px',
@@ -44,6 +44,9 @@ export const legend: SxProps<Theme> = {
 };
 
 export const chart: SxProps<Theme> = {
+  canvas: {
+    width: '100% !important',
+  },
   height: {
     mobile: '205px',
     desktopSemiMedium: '264px',
