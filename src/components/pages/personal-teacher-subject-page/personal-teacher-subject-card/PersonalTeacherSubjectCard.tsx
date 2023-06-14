@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
@@ -10,7 +10,7 @@ import Contact from '../contacts/Contact';
 
 export type PersonalTeacherSubjectCardProps = GetTeacherSubjectDTO;
 
-const PersonalTeacherSubjectCard: React.FC<
+const PersonalTeacherSubjectCard: FC<
   PersonalTeacherSubjectCardProps
 > = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);

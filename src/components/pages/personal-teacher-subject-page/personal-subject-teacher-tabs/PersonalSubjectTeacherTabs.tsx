@@ -1,49 +1,79 @@
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import { Box } from '@mui/material';
 
-import Tab from '@/components/common/ui/tab-mui/tab'; //todo dynamic importats
+import Tab from '@/components/common/ui/tab-mui/tab';
 import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
-import CommentTab from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/comment-tab';
-import GeneralTab from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab';
-import PollButtons from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/poll-buttons';
+const CommentTab = dynamic(
+  () =>
+    import(
+      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/comment-tab'
+    ),
+);
+const GeneralTab = dynamic(
+  () =>
+    import(
+      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab'
+    ),
+);
+const PollButtons = dynamic(
+  () =>
+    import(
+      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/poll-buttons'
+    ),
+);
+import dynamic from 'next/dynamic';
+
+import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 import { GetTeacherSubjectResponse } from '@/lib/services/teacher/TeacherService';
 
-import * as stylesMUI from './PersonalSubjectTeacherTabs.styles';
+import * as styles from './PersonalSubjectTeacherTabs.styles';
 
-const PersonalSubjectTeacherTabs: FC<GetTeacherSubjectResponse> = props => {
-  const [index, setIndex] = useState<string>('1');
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setIndex(newValue);
-  };
-
-  const count = props.comments.questions[0]?.comments.length ?? 0;
+interface PersonalSubjectTeacherProps {
+  data: GetTeacherSubjectResponse;
+  tabIndex: string;
+  handleChange: (event, value) => void;
+}
+const PersonalSubjectTeacherTabs: FC<PersonalSubjectTeacherProps> = ({
+  data,
+  tabIndex,
+  handleChange,
+}) => {
+  const count = data.comments.questions[0]?.comments.length ?? 0;
 
   return (
     <Box>
-      <TabContext value={index}>
-        <TabList id="lol" onChange={handleChange} sx={stylesMUI.tabList}>
-          <Tab label="Загальне" textPosition="center" value="1" />
-          <Tab label="Відгуки" count={count} textPosition="center" value="2" />
+      <TabContext value={tabIndex}>
+        <TabList id="lol" onChange={handleChange} sx={styles.tabList}>
+          <Tab
+            label="Загальне"
+            textPosition="center"
+            value={TeachersPageTabs.GENERAL}
+          />
+          <Tab
+            label="Відгуки"
+            count={count}
+            textPosition="center"
+            value={TeachersPageTabs.COMMENTS}
+          />
         </TabList>
 
-        <Box sx={stylesMUI.tabPanelList}>
-          <TabPanel value="1">
-            {props.hasEnoughMarks ? (
-              <GeneralTab {...props.marks} />
+        <Box sx={styles.tabPanelList}>
+          <TabPanel value={TeachersPageTabs.GENERAL}>
+            {data.hasEnoughMarks ? (
+              <GeneralTab {...data.marks} />
             ) : (
-              props.buttonInfo.map((button, index) => (
-                <PollButtons key={index} buttonInfo={props.buttonInfo} />
+              data.buttonInfo.map((button, index) => (
+                <PollButtons key={index} buttonInfo={data.buttonInfo} />
               ))
             )}
           </TabPanel>
-          <TabPanel value="2">
+          <TabPanel value={TeachersPageTabs.COMMENTS}>
             {count === 0 ? (
-              <PollButtons buttonInfo={props.buttonInfo} />
+              <PollButtons buttonInfo={data.buttonInfo} />
             ) : (
-              <CommentTab {...props.comments} />
+              <CommentTab {...data.comments} />
             )}
           </TabPanel>
         </Box>

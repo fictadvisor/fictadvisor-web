@@ -73,9 +73,7 @@ export class TeacherAPI {
     userId?: string,
   ): Promise<GetTeacherDisciplinesDTO> {
     const { data } = await client.get(
-      `/disciplineTeachers/${teacherId}/disciplines?
-        notAnswered=${notAnswered}
-        &userId=${userId}`,
+      `/teachers/${teacherId}/disciplines?notAnswered=${notAnswered}&userId=${userId}`,
       getAuthorizationHeader(),
     );
     return data;

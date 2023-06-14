@@ -21,7 +21,7 @@ import theme from '@/styles/theme';
 import * as styles from './GeneralTab.styles';
 
 const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
   const isLargeDesktop = useMediaQuery(
     theme.breakpoints.up('desktopSemiLarge'),
@@ -56,7 +56,7 @@ const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
             <ListItemText primary="Детальніше" />
             <ChevronUpIcon />
           </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit sx={styles.collapse}>
+          <Collapse in={open} timeout="auto" sx={styles.collapse}>
             {radarMarks.map(mark => (
               <List key={mark.name} component="div">
                 <LineGraph label={mark.name} value={mark.mark} />

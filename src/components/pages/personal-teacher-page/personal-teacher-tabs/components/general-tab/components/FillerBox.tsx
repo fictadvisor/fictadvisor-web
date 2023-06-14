@@ -9,10 +9,9 @@ interface FillerBoxProps {
 const FillerBox: FC<FillerBoxProps> = ({ width }) => {
   return (
     <>
-      <Box sx={styles.filler(width)} />
-      <Box sx={styles.filler(width)} />
-      <Box sx={styles.filler(width)} />
-      <Box sx={styles.filler(width)} />
+      {Array.from({ length: 4 }).map((_, index) => (
+        <Box key={index} sx={styles.filler(width)} />
+      ))}
     </>
   );
 };

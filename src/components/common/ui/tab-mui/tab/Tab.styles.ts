@@ -3,7 +3,6 @@ import { SxProps, Theme } from '@mui/material/styles';
 import palette from '@/styles/theme/constants/pallete';
 import typography from '@/styles/theme/constants/typography';
 export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
-  // width: '100%',
   minWidth: 'fit-content',
   alignItems: 'center',
   border: {

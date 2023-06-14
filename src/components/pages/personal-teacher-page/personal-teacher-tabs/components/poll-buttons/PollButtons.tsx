@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import NextLink from 'next/link';
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
@@ -9,12 +9,20 @@ import PersonalTeacherCard from '@/components/pages/personal-teacher-page/person
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
+import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
 import TeacherService from '@/lib/services/teacher';
 
+export enum TeachersPageTabs {
+  GENERAL = 'general',
+  SUBJECTS = 'subjects',
+  COMMENTS = 'reviews',
+}
+
 const PersonalTeacherPage = () => {
   const router = useRouter();
-  const teacherId = router.query.teacherId as string;
+  const { query, push } = router;
+  const teacherId = query.teacherId as string;
   const { user } = useAuthentication();
   const { isLoading, isError, data } = useQuery(
     ['teacher', teacherId],
@@ -26,10 +34,17 @@ const PersonalTeacherPage = () => {
   );
   const toast = useToast();
 
+  const { tab } = query;
+  const [index, setIndex] = useState<TeachersPageTabs>(
+    TeachersPageTabs.GENERAL,
+  );
+
+  const handleChange = useTabState({ tab, router, setIndex });
+
   useEffect(() => {
     if (isError) {
       toast.error('Куди ти лізеш, цієї людини не існує');
-      void router.push('/teachers');
+      void push('/teachers');
     }
   }, [isError]);
 
@@ -65,7 +80,11 @@ const PersonalTeacherPage = () => {
                 <PersonalTeacherCard {...data.info} />
               </div>
               <div className={styles['tabs']}>
-                <PersonalTeacherTabs {...data} />
+                <PersonalTeacherTabs
+                  data={data}
+                  tabIndex={index}
+                  handleChange={handleChange}
+                />
               </div>
             </div>
           )

@@ -13,6 +13,8 @@ export interface GetTeacherResponse {
   comments: GetTeacherCommentsDTO;
   marks: GetTeacherMarksDTO['marks'];
   hasEnoughMarks: boolean;
+  marksText: string;
+  commentText: string;
   buttonInfo: {
     text: string;
     href: string;
@@ -23,6 +25,8 @@ export interface GetTeacherSubjectResponse {
   info: GetTeacherSubjectDTO;
   comments: GetTeacherCommentsDTO;
   marks: GetTeacherMarksDTO['marks'];
+  marksText: string;
+  commentText: string;
   hasEnoughMarks: boolean;
   buttonInfo: {
     text: string;
@@ -39,13 +43,15 @@ class TeacherService {
     const subjects = (await TeacherAPI.getTeacherSubjects(teacherId)).subjects;
     const comments = await TeacherAPI.getTeacherComments(teacherId);
     const marks = (await TeacherAPI.getTeacherMarks(teacherId)).marks;
-    const hasEnoughMarks = marks.length >= MIN_MARKS_LENGTH;
+    const hasEnoughMarks = marks[0].amount >= MIN_MARKS_LENGTH;
     let buttonInfo = [
       {
         text: 'Перейти до опитувань',
         href: '/poll',
       },
     ];
+    let text =
+      'Для покращення ситуації авторизуйся та візьми участь в опитуванні:';
 
     if (userId) {
       const disciplines = await TeacherAPI.getTeacherDisciplines(
@@ -54,11 +60,17 @@ class TeacherService {
         userId,
       );
 
+      text = 'Для покращення ситуації візьми участь в опитуванні:';
+
       if (disciplines.length > 0) {
+        text =
+          'Для покращення ситуації візьми участь в опитуванні з наступних предметів:';
+
         buttonInfo = disciplines.map(discipline => ({
           text: `Перейти до опитування ${discipline.subjectName}`,
           href: `/poll/${discipline.disciplineTeacherId}`,
         }));
+      } else {
       }
     }
 
@@ -67,6 +79,8 @@ class TeacherService {
       subjects,
       comments,
       marks,
+      marksText: `На жаль, оцінок недостатньо для розрахунку статистики (${MIN_MARKS_LENGTH}). ${text}`,
+      commentText: `На жаль, ніхто не залишив відгук. ${text}`,
       hasEnoughMarks,
       buttonInfo,
     };
@@ -82,13 +96,16 @@ class TeacherService {
     const marks = (await TeacherAPI.getTeacherMarks(teacherId, subjectId))
       .marks;
 
-    const hasEnoughMarks = marks.length >= MIN_MARKS_LENGTH;
+    const hasEnoughMarks = marks[0].amount >= MIN_MARKS_LENGTH;
     let buttonInfo = [
       {
         text: 'Перейти до опитувань',
         href: '/poll',
       },
     ];
+
+    let text =
+      'Для покращення ситуації авторизуйся та візьми участь в опитуванні:';
 
     if (userId) {
       const disciplines = await TeacherAPI.getTeacherDisciplines(
@@ -97,11 +114,15 @@ class TeacherService {
         userId,
       );
 
+      text = 'Для покращення ситуації візьми участь в опитуванні:';
+
       const thisDiscipline = disciplines.filter(
         discipline => discipline.disciplineTeacherId === info.id,
       );
 
       if (thisDiscipline.length > 0) {
+        text =
+          'Для покращення ситуації візьми участь в опитуванні з наступних предметів:';
         buttonInfo = thisDiscipline.map(discipline => ({
           text: `Перейти до опитування ${discipline.subjectName}`,
           href: `/poll/${discipline.disciplineTeacherId}`,
@@ -113,6 +134,8 @@ class TeacherService {
       info,
       comments,
       marks,
+      marksText: `На жаль, оцінок недостатньо для розрахунку статистики (${MIN_MARKS_LENGTH}). ${text}`,
+      commentText: `На жаль, ніхто не залишив відгук. ${text}`,
       hasEnoughMarks,
       buttonInfo,
     };

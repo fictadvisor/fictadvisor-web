@@ -20,8 +20,8 @@ export const background = (isMobile): SxProps<Theme> => {
       zIndex: '1',
       width: `${canvasWidth} !important`,
       height: `${canvasWidth} !important`,
-      maxWidth: isMobile ? '455px' : '500px',
-      maxHeight: isMobile ? '455px' : '500px',
+      maxWidth: isMobile ? '455px' : '510px',
+      maxHeight: isMobile ? '455px' : '510px',
       boxSizing: 'border-box',
     },
 
