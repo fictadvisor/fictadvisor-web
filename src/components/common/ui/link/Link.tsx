@@ -15,8 +15,8 @@ const CustomLink: React.FC<CustomLinkProps> = ({
   ...rest
 }) => {
   return (
-    <Link legacyBehavior {...rest}>
-      <a className={mergeClassNames(styles['link'], className)}>{text}</a>
+    <Link legacyBehavior {...rest} className={mergeClassNames(styles['link'], className)}>
+      {text}
     </Link>
   );
 };

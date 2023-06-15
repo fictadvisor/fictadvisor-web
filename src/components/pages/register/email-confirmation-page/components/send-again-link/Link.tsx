@@ -9,8 +9,8 @@ type CustomLinkProps = {
 } & LinkProps;
 const CustomLink: React.FC<CustomLinkProps> = ({ text, ...rest }) => {
   return (
-    <Link legacyBehavior {...rest}>
-      <a className={styles['link']}>{text}</a>
+    <Link className={styles['link']} {...rest}>
+      {text}
     </Link>
   );
 };

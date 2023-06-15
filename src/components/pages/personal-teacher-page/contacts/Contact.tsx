@@ -6,7 +6,7 @@ import { MailIcon } from '@/components/common/custom-svg/Mail';
 import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
 import { TwitterIcon } from '@/components/common/custom-svg/Twitter';
 import { YouTubeIcon } from '@/components/common/custom-svg/YouTube';
-
+import NextLink from "next/link";
 import styles from './Contact.module.scss';
 
 export enum ContactType {
@@ -51,9 +51,9 @@ const Contact: React.FC<ContactProps> = ({ name, displayName, link }) => {
     <div className={styles['contact']}>
       <div className={styles[`icon`]}>{icon()}</div>
       {link != '' && (
-        <a href={link} className={styles[`link`]}>
+        <NextLink href={link} className={styles[`link`]}>
           {displayName}
-        </a>
+        </NextLink>
       )}
       {link == '' && <p className={styles[`link`]}>{displayName}</p>}
     </div>
