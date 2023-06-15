@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import {
   FormControl,
   FormHelperText,
@@ -14,7 +15,6 @@ import {
   InputType,
 } from '@/components/common/ui/form/input-mui/types';
 import {
-  getLeftIcon,
   getRightIcon,
   getState,
 } from '@/components/common/ui/form/input-mui/util';
@@ -42,7 +42,6 @@ const Input: React.FC<InputProps> = ({
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
   const state = getState(disabled, touched, error, isSuccessOnDefault);
 
-  const LeftIcon = getLeftIcon(type);
   const RightIcon = getRightIcon(type, isHidden, state, value);
 
   if (!handleRightIconClick) {
@@ -79,7 +78,7 @@ const Input: React.FC<InputProps> = ({
         color="warning"
         type={isHidden ? 'password' : 'text'}
         placeholder={placeholder}
-        startAdornment={LeftIcon && <LeftIcon />}
+        startAdornment={type === InputType.SEARCH && <MagnifyingGlassIcon />}
         endAdornment={
           RightIcon && (
             <RightIcon
