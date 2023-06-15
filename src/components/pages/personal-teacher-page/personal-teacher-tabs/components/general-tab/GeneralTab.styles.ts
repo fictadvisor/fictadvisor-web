@@ -9,25 +9,32 @@ export const wrapper: SxProps<Theme> = {
   borderRadius: '4px',
   paddingTop: {
     mobile: '20px',
-    desktopSemiMedium: '40px',
+    desktopSemiMedium: '20px',
   },
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-
+  alignItems: 'center',
   gap: {
     mobile: '32px',
     desktopSemiMedium: '46px',
   },
 };
 
+export const marksNumber: SxProps<Theme> = {
+  color: 'backgroundDark.600',
+  textAlign: 'end',
+  width: '1000px',
+  maxWidth: '100%',
+  zIndex: '1',
+};
+
 export const radarWrapper: SxProps<Theme> = {
   width: '100%',
   paddingTop: {
     mobile: '0',
-    desktopSemiMedium: '80px',
+    desktopSemiMedium: '15px',
   },
-
   paddingBottom: {
     mobile: '0',
     desktopSemiMedium: '10px',

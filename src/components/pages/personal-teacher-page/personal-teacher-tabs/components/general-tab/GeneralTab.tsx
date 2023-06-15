@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import Collapse from '@mui/material/Collapse';
@@ -53,11 +53,14 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
 
   return (
     <Box sx={styles.wrapper}>
+      <Typography sx={styles.marksNumber}>
+        Кількість респондентів: {updatedMarks[0].amount}
+      </Typography>
       <Box sx={styles.radarWrapper}>
         <Radar marks={radarMarks} roles={roles} />
       </Box>
       {isMobile && (
-        <List>
+        <List sx={{ width: '100%' }}>
           <ListItemButton onClick={handleClick} sx={styles.listButton(open)}>
             <ListItemText primary="Детальніше" />
             <ChevronUpIcon />
