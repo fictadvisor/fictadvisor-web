@@ -10,21 +10,28 @@ export type UseTabStateProps = {
 };
 
 const useTabState = ({ tab, router, setIndex }: UseTabStateProps) => {
-  const { push, query, isReady } = router;
+  const { replace, query, isReady } = router;
   useEffect(() => {
+    if (!isReady) {
+      return;
+    }
+
     if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
       setIndex(tab as TeachersPageTabs);
     } else {
-      void router.push(
+      void replace(
         { query: { ...query, tab: TeachersPageTabs.GENERAL } },
         undefined,
+        {
+          shallow: true,
+        },
       );
     }
-  }, [tab, isReady, push, query]);
+  }, [tab, isReady, replace, query]);
 
   return async (event: SyntheticEvent, value) => {
     console.log(value);
-    await push({ query: { ...query, tab: value } }, undefined, {
+    await replace({ query: { ...query, tab: value } }, undefined, {
       shallow: true,
     });
     setIndex(value as TeachersPageTabs);

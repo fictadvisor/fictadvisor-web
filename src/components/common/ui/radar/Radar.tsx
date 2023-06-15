@@ -15,6 +15,7 @@ import {
 import getData from '@/components/common/ui/radar/utils/drawData';
 import getBackgroundImage from '@/components/common/ui/radar/utils/findImage';
 import getOptions from '@/components/common/ui/radar/utils/getOptions';
+import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 import theme from '@/styles/theme';
 
 import * as styles from './Radar.styles';
@@ -29,6 +30,7 @@ ChartJS.register(
   Legend,
 );
 export interface RadarProps {
+  roles: TeacherRoles[];
   marks: {
     name: string;
     amount: number;
@@ -37,7 +39,7 @@ export interface RadarProps {
   }[];
 }
 
-const RadarChart: FC<RadarProps> = ({ marks }) => {
+const RadarChart: FC<RadarProps> = ({ marks, roles }) => {
   const labels = marks.map(mark => mark.name);
   const data = getData(marks.map(mark => mark.mark));
   const options = getOptions();
@@ -46,11 +48,7 @@ const RadarChart: FC<RadarProps> = ({ marks }) => {
   return (
     <Box sx={styles.background(isMobile)}>
       <Radar options={options} data={data} />
-      {getBackgroundImage(labels, isMobile, [
-        'Lecturer',
-        'Practician',
-        'Laborant',
-      ])}
+      {getBackgroundImage(labels, isMobile, roles)}
     </Box>
   );
 };

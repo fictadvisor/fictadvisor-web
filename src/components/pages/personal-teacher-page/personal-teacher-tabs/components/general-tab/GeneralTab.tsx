@@ -11,6 +11,7 @@ import ColumnChart from '@/components/common/ui/column-chart';
 import LineGraph from '@/components/common/ui/line_graph';
 import Radar from '@/components/common/ui/radar';
 import FillerBox from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab/components';
+import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 import {
   AmountMarkType,
   GetTeacherMarksDTO,
@@ -20,7 +21,12 @@ import theme from '@/styles/theme';
 
 import * as styles from './GeneralTab.styles';
 
-const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
+interface GeneralTabProps {
+  marks: GetTeacherMarksDTO['marks'];
+  roles: TeacherRoles[];
+}
+
+const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
   const [open, setOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
   const isLargeDesktop = useMediaQuery(
@@ -48,7 +54,7 @@ const GeneralTab: FC<GetTeacherMarksDTO['marks']> = marks => {
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.radarWrapper}>
-        <Radar marks={radarMarks} />
+        <Radar marks={radarMarks} roles={roles} />
       </Box>
       {isMobile && (
         <List>

@@ -5,7 +5,7 @@ import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO
 import { GetTeacherSubjectsDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectsDTO';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 
-const MIN_MARKS_LENGTH = 1;
+const MIN_MARKS_LENGTH = 8;
 
 export interface GetTeacherResponse {
   info: GetTeacherDTO;
@@ -43,7 +43,7 @@ class TeacherService {
     const subjects = (await TeacherAPI.getTeacherSubjects(teacherId)).subjects;
     const comments = await TeacherAPI.getTeacherComments(teacherId);
     const marks = (await TeacherAPI.getTeacherMarks(teacherId)).marks;
-    const hasEnoughMarks = marks[0].amount >= MIN_MARKS_LENGTH;
+    const hasEnoughMarks = marks[0]?.amount >= MIN_MARKS_LENGTH;
     let buttonInfo = [
       {
         text: 'Перейти до опитувань',
@@ -96,7 +96,7 @@ class TeacherService {
     const marks = (await TeacherAPI.getTeacherMarks(teacherId, subjectId))
       .marks;
 
-    const hasEnoughMarks = marks[0].amount >= MIN_MARKS_LENGTH;
+    const hasEnoughMarks = marks[0]?.amount >= MIN_MARKS_LENGTH;
     let buttonInfo = [
       {
         text: 'Перейти до опитувань',
