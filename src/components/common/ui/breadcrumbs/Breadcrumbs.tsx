@@ -5,7 +5,8 @@ import {
   HomeIcon,
 } from '@heroicons/react/24/outline';
 import mergeClassNames from 'merge-class-names';
-import NextLink from "next/link";
+import NextLink from 'next/link';
+
 import styles from './Breadcrumbs.module.scss';
 
 interface Breadcrumb {

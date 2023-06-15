@@ -1,4 +1,5 @@
 import React from 'react';
+import NextLink from 'next/link';
 
 import { GitHubIcon } from '@/components/common/custom-svg/GitHub';
 import { InstagramIcon } from '@/components/common/custom-svg/Instagram';
@@ -6,7 +7,7 @@ import { MailIcon } from '@/components/common/custom-svg/Mail';
 import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
 import { TwitterIcon } from '@/components/common/custom-svg/Twitter';
 import { YouTubeIcon } from '@/components/common/custom-svg/YouTube';
-import NextLink from "next/link";
+
 import styles from './Contact.module.scss';
 
 export enum ContactType {
