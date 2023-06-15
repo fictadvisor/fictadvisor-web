@@ -16,14 +16,17 @@ export const wrapper: SxProps<Theme> = {
   flexDirection: 'column',
   alignItems: 'center',
   gap: {
-    mobile: '32px',
+    mobile: '16px',
     desktopSemiMedium: '46px',
   },
 };
 
 export const marksNumber: SxProps<Theme> = {
   color: 'backgroundDark.600',
-  textAlign: 'end',
+  textAlign: {
+    mobile: 'start',
+    tablet: 'end',
+  },
   width: '1000px',
   maxWidth: '100%',
   zIndex: '1',
@@ -66,6 +69,10 @@ export const collapse: SxProps<Theme> = {
   backgroundColor: 'backgroundDark.200',
   borderRadius: '4px',
   padding: '2px 10px',
+};
+
+export const list: SxProps<Theme> = {
+  width: '100%',
 };
 
 export const circleWrapper: SxProps<Theme> = {

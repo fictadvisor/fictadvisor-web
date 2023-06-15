@@ -60,7 +60,7 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
         <Radar marks={radarMarks} roles={roles} />
       </Box>
       {isMobile && (
-        <List sx={{ width: '100%' }}>
+        <List sx={styles.list}>
           <ListItemButton onClick={handleClick} sx={styles.listButton(open)}>
             <ListItemText primary="Детальніше" />
             <ChevronUpIcon />
