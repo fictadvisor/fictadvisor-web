@@ -23,31 +23,48 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import * as styles from './Input.styles';
 
 const Input: React.FC<InputProps> = ({
-  label,
-  placeholder,
-  size = InputSize.LARGE,
-  type = InputType.DEFAULT,
-  isSuccessOnDefault = false,
-  defaultRemark,
-  showRemark = true,
-  sx = {},
-  onDeterredChange,
-  disabled = false,
-  value = '',
-  error = '',
-  touched = false,
-  handleRightIconClick = undefined,
-  ...rest
-}) => {
+                                       label,
+                                       placeholder,
+                                       name,
+                                       size = InputSize.LARGE,
+                                       type = InputType.DEFAULT,
+                                       isSuccessOnDefault,
+                                       defaultRemark,
+                                       showRemark = false,
+                                       readOnly = false,
+                                       sx = {},
+                                       onDeterredChange,
+                                       disabled = false,
+                                       value,
+                                       onChange,
+                                       error,
+                                       touched,
+                                     }) => {
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
-  const state = getState(disabled, touched, error, isSuccessOnDefault);
-
+  const state = getState(
+    disabled,
+    touched,
+    !!error,
+    isSuccessOnDefault,
+    readOnly,
+  );
   const RightIcon = getRightIcon(type, isHidden, state, value);
 
-  const handleRightIconClickInternal = () => {
-    type === InputType.PASSWORD ? setIsHidden(!isHidden) : null;
-    handleRightIconClick ? handleRightIconClick() : null;
+  const handleRightIconClick = () => {
+    if (
+      type === InputType.PASSWORD &&
+      state !== InputState.DISABLED &&
+      state !== InputState.READONLY
+    )
+      setIsHidden(!isHidden);
+    else if (
+      type === InputType.SEARCH &&
+      state !== InputState.DISABLED &&
+      state !== InputState.READONLY
+    )
+      onChange('');
   };
+
   useEffect(() => {
     const curTimer = setTimeout(() => {
       if (onDeterredChange) onDeterredChange();
@@ -68,18 +85,24 @@ const Input: React.FC<InputProps> = ({
       )}
 
       <OutlinedInput
-        {...rest}
+        onChange={event => onChange(event.target.value)}
         value={value}
+        readOnly={readOnly}
+        name={name}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
         type={isHidden ? 'password' : 'text'}
         placeholder={placeholder}
-        startAdornment={type === InputType.SEARCH && <MagnifyingGlassIcon />}
+        startAdornment={
+          type === InputType.SEARCH && (
+            <MagnifyingGlassIcon style={styles.glassIcon(type, state)} />
+          )
+        }
         endAdornment={
           RightIcon && (
             <RightIcon
-              onClick={handleRightIconClickInternal}
+              onClick={handleRightIconClick}
               style={styles.rightIcon(type, state)}
             />
           )
