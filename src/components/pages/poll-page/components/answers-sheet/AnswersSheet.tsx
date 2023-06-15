@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import { AlertColor } from '@/components/common/ui/alert';
 import ArrowButton from '@/components/common/ui/arrow-button/ArrowButton';
 import Button from '@/components/common/ui/button/Button';
-import { RadioGroup, Slider, TextArea } from '@/components/common/ui/form';
+import { Slider, TextArea } from '@/components/common/ui/form';
+import RadioGroup from '@/components/common/ui/form/radio/RadipGroup';
 import Loader from '@/components/common/ui/loader/Loader';
 import { PollAPI } from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
@@ -183,11 +184,15 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         />
                       ) : question.type === 'TOGGLE' ? (
                         <RadioGroup
-                          className={styles['options']}
                           options={[
                             { value: '1', label: 'так' },
                             { value: '0', label: 'ні' },
                           ]}
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            gap: '36px',
+                          }} //TODO remove inline styles when refactor
                           name={question.id}
                         />
                       ) : (
