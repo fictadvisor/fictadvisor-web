@@ -1,5 +1,5 @@
-import InputPage from '@/components/pages/test-pages/input-page';
+import InputPage from "@/components/pages/test-pages/input-page";
 
-const Input = () => <InputPage />;
+const MUI = () => <InputPage />;
 
-export default Input;
+export default MUI;

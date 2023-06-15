@@ -23,23 +23,23 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import * as styles from './Input.styles';
 
 const Input: React.FC<InputProps> = ({
-  label,
-  placeholder,
-  name,
-  size = InputSize.LARGE,
-  type = InputType.DEFAULT,
-  isSuccessOnDefault,
-  defaultRemark,
-  showRemark = false,
-  readOnly = false,
-  sx = {},
-  onDeterredChange,
-  disabled = false,
-  value,
-  onChange,
-  error,
-  touched,
-}) => {
+                                       label,
+                                       placeholder,
+                                       name,
+                                       size = InputSize.LARGE,
+                                       type = InputType.DEFAULT,
+                                       isSuccessOnDefault,
+                                       defaultRemark,
+                                       showRemark = false,
+                                       readOnly = false,
+                                       sx = {},
+                                       onDeterredChange,
+                                       disabled = false,
+                                       value,
+                                       onChange,
+                                       error,
+                                       touched,
+                                     }) => {
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
   const state = getState(
     disabled,
