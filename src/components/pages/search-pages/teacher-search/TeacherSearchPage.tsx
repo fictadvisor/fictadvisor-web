@@ -7,6 +7,8 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button/Button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
+import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
+import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-form/types';
 import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 
@@ -34,19 +36,19 @@ export const TeacherSearchPage = () => {
   const [queryObj, setQueryObj] = useState(TeacherInitialValues);
   const [curPage, setCurPage] = useState(0);
 
-  const submitHandler = useCallback(query => {
-    setQueryObj(query);
+  const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
+    setQueryObj(query as TeacherSearchFormFields);
     setCurPage(0);
   }, []);
 
   const { data, isLoading, refetch, isFetching } = useQuery<GetTeachersDTO>(
     'lecturers',
-    TeacherAPI.getAll.bind(null, queryObj, pageSize * (curPage + 1)),
+    () => TeacherAPI.getAll(queryObj, pageSize * (curPage + 1)),
     { keepPreviousData: true, refetchOnWindowFocus: false },
   );
 
   useEffect(() => {
-    refetch();
+    void refetch();
   }, [queryObj, curPage, refetch]);
 
   return (
@@ -55,7 +57,7 @@ export const TeacherSearchPage = () => {
         <Breadcrumbs items={breadcrumbs} className={styles['breadcrumb']} />
 
         <SearchForm
-          serchPlaceholder="Оберіть викладача"
+          searchPlaceholder="Оберіть викладача"
           filterDropDownOptions={[
             { value: 'firstName', label: 'Іменем' },
             { value: 'lastName', label: 'Прізвищем' },

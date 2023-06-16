@@ -27,18 +27,18 @@ import { SubjectSearchFormFields, TeacherSearchFormFields } from './types';
 
 import styles from '../SearchPage.module.scss';
 
-interface SearchFormProps {
-  onSubmit: (obj) => void;
+export interface SearchFormProps {
+  onSubmit: (obj: SubjectSearchFormFields | TeacherSearchFormFields) => void;
   initialValues: SubjectSearchFormFields | TeacherSearchFormFields;
   filterDropDownOptions: { value: string; label: string }[];
-  serchPlaceholder: string;
+  searchPlaceholder: string;
 }
 
 export const SearchForm: FC<SearchFormProps> = ({
   onSubmit,
   initialValues,
   filterDropDownOptions,
-  serchPlaceholder,
+  searchPlaceholder,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -47,12 +47,7 @@ export const SearchForm: FC<SearchFormProps> = ({
   });
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={values => {
-        onSubmit(values);
-      }}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ handleSubmit, values, setFieldValue }) => (
         <Form className={styles['form']}>
           <Input
@@ -61,7 +56,7 @@ export const SearchForm: FC<SearchFormProps> = ({
             size={InputSize.LARGE}
             type={InputType.SEARCH}
             name="search"
-            placeholder={serchPlaceholder}
+            placeholder={searchPlaceholder}
             showRemark={false}
           />
           <div className={styles['collapse-btn']}>

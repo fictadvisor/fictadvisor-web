@@ -10,7 +10,7 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
   const router = useRouter();
 
   const redirect = (subjectId: string) => {
-    router.push(`/subjects/${subjectId}/teachers`);
+    void router.push(`/subjects/${subjectId}/teachers`);
   };
 
   return (
@@ -19,7 +19,6 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
         subjects.map(subject => (
           <li key={subject.id}>
             <SubjectCard
-              // className={'subject-card'}
               onClick={() => redirect(subject.id)}
               name={`${subject.name}`}
               details={`${

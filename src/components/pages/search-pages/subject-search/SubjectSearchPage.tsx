@@ -7,6 +7,7 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button/Button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
+import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
 import { GetListOfSubjectsDTO } from '@/lib/api/subject/dto/GetListOfSubjectsDTO';
 import { SubjectsAPI } from '@/lib/api/subject/SubjectAPI';
 
@@ -34,7 +35,7 @@ const SubjectSearchPage = () => {
   const [queryObj, setQueryObj] = useState(SubjectInitialValues);
   const [curPage, setCurPage] = useState(0);
 
-  const submitHandler = useCallback(query => {
+  const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
     setQueryObj(query);
     setCurPage(0);
   }, []);
@@ -47,7 +48,7 @@ const SubjectSearchPage = () => {
     );
 
   useEffect(() => {
-    refetch();
+    void refetch();
   }, [queryObj, curPage, refetch]);
 
   return (
@@ -56,7 +57,7 @@ const SubjectSearchPage = () => {
         <Breadcrumbs items={breadcrumbs} className={styles['breadcrumb']} />
 
         <SearchForm
-          serchPlaceholder="Оберіть предмет"
+          searchPlaceholder="Оберіть предмет"
           filterDropDownOptions={[{ value: 'name', label: 'За назвою' }]}
           onSubmit={submitHandler}
           initialValues={SubjectInitialValues}

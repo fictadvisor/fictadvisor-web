@@ -8,7 +8,7 @@ import cn from 'classnames';
 
 import styles from './Breadcrumbs.module.scss';
 
-interface Breadcrumb {
+export interface Breadcrumb {
   label: string;
   href: string;
 }
