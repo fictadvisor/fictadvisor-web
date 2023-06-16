@@ -10,13 +10,14 @@ import Button, {
 } from '@/components/common/ui/button';
 import Divider, { DividerTextPosition } from '@/components/common/ui/divider';
 import RegisterForm from '@/components/pages/register/register-page/components/register-form';
+import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
 import AuthService from '@/lib/services/auth/AuthService';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 import styles from './LeftBlock.module.scss';
 
 interface LeftBlockProps {
-  groups;
+  groups: GetAllDTO['groups'];
 }
 
 const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {

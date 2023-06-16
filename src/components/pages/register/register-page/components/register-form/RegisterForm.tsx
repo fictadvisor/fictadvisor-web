@@ -1,5 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -18,6 +19,7 @@ import {
   transformGroups,
 } from '@/components/pages/register/register-page/components/register-form/utils';
 import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';
 import { showAlert } from '@/redux/reducers/alert.reducer';
@@ -28,7 +30,7 @@ import { validationSchema } from './validation';
 import styles from '../left-block/LeftBlock.module.scss';
 
 interface RegisterFormProps {
-  groups;
+  groups: GetAllDTO['groups'];
 }
 
 const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
@@ -58,8 +60,10 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           StorageUtil.deleteTelegramInfo();
           await router.push(`/register/email-verification?email=${data.email}`);
         }
-      } catch (e) {
-        const errorName = e.response.data.error;
+      } catch (error) {
+        // Temporary solution
+        const errorName = (error as AxiosError<{ error: string }>).response
+          ?.data.error;
 
         if (errorName === 'AlreadyRegisteredException') {
           dispatch(
@@ -164,7 +168,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           <Checkbox
             label={'Погоджуюсь на обробку персональних даних'}
             name={'agreement'}
-            // className={styles['agreement-checkbox']}
           />
 
           <Button

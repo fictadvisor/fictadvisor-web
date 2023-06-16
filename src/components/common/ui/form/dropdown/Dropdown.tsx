@@ -15,7 +15,7 @@ export enum DropDownSize {
   LARGE = 'large',
 }
 
-interface DropDownOption {
+export interface DropDownOption {
   value: string;
   label: string;
 }

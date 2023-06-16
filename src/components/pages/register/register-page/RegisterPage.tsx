@@ -24,7 +24,7 @@ const RegisterPage = () => {
         <div className={styles['register-page__content']}>
           {!isLoading && (
             <>
-              <LeftBlock groups={data.groups || []} />
+              <LeftBlock groups={data?.groups || []} />
               <hr className={styles['divider']} />
               <RightBlock />
             </>

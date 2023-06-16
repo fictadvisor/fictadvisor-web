@@ -25,6 +25,7 @@ const ForgotPasswordForm: FC = () => {
       await router.push(`/password-recovery/email-verification?email=${email}`);
     } catch (error) {
       let errorMessage = '';
+      // Temporary solution
       const errorName = (error as AxiosError<{ error: string }>).response?.data
         .error;
 

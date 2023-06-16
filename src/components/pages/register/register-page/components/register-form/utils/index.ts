@@ -1,7 +1,11 @@
-import { RegisterFormFields } from '@/components/pages/register/register-page/components/register-form/types';
+import { DropDownOption } from '@/components/common/ui/form/dropdown/Dropdown';
+import { RegisterBody } from '@/lib/api/auth/dto/RegisterBody';
+import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
 
-export const transformData = (data: RegisterFormFields) => {
-  const transformedData = {
+import { RegisterFormFields } from '../types';
+
+export const transformData = (data: RegisterFormFields): RegisterBody => {
+  const transformedData: RegisterBody = {
     student: {
       groupId: data.group,
       firstName: data.firstName.trim().replace('`', `'`).replace('ʼ', `'`),
@@ -15,12 +19,11 @@ export const transformData = (data: RegisterFormFields) => {
       password: data.password,
     },
   };
-  if (!data.middleName) delete transformedData.student.middleName;
 
   return transformedData;
 };
 
-export const transformGroups = data =>
+export const transformGroups = (data: GetAllDTO['groups']): DropDownOption[] =>
   data.map(group => ({
     label: group.code,
     value: group.id,

@@ -17,7 +17,7 @@ const VerifyEmailTokenPage = () => {
   const { update } = useAuthentication();
 
   const loadData = useCallback(
-    async token => {
+    async (token: string) => {
       if (router.isReady) {
         try {
           const { accessToken, refreshToken } = await AuthAPI.verifyEmailToken(

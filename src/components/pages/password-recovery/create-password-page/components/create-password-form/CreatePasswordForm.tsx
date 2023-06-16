@@ -24,6 +24,7 @@ const CreatePasswordForm: FC = () => {
         await AuthAPI.resetPassword(token, { password });
         await router.push('/password-recovery/valid');
       } catch (error) {
+        // Temporary solution
         const errorName = (error as AxiosError<{ error: string }>).response
           ?.data.error;
         if (errorName === 'PasswordRepeatException') {
