@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { SxProps, Theme } from '@mui/material/styles';
 
-import palette from '@/styles/theme/constants/pallete';
+import theme from '@/styles/theme';
 
 import { TabTextPosition } from './types';
 
@@ -44,24 +44,24 @@ export const tab = (
   },
   '&:hover': {
     border: {
-      mobile: `1px solid ${palette.backgroundDark[300]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark[300]}`,
+      mobile: `1px solid ${theme.palette.backgroundDark[300]}`,
+      desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[300]}`,
     },
     color: 'inherit',
   },
   '&.Mui-selected': {
     backgroundColor: 'backgroundDark.300',
     border: {
-      mobile: `1px solid ${palette.backgroundDark[400]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark[400]}`,
+      mobile: `1px solid ${theme.palette.backgroundDark[400]}`,
+      desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[400]}`,
     },
     color: 'inherit',
   },
   '&:active': {
     backgroundColor: 'backgroundDark.200',
     border: {
-      mobile: `1px solid ${palette.backgroundDark[200]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark[200]}`,
+      mobile: `1px solid ${theme.palette.backgroundDark[200]}`,
+      desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[200]}`,
     },
     color: 'inherit',
   },
