@@ -18,12 +18,16 @@ const TeacherHeaderCard: React.FC<TeacherHeaderCardProps> = ({
   url = '/assets/icons/lecturer60.png',
   ...rest
 }) => {
-  const divRef = useRef<HTMLDivElement | null>(null);
+  const divRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
 
   const onMouseOverHandler = () => {
     const elem = divRef.current;
-    setIsTruncated(elem.scrollHeight - 1 > elem.getBoundingClientRect().height);
+    if (elem) {
+      setIsTruncated(
+        elem.scrollHeight - 1 > elem.getBoundingClientRect().height,
+      );
+    }
   };
 
   return (

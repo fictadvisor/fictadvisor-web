@@ -13,7 +13,7 @@ import Loader from '@/components/common/ui/loader/Loader';
 import { PollAPI } from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
-import { Category } from '../../PollPage';
+import { Category, Question } from '../../PollPage';
 import { Answer, SendingStatus } from '../poll-form/PollForm';
 
 import AnswersSaved from './AnswersSaved';
@@ -21,7 +21,7 @@ import AnswersSaved from './AnswersSaved';
 import styles from './AnswersSheet.module.scss';
 
 interface AnswersSheetProps {
-  questions: Category;
+  category: Category;
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   setCurrent: React.Dispatch<React.SetStateAction<number>>;
   setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -50,7 +50,7 @@ const collectAnswers = (answers: Answer[], values) => {
   return resultAnswers;
 };
 
-export const getProgress = (answers: Answer[], questions) => {
+export const getProgress = (answers: Answer[], questions: Question[]) => {
   let count = 0;
   const resultAnswers = [...answers];
   for (const question of questions) {
@@ -63,7 +63,7 @@ export const getProgress = (answers: Answer[], questions) => {
 };
 
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-  questions,
+  category,
   isTheLast,
   current,
   answers,
@@ -81,17 +81,17 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
   useEffect(() => {
-    for (const question of questions.questions) {
+    for (const question of category.questions) {
       if (question.type === 'SCALE') {
-        initialValues[question.id] = '1';
+        setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
       }
     }
-  }, [questions]);
+  }, [category]);
 
   const answer = values => {
     const resultAnswers = collectAnswers(answers, values);
     setAnswers(resultAnswers);
-    const count = getProgress(resultAnswers, questions.questions);
+    const count = getProgress(resultAnswers, category.questions);
     setProgress(previousProgress => {
       const temp = [...previousProgress];
       temp[current] = count;
@@ -127,7 +127,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           >
             <ArrowButton className={styles.arrow} />
             <b>
-              {current + 1} . {questions.name}
+              {current + 1} . {category.name}
             </b>
           </div>
           <div className={styles.answersWrapper}>
@@ -158,7 +158,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   }}
                   className={styles['form']}
                 >
-                  {questions.questions.map((question, id) => (
+                  {category.questions.map((question, id) => (
                     <div key={question.id} className={styles['question']}>
                       {question.type === 'TEXT' ? (
                         <p className={styles['question-number']}>
@@ -166,7 +166,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         </p>
                       ) : (
                         <p className={styles['question-number']}>
-                          Питання {id + 1} / {questions.count}
+                          Питання {id + 1} / {category.count}
                         </p>
                       )}
 

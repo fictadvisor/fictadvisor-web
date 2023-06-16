@@ -36,12 +36,13 @@ const validateResults = (answers: Answer[], questions: Question[]) => {
   return true;
 };
 
-const getAllQuestionsArray = (categories: Category[]) => {
-  let AllQuestions = [];
-  for (const category of categories) {
-    AllQuestions = AllQuestions.concat(category.questions);
-  }
-  return AllQuestions;
+const getAllQuestionsArray = (categories: Category[]): Question[] => {
+  const questions = categories.reduce<Question[]>(
+    (acc, { questions }) => [...acc, ...questions],
+    [],
+  );
+
+  return questions;
 };
 
 const PollForm: React.FC<PollFormProps> = ({ data }) => {
