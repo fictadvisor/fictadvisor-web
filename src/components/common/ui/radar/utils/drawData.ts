@@ -1,12 +1,12 @@
 const getData = (grades: number[]) => {
   const labels = new Array(grades.length).fill('');
-  const formattedValues = grades.map(x => x / 10 - 1);
+  const formattedValues = grades.map(x => Math.round(x));
   return {
     labels: labels,
     datasets: [
       {
         color: 'white',
-        label: 'Data',
+        label: 'Оцінка(у %)',
         data: formattedValues,
         //TODO: replace with theme
         backgroundColor: 'rgba(188, 61, 61, 0.54)',
@@ -17,6 +17,19 @@ const getData = (grades: number[]) => {
         pointBackgroundColor: '#212121',
         pointBorderWidth: 1,
         borderWidth: 1,
+        pointRadius: 3,
+        lineTension: 0,
+      },
+      {
+        color: 'transparent',
+        label: '',
+        data: Array(grades.length).fill(9),
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+        pointBorderColor: 'transparent',
+        pointBackgroundColor: '#212121',
+        pointBorderWidth: 0,
+        borderWidth: 0,
         pointRadius: 3,
         lineTension: 0,
       },

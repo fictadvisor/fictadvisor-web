@@ -8,9 +8,11 @@ import LeftBlock from './components/left-block';
 import RightBlock from './components/right-block';
 
 import styles from './RegisterPage.module.scss';
+
 export interface RegisterPageProps {
   data: GetAllDTO;
 }
+
 const RegisterPage: FC<RegisterPageProps> = ({ data }) => {
   return (
     <PageLayout
