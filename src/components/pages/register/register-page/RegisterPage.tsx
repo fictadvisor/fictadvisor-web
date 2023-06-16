@@ -1,6 +1,6 @@
-import { useQuery } from 'react-query';
+import type { FC } from 'react';
 
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import type { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 
@@ -8,12 +8,10 @@ import LeftBlock from './components/left-block';
 import RightBlock from './components/right-block';
 
 import styles from './RegisterPage.module.scss';
-
-const RegisterPage = () => {
-  const { isLoading, data } = useQuery(['groups'], () => GroupAPI.getAll(), {
-    refetchOnWindowFocus: false,
-  });
-
+export interface RegisterPageProps {
+  data: GetAllDTO;
+}
+const RegisterPage: FC<RegisterPageProps> = ({ data }) => {
   return (
     <PageLayout
       description={'Сторінка для авторизації'}
@@ -22,13 +20,9 @@ const RegisterPage = () => {
     >
       <div className={styles['register-page']}>
         <div className={styles['register-page__content']}>
-          {!isLoading && (
-            <>
-              <LeftBlock groups={data.groups || []} />
-              <hr className={styles['divider']} />
-              <RightBlock />
-            </>
-          )}
+          <LeftBlock groups={data.groups || []} />
+          <hr className={styles['divider']} />
+          <RightBlock />
         </div>
       </div>
     </PageLayout>
