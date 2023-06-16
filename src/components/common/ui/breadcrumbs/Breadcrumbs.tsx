@@ -45,9 +45,9 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, className }) => {
         <ChevronLeftIcon
           className={mergeClassNames('icon', styles['arrow-icon'])}
         />
-        <a href={items[0]?.href}>
+        <NextLink href={items[0]?.href}>
           <span> {items[0]?.label} </span>
-        </a>
+        </NextLink>
       </div>
       <div
         className={mergeClassNames(
