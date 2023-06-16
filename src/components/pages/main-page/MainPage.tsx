@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useQuery } from 'react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,14 +11,14 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import Loader from '@/components/common/ui/loader';
-import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import useAuthentication from '@/hooks/use-authentication';
 import { StudentResourcesAPI } from '@/lib/api/student-resources/StudentResourcesAPI';
 
 import ResourceCard from './components/resource-card/ResourceCard';
+import TokenPopup from './components/token-popup';
 
 import styles from './MainPage.module.scss';
-const MainPage = () => {
+const MainPage: FC = () => {
   const { isLoading, data } = useQuery(
     ['resources'],
     StudentResourcesAPI.getAll,
