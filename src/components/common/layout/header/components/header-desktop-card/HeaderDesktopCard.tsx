@@ -7,7 +7,7 @@ interface HeaderCardProps {
   name: string;
   groupName: string;
   position: string;
-  url: string;
+  url?: string;
 }
 
 const HeaderDesktopCard: FC<HeaderCardProps> = ({

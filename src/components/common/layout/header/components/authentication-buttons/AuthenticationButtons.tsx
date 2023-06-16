@@ -16,7 +16,7 @@ interface AuthenticationButtonsProps {
   sx?: SxProps<Theme>;
 }
 
-const AuthenticationButtons: FC<AuthenticationButtonsProps> = ({ sx }) => {
+const AuthenticationButtons: FC<AuthenticationButtonsProps> = ({ sx = {} }) => {
   return (
     <Box sx={mergeSx(styles.authenticationButtons, sx)}>
       <Link
