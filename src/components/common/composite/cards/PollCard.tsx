@@ -2,11 +2,10 @@ import React from 'react';
 import cn from 'classnames';
 
 import styles from '@/components/common/composite/cards/Cards.module.scss';
-
 import {
   CheckIcon,
   DoubleCheckIcon,
-} from '../../custom-svg/card-icons/CheckIcon';
+} from '@/components/common/custom-svg/card-icons/CheckIcon';
 
 import { DivProps } from './Cards';
 

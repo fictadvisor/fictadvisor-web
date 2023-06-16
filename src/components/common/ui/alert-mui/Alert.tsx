@@ -38,6 +38,7 @@ const Alert: FC<AlertProps> = ({
       severity={type}
       variant={MUIVariant}
       iconMapping={AlertIconMap}
+      // TODO: wrap icon with button and get rid of onClick prop on svg
       action={onClose && <AlertXMark onClick={onClose} />}
       sx={mergeSx(styles.alert(type, variant), sx)}
     >
