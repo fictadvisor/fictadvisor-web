@@ -15,7 +15,7 @@ import styles from './PasswordResetLinkExpiredPage.module.scss';
 const PasswordResetLinkExpiredPage = () => {
   const router = useRouter();
   const returnRegister = () => {
-    router.push('/register');
+    void router.push('/register');
   };
 
   const handleSubmit = () => {

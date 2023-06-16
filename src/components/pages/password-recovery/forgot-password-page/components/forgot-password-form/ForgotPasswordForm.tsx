@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -17,19 +18,22 @@ const ForgotPasswordForm: FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleSubmit = async (data: ForgotPasswordFormFields) => {
-    let errorMessage;
+  const handleSubmit = async (values: ForgotPasswordFormFields) => {
     try {
-      const email = data.emailAddress.toLowerCase();
+      const email = values.email.toLowerCase();
       await AuthAPI.forgotPassword({ email });
       await router.push(`/password-recovery/email-verification?email=${email}`);
-    } catch (e) {
-      const errorName = e.response.data.error;
-      if (errorName == 'InvalidBodyException') {
+    } catch (error) {
+      let errorMessage = '';
+      const errorName = (error as AxiosError<{ error: string }>).response?.data
+        .error;
+
+      if (errorName === 'InvalidBodyException') {
         errorMessage = 'Невірно введено пошту для відновлення';
-      } else if (errorName == 'NotRegisteredException') {
+      } else if (errorName === 'NotRegisteredException') {
         errorMessage = 'На цю пошту не зареєстровано користувача';
       }
+
       dispatch(
         showAlert({
           title: errorMessage,

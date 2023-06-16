@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -14,35 +15,39 @@ import { AuthAPI } from '@/lib/api/auth/AuthAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 const CreatePasswordForm: FC = () => {
-  const { query, push } = useRouter();
-  const token = query.token as string;
+  const router = useRouter();
+  const token = router.query.token as string;
   const dispatch = useDispatch();
-  const handleSubmit = async (data: CreatePasswordFormFields) => {
-    try {
-      await AuthAPI.resetPassword(token, { password: data.password });
-      void push('/password-recovery/valid');
-    } catch (e) {
-      const errorName = e.response.data.error;
-      if (errorName === 'PasswordRepeatException') {
-        dispatch(
-          showAlert({
-            title: 'Помилка!',
-            description: 'Такий пароль вже був!',
-            color: AlertColor.ERROR,
-          }),
-        );
-      } else {
-        dispatch(
-          showAlert({
-            title: 'Помилка!',
-            description: 'Лист для верифікації сплив або неправильний код!',
-            color: AlertColor.ERROR,
-          }),
-        );
-        void push('/password-recovery/invalid');
+  const handleSubmit = useCallback(
+    async ({ password }: CreatePasswordFormFields) => {
+      try {
+        await AuthAPI.resetPassword(token, { password });
+        await router.push('/password-recovery/valid');
+      } catch (error) {
+        const errorName = (error as AxiosError<{ error: string }>).response
+          ?.data.error;
+        if (errorName === 'PasswordRepeatException') {
+          dispatch(
+            showAlert({
+              title: 'Помилка!',
+              description: 'Такий пароль вже був!',
+              color: AlertColor.ERROR,
+            }),
+          );
+        } else {
+          dispatch(
+            showAlert({
+              title: 'Помилка!',
+              description: 'Лист для верифікації сплив або неправильний код!',
+              color: AlertColor.ERROR,
+            }),
+          );
+          await router.push('/password-recovery/invalid');
+        }
       }
-    }
-  };
+    },
+    [dispatch, router, token],
+  );
 
   return (
     <Formik
