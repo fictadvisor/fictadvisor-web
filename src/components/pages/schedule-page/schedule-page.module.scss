@@ -1,0 +1,14 @@
+@import "src/styles/partials/utils";
+@import "src/styles/partials/theme";
+@import "src/styles/partials/typography-mixins";
+
+.schedule-layout{
+  @include flex-center();
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  margin-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+}
