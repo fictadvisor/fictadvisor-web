@@ -1,3 +1,4 @@
+import { AuthTelegramBody } from '@/lib/api/auth/dto/AuthTelegramBody';
 import { STORAGE_KEYS } from '@/lib/types/common';
 
 class StorageUtil {
@@ -32,7 +33,7 @@ class StorageUtil {
     localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
   }
 
-  static setTelegramInfo(data) {
+  static setTelegramInfo(data: { telegram: AuthTelegramBody }) {
     if (!process.browser) {
       return;
     }
@@ -51,7 +52,7 @@ class StorageUtil {
       return;
     }
     const data = sessionStorage.getItem(STORAGE_KEYS.TELEGRAM_INFO);
-    return JSON.parse(data);
+    return JSON.parse(data || '');
   }
 }
 
