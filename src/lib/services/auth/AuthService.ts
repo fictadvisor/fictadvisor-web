@@ -2,6 +2,7 @@ import { NextRouter } from 'next/router';
 
 import { AuthAPI } from '@/lib/api/auth/AuthAPI';
 import { AuthBody } from '@/lib/api/auth/dto/AuthBody';
+import { RegisterBody } from '@/lib/api/auth/dto/RegisterBody';
 import TelegramService from '@/lib/services/telegram';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
@@ -20,7 +21,7 @@ class AuthService {
     return await TelegramService.login();
   }
 
-  static async register(data) {
+  static async register(data: RegisterBody) {
     const telegramInfo = StorageUtil.getTelegramInfo();
     StorageUtil.deleteTelegramInfo();
     if (telegramInfo) {
