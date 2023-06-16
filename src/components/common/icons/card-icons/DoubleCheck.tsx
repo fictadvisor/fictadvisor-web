@@ -24,7 +24,7 @@ export const DoubleCheck = props => (
   </svg>
 );
 
-export const DoubleCheck = props => (
+export const CheckIcon = props => (
   <svg
     width="20"
     height="20"

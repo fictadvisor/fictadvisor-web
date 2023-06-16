@@ -3,7 +3,7 @@ import mergeClassNames from 'merge-class-names';
 
 import styles from '@/components/common/composite/cards/Cards.module.scss';
 import {
-  DoubleCheck,
+  CheckIcon,
   DoubleCheck,
 } from '@/components/common/icons/card-icons/DoubleCheck';
 
@@ -64,7 +64,7 @@ export const PollCard: React.FC<PollCard> = ({
         </p>
       </div>
       <div className="icon">
-        {showIcon && (isDoubleCheckIcon ? <DoubleCheck /> : <DoubleCheck />)}
+        {showIcon && (isDoubleCheckIcon ? <DoubleCheck /> : <CheckIcon />)}
       </div>
     </div>
   );
