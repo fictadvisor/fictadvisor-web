@@ -14,7 +14,7 @@ const Toast: FC = () => {
 
   useEffect(() => {
     if (!hasTimeout && open) {
-      clearTimeout(timeout);
+      timeout && clearTimeout(timeout);
       const newTimeout = setTimeout(() => {
         dispatch(hideAlert());
       }, 12000);
