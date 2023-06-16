@@ -11,7 +11,7 @@ const AnswersSaved = () => {
   return (
     <div className={styles.savedWrapper}>
       <div className={styles.content}>
-        <img className={styles.image} src="/frogging.gif" alt="жабка" />
+        <img className={styles.image} src="/gifs/frogging.gif" alt="жабка" />
 
         <h1>Дякуємо за відповіді!</h1>
         <b>
