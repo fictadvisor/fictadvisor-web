@@ -11,7 +11,7 @@ import CustomDivider from '@/components/pages/account-page/components/divider';
 import EditingColumn from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/EditingColumn';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './StudentTable.module.scss';

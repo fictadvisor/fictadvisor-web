@@ -10,17 +10,13 @@ import Button, {
 } from '@/components/common/ui/button';
 import Divider, { DividerTextPosition } from '@/components/common/ui/divider';
 import RegisterForm from '@/components/pages/register/register-page/components/register-form';
-import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
+import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 import AuthService from '@/lib/services/auth/AuthService';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 import styles from './LeftBlock.module.scss';
 
-interface LeftBlockProps {
-  groups: GetAllDTO['groups'];
-}
-
-const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
+const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
   const hasTelegram = !!StorageUtil.getTelegramInfo();
   const handleClick = async () => {

@@ -19,10 +19,11 @@ import {
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from '../StudentTable.module.scss';
+import { UserGroupRole } from '@/types/user';
 
 interface EditingColumnProps {
   student: StudentTableItem;
@@ -53,9 +54,11 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const handleChangeStatus = async () => {
     try {
       setIsOpenChange(false);
-      await GroupAPI.switchStudentRole(user.group.id, student.id, {
+      await GroupAPI.updateStudentRole(user?.group?.id, student.id, {
         roleName:
-          student.role === StudentRole.MODERATOR ? 'STUDENT' : 'MODERATOR',
+          student.role === StudentRole.MODERATOR
+            ? UserGroupRole.STUDENT
+            : UserGroupRole.MODERATOR,
       });
       await refetch();
     } catch (e) {

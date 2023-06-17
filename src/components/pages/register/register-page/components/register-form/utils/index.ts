@@ -1,6 +1,6 @@
 import { DropDownOption } from '@/components/common/ui/form/dropdown/Dropdown';
 import { RegisterBody } from '@/lib/api/auth/types/RegisterBody';
-import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
+import { Group } from '@/lib/api/group/types/GetAllResponse';
 
 import { RegisterFormFields } from '../types';
 
@@ -23,7 +23,9 @@ export const transformData = (data: RegisterFormFields): RegisterBody => {
   return transformedData;
 };
 
-export const transformGroups = (data: GetAllDTO['groups']): DropDownOption[] =>
+export const transformGroups = (
+  data: Group[],
+): DropDownOption[] =>
   data.map(group => ({
     label: group.code,
     value: group.id,

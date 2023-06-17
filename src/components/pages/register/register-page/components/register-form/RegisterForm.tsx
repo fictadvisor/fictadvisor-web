@@ -19,7 +19,7 @@ import {
   transformGroups,
 } from '@/components/pages/register/register-page/components/register-form/utils';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
-import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
+import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';
 import { showAlert } from '@/redux/reducers/alert.reducer';
@@ -29,11 +29,7 @@ import { validationSchema } from './validation';
 
 import styles from '../left-block/LeftBlock.module.scss';
 
-interface RegisterFormProps {
-  groups: GetAllDTO['groups'];
-}
-
-const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
+const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 

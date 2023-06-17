@@ -21,7 +21,7 @@ import {
   IconButtonShape,
   IconButtonSize,
 } from '@/components/common/ui/icon-button';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 
 import { SubjectSearchFormFields, TeacherSearchFormFields } from './types';
 

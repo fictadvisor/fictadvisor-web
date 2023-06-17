@@ -1,4 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
+import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import {
   ArrowDownCircleIcon,
@@ -23,18 +24,19 @@ import { StudentRole } from '@/components/pages/account-page/components/group-ta
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
 import useOutsideClick from '@/hooks/use-outside-click';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { UserGroupRole } from '@/types/user';
 
 import styles from './MobileStudentTableButtons.module.scss';
 
 export interface MobileStudentTableButtonsProps {
   value: number;
   currentValue: number;
-  onChange: (value) => void;
+  onChange: (value: number) => void;
   student: StudentTableItem;
   variant?: string;
-  refetch;
+  refetch: QueryObserverBaseResult['refetch'];
 }
 
 const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
@@ -66,9 +68,11 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   const handleChangeStatus = async () => {
     try {
       setIsOpenChange(false);
-      await GroupAPI.switchStudentRole(user.group.id, student.id, {
+      await GroupAPI.updateStudentRole(user.group.id, student.id, {
         roleName:
-          student.role === StudentRole.MODERATOR ? 'STUDENT' : 'MODERATOR',
+          student.role === StudentRole.MODERATOR
+            ? UserGroupRole.STUDENT
+            : UserGroupRole.MODERATOR,
       });
       await refetch();
     } catch (e) {

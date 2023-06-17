@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 

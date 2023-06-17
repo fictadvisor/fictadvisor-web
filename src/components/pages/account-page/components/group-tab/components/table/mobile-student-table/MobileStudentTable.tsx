@@ -15,7 +15,7 @@ import MobileStudentTableButtons from '@/components/pages/account-page/component
 import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './MobileStudentTable.module.scss';
