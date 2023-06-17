@@ -4,7 +4,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { TelegramOutline } from '@/components/common/icons/TelegramOutline';
 import useIsMobile from '@/hooks/use-is-mobile/UseIsMobile';
 
-import { CloseButton } from '../../ui/icon-button/variants';
+import { CloseButton } from '../icon-button/variants';
 
 import styles from './Popup.module.scss';
 

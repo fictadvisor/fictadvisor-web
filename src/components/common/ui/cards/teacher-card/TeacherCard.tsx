@@ -1,8 +1,8 @@
 import React from 'react';
 import mergeClassNames from 'merge-class-names';
 
-import { DivProps } from '@/components/common/composite/cards/Cards';
-import styles from '@/components/common/composite/cards/teacher-card/TeacherCard.module.scss';
+import styles from '@/components/common/ui/cards/teacher-card/TeacherCard.module.scss';
+import { DivProps } from '@/components/common/ui/cards/types';
 
 type TeacherCardProps = {
   name: string;

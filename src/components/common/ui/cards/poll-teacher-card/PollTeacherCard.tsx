@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import mergeClassNames from 'merge-class-names';
 import Link from 'next/link';
 
-import { CardRoles } from '@/components/common/composite/cards/card-roles';
-import { DivProps } from '@/components/common/composite/cards/Cards';
-import styles from '@/components/common/composite/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import Button, {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
+import { CardRoles } from '@/components/common/ui/cards/card-roles';
+import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
+import { DivProps } from '@/components/common/ui/cards/types';
 import Tooltip from '@/components/common/ui/tooltip';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
@@ -22,7 +22,7 @@ type PollTeacherCardProps = {
   href?: string;
 } & DivProps;
 
-export const PollTeacherCard: React.FC<PollTeacherCardProps> = ({
+export const PollTeacherCard: FC<PollTeacherCardProps> = ({
   name,
   description,
   roles,

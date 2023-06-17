@@ -1,9 +1,9 @@
 import React from 'react';
 import mergeClassNames from 'merge-class-names';
 
-import { CardRoles } from '@/components/common/composite/cards/card-roles';
-import { DivProps } from '@/components/common/composite/cards/Cards';
-import styles from '@/components/common/composite/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
+import { CardRoles } from '@/components/common/ui/cards/card-roles';
+import styles from '@/components/common/ui/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
+import { DivProps } from '@/components/common/ui/cards/types';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 type SubjectTeacherCardProps = {
