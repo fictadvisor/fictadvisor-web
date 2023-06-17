@@ -1,5 +1,5 @@
 import { DropDownOption } from '@/components/common/ui/form/dropdown/Dropdown';
-import { RegisterBody } from '@/lib/api/auth/dto/RegisterBody';
+import { RegisterBody } from '@/lib/api/auth/types/RegisterBody';
 import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
 
 import { RegisterFormFields } from '../types';

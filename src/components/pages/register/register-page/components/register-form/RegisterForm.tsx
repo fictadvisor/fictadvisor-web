@@ -18,7 +18,7 @@ import {
   transformData,
   transformGroups,
 } from '@/components/pages/register/register-page/components/register-form/utils';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';

@@ -1,4 +1,4 @@
-export interface AuthTelegramBody {
+export interface TelegramUser {
   auth_date: number;
   first_name: string;
   hash: string;

@@ -11,7 +11,7 @@ import { initialValues } from '@/components/pages/password-recovery/create-passw
 import { CreatePasswordFormFields } from '@/components/pages/password-recovery/create-password-page/components/create-password-form/types';
 import { validationSchema } from '@/components/pages/password-recovery/create-password-page/components/create-password-form/validation';
 import styles from '@/components/pages/password-recovery/create-password-page/CreatePasswordPage.module.scss';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 const CreatePasswordForm: FC = () => {

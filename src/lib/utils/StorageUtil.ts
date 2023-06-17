@@ -1,8 +1,9 @@
-import { AuthTelegramBody } from '@/lib/api/auth/dto/AuthTelegramBody';
-import { STORAGE_KEYS } from '@/lib/types/common';
+import { STORAGE_KEYS } from '@/types/storage';
+import { TelegramUser } from '@/types/telegram';
+import { Tokens } from '@/types/tokens';
 
 class StorageUtil {
-  static setTokens(accessToken: string, refreshToken: string) {
+  setTokens(accessToken: string, refreshToken: string) {
     if (!process.browser) {
       return;
     }
@@ -11,7 +12,7 @@ class StorageUtil {
     localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
   }
 
-  static getTokens() {
+  getTokens(): Tokens | null {
     if (!process.browser) {
       return null;
     }
@@ -22,9 +23,11 @@ class StorageUtil {
     return accessToken && refreshToken ? { accessToken, refreshToken } : null;
   }
 
-  static getAccessToken = () => StorageUtil.getTokens()?.accessToken;
+  getAccessToken() {
+    return this.getTokens()?.accessToken;
+  }
 
-  static deleteTokens() {
+  deleteTokens() {
     if (!process.browser) {
       return;
     }
@@ -33,21 +36,21 @@ class StorageUtil {
     localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
   }
 
-  static setTelegramInfo(data: { telegram: AuthTelegramBody }) {
+  setTelegramInfo(data: { telegram: TelegramUser }) {
     if (!process.browser) {
       return;
     }
     sessionStorage.setItem(STORAGE_KEYS.TELEGRAM_INFO, JSON.stringify(data));
   }
 
-  static deleteTelegramInfo() {
+  deleteTelegramInfo() {
     if (!process.browser) {
       return;
     }
     sessionStorage.removeItem(STORAGE_KEYS.TELEGRAM_INFO);
   }
 
-  static getTelegramInfo() {
+  getTelegramInfo() {
     if (!process.browser) {
       return;
     }
@@ -56,4 +59,4 @@ class StorageUtil {
   }
 }
 
-export default StorageUtil;
+export default new StorageUtil();

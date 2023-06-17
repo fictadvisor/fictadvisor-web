@@ -10,7 +10,7 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import useAuthentication from '@/hooks/use-authentication';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { UserAPI } from '@/lib/api/user/UserAPI';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';

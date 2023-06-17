@@ -12,7 +12,7 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './RegistrationEmailConfirmationPage.module.scss';
