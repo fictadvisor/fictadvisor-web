@@ -7,7 +7,7 @@ import { AlertColor } from '@/components/common/ui/alert';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs/Breadcrumbs';
 import Loader from '@/components/common/ui/loader/Loader';
 import useAuthentication from '@/hooks/use-authentication';
-import { PollAPI } from '@/lib/api/poll/PollAPI';
+import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import PageLayout from '../../common/layout/page-layout/PageLayout';
@@ -15,42 +15,6 @@ import PageLayout from '../../common/layout/page-layout/PageLayout';
 import PollForm from './components/poll-form';
 
 import styles from './PollPage.module.scss';
-
-export type Teacher = {
-  id: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  avatar: string | null;
-};
-
-export type Subject = {
-  id: string;
-  name: string;
-};
-
-export type Question = {
-  id: string;
-  name: string;
-  criteria: string;
-  text: string;
-  type: string;
-  description: string | null;
-  display: string;
-  isRequired: boolean;
-};
-
-export type Category = {
-  name: string;
-  count: number;
-  questions: Question[];
-};
-
-export interface FetchedTeacherPollData {
-  subject: Subject;
-  categories: Category[];
-  teacher: Teacher;
-}
 
 const PollPage = () => {
   const [isLoading, setIsLoading] = useState(true);

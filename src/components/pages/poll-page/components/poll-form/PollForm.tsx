@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 import useIsMobile from '@/hooks/use-is-mobile';
+import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
+import { Answer, Category, Question } from '@/types/poll';
 
-import { Category, FetchedTeacherPollData, Question } from '../../PollPage';
 import AnswersSheet from '../answers-sheet/AnswersSheet';
 import QuestionsList from '../questions-list/QuestionsList';
 
 import styles from './PollForm.module.scss';
 
 interface PollFormProps {
-  data: FetchedTeacherPollData;
-}
-
-export interface Answer {
-  questionId: string;
-  value: string;
+  data: GetTeacherQuestionsResponse;
 }
 
 export enum SendingStatus {

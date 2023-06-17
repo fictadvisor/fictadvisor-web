@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 import { PollTeacherCard } from '@/components/common/composite/cards/poll-teacher-card';
-import { PollTeachersDTO } from '@/lib/api/poll/dto/PollTeachersDTO';
+import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 
 import styles from './PollTeacherSearchList.module.scss';
 
 interface PollTeacherSearchListProps {
-  data: PollTeachersDTO;
+  data: PollTeachersResponse;
   className: string;
 }
 const PollTeacherSearchList: FC<PollTeacherSearchListProps> = ({
