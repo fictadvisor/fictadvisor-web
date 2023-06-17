@@ -2,6 +2,8 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/system';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AppProps } from 'next/app';
 
 import AuthenticationProvider from '@/hooks/use-authentication/authentication-context';
@@ -19,17 +21,19 @@ if (!process.browser) React.useLayoutEffect = React.useEffect;
 
 const Application = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <AuthenticationProvider>
-            <ToastContextProvider>
-              <Component {...pageProps} />
-            </ToastContextProvider>
-          </AuthenticationProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
-    </Provider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            <AuthenticationProvider>
+              <ToastContextProvider>
+                <Component {...pageProps} />
+              </ToastContextProvider>
+            </AuthenticationProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </Provider>
+    </LocalizationProvider>
   );
 };
 
