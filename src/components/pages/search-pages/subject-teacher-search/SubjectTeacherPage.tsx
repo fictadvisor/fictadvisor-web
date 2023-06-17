@@ -8,8 +8,8 @@ import { Breadcrumb } from '@/components/common/ui/breadcrumbs/Breadcrumbs';
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import styles from '@/components/pages/search-pages/SearchPage.module.scss';
 import { SubjectTeacherSearchList } from '@/components/pages/search-pages/subject-teacher-search/SubjectTeacherSearchList';
-import { GetTeachersBySubjectDTO } from '@/lib/api/subject/dto/GetTeachersBySubjectDTO';
-import { SubjectsAPI } from '@/lib/api/subject/SubjectAPI';
+import { GetTeachersBySubjectResponse } from '@/lib/api/subject/types/GetTeachersBySubjectResponse';
+import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
 
 const breadcrumbs: Breadcrumb[] = [
   {
@@ -25,7 +25,7 @@ const breadcrumbs: Breadcrumb[] = [
 const SubjectTeacherPage = () => {
   const { query, isReady } = useRouter();
 
-  const { data, isLoading } = useQuery<GetTeachersBySubjectDTO>(
+  const { data, isLoading } = useQuery<GetTeachersBySubjectResponse>(
     ['teacher-by-subject', query.subjectId],
     () => SubjectsAPI.getTeachersBySubject(query.subjectId as string),
     { enabled: isReady, staleTime: Infinity },

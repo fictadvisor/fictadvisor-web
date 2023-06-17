@@ -2,11 +2,11 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { SubjectCard } from '@/components/common/composite/cards/subject-card';
-import { GetListOfSubjectsDTO } from '@/lib/api/subject/dto/GetListOfSubjectsDTO';
+import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
 import styles from './SubjectSearchList.module.scss';
 
-export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
+export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
   const router = useRouter();
 
   const redirect = (subjectId: string) => {
