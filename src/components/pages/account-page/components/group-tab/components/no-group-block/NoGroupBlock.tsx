@@ -11,7 +11,7 @@ import { transformGroups } from '@/components/pages/account-page/components/grou
 import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/no-group-block/validation';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
-import { UserAPI } from '@/lib/api/user/UserAPI';
+import UserAPI from '@/lib/api/user/UserAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './NoGroupBlock.module.scss';

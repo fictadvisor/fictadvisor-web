@@ -8,7 +8,7 @@ class TelegramService {
   private static openAuthenticationDialog() {
     return new Promise((resolve, reject) => {
       try {
-        const Telegram = (window as any).Telegram;
+        const Telegram = window.Telegram;
         Telegram.Login.auth(
           { bot_id: process.env.NEXT_PUBLIC_BOT_ID, request_access: true },
           data => {

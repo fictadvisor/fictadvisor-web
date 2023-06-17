@@ -6,25 +6,25 @@ import { MailIcon } from '@/components/common/custom-svg/Mail';
 import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
 import { TwitterIcon } from '@/components/common/custom-svg/Twitter';
 import { YouTubeIcon } from '@/components/common/custom-svg/YouTube';
-import { TeacherContactType } from '@/types/teacher';
+import { ContactType } from '@/types/contact';
 
 import styles from './Contact.module.scss';
 
 export interface ContactProps {
-  name: TeacherContactType;
+  name: ContactType;
   displayName: string;
   link: string;
 }
 
-const contactIconsMap: Record<TeacherContactType, FC> = {
-  [TeacherContactType.YOUTUBE]: YouTubeIcon,
-  [TeacherContactType.TWITTER]: TwitterIcon,
-  [TeacherContactType.MAIL]: MailIcon,
-  [TeacherContactType.GITHUB]: GitHubIcon,
-  [TeacherContactType.INSTAGRAM]: InstagramIcon,
-  [TeacherContactType.DISCORD]: TelegramIcon,
-  [TeacherContactType.FACEBOOK]: TelegramIcon,
-  [TeacherContactType.TELEGRAM]: TelegramIcon,
+const contactIconsMap: Record<ContactType, FC> = {
+  [ContactType.YOUTUBE]: YouTubeIcon,
+  [ContactType.TWITTER]: TwitterIcon,
+  [ContactType.MAIL]: MailIcon,
+  [ContactType.GITHUB]: GitHubIcon,
+  [ContactType.INSTAGRAM]: InstagramIcon,
+  [ContactType.DISCORD]: TelegramIcon,
+  [ContactType.FACEBOOK]: TelegramIcon,
+  [ContactType.TELEGRAM]: TelegramIcon,
 };
 
 const Contact: FC<ContactProps> = ({ name, displayName, link }) => {
