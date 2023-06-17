@@ -1,5 +1,6 @@
+import { ukUA as MaterialLocale } from '@mui/material/locale';
 import { createTheme } from '@mui/material/styles';
-import { ukUA } from '@mui/x-date-pickers/locales';
+import { ukUA as DatePickerLocale } from '@mui/x-date-pickers';
 
 import customBreakpoints from '@/styles/theme/constants/breakpoints';
 import customPalette from '@/styles/theme/constants/pallete';
@@ -11,7 +12,8 @@ const theme = createTheme(
     typography: customTypography,
     breakpoints: customBreakpoints,
   },
-  ukUA,
+  MaterialLocale,
+  DatePickerLocale,
 );
 
 export default theme;
