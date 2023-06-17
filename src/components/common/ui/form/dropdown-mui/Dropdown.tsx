@@ -38,6 +38,7 @@ interface DropdownProps {
   showRemark?: boolean;
   size?: FieldSize;
   noOptionsText?: string;
+  width?: string;
 }
 
 export const Dropdown: FC<DropdownProps> = ({
@@ -51,6 +52,7 @@ export const Dropdown: FC<DropdownProps> = ({
   size = FieldSize.MEDIUM,
   isDisabled = false,
   name,
+  width,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [values, { touched, error }, { setTouched, setValue }] = useField(name);
@@ -60,7 +62,7 @@ export const Dropdown: FC<DropdownProps> = ({
     else if (touched && error) return FieldState.ERROR;
     else if (touched && isSuccessOnDefault) return FieldState.SUCCESS;
     else return FieldState.DEFAULT;
-  }, [touched, error]);
+  }, [touched, error, isSuccessOnDefault, isDisabled]);
 
   const handleChange = (_: SyntheticEvent, option: DropDownOption) => {
     setTouched(true);
@@ -68,63 +70,71 @@ export const Dropdown: FC<DropdownProps> = ({
   };
 
   return (
-    <Box sx={styles.dropdown}>
-      <Autocomplete
-        disabled={isDisabled}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        fullWidth
-        disablePortal
-        onChange={handleChange}
-        blurOnSelect={true}
-        options={options}
-        renderInput={params => (
-          <TextField
-            inputProps={values}
-            {...params}
-            label={label}
-            sx={styles.input(dropdownState, size)}
-            placeholder={placeholder}
-            disabled={isDisabled}
-          />
-        )}
-        getOptionLabel={option =>
-          'text' in option ? option.text : option.label
-        }
-        componentsProps={{
-          popper: {
-            placement: 'bottom-start',
-            modifiers: [
-              { name: 'flip', enabled: false },
-              {
-                name: 'preventOverflow',
-                options: {
-                  mainAxis: false,
+    <Box
+      sx={{
+        width: width ? width : '100%',
+      }}
+    >
+      <Box sx={styles.dropdown}>
+        <Autocomplete
+          disabled={isDisabled}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          fullWidth
+          disablePortal
+          onChange={handleChange}
+          blurOnSelect={true}
+          options={options}
+          renderInput={params => (
+            <TextField
+              inputProps={values}
+              {...params}
+              label={label}
+              sx={styles.input(dropdownState, size)}
+              placeholder={placeholder}
+              disabled={isDisabled}
+            />
+          )}
+          getOptionLabel={option =>
+            'text' in option ? option.text : option.label
+          }
+          componentsProps={{
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [
+                { name: 'flip', enabled: false },
+                {
+                  name: 'preventOverflow',
+                  options: {
+                    mainAxis: false,
+                  },
                 },
-              },
-              {
-                name: 'sameWidth',
-                enabled: true,
-                fn: ({ state }) => {
-                  state.styles.popper.width = `${state.rects.reference.width}px`;
+                {
+                  name: 'sameWidth',
+                  enabled: true,
+                  fn: ({ state }) => {
+                    state.styles.popper.width = `${state.rects.reference.width}px`;
+                  },
+                  phase: 'beforeWrite',
+                  requires: ['computeStyles'],
                 },
-                phase: 'beforeWrite',
-                requires: ['computeStyles'],
-              },
-            ],
-          },
-        }}
-        popupIcon={<ChevronDownIcon width={24} height={24} strokeWidth={1.5} />}
-        noOptionsText={noOptionsText}
-        renderOption={(props, option: DropDownOption) => (
-          <Option props={props} option={option} key={option.id} />
+              ],
+            },
+          }}
+          popupIcon={
+            <ChevronDownIcon width={24} height={24} strokeWidth={1.5} />
+          }
+          noOptionsText={noOptionsText}
+          renderOption={(props, option: DropDownOption) => (
+            <Option props={props} option={option} key={option.id} />
+          )}
+        />
+        {showRemark && (
+          <Typography sx={styles.remark(dropdownState, isFocused)}>
+            {touched && error ? error : defaultRemark}
+          </Typography>
         )}
-      />
-      {showRemark && (
-        <Typography sx={styles.remark(dropdownState, isFocused)}>
-          {touched && error ? error : defaultRemark}
-        </Typography>
-      )}
+      </Box>
     </Box>
   );
 };

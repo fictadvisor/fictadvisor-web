@@ -87,7 +87,7 @@ export const input = (
 export const dropdown: SxProps<Theme> = {
   minWidth: '150px',
   width: '100%',
-  p: 2,
+  p: 0,
   pb: 0,
 
   '& .MuiAutocomplete-popper': {
