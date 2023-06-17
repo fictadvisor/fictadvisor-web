@@ -1,8 +1,8 @@
 import { ChartData } from 'chart.js';
 
-import { GetTeacherEvaluationsDTO } from '@/lib/api/teacher/dto/GetTeacherEvaluationsDTO';
+import { TeacherEvaluations } from '../types';
 
-const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
+const getData = (data: TeacherEvaluations): ChartData<'bar'> => {
   console.log(data);
   const { mark, name } = data;
   return {

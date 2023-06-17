@@ -4,15 +4,11 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Tag, { TagColor, TagSize } from '@/components/common/ui/tag';
 import styles from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card/PersonalTeacherSubjectCard.module.scss';
-import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO';
+import { TeacherWithContact } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
-export type PersonalTeacherSubjectCardProps = GetTeacherSubjectDTO;
-
-const PersonalTeacherSubjectCard: React.FC<
-  PersonalTeacherSubjectCardProps
-> = props => {
+const PersonalTeacherSubjectCard: React.FC<TeacherWithContact> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
   return (
     <div className={styles['card']}>

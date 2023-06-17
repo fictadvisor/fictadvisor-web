@@ -9,8 +9,8 @@ import Button, {
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
 import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-form/types';
-import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
-import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
+import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { TeacherInitialValues } from '../search-form/constants';
@@ -41,11 +41,12 @@ export const TeacherSearchPage = () => {
     setCurPage(0);
   }, []);
 
-  const { data, isLoading, refetch, isFetching } = useQuery<GetTeachersDTO>(
-    'lecturers',
-    () => TeacherAPI.getAll(queryObj, pageSize * (curPage + 1)),
-    { keepPreviousData: true, refetchOnWindowFocus: false },
-  );
+  const { data, isLoading, refetch, isFetching } =
+    useQuery<GetTeachersResponse>(
+      'lecturers',
+      () => TeacherAPI.getAll(queryObj, pageSize * (curPage + 1)),
+      { keepPreviousData: true, refetchOnWindowFocus: false },
+    );
 
   useEffect(() => {
     void refetch();

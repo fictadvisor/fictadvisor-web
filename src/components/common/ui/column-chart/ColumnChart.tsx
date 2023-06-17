@@ -5,15 +5,11 @@ import { Chart, registerables } from 'chart.js';
 
 import getData from '@/components/common/ui/column-chart/utils/get-data';
 import getOptions from '@/components/common/ui/column-chart/utils/get-options';
-import { GetTeacherEvaluationsDTO } from '@/lib/api/teacher/dto/GetTeacherEvaluationsDTO';
 
+import { ColumnChartProps } from './types';
 import * as styles from './ColumnChart.styles';
 
 Chart.register(...registerables);
-
-interface ColumnChartProps {
-  data: GetTeacherEvaluationsDTO;
-}
 
 const ColumnChart: FC<ColumnChartProps> = ({ data }) => {
   return (

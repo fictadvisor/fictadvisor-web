@@ -14,10 +14,8 @@ import {
 import { TabList } from '@/components/common/ui/tab/tab-list/TabList';
 import { TabPanel } from '@/components/common/ui/tab/tab-panel/TabPanel';
 import { TabPanelsList } from '@/components/common/ui/tab/tab-panels-list/TabPanelsList';
-import { GetTeacherSubjectsDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectsDTO';
 
 import styles from './PersonalTeacherSubjectTabs.module.scss';
-export type PersonalTeacherTabsProps = GetTeacherSubjectsDTO;
 
 const TabsPage = () => {
   const [index, setIndex] = useState<string>('1');

@@ -1,17 +1,16 @@
 import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-form/types';
-import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO';
-import { GetTeacherSubjectsDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectsDTO';
+import {
+  GetTeacherResponse,
+  GetTeachersResponse,
+} from '@/lib/api/teacher/types/GetTeachersResponse';
+import { GetTeacherSubjectsResponse } from '@/lib/api/teacher/types/GetTeacherSubjectsResponse';
 import { getAuthorizationHeader } from '@/lib/api/utils';
+import { TeacherWithContact } from '@/types/teacher';
 
 import { client } from '../instance';
 
-import { AddContactsBody } from './dto/AddContactsBody';
-import { CreateTeacherBody } from './dto/CreateTeacherBody';
-import { GetTeacherDTO } from './dto/GetTeacherDTO';
-import { GetTeacherStatsDTO } from './dto/GetTeacherStatsDTO';
-import { UpdateTeacherBody } from './dto/UpdateTeacherBody';
-export class TeacherAPI {
-  static async get(teacherId: string): Promise<GetTeacherDTO> {
+class TeacherAPI {
+  async get(teacherId: string): Promise<GetTeacherResponse> {
     const { data } = await client.get(
       `/teachers/${teacherId}`,
       getAuthorizationHeader(),
@@ -19,80 +18,35 @@ export class TeacherAPI {
     return data;
   }
 
-  static async getAll(
+  async getAll(
     { search, order, sort, group }: TeacherSearchFormFields,
     pageSize: number,
-  ): Promise<{ teachers: GetTeacherDTO[] }> {
-    const url = `/teachers?${search ? `search=${search}` : ''}${
-      order ? `&order=${order}` : ''
-    }${sort ? `&sort=${sort}` : ''}${group ? `&group=${group}` : ''}${
-      pageSize ? `&pageSize=${pageSize}` : ''
-    }`;
-
-    const { data } = await client.get(url, getAuthorizationHeader());
+  ) {
+    const { data } = await client.get<GetTeachersResponse>('/teachers', {
+      params: {
+        search,
+        order,
+        sort,
+        group,
+        pageSize,
+      },
+    });
     return data;
   }
 
-  static async getTeacherStats(
-    teacherId: string,
-    semester: number | string,
-    subject: string,
-    year: number,
-  ): Promise<GetTeacherStatsDTO> {
-    const { data } = await client.get(`/teachers/${teacherId}/stats?
-        semester=${semester}
-        &subject=${subject}
-        &year=${year}`);
-    return data;
-  }
-
-  static async create(body: CreateTeacherBody) {
-    const { data } = await client.post(
-      '/teachers',
-      body,
-      getAuthorizationHeader(),
+  async getTeacherSubjects(teacherId: string) {
+    const { data } = await client.get<GetTeacherSubjectsResponse>(
+      `/teachers/${teacherId}/subjects`,
     );
     return data;
   }
 
-  static async addContacts(teacherId: string, body: AddContactsBody) {
-    const { data } = await client.post(
-      `/teachers/${teacherId}/contacts`,
-      body,
-      getAuthorizationHeader(),
-    );
-    return data;
-  }
-
-  static async update(teacherId: string, body: UpdateTeacherBody) {
-    const { data } = await client.patch(
-      `/teachers/${teacherId}`,
-      body,
-      getAuthorizationHeader(),
-    );
-    return data;
-  }
-
-  static async delete(teacherId: string) {
-    const { data } = await client.delete(
-      `/teachers/${teacherId}`,
-      getAuthorizationHeader(),
-    );
-    return data;
-  }
-  static async getTeacherSubjects(
-    teacherId: string,
-  ): Promise<GetTeacherSubjectsDTO> {
-    const { data } = await client.get(`/teachers/${teacherId}/subjects`);
-    return data;
-  }
-  static async getTeacherSubject(
-    teacherId: string,
-    subjectId: string,
-  ): Promise<GetTeacherSubjectDTO> {
-    const { data } = await client.get(
+  async getTeacherSubject(teacherId: string, subjectId: string) {
+    const { data } = await client.get<TeacherWithContact>(
       `/teachers/${teacherId}/subjects/${subjectId}`,
     );
     return data;
   }
 }
+
+export default new TeacherAPI();

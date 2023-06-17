@@ -2,13 +2,13 @@ import { FC, HTMLProps } from 'react';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/composite/cards/teacher-card';
-import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
 import styles from './TeacherSearchList.module.scss';
 
 interface TeacherSearchListProps
   extends HTMLProps<HTMLDivElement>,
-    GetTeachersDTO {}
+    GetTeachersResponse {}
 
 export const TeacherSearchList: FC<TeacherSearchListProps> = ({
   teachers,
