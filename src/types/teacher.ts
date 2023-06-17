@@ -10,11 +10,15 @@ export interface TeacherSubject {
 }
 
 export interface Teacher {
-  disciplineTeacherId: string;
+  id: string;
   roles: TeacherRole[];
   firstName: string;
   middleName: string;
   lastName: string;
   avatar: string;
+}
+
+export interface DisciplineTeacher extends Teacher {
+  disciplineTeacherId: string;
   subject: TeacherSubject;
 }

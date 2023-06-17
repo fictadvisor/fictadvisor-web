@@ -5,6 +5,6 @@ export interface StudentResource {
   link: string;
 }
 
-export interface GetStudentResourcesDTO {
+export interface GetStudentResourcesResponse {
   studentResources: StudentResource[];
 }

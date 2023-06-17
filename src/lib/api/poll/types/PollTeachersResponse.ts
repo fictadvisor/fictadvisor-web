@@ -1,5 +1,5 @@
-import { Teacher } from '@/types/teacher';
+import { DisciplineTeacher } from '@/types/teacher';
 
 export interface PollTeachersResponse {
-  teachers: Teacher[];
+  teachers: DisciplineTeacher[];
 }

@@ -1,3 +1,5 @@
+import { Teacher } from '@/types/teacher';
+
 export enum QuestionType {
   TOGGLE = 'TOGGLE',
   TEXT = 'TEXT',
@@ -26,13 +28,7 @@ export interface Answer {
   value: string;
 }
 
-export interface PollTeacher {
-  id: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  avatar: string;
-}
+export type PollTeacher = Omit<Teacher, 'roles'>;
 
 export interface Category {
   name: string;
