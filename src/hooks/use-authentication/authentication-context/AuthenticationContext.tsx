@@ -10,11 +10,13 @@ import { AxiosError } from 'axios';
 
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
+import { User } from '@/types/user';
 
 import { AuthenticationContext } from '../types';
 
 const authenticationContext = React.createContext<AuthenticationContext>({
   update: () => new Promise(() => {}),
+  user: {} as User,
 });
 
 export const useAuthenticationContext = () => useContext(authenticationContext);

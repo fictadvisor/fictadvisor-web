@@ -1,8 +1,6 @@
 import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-form/types';
-import {
-  GetTeacherResponse,
-  GetTeachersResponse,
-} from '@/lib/api/teacher/types/GetTeachersResponse';
+import { GetTeacherResponse } from '@/lib/api/teacher/types/GetTeacherResponse';
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 import { GetTeacherSubjectsResponse } from '@/lib/api/teacher/types/GetTeacherSubjectsResponse';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 import { TeacherWithContact } from '@/types/teacher';

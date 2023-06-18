@@ -8,8 +8,8 @@ import Button, {
 } from '@/components/common/ui/button/Button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
-import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
+import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { SubjectInitialValues } from '../search-form/constants';
@@ -43,7 +43,7 @@ const SubjectSearchPage = () => {
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetListOfSubjectsResponse>(
       'subjects',
-      SubjectsAPI.getAll.bind(null, queryObj, pageSize * (curPage + 1)),
+      () => SubjectsAPI.getAll(queryObj, pageSize * (curPage + 1)),
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
 

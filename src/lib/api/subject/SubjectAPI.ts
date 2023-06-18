@@ -29,4 +29,4 @@ class SubjectsAPI {
   }
 }
 
-export default SubjectsAPI();
+export default new SubjectsAPI();
