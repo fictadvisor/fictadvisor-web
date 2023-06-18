@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
 
 import styles from './ResourceCard.module.scss';
 
@@ -15,7 +15,7 @@ const ResourceCard: React.FC<CardProps> = ({
   href,
 }) => {
   return (
-    <Link href={href}>
+    <Link href={href} target='_blank' >
       <div className={styles['card']}>
         <div className={styles['card-content']}>
           <img src={image} />
