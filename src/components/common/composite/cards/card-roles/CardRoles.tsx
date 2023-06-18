@@ -2,30 +2,25 @@ import React from 'react';
 import cn from 'classnames';
 
 import Tag, { TagColor, TagSize, TagVariant } from '@/components/common/ui/tag';
+import { TeacherRole } from '@/types/teacher';
 
 import styles from './CardRoles.module.scss';
 
 export interface CardRolesProps {
-  roles: Role[];
+  roles: TeacherRole[];
   className?: string;
 }
 
-export enum Role {
-  LABORANT = 'laborant',
-  LECTURER = 'lecturer',
-  PRACTICIAN = 'practician',
-}
-
-const TagText: Record<Role, string> = {
-  [Role.LABORANT]: 'Лаборант',
-  [Role.LECTURER]: 'Лектор',
-  [Role.PRACTICIAN]: 'Практик',
+const TagText: Record<TeacherRole, string> = {
+  [TeacherRole.LABORANT]: 'Лаборант',
+  [TeacherRole.LECTURER]: 'Лектор',
+  [TeacherRole.PRACTICIAN]: 'Практик',
 };
 
-const TagColors: Record<Role, TagColor> = {
-  [Role.LABORANT]: TagColor.MINT,
-  [Role.LECTURER]: TagColor.VIOLET,
-  [Role.PRACTICIAN]: TagColor.ORANGE,
+const TagColors: Record<TeacherRole, TagColor> = {
+  [TeacherRole.LABORANT]: TagColor.MINT,
+  [TeacherRole.LECTURER]: TagColor.VIOLET,
+  [TeacherRole.PRACTICIAN]: TagColor.ORANGE,
 };
 
 export const CardRoles: React.FC<CardRolesProps> = ({ roles, className }) => {

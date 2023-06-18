@@ -2,14 +2,14 @@ import React from 'react';
 import cn from 'classnames';
 
 import { CardRoles } from '@/components/common/composite/cards/card-roles';
-import { Role } from '@/components/common/composite/cards/card-roles/CardRoles';
 import { DivProps } from '@/components/common/composite/cards/Cards';
 import styles from '@/components/common/composite/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
+import { TeacherRole } from '@/types/teacher';
 
 type SubjectTeacherCardProps = {
   name: string;
   rating?: number;
-  roles?: Role[];
+  roles?: TeacherRole[];
   avatar?: string;
   disabled?: boolean;
 } & DivProps;

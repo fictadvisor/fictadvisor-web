@@ -3,7 +3,6 @@ import cn from 'classnames';
 import Link from 'next/link';
 
 import { CardRoles } from '@/components/common/composite/cards/card-roles';
-import { Role } from '@/components/common/composite/cards/card-roles/CardRoles';
 import { DivProps } from '@/components/common/composite/cards/Cards';
 import styles from '@/components/common/composite/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import Button, {
@@ -12,11 +11,12 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import Tooltip from '@/components/common/ui/tooltip';
+import { TeacherRole } from '@/types/teacher';
 
 type PollTeacherCardProps = {
   name: string;
   description: string;
-  roles?: Role[];
+  roles?: TeacherRole[];
   avatar?: string;
   disabled?: boolean;
   href?: string;
