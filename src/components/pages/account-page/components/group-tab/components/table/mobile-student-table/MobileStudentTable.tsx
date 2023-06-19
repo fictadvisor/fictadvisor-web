@@ -117,7 +117,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
             <div className={styles['tag']}>
               {row.role && (
                 <Tag
-                  size="medium"
+                  size="small"
                   icon={
                     row.role === StudentRole.CAPTAIN ? (
                       <Captain />
