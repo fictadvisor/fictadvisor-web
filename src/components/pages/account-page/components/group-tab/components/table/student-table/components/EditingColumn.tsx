@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import {
   ArrowDownCircleIcon,
@@ -21,13 +22,13 @@ import dataMapper from '@/components/pages/account-page/components/group-tab/com
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { UserGroupRole } from '@/types/user';
 
 import styles from '../StudentTable.module.scss';
-import { UserGroupRole } from '@/types/user';
 
 interface EditingColumnProps {
   student: StudentTableItem;
-  refetch;
+  refetch: QueryObserverBaseResult['refetch'];
 }
 
 const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
@@ -39,7 +40,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const handleDelete = async () => {
     try {
       setIsOpenDelete(false);
-      await GroupAPI.removeStudent(user.group.id, student.id);
+      await GroupAPI.removeStudent(user.group?.id as string, student.id);
       await refetch();
     } catch (e) {
       dispatch(
@@ -54,7 +55,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const handleChangeStatus = async () => {
     try {
       setIsOpenChange(false);
-      await GroupAPI.updateStudentRole(user?.group?.id, student.id, {
+      await GroupAPI.updateStudentRole(user?.group?.id as string, student.id, {
         roleName:
           student.role === StudentRole.MODERATOR
             ? UserGroupRole.STUDENT
@@ -83,7 +84,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     );
 
   if (
-    dataMapper[user.group.role] === StudentRole.CAPTAIN &&
+    dataMapper[user.group?.role as UserGroupRole] === StudentRole.CAPTAIN &&
     student.role !== StudentRole.CAPTAIN
   ) {
     return (
@@ -167,7 +168,10 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     );
   }
 
-  if (dataMapper[user.group.role] === StudentRole.MODERATOR && !student.role) {
+  if (
+    dataMapper[user.group?.role as UserGroupRole] === StudentRole.MODERATOR &&
+    !student.role
+  ) {
     return (
       <>
         {isOpenDelete && (
@@ -205,6 +209,8 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
       </>
     );
   }
+
+  return null;
 };
 
 export default EditingColumn;
