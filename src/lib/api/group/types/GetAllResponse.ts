@@ -1,7 +1,4 @@
-interface Group {
-  id: string;
-  code: string;
-}
+import { Group } from '@/types/group';
 
 export interface GetAllResponse {
   groups: Group[];

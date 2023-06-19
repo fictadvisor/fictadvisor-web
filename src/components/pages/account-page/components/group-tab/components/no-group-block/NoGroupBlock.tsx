@@ -49,6 +49,8 @@ const NoGroupBlock: FC = () => {
 
   if (isLoading) return <Loader size={LoaderSize.SMALLEST} />;
 
+  if (!data) return null;
+
   return (
     <div className={styles['content']}>
       {user.group.state === 'PENDING' ? (
