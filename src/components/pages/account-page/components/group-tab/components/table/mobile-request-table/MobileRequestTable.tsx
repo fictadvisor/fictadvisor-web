@@ -12,6 +12,7 @@ import useAuthentication from '@/hooks/use-authentication';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
+import Image from "next/image";
 import styles from './MobileRequestTable.module.scss';
 
 export interface RequestTableItem {
@@ -79,7 +80,15 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
               ]
             }
           >
-            <img className={styles['img']} src={row.imgSrc} alt="avatar" />
+            <Image
+                src={row.imgSrc}
+                alt="avatar"
+                style={{
+                  borderRadius: "100%"
+                }}
+                width={34}
+                height={34}
+            />
             <div className={styles['user-info']}>
               <h6 className={styles['full-name']}>{row.fullName}</h6>
               <h6 className={styles['email']}>{row.email}</h6>
