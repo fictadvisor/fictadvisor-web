@@ -14,7 +14,7 @@ import UserAPI from '@/lib/api/user/UserAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 interface ContactFormProps {
-  refetchContacts;
+  refetchContacts: () => Promise<void>;
 }
 
 const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
@@ -28,7 +28,7 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
   const handleSubmit = async data => {
     try {
       await UserAPI.addContact(user.id, data);
-      refetchContacts();
+      void refetchContacts();
     } catch (e) {
       dispatch(
         showAlert({
