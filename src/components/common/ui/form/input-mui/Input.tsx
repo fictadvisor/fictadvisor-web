@@ -17,9 +17,9 @@ interface TextAreaProps {
   placeholder?: string;
   label?: string;
   size?: 'medium' | 'small';
+  type?: string;
   disabled?: boolean;
   showRemark?: boolean;
-  rowsNumber?: number;
   sx?: SxProps<Theme>;
 }
 
@@ -30,9 +30,9 @@ const Input: React.FC<TextAreaProps> = ({
   placeholder,
   label,
   size = 'medium',
+  type,
   disabled = false,
   showRemark = false,
-  rowsNumber = 4,
   sx,
 }) => {
   const [field, { touched, error }] = useField(name);
@@ -54,16 +54,16 @@ const Input: React.FC<TextAreaProps> = ({
       <OutlinedInput
         {...field}
         sx={styles.input(state, size)}
-        multiline
-        rows={rowsNumber}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
+        type={type}
         placeholder={placeholder}
       />
       {showRemark && (
         <FormHelperText sx={styles.errorRemark}>
           {touched && error}
         </FormHelperText>
+
       )}
     </FormControl>
   );

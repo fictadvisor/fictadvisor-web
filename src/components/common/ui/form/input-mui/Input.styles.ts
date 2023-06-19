@@ -54,12 +54,12 @@ export const input = (state: string, size: string): SxProps<Theme> => ({
   color: 'grey.800',
 
   ...(size === 'medium' && {
-    padding: '16px 16px 16px 20px',
+    // padding: '16px 16px 16px 20px',
     typography: 'body2',
   }),
 
   ...(size === 'small' && {
-    padding: '12px',
+    // padding: '12px',
     typography: 'body1',
   }),
 
