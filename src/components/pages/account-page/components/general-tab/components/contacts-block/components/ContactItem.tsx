@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { QueryObserverBaseResult } from 'react-query';
 
 import { TrashBucketButton } from '@/components/common/ui/icon-button/variants';
 import ImmutableInput from '@/components/common/ui/immutable-input';
@@ -8,7 +9,7 @@ import UserAPI from '@/lib/api/user/UserAPI';
 
 import styles from '../../../GeneralTab.module.scss';
 interface ContactProps extends Contact {
-  refetchContacts;
+  refetchContacts: QueryObserverBaseResult['refetch'];
 }
 const ContactItem: FC<ContactProps> = ({
   refetchContacts,
