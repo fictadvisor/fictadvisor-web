@@ -12,9 +12,9 @@ import Radio from '@/components/common/ui/form/radio';
 import Loader from '@/components/common/ui/loader/Loader';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
-import { Category, Question } from '../../PollPage';
-import { Answer, SendingStatus } from '../poll-form/PollForm';
+import { SendingStatus } from '../poll-form/PollForm';
 
 import AnswersSaved from './AnswersSaved';
 
@@ -82,7 +82,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
 
   useEffect(() => {
     for (const question of category.questions) {
-      if (question.type === 'SCALE') {
+      if (question.type === QuestionType.SCALE) {
         setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
       }
     }
