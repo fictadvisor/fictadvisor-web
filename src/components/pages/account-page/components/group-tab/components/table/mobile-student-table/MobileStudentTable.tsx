@@ -18,6 +18,7 @@ import useAuthentication from '@/hooks/use-authentication';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
+import Image from "next/image";
 import styles from './MobileStudentTable.module.scss';
 
 export interface StudentTableItem {
@@ -109,7 +110,15 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
               ]
             }
           >
-            <img className={styles['img']} src={row.imgSrc} alt="avatar" />
+            <Image
+                src={row.imgSrc}
+                alt="avatar"
+                style={{
+                  borderRadius: "100%"
+                }}
+                width={36}
+                height={36}
+            />
             <div className={styles['user-info']}>
               <h6 className={styles['full-name']}>{row.fullName}</h6>
               <h6 className={styles['email']}>{row.email}</h6>
