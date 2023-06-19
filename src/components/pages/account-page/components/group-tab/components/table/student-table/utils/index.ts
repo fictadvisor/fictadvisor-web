@@ -1,5 +1,8 @@
 import { RequestTableItem } from '@/components/pages/account-page/components/group-tab/components/table/request-table/RequestTable';
-import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
+import {
+  StudentRole,
+  StudentTableItem,
+} from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import { UserGroupRole } from '@/types/user';
 
 export const transformStudentsData = (data): StudentTableItem[] =>
@@ -19,10 +22,10 @@ export const transformRequestsData = (data): RequestTableItem[] =>
     id: dataItem.id,
   }));
 
-export const dataMapper: Record<UserGroupRole, string | null> = {
-  [UserGroupRole.CAPTAIN]: 'Староста',
-  [UserGroupRole.MODERATOR]: 'Зам. старости',
-  [UserGroupRole.STUDENT]: null,
+export const dataMapper: Record<UserGroupRole, StudentRole> = {
+  [UserGroupRole.CAPTAIN]: StudentRole.CAPTAIN,
+  [UserGroupRole.MODERATOR]: StudentRole.MODERATOR,
+  [UserGroupRole.STUDENT]: StudentRole.STUDENT,
 };
 
 export default dataMapper;

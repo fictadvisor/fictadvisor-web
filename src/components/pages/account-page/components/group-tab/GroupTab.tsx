@@ -20,9 +20,11 @@ import { User } from '@/types/user';
 import styles from './GroupTab.module.scss';
 
 const getStudents = async (user: User) => {
-  const { students } = await GroupAPI.getGroupStudents(user.group.id);
+  const { students } = await GroupAPI.getGroupStudents(
+    user.group?.id as string,
+  );
   const { students: requests } = await GroupAPI.getRequestStudents(
-    user.group.id,
+    user.group?.id as string,
   );
 
   return {

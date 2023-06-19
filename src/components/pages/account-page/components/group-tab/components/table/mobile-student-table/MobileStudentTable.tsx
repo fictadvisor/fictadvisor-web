@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
 
@@ -31,7 +32,7 @@ export interface StudentTableItem {
 interface StudentTableProps {
   rows: StudentTableItem[];
   variant: StudentRole;
-  refetch;
+  refetch: QueryObserverBaseResult['refetch'];
 }
 
 const MobileStudentTable: React.FC<StudentTableProps> = ({
