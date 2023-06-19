@@ -10,6 +10,7 @@ import {
 } from '@/components/common/ui/button-mui/types';
 
 import { mainLinks } from '../../constants';
+import { TransformedUser } from '../../types';
 import AuthenticationButtons from '../authentication-buttons';
 import HeaderDesktopCard from '../header-desktop-card';
 
@@ -17,7 +18,7 @@ import * as styles from './DesktopHeader.styles';
 
 interface DesktopHeaderProps {
   isLoggedIn: boolean;
-  user: any;
+  user: TransformedUser;
 }
 
 const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
@@ -51,12 +52,7 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
             href="/account"
             underline="none"
           >
-            <HeaderDesktopCard
-              name={user.name}
-              groupName={user.groupName}
-              position={user.position}
-              url={user.avatar}
-            />
+            <HeaderDesktopCard {...user} />
           </Link>
         ) : (
           <AuthenticationButtons />

@@ -11,12 +11,13 @@ import AuthenticationButtons from '../../../authentication-buttons';
 import HeaderMobileCard from '../../../header-mobile-card';
 
 import * as styles from './Drawer.styles';
+import { TransformedUser } from '../../../../types';
 
 export interface DrawerProps {
   isLoggedIn: boolean;
   isOpened: boolean;
   handleClick: () => void;
-  user: any;
+  user: TransformedUser;
 }
 
 const Drawer: FC<DrawerProps> = ({
@@ -42,12 +43,7 @@ const Drawer: FC<DrawerProps> = ({
             underline="none"
             color="inherit"
           >
-            <HeaderMobileCard
-              name={user.name}
-              groupName={user.groupName}
-              position={user.position}
-              url={user.avatar}
-            />
+            <HeaderMobileCard {...user} />
           </Link>
           <Box sx={styles.menu}>
             {accountButtons.map((button, index) => (
