@@ -6,13 +6,15 @@ import { Captain } from '@/components/common/icons/Captain';
 import { Moderator } from '@/components/common/icons/Moderator';
 import { AlertColor } from '@/components/common/ui/alert';
 import Button from '@/components/common/ui/button';
-import Tag, { TagSize, TagVariant } from '@/components/common/ui/tag';
+import Tag from '@/components/common/ui/tag-mui';
 import CustomDivider from '@/components/pages/account-page/components/divider';
 import EditingColumn from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/EditingColumn';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+
+import * as muiStyles from './StudentTable.styles';
 
 import styles from './StudentTable.module.scss';
 export enum StudentRole {
@@ -115,19 +117,19 @@ const StudentTable: React.FC<StudentTableProps> = ({
                 <div className={styles['tag']}>
                   {row.role && (
                     <Tag
-                      className={'tag-role'}
+                      sx={muiStyles.tagRole}
                       text={row.role}
-                      variant={TagVariant.DARKER}
-                      size={TagSize.SMALL}
+                      variant="darker"
+                      size="small"
                     />
                   )}
                 </div>
                 <div className={styles['tag-mobile']}>
                   {row.role && (
                     <Tag
-                      className={'tag-role'}
-                      size={TagSize.SMALL}
-                      variant={TagVariant.DARKER}
+                      sx={muiStyles.tagRole}
+                      size="small"
+                      variant="darker"
                       icon={
                         row.role === StudentRole.CAPTAIN ? (
                           <Captain />
