@@ -38,7 +38,6 @@ const ForgotPasswordPage = () => {
             size="small"
             startIcon={<ChevronLeftIcon />}
             onClick={returnAuth}
-            sx={styles.link}
           />
         </Box>
       </Box>

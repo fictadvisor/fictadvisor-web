@@ -48,6 +48,7 @@ const PasswordResetLinkExpiredPage = () => {
             size="small"
             startIcon={<ChevronLeftIcon />}
             onClick={returnRegister}
+            sx={styles.buttonBack}
           />
         </Box>
       </Box>

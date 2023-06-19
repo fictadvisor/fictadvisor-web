@@ -13,7 +13,7 @@ export const content: SxProps<Theme> = {
   flexDirection: 'column',
   width: '100%',
   padding: '0 16px',
-  maxWidth: '452px',
+  maxWidth: '512px',
   height: 'fit-content',
   paddingTop: {
     mobile: '103px',
@@ -70,56 +70,3 @@ export const form: SxProps<Theme> = {
     mobileMedium: '24px',
   },
 };
-
-export const link: SxProps<Theme> = {
-  //width: '100%',
-};
-
-// .formik{
-//   text-align: unset;
-//   display: flex;
-//   width: 100%;
-//   color: $gray-300;
-//   margin-bottom: 24px;
-// }
-//
-// .form{
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   gap: 12px;
-// }
-
-// @media screen and (max-width: 480px){
-//   .forgot-password-page{
-//     height: 100vh;
-//   }
-//   .forgot-password-page-content{
-//     min-height: unset;
-//     min-width: unset;
-//     justify-content: unset;
-//     top: 15%;
-//     width:100%;
-//   }
-//   .icon {
-//     width: 48px;
-//     height: 48px;
-//     margin-bottom: 20px;
-//   }
-//
-//   .formik {
-//     margin-bottom: 16px;
-//   }
-//
-//   .headline{
-//     h3{
-//       @include h4--semi-bold;
-//     }
-//     margin-bottom: 12px;
-//   }
-//   .text{
-//     h6{
-//       @include body-secondary;
-//     }
-//   }
-// }

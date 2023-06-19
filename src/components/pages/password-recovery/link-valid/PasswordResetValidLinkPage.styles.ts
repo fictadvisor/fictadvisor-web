@@ -13,7 +13,7 @@ export const content: SxProps<Theme> = {
   flexDirection: 'column',
   width: '100%',
   padding: '0 16px',
-  maxWidth: '452px',
+  maxWidth: '512px',
   height: 'fit-content',
   paddingTop: {
     mobile: '103px',
@@ -52,7 +52,6 @@ export const title: SxProps<Theme> = {
     mobile: '10px',
     mobileMedium: '24px',
   },
-  height: '49px',
 };
 
 export const descr: SxProps<Theme> = {
@@ -60,7 +59,6 @@ export const descr: SxProps<Theme> = {
     mobile: '26px',
     mobileMedium: '24px',
   },
-  width: '100%',
   typography: {
     mobile: 'body2',
     mobileMedium: 'h6',

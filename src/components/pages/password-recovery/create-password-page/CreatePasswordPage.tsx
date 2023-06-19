@@ -40,6 +40,7 @@ const CreatePasswordPage = () => {
       hasFooter={false}
       description={'Сторінка для створення нового пароля'}
     >
+      {/*ТУТ Я ТЕЖ ПРИБИРАВ КОД*/}
       <Box sx={styles.container}>
         <Box sx={styles.content}>
           <>

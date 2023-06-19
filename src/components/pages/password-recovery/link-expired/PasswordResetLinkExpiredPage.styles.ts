@@ -13,7 +13,7 @@ export const content: SxProps<Theme> = {
   flexDirection: 'column',
   width: '100%',
   padding: '0 16px',
-  maxWidth: '452px',
+  maxWidth: '558px',
   height: 'fit-content',
   paddingTop: {
     mobile: '103px',
@@ -44,8 +44,6 @@ export const icon: SxProps<Theme> = {
 };
 
 export const title: SxProps<Theme> = {
-  maxWidth: '526px',
-  width: '100%',
   marginBottom: {
     mobile: '10px',
     mobileMedium: '26px',
@@ -71,9 +69,16 @@ export const descr: SxProps<Theme> = {
 
 export const button: SxProps<Theme> = {
   maxWidth: '480px',
-  padding: '16px 0',
   marginBottom: {
     mobile: '28px',
     mobileMedium: '36px',
+  },
+};
+
+export const buttonBack: SxProps<Theme> = {
+  maxWidth: '480px',
+  padding: {
+    mobile: '0',
+    mobileMedium: 'auto',
   },
 };
