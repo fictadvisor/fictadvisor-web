@@ -2,8 +2,12 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 export const slider = (size: 'small' | 'medium'): SxProps<Theme> => ({
   color: 'backgroundDark.300',
-  height: size === 'medium' ? '12px' : '8px',
-
+  ...(size === 'medium' && {
+    height: '12px',
+  }),
+  ...(size === 'small' && {
+    height: '8px',
+  }),
   '& .MuiSlider-track': {
     border: 'none',
     color: 'primary.300',
@@ -18,13 +22,24 @@ export const slider = (size: 'small' | 'medium'): SxProps<Theme> => ({
 
   '& .MuiSlider-markLabel': {
     color: 'grey.700',
-    fontSize: size === 'medium' ? '16px' : '14px',
+    ...(size === 'medium' && {
+      fontSize: '16px',
+    }),
+    ...(size === 'small' && {
+      fontSize: '14px',
+    }),
     marginTop: '15px',
   },
 
   '& .MuiSlider-thumb': {
-    width: size === 'medium' ? '24px' : '20px',
-    height: size === 'medium' ? '24px' : '20px',
+    ...(size === 'medium' && {
+      width: '24px',
+      height: '24px',
+    }),
+    ...(size === 'small' && {
+      width: '20px',
+      height: '20px',
+    }),
     backgroundColor: 'primary.300',
 
     '&:hover, &.Mui-focusVisible, &.Mui-active': {
