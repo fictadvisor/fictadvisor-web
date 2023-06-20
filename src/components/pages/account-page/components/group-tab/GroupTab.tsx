@@ -48,6 +48,8 @@ const GroupTab: FC = () => {
 
   if (isLoading) return <Loader size={LoaderSize.SMALLEST} />;
 
+  if (!data) return null;
+
   if (!user?.group?.role) return <NoGroupBlock />;
 
   const showRequests =
