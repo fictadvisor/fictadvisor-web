@@ -14,6 +14,7 @@ import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth';
 
 import styles from './GeneralTab.module.scss';
+import Image from "next/image";
 
 const GeneralTab: FC = () => {
   const { user } = useAuthentication();
@@ -36,7 +37,15 @@ const GeneralTab: FC = () => {
       </div>
       <div className={styles['avatar-and-telegram-info']}>
         <div className={styles['avatar']}>
-          <img src={user.avatar} alt={'avatar'} />
+          <Image
+              src={user.avatar}
+              alt="avatar"
+              style={{
+                borderRadius: "100%"
+              }}
+              width={160}
+              height={160}
+          />
         </div>
         <Button
           className={styles['telegram-button']}

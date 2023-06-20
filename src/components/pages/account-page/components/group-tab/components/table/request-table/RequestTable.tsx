@@ -13,6 +13,7 @@ import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './RequestTable.module.scss';
+import Image from "next/image";
 
 export interface RequestTableItem {
   imgSrc?: string;
@@ -81,7 +82,15 @@ const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
             }
           >
             <div className={styles['user-info']}>
-              <img className={styles['img']} src={row.imgSrc} alt="avatar" />
+              <Image
+                  src={row.imgSrc}
+                  alt="avatar"
+                  style={{
+                    borderRadius: "100%"
+                  }}
+                  width={48}
+                  height={48}
+              />
               <div className={styles['full-name']}>{row.fullName}</div>
             </div>
             <div className={styles['other-content']}>
