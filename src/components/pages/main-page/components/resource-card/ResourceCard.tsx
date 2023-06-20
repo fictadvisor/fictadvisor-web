@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import styles from './ResourceCard.module.scss';
+import Image from "next/image";
 
 interface CardProps {
   text: string;
@@ -18,7 +19,15 @@ const ResourceCard: React.FC<CardProps> = ({
     <Link href={href}>
       <div className={styles['card']}>
         <div className={styles['card-content']}>
-          <img src={image} />
+            <Image
+                src={image}
+                alt="photo"
+                style={{
+                    borderRadius: "50%"
+                }}
+                width={96}
+                height={96}
+            />
           <p>{text}</p>
         </div>
       </div>

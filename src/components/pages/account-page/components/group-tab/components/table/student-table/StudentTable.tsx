@@ -15,6 +15,7 @@ import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './StudentTable.module.scss';
+import Image from "next/image";
 export enum StudentRole {
   CAPTAIN = 'Староста',
   MODERATOR = 'Зам. старости',
@@ -109,7 +110,15 @@ const StudentTable: React.FC<StudentTableProps> = ({
             }
           >
             <div className={styles['user-info']}>
-              <img className={styles['img']} src={row.imgSrc} alt="avatar" />
+              <Image
+                  src={row.imgSrc}
+                  alt="avatar"
+                  style={{
+                    borderRadius: "100%"
+                  }}
+                  width={48}
+                  height={48}
+              />
               <div className={styles['full-name']}>{row.fullName}</div>
               <div className={styles['tag-container']}>
                 <div className={styles['tag']}>

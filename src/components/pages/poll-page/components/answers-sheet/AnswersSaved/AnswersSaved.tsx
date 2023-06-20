@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Button, { ButtonVariant } from '@/components/common/ui/button/Button';
 
 import styles from './AnswersSaved.module.scss';
+import Image from "next/image";
 
 const AnswersSaved = () => {
   const router = useRouter();
@@ -11,8 +12,12 @@ const AnswersSaved = () => {
   return (
     <div className={styles.savedWrapper}>
       <div className={styles.content}>
-        <img className={styles.image} src="/gifs/frogging.gif" alt="жабка" />
-
+        <Image
+            src="/gifs/frogging.gif"
+            alt="frog"
+            width={90}
+            height={90}
+        />
         <h1>Дякуємо за відповіді!</h1>
         <b>
           Ваші відповіді допоможуть покращити якість навчання на нашому
