@@ -137,6 +137,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           />
           <div className={styles['one-line']}>
             <Dropdown
+              showRemark={true}
               size={DropDownSize.LARGE}
               options={transformGroups(groups)}
               label="Група"
