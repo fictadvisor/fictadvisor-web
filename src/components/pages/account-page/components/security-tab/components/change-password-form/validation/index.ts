@@ -17,6 +17,7 @@ export const validationSchema = yup.object().shape({
     ),
   passwordConfirmation: yup
     .string()
+    .nullable()
     .oneOf([yup.ref('newPassword'), null], 'Паролі не збігаються')
     .required(`Обов'язкове поле`),
 });
