@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
+import useToast from '@/hooks/use-toast';
 import { GetTeachersBySubjectDTO } from '@/lib/api/subject/dto/GetTeachersBySubjectDTO';
 import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
@@ -12,6 +14,14 @@ export const TeacherSearchList = ({
 }:
   | (GetTeachersDTO & { className: string })
   | (Omit<GetTeachersBySubjectDTO, 'subjectName'> & { className: string })) => {
+  const toast = useToast();
+
+  useEffect(() => {
+    if (teachers.length === 0) {
+      toast.error('Цього викладача не існує');
+    }
+  }, [teachers.length]);
+
   return (
     <ul className={styles[`${className}-search-list`]}>
       {teachers &&
