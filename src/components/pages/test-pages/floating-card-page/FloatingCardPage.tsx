@@ -3,22 +3,23 @@ import { Box } from '@mui/material';
 
 import { FloatingCard } from '@/components/common/composite/cards/floating-card';
 import { ContactType } from '@/components/pages/personal-teacher-page/contacts';
-import { GetTeacherDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
+import {
+  GetTeacherDTO,
+  TeacherRoles,
+} from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import * as styles from './FloatingCardPage.styles';
 
 const data: GetTeacherDTO = {
-  teacher: {
-    id: '1',
-    firstName: 'Катерина',
-    middleName: 'Анатоліївна',
-    lastName: 'Васильченко-Деружко',
-    description:
-      'Викладає на факультеті ФІОТ впродовж 10 років. Викладає на факультеті ФІОТ впродовж 10 років.  Викладає на факультеті ФІОТ впродовж 10 років.',
-    avatar:
-      'https://www.ocpathink.org/uploads/assets/img/Teacher-in-front-of-chalkboard.jpeg',
-  },
-  roles: ['LECTURER', 'PRACTICIAN'],
+  id: '1',
+  firstName: 'Катерина',
+  middleName: 'Анатоліївна',
+  lastName: 'Васильченко-Деружко',
+  description:
+    'Викладає на факультеті ФІОТ впродовж 10 років. Викладає на факультеті ФІОТ впродовж 10 років.  Викладає на факультеті ФІОТ впродовж 10 років.',
+  avatar:
+    'https://www.ocpathink.org/uploads/assets/img/Teacher-in-front-of-chalkboard.jpeg',
+  roles: [TeacherRoles.LECTURER, TeacherRoles.PRACTICIAN],
   contacts: [
     {
       link: 'https://example.com',

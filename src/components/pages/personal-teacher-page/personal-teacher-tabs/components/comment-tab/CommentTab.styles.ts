@@ -1,6 +1,11 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const wrapper: SxProps<Theme> = {
+  display: 'flex',
+  gap: '16px',
+};
+
+export const commentsWrapper: SxProps<Theme> = {
   maxWidth: '800px',
   width: '100%',
   display: 'flex',

@@ -4,12 +4,19 @@ import { Box, Typography } from '@mui/material';
 import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
 import Contact from '@/components/pages/personal-teacher-page/contacts';
-import { GetTeacherDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
+import {
+  GetTeacherDTO,
+  TeacherRoles,
+} from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import * as styles from './FloatingCard.styles';
 
 export const FloatingCard: FC<GetTeacherDTO> = ({
-  teacher,
+  firstName,
+  middleName,
+  lastName,
+  description,
+  avatar,
   roles,
   contacts,
 }) => {
@@ -18,38 +25,33 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
   return (
     <Box sx={styles.card}>
       <Box sx={styles.top}>
-        <Box
-          src={teacher.avatar}
-          sx={styles.image}
-          component="img"
-          alt="photo"
-        ></Box>
+        <Box src={avatar} sx={styles.image} component="img" alt="photo"></Box>
         <Box sx={styles.info}>
           <Typography
             sx={styles.title}
             component="h4"
-          >{`${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}</Typography>
+          >{`${lastName} ${firstName} ${middleName}`}</Typography>
           <Rating sx={styles.rating} rating={rating} />
           <Box sx={styles.tags}>
-            {roles.includes('LECTURER') && (
+            {roles?.includes(TeacherRoles.LECTURER) && (
               <Tag color={'info'} size={'small'} text={'Лектор'} />
             )}
 
-            {roles.includes('PRACTICIAN') && (
+            {roles?.includes(TeacherRoles.PRACTICIAN) && (
               <Tag color={'orange'} size={'small'} text={'Практик'} />
             )}
 
-            {roles.includes('LABORANT') && (
+            {roles?.includes(TeacherRoles.LABORANT) && (
               <Tag color={'mint'} size={'small'} text={'Лаборант'} />
             )}
           </Box>
         </Box>
       </Box>
 
-      <Box>{teacher.description}</Box>
+      <Box>{description}</Box>
 
       <Box sx={styles.contacts}>
-        {contacts.map((contact, index) => (
+        {contacts?.map((contact, index) => (
           <Contact
             key={index}
             name={contact.name}
