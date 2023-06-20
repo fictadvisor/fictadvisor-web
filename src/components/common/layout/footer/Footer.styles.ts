@@ -8,7 +8,6 @@ export const footerContainer: SxProps<Theme> = theme => ({
   },
   overflow: 'hidden',
   width: '100%',
-  minWidth: 'fit-content',
   backgroundColor: alpha(theme.palette.grey[50], 0.62),
   height: {
     desktop: '300px',
@@ -48,14 +47,12 @@ export const footerLogoContainer: SxProps<Theme> = {
 export const footerLogo: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
-  width: '197px',
+  width: 'fit-content',
   height: {
     desktop: '28px',
     mobile: '22px',
   },
-  '& img': {
-    height: '20px',
-  },
+  zIndex: 1,
   marginTop: {
     desktop: '0',
     mobile: '10px',

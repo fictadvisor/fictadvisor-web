@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const wrapper: SxProps<Theme> = {
-  maxWidth: '740px',
+  wordWrap: 'break-word',
   height: '100%',
   padding: '11px 16px 12px 16px',
   backgroundColor: 'backgroundDark.200',
@@ -12,6 +12,7 @@ export const text: SxProps<Theme> = {
   marginBottom: '2px',
   textAlign: 'justify',
   typography: 'body1',
+  whiteSpace: 'pre-wrap',
 };
 
 export const date: SxProps<Theme> = {
