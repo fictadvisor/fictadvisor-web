@@ -14,6 +14,7 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './MobileRequestTable.module.scss';
+import { UserGroupState } from '@/types/user';
 
 export interface RequestTableItem {
   imgSrc?: string;
@@ -32,8 +33,8 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
   const dispatch = useDispatch();
   const handleApprove = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group.id, userId, {
-        state: 'APPROVED',
+      await GroupAPI.verifyStudent(user.group?.id, userId, {
+        state: UserGroupState.APPROVED,
       });
       await refetch();
     } catch (e) {
@@ -48,8 +49,8 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
 
   const handleDecline = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group.id, userId, {
-        state: 'DECLINED',
+      await GroupAPI.verifyStudent(user.group?.id, userId, {
+        state: UserGroupState.DECLINED,
       });
       await refetch();
     } catch (e) {
