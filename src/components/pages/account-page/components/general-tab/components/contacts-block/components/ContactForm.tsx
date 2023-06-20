@@ -7,11 +7,11 @@ import { CustomCheck } from '@/components/common/custom-svg/CustomCheck';
 import { AlertColor } from '@/components/common/ui/alert';
 import Button, { ButtonColor, ButtonSize } from '@/components/common/ui/button';
 import { Dropdown, Input, InputSize } from '@/components/common/ui/form';
-import { ContactType } from '@/components/pages/account-page/components/general-tab/components/contacts-block/types';
 import styles from '@/components/pages/account-page/components/general-tab/GeneralTab.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
 import UserAPI from '@/lib/api/user/UserAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { ContactType } from '@/types/contact';
 
 interface ContactFormProps {
   refetchContacts: () => Promise<void>;
