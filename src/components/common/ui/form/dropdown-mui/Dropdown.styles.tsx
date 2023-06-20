@@ -85,8 +85,6 @@ export const dropdown: SxProps<Theme> = {
   minWidth: '100px',
   width: '100%',
   p: 0,
-  // mb: '10px',
-
   '& .MuiAutocomplete-popper': {
     top: '8px !important',
     '& ul': {

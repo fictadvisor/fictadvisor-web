@@ -137,7 +137,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           />
           <div className={styles['one-line']}>
             <Dropdown
-              showRemark={true}
               size={DropDownSize.LARGE}
               options={transformGroups(groups)}
               label="Група"
@@ -165,7 +164,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           <Checkbox
             label={'Погоджуюсь на обробку персональних даних'}
             name={'agreement'}
-            // className={styles['agreement-checkbox']}
           />
 
           <Button

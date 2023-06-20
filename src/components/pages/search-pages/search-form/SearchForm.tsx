@@ -81,8 +81,8 @@ export const SearchForm: FC<SearchFormProps> = ({
             <>
               <div className={styles['dropdown-1']}>
                 <Dropdown
-                  placeholder={'ІП-22'}
-                  label={'Група'}
+                  placeholder="ІП-22"
+                  label="Група"
                   onChange={handleSubmit}
                   showRemark={false}
                   name="group"
