@@ -31,7 +31,7 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
             sx={styles.title}
             component="h4"
           >{`${lastName} ${firstName} ${middleName}`}</Typography>
-          <Rating sx={styles.rating} rating={rating} />
+          {/*<Rating sx={styles.rating} rating={rating} />*/}
           <Box sx={styles.tags}>
             {roles?.includes(TeacherRoles.LECTURER) && (
               <Tag color={'info'} size={'small'} text={'Лектор'} />
@@ -48,18 +48,20 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
         </Box>
       </Box>
 
-      <Box>{description}</Box>
+      {description && <Box>{description}</Box>}
 
-      <Box sx={styles.contacts}>
-        {contacts?.map((contact, index) => (
-          <Contact
-            key={index}
-            name={contact.name}
-            displayName={contact.displayName}
-            link={contact.link}
-          />
-        ))}
-      </Box>
+      {contacts.length > 0 && (
+        <Box sx={styles.contacts}>
+          {contacts?.map((contact, index) => (
+            <Contact
+              key={index}
+              name={contact.name}
+              displayName={contact.displayName}
+              link={contact.link}
+            />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };

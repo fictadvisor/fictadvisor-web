@@ -9,8 +9,8 @@ export const card: SxProps<Theme> = {
   borderRadius: '4px',
   backgroundColor: 'backgroundDark',
   display: {
-    desktop: 'none',
-    desktopSemiMedium: 'flex',
+    mobile: 'none',
+    desktopMedium: 'flex',
   },
   flexDirection: 'column',
   gap: '20px',

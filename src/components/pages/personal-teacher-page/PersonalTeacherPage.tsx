@@ -34,7 +34,6 @@ const PersonalTeacherPage = () => {
       retry: false,
     },
   );
-  console.log(isLoading, isError, data);
   const toast = useToast();
   const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
