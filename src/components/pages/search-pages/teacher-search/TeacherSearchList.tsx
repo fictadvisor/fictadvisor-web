@@ -8,6 +8,8 @@ import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import styles from './TeacherSearchList.module.scss';
 
+const TOAST_TIMER = 4000;
+
 export const TeacherSearchList = ({
   teachers,
   className,
@@ -18,7 +20,7 @@ export const TeacherSearchList = ({
 
   useEffect(() => {
     if (teachers.length === 0) {
-      toast.error('Цього викладача не існує');
+      toast.error('Цього викладача не існує', '', TOAST_TIMER);
     }
   }, [teachers.length]);
 
