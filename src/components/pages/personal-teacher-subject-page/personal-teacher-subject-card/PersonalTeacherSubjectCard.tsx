@@ -4,7 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Tag, { TagColor, TagSize } from '@/components/common/ui/tag';
 import styles from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card/PersonalTeacherSubjectCard.module.scss';
-import { TeacherWithContact } from '@/types/teacher';
+import { TeacherRole, TeacherWithContact } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
@@ -24,15 +24,15 @@ const PersonalTeacherSubjectCard: React.FC<TeacherWithContact> = props => {
         <h5>{props.subject.name}</h5>
       </div>
       <div className={styles['tags']}>
-        {props.roles.includes('LECTURER') && (
+        {props.roles.includes(TeacherRole.LECTURER) && (
           <Tag color={TagColor.VIOLET} size={TagSize.SMALL} text={'Лектор'} />
         )}
 
-        {props.roles.includes('PRACTICIAN') && (
+        {props.roles.includes(TeacherRole.PRACTICIAN) && (
           <Tag color={TagColor.ORANGE} size={TagSize.SMALL} text={'Практик'} />
         )}
 
-        {props.roles.includes('LABORANT') && (
+        {props.roles.includes(TeacherRole.LABORANT) && (
           <Tag color={TagColor.MINT} size={TagSize.SMALL} text={'Лаборант'} />
         )}
       </div>
