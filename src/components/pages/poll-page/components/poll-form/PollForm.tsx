@@ -96,7 +96,7 @@ const PollForm: React.FC<PollFormProps> = ({ data }) => {
         }}
       >
         <AnswersSheet
-          questions={currentQuestions}
+          category={currentQuestions}
           setProgress={setProgress}
           setCurrent={setCurrentCategory}
           isTheLast={currentCategory === categories.length - 1}
