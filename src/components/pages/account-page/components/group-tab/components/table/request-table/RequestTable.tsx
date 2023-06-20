@@ -12,6 +12,7 @@ import CustomDivider from '@/components/pages/account-page/components/divider';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { UserGroupState } from '@/types/user';
 
 import styles from './RequestTable.module.scss';
 
@@ -33,7 +34,7 @@ const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
   const handleApprove = async (userId: string) => {
     try {
       await GroupAPI.verifyStudent(user.group.id, userId, {
-        state: 'APPROVED',
+        state: UserGroupState.APPROVED,
       });
       await refetch();
     } catch (e) {
@@ -49,7 +50,7 @@ const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
   const handleDecline = async (userId: string) => {
     try {
       await GroupAPI.verifyStudent(user.group.id, userId, {
-        state: 'DECLINED',
+        state: UserGroupState.DECLINED,
       });
       await refetch();
     } catch (e) {
