@@ -20,7 +20,7 @@ import { TabPanelsList } from '@/components/common/ui/tab/tab-panels-list/TabPan
 import styles from './PersonalTeacherTabs.module.scss';
 export type PersonalTeacherTabsProps = {
   id: string;
-  subjects: {
+  subjects?: {
     id: string;
     name: string;
   }[];

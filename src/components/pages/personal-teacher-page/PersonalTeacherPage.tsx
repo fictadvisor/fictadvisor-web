@@ -43,6 +43,9 @@ const PersonalTeacherPage = () => {
       void router.push('/teachers');
     }, 3000);
   }
+
+  if (!data) return null;
+
   return (
     <PageLayout description={'Сторінка викладача'}>
       <div className={styles['personal-teacher-page']}>
