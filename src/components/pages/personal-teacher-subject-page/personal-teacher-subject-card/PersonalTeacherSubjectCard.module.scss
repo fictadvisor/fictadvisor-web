@@ -101,6 +101,7 @@
   flex-direction: column;
   align-items: flex-start;
   overflow-wrap: anywhere;
+  padding-right: 42px;
   h5{
     @include h5--bold;
   }
@@ -230,6 +231,7 @@
     h5{
       @include body-secondary--bold;
     }
+    padding-right: 0;
     padding-bottom: 8px;
     padding-top: unset;
   }
