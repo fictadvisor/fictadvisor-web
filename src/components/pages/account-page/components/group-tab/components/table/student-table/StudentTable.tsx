@@ -129,7 +129,7 @@ const StudentTable: React.FC<StudentTableProps> = ({
                           <Moderator />
                         )
                       }
-                      text={''}
+                      text=""
                     />
                   )}
                 </div>

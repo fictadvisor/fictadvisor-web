@@ -125,7 +125,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
                       <Moderator />
                     )
                   }
-                  text={''}
+                  text=""
                 />
               )}
             </div>
