@@ -15,7 +15,9 @@ import { showAlert } from '@/redux/reducers/alert.reducer';
 import { Category } from '../../PollPage';
 import { Answer, SendingStatus } from '../poll-form/PollForm';
 
+import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
+import { initialValues } from './constants';
 
 import styles from './AnswersSheet.module.scss';
 
@@ -61,7 +63,6 @@ export const getProgress = (answers: Answer[], questions) => {
   return count;
 };
 
-const initialValues = {};
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
   questions,
   isTheLast,
@@ -196,22 +197,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                           name={question.id}
                         />
                       ) : (
-                        <TextArea
-                          sx={{
-                            width: {
-                              mobile: '100%',
-                              desktop: '500px',
-                              desktopMedium: '632px',
-                            },
-                            '& .MuiInputBase-root': {
-                              height: {
-                                mobile: '228px',
-                                desktop: '120px',
-                              },
-                            },
-                          }}
-                          name={question.id}
-                        />
+                        <TextArea sx={sxStyles.textArea} name={question.id} />
                       )}
 
                       {question.criteria && (
