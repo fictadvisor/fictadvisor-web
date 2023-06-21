@@ -68,6 +68,13 @@ const AccountPage = () => {
     }
   }, [dispatch, isLoggedIn, push, replace]);
 
+  const handleChange = async (event, value) => {
+    await push({ query: { ...query, tab: value } }, undefined, {
+      shallow: true,
+    });
+    setIndex(value as AccountPageTabs);
+  };
+
   return (
     <PageLayout hasFooter={true}>
       <div className={styles['breadcrumb']}>
@@ -86,32 +93,23 @@ const AccountPage = () => {
       </div>
       <Box sx={stylesMui.tabContext}>
         <TabContext value={index}>
-          <TabList
-            onChange={async (event, value) => {
-              await push({ query: { ...query, tab: value } }, undefined, {
-                shallow: true,
-              });
-              setIndex(value as AccountPageTabs);
-            }}
-            aria-label="lab API tabs example"
-            sx={stylesMui.tabList}
-          >
+          <TabList onChange={handleChange} sx={stylesMui.tabList}>
             <Tab
               label="Загальне"
               value={AccountPageTabs.GENERAL}
-              icon={<AcademicCapIcon className="icon" />}
+              icon={<AcademicCapIcon />}
               textPosition="left"
             />
             <Tab
               label="Безпека"
               value={AccountPageTabs.SECURITY}
-              icon={<LockClosedIcon className="icon" />}
+              icon={<LockClosedIcon />}
               textPosition="left"
             />
             <Tab
               label="Група"
               value={AccountPageTabs.GROUP}
-              icon={<UsersIcon className="icon" />}
+              icon={<UsersIcon />}
               textPosition="left"
             />
           </TabList>
