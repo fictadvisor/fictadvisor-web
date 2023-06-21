@@ -54,7 +54,7 @@ export const title: SxProps<Theme> = {
   },
 };
 
-export const descr: SxProps<Theme> = {
+export const description: SxProps<Theme> = {
   maxWidth: '480px',
   typography: {
     mobile: 'body2',

@@ -30,7 +30,7 @@ const PasswordResetLinkExpiredPage = () => {
             <CustomClock />
           </Box>
           <Typography sx={styles.title}>Посилання більше не активне</Typography>
-          <Typography sx={styles.descr}>
+          <Typography sx={styles.description}>
             Час зміни пароля вичерпано. Для повторної відправки листа, натисни
             на кнопку.
           </Typography>

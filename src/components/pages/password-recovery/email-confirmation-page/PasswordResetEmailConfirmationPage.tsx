@@ -8,9 +8,9 @@ import PageLayout from '@/components/common/layout/page-layout';
 import Alert from '@/components/common/ui/alert-mui';
 import Button from '@/components/common/ui/button-mui';
 import * as styles from '@/components/pages/password-recovery/email-confirmation-page/PasswordResetEmailConfirmationPage.module';
+import chooseMessageError from '@/components/pages/password-recovery/email-confirmation-page/utils/chooseMessageError';
 import useToast from '@/hooks/use-toast';
 import { AuthAPI } from '@/lib/api/auth/AuthAPI';
-
 const PasswordResetEmailConfirmationPage = () => {
   const router = useRouter();
   const email = (router.query.email as string).toLowerCase();
@@ -21,25 +21,16 @@ const PasswordResetEmailConfirmationPage = () => {
     router.push('/register');
   };
 
-  let tries = 0;
+  const tries = 0;
   const toast = useToast();
   const handleSendAgain = async () => {
     try {
       await AuthAPI.forgotPassword({ email });
     } catch (e) {
       const errorName = e.response.data.error;
-      let errorMessage;
-      if (errorName === 'TooManyActionsException') {
-        tries++;
-        if (tries >= 5) errorMessage = 'Да ти заєбав';
-        else errorMessage = ' Час для надсилання нового листа ще не сплив';
-      } else if (errorName === 'NotRegisteredException') {
-        errorMessage = 'Упс, реєструйся заново';
-      }
-      toast.error(errorMessage);
+      toast.error(chooseMessageError(errorName, tries));
     }
   };
-
   return (
     <PageLayout
       hasHeader={false}
@@ -52,7 +43,7 @@ const PasswordResetEmailConfirmationPage = () => {
             <CustomEnvelopeOpen />
           </Box>
           <Typography sx={styles.title}>Перевір свою пошту</Typography>
-          <Typography sx={styles.descr}>
+          <Typography sx={styles.description}>
             {emailText}
             <Box component="span" sx={styles.email}>
               {email}
@@ -65,15 +56,8 @@ const PasswordResetEmailConfirmationPage = () => {
               variant="text"
               size="small"
               color="primary"
-              sx={styles.mobile}
-            />
-            <Button
-              text="Надіслати повторно"
-              variant="text"
-              size="small"
-              color="primary"
               onClick={handleSendAgain}
-              sx={styles.desktop}
+              sx={styles.button}
             />
           </Box>
           <Alert

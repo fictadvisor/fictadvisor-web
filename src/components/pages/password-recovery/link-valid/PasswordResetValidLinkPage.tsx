@@ -24,7 +24,7 @@ const PasswordResetValidLinkPage = () => {
             <CustomShield />
           </Box>
           <Typography sx={styles.title}>Пароль змінено</Typography>
-          <Typography sx={styles.descr}>
+          <Typography sx={styles.description}>
             Твій пароль успішно змінено! Натисни нижче, щоб повернутися до поля
             авторизації.
           </Typography>

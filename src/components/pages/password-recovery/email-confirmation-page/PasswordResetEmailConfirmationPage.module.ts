@@ -50,7 +50,7 @@ export const title: SxProps<Theme> = {
   },
 };
 
-export const descr: SxProps<Theme> = {
+export const description: SxProps<Theme> = {
   color: 'grey.500',
   typography: {
     mobile: 'body2',
@@ -94,20 +94,16 @@ export const question: SxProps<Theme> = {
   },
   color: 'grey.500',
 };
-export const mobile: SxProps<Theme> = {
-  display: {
-    mobile: 'flex',
-    mobileMedium: 'none',
+
+export const button: SxProps<Theme> = {
+  marginTop: {
+    mobile: '0',
+    mobileMedium: '2px',
   },
-  marginTop: '2px',
-};
-export const desktop: SxProps<Theme> = {
-  marginTop: '2px',
-  display: {
-    mobile: 'none',
-    mobileMedium: 'flex',
+  maxWidth: {
+    mobile: 'auto',
+    mobileMedium: '170px',
   },
-  maxWidth: '170px',
 };
 
 export const arrow: SxProps<Theme> = {
