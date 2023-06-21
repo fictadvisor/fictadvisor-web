@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl,
   FormHelperText,
@@ -8,36 +8,88 @@ import {
 import { SxProps, Theme } from '@mui/material/styles';
 import { useField } from 'formik';
 
+import {
+  getLeftIcon,
+  getRightIcon,
+  getState,
+} from '@/components/common/ui/form/input-mui/util';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Input.styles';
 
-interface TextAreaProps {
-  name: string;
-  placeholder?: string;
+export enum InputState {
+  DISABLED = 'disabled',
+  DEFAULT = 'default',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
+export enum InputSize {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+}
+
+export enum InputType {
+  DEFAULT = 'text',
+  PASSWORD = 'password',
+  SEARCH = 'search',
+}
+
+interface InputProps
+  extends Omit<React.ComponentPropsWithoutRef<'input'>, 'size'> {
   label?: string;
-  size?: 'medium' | 'small';
-  type?: string;
-  disabled?: boolean;
+  placeholder?: string;
+  size?: InputSize;
+  type?: InputType;
+  isSuccessOnDefault?: boolean;
+  defaultRemark?: string;
   showRemark?: boolean;
   sx?: SxProps<Theme>;
+  onDeterredChange?: () => void;
+  isImmutable?: boolean;
 }
 
 const MAX_LENGTH = 2000;
 
-const Input: React.FC<TextAreaProps> = ({
-  name,
-  placeholder,
+const Input: React.FC<InputProps> = ({
   label,
-  size = 'medium',
-  type,
-  disabled = false,
-  showRemark = false,
+  placeholder,
+  size = InputSize.LARGE,
+  type = InputType.DEFAULT,
+  isSuccessOnDefault = false,
+  defaultRemark,
+  showRemark = true,
   sx,
+  onDeterredChange,
+  disabled = false,
+  ...rest
 }) => {
-  const [field, { touched, error }] = useField(name);
+  const [field, { touched, error }, { setTouched, setValue }] = useField(
+    rest.name,
+  );
 
-  const state = touched && error ? 'error' : 'default';
+  const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
+  const state = getState(disabled, touched, error, isSuccessOnDefault);
+
+  const LeftIcon = getLeftIcon(type);
+  const RightIcon = getRightIcon(type, isHidden, state, field.value);
+
+  const handleRightIconClick = () => {
+    if (type === InputType.PASSWORD) {
+      setIsHidden(!isHidden);
+    }
+    if (type === InputType.SEARCH) {
+      setTouched(false);
+      setValue('');
+    }
+  };
+
+  useEffect(() => {
+    const curTimer = setTimeout(() => {
+      if (onDeterredChange) onDeterredChange();
+    }, 500);
+    return () => clearTimeout(curTimer);
+  }, [field.value, onDeterredChange]);
 
   return (
     <FormControl
@@ -52,18 +104,27 @@ const Input: React.FC<TextAreaProps> = ({
       )}
 
       <OutlinedInput
+        {...rest}
         {...field}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
-        type={type}
+        type={isHidden ? 'password' : 'text'}
         placeholder={placeholder}
+        startAdornment={LeftIcon && <LeftIcon />}
+        endAdornment={
+          RightIcon && (
+            <RightIcon
+              onClick={handleRightIconClick}
+              style={styles.rightIcon(type, state)}
+            />
+          )
+        }
       />
       {showRemark && (
-        <FormHelperText sx={styles.errorRemark}>
-          {touched && error}
+        <FormHelperText sx={styles.remark(state)}>
+          {state === InputState.ERROR ? error : defaultRemark}
         </FormHelperText>
-
       )}
     </FormControl>
   );
