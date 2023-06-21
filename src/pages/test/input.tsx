@@ -1,4 +1,4 @@
-import InputPage from "@/components/pages/test-pages/input-page";
+import InputPage from '@/components/pages/test-pages/input-page';
 
 const MUI = () => <InputPage />;
 
