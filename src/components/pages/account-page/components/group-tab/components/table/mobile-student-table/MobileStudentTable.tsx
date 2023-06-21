@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 import { Captain } from '@/components/common/icons/Captain';
 import { Moderator } from '@/components/common/icons/Moderator';
@@ -18,7 +19,6 @@ import useAuthentication from '@/hooks/use-authentication';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
-import Image from "next/image";
 import styles from './MobileStudentTable.module.scss';
 
 export interface StudentTableItem {
@@ -111,13 +111,13 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
             }
           >
             <Image
-                src={row.imgSrc}
-                alt="avatar"
-                style={{
-                  borderRadius: "100%"
-                }}
-                width={36}
-                height={36}
+              src={row.imgSrc}
+              alt="avatar"
+              style={{
+                borderRadius: '100%',
+              }}
+              width={36}
+              height={36}
             />
             <div className={styles['user-info']}>
               <h6 className={styles['full-name']}>{row.fullName}</h6>

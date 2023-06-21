@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -14,7 +15,6 @@ import AuthService from '@/lib/services/auth/AuthService';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 import styles from './LeftBlock.module.scss';
-import Image from "next/image";
 
 interface LeftBlockProps {
   groups;
@@ -31,9 +31,9 @@ const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
     <div className={styles['left-block']}>
       <Link href="/" className={styles['mobile-register-logo-container']}>
         <Image
-            src="/images/login-page/new-logo.png"
-            alt="fict advisor logo"
-            fill
+          src="/images/login-page/new-logo.png"
+          alt="fict advisor logo"
+          fill
         />
       </Link>
       <h3 className={styles['login-header']}>Створи акаунт</h3>

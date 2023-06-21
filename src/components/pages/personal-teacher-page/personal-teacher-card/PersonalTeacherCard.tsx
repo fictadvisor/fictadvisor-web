@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Tag from '@/components/common/ui/tag-mui';
@@ -10,7 +11,6 @@ import {
 } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import Contact from '../contacts/Contact';
-import Image from "next/image";
 
 export type PersonalTeacherCardProps = GetTeacherDTO;
 
@@ -20,15 +20,15 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
   return (
     <div className={styles['card']}>
       <div className={styles['photo']}>
-          <Image
-              src={props.avatar}
-              alt="photo"
-              style={{
-                  borderRadius: "50%"
-              }}
-              width={200}
-              height={200}
-          />
+        <Image
+          src={props.avatar}
+          alt="photo"
+          style={{
+            borderRadius: '50%',
+          }}
+          width={200}
+          height={200}
+        />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>

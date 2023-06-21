@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 import { Captain } from '@/components/common/icons/Captain';
 import { Moderator } from '@/components/common/icons/Moderator';
@@ -15,7 +16,6 @@ import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import styles from './StudentTable.module.scss';
-import Image from "next/image";
 export enum StudentRole {
   CAPTAIN = 'Староста',
   MODERATOR = 'Зам. старости',
@@ -111,13 +111,13 @@ const StudentTable: React.FC<StudentTableProps> = ({
           >
             <div className={styles['user-info']}>
               <Image
-                  src={row.imgSrc}
-                  alt="avatar"
-                  style={{
-                    borderRadius: "100%"
-                  }}
-                  width={48}
-                  height={48}
+                src={row.imgSrc}
+                alt="avatar"
+                style={{
+                  borderRadius: '100%',
+                }}
+                width={48}
+                height={48}
               />
               <div className={styles['full-name']}>{row.fullName}</div>
               <div className={styles['tag-container']}>
