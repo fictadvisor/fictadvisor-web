@@ -51,6 +51,12 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
     mark => mark.type === 'AMOUNT',
   ) as AmountMarkType[];
 
+  const maxValue = columnMarks
+    .map(mark => Object.values(mark.mark).reduce((a, b) => (a > b ? a : b)))
+    .reduce((a, b) => (a > b ? a : b));
+
+  console.log(maxValue);
+
   return (
     <Box sx={styles.wrapper}>
       <Typography sx={styles.marksNumber}>
@@ -90,7 +96,7 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
       </Box>
       <Box sx={styles.columnWrapper}>
         {columnMarks.map(mark => (
-          <ColumnChart key={mark.name} data={mark} />
+          <ColumnChart key={mark.name} data={mark} maxValue={maxValue} />
         ))}
         {!isLargeDesktop && <FillerBox width="404px" />}
       </Box>
