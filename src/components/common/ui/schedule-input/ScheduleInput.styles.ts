@@ -1,8 +1,8 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import colorInfo from '@/components/common/ui/tag-mui/utils/constants';
+import { ScheduleInputSize } from './ScheduleInput';
 
-export const input = (size): SxProps<Theme> => ({
+export const input = (size: ScheduleInputSize): SxProps<Theme> => ({
   width: '100%',
   backgroundColor: 'backgroundDark.200',
   borderRadius: '8px',
@@ -17,27 +17,21 @@ export const input = (size): SxProps<Theme> => ({
     '& > fieldset': {
       border: 'none',
     },
-    '& fieldset': {
-      borderRadius: '8px',
-      borderColor: 'backgroundDark.200',
-    },
-    '&.Mui-focused fieldset': {
-      borderRadius: '8px',
-      borderColor: 'backgroundDark.200',
-    },
-    '&.Mui-hover fieldset': {
-      borderRadius: '8px',
-      borderColor: 'backgroundDark.200',
-    },
   },
-  ...(size === 'normal' && {
+  ...(size === ScheduleInputSize.NORMAL && {
     '.MuiInputBase-root': {
-      maxHeight: '40px',
+      paddingY: '10px',
+      paddingX: '12px',
+      height: '40px',
+    },
+    '.MuiInputBase-input': {
+      padding: 0,
     },
   }),
-  ...(size === 'large' && {
+  ...(size === ScheduleInputSize.LARGE && {
     '.MuiInputBase-root': {
-      height: '45px',
+      padding: '12px',
+      height: '50px',
     },
   }),
 });

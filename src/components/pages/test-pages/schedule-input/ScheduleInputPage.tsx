@@ -27,12 +27,12 @@ const ScheduleInputPage = () => {
           <ScheduleInput
             icon={<LockClosed />}
             placeholder="PlaceHolder"
-            size={ScheduleInputSize.large}
+            size={ScheduleInputSize.LARGE}
           />
           <ScheduleInput
             icon={<LockClosed />}
             placeholder="PlaceHolder"
-            size={ScheduleInputSize.large}
+            size={ScheduleInputSize.LARGE}
             isDisabled={true}
           />
         </List>

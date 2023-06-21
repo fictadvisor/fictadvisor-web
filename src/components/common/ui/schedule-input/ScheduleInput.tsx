@@ -7,8 +7,8 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import * as styles from './ScheduleInput.styles';
 
 export enum ScheduleInputSize {
-  'normal',
-  'large',
+  NORMAL = 'normal',
+  LARGE = 'large',
 }
 
 export interface ScheduleInputProps {
@@ -21,7 +21,7 @@ export interface ScheduleInputProps {
 const ScheduleInput: FC<ScheduleInputProps> = ({
   placeholder,
   isDisabled = false,
-  size = 'normal',
+  size = ScheduleInputSize.NORMAL,
   icon,
   sx,
 }) => {
@@ -29,7 +29,7 @@ const ScheduleInput: FC<ScheduleInputProps> = ({
     <TextField
       placeholder={placeholder}
       disabled={isDisabled}
-      multiline={size === ScheduleInputSize.large}
+      multiline={size === ScheduleInputSize.LARGE}
       sx={mergeSx(styles.input(size), sx)}
       InputProps={{
         startAdornment: (
