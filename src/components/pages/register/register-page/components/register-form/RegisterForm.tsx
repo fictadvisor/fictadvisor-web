@@ -108,31 +108,31 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           <Input
             className={styles['login-input']}
             label="Юзернейм"
-            placeholder="Використовуй латиницю без пробілів"
+            placeholder="використовуй латиницю без пробілів"
             name="username"
           />
           <Input
             className={styles['login-input']}
             label="Прізвище"
-            placeholder="Вводь справжнє прівище для коректної інформації"
+            placeholder="вводь справжнє прізвище для коректної інформації"
             name="lastName"
           />
           <Input
             className={styles['login-input']}
             label="Ім'я"
-            placeholder="Вводь справжнє ім'я для коректної інформації"
+            placeholder="вводь справжнє ім'я для коректної інформації"
             name="firstName"
           />
           <Input
             className={styles['login-input']}
             label="По батькові"
-            placeholder="Вводь справжнє по батькові для коректної інформації"
+            placeholder="вводь справжнє по батькові для коректної інформації"
             name="middleName"
           />
           <Input
             className={styles['login-input']}
             label="Пошта"
-            placeholder="example@gmail.com"
+            placeholder="введи свою пошту"
             name="email"
           />
           <div className={styles['one-line']}>
