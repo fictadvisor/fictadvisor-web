@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
@@ -61,6 +61,7 @@ export const getProgress = (answers: Answer[], questions) => {
   return count;
 };
 
+const initialValues = {};
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
   questions,
   isTheLast,
@@ -75,7 +76,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   setIsSendingStatus,
 }) => {
   const dispatch = useDispatch();
-  const [initialValues, setInitialValues] = useState({});
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
@@ -197,10 +197,23 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         />
                       ) : (
                         <TextArea
-                          className={styles['textarea']}
+                          sx={{
+                            width: {
+                              mobile: '100%',
+                              desktop: '500px',
+                              desktopMedium: '632px',
+                            },
+                            '& .MuiInputBase-root': {
+                              height: {
+                                mobile: '228px',
+                                desktop: '120px',
+                              },
+                            },
+                          }}
                           name={question.id}
                         />
                       )}
+
                       {question.criteria && (
                         <p className={styles['question-criteria']}>
                           {question.criteria}
