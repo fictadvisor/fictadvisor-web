@@ -15,6 +15,7 @@ import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth/AuthService';
 
 import styles from './RightBlock.module.scss';
+import Image from "next/image";
 
 const RightBlock = () => {
   const router = useRouter();
@@ -32,12 +33,12 @@ const RightBlock = () => {
 
   return (
     <div className={styles['right-block']}>
-      <Link href="/">
-        <img
-          className={styles['mobile-login-logo']}
-          src="/images/login-page/new-logo.png"
-          alt="fict advisor logo"
-        />
+      <Link href="/" className={styles['mobile-login-logo']}>
+          <Image
+              src="/images/login-page/new-logo.png"
+              alt="fict advisor logo"
+              fill
+          />
       </Link>
       <h3 className={styles['register-header']}>З поверненням!</h3>
       <Button
