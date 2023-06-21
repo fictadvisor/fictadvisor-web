@@ -10,17 +10,6 @@
   grid-template-rows: auto  1fr  1fr;
 
 }
-.test{
-  &:only-child::after {
-    padding-top: 120px;
-    top: 12px;
-  }
-  &:not(:only-child)::after {
-    padding-top: 120px;
-    top: 12px;
-  }
-}
-
 .contacts-hidden{
   display: flex;
   flex-direction: column;
