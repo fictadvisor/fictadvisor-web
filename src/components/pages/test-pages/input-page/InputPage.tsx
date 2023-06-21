@@ -1,43 +1,60 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import Button from '@/components/common/ui/button-mui';
 import Input from '@/components/common/ui/form/input-mui';
-import { InputType } from '@/components/common/ui/form/input-mui/types';
-import FormikInput from '@/components/common/ui/form/with-formik/input';
+import {
+  InputSize,
+  InputType,
+} from '@/components/common/ui/form/input-mui/Input';
 
 import * as styles from './InputPage.styles';
 
 const InputPage: FC = () => {
-  const [value, setValue] = useState('');
-
   return (
     <Box sx={styles.wrapper}>
-      <div style={styles.form}>
-        <Input
-          label="Default"
-          value={value}
-          type={InputType.PASSWORD}
-          onChange={setValue}
-          isSuccessOnDefault
-        />
-      </div>
       <Formik
-        initialValues={{ input: '' }}
+        initialValues={{ t1: '', t2: '', t3: '', t4: '', t5: '', t6: '' }}
         validationSchema={yup.object().shape({
-          input: yup.string().required('Formik error!'),
+          t5: yup.string().required('Cannot be empty!'),
         })}
         onSubmit={data => console.log(data)}
       >
         {({ handleSubmit }) => (
           <Form style={styles.form}>
-            <FormikInput
-              name="input"
-              label="Formik"
+            <Input
+              name="t1"
+              label="Large input"
+              placeholder="large placeholder"
               type={InputType.SEARCH}
+              size={InputSize.MEDIUM}
+            />
+            <Input
+              name="t2"
+              type={InputType.PASSWORD}
+              placeholder="medium no label placeholder"
+            />
+            <Input
+              name="t3"
+              label="small label no placeholder"
               isSuccessOnDefault
+              defaultRemark="ASDASDASD"
+            />
+            <Input name="t4" placeholder="small no label" />
+            <Input
+              name="t5"
+              label="error if empty"
+              placeholder="error placeholder"
+              isSuccessOnDefault
+              defaultRemark="URA SUKA PRACYA"
+            />
+            <Input
+              name="t6"
+              label="Disabled text area label"
+              placeholder="Disabled placeholder"
+              disabled
             />
             <Button onClick={() => handleSubmit()} text="submit" />
           </Form>
