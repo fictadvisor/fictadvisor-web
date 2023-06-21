@@ -4,7 +4,12 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import Button from '@/components/common/ui/button-mui';
-import Input from "@/components/common/ui/form/input-mui";
+import Input from '@/components/common/ui/form/input-mui';
+import {
+  InputSize,
+  InputType,
+} from '@/components/common/ui/form/input-mui/Input';
+
 import * as styles from './InputPage.styles';
 
 const InputPage: FC = () => {
@@ -21,21 +26,29 @@ const InputPage: FC = () => {
           <Form style={styles.form}>
             <Input
               name="t1"
-              label="Medium text area "
-              placeholder="Medium placeholder"
+              label="Large input"
+              placeholder="large placeholder"
+              type={InputType.SEARCH}
+              size={InputSize.MEDIUM}
             />
-            <Input name="t2" placeholder="medium no label placeholder" />
+            <Input
+              name="t2"
+              type={InputType.PASSWORD}
+              placeholder="medium no label placeholder"
+            />
             <Input
               name="t3"
               label="small label no placeholder"
-              size="small"
+              isSuccessOnDefault
+              defaultRemark="ASDASDASD"
             />
-            <Input name="t4" placeholder="small no label" size="small" />
+            <Input name="t4" placeholder="small no label" />
             <Input
               name="t5"
               label="error if empty"
               placeholder="error placeholder"
-              showRemark={true}
+              isSuccessOnDefault
+              defaultRemark="URA SUKA PRACYA"
             />
             <Input
               name="t6"
@@ -50,23 +63,5 @@ const InputPage: FC = () => {
     </Box>
   );
 };
-
-// const InputPage: FC = () => {
-//   return (
-//       <>
-//           <h1>Hi there!</h1>
-//           <Formik
-//               initialValues={{ t1: '', t2: '', t3: '', t4: '', t5: '', t6: '' }}
-//               validationSchema={yup.object().shape({
-//                   t5: yup.string().required('Cannot be empty!'),
-//               })}
-//               onSubmit={data => console.log(data)}
-//           >
-//               <Input name={'t1'}/>
-//           </Formik>
-//
-//       </>
-//   );
-// };
 
 export default InputPage;
