@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import mergeClassNames from 'merge-class-names';
 import Link from 'next/link';
 
@@ -12,6 +12,7 @@ import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCa
 import { DivProps } from '@/components/common/ui/cards/types';
 import Tooltip from '@/components/common/ui/tooltip';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
+import Image from "next/image";
 
 type PollTeacherCardProps = {
   name: string;
@@ -49,12 +50,13 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
       {...rest}
     >
       <div className={styles['poll-teacher-card-shift']}>
-        <img
-          className={styles['poll-teacher-card-avatar']}
-          src={avatar}
-          alt="викладач"
+        <Image
+            className={styles['poll-teacher-card-avatar']}
+            src={avatar}
+            alt="викладач"
+            width={64}
+            height={64}
         />
-
         <CardRoles
           roles={roles}
           className={styles['poll-teacher-card-roles']}
