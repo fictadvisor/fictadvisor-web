@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import mergeClassNames from 'merge-class-names';
+import Image from 'next/image';
 
 import { DivProps } from '@/components/common/ui/cards/types';
 import Tooltip from '@/components/common/ui/tooltip';
 
 import styles from './TeacherHeaderCard.module.scss';
-import Image from "next/image";
 
 type TeacherHeaderCardProps = {
   name: string;
@@ -36,13 +36,13 @@ const TeacherHeaderCard: React.FC<TeacherHeaderCardProps> = ({
       {...rest}
     >
       <Image
-          src={url}
-          alt="картинка викладача"
-          style={{
-            borderRadius: "100%"
-          }}
-          width={68}
-          height={68}
+        src={url}
+        alt="картинка викладача"
+        style={{
+          borderRadius: '100%',
+        }}
+        width={68}
+        height={68}
       />
       <div className={styles['header-lecturer-card-info']}>
         <h4 className={styles['card-name']}>{name}</h4>

@@ -1,11 +1,11 @@
 import React from 'react';
 import mergeClassNames from 'merge-class-names';
+import Image from 'next/image';
 
 import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import styles from '@/components/common/ui/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
-import Image from "next/image";
 
 type SubjectTeacherCardProps = {
   name: string;
@@ -33,11 +33,11 @@ export const SubjectTeacherCard: React.FC<SubjectTeacherCardProps> = ({
     >
       <div className={styles['subject-teacher-card-shift']}>
         <Image
-            className={styles['subject-teacher-card-avatar']}
-            src={avatar}
-            alt="викладач"
-            width={64}
-            height={64}
+          className={styles['subject-teacher-card-avatar']}
+          src={avatar}
+          alt="викладач"
+          width={64}
+          height={64}
         />
         <CardRoles
           roles={roles}

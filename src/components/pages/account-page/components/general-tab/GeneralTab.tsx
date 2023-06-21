@@ -1,5 +1,6 @@
 import React from 'react';
 import { FC } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { TelegramForAccount } from '@/components/common/icons/TelegramForAccount';
@@ -14,7 +15,6 @@ import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth';
 
 import styles from './GeneralTab.module.scss';
-import Image from "next/image";
 
 const GeneralTab: FC = () => {
   const { user } = useAuthentication();
@@ -38,13 +38,13 @@ const GeneralTab: FC = () => {
       <div className={styles['avatar-and-telegram-info']}>
         <div className={styles['avatar']}>
           <Image
-              src={user.avatar}
-              alt="avatar"
-              style={{
-                borderRadius: "100%"
-              }}
-              width={160}
-              height={160}
+            src={user.avatar}
+            alt="avatar"
+            style={{
+              borderRadius: '100%',
+            }}
+            width={160}
+            height={160}
           />
         </div>
         <Button

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import { AlertColor } from '@/components/common/ui/alert';
@@ -12,7 +13,6 @@ import useAuthentication from '@/hooks/use-authentication';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
-import Image from "next/image";
 import styles from './MobileRequestTable.module.scss';
 
 export interface RequestTableItem {
@@ -81,13 +81,13 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
             }
           >
             <Image
-                src={row.imgSrc}
-                alt="avatar"
-                style={{
-                  borderRadius: "100%"
-                }}
-                width={34}
-                height={34}
+              src={row.imgSrc}
+              alt="avatar"
+              style={{
+                borderRadius: '100%',
+              }}
+              width={34}
+              height={34}
             />
             <div className={styles['user-info']}>
               <h6 className={styles['full-name']}>{row.fullName}</h6>
