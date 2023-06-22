@@ -46,12 +46,12 @@ export const getOptions = (maxValue: number): ChartOptions<'bar'> => {
           tickWidth: 0,
         },
         ticks: {
-              maxTicksLimit: 7,
-                callback: function (value, index, values) {
-                if (index === values.length - 1) {
-                  return '';
-                }
-                return value;
+          maxTicksLimit: 7,
+          callback: function (value, index, values) {
+            if (index === values.length - 1) {
+              return '';
+            }
+            return value;
           },
         },
       },
