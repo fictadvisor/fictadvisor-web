@@ -20,8 +20,6 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
   roles,
   contacts,
 }) => {
-  const rating = 4.5;
-
   return (
     <Box sx={styles.card}>
       <Box sx={styles.top}>
@@ -34,15 +32,15 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
           {/*<Rating sx={styles.rating} rating={rating} />*/}
           <Box sx={styles.tags}>
             {roles?.includes(TeacherRoles.LECTURER) && (
-              <Tag color={'info'} size={'small'} text={'Лектор'} />
+              <Tag color="info" size="small" text="Лектор" />
             )}
 
             {roles?.includes(TeacherRoles.PRACTICIAN) && (
-              <Tag color={'orange'} size={'small'} text={'Практик'} />
+              <Tag color="orange" size="small" text="Практик" />
             )}
 
             {roles?.includes(TeacherRoles.LABORANT) && (
-              <Tag color={'mint'} size={'small'} text={'Лаборант'} />
+              <Tag color="mint" size="small" text="Лаборант" />
             )}
           </Box>
         </Box>

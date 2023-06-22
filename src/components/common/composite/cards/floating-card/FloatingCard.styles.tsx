@@ -21,9 +21,7 @@ export const card: SxProps<Theme> = {
 };
 
 export const top: SxProps<Theme> = {
-  display: 'grid',
-  gridTemplateColumns: '160px 1fr',
-  gridTemplateRows: '160px',
+  display: 'flex',
   gap: '32px',
 };
 
@@ -33,8 +31,8 @@ export const info: SxProps<Theme> = {
 };
 
 export const image: SxProps<Theme> = {
-  height: '100%',
-  width: '100%',
+  height: '160px',
+  width: '160px',
   objectFit: 'cover',
   borderRadius: '50%',
 };
@@ -49,7 +47,6 @@ export const rating: SxProps<Theme> = {
 
 export const tags: SxProps<Theme> = {
   display: 'flex',
-  flexDirection: 'row',
   marginTop: '25px',
   gap: '8px',
 };

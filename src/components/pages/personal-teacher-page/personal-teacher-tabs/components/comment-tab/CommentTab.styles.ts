@@ -6,7 +6,7 @@ export const wrapper: SxProps<Theme> = {
 };
 
 export const commentsWrapper: SxProps<Theme> = {
-  maxWidth: '800px',
+  maxWidth: '750px',
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
