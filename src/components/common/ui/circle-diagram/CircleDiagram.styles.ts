@@ -48,5 +48,5 @@ export const textCounter = (value: number): SxProps<Theme> => ({
 });
 
 const progressColor = (value: number): SxProps<Theme> => ({
-  color: value < 40 ? 'error.400' : value <= 70 ? 'amber.500' : 'green.700',
+  color: value < 40 ? 'warning.200' : value <= 70 ? 'amber.600' : 'green.700',
 });

@@ -31,7 +31,7 @@ export const tab = (
     desktopSemiMedium: 'body2Bold',
   },
   padding: {
-    mobile: '6px 19px',
+    mobile: '6px 16px',
     desktopSemiMedium: '12px 16px',
   },
   maxHeight: {

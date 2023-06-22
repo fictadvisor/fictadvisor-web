@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
@@ -8,7 +8,7 @@ import { TeacherRole, TeacherWithContact } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
-const PersonalTeacherSubjectCard: React.FC<TeacherWithContact> = props => {
+const PersonalTeacherSubjectCard: FC<TeacherWithContact> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
   return (
     <div className={styles['card']}>

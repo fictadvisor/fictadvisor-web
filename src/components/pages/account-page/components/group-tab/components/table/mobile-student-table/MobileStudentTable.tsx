@@ -3,8 +3,8 @@ import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
 
-import { CaptainIcon } from '@/components/common/custom-svg/CaptainIcon';
-import { ModeratorIcon } from '@/components/common/custom-svg/ModeratorIcon';
+import { Captain } from '@/components/common/icons/Captain';
+import { Moderator } from '@/components/common/icons/Moderator';
 import { AlertColor } from '@/components/common/ui/alert';
 import {
   IconButton,
@@ -121,9 +121,9 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
                   size={TagSize.SMALL}
                   icon={
                     row.role === StudentRole.CAPTAIN ? (
-                      <CaptainIcon />
+                      <Captain />
                     ) : (
-                      <ModeratorIcon />
+                      <Moderator />
                     )
                   }
                 />

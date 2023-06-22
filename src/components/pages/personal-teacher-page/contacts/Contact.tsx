@@ -1,11 +1,12 @@
 import { FC } from 'react';
+import NextLink from 'next/link';
 
-import { GitHubIcon } from '@/components/common/custom-svg/GitHub';
-import { InstagramIcon } from '@/components/common/custom-svg/Instagram';
-import { MailIcon } from '@/components/common/custom-svg/Mail';
-import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
-import { TwitterIcon } from '@/components/common/custom-svg/Twitter';
-import { YouTubeIcon } from '@/components/common/custom-svg/YouTube';
+import { GitHub } from '@/components/common/icons/GitHub';
+import { Instagram } from '@/components/common/icons/Instagram';
+import { Mail } from '@/components/common/icons/Mail';
+import { Telegram } from '@/components/common/icons/Telegram';
+import { Twitter } from '@/components/common/icons/Twitter';
+import { YouTube } from '@/components/common/icons/YouTube';
 import { ContactType } from '@/types/contact';
 
 import styles from './Contact.module.scss';
@@ -17,14 +18,14 @@ export interface ContactProps {
 }
 
 const contactIconsMap: Record<ContactType, FC> = {
-  [ContactType.YOUTUBE]: YouTubeIcon,
-  [ContactType.TWITTER]: TwitterIcon,
-  [ContactType.MAIL]: MailIcon,
-  [ContactType.GITHUB]: GitHubIcon,
-  [ContactType.INSTAGRAM]: InstagramIcon,
-  [ContactType.DISCORD]: TelegramIcon,
-  [ContactType.FACEBOOK]: TelegramIcon,
-  [ContactType.TELEGRAM]: TelegramIcon,
+  [ContactType.YOUTUBE]: YouTube,
+  [ContactType.TWITTER]: Twitter,
+  [ContactType.MAIL]: Mail,
+  [ContactType.GITHUB]: GitHub,
+  [ContactType.INSTAGRAM]: Instagram,
+  [ContactType.DISCORD]: Telegram,
+  [ContactType.FACEBOOK]: Telegram,
+  [ContactType.TELEGRAM]: Telegram,
 };
 
 const Contact: FC<ContactProps> = ({ name, displayName, link }) => {
@@ -36,9 +37,9 @@ const Contact: FC<ContactProps> = ({ name, displayName, link }) => {
         <Icon />
       </div>
       {link != '' && (
-        <a href={link} className={styles[`link`]}>
+        <NextLink href={link} className={styles[`link`]}>
           {displayName}
-        </a>
+        </NextLink>
       )}
       {link == '' && <p className={styles[`link`]}>{displayName}</p>}
     </div>

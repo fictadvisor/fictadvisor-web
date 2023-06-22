@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useQuery } from 'react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BannerImage from 'public/assets/main-page/BannerImage';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import Button, {
@@ -13,6 +12,8 @@ import Button, {
 import Loader from '@/components/common/ui/loader';
 import useAuthentication from '@/hooks/use-authentication';
 import StudentResourcesAPI from '@/lib/api/student-resources/StudentResourcesAPI';
+
+import BannerImage from '../../common/icons/BannerImage';
 
 import ResourceCard from './components/resource-card/ResourceCard';
 import TokenPopup from './components/token-popup';
@@ -65,9 +66,9 @@ const MainPage: FC = () => {
                       <hr className={styles['button-divider']} />
                     </>
                   )}
-                  <Link href={'/poll'}>
+                  <Link href={'/teachers'}>
                     <Button
-                      text={'Пройти Опитування 2023'}
+                      text={'Результати Опитування 2023'}
                       disabled={false}
                       variant={ButtonVariant.OUTLINE}
                       size={ButtonSize.LARGE}
@@ -89,9 +90,9 @@ const MainPage: FC = () => {
                       <hr className={styles['button-divider']} />
                     </>
                   )}
-                  <Link href={'/poll'}>
+                  <Link href={'/teachers'}>
                     <Button
-                      text={'Пройти Опитування 2023'}
+                      text={'Результати Опитування 2023'}
                       disabled={false}
                       variant={ButtonVariant.OUTLINE}
                       size={ButtonSize.MEDIUM}
@@ -112,9 +113,9 @@ const MainPage: FC = () => {
                       </Link>
                     </>
                   )}
-                  <Link href={'/poll'}>
+                  <Link href={'/teachers'}>
                     <Button
-                      text={'Опитування 2023'}
+                      text={'Результати Опитування 2023'}
                       disabled={false}
                       variant={ButtonVariant.OUTLINE}
                       size={ButtonSize.SMALL}

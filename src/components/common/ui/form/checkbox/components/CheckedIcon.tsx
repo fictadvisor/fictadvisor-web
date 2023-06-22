@@ -12,7 +12,7 @@ export const CheckedIcon = styled(Icon)(({ color, disabled }) => ({
   background: `${disabled ? theme.palette.grey[300] : ControlsColorMap[color]}`,
   '&:before': {
     display: 'block',
-    backgroundImage: 'url(/assets/icons/check-mark.svg)',
+    backgroundImage: 'url(/icons/check-mark.svg)',
     content: '""',
     width: '14px',
     height: '11.57px',

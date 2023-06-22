@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Alert as MuiAlert, AlertColor, Typography } from '@mui/material';
 
-import { AlertXMark } from '@/components/common/custom-svg/AlertXMark';
+import { AlertXMark } from '@/components/common/icons/AlertXMark';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Alert.styles';

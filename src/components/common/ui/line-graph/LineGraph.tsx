@@ -11,7 +11,7 @@ interface LineGraphProps {
 }
 
 const LineGraph: FC<LineGraphProps> = ({ label, value }) => {
-  const checkedValue = checkValue(value);
+  const checkedValue = Math.round(checkValue(value));
 
   return (
     <Box sx={styles.wrapper}>

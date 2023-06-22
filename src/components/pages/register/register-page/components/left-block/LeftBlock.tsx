@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import CustomTelegramIcon from '@/components/common/custom-svg/CustomTelegramIcon';
+import CustomTelegram from '@/components/common/icons/CustomTelegram';
 import Button, {
   ButtonColor,
   ButtonSize,
@@ -28,7 +28,7 @@ const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
       <Link href="/" className={styles['mobile-register-logo-container']}>
         <img
           className={styles['mobile-register-logo']}
-          src="/assets/login-page/new_logo.png"
+          src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
         />
       </Link>
@@ -42,7 +42,7 @@ const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
           <Button
             startIcon={
               <div className="icon">
-                <CustomTelegramIcon />
+                <CustomTelegram />
               </div>
             }
             text="Приєднай Telegram"
@@ -54,7 +54,7 @@ const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
           <Button
             startIcon={
               <div className="icon">
-                <CustomTelegramIcon />
+                <CustomTelegram />
               </div>
             }
             text="Приєднай Telegram"

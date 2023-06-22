@@ -1,7 +1,7 @@
 import { FC, HTMLProps } from 'react';
 import Link from 'next/link';
 
-import { TeacherCard } from '@/components/common/composite/cards/teacher-card';
+import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
 import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
 import styles from './TeacherSearchList.module.scss';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
@@ -9,16 +9,13 @@ import { TeacherRole } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
-const PersonalTeacherCard: React.FC<GetTeacherResponse> = props => {
+const PersonalTeacherCard: FC<GetTeacherResponse> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
+
   return (
     <div className={styles['card']}>
       <div className={styles['photo']}>
-        <img
-          src={props.teacher.avatar}
-          className={styles['image']}
-          alt={'photo'}
-        ></img>
+        <img src={props.teacher.avatar} className={styles['image']} alt={'photo'} />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>
@@ -43,7 +40,7 @@ const PersonalTeacherCard: React.FC<GetTeacherResponse> = props => {
           <Tag color={TagColor.MINT} size={TagSize.SMALL} text={'Лаборант'} />
         )}
       </div>
-      <div className={styles['info']}>{props.teacher.description}</div>
+      <div className={styles['info']}>{props.description}</div>
       {props.contacts.length !== 0 && (
         <Button
           className={styles['contacts-button']}

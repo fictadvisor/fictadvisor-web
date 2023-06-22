@@ -1,9 +1,10 @@
 import { ChartData } from 'chart.js';
 
+import theme from '@/styles/theme';
+
 import { TeacherEvaluations } from '../types';
 
 const getData = (data: TeacherEvaluations): ChartData<'bar'> => {
-  console.log(data);
   const { mark, name } = data;
   return {
     labels: Object.keys(mark),
@@ -11,11 +12,11 @@ const getData = (data: TeacherEvaluations): ChartData<'bar'> => {
       {
         label: name,
         data: Object.values(mark),
-        backgroundColor: 'rgb(184, 56, 56)',
+        backgroundColor: theme.palette.primary[300],
         borderWidth: 0,
         borderRadius: 3,
         barThickness: 14,
-        hoverBackgroundColor: 'rgb(184, 56, 56)',
+        hoverBackgroundColor: theme.palette.primary[300],
       },
     ],
   };

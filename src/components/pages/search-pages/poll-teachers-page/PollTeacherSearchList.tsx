@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
-import { PollTeacherCard } from '@/components/common/composite/cards/poll-teacher-card';
+import { PollTeacherCard } from '@/components/common/ui/cards/poll-teacher-card';
 import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
+import useToast from '@/hooks/use-toast';
 
 import styles from './PollTeacherSearchList.module.scss';
 
@@ -9,10 +10,22 @@ interface PollTeacherSearchListProps {
   data: PollTeachersResponse;
   className: string;
 }
+
 const PollTeacherSearchList: FC<PollTeacherSearchListProps> = ({
   data,
   className,
 }) => {
+  const toast = useToast();
+
+  useEffect(() => {
+    if (data.teachers?.length === 0) {
+      toast.success(
+        'Всі опитування вже пройдені!',
+        `Ви супермолодчинка! Ваша швидкість більша ніж 299 792 км/год!`,
+      );
+    }
+  }, []);
+
   return (
     <ul className={styles[`${className}-search-list`]}>
       {data &&

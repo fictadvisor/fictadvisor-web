@@ -4,6 +4,8 @@ import { TabList as MuiTabList, TabListProps } from '@mui/lab';
 const TabList: FC<TabListProps> = props => {
   return (
     <MuiTabList
+      scrollButtons="auto"
+      allowScrollButtonsMobile
       TabIndicatorProps={{
         style: { display: 'none' },
       }}
