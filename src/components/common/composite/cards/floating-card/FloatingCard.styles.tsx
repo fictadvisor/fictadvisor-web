@@ -1,9 +1,11 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+import palette from '@/styles/theme/constants/pallete';
+
 export const card: SxProps<Theme> = {
   position: 'sticky',
   top: '88px',
-  border: '1px solid #404040',
+  border: `1px solid ${palette.grey['200']}`,
   boxShadow:
     '1px 1px 3px rgba(10, 10, 10, 0.09), 2px 4px 16px rgba(13, 13, 13, 0.13)',
   borderRadius: '4px',
