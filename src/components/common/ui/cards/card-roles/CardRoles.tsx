@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import cn from 'classnames';
 
-import Tag, { TagColor, TagSize, TagVariant } from '@/components/common/ui/tag';
+import Tag from '@/components/common/ui/tag-mui';
+import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
 import { TeacherRole } from '@/types/teacher';
 
 import styles from './CardRoles.module.scss';
@@ -19,7 +20,7 @@ const TagText: Record<TeacherRole, string> = {
 
 const TagColors: Record<TeacherRole, TagColor> = {
   [TeacherRole.LABORANT]: TagColor.MINT,
-  [TeacherRole.LECTURER]: TagColor.VIOLET,
+  [TeacherRole.LECTURER]: TagColor.INDIGO,
   [TeacherRole.PRACTICIAN]: TagColor.ORANGE,
 };
 
@@ -30,7 +31,6 @@ export const CardRoles: FC<CardRolesProps> = ({ roles, className }) => {
         <Tag
           size={TagSize.SMALL}
           text={TagText[role]}
-          variant={TagVariant.FILLED}
           color={TagColors[role]}
           key={Math.random()}
         />

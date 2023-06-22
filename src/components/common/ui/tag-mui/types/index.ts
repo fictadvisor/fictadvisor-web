@@ -11,6 +11,7 @@ export enum TagColor {
   VIOLET = 'violet',
   MINT = 'mint',
   ORANGE = 'orange',
+  INDIGO = 'indigo',
 }
 
 export enum TagSize {

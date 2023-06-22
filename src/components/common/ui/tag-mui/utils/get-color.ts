@@ -10,6 +10,7 @@ const ColorMap: Record<TagColor, string[]> = {
   [TagColor.VIOLET]: ['violet.600', 'violet.500', 'violet.700'],
   [TagColor.MINT]: ['mint.400', 'mint.500', 'mint.500'],
   [TagColor.ORANGE]: ['orange.600', 'orange.500', 'orange.700'],
+  [TagColor.INDIGO]: ['indigo.700', 'indigo.500', 'indigo.700'],
 };
 
 const VariantIndexMap: Record<TagVariant, number> = {

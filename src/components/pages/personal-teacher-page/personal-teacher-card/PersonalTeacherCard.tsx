@@ -2,7 +2,8 @@ import { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
-import Tag, { TagColor, TagSize } from '@/components/common/ui/tag';
+import Tag from '@/components/common/ui/tag-mui';
+import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
 import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
 import { GetTeacherResponse } from '@/lib/api/teacher/types/GetTeacherResponse';
 import { TeacherRole } from '@/types/teacher';
@@ -29,7 +30,7 @@ const PersonalTeacherCard: FC<GetTeacherResponse> = props => {
 
       <div className={styles['tags']}>
         {props.roles.includes(TeacherRole.LECTURER) && (
-          <Tag color={TagColor.VIOLET} size={TagSize.SMALL} text={'Лектор'} />
+          <Tag color={TagColor.INDIGO} size={TagSize.SMALL} text={'Лектор'} />
         )}
 
         {props.roles.includes(TeacherRole.PRACTICIAN) && (
@@ -54,12 +55,13 @@ const PersonalTeacherCard: FC<GetTeacherResponse> = props => {
         className={styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]}
       >
         {props.contacts.map((contact, index) => (
-          <Contact
-            key={index}
-            name={contact.name}
-            displayName={contact.displayName}
-            link={contact.link}
-          />
+          <div key={index} className={styles['contacts-item']}>
+            <Contact
+              name={contact.name}
+              displayName={contact.displayName}
+              link={contact.link}
+            />
+          </div>
         ))}
       </div>
     </div>

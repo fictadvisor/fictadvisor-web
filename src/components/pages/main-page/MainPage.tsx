@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { useQuery } from 'react-query';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -9,25 +8,21 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import Loader from '@/components/common/ui/loader';
+import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import useAuthentication from '@/hooks/use-authentication';
-import StudentResourcesAPI from '@/lib/api/student-resources/StudentResourcesAPI';
+import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
 
 import BannerImage from '../../common/icons/BannerImage';
 
 import ResourceCard from './components/resource-card/ResourceCard';
-import TokenPopup from './components/token-popup';
 
 import styles from './MainPage.module.scss';
-const MainPage: FC = () => {
-  const { isLoading, data } = useQuery(
-    ['resources'],
-    StudentResourcesAPI.getAll,
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
 
+export interface MainPageProps {
+  data: GetStudentResourcesResponse;
+}
+
+const MainPage: FC<MainPageProps> = ({ data }) => {
   const { query, isReady } = useRouter();
   const token = query.token as string;
   const { isLoggedIn } = useAuthentication();
@@ -133,15 +128,11 @@ const MainPage: FC = () => {
           <h3>Студентські ресурси</h3>
           <div className={styles['resource-card-container']}>
             <div className={styles['resources-cards']}>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                data?.studentResources.map(({ name, id, icon, link }) => (
-                  <div className={styles['card-holder']} key={id}>
-                    <ResourceCard text={name} image={icon} href={link} />
-                  </div>
-                ))
-              )}
+              {data?.studentResources.map(({ name, id, icon, link }) => (
+                <div className={styles['card-holder']} key={id}>
+                  <ResourceCard text={name} image={icon} href={link} />
+                </div>
+              ))}
             </div>
           </div>
         </div>

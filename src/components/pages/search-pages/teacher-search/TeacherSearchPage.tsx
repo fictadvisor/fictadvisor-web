@@ -70,6 +70,7 @@ export const TeacherSearchPage = () => {
         {data && (
           <TeacherSearchList teachers={data.teachers} className="teacher" />
         )}
+
         {isLoading ||
           (isFetching && (
             <div className={styles['page-loader']}>

@@ -7,14 +7,14 @@ const useToast = (): UseToastReturn => {
   const { showToast } = useToastContext();
 
   return {
-    error: (title, description) =>
-      showToast({ title, description, type: AlertType.ERROR }),
-    warning: (title, description) =>
-      showToast({ title, description, type: AlertType.WARNING }),
-    success: (title, description) =>
-      showToast({ title, description, type: AlertType.SUCCESS }),
-    info: (title, description) =>
-      showToast({ title, description, type: AlertType.INFO }),
+    error: (title, description, timer) =>
+      showToast({ title, description, type: AlertType.ERROR, timer }),
+    warning: (title, description, timer) =>
+      showToast({ title, description, type: AlertType.WARNING, timer }),
+    success: (title, description, timer) =>
+      showToast({ title, description, type: AlertType.SUCCESS, timer }),
+    info: (title, description, timer) =>
+      showToast({ title, description, type: AlertType.INFO, timer }),
   };
 };
 

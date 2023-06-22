@@ -7,4 +7,5 @@ export interface TeacherEvaluations {
 
 export interface ColumnChartProps {
   data: TeacherEvaluations;
+  maxValue?: number;
 }

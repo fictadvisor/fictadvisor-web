@@ -9,6 +9,7 @@ export const tag = (
   color: TagColor,
   size: TagSize,
   icon?: ReactNode,
+  text?: string,
 ): SxProps<Theme> => ({
   width: 'fit-content',
   display: 'flex',
@@ -35,7 +36,7 @@ export const tag = (
     },
   }),
   ...(icon && {
-    gap: '4px',
+    gap: text ? '4px' : '0px',
   }),
 });
 

@@ -28,12 +28,14 @@ const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
     title,
     type = AlertType.ERROR,
     description,
+    timer,
   }: ToastActionProps) => {
     setOptions({
       open: true,
       type,
       title,
       description,
+      timer,
     });
   }, []);
 
