@@ -51,11 +51,9 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
     mark => mark.type === 'AMOUNT',
   ) as AmountMarkType[];
 
-  const maxValue = columnMarks
-    .map(mark => Object.values(mark.mark).reduce((a, b) => (a > b ? a : b)))
-    .reduce((a, b) => (a > b ? a : b));
-
-  console.log(maxValue);
+  const maxValue = Math.max(
+    ...columnMarks.map(mark => Math.max(...Object.values(mark.mark))),
+  );
 
   return (
     <Box sx={styles.wrapper}>
