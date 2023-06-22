@@ -1,3 +1,1 @@
-import DefaultAvatar from './default-avatar.svg';
-
-export { DefaultAvatar };
+export { default as DefaultAvatar } from './default-avatar.svg';
