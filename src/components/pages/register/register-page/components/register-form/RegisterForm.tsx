@@ -108,31 +108,31 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
           <Input
             className={styles['login-input']}
             label="Юзернейм"
-            placeholder="Taras1814"
+            placeholder="використовуй латиницю без пробілів"
             name="username"
           />
           <Input
             className={styles['login-input']}
             label="Прізвище"
-            placeholder="Шевченко"
+            placeholder="вводь справжнє прізвище для коректної інформації"
             name="lastName"
           />
           <Input
             className={styles['login-input']}
             label="Ім'я"
-            placeholder="Тарас"
+            placeholder="вводь справжнє ім'я для коректної інформації"
             name="firstName"
           />
           <Input
             className={styles['login-input']}
             label="По батькові"
-            placeholder="Григорович (опціонально)"
+            placeholder="вводь справжнє по батькові для коректної інформації"
             name="middleName"
           />
           <Input
             className={styles['login-input']}
             label="Пошта"
-            placeholder="example@gmail.com"
+            placeholder="введи свою пошту"
             name="email"
           />
           <div className={styles['one-line']}>
@@ -144,7 +144,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ groups }) => {
               placeholder="вибери зі списку"
             />
             <div className={styles['checkbox-container']}>
-              <Checkbox label={'Я староста'} name={'isCaptain'} />
+              <Checkbox label="Я староста" name="isCaptain" />
             </div>
           </div>
           <Input

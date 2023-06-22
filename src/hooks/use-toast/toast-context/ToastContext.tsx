@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren, useCallback, useState } from 'react';
 
 import { AlertType } from '@/components/common/ui/alert-mui/Alert';
 import Toast from '@/components/common/ui/toast-mui';
@@ -16,6 +16,7 @@ interface OptionsType {
   title: string;
   type: AlertType;
   description?: string;
+  timer?: number;
 }
 
 const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -26,14 +27,23 @@ const ToastContextProvider: FC<PropsWithChildren> = ({ children }) => {
     open: false,
   });
 
-  const hideToast = () => setOptions({ ...options, open: false });
+  const hideToast = useCallback(
+    () => setOptions({ ...options, open: false }),
+    [options],
+  );
 
-  const showToast = ({ title, type = 'error', description }: OptionsType) => {
+  const showToast = ({
+    title,
+    type = 'error',
+    description,
+    timer,
+  }: OptionsType) => {
     setOptions({
       open: true,
       type,
       title,
       description,
+      timer,
     });
   };
 
