@@ -4,7 +4,7 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { FieldSize } from '@/components/common/ui/form/common/types';
-import { Dropdown } from '@/components/common/ui/form/dropdown-mui/Dropdown';
+import { Dropdown } from '@/components/common/ui/form/dropdown/Dropdown';
 
 import * as styles from './dropdownTest.styles';
 
