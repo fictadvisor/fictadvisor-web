@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 
 import Alert, { AlertColor } from '@/components/common/ui/alert';
@@ -11,8 +12,10 @@ import { transformGroups } from '@/components/pages/account-page/components/grou
 import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/no-group-block/validation';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
+import { RequestNewGroupBody } from '@/lib/api/user/types/RequestNewGroupBody';
 import UserAPI from '@/lib/api/user/UserAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { UserGroupState } from '@/types/user';
 
 import styles from './NoGroupBlock.module.scss';
 
@@ -23,12 +26,14 @@ const NoGroupBlock: FC = () => {
   });
   const dispatch = useDispatch();
 
-  const handleSubmitGroup = async data => {
+  const handleSubmitGroup = async (data: RequestNewGroupBody) => {
     try {
       await UserAPI.requestNewGroup(data, user.id);
-      update();
-    } catch (e) {
-      const errorName = e.response.data.error;
+      await update();
+    } catch (error) {
+      // TODO: refactor this shit
+      const errorName = (error as AxiosError<{ error: string }>).response?.data
+        .error;
       if (errorName === 'AlreadyRegisteredException') {
         dispatch(
           showAlert({
@@ -53,7 +58,7 @@ const NoGroupBlock: FC = () => {
 
   return (
     <div className={styles['content']}>
-      {user.group.state === 'PENDING' ? (
+      {user.group?.state === UserGroupState.PENDING ? (
         <>
           <div className={styles['text-content']}>
             <h4>{user.group.code}</h4>
