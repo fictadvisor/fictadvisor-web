@@ -15,13 +15,10 @@ import {
   InputSize,
   InputType,
 } from '@/components/common/ui/form';
-import {
-  IconButton,
-  IconButtonColor,
-  IconButtonShape,
-  IconButtonSize,
-} from '@/components/common/ui/icon-button';
+import IconButton from '@/components/common/ui/icon-button-mui';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
+
+import * as muiStyles from '../SearchPage.styles';
 
 import { SubjectSearchFormFields, TeacherSearchFormFields } from './types';
 
@@ -66,12 +63,10 @@ export const SearchForm: FC<SearchFormProps> = ({
           />
           <div className={styles['collapse-btn']}>
             <IconButton
-              className={styles['collapse-icon']}
-              type="button"
-              name="order"
-              size={IconButtonSize.LARGE}
-              shape={IconButtonShape.SQUARE}
-              color={IconButtonColor.SECONDARY}
+              sx={muiStyles.collapseIcon}
+              size="large"
+              shape="square"
+              color="secondary"
               icon={collapsed ? <ChevronDownIcon /> : <ChevronUpIcon />}
               onClick={() => setCollapsed(pr => !pr)}
             />
@@ -106,8 +101,7 @@ export const SearchForm: FC<SearchFormProps> = ({
               </div>
               <div>
                 <IconButton
-                  className={styles['sort-icon']}
-                  type="button"
+                  sx={muiStyles.sortIcon}
                   onClick={() => {
                     setFieldValue(
                       'order',
@@ -115,10 +109,9 @@ export const SearchForm: FC<SearchFormProps> = ({
                     );
                     handleSubmit();
                   }}
-                  name="order"
-                  size={IconButtonSize.LARGE}
-                  shape={IconButtonShape.SQUARE}
-                  color={IconButtonColor.SECONDARY}
+                  size="large"
+                  shape="square"
+                  color="secondary"
                   icon={
                     values.order !== 'asc' ? (
                       <BarsArrowUpIcon />
