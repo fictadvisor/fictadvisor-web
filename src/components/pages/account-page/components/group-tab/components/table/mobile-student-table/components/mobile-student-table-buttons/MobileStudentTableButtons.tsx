@@ -19,7 +19,7 @@ import {
   IconButton,
   IconButtonColor,
 } from '@/components/common/ui/icon-button/IconButton';
-import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/MobileStudentTable';
+import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/types';
 import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
@@ -53,7 +53,8 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   const handleDelete = async () => {
     try {
       setIsOpenDelete(false);
-      await GroupAPI.removeStudent(user.group.id, student.id);
+      // TODO: remove as and refactor props
+      await GroupAPI.removeStudent(user.group?.id as string, student.id);
       await refetch();
     } catch (e) {
       dispatch(
@@ -68,7 +69,8 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   const handleChangeStatus = async () => {
     try {
       setIsOpenChange(false);
-      await GroupAPI.updateStudentRole(user.group.id, student.id, {
+      // TODO: remove as and refactor props
+      await GroupAPI.updateStudentRole(user.group?.id as string, student.id, {
         roleName:
           student.role === StudentRole.MODERATOR
             ? UserGroupRole.STUDENT
@@ -159,7 +161,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
           }
         />
       )}
-      {dataMapper[user.group.role] === StudentRole.CAPTAIN ? (
+      {dataMapper[user.group?.role as UserGroupRole] === StudentRole.CAPTAIN ? (
         <>
           {student.role !== StudentRole.CAPTAIN ? (
             <div className={styles['button']}>
@@ -199,7 +201,8 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
           )}
         </>
       ) : (
-        dataMapper[user.group.role] === StudentRole.MODERATOR && (
+        dataMapper[user.group?.role as UserGroupRole] ===
+          StudentRole.MODERATOR && (
           <>
             {!student.role ? (
               <div className={styles['button']}>
