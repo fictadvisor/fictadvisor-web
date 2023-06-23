@@ -12,7 +12,7 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import { TrashBucketButton } from '@/components/common/ui/icon-button/variants';
+import { TrashBucketButton } from '@/components/common/ui/icon-button-mui/variants';
 import {
   StudentRole,
   StudentTableItem,
