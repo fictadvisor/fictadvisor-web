@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 
 import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
@@ -31,9 +32,11 @@ const PasswordResetEmailConfirmationPage = () => {
   const handleSendAgain = async () => {
     try {
       await AuthAPI.forgotPassword({ email });
-    } catch (e) {
-      const errorName = e.response.data.error;
-      let errorMessage;
+    } catch (error) {
+      // TODO: refactor this shit
+      const errorName = (error as AxiosError<{ error: string }>).response?.data
+        .error;
+      let errorMessage = '';
       if (errorName === 'TooManyActionsException') {
         tries++;
         if (tries >= 5) errorMessage = 'Да ти заєбав';
