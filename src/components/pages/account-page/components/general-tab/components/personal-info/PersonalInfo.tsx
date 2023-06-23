@@ -36,7 +36,7 @@ const PersonalInfoBlock: FC = () => {
 
     try {
       await UserAPI.changeInfo(user.id, data);
-      update();
+      await update();
     } catch (e) {
       dispatch(
         showAlert({
