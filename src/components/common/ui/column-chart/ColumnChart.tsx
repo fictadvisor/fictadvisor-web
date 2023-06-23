@@ -6,12 +6,12 @@ import { Chart, registerables } from 'chart.js';
 import getData from '@/components/common/ui/column-chart/utils/get-data';
 import getOptions from '@/components/common/ui/column-chart/utils/get-options';
 
-import { ColumnChartProps } from './types';
 import * as styles from './ColumnChart.styles';
+import { ColumnChartProps } from './types';
 
 Chart.register(...registerables);
 
-const ColumnChart: FC<ColumnChartProps> = ({ data, maxValue }) => {
+const ColumnChart: FC<ColumnChartProps> = ({ data, maxValue = 10 }) => {
   return (
     <Box sx={styles.chartContainer}>
       <Typography sx={styles.legend}>{data.name}</Typography>
