@@ -1,4 +1,5 @@
 import { FC, useRef, useState } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import mergeClassNames from 'merge-class-names';
 import Link from 'next/link';
 
@@ -8,10 +9,14 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import { CardRoles } from '@/components/common/ui/cards/card-roles';
+import { Overlay } from '@/components/common/ui/cards/poll-teacher-card/overlay/Overlay';
 import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
+import IconButton from '@/components/common/ui/icon-button-mui';
 import Tooltip from '@/components/common/ui/tooltip';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
+
+import * as sxStyles from './pollTeachaerCard.styles';
 
 type PollTeacherCardProps = {
   name: string;
@@ -31,6 +36,7 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
   href,
   ...rest
 }) => {
+  const [open, setOpen] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement | null>(null);
   const [isTruncated, setIsTruncated] = useState(false);
 
@@ -48,13 +54,18 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
       )}
       {...rest}
     >
+      <IconButton
+        icon={<XMarkIcon />}
+        color="transparent"
+        sx={sxStyles.buttonIcon}
+        onClick={() => setOpen(true)}
+      />
       <div className={styles['poll-teacher-card-shift']}>
         <img
           className={styles['poll-teacher-card-avatar']}
           src={avatar}
           alt="викладач"
         />
-
         <CardRoles
           roles={roles}
           className={styles['poll-teacher-card-roles']}
@@ -87,6 +98,7 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
             text={'Пройти опитування'}
           ></Button>
         </Link>
+        <Overlay open={open} onBackdropClick={() => setOpen(false)} />
       </div>
     </article>
   );
