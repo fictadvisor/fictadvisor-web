@@ -1,5 +1,4 @@
 import React from 'react';
-import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -12,28 +11,19 @@ import CustomDivider from '@/components/pages/account-page/components/divider';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
-
-import styles from './MobileRequestTable.module.scss';
 import { UserGroupState } from '@/types/user';
 
-export interface RequestTableItem {
-  imgSrc?: string;
-  fullName: string;
-  email: string;
-  id: string;
-}
+import { RequestTableProps } from './types';
 
-interface RequestTableProps {
-  rows: RequestTableItem[];
-  refetch: QueryObserverBaseResult['refetch'];
-}
+import styles from './MobileRequestTable.module.scss';
 
 const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
   const { user } = useAuthentication();
   const dispatch = useDispatch();
   const handleApprove = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group?.id, userId, {
+      // TODO: remove as and refactor props
+      await GroupAPI.verifyStudent(user.group?.id as string, userId, {
         state: UserGroupState.APPROVED,
       });
       await refetch();
@@ -49,7 +39,8 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
 
   const handleDecline = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group?.id, userId, {
+      // TODO: remove as and refactor props
+      await GroupAPI.verifyStudent(user.group?.id as string, userId, {
         state: UserGroupState.DECLINED,
       });
       await refetch();
