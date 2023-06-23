@@ -39,6 +39,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
         className={styles['background-image']}
         src="/images/main-page/main-background.png"
         fill
+        priority
         alt={'дуже гарна картинка'}
       />
       <div className={styles['main-page-content']}>

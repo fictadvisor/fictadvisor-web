@@ -37,6 +37,7 @@ const RightBlock = () => {
         <Image
           src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
+          priority
           fill
         />
       </Link>

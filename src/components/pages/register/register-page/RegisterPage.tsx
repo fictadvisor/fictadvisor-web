@@ -28,6 +28,7 @@ const RegisterPage: FC<RegisterPageProps> = ({ data }) => {
           className={styles['background-image']}
           src="/images/register-page/background.png"
           fill
+          priority
           alt={'дуже гарна картинка'}
         />
         <div className={styles['register-page__content']}>

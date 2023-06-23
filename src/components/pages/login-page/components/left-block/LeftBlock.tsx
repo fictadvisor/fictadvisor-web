@@ -18,6 +18,7 @@ const LeftBlock = () => {
           className={styles['login-logo']}
           src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
+          priority
           width={300}
           height={54}
         />

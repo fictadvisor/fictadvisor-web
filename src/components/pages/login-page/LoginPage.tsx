@@ -21,6 +21,7 @@ const LoginPage = () => {
           className={styles['background-image']}
           src="/images/login-page/login-background.png"
           fill
+          priority
           alt={'дуже гарна картинка'}
         />
         <div className={styles['login-page__content']}>
