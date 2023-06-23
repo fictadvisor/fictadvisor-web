@@ -24,8 +24,8 @@ interface RadioProps {
 
 const Radio: FC<RadioProps> = ({
   textType,
-  sx,
-  disabled,
+  sx = {},
+  disabled = false,
   selectedValue,
   state = FieldState.DEFAULT,
   ...rest
