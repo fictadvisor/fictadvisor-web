@@ -11,34 +11,9 @@ import {
   FieldState,
 } from '@/components/common/ui/form/common/types';
 
-import type { TagProps } from '../../tag-mui/Tag';
-
+import Option from './components/option';
 import * as styles from './Dropdown.styles';
-import { Option } from './Option';
-
-interface OptionBase {
-  id: string;
-}
-interface DropDownTextOption extends OptionBase {
-  label: string;
-}
-
-interface DropDownTagOption extends OptionBase, TagProps {}
-
-export type DropDownOption = DropDownTagOption | DropDownTextOption;
-
-interface DropdownProps {
-  options: DropDownTextOption[] | DropDownTagOption[];
-  label?: string;
-  name?: string;
-  isDisabled?: boolean;
-  placeholder?: string;
-  isSuccessOnDefault?: boolean;
-  defaultRemark?: string;
-  showRemark?: boolean;
-  size?: FieldSize;
-  noOptionsText?: string;
-}
+import { DropDownOption, DropdownProps } from './types';
 
 export const Dropdown: FC<DropdownProps> = ({
   options,
@@ -60,9 +35,9 @@ export const Dropdown: FC<DropdownProps> = ({
     else if (touched && error) return FieldState.ERROR;
     else if (touched && isSuccessOnDefault) return FieldState.SUCCESS;
     else return FieldState.DEFAULT;
-  }, [touched, error]);
+  }, [isDisabled, touched, error, isSuccessOnDefault]);
 
-  const handleChange = (_: SyntheticEvent, option: DropDownOption) => {
+  const handleChange = (_: SyntheticEvent, option: DropDownOption | null) => {
     setTouched(true);
     setValue(option?.id || '', true);
   };
@@ -80,8 +55,8 @@ export const Dropdown: FC<DropdownProps> = ({
         options={options}
         renderInput={params => (
           <TextField
-            inputProps={values}
             {...params}
+            inputProps={values}
             label={label}
             sx={styles.input(dropdownState, size)}
             placeholder={placeholder}
@@ -117,7 +92,7 @@ export const Dropdown: FC<DropdownProps> = ({
         popupIcon={<ChevronDownIcon width={24} height={24} strokeWidth={1.5} />}
         noOptionsText={noOptionsText}
         renderOption={(props, option: DropDownOption) => (
-          <Option props={props} option={option} key={option.id} />
+          <Option {...props} option={option} key={option.id} />
         )}
       />
       {showRemark && (
