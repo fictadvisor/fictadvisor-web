@@ -4,7 +4,9 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { TelegramOutlineIcon } from '@/components/common/custom-svg/TelegramOutline';
 import useIsMobile from '@/hooks/use-is-mobile/UseIsMobile';
 
-import { CloseButton } from '../../ui/icon-button/variants';
+import { CloseButton } from '../../ui/icon-button-mui/variants';
+
+import * as muiStyles from './Popup.styles';
 
 import styles from './Popup.module.scss';
 
@@ -38,7 +40,7 @@ export const Popup: React.FC<PopupProps> = ({
         {isClosable && (
           <CloseButton
             onClick={() => closeFunction(false)}
-            className={hasIcon ? styles.close : styles.movedClose}
+            sx={hasIcon ? muiStyles.close : muiStyles.movedClose}
           />
         )}
         {hasIcon ? (
