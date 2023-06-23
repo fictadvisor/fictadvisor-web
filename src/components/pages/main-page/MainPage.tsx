@@ -19,7 +19,7 @@ import ResourceCard from './components/resource-card/ResourceCard';
 import styles from './MainPage.module.scss';
 
 export interface MainPageProps {
-  data: GetStudentResourcesResponse;
+  data: GetStudentResourcesResponse | null;
 }
 
 const MainPage: FC<MainPageProps> = ({ data }) => {
