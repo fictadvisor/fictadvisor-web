@@ -14,10 +14,7 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import {
-  IconButton,
-  IconButtonColor,
-} from '@/components/common/ui/icon-button/IconButton';
+import IconButton from '@/components/common/ui/icon-button-mui';
 import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/MobileStudentTable';
 import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
@@ -161,7 +158,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
             <div className={styles['button']}>
               <IconButton
                 icon={<EllipsisVerticalIcon className={'icon'} />}
-                color={IconButtonColor.TRANSPARENT}
+                color="transparent"
                 onClick={() => onChange(value)}
               />
               {currentValue === value && (
@@ -187,9 +184,9 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
             <div className={styles['button']}>
               <IconButton
                 icon={<EllipsisVerticalIcon className={'icon'} />}
-                color={IconButtonColor.TRANSPARENT}
+                color="transparent"
                 disabled={true}
-                className={styles['disabled-button']}
+                sx={{ backgroundColor: 'transparent !important' }}
               />
             </div>
           )}
@@ -201,7 +198,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
               <div className={styles['button']}>
                 <IconButton
                   icon={<EllipsisVerticalIcon className={'icon'} />}
-                  color={IconButtonColor.TRANSPARENT}
+                  color="transparent"
                   onClick={() => onChange(value)}
                 />
                 {currentValue === value && (
@@ -223,9 +220,9 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
               <div className={styles['button']}>
                 <IconButton
                   icon={<EllipsisVerticalIcon className={'icon'} />}
-                  color={IconButtonColor.TRANSPARENT}
+                  color="transparent"
                   disabled={true}
-                  className={styles['disabled-button']}
+                  sx={{ backgroundColor: 'transparent !important' }}
                 />
               </div>
             )}

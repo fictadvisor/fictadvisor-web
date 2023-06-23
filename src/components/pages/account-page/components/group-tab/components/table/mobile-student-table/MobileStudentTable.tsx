@@ -5,10 +5,7 @@ import { PlusIcon } from '@heroicons/react/24/solid';
 import { CaptainIcon } from '@/components/common/custom-svg/CaptainIcon';
 import { ModeratorIcon } from '@/components/common/custom-svg/ModeratorIcon';
 import { AlertColor } from '@/components/common/ui/alert';
-import {
-  IconButton,
-  IconButtonShape,
-} from '@/components/common/ui/icon-button/IconButton';
+import IconButton from '@/components/common/ui/icon-button-mui/IconButton';
 import Tag, { TagSize } from '@/components/common/ui/tag';
 import CustomDivider from '@/components/pages/account-page/components/divider';
 import MobileStudentTableButtons from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/components/mobile-student-table-buttons';
@@ -87,7 +84,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
           <div className={styles['button']}>
             <IconButton
               icon={<PlusIcon className={'icon'} />}
-              shape={IconButtonShape.SQUARE}
+              shape="square"
               onClick={() => setIsPopupOpen(true)}
             />
           </div>
