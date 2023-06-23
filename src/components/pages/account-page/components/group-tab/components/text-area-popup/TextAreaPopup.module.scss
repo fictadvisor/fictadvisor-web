@@ -62,24 +62,6 @@
     gap: 16px;
   }
 
-  .close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 36px;
-    height: 36px;
-    padding: 6px;
-  }
-
-  .movedClose {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
-    padding: 6px;
-  }
-
   .title {
     font-weight: 700;
     font-size: 20px;
@@ -97,7 +79,7 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    
+
 
     .title {
       font-size: 20px;
@@ -173,15 +155,6 @@
     margin-left: 15px;
     height: fit-content;
     z-index: 2;
-
-    .close {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 36px;
-      height: 36px;
-      padding: 6px;
-    }
 
     .title {
       padding: 13px 16px;

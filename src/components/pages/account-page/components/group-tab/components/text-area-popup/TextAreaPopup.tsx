@@ -7,9 +7,10 @@ import { NumberedTextArea } from '@/components/common/ui/form';
 import { initialValues } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/constants';
 import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/validation';
 
-import { CloseButton } from '../../../../../../common/ui/icon-button/variants';
+import { CloseButton } from '../../../../../../common/ui/icon-button-mui/variants';
 
 import styles from './TextAreaPopup.module.scss';
+import * as muiStyles from './TextAreaPopup.styles';
 
 interface TextAreaPopup {
   handleSubmit: (value) => void;
@@ -27,7 +28,7 @@ export const TextAreaPopup: React.FC<TextAreaPopup> = ({
       <div className={styles.content}>
         <CloseButton
           onClick={() => closeFunction(false)}
-          className={styles.close}
+          sx={muiStyles.close}
         />
         <h6 className={styles.title}>Додати студента</h6>
         <p className={styles.description}>
