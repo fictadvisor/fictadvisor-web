@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -38,6 +39,13 @@ const MainPage = () => {
       hasFooter={true}
       className={styles['main-page']}
     >
+      <Image
+        quality={100}
+        className={styles['background-image']}
+        src="/images/main-page/main-background.png"
+        fill
+        alt={'хуй блять'}
+      />
       <div className={styles['main-page-content']}>
         {token && isReady && <TokenPopup token={token} />}
         <div className={styles['header']}>
