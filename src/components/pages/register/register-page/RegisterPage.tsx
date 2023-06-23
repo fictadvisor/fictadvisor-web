@@ -10,7 +10,7 @@ import RightBlock from './components/right-block';
 import styles from './RegisterPage.module.scss';
 
 export interface RegisterPageProps {
-  data: GetAllResponse;
+  data: GetAllResponse | null;
 }
 
 const RegisterPage: FC<RegisterPageProps> = ({ data }) => {
@@ -22,7 +22,7 @@ const RegisterPage: FC<RegisterPageProps> = ({ data }) => {
     >
       <div className={styles['register-page']}>
         <div className={styles['register-page__content']}>
-          <LeftBlock groups={data.groups || []} />
+          <LeftBlock groups={data?.groups || []} />
           <hr className={styles['divider']} />
           <RightBlock />
         </div>
