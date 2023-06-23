@@ -9,7 +9,6 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import { CardRoles } from '@/components/common/ui/cards/card-roles';
-import { Overlay } from '@/components/common/ui/cards/poll-teacher-card/overlay/Overlay';
 import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
@@ -17,6 +16,7 @@ import Tooltip from '@/components/common/ui/tooltip';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import * as sxStyles from './pollTeachaerCard.styles';
+import { SkipTeacherPopup } from './SkipTeacherPopup';
 
 type PollTeacherCardProps = {
   name: string;
@@ -98,7 +98,9 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
             text={'Пройти опитування'}
           ></Button>
         </Link>
-        <Overlay open={open} onBackdropClick={() => setOpen(false)} />
+        {open && (
+          <SkipTeacherPopup setOpen={setOpen} onTeacherSkip={() => {}} />
+        )}
       </div>
     </article>
   );
