@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
+import { AxiosError } from 'axios';
 
 import { Captain } from '@/components/common/icons/Captain';
 import { Moderator } from '@/components/common/icons/Moderator';
@@ -11,6 +11,7 @@ import {
   IconButtonShape,
 } from '@/components/common/ui/icon-button/IconButton';
 import Tag from '@/components/common/ui/tag-mui';
+import { TagSize } from '@/components/common/ui/tag-mui/types';
 import CustomDivider from '@/components/pages/account-page/components/divider';
 import MobileStudentTableButtons from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/components/mobile-student-table-buttons';
 import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
@@ -19,21 +20,9 @@ import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
+import { StudentTableProps } from './types';
+
 import styles from './MobileStudentTable.module.scss';
-
-export interface StudentTableItem {
-  imgSrc?: string;
-  fullName: string;
-  role: string;
-  email: string;
-  id: string;
-}
-
-interface StudentTableProps {
-  rows: StudentTableItem[];
-  variant: StudentRole;
-  refetch: QueryObserverBaseResult['refetch'];
-}
 
 const MobileStudentTable: React.FC<StudentTableProps> = ({
   variant,
@@ -45,18 +34,20 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
   const { user } = useAuthentication();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const dispatch = useDispatch();
-  const handleAddStudents = async value => {
+  const handleAddStudents = async (value: string) => {
     try {
       const emails = value
         .split(/[\n\r\t ,]+/)
         .map(line => line.trim())
         .filter(line => line !== '' && line !== '\n');
-
-      await GroupAPI.addStudentsByMail(user.group.id, { emails });
+      // TODO: remove as and refactor props
+      await GroupAPI.addStudentsByMail(user.group?.id as string, { emails });
       setIsPopupOpen(false);
-      refetch();
-    } catch (e) {
-      const name = e.response?.data.error;
+      await refetch();
+    } catch (error) {
+      // TODO: refactor this shit
+      const name = (error as AxiosError<{ error: string }>).response?.data
+        .error;
       if (name === 'AlreadyRegisteredException') {
         dispatch(
           showAlert({
@@ -118,7 +109,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
             <div className={styles['tag']}>
               {row.role && (
                 <Tag
-                  size="small"
+                  size={TagSize.SMALL}
                   icon={
                     row.role === StudentRole.CAPTAIN ? (
                       <Captain />
