@@ -5,11 +5,11 @@ import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
 import styles from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card/PersonalTeacherSubjectCard.module.scss';
-import { TeacherRole, TeacherWithContact } from '@/types/teacher';
+import { TeacherRole, TeacherWithContactsAndSubject } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
-const PersonalTeacherSubjectCard: FC<TeacherWithContact> = props => {
+const PersonalTeacherSubjectCard: FC<TeacherWithContactsAndSubject> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
   return (
     <div className={styles['card']}>
