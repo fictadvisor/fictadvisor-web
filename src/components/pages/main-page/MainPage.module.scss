@@ -10,11 +10,20 @@ $font-weight-bold: 700;
 .main-page{
     width: 100%;
     position: relative;
+    position: relative;
     background-size: 100% 100%;
     display: block;
-    z-index: 2;
+    z-index: 0;
 }
 
+.background-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
 .background-image {
     position: absolute;
     top: 0;
@@ -31,6 +40,7 @@ $font-weight-bold: 700;
 
 
 .main-page-content {
+    z-index: 1;
     z-index: 1;
     max-width: 1700px;
     margin: 0 auto;
