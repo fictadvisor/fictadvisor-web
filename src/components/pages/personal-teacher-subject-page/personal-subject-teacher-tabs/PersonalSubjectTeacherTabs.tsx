@@ -8,7 +8,7 @@ import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
 import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
-import { GetTeacherSubjectResponse } from '@/lib/services/teacher/TeacherService';
+import { TeacherSubjectPageInfo } from '@/lib/services/teacher/types';
 
 import * as styles from './PersonalSubjectTeacherTabs.styles';
 
@@ -32,7 +32,7 @@ const PollButtons = dynamic(
 );
 
 interface PersonalSubjectTeacherProps {
-  data: GetTeacherSubjectResponse;
+  data: TeacherSubjectPageInfo;
   tabIndex: string;
   handleChange: (event: SyntheticEvent, value: TeachersPageTabs) => void;
 }
