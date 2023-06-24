@@ -1,6 +1,7 @@
 import { FC, Fragment, useRef, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import mergeClassNames from 'merge-class-names';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Button, {
@@ -73,7 +74,9 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
           onClick={() => setOpen(true)}
         />
         <div className={styles['poll-teacher-card-shift']}>
-          <img
+          <Image
+            width={64}
+            height={64}
             className={styles['poll-teacher-card-avatar']}
             src={avatar}
             alt="викладач"
@@ -122,4 +125,3 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
 
   return <Fragment></Fragment>;
 };
-
