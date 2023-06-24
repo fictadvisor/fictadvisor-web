@@ -1,7 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
+// TODO: remove this lib and make hook via MUI
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import debounce from 'lodash-es/debounce';
 
-const useIsMobile = (maxWidth): boolean => {
+const useIsMobile = (maxWidth: number): boolean => {
   const [isMobile, setIsMobile] = useState(false);
 
   useLayoutEffect(() => {
