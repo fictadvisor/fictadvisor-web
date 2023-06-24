@@ -6,7 +6,7 @@ import theme from '@/styles/theme';
 import { TabTextPosition } from './types';
 
 export const tab = (
-  counter: string | number,
+  counter: number | null,
   textPosition: TabTextPosition,
   icon?: ReactNode,
 ): SxProps<Theme> => ({

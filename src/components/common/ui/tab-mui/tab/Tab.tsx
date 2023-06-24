@@ -9,7 +9,7 @@ import { TabProps, TabTextPosition } from './types';
 
 const Tab: FC<TabProps> = ({
   label,
-  count = 0,
+  count = null,
   icon,
   textPosition = TabTextPosition.CENTER,
   disabled = false,

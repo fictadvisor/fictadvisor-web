@@ -5,7 +5,7 @@ import * as styles from '../Tab.styles';
 
 interface CustomLabelProps {
   label: string | ReactNode;
-  count: number | string;
+  count: number | null;
   disabled: boolean;
 }
 

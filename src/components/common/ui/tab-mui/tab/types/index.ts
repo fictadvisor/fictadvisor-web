@@ -9,7 +9,7 @@ export enum TabTextPosition {
 export interface TabProps {
   value?: string;
   label?: string | ReactNode;
-  count?: number | string;
+  count?: number | null;
   icon?: ReactNode | string;
   textPosition?: TabTextPosition;
   disabled?: boolean;
