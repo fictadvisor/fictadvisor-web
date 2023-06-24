@@ -1,8 +1,9 @@
-import { FC, useContext, useEffect, useRef, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
-import Tag, { TagColor, TagSize } from '@/components/common/ui/tag';
+import Tag from '@/components/common/ui/tag-mui';
 import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
 import { TeacherContext } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 import {
@@ -35,7 +36,15 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
   return (
     <div ref={blockRef} className={styles['card']}>
       <div className={styles['photo']}>
-        <img src={props.avatar} className={styles['image']} alt={'photo'} />
+        <Image
+          src={props.avatar}
+          alt="photo"
+          style={{
+            borderRadius: '50%',
+          }}
+          width={200}
+          height={200}
+        />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>
@@ -45,13 +54,15 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
 
       <div className={styles['tags']}>
         {props.roles.includes(TeacherRoles.LECTURER) && (
-          <Tag color={TagColor.VIOLET} size={TagSize.SMALL} text={'Лектор'} />
+          <Tag color="indigo" size="small" text="Лектор" />
         )}
+
         {props.roles.includes(TeacherRoles.PRACTICIAN) && (
-          <Tag color={TagColor.ORANGE} size={TagSize.SMALL} text={'Практик'} />
+          <Tag color="orange" size="small" text="Практик" />
         )}
+
         {props.roles.includes(TeacherRoles.LABORANT) && (
-          <Tag color={TagColor.MINT} size={TagSize.SMALL} text={'Лаборант'} />
+          <Tag color="mint" size="small" text="Лаборант" />
         )}
       </div>
       <div className={styles['info']}>{props.description}</div>
@@ -68,12 +79,13 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
         className={styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]}
       >
         {props.contacts.map((contact, index) => (
-          <Contact
-            key={index}
-            name={contact.name}
-            displayName={contact.displayName}
-            link={contact.link}
-          />
+          <div key={index} className={styles['contacts-item']}>
+            <Contact
+              name={contact.name}
+              displayName={contact.displayName}
+              link={contact.link}
+            />
+          </div>
         ))}
       </div>
     </div>

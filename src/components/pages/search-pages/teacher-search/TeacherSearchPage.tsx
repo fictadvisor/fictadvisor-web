@@ -31,9 +31,13 @@ const breadcrumbs = [
 const pageSize = 20;
 
 export const TeacherSearchPage = () => {
-  const [queryObj, setQueryObj] = useState(TeacherInitialValues);
-  const [curPage, setCurPage] = useState(0);
+  const initialValues = localStorage.getItem('teachersForm')
+    ? JSON.parse(localStorage.getItem('teachersForm'))
+    : TeacherInitialValues;
 
+  const localStorageName = 'teachersForm';
+  const [queryObj, setQueryObj] = useState(initialValues);
+  const [curPage, setCurPage] = useState(0);
   const submitHandler = useCallback(query => {
     setQueryObj(query);
     setCurPage(0);
@@ -61,12 +65,14 @@ export const TeacherSearchPage = () => {
             { value: 'lastName', label: 'Прізвищем' },
           ]}
           onSubmit={submitHandler}
-          initialValues={TeacherInitialValues}
+          initialValues={initialValues}
+          localStorageName={localStorageName}
         />
 
         {data && (
           <TeacherSearchList teachers={data.teachers} className="teacher" />
         )}
+
         {isLoading ||
           (isFetching && (
             <div className={styles['page-loader']}>
