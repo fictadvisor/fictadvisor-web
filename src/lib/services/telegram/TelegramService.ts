@@ -8,9 +8,15 @@ class TelegramService {
   private static openAuthenticationDialog() {
     return new Promise((resolve, reject) => {
       try {
+        // TODO: refactor whole service
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         const Telegram = window.Telegram;
         Telegram.Login.auth(
           { bot_id: process.env.NEXT_PUBLIC_BOT_ID, request_access: true },
+          // TODO: rewrite whole service
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           data => {
             return data
               ? resolve(data)
