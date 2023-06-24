@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, Formik } from 'formik';
+import { AxiosError } from 'axios';
+import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
 import { AlertColor } from '@/components/common/ui/alert';
@@ -33,7 +34,7 @@ interface AnswersSheetProps {
   setIsSendingStatus: React.Dispatch<React.SetStateAction<SendingStatus>>;
 }
 
-const collectAnswers = (answers: Answer[], values) => {
+const collectAnswers = (answers: Answer[], values: FormikValues) => {
   let resultAnswers = [...answers];
   for (const valueId of Object.keys(values)) {
     const index = resultAnswers.findIndex(el => el.questionId === valueId);
@@ -75,7 +76,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   setIsSendingStatus,
 }) => {
   const dispatch = useDispatch();
-  const [initialValues, setInitialValues] = useState({});
+  // TODO: refactor this shit
+  const [initialValues, setInitialValues] = useState<Record<string, string>>(
+    {},
+  );
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
@@ -87,7 +91,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     }
   }, [category]);
 
-  const answer = values => {
+  const answer = (values: FormikValues) => {
     const resultAnswers = collectAnswers(answers, values);
     setAnswers(resultAnswers);
     const count = getProgress(resultAnswers, category.questions);
@@ -140,16 +144,18 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
               {({ values }) => (
                 <Form
                   onClick={(event: FormEvent<HTMLFormElement>) => {
-                    const name = (event.target as any).name;
-                    const value = (event.target as any).value;
+                    // TODO: refactor this shit
+                    const name = (event.target as HTMLFormElement).name;
+                    const value = (event.target as HTMLFormElement).value;
                     if (name && value) {
                       values[name] = String(value);
                       answer(values);
                     }
                   }}
                   onChange={(event: FormEvent<HTMLFormElement>) => {
-                    const name = (event.target as any).name;
-                    const value = (event.target as any).value;
+                    // TODO: refactor this shit
+                    const name = (event.target as HTMLFormElement).name;
+                    const value = (event.target as HTMLFormElement).value;
                     if (name && value) {
                       values[name] = String(value);
                       answer(values);
@@ -228,8 +234,11 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                             disciplineTeacherId,
                           );
                           setIsSendingStatus(SendingStatus.SUCCESS);
-                        } catch (e) {
-                          const errorName = e.response.data.error;
+                        } catch (error) {
+                          // TODO: refactor this shit
+                          const errorName = (
+                            error as AxiosError<{ error: string }>
+                          ).response?.data.error;
                           if (errorName === 'InvalidEntityIdException') {
                             dispatch(
                               showAlert({
