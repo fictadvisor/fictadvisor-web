@@ -40,7 +40,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
         src="/images/main-page/main-background.png"
         fill
         priority
-        alt={'дуже гарна картинка'}
+        alt="дуже гарна картинка"
       />
       <div className={styles['main-page-content']}>
         {token && isReady && <TokenPopup token={token} />}
