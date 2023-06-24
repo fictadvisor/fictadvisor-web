@@ -22,7 +22,11 @@ const PersonalTeacherSubjectPage = () => {
   const subjectId = router.query.subjectId as string;
   const { user } = useAuthentication();
 
-  const { isLoading, isError, data } = useQuery(
+  const {
+    isLoading,
+    isError,
+    data: teacherInfo,
+  } = useQuery(
     ['teacher', teacherId, subjectId],
     () =>
       TeacherService.getTeacherSubjectPageInfo(teacherId, subjectId, user?.id),
@@ -47,7 +51,8 @@ const PersonalTeacherSubjectPage = () => {
 
   const handleChange = useTabState({ tab, router, setIndex });
 
-  const teacher = data?.info;
+  const teacher = teacherInfo?.info;
+  console.log(teacherInfo);
 
   return (
     <PageLayout description={'Сторінка викладача'}>
@@ -80,11 +85,11 @@ const PersonalTeacherSubjectPage = () => {
                 ]}
               />
               <div className={styles['card-wrapper']}>
-                <PersonalTeacherSubjectCard {...data.info} />
+                <PersonalTeacherSubjectCard {...teacherInfo.info} />
               </div>
               <div className={styles['tabs']}>
                 <PersonalSubjectTeacherTabs
-                  data={data}
+                  data={teacherInfo}
                   tabIndex={index}
                   handleChange={handleChange}
                 />

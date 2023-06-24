@@ -6,7 +6,6 @@ import { Form, Formik } from 'formik';
 import Comment from '@/components/common/ui/comment';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import { Dropdown } from '@/components/common/ui/form/dropdown/Dropdown';
-import useToast from '@/hooks/use-toast';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 
 import * as styles from './CommentTab.styles';
@@ -19,9 +18,9 @@ const CommentTab: FC<TeacherTabProps> = ({
   teacherId,
   subjectId = undefined,
 }) => {
-  const toast = useToast();
+  console.log(teacherId, subjectId);
   const [sort, setSort] = useState('newest');
-  const { refetch, data } = useQuery(
+  const { refetch, data: lol } = useQuery(
     ['teacher', teacherId, subjectId],
     () =>
       TeacherAPI.getTeacherComments(
@@ -51,7 +50,6 @@ const CommentTab: FC<TeacherTabProps> = ({
   const onChange = options => {
     setSort(options.dropdown);
     refetch();
-    toast.warning(options.dropdown);
   };
   return (
     <Box sx={styles.wrapper}>
@@ -76,8 +74,8 @@ const CommentTab: FC<TeacherTabProps> = ({
         )}
       </Formik>
 
-      {data?.questions.map(question =>
-        question.comments.map((comment, index) => (
+      {lol?.questions?.map(question =>
+        question?.comments?.map((comment, index) => (
           <Comment
             key={index}
             text={comment.comment}

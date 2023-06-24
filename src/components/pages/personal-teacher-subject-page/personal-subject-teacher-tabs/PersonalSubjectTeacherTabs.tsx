@@ -82,7 +82,7 @@ const PersonalSubjectTeacherTabs: FC<PersonalSubjectTeacherProps> = ({
             ) : (
               <CommentTab
                 teacherId={data.info.id}
-                subjectId={data.info.subject.id}
+                subjectId={data.info?.subject[0]?.id}
               />
             )}
           </TabPanel>
