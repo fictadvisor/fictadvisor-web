@@ -51,6 +51,7 @@ const Popup: FC<PopupProps> = ({
       open={open}
       onClose={onClose}
       onClick={handleClose}
+      disableScrollLock
     >
       <PopupsTitle
         sx={styles.popupsTitle(contentLeft)}
