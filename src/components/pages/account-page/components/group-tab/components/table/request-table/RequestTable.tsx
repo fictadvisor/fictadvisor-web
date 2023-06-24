@@ -1,5 +1,4 @@
 import React from 'react';
-import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -14,26 +13,17 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 import { UserGroupState } from '@/types/user';
 
+import { StudentTableProps } from './types';
+
 import styles from './RequestTable.module.scss';
-
-export interface RequestTableItem {
-  imgSrc?: string;
-  fullName: string;
-  email: string;
-  id: string;
-}
-
-interface StudentTableProps {
-  rows: RequestTableItem[];
-  refetch: QueryObserverBaseResult['refetch'];
-}
 
 const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
   const { user } = useAuthentication();
   const dispatch = useDispatch();
   const handleApprove = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group.id, userId, {
+      // TODO: remove as and refactor props
+      await GroupAPI.verifyStudent(user.group?.id as string, userId, {
         state: UserGroupState.APPROVED,
       });
       await refetch();
@@ -49,7 +39,8 @@ const RequestTable: React.FC<StudentTableProps> = ({ rows, refetch }) => {
 
   const handleDecline = async (userId: string) => {
     try {
-      await GroupAPI.verifyStudent(user.group.id, userId, {
+      // TODO: remove as and refactor props
+      await GroupAPI.verifyStudent(user.group?.id as string, userId, {
         state: UserGroupState.DECLINED,
       });
       await refetch();
