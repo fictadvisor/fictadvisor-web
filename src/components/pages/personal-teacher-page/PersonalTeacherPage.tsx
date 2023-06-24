@@ -50,7 +50,7 @@ const PersonalTeacherPage = () => {
 
   if (!data) return null;
 
-  const teacher = data?.info;
+  const teacher = data?.info.teacher;
 
   return (
     <PageLayout description={'Сторінка викладача'}>

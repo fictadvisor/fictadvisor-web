@@ -18,6 +18,7 @@ export interface Teacher {
   middleName: string;
   lastName: string;
   avatar: string;
+  description: string;
 }
 
 export interface DisciplineTeacher extends Teacher {
