@@ -4,6 +4,7 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 
 import { BurgerMenu } from '@/components/common/icons/BurgerMenu';
+import { TransformedUser } from '@/components/common/layout/header/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import {
   IconButtonColor,
@@ -16,7 +17,7 @@ import * as styles from './MobileHeader.styles';
 
 interface MobileHeaderProps {
   isLoggedIn: boolean;
-  user: any;
+  user: TransformedUser;
 }
 const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
   const [isOpened, setIsOpened] = useState(false);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 
 import { AlertColor } from '@/components/common/ui/alert';
@@ -55,7 +56,8 @@ const PollPage = () => {
     setIsLoading(isQuestionsLoading);
   }, [isQuestionsLoading]);
 
-  const status = error && (error as any).response?.data?.error;
+  const status =
+    error && (error as AxiosError<{ error: string }>).response?.data?.error;
 
   if (error && !isLoading) {
     dispatch(
