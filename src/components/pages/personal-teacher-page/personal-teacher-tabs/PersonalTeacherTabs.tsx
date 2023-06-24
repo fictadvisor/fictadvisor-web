@@ -8,7 +8,7 @@ import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
 import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
-import { GetTeacherResponse } from '@/lib/services/teacher/TeacherService';
+import { TeacherPageInfo } from '@/lib/services/teacher/types';
 
 import * as stylesMUI from './PersonalTeacherTabs.styles';
 
@@ -38,7 +38,7 @@ const SubjectTab = dynamic(
 );
 
 interface PersonalTeacherTabsProps {
-  data: GetTeacherResponse;
+  data: TeacherPageInfo;
   tabIndex: string;
   handleChange: (event: SyntheticEvent, value: TeachersPageTabs) => void;
 }

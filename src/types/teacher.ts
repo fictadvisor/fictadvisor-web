@@ -55,7 +55,7 @@ export interface TeacherRadarCircleMark {
 
 export interface TeacherComment {
   discipline: string;
-  semester: number;
+  semester: 1 | 2;
   year: number;
   comment: string;
 }
