@@ -3,8 +3,9 @@ import { NextRouter } from 'next/router';
 
 import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 
+// TODO: refactor this hook
 export interface UseTabStateProps<T> {
-  tab: string | string[];
+  tab?: string | string[];
   router: NextRouter;
   setIndex: Dispatch<SetStateAction<T>>;
 }
