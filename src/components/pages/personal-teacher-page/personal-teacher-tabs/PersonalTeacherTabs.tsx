@@ -1,11 +1,16 @@
-import { FC } from 'react';
+import { FC, SyntheticEvent } from 'react';
 import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 
 import Tab from '@/components/common/ui/tab-mui/tab';
+import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
+import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
+import { GetTeacherResponse } from '@/lib/services/teacher/TeacherService';
+
+import * as stylesMUI from './PersonalTeacherTabs.styles';
 
 const CommentTab = dynamic(
   () =>
@@ -32,15 +37,10 @@ const SubjectTab = dynamic(
     ),
 );
 
-import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
-import { GetTeacherResponse } from '@/lib/services/teacher/TeacherService';
-
-import * as stylesMUI from './PersonalTeacherTabs.styles';
-
 interface PersonalTeacherTabsProps {
   data: GetTeacherResponse;
   tabIndex: string;
-  handleChange: (event, value) => void;
+  handleChange: (event: SyntheticEvent, value: TeachersPageTabs) => void;
 }
 
 const PersonalTeacherTabs: FC<PersonalTeacherTabsProps> = ({
@@ -55,18 +55,18 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabsProps> = ({
         <TabList id="lol" onChange={handleChange} sx={stylesMUI.tabList}>
           <Tab
             label="Загальне"
-            textPosition="center"
+            textPosition={TabTextPosition.CENTER}
             value={TeachersPageTabs.GENERAL}
           />
           <Tab
             label="Предмети"
-            textPosition="center"
+            textPosition={TabTextPosition.CENTER}
             value={TeachersPageTabs.SUBJECTS}
           />
           <Tab
             label="Відгуки"
             count={count}
-            textPosition="center"
+            textPosition={TabTextPosition.CENTER}
             value={TeachersPageTabs.COMMENTS}
           />
         </TabList>

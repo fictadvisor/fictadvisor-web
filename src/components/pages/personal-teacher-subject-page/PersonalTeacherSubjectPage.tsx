@@ -45,9 +45,11 @@ const PersonalTeacherSubjectPage = () => {
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState({ tab, router, setIndex });
+  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
 
   const teacher = data?.info;
+
+  if (!data) return null;
 
   return (
     <PageLayout description={'Сторінка викладача'}>

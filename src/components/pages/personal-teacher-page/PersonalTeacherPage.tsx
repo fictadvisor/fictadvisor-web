@@ -39,14 +39,16 @@ const PersonalTeacherPage = () => {
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState({ tab, router, setIndex });
+  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
 
   useEffect(() => {
     if (isError) {
       toast.error('Куди ти лізеш, цієї людини не існує');
       void push('/teachers');
     }
-  }, [isError]);
+  }, [isError, push, toast]);
+
+  if (!data) return null;
 
   const teacher = data?.info;
 

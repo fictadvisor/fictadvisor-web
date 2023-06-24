@@ -3,13 +3,17 @@ import { NextRouter } from 'next/router';
 
 import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 
-export type UseTabStateProps = {
+export interface UseTabStateProps<T> {
   tab: string | string[];
   router: NextRouter;
-  setIndex: Dispatch<SetStateAction<any>>;
-};
+  setIndex: Dispatch<SetStateAction<T>>;
+}
 
-const useTabState = ({ tab, router, setIndex }: UseTabStateProps) => {
+const useTabState = <T extends string>({
+  tab,
+  router,
+  setIndex,
+}: UseTabStateProps<T>) => {
   const { replace, query, isReady } = router;
   useEffect(() => {
     if (!isReady) {
@@ -17,7 +21,7 @@ const useTabState = ({ tab, router, setIndex }: UseTabStateProps) => {
     }
 
     if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
-      setIndex(tab as TeachersPageTabs);
+      setIndex(tab as T);
     } else {
       void replace(
         { query: { ...query, tab: TeachersPageTabs.GENERAL } },
@@ -29,11 +33,11 @@ const useTabState = ({ tab, router, setIndex }: UseTabStateProps) => {
     }
   }, [tab, isReady, replace, query]);
 
-  return async (event: SyntheticEvent, value) => {
+  return async (event: SyntheticEvent, value: T) => {
     await replace({ query: { ...query, tab: value } }, undefined, {
       shallow: true,
     });
-    setIndex(value as TeachersPageTabs);
+    setIndex(value as T);
   };
 };
 
