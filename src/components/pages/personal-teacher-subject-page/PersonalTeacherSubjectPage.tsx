@@ -72,11 +72,11 @@ const PersonalTeacherSubjectPage = () => {
                   },
                   { label: 'Викладачі', href: '/teachers' },
                   {
-                    label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
+                    label: `${teacher?.lastName} ${teacher?.firstName} ${teacher?.middleName}`,
                     href: `/teachers/${teacherId}`,
                   },
                   {
-                    label: `${teacher.subject.name}`,
+                    label: `${teacher?.subject.name}`,
                     href: `/discipline?teacherId=${teacherId}&subjectId=${subjectId}`,
                   },
                 ]}
