@@ -3,8 +3,6 @@ import { Box, Link, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
-import theme from '@/styles/theme';
-
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonSize,
@@ -12,6 +10,7 @@ import {
 } from '@/components/common/ui/button-mui/types';
 import IconButton from '@/components/common/ui/icon-button-mui/IconButton';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
+import theme from '@/styles/theme';
 
 import { mainLinks, socialLinks, supportLinks } from './constants';
 import * as styles from './Footer.styles';

@@ -3,9 +3,9 @@ import { ChangeInfoBody } from '@/lib/api/user/types/ChangeInfoBody';
 import { GetContactsResponse } from '@/lib/api/user/types/GetContactsResponse';
 import { RequestNewGroupBody } from '@/lib/api/user/types/RequestNewGroupBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
+import { TelegramUser } from '@/types/telegram';
 
 import { client } from '../instance';
-import { TelegramUser } from '@/types/telegram';
 
 class UserAPI {
   async changeInfo(userId: string, body: ChangeInfoBody) {

@@ -8,8 +8,8 @@ import { Breadcrumb } from '@/components/common/ui/breadcrumbs/Breadcrumbs';
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import styles from '@/components/pages/search-pages/SearchPage.module.scss';
 import { SubjectTeacherSearchList } from '@/components/pages/search-pages/subject-teacher-search/SubjectTeacherSearchList';
-import { GetTeachersBySubjectResponse } from '@/lib/api/subject/types/GetTeachersBySubjectResponse';
 import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
+import { GetTeachersBySubjectResponse } from '@/lib/api/subject/types/GetTeachersBySubjectResponse';
 
 const breadcrumbs: Breadcrumb[] = [
   {

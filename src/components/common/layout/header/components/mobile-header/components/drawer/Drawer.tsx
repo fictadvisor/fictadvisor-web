@@ -7,11 +7,11 @@ import Tab from '@/components/common/ui/tab-mui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 
 import { accountButtons, mainLinks } from '../../../../constants';
+import { TransformedUser } from '../../../../types';
 import AuthenticationButtons from '../../../authentication-buttons';
 import HeaderMobileCard from '../../../header-mobile-card';
 
 import * as styles from './Drawer.styles';
-import { TransformedUser } from '../../../../types';
 
 export interface DrawerProps {
   isLoggedIn: boolean;

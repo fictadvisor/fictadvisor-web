@@ -1,9 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
 
+import styles from '@/components/common/composite/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
 import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import { DivProps } from '@/components/common/ui/cards/types';
-import styles from '@/components/common/composite/cards/subject-teacher-card/SubjectTeacherCard.module.scss';
 import { TeacherRole } from '@/types/teacher';
 
 type SubjectTeacherCardProps = {

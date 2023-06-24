@@ -2,8 +2,8 @@ import { FC, useEffect } from 'react';
 import Link from 'next/link';
 
 import { SubjectTeacherCard } from '@/components/common/ui/cards/subject-teacher-card';
-import { Teacher } from '@/types/teacher';
 import useToast from '@/hooks/use-toast';
+import { Teacher } from '@/types/teacher';
 
 import styles from './SubjectTeacherSearchList.module.scss';
 

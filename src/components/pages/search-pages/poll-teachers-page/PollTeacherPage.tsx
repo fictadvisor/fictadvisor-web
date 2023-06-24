@@ -12,8 +12,8 @@ import Button, {
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import PollTeacherSearchList from '@/components/pages/search-pages/poll-teachers-page/PollTeacherSearchList';
 import useAuthentication from '@/hooks/use-authentication';
-import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 import PollAPI from '@/lib/api/poll/PollAPI';
+import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';

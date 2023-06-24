@@ -14,6 +14,10 @@ export interface ToastContext {
   showToast: (options: ToastActionProps) => void;
 }
 
-export type ToastFunction = (title: string, description?: string, timer?: number) => void;
+export type ToastFunction = (
+  title: string,
+  description?: string,
+  timer?: number,
+) => void;
 
 export type UseToastReturn = Record<AlertType, ToastFunction>;

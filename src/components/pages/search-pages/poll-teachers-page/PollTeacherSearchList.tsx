@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 
 import { PollTeacherCard } from '@/components/common/ui/cards/poll-teacher-card';
-import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 import useToast from '@/hooks/use-toast';
+import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 
 import styles from './PollTeacherSearchList.module.scss';
 

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { SubjectCard } from '@/components/common/ui/cards/subject-card';
-import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 import useToast from '@/hooks/use-toast';
+import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
 import styles from './SubjectSearchList.module.scss';
 
