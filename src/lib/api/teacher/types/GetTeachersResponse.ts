@@ -1,5 +1,5 @@
-import { GetTeacherResponse } from './GetTeacherResponse';
+import { Teacher } from '@/types/teacher';
 
 export interface GetTeachersResponse {
-  teachers: GetTeacherResponse[];
+  teachers: Omit<Teacher, 'role'>[];
 }
