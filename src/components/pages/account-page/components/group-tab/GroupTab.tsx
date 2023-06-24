@@ -8,14 +8,13 @@ import MobileStudentTable from '@/components/pages/account-page/components/group
 import RequestTable from '@/components/pages/account-page/components/group-tab/components/table/request-table';
 import StudentTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';
 import {
-  dataMapper,
   transformRequestsData,
   transformStudentsData,
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
 import useIsMobile from '@/hooks/use-is-mobile';
 import GroupAPI from '@/lib/api/group/GroupAPI';
-import { User } from '@/types/user';
+import { User, UserGroupRole } from '@/types/user';
 
 import styles from './GroupTab.module.scss';
 
@@ -53,7 +52,7 @@ const GroupTab: FC = () => {
   if (!user?.group?.role) return <NoGroupBlock />;
 
   const showRequests =
-    data?.requests?.length !== 0 && dataMapper[user?.group?.role];
+    data?.requests?.length !== 0 && user?.group?.role !== UserGroupRole.STUDENT;
 
   return (
     <div className={styles['content']}>
@@ -69,20 +68,20 @@ const GroupTab: FC = () => {
         ) : (
           <RequestTable
             refetch={refetch}
-            rows={transformRequestsData(data?.requests)}
+            rows={transformRequestsData(data.requests)}
           />
         ))}
       {isMobile ? (
         <MobileStudentTable
           refetch={refetch}
-          variant={dataMapper[user.group.role]}
-          rows={transformStudentsData(data?.students)}
+          variant={user.group.role}
+          rows={transformStudentsData(data.students)}
         />
       ) : (
         <StudentTable
           refetch={refetch}
-          variant={dataMapper[user.group.role]}
-          rows={transformStudentsData(data?.students)}
+          variant={user.group.role}
+          rows={transformStudentsData(data.students)}
         />
       )}
     </div>

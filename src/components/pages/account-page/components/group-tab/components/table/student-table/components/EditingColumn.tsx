@@ -14,11 +14,7 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import { TrashBucketButton } from '@/components/common/ui/icon-button/variants';
-import {
-  StudentRole,
-  StudentTableItem,
-} from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
-import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
+import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/student-table/types';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
@@ -57,7 +53,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
       setIsOpenChange(false);
       await GroupAPI.updateStudentRole(user?.group?.id as string, student.id, {
         roleName:
-          student.role === StudentRole.MODERATOR
+          student.role === UserGroupRole.MODERATOR
             ? UserGroupRole.STUDENT
             : UserGroupRole.MODERATOR,
       });
@@ -73,19 +69,17 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   };
 
   const buttonText =
-    student.role === StudentRole.MODERATOR
-      ? StudentRole.STUDENT
-      : StudentRole.MODERATOR;
+    student.role === UserGroupRole.MODERATOR ? 'Студент' : 'Зам. старости';
   const buttonIcon =
-    student.role === StudentRole.MODERATOR ? (
+    student.role === UserGroupRole.MODERATOR ? (
       <ArrowDownCircleIcon className="icon" />
     ) : (
       <ArrowUpCircleIcon className="icon" />
     );
 
   if (
-    dataMapper[user.group?.role as UserGroupRole] === StudentRole.CAPTAIN &&
-    student.role !== StudentRole.CAPTAIN
+    user.group?.role === UserGroupRole.CAPTAIN &&
+    student.role !== UserGroupRole.CAPTAIN
   ) {
     return (
       <div className={styles['side-buttons']}>
@@ -94,12 +88,12 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             isClosable={true}
             hasIcon={true}
             title={
-              student.role === StudentRole.MODERATOR
+              student.role === UserGroupRole.MODERATOR
                 ? 'Зробити студентом'
                 : 'Зробити зам старостою'
             }
             text={`Ви дійсно бажаєте зробити користувача ${student.fullName} ${
-              student.role === StudentRole.MODERATOR
+              student.role === UserGroupRole.MODERATOR
                 ? 'студентом'
                 : 'зам старостою'
             }?`}
@@ -168,10 +162,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     );
   }
 
-  if (
-    dataMapper[user.group?.role as UserGroupRole] === StudentRole.MODERATOR &&
-    !student.role
-  ) {
+  if (user.group?.role === UserGroupRole.MODERATOR && !student.role) {
     return (
       <>
         {isOpenDelete && (

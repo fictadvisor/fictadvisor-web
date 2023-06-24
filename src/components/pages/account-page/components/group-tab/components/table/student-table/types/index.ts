@@ -2,7 +2,7 @@ import { QueryObserverBaseResult } from 'react-query';
 
 import { UserGroupRole } from '@/types/user';
 
-// TODO: compare to similar types and unite
+// TODO: compare similar types
 export interface StudentTableItem {
   imgSrc?: string;
   fullName: string;

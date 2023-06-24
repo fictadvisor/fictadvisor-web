@@ -20,8 +20,6 @@ import {
   IconButtonColor,
 } from '@/components/common/ui/icon-button/IconButton';
 import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/types';
-import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
-import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
 import useOutsideClick from '@/hooks/use-outside-click';
 import GroupAPI from '@/lib/api/group/GroupAPI';
@@ -72,7 +70,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
       // TODO: remove as and refactor props
       await GroupAPI.updateStudentRole(user.group?.id as string, student.id, {
         roleName:
-          student.role === StudentRole.MODERATOR
+          student.role === UserGroupRole.MODERATOR
             ? UserGroupRole.STUDENT
             : UserGroupRole.MODERATOR,
       });
@@ -96,7 +94,8 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   const wrapperRef = useRef(null);
   useOutsideClick(wrapperRef, () => onChange(-1));
 
-  const buttonName = student.role ? StudentRole.STUDENT : StudentRole.MODERATOR;
+  // TODO: move magic strings to some const
+  const buttonName = student.role ? 'Студент' : 'Зам. старости';
   return (
     <>
       {isOpenChange && (
@@ -104,12 +103,12 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
           isClosable={true}
           hasIcon={true}
           title={
-            student.role === StudentRole.MODERATOR
+            student.role === UserGroupRole.MODERATOR
               ? 'Зробити студентом'
               : 'Зробити зам старостою'
           }
           text={`Ви дійсно бажаєте зробити користувача ${student.fullName} ${
-            student.role === StudentRole.MODERATOR
+            student.role === UserGroupRole.MODERATOR
               ? 'студентом'
               : 'зам старостою'
           }?`}
@@ -161,9 +160,9 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
           }
         />
       )}
-      {dataMapper[user.group?.role as UserGroupRole] === StudentRole.CAPTAIN ? (
+      {user.group?.role === UserGroupRole.CAPTAIN ? (
         <>
-          {student.role !== StudentRole.CAPTAIN ? (
+          {student.role !== UserGroupRole.CAPTAIN ? (
             <div className={styles['button']}>
               <IconButton
                 icon={<EllipsisVerticalIcon className={'icon'} />}
@@ -201,8 +200,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
           )}
         </>
       ) : (
-        dataMapper[user.group?.role as UserGroupRole] ===
-          StudentRole.MODERATOR && (
+        user.group?.role === UserGroupRole.MODERATOR && (
           <>
             {!student.role ? (
               <div className={styles['button']}>

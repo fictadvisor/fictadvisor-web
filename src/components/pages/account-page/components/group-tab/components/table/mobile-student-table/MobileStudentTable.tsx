@@ -14,11 +14,11 @@ import Tag from '@/components/common/ui/tag-mui';
 import { TagSize } from '@/components/common/ui/tag-mui/types';
 import CustomDivider from '@/components/pages/account-page/components/divider';
 import MobileStudentTableButtons from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/components/mobile-student-table-buttons';
-import { StudentRole } from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import { UserGroupRole } from '@/types/user';
 
 import { StudentTableProps } from './types';
 
@@ -111,7 +111,7 @@ const MobileStudentTable: React.FC<StudentTableProps> = ({
                 <Tag
                   size={TagSize.SMALL}
                   icon={
-                    row.role === StudentRole.CAPTAIN ? (
+                    row.role === UserGroupRole.CAPTAIN ? (
                       <Captain />
                     ) : (
                       <Moderator />
