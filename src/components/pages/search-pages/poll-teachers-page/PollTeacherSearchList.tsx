@@ -29,6 +29,7 @@ const PollTeacherSearchList: FC<PollTeacherSearchListProps> = ({
       {data &&
         data.teachers?.map(teacher => (
           <PollTeacherCard
+            id={teacher.disciplineTeacherId}
             key={teacher.disciplineTeacherId}
             description={teacher.subject.name}
             avatar={teacher.avatar}
