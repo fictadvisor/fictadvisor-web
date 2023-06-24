@@ -15,7 +15,7 @@ export const validationSchema = yup.object().shape({
       /^(?=.*[A-Za-z])(?=.*\d)[\w\W]+$/,
       'Мінімум одна латинська літера та одна цифра',
     ),
-  passwordConfirmation: yup
+  confirmationPassword: yup
     .string()
     .nullable()
     .oneOf([yup.ref('newPassword'), null], 'Паролі не збігаються')
