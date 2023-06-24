@@ -2,8 +2,8 @@ import { FC, HTMLProps, useEffect } from 'react';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
-import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 import useToast from '@/hooks/use-toast';
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
 import styles from './TeacherSearchList.module.scss';
 
@@ -26,7 +26,7 @@ export const TeacherSearchList: FC<TeacherSearchListProps> = ({
   }, [teachers.length]);
   return (
     <ul className={styles[`${className}-search-list`]}>
-      {teachers?.map(({ teacher }, index) => (
+      {teachers?.map((teacher, index) => (
         <Link key={index} href={`/teachers/${teacher.id}`}>
           <TeacherCard
             avatar={teacher.avatar}
