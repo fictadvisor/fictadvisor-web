@@ -1,8 +1,9 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
-import Tag, { TagColor, TagSize } from '@/components/common/ui/tag';
+import Tag from '@/components/common/ui/tag-mui';
 import styles from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card/PersonalTeacherSubjectCard.module.scss';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO';
@@ -18,7 +19,15 @@ const PersonalTeacherSubjectCard: FC<
   return (
     <div className={styles['card']}>
       <div className={styles['photo']}>
-        <img src={props.avatar} className={styles['image']} alt={'photo'}></img>
+        <Image
+          src={props.avatar}
+          alt="photo"
+          style={{
+            borderRadius: '50%',
+          }}
+          width={200}
+          height={200}
+        />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>
@@ -30,15 +39,15 @@ const PersonalTeacherSubjectCard: FC<
       </div>
       <div className={styles['tags']}>
         {props.roles.includes(TeacherRoles.LECTURER) && (
-          <Tag color={TagColor.VIOLET} size={TagSize.SMALL} text={'Лектор'} />
+          <Tag color="indigo" size="small" text="Лектор" />
         )}
 
         {props.roles.includes(TeacherRoles.PRACTICIAN) && (
-          <Tag color={TagColor.ORANGE} size={TagSize.SMALL} text={'Практик'} />
+          <Tag color="orange" size="small" text="Практик" />
         )}
 
         {props.roles.includes(TeacherRoles.LABORANT) && (
-          <Tag color={TagColor.MINT} size={TagSize.SMALL} text={'Лаборант'} />
+          <Tag color="mint" size="small" text="Лаборант" />
         )}
       </div>
 
@@ -54,12 +63,13 @@ const PersonalTeacherSubjectCard: FC<
         className={styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]}
       >
         {props.contacts.map((contact, index) => (
-          <Contact
-            key={index}
-            name={contact.name}
-            displayName={contact.displayName}
-            link={contact.link}
-          />
+          <div key={index} className={styles['contacts-item']}>
+            <Contact
+              name={contact.name}
+              displayName={contact.displayName}
+              link={contact.link}
+            />
+          </div>
         ))}
       </div>
     </div>
