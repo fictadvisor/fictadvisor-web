@@ -14,6 +14,7 @@ export const SkipTeacherPopup: FC<skipTeacherPopupProps> = ({
 }) => {
   return (
     <Popup
+      contentLeft={true}
       open={true}
       text="Чи дійсно ви бажаєте пропустити опитування про викладача? У разі схвальної відповіді, ви більше не зможете зробити відгук. Пам'ятайте, що ваша оцінка є важливою для наступних поколінь."
       title={'Пропустити опитування'}
@@ -25,10 +26,11 @@ export const SkipTeacherPopup: FC<skipTeacherPopupProps> = ({
           onClick={() => setOpen(false)}
         />
       }
+      hasCross={true}
       secondButton={
         <Button text={'Пропустити'} size={'small'} onClick={onTeacherSkip} />
       }
-      onClose={() => setOpen}
+      onClose={() => setOpen(false)}
     />
   );
 };
