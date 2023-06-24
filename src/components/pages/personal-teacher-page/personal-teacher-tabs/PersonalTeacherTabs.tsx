@@ -80,7 +80,10 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabsProps> = ({
             )}
           </TabPanel>
           <TabPanel value={TeachersPageTabs.SUBJECTS}>
-            <SubjectTab subjects={data.subjects} teacherId={data.info.id} />
+            <SubjectTab
+              subjects={data.subjects}
+              teacherId={data.info.teacher.id}
+            />
           </TabPanel>
           <TabPanel value={TeachersPageTabs.COMMENTS}>
             {count === 0 ? (
