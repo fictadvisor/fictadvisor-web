@@ -83,11 +83,9 @@ export const Dropdown: FC<DropdownProps> = ({
           disabled={isDisabled}
           onFocus={() => {
             setIsFocused(true);
-            debugger;
           }}
           onBlur={() => {
             setIsFocused(false);
-            debugger;
           }}
           fullWidth
           disablePortal

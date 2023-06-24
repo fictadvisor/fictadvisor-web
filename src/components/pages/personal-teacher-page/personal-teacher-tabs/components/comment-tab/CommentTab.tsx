@@ -18,10 +18,9 @@ const CommentTab: FC<TeacherTabProps> = ({
   teacherId,
   subjectId = undefined,
 }) => {
-  console.log(teacherId, subjectId);
   const [sort, setSort] = useState('newest');
   const { refetch, data: lol } = useQuery(
-    ['teacher', teacherId, subjectId],
+    ['teacherInfo', teacherId, subjectId],
     () =>
       TeacherAPI.getTeacherComments(
         teacherId,
@@ -49,7 +48,7 @@ const CommentTab: FC<TeacherTabProps> = ({
 
   const onChange = options => {
     setSort(options.dropdown);
-    refetch();
+    void refetch();
   };
   return (
     <Box sx={styles.wrapper}>
@@ -61,13 +60,14 @@ const CommentTab: FC<TeacherTabProps> = ({
         }}
       >
         {({ handleSubmit }) => (
-          <Form>
+          <Form style={styles.dropdown}>
             <Dropdown
               placeholder="Сортувати відгуки"
-              size={FieldSize.SMALL}
+              size={FieldSize.MEDIUM}
               options={sortInfo}
               name="dropdown"
               label=""
+              showRemark={false}
               onChange={handleSubmit}
             />
           </Form>
