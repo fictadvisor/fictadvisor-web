@@ -20,6 +20,18 @@
   top: -50px;
 }
 
+.subject-teacher-card-top-part{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.subject-teacher-card-top-part-rating{
+  position: relative;
+  top: 46px;
+}
+
 .subject-teacher-card-effect {
   cursor: pointer;
   &:focus {

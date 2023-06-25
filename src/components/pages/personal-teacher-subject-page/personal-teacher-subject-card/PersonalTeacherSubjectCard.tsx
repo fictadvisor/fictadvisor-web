@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Rating from '@/components/common/ui/rating-mui';
@@ -17,8 +16,6 @@ const PersonalTeacherSubjectCard: FC<
   PersonalTeacherSubjectCardProps
 > = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
-  //TODO: change with api request
-  const rating = 5;
   return (
     <div className={styles['card']}>
       <div className={styles['photo']}>
@@ -28,7 +25,7 @@ const PersonalTeacherSubjectCard: FC<
         <h4>
           {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
-        <Rating rating={rating} />
+        {props.rating != 0 && <Rating rating={props.rating / 20} />}
       </div>
       <div className={styles['subject']}>
         <h5>{props.subject.name}</h5>

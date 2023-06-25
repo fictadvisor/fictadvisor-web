@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
-import rating from '@/components/common/ui/rating-mui';
 import useToast from '@/hooks/use-toast';
 import { GetTeachersBySubjectDTO } from '@/lib/api/subject/dto/GetTeachersBySubjectDTO';
 import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
@@ -18,8 +17,7 @@ export const TeacherSearchList = ({
   | (GetTeachersDTO & { className: string })
   | (Omit<GetTeachersBySubjectDTO, 'subjectName'> & { className: string })) => {
   const toast = useToast();
-  //TODO: replace with real rating
-  const rating = 4;
+
   useEffect(() => {
     if (teachers.length === 0) {
       toast.error('Цього викладача не існує', '', TOAST_TIMER);
@@ -35,7 +33,7 @@ export const TeacherSearchList = ({
               avatar={teacher.avatar}
               key={teacher.id}
               name={`${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}
-              rating={rating}
+              rating={teacher.rating / 20}
             />
           </Link>
         ))}
