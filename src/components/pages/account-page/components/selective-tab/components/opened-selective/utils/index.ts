@@ -9,3 +9,11 @@ export const transformData = (
   }
   return { disciplines: newData };
 };
+
+export const getInitialValues = disciplines => {
+  const initialValues = {};
+  disciplines.forEach(
+    discipline => (initialValues[discipline.disciplineId] = false),
+  );
+  return initialValues;
+};

@@ -13,7 +13,7 @@ const SelectiveTab: FC = () => {
 
   const { data, refetch } = useQuery(
     ['selectiveDisciplines', user.id],
-    () => UserAPI.getSelectiveDisciplines(user.id),
+    () => UserAPI.getSelectiveDisciplinesBySemester(user.id),
     {
       refetchOnWindowFocus: false,
     },
