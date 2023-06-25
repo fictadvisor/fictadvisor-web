@@ -19,15 +19,7 @@ const PersonalTeacherSubjectCard: FC<
   return (
     <div className={styles['card']}>
       <div className={styles['photo']}>
-        <Image
-          src={props.avatar}
-          alt="photo"
-          style={{
-            borderRadius: '50%',
-          }}
-          width={200}
-          height={200}
-        />
+        <img src={props.avatar} className={styles['image']} alt="photo" />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>
@@ -51,27 +43,35 @@ const PersonalTeacherSubjectCard: FC<
         )}
       </div>
 
-      <Button
-        className={styles['contacts-button']}
-        text={'Контакти'}
-        endIcon={isContactsVisible ? <ChevronUpIcon /> : <ChevronDownIcon />}
-        variant={ButtonVariant.TEXT}
-        onClick={() => setContactsVisibility(!isContactsVisible)}
-      />
+      {props.contacts.length > 0 && (
+        <>
+          <Button
+            className={styles['contacts-button']}
+            text={'Контакти'}
+            endIcon={
+              isContactsVisible ? <ChevronUpIcon /> : <ChevronDownIcon />
+            }
+            variant={ButtonVariant.TEXT}
+            onClick={() => setContactsVisibility(!isContactsVisible)}
+          />
 
-      <div
-        className={styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]}
-      >
-        {props.contacts.map((contact, index) => (
-          <div key={index} className={styles['contacts-item']}>
-            <Contact
-              name={contact.name}
-              displayName={contact.displayName}
-              link={contact.link}
-            />
+          <div
+            className={
+              styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]
+            }
+          >
+            {props.contacts.map((contact, index) => (
+              <div key={index} className={styles['contacts-item']}>
+                <Contact
+                  name={contact.name}
+                  displayName={contact.displayName}
+                  link={contact.link}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 };

@@ -56,12 +56,14 @@ export class TeacherAPI {
     subjectId?: string,
     semester?: number,
     year?: number,
+    sortBy?: string,
   ): Promise<GetTeacherCommentsDTO> {
     const { data } = await client.get(`/teachers/${teacherId}/comments`, {
       params: {
         semester,
         subjectId,
         year,
+        sortBy,
       },
     });
     return data;
@@ -127,5 +129,13 @@ export class TeacherAPI {
       `/teachers/${teacherId}/subjects/${subjectId}`,
     );
     return data;
+  }
+
+  static async removeTeacher(teacherId: string): Promise<void> {
+    await client.post(
+      `/disciplineTeachers/${teacherId}/removeFromPoll`,
+      {},
+      getAuthorizationHeader(),
+    );
   }
 }

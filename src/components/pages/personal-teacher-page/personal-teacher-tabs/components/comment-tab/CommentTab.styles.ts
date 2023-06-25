@@ -12,3 +12,7 @@ export const commentsWrapper: SxProps<Theme> = {
   flexDirection: 'column',
   gap: '14px',
 };
+
+export const dropdown = {
+  marginBottom: '12 px',
+};
