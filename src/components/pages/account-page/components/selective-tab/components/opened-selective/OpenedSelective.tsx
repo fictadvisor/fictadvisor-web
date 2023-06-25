@@ -4,13 +4,15 @@ import { Form, Formik } from 'formik';
 
 import Button from '@/components/common/ui/button-mui';
 import { Checkbox } from '@/components/common/ui/form';
+import useAuthentication from '@/hooks/use-authentication';
+import { UserAPI } from '@/lib/api/user/UserAPI';
 
 import * as styles from './OpenedSelective.styles';
+import { transformData } from './utils';
 
 interface OpenedSelectiveProps {
-  userId: string;
   semester: 1 | 2;
-  year: string;
+  year: number;
   onSubmit: () => void;
 }
 
@@ -20,7 +22,6 @@ const semesterMap = {
 };
 
 const OpenedSelective: FC<OpenedSelectiveProps> = ({
-  userId,
   semester,
   year,
   onSubmit,
@@ -28,15 +29,19 @@ const OpenedSelective: FC<OpenedSelectiveProps> = ({
   const disciplines = ['asd1', 'asd2', 'asd3', 'asd4']; //useQuery instead
   const initialValues = {};
   disciplines.forEach(discipline => (initialValues[discipline] = false));
-  const handleSubmit = data => {
-    console.log(userId, data);
+  const { user } = useAuthentication();
+  const handleSubmit = async data => {
+    await UserAPI.postSelectiveDisciplines(user.id, transformData(data));
     onSubmit();
   };
 
   return (
     <Box sx={styles.wrapper}>
-      <Typography variant="h6">{`${semesterMap[semester]} семестр ${year}`}</Typography>
-      <Typography variant="h6">
+      <Typography
+        variant="h6Bold"
+        sx={styles.text}
+      >{`${semesterMap[semester]} семестр ${year}`}</Typography>
+      <Typography variant="h6Bold" sx={styles.text}>
         Обери предмети, які є твоїми вибірковими на цей семестр
       </Typography>
       <Formik initialValues={{ ...initialValues }} onSubmit={handleSubmit}>

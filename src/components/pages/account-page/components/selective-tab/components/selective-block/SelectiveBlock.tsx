@@ -10,7 +10,7 @@ import * as styles from './SelectiveBlock.styles';
 interface SelectiveBlockProps {
   userId: string;
   semester: 1 | 2;
-  year: string;
+  year: number;
   disciplines: string[];
   disciplinesNumber: number;
   refetch: () => void;
@@ -23,7 +23,6 @@ const semesterMap = {
 };
 
 const SelectiveBlock: FC<SelectiveBlockProps> = ({
-  userId,
   disciplinesNumber,
   disciplines,
   semester,
@@ -55,7 +54,6 @@ const SelectiveBlock: FC<SelectiveBlockProps> = ({
       {isOpen ? (
         <OpenedSelective
           semester={semester}
-          userId={userId}
           year={year}
           onSubmit={handleSubmit}
         />

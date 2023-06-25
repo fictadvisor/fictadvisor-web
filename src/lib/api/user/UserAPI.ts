@@ -1,6 +1,8 @@
 import { ChangeInfoBody } from '@/lib/api/user/dto/ChangeInfoBody';
 import { GetContactsDTO } from '@/lib/api/user/dto/GetContactsDTO';
+import { GetSelectiveDisciplinesDTO } from '@/lib/api/user/dto/GetSelectiveDisciplinesDTO';
 import { LinkTelegramBody } from '@/lib/api/user/dto/LinkTelegramBody';
+import { PostSelectiveDisciplinesBody } from '@/lib/api/user/dto/PostSelectiveDisciplinesBody';
 import { RequestNewGroupBody } from '@/lib/api/user/dto/RequestNewGroupBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 
@@ -88,6 +90,28 @@ export class UserAPI {
   static async requestNewGroup(body: RequestNewGroupBody, userId: string) {
     const { data } = await client.patch(
       `/users/${userId}/requestNewGroup`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  static async getSelectiveDisciplines(
+    userId: string,
+  ): Promise<GetSelectiveDisciplinesDTO> {
+    const { data } = await client.get(
+      `/users/${userId}/selectiveBySemesters`,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  static async postSelectiveDisciplines(
+    userId: string,
+    body: PostSelectiveDisciplinesBody,
+  ) {
+    const { data } = await client.post(
+      `/disciplines/${userId}/selectiveDisciplines`,
       body,
       getAuthorizationHeader(),
     );

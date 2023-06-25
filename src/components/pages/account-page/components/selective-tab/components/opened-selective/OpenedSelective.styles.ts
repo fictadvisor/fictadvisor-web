@@ -7,6 +7,13 @@ export const wrapper: SxProps<Theme> = {
   margin: '16px 0',
 };
 
+export const text: SxProps<Theme> = {
+  typography: {
+    mobile: 'body2Bold',
+    tablet: 'h6',
+  },
+};
+
 export const disciplines: SxProps<Theme> = {
   display: 'grid',
   gridTemplateColumns: {
