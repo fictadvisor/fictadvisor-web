@@ -18,12 +18,11 @@ const Rating: FC<RatingProps> = ({
 }) => {
   const maxStarsNumber = variant === RatingVariant.LONG ? 5 : 1;
   const number = variant === RatingVariant.LONG ? rating : rating / 5;
-  const precision = variant === RatingVariant.LONG ? 0.1 : 0.02;
   return (
     <RatingMui
       value={number}
       sx={sx}
-      precision={precision}
+      precision={0.1}
       max={maxStarsNumber}
       emptyIcon={
         <Icon>
