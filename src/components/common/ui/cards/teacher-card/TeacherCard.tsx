@@ -4,10 +4,12 @@ import Image from 'next/image';
 
 import styles from '@/components/common/ui/cards/teacher-card/TeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
+import Rating from '@/components/common/ui/rating-mui';
 
 type TeacherCardProps = {
   name: string;
   avatar?: string;
+  rating?: number;
   disabled?: boolean;
 } & DivProps;
 
@@ -15,6 +17,7 @@ export const TeacherCard: React.FC<TeacherCardProps> = ({
   name,
   avatar,
   disabled,
+  rating,
   ...rest
 }) => {
   return (
@@ -33,6 +36,7 @@ export const TeacherCard: React.FC<TeacherCardProps> = ({
           alt="викладач"
         />
         <h4 className={styles['teacher-card-name']}>{name}</h4>
+        <Rating rating={rating} />
       </div>
     </div>
   );
