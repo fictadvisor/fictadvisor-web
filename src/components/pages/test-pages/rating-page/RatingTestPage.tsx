@@ -28,6 +28,12 @@ const RatingTestPage = () => {
           <Rating rating={2.4} variant={RatingVariant.SHORT} />
           <Rating rating={1.3} variant={RatingVariant.SHORT} />
         </Box>
+        <Box sx={styles.column}>
+          <Rating rating={5} variant={RatingVariant.SHORT} />
+          <Rating rating={3.7} variant={RatingVariant.SHORT} />
+          <Rating rating={4} variant={RatingVariant.SHORT} />
+          <Rating rating={3.5} variant={RatingVariant.SHORT} />
+        </Box>
       </List>
     </Box>
   );
