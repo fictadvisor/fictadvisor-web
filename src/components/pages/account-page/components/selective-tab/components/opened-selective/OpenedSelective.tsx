@@ -28,8 +28,10 @@ const OpenedSelective: FC<OpenedSelectiveProps> = ({
   onSubmit,
 }) => {
   const { user } = useAuthentication();
-  const { data } = useQuery(['openedSelective', user.id, semester, year], () =>
-    UserAPI.getSelectiveDisciplines(user.id, year, semester),
+  const { data } = useQuery(
+    ['openedSelective', user.id, semester, year],
+    () => UserAPI.getSelectiveDisciplines(user.id, year, semester),
+    { refetchOnWindowFocus: false },
   );
 
   const handleSubmit = async data => {
@@ -39,8 +41,8 @@ const OpenedSelective: FC<OpenedSelectiveProps> = ({
 
   const checkDisabled = (values, id) => {
     if (values[id] === true) return false;
-    const numberOfChecked = values.filter(value => value);
-    return numberOfChecked > data.availableSelectiveAmount;
+    const numberOfChecked = Object.values(values).filter(value => value).length;
+    return numberOfChecked >= data.availableSelectiveAmount;
   };
 
   return (

@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
 
 import SelectiveBlock from '@/components/pages/account-page/components/selective-tab/components/selective-block';
 import useAuthentication from '@/hooks/use-authentication';
@@ -11,7 +12,7 @@ import * as styles from './SelectiveTab.styles';
 const SelectiveTab: FC = () => {
   const { user } = useAuthentication();
 
-  const { data, refetch } = useQuery(
+  const { data, refetch, isLoading } = useQuery(
     ['selectiveDisciplines', user.id],
     () => UserAPI.getSelectiveDisciplinesBySemester(user.id),
     {
@@ -37,7 +38,7 @@ const SelectiveTab: FC = () => {
           тому обирайте ті предмети на які потрапили
         </Typography>
       )}
-      {data && (
+      {data ? (
         <>
           {data.selective.map((selective, index) => (
             <SelectiveBlock
@@ -52,6 +53,15 @@ const SelectiveTab: FC = () => {
             />
           ))}
         </>
+      ) : (
+        !isLoading && (
+          <Box sx={styles.noData}>
+            <Typography variant="h6">
+              В тебе на цьому курсі немає вибіркових
+            </Typography>
+            <Image src="/icons/frog.svg" alt="Жаба" width={200} height={200} />
+          </Box>
+        )
       )}
     </Box>
   );

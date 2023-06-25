@@ -18,3 +18,12 @@ export const title: SxProps<Theme> = {
 export const description: SxProps<Theme> = {
   maxWidth: '492px',
 };
+
+export const noData: SxProps<Theme> = {
+  maxWidth: '400px',
+  display: 'flex',
+  flexDirection: 'column',
+  img: {
+    alignSelf: 'center',
+  },
+};
