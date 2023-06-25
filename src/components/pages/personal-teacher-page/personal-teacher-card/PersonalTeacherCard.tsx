@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
@@ -42,6 +42,7 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
         <h4>
           {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
+        {props.rating != 0 && <Rating rating={props.rating / 20} />}
       </div>
 
       <div className={styles['tags']}>
