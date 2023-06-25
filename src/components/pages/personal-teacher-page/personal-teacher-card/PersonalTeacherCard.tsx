@@ -3,6 +3,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
+import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
 import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
 import {
@@ -16,7 +17,8 @@ export type PersonalTeacherCardProps = GetTeacherDTO;
 
 const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
-
+  //TODO: change with api request
+  const rating = 5;
   return (
     <div className={styles['card']}>
       <div className={styles['photo']}>
@@ -26,6 +28,7 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
         <h4>
           {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
+        <Rating rating={rating}></Rating>
       </div>
 
       <div className={styles['tags']}>
