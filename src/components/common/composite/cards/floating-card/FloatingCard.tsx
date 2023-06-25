@@ -8,7 +8,6 @@ import {
   GetTeacherDTO,
   TeacherRoles,
 } from '@/lib/api/teacher/dto/GetTeacherDTO';
-import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO';
 
 import * as styles from './FloatingCard.styles';
 
