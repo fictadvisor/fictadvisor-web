@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const rating: SxProps<Theme> = {
-  width: 'fit-content0',
+  width: 'fit-content',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
