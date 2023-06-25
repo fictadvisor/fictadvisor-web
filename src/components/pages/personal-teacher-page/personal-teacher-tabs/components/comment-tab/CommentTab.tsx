@@ -95,7 +95,9 @@ const CommentTab: FC<TeacherTabProps> = ({
           )),
         )}
       </Box>
-      {teacher && floatingCardShowed && <FloatingCard {...teacher} />}
+      {teacher && floatingCardShowed && (
+        <FloatingCard {...teacher} subjectName={teacher.subject.name} />
+      )}
     </Box>
   );
 };

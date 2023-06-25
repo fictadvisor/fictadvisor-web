@@ -8,10 +8,15 @@ import {
   GetTeacherDTO,
   TeacherRoles,
 } from '@/lib/api/teacher/dto/GetTeacherDTO';
+import { GetTeacherSubjectDTO } from '@/lib/api/teacher/dto/GetTeacherSubjectDTO';
 
 import * as styles from './FloatingCard.styles';
 
-export const FloatingCard: FC<GetTeacherDTO> = ({
+interface FloatingCardProps extends GetTeacherDTO {
+  subjectName?: string;
+}
+
+export const FloatingCard: FC<FloatingCardProps> = ({
   firstName,
   middleName,
   lastName,
@@ -19,6 +24,7 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
   avatar,
   roles,
   contacts,
+  subjectName,
 }) => {
   return (
     <Box sx={styles.card}>
@@ -45,6 +51,12 @@ export const FloatingCard: FC<GetTeacherDTO> = ({
           </Box>
         </Box>
       </Box>
+
+      {subjectName && (
+        <Typography sx={styles.subject} component="h4">
+          {subjectName}
+        </Typography>
+      )}
 
       {description && <Box>{description}</Box>}
 
