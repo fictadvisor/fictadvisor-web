@@ -25,7 +25,7 @@ const Rating: FC<RatingProps> = ({
   const value = isLongVariant ? rating : rating / 5;
   const precision = isLongVariant ? 0.1 : 0.02;
   return (
-    <Box sx={mergeSx(styles.rating, sx)}>
+    <Box sx={mergeSx(styles.rating(variant), sx)}>
       {!isLongVariant && <Box>{rating}</Box>}
       <RatingMui
         value={value}
