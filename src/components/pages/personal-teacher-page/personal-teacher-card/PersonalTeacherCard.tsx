@@ -5,6 +5,7 @@ import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
 import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
+import { TeacherContext } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 import {
   GetTeacherDTO,
   TeacherRoles,
@@ -16,8 +17,24 @@ export type PersonalTeacherCardProps = GetTeacherDTO;
 
 const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
+  const blockRef = useRef(null);
+  const { setFloatingCardShowed } = useContext(TeacherContext);
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom = blockRef.current?.getBoundingClientRect().bottom;
+      if (bottom < 0) {
+        setFloatingCardShowed(true);
+      } else {
+        setFloatingCardShowed(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
-    <div className={styles['card']}>
+    <div ref={blockRef} className={styles['card']}>
       <div className={styles['photo']}>
         <img src={props.avatar} className={styles['image']} alt="photo" />
       </div>
@@ -25,7 +42,6 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
         <h4>
           {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
-        {props.rating != 0 && <Rating rating={props.rating / 20} />}
       </div>
 
       <div className={styles['tags']}>
