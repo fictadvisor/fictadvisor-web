@@ -28,6 +28,7 @@ export const background: SxProps<Theme> = {
   },
 
   svg: {
+    stroke: '#353535',
     position: 'absolute',
     right: 0,
     width: '100%',
