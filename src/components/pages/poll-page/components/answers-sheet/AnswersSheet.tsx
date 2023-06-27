@@ -84,6 +84,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const numberRowsTextArea = isMobile ? 8 : 4;
 
   useEffect(() => {
     for (const question of questions.questions) {
@@ -207,7 +208,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         />
                       ) : (
                         <TextArea
-                          rowsNumber={isMobile ? 8 : 4}
+                          rowsNumber={numberRowsTextArea}
                           sx={sxStyles.textArea}
                           name={question.id}
                         />
