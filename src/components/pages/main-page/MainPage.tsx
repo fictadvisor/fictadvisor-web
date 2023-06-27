@@ -2,7 +2,6 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import Button, {
   ButtonColor,
   ButtonSize,
@@ -28,17 +27,13 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
   const { isLoggedIn } = useAuthentication();
 
   return (
-    <PageLayout
-      description={'Головна сторінка'}
-      hasFooter={true}
-      className={styles['main-page']}
-    >
+    <div className={styles['main-page']}>
       <div className={styles['main-page-content']}>
         {token && isReady && <TokenPopup token={token} />}
         <div className={styles['header']}>
           <div className={styles['header-info']}>
             <div className={styles['header-info-content']}>
-              <h2>Твій студентський портал</h2>
+              <h1 className={styles['title']}>Твій студентський портал</h1>
               <p>
                 Зустрічай FICT Advisor — офіційний сайт Студради ФІОТ.
                 Опитування про викладачів, багатофункціональний розклад,
@@ -137,7 +132,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
           </div>
         </div>
       </div>
-    </PageLayout>
+    </div>
   );
 };
 
