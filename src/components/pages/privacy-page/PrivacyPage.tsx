@@ -6,7 +6,7 @@ import styles from './PrivacyPage.module.scss';
 const PrivacyPage = () => {
   return (
     <div className={styles['privacy-content']}>
-      <h1 className={styles['h4-content']}>Політика конфіденційності</h1>
+      <h1 className={styles['h1-content']}>Політика конфіденційності</h1>
       <div className={styles['privacy-list']}>
         <div className={styles['privacy-list-item']}>
           <p className={styles['body-primary']}>
