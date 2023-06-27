@@ -1,14 +1,7 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
-import PageLayout from '@/components/common/layout/page-layout';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Loader from '@/components/common/ui/loader';
 import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
@@ -53,7 +46,6 @@ const PersonalTeacherPage = () => {
     },
   );
   const toast = useToast();
-  const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
   const { tab } = query;
   const [index, setIndex] = useState<TeachersPageTabs>(
