@@ -8,7 +8,7 @@ export interface GetTeacherSubjectDTO {
   middleName: string;
   firstName: string;
   rating: number;
-  subject: {
+  subject?: {
     id: string;
     name: ContactType;
   };

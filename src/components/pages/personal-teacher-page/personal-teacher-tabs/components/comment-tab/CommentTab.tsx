@@ -7,7 +7,7 @@ import { FloatingCard } from '@/components/common/ui/cards/floating-card';
 import Comment from '@/components/common/ui/comment';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import { Dropdown } from '@/components/common/ui/form/dropdown/Dropdown';
-import { TeacherContext } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
+import { TeacherContext } from '@/components/common/ui/teacher-page/TeacherPage';
 import { TeacherSubjectContext } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
 import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
 

@@ -4,8 +4,8 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
+import { TeacherContext } from '@/components/common/ui/teacher-page/TeacherPage';
 import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
-import { TeacherContext } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
 import {
   GetTeacherDTO,
   TeacherRoles,
