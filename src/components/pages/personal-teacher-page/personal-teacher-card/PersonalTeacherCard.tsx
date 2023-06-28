@@ -4,16 +4,16 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import Button, { ButtonVariant } from '@/components/common/ui/button';
 import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
-import { TeacherContext } from '@/components/common/ui/teacher-page/TeacherPage';
-import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
 import {
-  GetTeacherDTO,
-  TeacherRoles,
-} from '@/lib/api/teacher/dto/GetTeacherDTO';
+  GetFullTeacherDTO,
+  TeacherContext,
+} from '@/components/common/ui/teacher-page/TeacherPage';
+import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
+import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import Contact from '../contacts/Contact';
 
-export type PersonalTeacherCardProps = GetTeacherDTO;
+export type PersonalTeacherCardProps = GetFullTeacherDTO;
 
 const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
@@ -44,7 +44,11 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
         </h4>
         {props.rating != 0 && <Rating rating={props.rating / 20} />}
       </div>
-
+      {props.subject && (
+        <div className={styles['subject']}>
+          <h5>{props.subject.name}</h5>
+        </div>
+      )}
       <div className={styles['tags']}>
         {props.roles.includes(TeacherRoles.LECTURER) && (
           <Tag color="indigo" size="small" text="Лектор" />

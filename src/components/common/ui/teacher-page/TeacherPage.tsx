@@ -24,7 +24,7 @@ export enum TeachersPageTabs {
   COMMENTS = 'reviews',
 }
 
-type GetFullTeacherDTO = GetTeacherDTO & GetTeacherSubjectDTO;
+export type GetFullTeacherDTO = GetTeacherDTO & GetTeacherSubjectDTO;
 export interface GetFullTeacherResponse
   extends GetTeacherResponse,
     GetTeacherSubjectResponse {
