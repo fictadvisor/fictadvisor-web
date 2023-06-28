@@ -44,12 +44,13 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
           {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
         {props.rating != 0 && <Rating rating={props.rating / 20} />}
+        {props.subject && (
+          <div className={styles['subject']}>
+            <h5>{props.subject.name}</h5>
+          </div>
+        )}
       </div>
-      {props.subject && (
-        <div className={styles['subject']}>
-          <h5>{props.subject.name}</h5>
-        </div>
-      )}
+
       <div className={styles['tags']}>
         {props.roles.includes(TeacherRoles.LECTURER) && (
           <Tag color="indigo" size="small" text="Лектор" />
@@ -63,7 +64,9 @@ const PersonalTeacherCard: FC<PersonalTeacherCardProps> = props => {
           <Tag color="mint" size="small" text="Лаборант" />
         )}
       </div>
-      <div className={styles['info']}>{props.description}</div>
+      {props.description && (
+        <div className={styles['info']}>{props.description}</div>
+      )}
       {props.contacts.length !== 0 && (
         <Button
           className={styles['contacts-button']}
