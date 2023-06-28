@@ -11,7 +11,7 @@ export interface GetTeacherDTO {
   firstName: string;
   middleName: string;
   lastName: string;
-  description: string;
+  description?: string;
   avatar: string;
   rating: number;
   roles: TeacherRoles[];

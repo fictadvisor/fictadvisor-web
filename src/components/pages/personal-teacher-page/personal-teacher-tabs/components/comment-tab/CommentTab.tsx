@@ -22,11 +22,7 @@ const CommentTab: FC<TeacherTabProps> = ({
   teacherId,
   subjectId = undefined,
 }) => {
-  const teacherCont = useContext(TeacherContext);
-  const teacherSubjectCont = useContext(TeacherSubjectContext);
-  const { floatingCardShowed, teacher } = teacherCont
-    ? teacherCont
-    : teacherSubjectCont;
+  const { floatingCardShowed, teacher } = useContext(TeacherContext);
   const [sort, setSort] = useState('newest');
   const { refetch, data: lol } = useQuery(
     ['teacherInfo', teacherId, subjectId],

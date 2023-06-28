@@ -9,7 +9,7 @@ const MIN_MARKS_LENGTH = 8;
 
 export interface GetTeacherResponse {
   info: GetTeacherDTO;
-  subjects: GetTeacherSubjectsDTO['subjects'];
+  subjects?: GetTeacherSubjectsDTO['subjects'];
   comments: GetTeacherCommentsDTO;
   marks: GetTeacherMarksDTO['marks'];
   hasEnoughMarks: boolean;
