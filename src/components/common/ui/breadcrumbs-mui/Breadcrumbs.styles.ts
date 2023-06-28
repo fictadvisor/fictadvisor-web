@@ -1,7 +1,6 @@
 import { SxProps, Theme } from '@mui/system';
 
 import palette from '@/styles/theme/constants/pallete/palette';
-import typography from '@/styles/theme/constants/typography/typography';
 
 export const homeIcon: SxProps<Theme> = {
   width: '14px',
@@ -19,7 +18,6 @@ export const breadcrumb: SxProps<Theme> = {
     },
   },
   a: {
-    fontSize: typography.body1,
     gap: '4px',
     display: 'flex',
     alignItems: 'center',

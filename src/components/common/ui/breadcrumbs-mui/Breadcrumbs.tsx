@@ -8,6 +8,7 @@ import {
   Box,
   Breadcrumbs as BreadcrumbsMUI,
   Link,
+  Typography,
   useMediaQuery,
 } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
@@ -36,7 +37,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, sx }) => {
           <HomeIcon />
         </Box>
       )}
-      <Box component="span">{item.label}</Box>
+      <Typography>{item.label}</Typography>
     </Link>
   ));
 
@@ -56,7 +57,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, sx }) => {
           <Box sx={styles.homeIcon}>
             <ChevronLeftIcon />
           </Box>
-          <Box component="span">{items[0].label}</Box>
+          <Typography>{items[0].label}</Typography>
         </Link>
       ) : (
         breadcrumbs
