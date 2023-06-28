@@ -15,7 +15,7 @@ import {
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
 import { GroupAPI } from '@/lib/api/group/GroupAPI';
-import breakpoints from '@/styles/theme/constants/breakpoints';
+import theme from '@/styles/theme';
 
 import styles from './GroupTab.module.scss';
 
@@ -35,7 +35,7 @@ const getStudents = user => {
 };
 
 const GroupTab: FC = () => {
-  const isMobile = useMediaQuery(breakpoints.down('desktop'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const { user } = useAuthentication();
 
   const { data, isLoading, refetch } = useQuery(

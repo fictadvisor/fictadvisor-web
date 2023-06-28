@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 
-import breakpoints from '@/styles/theme/constants/breakpoints';
+import theme from '@/styles/theme';
 
 import { Category, FetchedTeacherPollData, Question } from '../../PollPage';
 import AnswersSheet from '../answers-sheet/AnswersSheet';
@@ -52,7 +52,7 @@ const PollForm: React.FC<PollFormProps> = ({ data }) => {
   const [progress, setProgress] = React.useState<number[]>(
     Array(categories.length).fill(0),
   );
-  const isMobile = useMediaQuery(breakpoints.down('desktop'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isQuestionsListOpened, setQuestionsListOpened] = useState(false);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [currentCategory, setCurrentCategory] = React.useState(0);
