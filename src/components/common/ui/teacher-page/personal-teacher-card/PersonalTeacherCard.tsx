@@ -8,10 +8,11 @@ import {
   GetFullTeacherDTO,
   TeacherContext,
 } from '@/components/common/ui/teacher-page/TeacherPage';
-import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 import Contact from '../contacts/Contact';
+
+import styles from './PersonalTeacherCard.module.scss';
 
 export type PersonalTeacherCardProps = GetFullTeacherDTO;
 

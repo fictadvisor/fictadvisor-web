@@ -10,25 +10,25 @@ import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
 const CommentTab = dynamic(
   () =>
     import(
-      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/comment-tab'
+      '@/components/common/ui/teacher-page/personal-teacher-tabs/components/comment-tab'
     ),
 );
 const GeneralTab = dynamic(
   () =>
     import(
-      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab'
+      '@/components/common/ui/teacher-page/personal-teacher-tabs/components/general-tab'
     ),
 );
 const PollButtons = dynamic(
   () =>
     import(
-      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/poll-buttons'
+      '@/components/common/ui/teacher-page/personal-teacher-tabs/components/poll-buttons'
     ),
 );
 const SubjectTab = dynamic(
   () =>
     import(
-      '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/subject-tab'
+      '@/components/common/ui/teacher-page/personal-teacher-tabs/components/subject-tab'
     ),
 );
 

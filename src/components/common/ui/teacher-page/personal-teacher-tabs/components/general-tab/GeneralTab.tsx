@@ -10,7 +10,7 @@ import CircleDiagram from '@/components/common/ui/circle-diagram';
 import ColumnChart from '@/components/common/ui/column-chart';
 import LineGraph from '@/components/common/ui/line_graph';
 import Radar from '@/components/common/ui/radar';
-import FillerBox from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab/components';
+import FillerBox from '@/components/common/ui/teacher-page/personal-teacher-tabs/components/general-tab/components';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 import {
   AmountMarkType,

@@ -1,4 +1,4 @@
-import { ContactType } from '@/components/pages/personal-teacher-page/contacts';
+import { ContactType } from '@/components/common/ui/teacher-page/contacts';
 import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 
 export interface GetTeacherSubjectDTO {

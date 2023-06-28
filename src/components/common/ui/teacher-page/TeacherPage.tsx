@@ -5,7 +5,7 @@ import PageLayout from '@/components/common/layout/page-layout';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Loader from '@/components/common/ui/loader';
 import PersonalTeacherCard from '@/components/common/ui/teacher-page/personal-teacher-card';
-import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
+import PersonalTeacherTabs from '@/components/common/ui/teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
 import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
@@ -25,6 +25,7 @@ export enum TeachersPageTabs {
 }
 
 export type GetFullTeacherDTO = GetTeacherDTO & GetTeacherSubjectDTO;
+
 export interface GetFullTeacherResponse
   extends GetTeacherResponse,
     GetTeacherSubjectResponse {
@@ -94,7 +95,11 @@ const TeacherPage: FC<TeacherPageProps> = ({
                       label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
                       href: `/teachers/${teacherId}`,
                     },
-                  ]}
+                    teacher.subject && {
+                      label: `${teacher.subject?.name}`,
+                      href: `/discipline?teacherId=${teacherId}&subjectId=${subjectId}`,
+                    },
+                  ].filter(Boolean)}
                 />
                 <div className={styles['card-wrapper']}>
                   <PersonalTeacherCard {...teacher} />

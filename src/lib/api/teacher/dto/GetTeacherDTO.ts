@@ -1,4 +1,4 @@
-import { ContactType } from '@/components/pages/personal-teacher-page/contacts';
+import { ContactType } from '@/components/common/ui/teacher-page/contacts';
 
 export enum TeacherRoles {
   LECTURER = 'LECTURER',

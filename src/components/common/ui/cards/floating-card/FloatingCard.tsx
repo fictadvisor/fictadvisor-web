@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
-import Contact from '@/components/pages/personal-teacher-page/contacts';
+import Contact from '@/components/common/ui/teacher-page/contacts';
 import {
   GetTeacherDTO,
   TeacherRoles,
