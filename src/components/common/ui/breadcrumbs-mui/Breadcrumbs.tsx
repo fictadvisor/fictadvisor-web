@@ -37,7 +37,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, sx }) => {
           <HomeIcon />
         </Box>
       )}
-      <Typography>{item.label}</Typography>
+      <Typography sx={styles.label}>{item.label}</Typography>
     </Link>
   ));
 

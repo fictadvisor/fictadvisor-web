@@ -22,12 +22,13 @@ export const breadcrumb: SxProps<Theme> = {
     display: 'flex',
     alignItems: 'center',
     color: palette.grey[700],
-    span: {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-    },
   },
+};
+
+export const label: SxProps<Theme> = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 };
 
 export const arrow: SxProps<Theme> = {
