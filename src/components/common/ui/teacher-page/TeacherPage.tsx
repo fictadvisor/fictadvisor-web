@@ -4,7 +4,7 @@ import { NextRouter } from 'next/router';
 import PageLayout from '@/components/common/layout/page-layout';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Loader from '@/components/common/ui/loader';
-import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
+import PersonalTeacherCard from '@/components/common/ui/teacher-page/personal-teacher-card';
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
 import useTabState from '@/hooks/use-tab-state';

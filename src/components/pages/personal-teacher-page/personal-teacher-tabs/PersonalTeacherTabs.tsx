@@ -58,11 +58,13 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabs> = ({
             textPosition="center"
             value={TeachersPageTabs.GENERAL}
           />
-          <Tab
-            label="Предмети"
-            textPosition="center"
-            value={TeachersPageTabs.SUBJECTS}
-          />
+          {data.subjects && (
+            <Tab
+              label="Предмети"
+              textPosition="center"
+              value={TeachersPageTabs.SUBJECTS}
+            />
+          )}
           <Tab
             label="Відгуки"
             count={count}
@@ -79,9 +81,11 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabs> = ({
               <PollButtons text={data.marksText} buttonInfo={data.buttonInfo} />
             )}
           </TabPanel>
-          <TabPanel value={TeachersPageTabs.SUBJECTS}>
-            <SubjectTab subjects={data.subjects} teacherId={data.info.id} />
-          </TabPanel>
+          {data.subjects && (
+            <TabPanel value={TeachersPageTabs.SUBJECTS}>
+              <SubjectTab subjects={data.subjects} teacherId={data.info.id} />
+            </TabPanel>
+          )}
           <TabPanel value={TeachersPageTabs.COMMENTS}>
             {count === 0 ? (
               <PollButtons
