@@ -35,7 +35,7 @@ export const icon: SxProps<Theme> = {
   },
   marginBottom: {
     mobile: '24px',
-    mobileMedium: '34px',
+    mobileMedium: '32px',
   },
   padding: {
     mobile: '0px',

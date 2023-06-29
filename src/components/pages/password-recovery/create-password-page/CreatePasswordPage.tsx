@@ -26,12 +26,11 @@ const CreatePasswordPage = () => {
     {
       refetchOnWindowFocus: false,
     },
-    //ТУТ Я ПРИБРАВ КОД ДЛЯ ТОКІНА, ПРИ АПРУВІ ТРЕБА ТЕРМІНОВО ПОВЕРНУТИ
   );
   if (!isFetching) {
-    // if (!data.isAvailable) {
-    //   void router.push('/password-recovery/invalid');
-    // }
+    if (!data.isAvailable) {
+      void router.push('/password-recovery/invalid');
+    }
   }
 
   return (
@@ -40,25 +39,28 @@ const CreatePasswordPage = () => {
       hasFooter={false}
       description={'Сторінка для створення нового пароля'}
     >
-      {/*ТУТ Я ТЕЖ ПРИБИРАВ КОД*/}
       <Box sx={styles.container}>
         <Box sx={styles.content}>
-          <>
-            <Box sx={styles.icon}>
-              <FingerPrintIcon />
-            </Box>
-            <Typography sx={styles.title}>Вигадай новий пароль</Typography>
-            <Box sx={styles.form}>
-              <CreatePasswordForm />
-            </Box>
-            <Button
-              text="Повернутись до авторизації"
-              variant="text"
-              size="small"
-              startIcon={<ChevronLeftIcon />}
-              onClick={returnAuth}
-            />
-          </>
+          {isFetching || !data.isAvailable ? (
+            <Loader size={LoaderSize.SMALLEST} />
+          ) : (
+            <>
+              <Box sx={styles.icon}>
+                <FingerPrintIcon />
+              </Box>
+              <Typography sx={styles.title}>Вигадай новий пароль</Typography>
+              <Box sx={styles.form}>
+                <CreatePasswordForm />
+              </Box>
+              <Button
+                text="Повернутись до авторизації"
+                variant="text"
+                size="small"
+                startIcon={<ChevronLeftIcon />}
+                onClick={returnAuth}
+              />
+            </>
+          )}
         </Box>
       </Box>
     </PageLayout>
