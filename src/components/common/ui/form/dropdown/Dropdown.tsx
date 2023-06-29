@@ -94,9 +94,6 @@ export const Dropdown: FC<DropdownProps> = ({
           blurOnSelect={true}
           options={options}
           isOptionEqualToValue={(option, value) => {
-            if (typeof value === 'string') {
-              return option.value === value;
-            }
             return option.value === value.value;
           }}
           renderInput={params => (
