@@ -1,25 +1,43 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+import theme from '@/styles/theme';
 import palette from '@/styles/theme/constants/pallete';
-import typography from '@/styles/theme/constants/typography';
-
-export const LinkStyles = (type): SxProps<Theme> => ({
-  color: type == 'white' ? palette.grey[800] : palette.info[400],
+type LinkType = 'white' | 'blue';
+export const LinkStyles = (type: LinkType): SxProps<Theme> => ({
   typography: {
-    mobile: typography.body1,
-    desktopSemiMedium: typography.body1,
+    mobile: 'body1',
+    desktopSemiMedium: 'body1',
   },
-  textDecorationColor: type == 'white' ? palette.grey[800] : palette.info[400],
-  '&:visited': {
-    color: type == 'blue' ? palette.info[200] : null,
-    textDecorationColor: type == 'blue' ? palette.info[200] : null,
-  },
-  '&:hover': {
-    color: type == 'blue' ? palette.info[500] : null,
-    textDecorationColor: type == 'blue' ? palette.info[500] : null,
-  },
-  '&:active': {
-    color: type == 'blue' ? palette.info[700] : null,
-    textDecorationColor: type == 'blue' ? palette.info[700] : null,
-  },
+  ...(type === 'white' && {
+    color: theme.palette.grey[800],
+    textDecorationColor: theme.palette.grey[800],
+    '&:visited': {
+      color: theme.palette.grey[700],
+      textDecorationColor: theme.palette.grey[700],
+    },
+    '&:hover': {
+      color: palette.grey.white,
+      textDecorationColor: palette.grey.white,
+    },
+    '&:active': {
+      color: palette.grey.white,
+      textDecorationColor: palette.grey.white,
+    },
+  }),
+  ...(type === 'blue' && {
+    color: theme.palette.info[400],
+    textDecorationColor: theme.palette.info[400],
+    '&:visited': {
+      color: theme.palette.info[200],
+      textDecorationColor: theme.palette.info[200],
+    },
+    '&:hover': {
+      color: theme.palette.info[500],
+      textDecorationColor: theme.palette.info[500],
+    },
+    '&:active': {
+      color: theme.palette.info[700],
+      textDecorationColor: theme.palette.info[700],
+    },
+  }),
 });
