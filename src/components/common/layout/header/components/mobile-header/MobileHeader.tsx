@@ -24,7 +24,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ isLoggedIn, user }) => {
   return (
     <AppBar sx={styles.headerContainer(isOpened)}>
       <Link href="/" component={NextLink} sx={styles.headerLogo}>
-        <Image src="/images/logo.png" alt="logo" width={197} height={20} />
+        <Image src="/images/logo.png" alt="logo" width={197} height={20} priority/>
       </Link>
       {isOpened ? (
         <Box sx={styles.iconButton}>

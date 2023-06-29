@@ -20,6 +20,7 @@ const Footer: FC = () => {
         <Link href="/" component={NextLink} sx={styles.footerLogo}>
           <Image
             src="/images/logo.png"
+            priority
             quality={100}
             width={197}
             height={20}
