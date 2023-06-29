@@ -2,15 +2,15 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 import theme from '@/styles/theme';
 enum LinkType {
-  White = 'white',
-  Blue = 'blue',
+  WHITE = 'white',
+  BLUE = 'blue',
 }
 export const LinkStyles = (type: LinkType): SxProps<Theme> => ({
   typography: {
     mobile: 'body1',
     desktopSemiMedium: 'body1',
   },
-  ...(type === LinkType.White && {
+  ...(type === LinkType.WHITE && {
     color: theme.palette.grey[800],
     textDecorationColor: theme.palette.grey[800],
     '&:visited': {
@@ -26,7 +26,7 @@ export const LinkStyles = (type: LinkType): SxProps<Theme> => ({
       textDecorationColor: theme.palette.grey['white'],
     },
   }),
-  ...(type === LinkType.Blue && {
+  ...(type === LinkType.BLUE && {
     color: theme.palette.info[400],
     textDecorationColor: theme.palette.info[400],
     '&:visited': {

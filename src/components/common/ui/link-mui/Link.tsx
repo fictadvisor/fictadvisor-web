@@ -7,8 +7,8 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import * as styles from './Link.styles';
 
 enum LinkType {
-  White = 'white',
-  Blue = 'blue',
+  WHITE = 'white',
+  BLUE = 'blue',
 }
 interface LinkProps {
   href: string;
@@ -16,7 +16,7 @@ interface LinkProps {
   sx?: SxProps<Theme>;
   type?: LinkType;
 }
-const Link: FC<LinkProps> = ({ href, text, sx, type = LinkType.White }) => {
+const Link: FC<LinkProps> = ({ href, text, sx, type = LinkType.WHITE }) => {
   return (
     <MuiLink href={href} sx={mergeSx(styles.LinkStyles(type), sx)}>
       {text}

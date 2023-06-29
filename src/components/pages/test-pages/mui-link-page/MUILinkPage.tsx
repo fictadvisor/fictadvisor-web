@@ -1,8 +1,8 @@
 import Link from '@/components/common/ui/link-mui';
 
 enum LinkType {
-  White = 'white',
-  Blue = 'blue',
+  WHITE = 'white',
+  BLUE = 'blue',
 }
 
 const LinkPage = () => {
@@ -11,13 +11,13 @@ const LinkPage = () => {
       <Link
         href="#"
         text="Click here to open documentation"
-        type={LinkType.Blue}
+        type={LinkType.BLUE}
       />
       <br />
       <Link
         href="#"
         text="Click here to open documentation"
-        type={LinkType.White}
+        type={LinkType.WHITE}
       />
     </div>
   );
