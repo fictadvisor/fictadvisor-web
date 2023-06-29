@@ -18,8 +18,8 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
 }) => {
   return (
     <Button sx={styles.wrapper(type)} disableRipple disabled={disabled}>
-      <Typography sx={styles.subject}>{subject}</Typography>
-      <Typography sx={styles.time(type)}>{time}</Typography>
+      <Typography variant={'body1'}>{subject}</Typography>
+      <Typography variant={'body2'}>{time}</Typography>
     </Button>
   );
 };
