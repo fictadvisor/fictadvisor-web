@@ -5,13 +5,18 @@ import { SxProps, Theme } from '@mui/material/styles';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Link.styles';
+
+enum LinkType {
+  White = 'white',
+  Blue = 'blue',
+}
 interface LinkProps {
   href: string;
   text: string | ReactNode;
   sx?: SxProps<Theme>;
-  type?: 'white' | 'blue';
+  type?: LinkType;
 }
-const Link: FC<LinkProps> = ({ href, text, sx, type = 'white' }) => {
+const Link: FC<LinkProps> = ({ href, text, sx, type = LinkType.White }) => {
   return (
     <MuiLink href={href} sx={mergeSx(styles.LinkStyles(type), sx)}>
       {text}
