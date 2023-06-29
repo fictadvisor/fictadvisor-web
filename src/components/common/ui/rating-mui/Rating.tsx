@@ -24,7 +24,7 @@ const Rating: FC<RatingProps> = ({
   const maxStarsNumber = isLongVariant ? 5 : 1;
   const value = isLongVariant ? rating : rating / 5;
   const ratingText = isLongVariant ? rating.toFixed(2) : rating.toFixed(1);
-  const precision = isLongVariant ? 0.1 : 0.02;
+  const precision = 0.1;
   return (
     <Box sx={mergeSx(styles.rating(variant), sx)}>
       {!isLongVariant && <Box>{ratingText}</Box>}
