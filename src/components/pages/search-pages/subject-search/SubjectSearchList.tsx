@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { SubjectCard } from '@/components/common/ui/cards/subject-card';
@@ -12,12 +12,15 @@ const TOAST_TIMER = 4000;
 export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
   const router = useRouter();
   const toast = useToast();
+  const [subjectList, setSubjectList] = useState([]);
 
   useEffect(() => {
     if (!subjects.length) {
       toast.error('Цього предмета не існує', '', TOAST_TIMER);
+    } else {
+      setSubjectList([...subjectList, ...subjects]);
     }
-  }, [subjects.length]);
+  }, [subjects]);
 
   const redirect = (subjectId: string) => {
     router.push(`/subjects/${subjectId}/teachers`);
@@ -25,26 +28,25 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
 
   return (
     <ul className={styles['subject-search-list']}>
-      {subjects &&
-        subjects.map(subject => (
-          <li key={subject.id}>
-            <SubjectCard
-              onClick={() => redirect(subject.id)}
-              name={`${subject.name}`}
-              details={`${
-                subject.amount +
-                ' ' +
-                (subject.amount === 1
-                  ? 'викладач'
-                  : subject.amount === 2 ||
-                    subject.amount === 3 ||
-                    subject.amount === 4
-                  ? 'викладачі'
-                  : 'викладачів')
-              }`}
-            />
-          </li>
-        ))}
+      {subjectList.map(subject => (
+        <li key={subject.id}>
+          <SubjectCard
+            onClick={() => redirect(subject.id)}
+            name={`${subject.name}`}
+            details={`${
+              subject.amount +
+              ' ' +
+              (subject.amount === 1
+                ? 'викладач'
+                : subject.amount === 2 ||
+                  subject.amount === 3 ||
+                  subject.amount === 4
+                ? 'викладачі'
+                : 'викладачів')
+            }`}
+          />
+        </li>
+      ))}
     </ul>
   );
 };

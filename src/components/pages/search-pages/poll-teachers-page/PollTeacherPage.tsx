@@ -31,7 +31,7 @@ const breadcrumbs = [
     href: '/poll',
   },
 ];
-const pageSize = 20;
+const PAGE_SIZE = 20;
 
 const PollTeacherPage: FC = () => {
   const [curPage, setCurPage] = useState(0);
@@ -90,7 +90,7 @@ const PollTeacherPage: FC = () => {
                 </div>
               ))}
 
-            {data?.teachers.length === (curPage + 1) * pageSize && (
+            {data?.teachers.length === (curPage + 1) * PAGE_SIZE && (
               <Button
                 className={styles['load-btn']}
                 text="Завантажити ще"

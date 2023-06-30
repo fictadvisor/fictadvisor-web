@@ -18,29 +18,28 @@ export const TeacherSearchList = ({
   | (Omit<GetTeachersBySubjectDTO, 'subjectName'> & { className: string })) => {
   const toast = useToast();
 
-  const [items, setItems] = useState([]);
+  const [teacherList, setTeacherList] = useState([]);
 
   useEffect(() => {
-    if (teachers.length === 0) {
+    if (!teachers.length) {
       toast.error('Цього викладача не існує', '', TOAST_TIMER);
     } else {
-      setItems([...items, ...teachers]);
+      setTeacherList([...teacherList, ...teachers]);
     }
   }, [teachers]);
 
   return (
     <ul className={styles[`${className}-search-list`]}>
-      {items &&
-        items?.map((teacher, index) => (
-          <Link key={index} href={`/teachers/${teacher?.id}`}>
-            <TeacherCard
-              avatar={teacher?.avatar}
-              key={teacher?.id}
-              name={`${teacher?.lastName} ${teacher?.firstName} ${teacher?.middleName}`}
-              rating={teacher?.rating / 20}
-            />
-          </Link>
-        ))}
+      {teacherList?.map((teacher, index) => (
+        <Link key={index} href={`/teachers/${teacher?.id}`}>
+          <TeacherCard
+            avatar={teacher?.avatar}
+            key={teacher?.id}
+            name={`${teacher?.lastName} ${teacher?.firstName} ${teacher?.middleName}`}
+            rating={teacher?.rating / 20}
+          />
+        </Link>
+      ))}
     </ul>
   );
 };

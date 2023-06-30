@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
@@ -13,6 +13,7 @@ import { SubjectsAPI } from '@/lib/api/subject/SubjectAPI';
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { SubjectInitialValues } from '../search-form/constants';
 import { SearchForm } from '../search-form/SearchForm';
+import { SubjectSearchFormFields } from '../search-form/types';
 
 import { SubjectSearchList } from './SubjectSearchList';
 
@@ -28,10 +29,11 @@ const breadcrumbs = [
     href: '/subjects',
   },
 ];
-const pageSize = 20;
+const PAGE_SIZE = 20;
 
-const SubjectSearchPage = () => {
-  const [queryObj, setQueryObj] = useState(SubjectInitialValues);
+const SubjectSearchPage: FC = () => {
+  const [queryObj, setQueryObj] =
+    useState<SubjectSearchFormFields>(SubjectInitialValues);
   const [curPage, setCurPage] = useState(0);
   //const localStorageName = 'subjectForm';
 
@@ -43,12 +45,7 @@ const SubjectSearchPage = () => {
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetListOfSubjectsDTO>(
       'subjects',
-      SubjectsAPI.getAll.bind(
-        null,
-        queryObj,
-        pageSize * (curPage + 1),
-        curPage,
-      ),
+      () => SubjectsAPI.getAll(queryObj, PAGE_SIZE, curPage),
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
 
@@ -77,16 +74,15 @@ const SubjectSearchPage = () => {
             </div>
           ))}
 
-        {data?.subjects?.length === (curPage + 1) * pageSize &&
-          data?.meta?.nextPageElems != 0 && (
-            <Button
-              className={styles['load-btn']}
-              text="Завантажити ще"
-              variant={ButtonVariant.FILLED}
-              color={ButtonColor.SECONDARY}
-              onClick={() => setCurPage(pr => pr + 1)}
-            />
-          )}
+        {data?.meta.nextPageElems !== 0 && (
+          <Button
+            className={styles['load-btn']}
+            text="Завантажити ще"
+            variant={ButtonVariant.FILLED}
+            color={ButtonColor.SECONDARY}
+            onClick={() => setCurPage(pr => pr + 1)}
+          />
+        )}
       </div>
     </PageLayout>
   );

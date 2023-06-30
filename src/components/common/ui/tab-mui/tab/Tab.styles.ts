@@ -1,7 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import palette from 'src/styles/theme/constants/palette';
-import typography from '@/styles/theme/constants/typography';
+import theme from '@/styles/theme';
 export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   minWidth: 'fit-content',
   alignItems: 'center',
@@ -19,8 +18,8 @@ export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   justifyContent: textPosition == 'center' ? 'center' : 'start',
 
   typography: {
-    mobile: typography.body2Medium,
-    desktopSemiMedium: typography.body2Bold,
+    mobile: 'body2Medium',
+    desktopSemiMedium: 'body2Bold',
   },
   padding: {
     mobile: '6px 16px',
@@ -36,24 +35,24 @@ export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   },
   '&:hover': {
     border: {
-      mobile: `1px solid ${palette.backgroundDark[300]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark[300]}`,
+      mobile: `1px solid ${theme.palette.backgroundDark[300]}`,
+      desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[300]}`,
     },
     color: 'inherit',
   },
   '&.Mui-selected': {
     backgroundColor: 'backgroundDark.300',
     border: {
-      mobile: `1px solid ${palette.backgroundDark[400]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark[400]}`,
+      mobile: `1px solid ${theme.palette.backgroundDark[400]}`,
+      desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[400]}`,
     },
     color: 'inherit',
   },
   '&:active': {
     backgroundColor: 'backgroundDark.200',
     border: {
-      mobile: `1px solid ${palette.backgroundDark[200]}`,
-      desktopSemiMedium: `2px solid ${palette.backgroundDark[200]}`,
+      mobile: `1px solid ${theme.palette.backgroundDark[200]}`,
+      desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[200]}`,
     },
     color: 'inherit',
   },
@@ -97,8 +96,8 @@ export const counter = (disabled): SxProps<Theme> => ({
     desktopSemiMedium: '1px 8px',
   },
   typography: {
-    mobile: typography.body1Medium,
-    desktopSemiMedium: typography.body2Medium,
+    mobile: 'body1Medium',
+    desktopSemiMedium: 'body2Medium',
   },
 });
 

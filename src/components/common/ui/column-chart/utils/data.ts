@@ -1,7 +1,7 @@
 import { ChartData } from 'chart.js';
 
 import { GetTeacherEvaluationsDTO } from '@/lib/api/teacher/dto/GetTeacherEvaluationsDTO';
-import palette from 'src/styles/theme/constants/palette';
+import theme from '@/styles/theme';
 
 export const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
   const { mark, name } = data;
@@ -11,11 +11,11 @@ export const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
       {
         label: name,
         data: Object.values(mark),
-        backgroundColor: palette.primary[300],
+        backgroundColor: theme.palette.primary[300],
         borderWidth: 0,
         borderRadius: 3,
         barThickness: 14,
-        hoverBackgroundColor: palette.primary[300],
+        hoverBackgroundColor: theme.palette.primary[300],
       },
     ],
   };
