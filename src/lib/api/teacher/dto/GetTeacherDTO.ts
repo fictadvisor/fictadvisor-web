@@ -24,4 +24,10 @@ export interface GetTeacherDTO {
 }
 export interface GetTeachersDTO {
   teachers: GetTeacherDTO[];
+  meta: {
+    pageSize: number;
+    page: number;
+    prevPageElems: number;
+    nextPageElems: number;
+  };
 }

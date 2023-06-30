@@ -6,4 +6,10 @@ export interface GetListOfSubjectsDTO {
       amount: number;
     },
   ];
+  meta?: {
+    pageSize: number;
+    page: number;
+    prevPageElems: number;
+    nextPageElems: number;
+  };
 }

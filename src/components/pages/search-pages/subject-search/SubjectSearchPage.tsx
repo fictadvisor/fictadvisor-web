@@ -43,7 +43,12 @@ const SubjectSearchPage = () => {
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetListOfSubjectsDTO>(
       'subjects',
-      SubjectsAPI.getAll.bind(null, queryObj, pageSize * (curPage + 1)),
+      SubjectsAPI.getAll.bind(
+        null,
+        queryObj,
+        pageSize * (curPage + 1),
+        curPage,
+      ),
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
 
@@ -72,15 +77,16 @@ const SubjectSearchPage = () => {
             </div>
           ))}
 
-        {data?.subjects?.length === (curPage + 1) * pageSize && (
-          <Button
-            className={styles['load-btn']}
-            text="Завантажити ще"
-            variant={ButtonVariant.FILLED}
-            color={ButtonColor.SECONDARY}
-            onClick={() => setCurPage(pr => pr + 1)}
-          />
-        )}
+        {data?.subjects?.length === (curPage + 1) * pageSize &&
+          data?.meta?.nextPageElems != 0 && (
+            <Button
+              className={styles['load-btn']}
+              text="Завантажити ще"
+              variant={ButtonVariant.FILLED}
+              color={ButtonColor.SECONDARY}
+              onClick={() => setCurPage(pr => pr + 1)}
+            />
+          )}
       </div>
     </PageLayout>
   );

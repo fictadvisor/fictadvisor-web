@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
@@ -18,22 +18,26 @@ export const TeacherSearchList = ({
   | (Omit<GetTeachersBySubjectDTO, 'subjectName'> & { className: string })) => {
   const toast = useToast();
 
+  const [items, setItems] = useState([]);
+
   useEffect(() => {
     if (teachers.length === 0) {
       toast.error('Цього викладача не існує', '', TOAST_TIMER);
+    } else {
+      setItems([...items, ...teachers]);
     }
-  }, [teachers.length]);
+  }, [teachers]);
 
   return (
     <ul className={styles[`${className}-search-list`]}>
-      {teachers &&
-        teachers?.map((teacher, index) => (
-          <Link key={index} href={`/teachers/${teacher.id}`}>
+      {items &&
+        items?.map((teacher, index) => (
+          <Link key={index} href={`/teachers/${teacher?.id}`}>
             <TeacherCard
-              avatar={teacher.avatar}
-              key={teacher.id}
-              name={`${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}
-              rating={teacher.rating / 20}
+              avatar={teacher?.avatar}
+              key={teacher?.id}
+              name={`${teacher?.lastName} ${teacher?.firstName} ${teacher?.middleName}`}
+              rating={teacher?.rating / 20}
             />
           </Link>
         ))}

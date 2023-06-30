@@ -26,12 +26,13 @@ export class SubjectsAPI {
   static async getAll(
     { search, order, sort, group }: SubjectSearchFormFields,
     pageSize: number,
+    page: number,
   ): Promise<GetListOfSubjectsDTO> {
     const url = `/subjects?${search ? `search=${search}` : ''}${
       order ? `&order=${order}` : ''
     }${sort ? `&sort=${sort}` : ''}${group ? `&group=${group}` : ''}${
       pageSize ? `&pageSize=${pageSize}` : ''
-    }`;
+    }${page ? `&page=${page}` : ''}`;
 
     const { data } = await client.get(url, getAuthorizationHeader());
     return data;

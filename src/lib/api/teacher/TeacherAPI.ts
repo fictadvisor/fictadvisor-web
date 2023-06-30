@@ -24,12 +24,13 @@ export class TeacherAPI {
   static async getAll(
     { search, order, sort, group }: TeacherSearchFormFields,
     pageSize: number,
+    page: number,
   ): Promise<{ teachers: GetTeacherDTO[] }> {
     const url = `/teachers?${search ? `search=${search}` : ''}${
       order ? `&order=${order}` : ''
     }${sort ? `&sort=${sort}` : ''}${group ? `&group=${group}` : ''}${
       pageSize ? `&pageSize=${pageSize}` : ''
-    }`;
+    }${page ? `&page=${page}` : ''}`;
 
     const { data } = await client.get(url, getAuthorizationHeader());
     return data;

@@ -28,7 +28,7 @@ const breadcrumbs = [
     href: '/teachers',
   },
 ];
-const pageSize = 20;
+const PAGE_SIZE = 20;
 
 export const TeacherSearchPage = () => {
   const initialValues = localStorage.getItem('teachersForm')
@@ -44,7 +44,7 @@ export const TeacherSearchPage = () => {
 
   const { data, isLoading, refetch, isFetching } = useQuery<GetTeachersDTO>(
     'lecturers',
-    TeacherAPI.getAll.bind(null, queryObj, pageSize * (curPage + 1)),
+    TeacherAPI.getAll.bind(null, queryObj, PAGE_SIZE, curPage),
     { keepPreviousData: true, refetchOnWindowFocus: false },
   );
 
@@ -79,7 +79,7 @@ export const TeacherSearchPage = () => {
             </div>
           ))}
 
-        {data?.teachers.length === (curPage + 1) * pageSize && (
+        {data?.meta.nextPageElems !== 0 && (
           <Button
             className={styles['load-btn']}
             text="Завантажити ще"
