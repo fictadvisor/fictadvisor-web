@@ -110,9 +110,10 @@ export const Dropdown: FC<DropdownProps> = ({
             else if ('text' in input) value = input.text;
             else value = input.value;
 
-            const foundOption: DropDownOption = options.find(
-              opt => opt.value === value,
-            );
+            const foundOption: DropDownOption = options.find(opt => {
+              if ('text' in opt) return opt.text === value;
+              return opt.value === value;
+            });
 
             if (!foundOption) return '';
             if ('text' in foundOption) return foundOption.text;
