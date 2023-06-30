@@ -1,7 +1,7 @@
 import { ChartData } from 'chart.js';
 
 import { GetTeacherEvaluationsDTO } from '@/lib/api/teacher/dto/GetTeacherEvaluationsDTO';
-import palette from '@/styles/theme/constants/pallete';
+import palette from 'src/styles/theme/constants/palette';
 
 export const getData = (data: GetTeacherEvaluationsDTO): ChartData<'bar'> => {
   const { mark, name } = data;

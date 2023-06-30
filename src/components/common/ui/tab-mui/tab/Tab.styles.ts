@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import palette from '@/styles/theme/constants/pallete';
+import palette from 'src/styles/theme/constants/palette';
 import typography from '@/styles/theme/constants/typography';
 export const tab = (counter, icon, textPosition): SxProps<Theme> => ({
   minWidth: 'fit-content',

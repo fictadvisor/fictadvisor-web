@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/system';
 
-import palette from '@/styles/theme/constants/pallete';
+import palette from 'src/styles/theme/constants/palette';
 
 export const headerContainer: SxProps<Theme> = {
   overflow: 'hidden',

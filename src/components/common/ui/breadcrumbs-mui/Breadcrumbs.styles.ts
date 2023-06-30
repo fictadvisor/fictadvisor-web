@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/system';
 
-import palette from '@/styles/theme/constants/pallete/palette';
+import palette from '@/styles/theme/constants/palette/palette';
 
 export const homeIcon: SxProps<Theme> = {
   width: '14px',

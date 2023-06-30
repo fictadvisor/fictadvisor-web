@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import palette from '@/styles/theme/constants/pallete';
+import palette from 'src/styles/theme/constants/palette';
 
 export const card: SxProps<Theme> = {
   position: 'sticky',
