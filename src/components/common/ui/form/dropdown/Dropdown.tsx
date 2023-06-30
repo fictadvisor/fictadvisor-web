@@ -93,9 +93,7 @@ export const Dropdown: FC<DropdownProps> = ({
           disablePortal
           blurOnSelect={true}
           options={options}
-          isOptionEqualToValue={(option, value) => {
-            return option.value === value.value;
-          }}
+          isOptionEqualToValue={(option, value) => option.value === value.value}
           renderInput={params => (
             <TextField
               inputProps={values}
