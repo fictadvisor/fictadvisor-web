@@ -42,7 +42,6 @@ const PersonalSubjectTeacherTabs: FC<PersonalSubjectTeacherProps> = ({
   handleChange,
 }) => {
   const count = data.comments.questions[0]?.comments.length ?? 0;
-
   return (
     <Box>
       <TabContext value={tabIndex}>
@@ -81,7 +80,10 @@ const PersonalSubjectTeacherTabs: FC<PersonalSubjectTeacherProps> = ({
                 buttonInfo={data.buttonInfo}
               />
             ) : (
-              <CommentTab {...data.comments} />
+              <CommentTab
+                teacherId={data.info.id}
+                subjectId={data.info?.subject?.id}
+              />
             )}
           </TabPanel>
         </Box>

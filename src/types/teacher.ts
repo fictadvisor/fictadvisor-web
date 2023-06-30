@@ -11,6 +11,11 @@ export interface TeacherSubject {
   name: string;
 }
 
+export interface TeacherDiscipline {
+  disciplineTeacherId: string;
+  subjectName: string;
+}
+
 export interface Teacher {
   id: string;
   roles: TeacherRole[];
@@ -19,6 +24,8 @@ export interface Teacher {
   lastName: string;
   avatar: string;
   description: string;
+  rating: number;
+  contacts: Contact[];
 }
 
 export interface DisciplineTeacher extends Teacher {
@@ -26,8 +33,7 @@ export interface DisciplineTeacher extends Teacher {
   subject: TeacherSubject;
 }
 
-export interface TeacherWithContactsAndSubject extends Teacher {
-  contacts: Contact[];
+export interface TeacherWithSubject extends Teacher {
   subject: TeacherSubject;
 }
 

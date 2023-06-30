@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import Image from 'next/image';
 
 import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 
@@ -21,6 +22,14 @@ const RegisterPage: FC<RegisterPageProps> = ({ data }) => {
       hasHeader={false}
     >
       <div className={styles['register-page']}>
+        <Image
+          quality={100}
+          className={styles['background-image']}
+          src="/images/register-page/background.png"
+          fill
+          priority
+          alt="дуже гарна картинка"
+        />
         <div className={styles['register-page__content']}>
           <LeftBlock groups={data?.groups || []} />
           <hr className={styles['divider']} />

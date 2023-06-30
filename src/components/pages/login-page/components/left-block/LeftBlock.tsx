@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -11,10 +12,13 @@ const LeftBlock = () => {
   return (
     <div className={styles['left-block']}>
       <Link href="/">
-        <img
+        <Image
           className={styles['login-logo']}
           src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
+          priority
+          width={300}
+          height={54}
         />
       </Link>
       <h3 className={styles['register-text']}>Ти ще не з нами? Приєднуйся!</h3>

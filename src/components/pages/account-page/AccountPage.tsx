@@ -2,6 +2,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   AcademicCapIcon,
+  FireIcon,
   LockClosedIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
@@ -17,6 +18,7 @@ import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
 import GeneralTab from '@/components/pages/account-page/components/general-tab';
 import GroupTab from '@/components/pages/account-page/components/group-tab';
 import SecurityTab from '@/components/pages/account-page/components/security-tab';
+import SelectiveTab from '@/components/pages/account-page/components/selective-tab';
 import useAuthentication from '@/hooks/use-authentication';
 
 import PageLayout from '../../common/layout/page-layout/PageLayout';
@@ -29,16 +31,18 @@ enum AccountPageTab {
   GENERAL = 'general',
   SECURITY = 'security',
   GROUP = 'group',
+  SELECTIVE = 'selective',
 }
 
 const AccountPagesMapper = {
   group: 'Група',
   security: 'Безпека',
   general: 'Загальне',
+  selective: 'Мої вибіркові',
 };
 
 const AccountPage = () => {
-  const { push, replace, query, isReady } = useRouter();
+  const { replace, query, isReady } = useRouter();
 
   const { tab } = query;
   const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
@@ -50,7 +54,7 @@ const AccountPage = () => {
     if (Object.values(AccountPageTab).includes(tab as AccountPageTab)) {
       setIndex(tab as AccountPageTab);
     } else {
-      void push(
+      void replace(
         { query: { ...query, tab: AccountPageTab.GENERAL } },
         undefined,
         {
@@ -58,7 +62,7 @@ const AccountPage = () => {
         },
       );
     }
-  }, [tab, isReady, push, query]);
+  }, [tab, isReady, query, replace]);
 
   const { isLoggedIn } = useAuthentication();
   const dispatch = useDispatch();
@@ -67,10 +71,10 @@ const AccountPage = () => {
     if (!isLoggedIn) {
       void replace('/login?~account');
     }
-  }, [dispatch, isLoggedIn, push, replace]);
+  }, [dispatch, isLoggedIn, replace]);
 
   const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
-    await push({ query: { ...query, tab: value } }, undefined, {
+    await replace({ query: { ...query, tab: value } }, undefined, {
       shallow: true,
     });
     setIndex(value);
@@ -113,6 +117,12 @@ const AccountPage = () => {
               icon={<UsersIcon />}
               textPosition={TabTextPosition.LEFT}
             />
+            <Tab
+              label="Мої вибіркові"
+              value={AccountPageTab.SELECTIVE}
+              icon={<FireIcon />}
+              textPosition={TabTextPosition.LEFT}
+            />
           </TabList>
           {isLoggedIn && (
             <Box sx={stylesMui.tabPanelsList}>
@@ -124,6 +134,12 @@ const AccountPage = () => {
               </TabPanel>
               <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.GROUP}>
                 <GroupTab />
+              </TabPanel>
+              <TabPanel
+                sx={stylesMui.tabPanel}
+                value={AccountPageTab.SELECTIVE}
+              >
+                <SelectiveTab />
               </TabPanel>
             </Box>
           )}

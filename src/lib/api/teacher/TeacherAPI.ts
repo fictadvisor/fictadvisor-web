@@ -2,16 +2,15 @@ import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-
 import { GetTeacherCommentsResponse } from '@/lib/api/teacher/types/GetTeacherCommentsResponse';
 import { GetTeacherDisciplinesResponse } from '@/lib/api/teacher/types/GetTeacherDisciplinesResponse';
 import { GetTeacherMarksResponse } from '@/lib/api/teacher/types/GetTeacherMarksResponse';
-import { GetTeacherResponse } from '@/lib/api/teacher/types/GetTeacherResponse';
 import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 import { GetTeacherSubjectsResponse } from '@/lib/api/teacher/types/GetTeacherSubjectsResponse';
 import { getAuthorizationHeader } from '@/lib/api/utils';
-import { TeacherWithContactsAndSubject } from '@/types/teacher';
+import { Teacher, TeacherWithSubject } from '@/types/teacher';
 
 import { client } from '../instance';
 
 class TeacherAPI {
-  async get(teacherId: string): Promise<GetTeacherResponse> {
+  async get(teacherId: string): Promise<Teacher> {
     const { data } = await client.get(
       `/teachers/${teacherId}`,
       getAuthorizationHeader(),
@@ -43,7 +42,7 @@ class TeacherAPI {
   }
 
   async getTeacherSubject(teacherId: string, subjectId: string) {
-    const { data } = await client.get<TeacherWithContactsAndSubject>(
+    const { data } = await client.get<TeacherWithSubject>(
       `/teachers/${teacherId}/subjects/${subjectId}`,
     );
     return data;
@@ -73,6 +72,7 @@ class TeacherAPI {
     subjectId?: string,
     semester?: number,
     year?: number,
+    sortBy?: string,
   ) {
     const { data } = await client.get<GetTeacherCommentsResponse>(
       `/teachers/${teacherId}/comments`,
@@ -81,6 +81,7 @@ class TeacherAPI {
           semester,
           subjectId,
           year,
+          sortBy,
         },
       },
     );
@@ -103,6 +104,14 @@ class TeacherAPI {
       },
     );
     return data;
+  }
+
+  async removeFromPoll(teacherId: string): Promise<void> {
+    await client.post(
+      `/disciplineTeachers/${teacherId}/removeFromPoll`,
+      {},
+      getAuthorizationHeader(),
+    );
   }
 }
 

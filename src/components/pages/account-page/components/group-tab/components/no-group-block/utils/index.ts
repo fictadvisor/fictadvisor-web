@@ -1,4 +1,4 @@
-import { DropDownOption } from '@/components/common/ui/form/dropdown/Dropdown';
+import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 import { Group } from '@/types/group';
 
 export const transformGroups = (groups: Group[]): DropDownOption[] =>

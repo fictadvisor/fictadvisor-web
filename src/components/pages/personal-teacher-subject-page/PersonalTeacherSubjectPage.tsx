@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
@@ -13,6 +19,20 @@ import useAuthentication from '@/hooks/use-authentication';
 import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
 import TeacherService from '@/lib/services/teacher/TeacherService';
+import { TeacherWithSubject } from '@/types/teacher';
+
+// TODO: move context and types to separate folders
+export interface TeacherSubjectContext {
+  floatingCardShowed: boolean;
+  setFloatingCardShowed: Dispatch<SetStateAction<boolean>>;
+  teacher: TeacherWithSubject;
+}
+
+export const teacherSubjectContext = createContext<TeacherSubjectContext>({
+  floatingCardShowed: false,
+  setFloatingCardShowed: () => {},
+  teacher: {} as TeacherWithSubject,
+});
 
 const PersonalTeacherSubjectPage = () => {
   const router = useRouter();
@@ -21,8 +41,13 @@ const PersonalTeacherSubjectPage = () => {
   const teacherId = router.query.teacherId as string;
   const subjectId = router.query.subjectId as string;
   const { user } = useAuthentication();
+  const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
-  const { isLoading, isError, data } = useQuery(
+  const {
+    isLoading,
+    isError,
+    data: teacherInfo,
+  } = useQuery(
     ['teacher', teacherId, subjectId],
     () =>
       TeacherService.getTeacherSubjectPageInfo(teacherId, subjectId, user?.id),
@@ -47,55 +72,59 @@ const PersonalTeacherSubjectPage = () => {
 
   const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
 
-  const teacher = data?.info;
+  if (!teacherInfo) return null;
 
-  if (!data) return null;
+  const teacher = teacherInfo.info;
 
   return (
-    <PageLayout description={'Сторінка викладача'}>
-      <div className={styles['personal-teacher-page']}>
-        {isLoading ? (
-          <div className={styles['personal-teacher-page-content']}>
-            <div className={styles['loader']}>
-              <Loader />
-            </div>
-          </div>
-        ) : (
-          !isError && (
+    <teacherSubjectContext.Provider
+      value={{ floatingCardShowed, setFloatingCardShowed, teacher }}
+    >
+      <PageLayout description={'Сторінка викладача'}>
+        <div className={styles['personal-teacher-page']}>
+          {isLoading ? (
             <div className={styles['personal-teacher-page-content']}>
-              <Breadcrumbs
-                className={styles['breadcrumbs']}
-                items={[
-                  {
-                    label: 'Головна',
-                    href: '/',
-                  },
-                  { label: 'Викладачі', href: '/teachers' },
-                  {
-                    label: `${teacher?.lastName} ${teacher?.firstName} ${teacher?.middleName}`,
-                    href: `/teachers/${teacherId}`,
-                  },
-                  {
-                    label: `${teacher?.subject.name}`,
-                    href: `/discipline?teacherId=${teacherId}&subjectId=${subjectId}`,
-                  },
-                ]}
-              />
-              <div className={styles['card-wrapper']}>
-                <PersonalTeacherSubjectCard {...data.info} />
-              </div>
-              <div className={styles['tabs']}>
-                <PersonalSubjectTeacherTabs
-                  data={data}
-                  tabIndex={index}
-                  handleChange={handleChange}
-                />
+              <div className={styles['loader']}>
+                <Loader />
               </div>
             </div>
-          )
-        )}
-      </div>
-    </PageLayout>
+          ) : (
+            !isError && (
+              <div className={styles['personal-teacher-page-content']}>
+                <Breadcrumbs
+                  className={styles['breadcrumbs']}
+                  items={[
+                    {
+                      label: 'Головна',
+                      href: '/',
+                    },
+                    { label: 'Викладачі', href: '/teachers' },
+                    {
+                      label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
+                      href: `/teachers/${teacherId}`,
+                    },
+                    {
+                      label: `${teacher.subject.name}`,
+                      href: `/discipline?teacherId=${teacherId}&subjectId=${subjectId}`,
+                    },
+                  ]}
+                />
+                <div className={styles['card-wrapper']}>
+                  <PersonalTeacherSubjectCard {...teacher} />
+                </div>
+                <div className={styles['tabs']}>
+                  <PersonalSubjectTeacherTabs
+                    data={teacherInfo}
+                    tabIndex={index}
+                    handleChange={handleChange}
+                  />
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </PageLayout>
+    </teacherSubjectContext.Provider>
   );
 };
 export default PersonalTeacherSubjectPage;

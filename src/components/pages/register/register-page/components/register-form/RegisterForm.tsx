@@ -9,10 +9,10 @@ import Button, { ButtonSize } from '@/components/common/ui/button';
 import {
   Checkbox,
   Dropdown,
-  DropDownSize,
   Input,
   InputType,
 } from '@/components/common/ui/form';
+import { FieldSize } from '@/components/common/ui/form/common/types';
 import { RegisterFormFields } from '@/components/pages/register/register-page/components/register-form/types';
 import {
   transformData,
@@ -137,7 +137,7 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
           />
           <div className={styles['one-line']}>
             <Dropdown
-              size={DropDownSize.LARGE}
+              size={FieldSize.LARGE}
               options={transformGroups(groups)}
               label="Група"
               name="group"

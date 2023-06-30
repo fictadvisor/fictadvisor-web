@@ -1,25 +1,47 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
+import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
 import styles from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card/PersonalTeacherSubjectCard.module.scss';
-import { TeacherRole, TeacherWithContactsAndSubject } from '@/types/teacher';
+import { teacherSubjectContext } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
+import { TeacherRole, TeacherWithSubject } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
-const PersonalTeacherSubjectCard: FC<TeacherWithContactsAndSubject> = props => {
+// TODO: use destruction in props
+const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
+  const blockRef = useRef<HTMLDivElement>(null);
+  const { setFloatingCardShowed } = useContext(teacherSubjectContext);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom = blockRef.current?.getBoundingClientRect().bottom;
+      if (Number(bottom) < 0) {
+        setFloatingCardShowed(true);
+      } else {
+        setFloatingCardShowed(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className={styles['card']}>
+    <div ref={blockRef} className={styles['card']}>
       <div className={styles['photo']}>
-        <img src={props.avatar} className={styles['image']} alt={'photo'}></img>
+        <img src={props.avatar} className={styles['image']} alt="photo" />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>
           {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
+        {props.rating !== 0 && <Rating rating={props.rating / 20} />}
       </div>
       <div className={styles['subject']}>
         <h5>{props.subject.name}</h5>
@@ -38,27 +60,35 @@ const PersonalTeacherSubjectCard: FC<TeacherWithContactsAndSubject> = props => {
         )}
       </div>
 
-      <Button
-        className={styles['contacts-button']}
-        text={'Контакти'}
-        endIcon={isContactsVisible ? <ChevronUpIcon /> : <ChevronDownIcon />}
-        variant={ButtonVariant.TEXT}
-        onClick={() => setContactsVisibility(!isContactsVisible)}
-      />
+      {props.contacts.length > 0 && (
+        <>
+          <Button
+            className={styles['contacts-button']}
+            text={'Контакти'}
+            endIcon={
+              isContactsVisible ? <ChevronUpIcon /> : <ChevronDownIcon />
+            }
+            variant={ButtonVariant.TEXT}
+            onClick={() => setContactsVisibility(!isContactsVisible)}
+          />
 
-      <div
-        className={styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]}
-      >
-        {props.contacts.map((contact, index) => (
-          <div key={index} className={styles['contacts-item']}>
-            <Contact
-              name={contact.name}
-              displayName={contact.displayName}
-              link={contact.link}
-            />
+          <div
+            className={
+              styles[`contacts-${isContactsVisible ? `shown` : `hidden`}`]
+            }
+          >
+            {props.contacts.map((contact, index) => (
+              <div key={index} className={styles['contacts-item']}>
+                <Contact
+                  name={contact.name}
+                  displayName={contact.displayName}
+                  link={contact.link}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 };

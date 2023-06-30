@@ -18,7 +18,7 @@ const ResourceCard: React.FC<CardProps> = ({
     <Link href={href}>
       <div className={styles['card']}>
         <div className={styles['card-content']}>
-          <img src={image} />
+          <img src={image} alt="student resource" />
           <p>{text}</p>
         </div>
       </div>

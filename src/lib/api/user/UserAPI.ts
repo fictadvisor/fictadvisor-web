@@ -1,6 +1,9 @@
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
 import { ChangeInfoBody } from '@/lib/api/user/types/ChangeInfoBody';
 import { GetContactsResponse } from '@/lib/api/user/types/GetContactsResponse';
+import { GetSelectiveDisciplinesBySemesterResponse } from '@/lib/api/user/types/GetSelectiveDisciplinesBySemesterResponse';
+import { GetSelectiveDisciplinesResponse } from '@/lib/api/user/types/GetSelectiveDisciplinesResponse';
+import { PostSelectiveDisciplinesBody } from '@/lib/api/user/types/PostSelectiveDisciplinesBody';
 import { RequestNewGroupBody } from '@/lib/api/user/types/RequestNewGroupBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 import { TelegramUser } from '@/types/telegram';
@@ -56,6 +59,39 @@ class UserAPI {
       `/users/${userId}/requestNewGroup`,
       body,
       getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async getSelectiveDisciplinesBySemester(userId: string) {
+    const { data } =
+      await client.get<GetSelectiveDisciplinesBySemesterResponse>(
+        `/users/${userId}/selectiveBySemesters`,
+        getAuthorizationHeader(),
+      );
+    return data;
+  }
+
+  async postSelectiveDisciplines(
+    userId: string,
+    body: PostSelectiveDisciplinesBody,
+  ) {
+    const { data } = await client.post(
+      `/disciplines/${userId}/selectiveDisciplines`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async getSelectiveDisciplines(
+    userId: string,
+    year: number,
+    semester: number,
+  ) {
+    const { data } = await client.get<GetSelectiveDisciplinesResponse>(
+      `/users/${userId}/selectiveDisciplines?`,
+      { ...getAuthorizationHeader(), params: { year, semester } },
     );
     return data;
   }

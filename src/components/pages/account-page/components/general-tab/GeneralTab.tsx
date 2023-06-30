@@ -36,7 +36,7 @@ const GeneralTab: FC = () => {
       </div>
       <div className={styles['avatar-and-telegram-info']}>
         <div className={styles['avatar']}>
-          <img src={user.avatar} alt={'avatar'} />
+          <img src={user.avatar} alt="avatar" />
         </div>
         <Button
           className={styles['telegram-button']}

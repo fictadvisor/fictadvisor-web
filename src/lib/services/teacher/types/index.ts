@@ -1,8 +1,7 @@
 import { GetTeacherCommentsResponse } from '@/lib/api/teacher/types/GetTeacherCommentsResponse';
 import { GetTeacherMarksResponse } from '@/lib/api/teacher/types/GetTeacherMarksResponse';
-import { GetTeacherResponse } from '@/lib/api/teacher/types/GetTeacherResponse';
 import { GetTeacherSubjectsResponse } from '@/lib/api/teacher/types/GetTeacherSubjectsResponse';
-import { TeacherWithContactsAndSubject } from '@/types/teacher';
+import { Teacher, TeacherWithSubject } from '@/types/teacher';
 
 export interface TeacherButtonInfo {
   text: string;
@@ -10,7 +9,7 @@ export interface TeacherButtonInfo {
 }
 
 export interface TeacherPageInfo {
-  info: GetTeacherResponse;
+  info: Teacher;
   subjects: GetTeacherSubjectsResponse['subjects'];
   comments: GetTeacherCommentsResponse;
   marks: GetTeacherMarksResponse['marks'];
@@ -21,7 +20,7 @@ export interface TeacherPageInfo {
 }
 
 export interface TeacherSubjectPageInfo {
-  info: TeacherWithContactsAndSubject;
+  info: TeacherWithSubject;
   comments: GetTeacherCommentsResponse;
   marks: GetTeacherMarksResponse['marks'];
   marksText: string;

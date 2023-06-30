@@ -1,7 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { Popup } from 'src/components/common/ui/popup';
 
 import { AlertColor } from '@/components/common/ui/alert';
 import Button, {
@@ -9,6 +8,7 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
+import Popup from '@/components/common/ui/pop-ups-mui/Popup';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import UserAPI from '@/lib/api/user/UserAPI';
@@ -42,7 +42,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
         else await router.push('/register');
       }
     },
-    [dispatch, isLoggedIn, router.push],
+    [dispatch, isLoggedIn, router],
   );
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
         await UserAPI.linkTelegram(user.id, {
           ...StorageUtil.getTelegramInfo().telegram,
         });
-        update();
+        await update();
         StorageUtil.deleteTelegramInfo();
         dispatch(
           showAlert({
@@ -90,12 +90,10 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
 
   return (
     <Popup
-      isClosable={false}
-      hasIcon
-      isTelegramIcon
+      open={isOpen}
       title="Підключи Telegram"
       text="Натисни, щоб підключити Telegram"
-      closeFunction={setIsOpen}
+      onClose={() => setIsOpen(false)}
       firstButton={
         <Button
           size={ButtonSize.MEDIUM}

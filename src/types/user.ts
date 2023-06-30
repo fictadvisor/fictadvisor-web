@@ -28,3 +28,15 @@ export interface User {
   group?: UserGroup;
   avatar: string;
 }
+
+export interface UserSelective {
+  semester: 1 | 2;
+  year: number;
+  disciplines: string[];
+  amount: number;
+}
+
+export interface UserRemainingSelective {
+  disciplineId: string;
+  subjectName: string;
+}

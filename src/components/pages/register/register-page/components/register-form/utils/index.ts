@@ -1,4 +1,4 @@
-import { DropDownOption } from '@/components/common/ui/form/dropdown/Dropdown';
+import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 import { RegisterBody } from '@/lib/api/auth/types/RegisterBody';
 import { Group } from '@/types/group';
 

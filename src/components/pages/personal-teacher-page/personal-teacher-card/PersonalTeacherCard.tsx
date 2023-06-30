@@ -1,51 +1,61 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
+import Rating from '@/components/common/ui/rating-mui';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
 import styles from '@/components/pages/personal-teacher-page/personal-teacher-card/PersonalTeacherCard.module.scss';
-import { GetTeacherResponse } from '@/lib/api/teacher/types/GetTeacherResponse';
-import { TeacherRole } from '@/types/teacher';
+import { teacherContext } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
+import { Teacher, TeacherRole } from '@/types/teacher';
 
 import Contact from '../contacts/Contact';
 
-const PersonalTeacherCard: FC<GetTeacherResponse> = props => {
+// TODO: use destruction in props
+const PersonalTeacherCard: FC<Teacher> = props => {
   const [isContactsVisible, setContactsVisibility] = useState(false);
-
+  const blockRef = useRef<HTMLDivElement>(null);
+  const { setFloatingCardShowed } = useContext(teacherContext);
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom = blockRef.current?.getBoundingClientRect().bottom;
+      if (Number(bottom) < 0) {
+        setFloatingCardShowed(true);
+      } else {
+        setFloatingCardShowed(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
-    <div className={styles['card']}>
+    <div ref={blockRef} className={styles['card']}>
       <div className={styles['photo']}>
-        <img
-          src={props.teacher.avatar}
-          className={styles['image']}
-          alt={'photo'}
-        />
+        <img src={props.avatar} className={styles['image']} alt="photo" />
       </div>
       <div className={styles['name-and-rating']}>
         <h4>
-          {props.teacher.lastName +
-            ' ' +
-            props.teacher.firstName +
-            ' ' +
-            props.teacher.middleName}
+          {props.lastName + ' ' + props.firstName + ' ' + props.middleName}
         </h4>
+        {props.rating !== 0 && <Rating rating={props.rating / 20} />}
       </div>
 
       <div className={styles['tags']}>
         {props.roles.includes(TeacherRole.LECTURER) && (
-          <Tag color={TagColor.INDIGO} size={TagSize.SMALL} text={'Лектор'} />
+          <Tag color={TagColor.INDIGO} size={TagSize.SMALL} text="Лектор" />
         )}
 
         {props.roles.includes(TeacherRole.PRACTICIAN) && (
-          <Tag color={TagColor.ORANGE} size={TagSize.SMALL} text={'Практик'} />
+          <Tag color={TagColor.ORANGE} size={TagSize.SMALL} text="Практик" />
         )}
 
         {props.roles.includes(TeacherRole.LABORANT) && (
-          <Tag color={TagColor.MINT} size={TagSize.SMALL} text={'Лаборант'} />
+          <Tag color={TagColor.MINT} size={TagSize.SMALL} text="Лаборант" />
         )}
       </div>
-      <div className={styles['info']}>{props.teacher.description}</div>
+      <div className={styles['info']}>{props.description}</div>
       {props.contacts.length !== 0 && (
         <Button
           className={styles['contacts-button']}

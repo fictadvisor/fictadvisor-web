@@ -80,10 +80,7 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabsProps> = ({
             )}
           </TabPanel>
           <TabPanel value={TeachersPageTabs.SUBJECTS}>
-            <SubjectTab
-              subjects={data.subjects}
-              teacherId={data.info.teacher.id}
-            />
+            <SubjectTab subjects={data.subjects} teacherId={data.info.id} />
           </TabPanel>
           <TabPanel value={TeachersPageTabs.COMMENTS}>
             {count === 0 ? (
@@ -92,7 +89,7 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabsProps> = ({
                 buttonInfo={data.buttonInfo}
               />
             ) : (
-              <CommentTab {...data.comments} />
+              <CommentTab teacherId={data.info.id} />
             )}
           </TabPanel>
         </Box>

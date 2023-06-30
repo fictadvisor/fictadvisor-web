@@ -1,5 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useMediaQuery } from '@mui/material';
 import { AxiosError } from 'axios';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
@@ -12,10 +13,12 @@ import RadioGroup from '@/components/common/ui/form/radio/RadipGroup';
 import Loader from '@/components/common/ui/loader/Loader';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import theme from '@/styles/theme';
 import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
 import { SendingStatus } from '../poll-form/PollForm';
 
+import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
@@ -82,6 +85,9 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   );
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const numberRowsTextArea = isMobile ? 8 : 4;
 
   useEffect(() => {
     for (const question of category.questions) {
@@ -203,10 +209,12 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         />
                       ) : (
                         <TextArea
-                          className={styles['textarea']}
+                          rowsNumber={numberRowsTextArea}
+                          sx={sxStyles.textArea}
                           name={question.id}
                         />
                       )}
+
                       {question.criteria && (
                         <p className={styles['question-criteria']}>
                           {question.criteria}
@@ -229,6 +237,15 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                       } else {
                         setIsSendingStatus(SendingStatus.LOADING);
                         try {
+                          for (let i = 0; i < answers.length; i++) {
+                            answers[i].value = answers[i].value.trim();
+
+                            if (answers[i].value.length === 0) {
+                              answers = answers.filter(
+                                item => item !== answers[i],
+                              );
+                            }
+                          }
                           await PollAPI.createTeacherGrade(
                             { answers },
                             disciplineTeacherId,

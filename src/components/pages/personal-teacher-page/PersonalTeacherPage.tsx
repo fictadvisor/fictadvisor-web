@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
@@ -12,6 +18,20 @@ import useAuthentication from '@/hooks/use-authentication';
 import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
 import TeacherService from '@/lib/services/teacher';
+import { Teacher } from '@/types/teacher';
+
+// TODO: move context to separate folder, move types to separate folder
+export interface TeacherContext {
+  floatingCardShowed: boolean;
+  setFloatingCardShowed: Dispatch<SetStateAction<boolean>>;
+  teacher: Teacher;
+}
+
+export const teacherContext = createContext<TeacherContext>({
+  floatingCardShowed: false,
+  setFloatingCardShowed: () => {},
+  teacher: {} as Teacher,
+});
 
 export enum TeachersPageTabs {
   GENERAL = 'general',
@@ -33,6 +53,7 @@ const PersonalTeacherPage = () => {
     },
   );
   const toast = useToast();
+  const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
   const { tab } = query;
   const [index, setIndex] = useState<TeachersPageTabs>(
@@ -50,49 +71,53 @@ const PersonalTeacherPage = () => {
 
   if (!data) return null;
 
-  const teacher = data?.info.teacher;
+  const teacher = data?.info;
 
   return (
-    <PageLayout description={'Сторінка викладача'}>
-      <div className={styles['personal-teacher-page']}>
-        {isLoading ? (
-          <div className={styles['personal-teacher-page-content']}>
-            <div className={styles['loader']}>
-              <Loader />
-            </div>
-          </div>
-        ) : (
-          !isError && (
+    <teacherContext.Provider
+      value={{ floatingCardShowed, setFloatingCardShowed, teacher }}
+    >
+      <PageLayout description={'Сторінка викладача'}>
+        <div className={styles['personal-teacher-page']}>
+          {isLoading ? (
             <div className={styles['personal-teacher-page-content']}>
-              <Breadcrumbs
-                className={styles['breadcrumbs']}
-                items={[
-                  {
-                    label: 'Головна',
-                    href: '/',
-                  },
-                  { label: 'Викладачі', href: '/teachers' },
-                  {
-                    label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
-                    href: `/teachers/${teacherId}`,
-                  },
-                ]}
-              />
-              <div className={styles['card-wrapper']}>
-                <PersonalTeacherCard {...data.info} />
-              </div>
-              <div className={styles['tabs']}>
-                <PersonalTeacherTabs
-                  data={data}
-                  tabIndex={index}
-                  handleChange={handleChange}
-                />
+              <div className={styles['loader']}>
+                <Loader />
               </div>
             </div>
-          )
-        )}
-      </div>
-    </PageLayout>
+          ) : (
+            !isError && (
+              <div className={styles['personal-teacher-page-content']}>
+                <Breadcrumbs
+                  className={styles['breadcrumbs']}
+                  items={[
+                    {
+                      label: 'Головна',
+                      href: '/',
+                    },
+                    { label: 'Викладачі', href: '/teachers' },
+                    {
+                      label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
+                      href: `/teachers/${teacherId}`,
+                    },
+                  ]}
+                />
+                <div className={styles['card-wrapper']}>
+                  <PersonalTeacherCard {...data.info} />
+                </div>
+                <div className={styles['tabs']}>
+                  <PersonalTeacherTabs
+                    data={data}
+                    tabIndex={index}
+                    handleChange={handleChange}
+                  />
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </PageLayout>
+    </teacherContext.Provider>
   );
 };
 export default PersonalTeacherPage;
