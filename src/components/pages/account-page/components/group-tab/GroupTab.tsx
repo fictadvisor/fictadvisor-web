@@ -15,6 +15,7 @@ import StudentsTable from '@/components/pages/account-page/components/group-tab/
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import theme from '@/styles/theme';
+import { PendingStudent } from '@/types/student';
 import { User, UserGroupRole } from '@/types/user';
 
 import styles from './GroupTab.module.scss';
@@ -23,9 +24,15 @@ const getStudents = async (user: User) => {
   const { students } = await GroupAPI.getGroupStudents(
     user.group?.id as string,
   );
-  const { students: requests } = await GroupAPI.getRequestStudents(
-    user.group?.id as string,
-  );
+  let requests: PendingStudent[] = [];
+
+  if (user.group?.role !== UserGroupRole.STUDENT) {
+    const { students: pendingStudents } = await GroupAPI.getRequestStudents(
+      user.group?.id as string,
+    );
+
+    requests = pendingStudents;
+  }
 
   return {
     students,
