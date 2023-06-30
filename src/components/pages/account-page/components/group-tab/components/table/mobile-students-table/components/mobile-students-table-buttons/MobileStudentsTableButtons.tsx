@@ -19,25 +19,27 @@ import {
   IconButton,
   IconButtonColor,
 } from '@/components/common/ui/icon-button/IconButton';
-import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table/types';
+import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import useAuthentication from '@/hooks/use-authentication';
 import useOutsideClick from '@/hooks/use-outside-click';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 import { UserGroupRole } from '@/types/user';
 
-import styles from './MobileStudentTableButtons.module.scss';
+import { StudentsTableItem } from '../../../types';
+
+import styles from './MobileStudentsTableButtons.module.scss';
 
 export interface MobileStudentTableButtonsProps {
   value: number;
   currentValue: number;
   onChange: (value: number) => void;
-  student: StudentTableItem;
+  student: StudentsTableItem;
   variant?: string;
   refetch: QueryObserverBaseResult['refetch'];
 }
 
-const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
+const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
   value,
   currentValue,
   onChange,
@@ -85,17 +87,20 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
     }
   };
 
-  const buttonIcon = student.role ? (
-    <ArrowDownCircleIcon className="icon" />
-  ) : (
-    <ArrowUpCircleIcon className="icon" />
-  );
+  const buttonIcon =
+    student.role === UserGroupRole.MODERATOR ? (
+      <ArrowDownCircleIcon className="icon" />
+    ) : (
+      <ArrowUpCircleIcon className="icon" />
+    );
 
   const wrapperRef = useRef(null);
   useOutsideClick(wrapperRef, () => onChange(-1));
 
-  // TODO: move magic strings to some const
-  const buttonName = student.role ? 'Студент' : 'Зам. старости';
+  const buttonName =
+    student.role === UserGroupRole.MODERATOR
+      ? roleNamesMapper[UserGroupRole.STUDENT]
+      : roleNamesMapper[UserGroupRole.MODERATOR];
   return (
     <>
       <Popup
@@ -196,7 +201,7 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
       ) : (
         user.group?.role === UserGroupRole.MODERATOR && (
           <>
-            {!student.role ? (
+            {student.role !== UserGroupRole.STUDENT ? (
               <div className={styles['button']}>
                 <IconButton
                   icon={<EllipsisVerticalIcon className={'icon'} />}
@@ -235,4 +240,4 @@ const MobileStudentTableButtons: FC<MobileStudentTableButtonsProps> = ({
   );
 };
 
-export default MobileStudentTableButtons;
+export default MobileStudentsTableButtons;

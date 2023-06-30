@@ -1,11 +1,10 @@
-import { RequestTableItem } from '@/components/pages/account-page/components/group-tab/components/table/request-table/types';
-import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/student-table/types';
 import { GroupStudent, PendingStudent } from '@/types/student';
-import { UserGroupRole } from '@/types/user';
+
+import { RequestsTableItem, StudentsTableItem } from '../types';
 
 export const transformStudentsData = (
   data: GroupStudent[],
-): StudentTableItem[] =>
+): StudentsTableItem[] =>
   data.map(dataItem => ({
     imgSrc: dataItem.avatar,
     fullName: `${dataItem.lastName} ${dataItem.firstName} ${dataItem.middleName}`,
@@ -16,7 +15,7 @@ export const transformStudentsData = (
 
 export const transformRequestsData = (
   data: PendingStudent[],
-): RequestTableItem[] =>
+): RequestsTableItem[] =>
   data.map(dataItem => ({
     imgSrc: dataItem.avatar,
     fullName: `${dataItem.lastName} ${dataItem.firstName} ${dataItem.middleName}`,

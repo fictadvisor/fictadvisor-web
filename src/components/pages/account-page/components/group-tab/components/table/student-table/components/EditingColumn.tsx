@@ -14,16 +14,18 @@ import Button, {
 } from '@/components/common/ui/button';
 import { TrashBucketButton } from '@/components/common/ui/icon-button/variants';
 import Popup from '@/components/common/ui/pop-ups-mui/Popup';
-import { StudentTableItem } from '@/components/pages/account-page/components/group-tab/components/table/student-table/types';
+import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 import { UserGroupRole } from '@/types/user';
 
-import styles from '../StudentTable.module.scss';
+import { StudentsTableItem } from '../../types';
+
+import styles from '../StudentsTable.module.scss';
 
 interface EditingColumnProps {
-  student: StudentTableItem;
+  student: StudentsTableItem;
   refetch: QueryObserverBaseResult['refetch'];
 }
 
@@ -70,7 +72,9 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   };
 
   const buttonText =
-    student.role === UserGroupRole.MODERATOR ? 'Студент' : 'Зам. старости';
+    student.role === UserGroupRole.MODERATOR
+      ? roleNamesMapper[UserGroupRole.STUDENT]
+      : roleNamesMapper[UserGroupRole.MODERATOR];
   const buttonIcon =
     student.role === UserGroupRole.MODERATOR ? (
       <ArrowDownCircleIcon className="icon" />

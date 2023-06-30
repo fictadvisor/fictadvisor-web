@@ -1,17 +1,17 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { useMediaQuery } from '@mui/material';
-
-import Loader, { LoaderSize } from '@/components/common/ui/loader';
-import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
-import MobileRequestTable from '@/components/pages/account-page/components/group-tab/components/table/mobile-request-table';
-import MobileStudentTable from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table';
-import RequestTable from '@/components/pages/account-page/components/group-tab/components/table/request-table';
-import StudentTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';
+import MobileRequestsTable from 'src/components/pages/account-page/components/group-tab/components/table/mobile-requests-table';
+import MobileStudentsTable from 'src/components/pages/account-page/components/group-tab/components/table/mobile-students-table';
+import RequestsTable from 'src/components/pages/account-page/components/group-tab/components/table/requests-table';
 import {
   transformRequestsData,
   transformStudentsData,
-} from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
+} from 'src/components/pages/account-page/components/group-tab/components/table/utils';
+
+import Loader, { LoaderSize } from '@/components/common/ui/loader';
+import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
+import StudentsTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import theme from '@/styles/theme';
@@ -62,26 +62,26 @@ const GroupTab: FC = () => {
       </div>
       {showRequests &&
         (isMobile ? (
-          <MobileRequestTable
+          <MobileRequestsTable
             refetch={refetch}
             rows={transformRequestsData(data?.requests)}
           />
         ) : (
-          <RequestTable
+          <RequestsTable
             refetch={refetch}
             rows={transformRequestsData(data.requests)}
           />
         ))}
       {isMobile ? (
-        <MobileStudentTable
+        <MobileStudentsTable
           refetch={refetch}
-          variant={user.group.role}
+          role={user.group.role}
           rows={transformStudentsData(data.students)}
         />
       ) : (
-        <StudentTable
+        <StudentsTable
           refetch={refetch}
-          variant={user.group.role}
+          role={user.group.role}
           rows={transformStudentsData(data.students)}
         />
       )}

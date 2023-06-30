@@ -40,6 +40,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
       selectedValue={field.value}
       textType={textType}
       disabled={disabled}
+      name={name}
       {...option}
       {...rest}
     />

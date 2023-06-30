@@ -20,6 +20,7 @@ interface RadioProps {
   state: FieldState;
   disabled?: boolean;
   selectedValue: string;
+  name: string;
 }
 
 const Radio: FC<RadioProps> = ({

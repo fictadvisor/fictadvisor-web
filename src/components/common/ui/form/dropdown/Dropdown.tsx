@@ -68,11 +68,11 @@ const Dropdown: FC<DropdownProps> = ({
           disablePortal
           blurOnSelect={true}
           options={options}
+          // TODO: check why value is string
           isOptionEqualToValue={(option, value) => option.value === value.value}
           renderInput={params => (
             <TextField
               {...params}
-              inputProps={values}
               label={label}
               sx={styles.input(dropdownState, size)}
               placeholder={placeholder}

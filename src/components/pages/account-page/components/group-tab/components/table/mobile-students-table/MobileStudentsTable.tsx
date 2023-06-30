@@ -2,32 +2,37 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
 import { AxiosError } from 'axios';
+import MobileStudentsTableButtons from 'src/components/pages/account-page/components/group-tab/components/table/mobile-students-table/components/mobile-students-table-buttons';
 
 import { Captain } from '@/components/common/icons/Captain';
 import { Moderator } from '@/components/common/icons/Moderator';
 import { AlertColor } from '@/components/common/ui/alert';
-import Button from '@/components/common/ui/button';
+import {
+  IconButton,
+  IconButtonShape,
+} from '@/components/common/ui/icon-button/IconButton';
 import Tag from '@/components/common/ui/tag-mui';
-import { TagSize, TagVariant } from '@/components/common/ui/tag-mui/types';
+import { TagSize } from '@/components/common/ui/tag-mui/types';
 import CustomDivider from '@/components/pages/account-page/components/divider';
-import EditingColumn from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/EditingColumn';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 import { UserGroupRole } from '@/types/user';
 
-import { StudentTableProps } from './types';
+import { StudentsTableProps } from '../types';
 
-import styles from './StudentTable.module.scss';
+import styles from './MobileStudentsTable.module.scss';
 
-const StudentTable: React.FC<StudentTableProps> = ({
-  variant,
+const MobileStudentsTable: React.FC<StudentsTableProps> = ({
+  role,
   rows,
   refetch,
 }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [openedIndex, setOpenedIndex] = useState(-1);
+
   const { user } = useAuthentication();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const dispatch = useDispatch();
   const handleAddStudents = async (value: string) => {
     try {
@@ -35,7 +40,6 @@ const StudentTable: React.FC<StudentTableProps> = ({
         .split(/[\n\r\t ,]+/)
         .map(line => line.trim())
         .filter(line => line !== '' && line !== '\n');
-
       // TODO: remove as and refactor props
       await GroupAPI.addStudentsByMail(user.group?.id as string, { emails });
       setIsPopupOpen(false);
@@ -70,12 +74,12 @@ const StudentTable: React.FC<StudentTableProps> = ({
           closeFunction={() => setIsPopupOpen(false)}
         />
       )}
-      {variant && (
+      {role && (
         <CustomDivider text="Студенти">
           <div className={styles['button']}>
-            <Button
-              text={'Додати студента'}
-              startIcon={<PlusIcon className={'icon'} />}
+            <IconButton
+              icon={<PlusIcon className={'icon'} />}
+              shape={IconButtonShape.SQUARE}
               onClick={() => setIsPopupOpen(true)}
             />
           </div>
@@ -97,43 +101,34 @@ const StudentTable: React.FC<StudentTableProps> = ({
               ]
             }
           >
+            <img className={styles['img']} src={row.imgSrc} alt="avatar" />
             <div className={styles['user-info']}>
-              <img className={styles['img']} src={row.imgSrc} alt="avatar" />
-              <div className={styles['full-name']}>{row.fullName}</div>
-              <div className={styles['tag-container']}>
-                <div className={styles['tag']}>
-                  {row.role && (
-                    <Tag
-                      text={row.role}
-                      variant={TagVariant.DARKER}
-                      size={TagSize.SMALL}
-                    />
-                  )}
-                </div>
-                <div className={styles['tag-mobile']}>
-                  {row.role && (
-                    <Tag
-                      size={TagSize.SMALL}
-                      variant={TagVariant.DARKER}
-                      icon={
-                        row.role === UserGroupRole.CAPTAIN ? (
-                          <Captain />
-                        ) : (
-                          <Moderator />
-                        )
-                      }
-                      text=""
-                    />
-                  )}
-                </div>
-              </div>
+              <h6 className={styles['full-name']}>{row.fullName}</h6>
+              <h6 className={styles['email']}>{row.email}</h6>
             </div>
-            <div className={styles['other-content']}>
-              <div className={styles['email']}>{row.email}</div>
-              <div className={styles['side-buttons']}>
-                <EditingColumn student={row} refetch={refetch} />
-              </div>
+            <div className={styles['tag']}>
+              {row.role !== UserGroupRole.STUDENT && (
+                <Tag
+                  size={TagSize.SMALL}
+                  icon={
+                    row.role === UserGroupRole.CAPTAIN ? (
+                      <Captain />
+                    ) : (
+                      <Moderator />
+                    )
+                  }
+                  text=""
+                />
+              )}
             </div>
+            <MobileStudentsTableButtons
+              value={index}
+              currentValue={openedIndex}
+              onChange={setOpenedIndex}
+              variant={role}
+              student={row}
+              refetch={refetch}
+            />
           </div>
         ))}
       </div>
@@ -141,4 +136,4 @@ const StudentTable: React.FC<StudentTableProps> = ({
   );
 };
 
-export default StudentTable;
+export default MobileStudentsTable;

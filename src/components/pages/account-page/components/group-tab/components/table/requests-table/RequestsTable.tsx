@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -13,11 +13,11 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 import { UserGroupState } from '@/types/user';
 
-import { RequestTableProps } from './types';
+import { RequestsTableProps } from '../types';
 
-import styles from './MobileRequestTable.module.scss';
+import styles from './RequestsTable.module.scss';
 
-const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
+const RequestsTable: FC<RequestsTableProps> = ({ rows, refetch }) => {
   const { user } = useAuthentication();
   const dispatch = useDispatch();
   const handleApprove = async (userId: string) => {
@@ -53,6 +53,7 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
       );
     }
   };
+
   return (
     <>
       <CustomDivider text="Нові запити" />
@@ -72,24 +73,25 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
               ]
             }
           >
-            <img className={styles['img']} src={row.imgSrc} alt="avatar" />
             <div className={styles['user-info']}>
-              <h6 className={styles['full-name']}>{row.fullName}</h6>
-              <h6 className={styles['email']}>{row.email}</h6>
+              <img className={styles['img']} src={row.imgSrc} alt="avatar" />
+              <div className={styles['full-name']}>{row.fullName}</div>
             </div>
-            <div className={styles['side-buttons']}>
-              <AlertButton
-                className={styles['button-left']}
-                variant={AlertButtonVariant.SUCCESS}
-                endIcon={<CustomCheck />}
-                onClick={() => handleApprove(row.id)}
-              />
-              <AlertButton
-                className={styles['button-right']}
-                variant={AlertButtonVariant.ERROR_OUTLINE}
-                startIcon={<XMarkIcon className="icon" />}
-                onClick={() => handleDecline(row.id)}
-              />
+            <div className={styles['other-content']}>
+              <div className={styles['email']}>{row.email}</div>
+              <div className={styles['side-buttons']}>
+                <AlertButton
+                  text={'Прийняти'}
+                  variant={AlertButtonVariant.SUCCESS}
+                  endIcon={<CustomCheck />}
+                  onClick={() => handleApprove(row.id)}
+                />
+                <AlertButton
+                  variant={AlertButtonVariant.ERROR_OUTLINE}
+                  startIcon={<XMarkIcon className="icon" />}
+                  onClick={() => handleDecline(row.id)}
+                />
+              </div>
             </div>
           </div>
         ))}
@@ -98,4 +100,4 @@ const MobileRequestTable: React.FC<RequestTableProps> = ({ rows, refetch }) => {
   );
 };
 
-export default MobileRequestTable;
+export default RequestsTable;
