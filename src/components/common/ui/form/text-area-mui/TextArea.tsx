@@ -12,7 +12,7 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import * as styles from './TextArea.styles';
 import { TextAreaProps, TextAreaSize, TextAreaState } from './types';
 
-const MAX_LENGTH = 2000;
+const MAX_LENGTH = 4000;
 
 const TextArea: React.FC<TextAreaProps> = ({
   name,

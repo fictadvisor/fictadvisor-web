@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useQuery } from 'react-query';
+import { useMediaQuery } from '@mui/material';
 
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
@@ -12,8 +13,8 @@ import {
   transformStudentsData,
 } from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
 import useAuthentication from '@/hooks/use-authentication';
-import useIsMobile from '@/hooks/use-is-mobile';
 import GroupAPI from '@/lib/api/group/GroupAPI';
+import theme from '@/styles/theme';
 import { User, UserGroupRole } from '@/types/user';
 
 import styles from './GroupTab.module.scss';
@@ -33,7 +34,7 @@ const getStudents = async (user: User) => {
 };
 
 const GroupTab: FC = () => {
-  const isMobile = useIsMobile(1024);
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const { user } = useAuthentication();
 
   const { data, isLoading, refetch } = useQuery(

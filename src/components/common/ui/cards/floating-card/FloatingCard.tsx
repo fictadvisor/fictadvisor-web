@@ -12,7 +12,7 @@ interface FloatingCardProps extends Teacher {
   subjectName?: string;
 }
 
-export const FloatingCard: FC<FloatingCardProps> = ({
+const FloatingCard: FC<FloatingCardProps> = ({
   firstName,
   middleName,
   lastName,
@@ -75,3 +75,5 @@ export const FloatingCard: FC<FloatingCardProps> = ({
     </Box>
   );
 };
+
+export default FloatingCard;

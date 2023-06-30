@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import { FloatingCard } from '@/components/common/ui/cards/floating-card';
+import FloatingCard from '@/components/common/ui/cards/floating-card';
 import Comment from '@/components/common/ui/comment';
 import { Dropdown } from '@/components/common/ui/form';
 import { FieldSize } from '@/components/common/ui/form/common/types';
@@ -41,7 +41,7 @@ const CommentTab: FC<TeacherTabProps> = ({ teacherId, subjectId }) => {
   } = useContext(teacherSubjectContext);
   const [sort, setSort] = useState('newest');
   const { refetch, data } = useQuery(
-    ['teacherInfo', teacherId, subjectId],
+    ['teacherInfo', teacherId, subjectId, sort],
     () =>
       TeacherAPI.getTeacherComments(
         teacherId,
@@ -80,13 +80,14 @@ const CommentTab: FC<TeacherTabProps> = ({ teacherId, subjectId }) => {
           {({ handleSubmit }) => (
             <Form style={styles.dropdown}>
               <Dropdown
+                disableClearable
                 placeholder="Сортувати відгуки"
                 size={FieldSize.MEDIUM}
                 options={sortInfo}
                 name="dropdown"
-                label=""
-                showRemark={false}
+                showRemark
                 onChange={handleSubmit}
+                label=""
               />
             </Form>
           )}

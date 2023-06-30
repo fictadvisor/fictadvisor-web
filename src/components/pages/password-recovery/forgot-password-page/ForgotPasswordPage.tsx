@@ -1,16 +1,17 @@
 import React from 'react';
 import { ChevronLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
 import ForgotPasswordForm from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form';
+import * as styles from '@/components/pages/password-recovery/forgot-password-page/ForgotPasswordPage.styles';
 
 import PageLayout from '../../../common/layout/page-layout/PageLayout';
-
-import styles from './ForgotPasswordPage.module.scss';
 
 const ForgotPasswordPage = () => {
   const router = useRouter();
@@ -23,29 +24,27 @@ const ForgotPasswordPage = () => {
       hasFooter={false}
       description={'Сторінка для створення нового паролю'}
     >
-      <div className={styles['forgot-password-page']}>
-        <div className={styles['forgot-password-page-content']}>
-          <div className={styles['icon']}>
+      <Box sx={styles.container}>
+        <Box sx={styles.content}>
+          <Box sx={styles.icon}>
             <EnvelopeIcon />
-          </div>
-          <div className={styles['headline']}>
-            <h3>Забув пароль?</h3>
-          </div>
-          <div className={styles['text']}>
-            <h6>Ми надішлемо на введену пошту лист для зміни паролю</h6>
-          </div>
-          <div className={styles['formik']}>
+          </Box>
+          <Typography sx={styles.title}>Забув пароль?</Typography>
+          <Typography sx={styles.text}>
+            Ми надішлемо на введену пошту лист для зміни паролю
+          </Typography>
+          <Box sx={styles.form}>
             <ForgotPasswordForm />
-          </div>
+          </Box>
           <Button
-            text={'Повернутись до авторизації'}
-            startIcon={<ChevronLeftIcon className="icon" />}
+            text="Повернутись до авторизації"
             variant={ButtonVariant.TEXT}
             size={ButtonSize.SMALL}
+            startIcon={<ChevronLeftIcon />}
             onClick={returnAuth}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </PageLayout>
   );
 };

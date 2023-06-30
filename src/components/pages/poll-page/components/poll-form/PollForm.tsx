@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useMediaQuery } from '@mui/material';
 
-import useIsMobile from '@/hooks/use-is-mobile';
 import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
+import theme from '@/styles/theme';
 import { Answer, Category, Question } from '@/types/poll';
 
 import AnswersSheet from '../answers-sheet/AnswersSheet';
@@ -41,17 +42,18 @@ const getAllQuestionsArray = (categories: Category[]): Question[] => {
   return questions;
 };
 
-const PollForm: React.FC<PollFormProps> = ({ data }) => {
+const PollForm: FC<PollFormProps> = ({ data }) => {
   const [isValid, setIsValid] = useState(false);
   const { categories, teacher, subject } = data;
-  const [currentQuestions, setCurrentQuestions] = React.useState(categories[0]);
-  const [progress, setProgress] = React.useState<number[]>(
+  // TODO: fix naming
+  const [currentQuestions, setCurrentQuestions] = useState(categories[0]);
+  const [progress, setProgress] = useState<number[]>(
     Array(categories.length).fill(0),
   );
-  const isMobile = useIsMobile(1024);
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isQuestionsListOpened, setQuestionsListOpened] = useState(false);
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const [currentCategory, setCurrentCategory] = React.useState(0);
+  const [currentCategory, setCurrentCategory] = useState(0);
   const [questionsArray, setQuestionsArray] = useState<Question[]>([]);
   const [sendingStatus, setIsSendingStatus] = useState<SendingStatus>(
     SendingStatus.ANY,

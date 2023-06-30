@@ -28,10 +28,11 @@ const Dropdown: FC<DropdownProps> = ({
   showRemark = true,
   size = FieldSize.MEDIUM,
   isDisabled = false,
-  defaultValue,
+  disableClearable = false,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [values, { touched, error }, { setTouched, setValue }] = useField(name);
+
   const dropdownState = useMemo(() => {
     if (isDisabled) return FieldState.DISABLED;
     else if (touched && error) return FieldState.ERROR;
@@ -44,6 +45,7 @@ const Dropdown: FC<DropdownProps> = ({
     setValue(option?.value || '', true);
     if (onChange) onChange();
   };
+
   return (
     <Box
       sx={{
@@ -52,6 +54,9 @@ const Dropdown: FC<DropdownProps> = ({
     >
       <Box sx={styles.dropdown}>
         <Autocomplete
+          disableClearable={disableClearable}
+          value={values.value}
+          onChange={handleChange}
           disabled={isDisabled}
           onFocus={() => {
             setIsFocused(true);
@@ -61,7 +66,6 @@ const Dropdown: FC<DropdownProps> = ({
           }}
           fullWidth
           disablePortal
-          onChange={handleChange}
           blurOnSelect={true}
           options={options}
           isOptionEqualToValue={(option, value) => option.value === value.value}
@@ -75,9 +79,11 @@ const Dropdown: FC<DropdownProps> = ({
               disabled={isDisabled}
             />
           )}
-          getOptionLabel={option =>
-            'text' in option ? option.text : option.label
-          }
+          getOptionLabel={value => {
+            const option = options.find(opt => opt.value === value);
+            if (!option) return '';
+            return 'text' in option ? option.text : option.label;
+          }}
           componentsProps={{
             popper: {
               placement: 'bottom-start',
@@ -104,7 +110,6 @@ const Dropdown: FC<DropdownProps> = ({
           popupIcon={
             <ChevronDownIcon width={24} height={24} strokeWidth={1.5} />
           }
-          value={defaultValue ?? null}
           noOptionsText={noOptionsText}
           renderOption={(props, option: DropDownOption) => (
             <Option {...props} option={option} key={option.value} />

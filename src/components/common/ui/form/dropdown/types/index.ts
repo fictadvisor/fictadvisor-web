@@ -26,5 +26,5 @@ export interface DropdownProps {
   noOptionsText?: string;
   width?: string;
   onChange?: () => void;
-  defaultValue?: DropDownOption;
+  disableClearable?: boolean;
 }

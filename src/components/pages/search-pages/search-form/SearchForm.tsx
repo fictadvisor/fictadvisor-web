@@ -100,19 +100,6 @@ export const SearchForm: FC<SearchFormProps> = ({
                         }))
                       : []
                   }
-                  defaultValue={
-                    groupData
-                      ? groupData.groups
-                          .map(group => ({
-                            label: group.code,
-                            value: group.id,
-                          }))
-                          .find(option => option.value === initialValues.group)
-                      : {
-                          label: '',
-                          value: '',
-                        }
-                  }
                 />
               </div>
               <div className={styles['dropdown-2']}>
@@ -123,9 +110,6 @@ export const SearchForm: FC<SearchFormProps> = ({
                   showRemark={false}
                   name="sort"
                   options={filterDropDownOptions}
-                  defaultValue={filterDropDownOptions.find(
-                    option => option.value === initialValues.sort,
-                  )}
                 />
               </div>
               <div>
