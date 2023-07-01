@@ -26,7 +26,7 @@ const Register = (props: InferGetStaticPropsType<typeof getStaticProps>) => (
     hasFooter={false}
     hasHeader={false}
     robots="noindex"
-    title="Авторизація"
+    title="Реєстрація у FICT Advisor"
   >
     <RegisterPage {...props} />
   </PageLayout>

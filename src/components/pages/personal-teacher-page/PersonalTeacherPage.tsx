@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
@@ -46,6 +52,7 @@ const PersonalTeacherPage = () => {
     },
   );
   const toast = useToast();
+  const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
   const { tab } = query;
   const [index, setIndex] = useState<TeachersPageTabs>(

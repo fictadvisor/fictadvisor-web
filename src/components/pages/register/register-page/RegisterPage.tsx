@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 
-import type { GetAllDTO } from '@/lib/api/group/dto/GetAllDTO';
+import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 
 import LeftBlock from './components/left-block';
 import RightBlock from './components/right-block';
