@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 
 import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
 import PageLayout from '@/components/common/layout/page-layout';
-import Alert, { AlertColor, AlertVariant } from '@/components/common/ui/alert';
+//TODO cut off AlertColor
+import { AlertColor } from '@/components/common/ui/alert';
+import Alert from '@/components/common/ui/alert-mui';
 import Button, {
   ButtonColor,
   ButtonSize,
@@ -91,9 +93,8 @@ const RegistrationEmailConfirmationPage = () => {
           <div className={styles['alert']}>
             <Alert
               title={'Лист реєстрації діє 1 годину'}
-              color={AlertColor.INFO}
-              variant={AlertVariant.DARKER}
-              isClosable={false}
+              type="info"
+              variant="darker"
             />
           </div>
           <Button

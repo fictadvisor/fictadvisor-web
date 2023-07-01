@@ -1,14 +1,18 @@
 import React from 'react';
 
-import Alert, { AlertColor, AlertVariant } from '../alert/Alert';
+import Alert from '@/components/common/ui/alert-mui';
+import {
+  AlertType,
+  AlertVariantType,
+} from '@/components/common/ui/alert-mui/Alert';
 
 import styles from './AlertPopup.module.scss';
 
 export interface AlertPopupProps {
   title: string;
   description?: string;
-  color?: AlertColor;
-  variant?: AlertVariant;
+  color?: AlertType;
+  variant?: AlertVariantType;
   closeFunction: () => void;
 }
 
@@ -22,12 +26,12 @@ const AlertPopup: React.FC<AlertPopupProps> = ({
   return (
     <div className={styles.wrapper}>
       <Alert
-        isClosable={true}
+        // isClosable={true}
         title={title}
         description={description}
+        type={color}
         variant={variant}
-        color={color}
-        closeFunction={closeFunction}
+        onClose={closeFunction}
       />
     </div>
   );
