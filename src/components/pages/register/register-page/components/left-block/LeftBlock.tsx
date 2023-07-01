@@ -10,6 +10,7 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import Divider from '@/components/common/ui/divider-mui';
+import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import RegisterForm from '@/components/pages/register/register-page/components/register-form';
 import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 import AuthService from '@/lib/services/auth/AuthService';
@@ -64,7 +65,10 @@ const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
             onClick={handleClick}
             className={styles['telegram-button']}
           />
-          <Divider text="та введи дані нижче" textAlign="center" />
+          <Divider
+            text="та введи дані нижче"
+            textAlign={DividerTextAlign.CENTER}
+          />
         </>
       )}
       <RegisterForm groups={groups || []} />

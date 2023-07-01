@@ -7,6 +7,7 @@ import { Form, Formik } from 'formik';
 //TODO cut off AlertColor
 import { AlertColor } from '@/components/common/ui/alert';
 import Alert from '@/components/common/ui/alert-mui';
+import { AlertType } from '@/components/common/ui/alert-mui/types';
 import Button, { ButtonSize } from '@/components/common/ui/button';
 import { Checkbox, Dropdown } from '@/components/common/ui/form';
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
@@ -80,12 +81,12 @@ const NoGroupBlock: FC = () => {
           <div className={styles['alert-desktop']}>
             <Alert
               title={'Ваша заявка відхилена'}
-              type="error"
+              type={AlertType.ERROR}
               description={'Оберіть іншу групу нижче та надішліть новий запит'}
             />
           </div>
           <div className={styles['alert-mobile']}>
-            <Alert title={'Ваша заявка відхилена'} type="error" />
+            <Alert title={'Ваша заявка відхилена'} type={AlertType.ERROR} />
           </div>
         </>
       )}

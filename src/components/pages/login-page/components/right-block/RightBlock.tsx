@@ -11,6 +11,7 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button';
 import Divider from '@/components/common/ui/divider-mui';
+import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import LoginForm from '@/components/pages/login-page/components/login-form';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth/AuthService';
@@ -66,7 +67,7 @@ const RightBlock = () => {
         onClick={handleClick}
         className={styles['telegram-button']}
       />
-      <Divider text="або" textAlign="center" />
+      <Divider text="або" textAlign={DividerTextAlign.CENTER} />
       <LoginForm />
       <p className={styles['mobile-text']}>Ти ще не з нами? </p>
       <Button

@@ -9,6 +9,10 @@ import PageLayout from '@/components/common/layout/page-layout';
 //TODO cut off AlertColor
 import { AlertColor } from '@/components/common/ui/alert';
 import Alert from '@/components/common/ui/alert-mui';
+import {
+  AlertType,
+  AlertVariant,
+} from '@/components/common/ui/alert-mui/types';
 import Button, {
   ButtonColor,
   ButtonSize,
@@ -93,8 +97,8 @@ const RegistrationEmailConfirmationPage = () => {
           <div className={styles['alert']}>
             <Alert
               title={'Лист реєстрації діє 1 годину'}
-              type="info"
-              variant="darker"
+              type={AlertType.ERROR}
+              variant={AlertVariant.DARKER}
             />
           </div>
           <Button

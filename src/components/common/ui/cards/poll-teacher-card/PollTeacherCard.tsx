@@ -1,4 +1,4 @@
-import { FC, Fragment, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Link from 'next/link';
@@ -12,6 +12,8 @@ import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
+import Tooltip from '@/components/common/ui/tooltip-mui';
+import { TooltipPosition } from '@/components/common/ui/tooltip-mui/types';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { TeacherRole } from '@/types/teacher';
 
@@ -42,8 +44,6 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
 }) => {
   const [DisplayComponent, setDisplayComponent] = useState(true);
   const [open, setOpen] = useState(false);
-  const divRef = useRef<HTMLDivElement>(null);
-  const [isTruncated, setIsTruncated] = useState(false);
 
   const handlerTeacherRemove = async () => {
     try {
@@ -51,15 +51,6 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
       setDisplayComponent(false);
       setOpen(false);
     } catch (er: unknown) {}
-  };
-
-  const onMouseOverHandler = () => {
-    const elem = divRef.current;
-    if (elem) {
-      setIsTruncated(
-        elem.scrollHeight - 1 > elem.getBoundingClientRect().height,
-      );
-    }
   };
 
   return (
@@ -91,22 +82,13 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
             />
             <div className={styles['poll-teacher-card-info']}>
               <h4 className={styles['poll-teacher-name']}>{name}</h4>
-              {/* <Tooltip
-                display={isTruncated}
+              <Tooltip
                 text={description}
-                style={{
-                  width: '300px',
-                  fontSize: '11px',
-                }}
+                hasArrow={true}
+                position={TooltipPosition.RIGHT}
               >
-                <div
-                  onMouseOver={onMouseOverHandler}
-                  ref={divRef}
-                  className={styles['poll-subject-name']}
-                >
-                  {description}
-                </div>
-              </Tooltip> */}
+                <div className={styles['poll-subject-name']}>{description}</div>
+              </Tooltip>
             </div>
 
             <Link href={href}>

@@ -1,11 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 
 import { DivProps } from '@/components/common/ui/cards/types';
+import Tooltip from '@/components/common/ui/tooltip-mui';
+import { TooltipPosition } from '@/components/common/ui/tooltip-mui/types';
 
 // import Tooltip from '@/components/common/ui/tooltip-mui';
 import styles from './TeacherHeaderCard.module.scss';
-
 type TeacherHeaderCardProps = {
   name: string;
   description: string;
@@ -18,18 +19,6 @@ const TeacherHeaderCard: React.FC<TeacherHeaderCardProps> = ({
   url = '/images/lecturer-avatar.png',
   ...rest
 }) => {
-  const divRef = useRef<HTMLDivElement>(null);
-  const [isTruncated, setIsTruncated] = useState(false);
-
-  const onMouseOverHandler = () => {
-    const elem = divRef.current;
-    if (elem) {
-      setIsTruncated(
-        elem.scrollHeight - 1 > elem.getBoundingClientRect().height,
-      );
-    }
-  };
-
   return (
     <div
       className={cn(styles['card'], styles['header-lecturer-card-container'])}
@@ -38,11 +27,13 @@ const TeacherHeaderCard: React.FC<TeacherHeaderCardProps> = ({
       <img src={url} alt="картинка викладача" />
       <div className={styles['header-lecturer-card-info']}>
         <h4 className={styles['card-name']}>{name}</h4>
-        <div className={styles['lecturer-description']}>{description}</div>
-        {/*//TODO proper usage of Tooltip*/}
-        {/*<Tooltip text={description} hasArrow={false}>*/}
-        {/*  <div className={styles['lecturer-description']}>{description}</div>*/}
-        {/*</Tooltip>*/}
+        <Tooltip
+          text={description}
+          hasArrow={true}
+          position={TooltipPosition.RIGHT}
+        >
+          <div className={styles['lecturer-description']}>{description}</div>
+        </Tooltip>
       </div>
     </div>
   );
