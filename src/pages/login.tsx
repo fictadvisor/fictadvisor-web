@@ -8,7 +8,7 @@ const Login: FC = () => {
     <PageLayout
       hasHeader={false}
       hasFooter={false}
-      title="Авторизація"
+      title="Авторизація | FICT Advisor"
       robots="noindex"
     >
       <LoginPage />
