@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import cn from 'classnames';
 
 import { DivProps } from '@/components/common/ui/cards/types';
-import Tooltip from '@/components/common/ui/tooltip';
 
+// import Tooltip from '@/components/common/ui/tooltip-mui';
 import styles from './TeacherHeaderCard.module.scss';
 
 type TeacherHeaderCardProps = {
@@ -38,22 +38,11 @@ const TeacherHeaderCard: React.FC<TeacherHeaderCardProps> = ({
       <img src={url} alt="картинка викладача" />
       <div className={styles['header-lecturer-card-info']}>
         <h4 className={styles['card-name']}>{name}</h4>
-        <Tooltip
-          display={isTruncated}
-          text={description}
-          style={{
-            fontSize: '11px',
-            width: '300px',
-          }}
-        >
-          <div
-            ref={divRef}
-            onMouseOver={onMouseOverHandler}
-            className={styles['lecturer-description']}
-          >
-            {description}
-          </div>
-        </Tooltip>
+        <div className={styles['lecturer-description']}>{description}</div>
+        {/*//TODO proper usage of Tooltip*/}
+        {/*<Tooltip text={description} hasArrow={false}>*/}
+        {/*  <div className={styles['lecturer-description']}>{description}</div>*/}
+        {/*</Tooltip>*/}
       </div>
     </div>
   );

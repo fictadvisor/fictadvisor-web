@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, Fragment, useRef, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Link from 'next/link';
@@ -12,10 +12,10 @@ import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
-import Tooltip from '@/components/common/ui/tooltip';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { TeacherRole } from '@/types/teacher';
+
+import { IconButtonColor } from '../../icon-button-mui/types';
 
 import * as sxStyles from './pollTeachaerCard.styles';
 import { SkipTeacherPopup } from './SkipTeacherPopup';
@@ -91,7 +91,7 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
             />
             <div className={styles['poll-teacher-card-info']}>
               <h4 className={styles['poll-teacher-name']}>{name}</h4>
-              <Tooltip
+              {/* <Tooltip
                 display={isTruncated}
                 text={description}
                 style={{
@@ -106,7 +106,7 @@ export const PollTeacherCard: FC<PollTeacherCardProps> = ({
                 >
                   {description}
                 </div>
-              </Tooltip>
+              </Tooltip> */}
             </div>
 
             <Link href={href}>
