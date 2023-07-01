@@ -10,7 +10,7 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import Divider, { DividerTextPosition } from '@/components/common/ui/divider';
+import Divider from '@/components/common/ui/divider-mui';
 import LoginForm from '@/components/pages/login-page/components/login-form';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth/AuthService';
@@ -66,11 +66,7 @@ const RightBlock = () => {
         onClick={handleClick}
         className={styles['telegram-button']}
       />
-      <Divider
-        text="або"
-        textPosition={DividerTextPosition.CENTER}
-        className={styles['right-divider']}
-      />
+      <Divider text="або" textAlign="center" />
       <LoginForm />
       <p className={styles['mobile-text']}>Ти ще не з нами? </p>
       <Button
