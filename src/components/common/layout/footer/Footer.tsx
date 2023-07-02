@@ -27,6 +27,7 @@ const Footer: FC = () => {
             quality={100}
             width={197}
             height={20}
+            priority
             alt="logo"
           />
         </Link>

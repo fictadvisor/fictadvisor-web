@@ -46,7 +46,11 @@ const FloatingCard: FC<FloatingCardProps> = ({
             )}
 
             {roles?.includes(TeacherRole.LABORANT) && (
-              <Tag color={TagColor.MINT} size={TagSize.SMALL} text="Лаборант" />
+              <Tag
+                color={TagColor.MINT}
+                size={TagSize.SMALL}
+                text="Лабораторні"
+              />
             )}
           </Box>
         </Box>
