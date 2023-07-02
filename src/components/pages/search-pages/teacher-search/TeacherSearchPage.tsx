@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button, {
@@ -29,7 +29,7 @@ const breadcrumbs = [
     href: '/teachers',
   },
 ];
-const pageSize = 20;
+const PAGE_SIZE = 20;
 
 export const TeacherSearchPage = () => {
   const initialValues = localStorage.getItem('teachersForm')
@@ -39,6 +39,9 @@ export const TeacherSearchPage = () => {
   const [queryObj, setQueryObj] =
     useState<TeacherSearchFormFields>(initialValues);
   const [curPage, setCurPage] = useState(0);
+
+  const queryClient = useQueryClient();
+
   const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
     setQueryObj(query as TeacherSearchFormFields);
     setCurPage(0);
@@ -47,13 +50,21 @@ export const TeacherSearchPage = () => {
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetTeachersResponse>(
       'lecturers',
-      () => TeacherAPI.getAll(queryObj, pageSize * (curPage + 1)),
-      { keepPreviousData: true, refetchOnWindowFocus: false },
+      () => TeacherAPI.getAll(queryObj, PAGE_SIZE, curPage),
+      {
+        refetchOnWindowFocus: false,
+      },
     );
+
+  useEffect(() => {
+    queryClient.removeQueries('lecturers');
+  }, [queryClient]);
 
   useEffect(() => {
     void refetch();
   }, [queryObj, curPage, refetch]);
+
+  console.log(data);
 
   return (
     <div className={styles['layout']}>
@@ -81,7 +92,7 @@ export const TeacherSearchPage = () => {
           </div>
         ))}
 
-      {data?.teachers.length === (curPage + 1) * pageSize && (
+      {data?.meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"

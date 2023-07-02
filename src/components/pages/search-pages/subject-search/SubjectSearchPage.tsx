@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button, {
@@ -28,11 +28,12 @@ const breadcrumbs = [
     href: '/subjects',
   },
 ];
-const pageSize = 20;
+const PAGE_SIZE = 20;
 
 const SubjectSearchPage = () => {
   const [queryObj, setQueryObj] = useState(SubjectInitialValues);
   const [curPage, setCurPage] = useState(0);
+  const queryClient = useQueryClient();
   //const localStorageName = 'subjectForm';
 
   const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
@@ -43,9 +44,13 @@ const SubjectSearchPage = () => {
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetListOfSubjectsResponse>(
       'subjects',
-      () => SubjectsAPI.getAll(queryObj, pageSize * (curPage + 1)),
-      { keepPreviousData: true, refetchOnWindowFocus: false },
+      () => SubjectsAPI.getAll(queryObj, PAGE_SIZE, curPage),
+      { refetchOnWindowFocus: false },
     );
+
+  useEffect(() => {
+    queryClient.removeQueries('subjects');
+  }, [queryClient]);
 
   useEffect(() => {
     void refetch();
@@ -71,7 +76,7 @@ const SubjectSearchPage = () => {
           </div>
         ))}
 
-      {data?.subjects?.length === (curPage + 1) * pageSize && (
+      {data?.meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"

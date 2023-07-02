@@ -15,6 +15,7 @@ class SubjectsAPI {
   async getAll(
     { search, order, sort, group }: SubjectSearchFormFields,
     pageSize: number,
+    page: number,
   ) {
     const { data } = await client.get<GetListOfSubjectsResponse>('/subjects', {
       params: {
@@ -23,6 +24,7 @@ class SubjectsAPI {
         sort,
         group,
         pageSize,
+        page,
       },
     });
     return data;

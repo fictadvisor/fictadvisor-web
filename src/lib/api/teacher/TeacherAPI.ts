@@ -21,6 +21,7 @@ class TeacherAPI {
   async getAll(
     { search, order, sort, group }: TeacherSearchFormFields,
     pageSize: number,
+    page: number,
   ) {
     const { data } = await client.get<GetTeachersResponse>('/teachers', {
       params: {
@@ -29,8 +30,10 @@ class TeacherAPI {
         sort,
         group,
         pageSize,
+        page,
       },
     });
+
     return data;
   }
 
@@ -73,6 +76,8 @@ class TeacherAPI {
     semester?: number,
     year?: number,
     sortBy?: string,
+    pageSize: number,
+    page: number,
   ) {
     const { data } = await client.get<GetTeacherCommentsResponse>(
       `/teachers/${teacherId}/comments`,
@@ -82,6 +87,8 @@ class TeacherAPI {
           subjectId,
           year,
           sortBy,
+          pageSize,
+          page,
         },
       },
     );
