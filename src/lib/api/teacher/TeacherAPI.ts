@@ -76,8 +76,8 @@ class TeacherAPI {
     semester?: number,
     year?: number,
     sortBy?: string,
-    pageSize: number,
-    page: number,
+    // pageSize: number,
+    // page: number,
   ) {
     const { data } = await client.get<GetTeacherCommentsResponse>(
       `/teachers/${teacherId}/comments`,
@@ -87,8 +87,8 @@ class TeacherAPI {
           subjectId,
           year,
           sortBy,
-          pageSize,
-          page,
+          // pageSize,
+          // page,
         },
       },
     );

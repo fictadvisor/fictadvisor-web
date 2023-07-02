@@ -69,14 +69,13 @@ const SubjectSearchPage = () => {
       />
 
       {data && <SubjectSearchList subjects={data.subjects} />}
-      {isLoading ||
-        (isFetching && (
-          <div className={styles['page-loader']}>
-            <Loader size={LoaderSize.SMALLEST} />
-          </div>
-        ))}
+      {(isLoading || isFetching) && (
+        <div className={styles['page-loader']}>
+          <Loader size={LoaderSize.SMALLEST} />
+        </div>
+      )}
 
-      {data?.meta?.nextPageElems !== 0 && (
+      {!isLoading && data?.meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"
