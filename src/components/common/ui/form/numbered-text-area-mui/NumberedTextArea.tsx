@@ -33,7 +33,7 @@ const NumberedTextArea: React.FC<NumberedTextAreaProps> = ({
   placeholder,
   disabled = false,
   showRemark = false,
-  sx,
+  sx = {},
 }) => {
   const [field, { touched, error }] = useField(name);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -42,8 +42,11 @@ const NumberedTextArea: React.FC<NumberedTextAreaProps> = ({
 
   field.value = transformValue(field.value);
 
-  const handleScroll = e => {
-    lineRef.current.scrollTop = e.target.scrollTop;
+  const handleScroll = (event: React.UIEvent<HTMLTextAreaElement>) => {
+    const { currentTarget } = event;
+    if (lineRef.current) {
+      lineRef.current.scrollTop = currentTarget.scrollTop;
+    }
   };
 
   return (
