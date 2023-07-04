@@ -1,18 +1,22 @@
-import React, { FC, useState } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { QueryObserverBaseResult } from 'react-query';
 import { useDispatch } from 'react-redux';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline';
+import { TableCell } from '@mui/material';
 
 import { AlertColor } from '@/components/common/ui/alert';
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
-import { TrashBucketButton } from '@/components/common/ui/icon-button/variants';
+} from '@/components/common/ui/button-mui/types';
+import IconButton from '@/components/common/ui/icon-button-mui';
+import { IconButtonShape } from '@/components/common/ui/icon-button-mui/types';
 import Popup from '@/components/common/ui/pop-ups-mui/Popup';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
@@ -21,9 +25,6 @@ import { showAlert } from '@/redux/reducers/alert.reducer';
 import { UserGroupRole } from '@/types/user';
 
 import { StudentsTableItem } from '../../types';
-
-import styles from '../StudentsTable.module.scss';
-
 interface EditingColumnProps {
   student: StudentsTableItem;
   refetch: QueryObserverBaseResult['refetch'];
@@ -75,11 +76,12 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     student.role === UserGroupRole.MODERATOR
       ? roleNamesMapper[UserGroupRole.STUDENT]
       : roleNamesMapper[UserGroupRole.MODERATOR];
+
   const buttonIcon =
     student.role === UserGroupRole.MODERATOR ? (
-      <ArrowDownCircleIcon className="icon" />
+      <ArrowDownCircleIcon />
     ) : (
-      <ArrowUpCircleIcon className="icon" />
+      <ArrowUpCircleIcon />
     );
 
   if (
@@ -87,7 +89,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     student.role !== UserGroupRole.CAPTAIN
   ) {
     return (
-      <div className={styles['side-buttons']}>
+      <TableCell>
         <Popup
           open={isOpenChange}
           title={
@@ -144,20 +146,20 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        <div>
-          <Button
-            text={buttonText}
-            size={ButtonSize.SMALL}
-            variant={ButtonVariant.OUTLINE}
-            startIcon={buttonIcon}
-            className={styles['role-modifier']}
-            onClick={() => setIsOpenChange(true)}
-          />
-        </div>
-        <div>
-          <TrashBucketButton onClick={() => setIsOpenDelete(true)} />
-        </div>
-      </div>
+        <Button
+          text={buttonText}
+          sx={{ width: 'fit-content', whiteSpace: 'nowrap' }}
+          size={ButtonSize.SMALL}
+          variant={ButtonVariant.OUTLINE}
+          startIcon={buttonIcon}
+          onClick={() => setIsOpenChange(true)}
+        />
+        <IconButton
+          onClick={() => setIsOpenDelete(true)}
+          icon={<TrashIcon />}
+          shape={IconButtonShape.CIRCLE}
+        />
+      </TableCell>
     );
   }
 
@@ -188,17 +190,15 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        <TrashBucketButton
-          onClick={() => {
-            setIsOpenDelete(true);
-          }}
+        <IconButton
+          onClick={() => setIsOpenDelete(true)}
+          icon={<TrashIcon />}
+          shape={IconButtonShape.CIRCLE}
         />
       </>
     );
   }
-
-  // TODO: check what is wrong with return
-  return null;
+  return <Fragment></Fragment>;
 };
 
 export default EditingColumn;

@@ -37,10 +37,10 @@ export const row: SxProps<Theme> = {
     p: 0,
     borderBottom: 'none',
     '&:nth-of-type(2)': {
-      width: '10%',
+      width: '15%',
     },
     '&:nth-of-type(4)': {
-      width: '30%',
+      width: '25%',
     },
     '&:nth-of-type(1),&:nth-of-type(3)': {
       width: '30%',
