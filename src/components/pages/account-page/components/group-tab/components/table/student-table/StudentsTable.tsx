@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PlusIcon } from '@heroicons/react/24/solid';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { AxiosError } from 'axios';
+import Image from 'next/image';
 
 import { AlertColor } from '@/components/common/ui/alert';
-import Button from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button-mui';
+import Divider from '@/components/common/ui/divider-mui';
+import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagSize, TagVariant } from '@/components/common/ui/tag-mui/types';
-import CustomDivider from '@/components/pages/account-page/components/divider';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import EditingColumn from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/EditingColumn';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
@@ -18,7 +30,7 @@ import { UserGroupRole } from '@/types/user';
 
 import { StudentsTableProps } from '../types';
 
-import styles from './StudentsTable.module.scss';
+import * as sxStyles from './StudentsTable.styles';
 
 const StudentsTable: React.FC<StudentsTableProps> = ({
   role,
@@ -35,14 +47,16 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
         .map(line => line.trim())
         .filter(line => line !== '' && line !== '\n');
 
-      // TODO: remove as and refactor props
-      await GroupAPI.addStudentsByMail(user.group?.id as string, { emails });
+      if (typeof user.group?.id === 'string')
+        await GroupAPI.addStudentsByMail(user.group?.id, { emails });
+
       setIsPopupOpen(false);
+
       await refetch();
     } catch (error) {
-      // TODO: refactor this shit
-      const name = (error as AxiosError<{ error: string }>).response?.data
-        .error;
+      let name;
+      if (error instanceof AxiosError) name = error.response?.data.error;
+
       if (name === 'AlreadyRegisteredException') {
         dispatch(
           showAlert({
@@ -60,7 +74,6 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
       }
     }
   };
-
   return (
     <>
       {isPopupOpen && (
@@ -70,58 +83,57 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
         />
       )}
       {role !== UserGroupRole.STUDENT && (
-        <CustomDivider text="Студенти">
-          <div className={styles['button']}>
-            <Button
-              text={'Додати студента'}
-              startIcon={<PlusIcon className={'icon'} />}
-              onClick={() => setIsPopupOpen(true)}
-            />
-          </div>
-        </CustomDivider>
+        <Box sx={sxStyles.dividerWrapper}>
+          <Divider
+            text="Студенти"
+            textAlign={DividerTextAlign.LEFT}
+            sx={{ flexGrow: 1 }}
+          />
+          <Button
+            sx={sxStyles.button}
+            text={'Додати студента'}
+            startIcon={<PlusIcon className={'icon'} />}
+            onClick={() => setIsPopupOpen(true)}
+          />
+        </Box>
       )}
-      <div className={styles['table']}>
-        {rows.map((row, index) => (
-          <div
-            key={index}
-            className={
-              styles[
-                rows.length === 1
-                  ? 'table-container-one'
-                  : index === rows.length - 1
-                  ? 'table-container-end'
-                  : index === 0
-                  ? 'table-container-start'
-                  : 'table-container'
-              ]
-            }
-          >
-            <div className={styles['user-info']}>
-              <img className={styles['img']} src={row.imgSrc} alt="avatar" />
-              <div className={styles['full-name']}>{row.fullName}</div>
-              <div className={styles['tag-container']}>
-                {row.role !== UserGroupRole.STUDENT && (
-                  <div className={styles['tag']}>
+      <TableContainer component={Paper} sx={sxStyles.tableContainer}>
+        <Table>
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={index} sx={sxStyles.row}>
+                <TableCell>
+                  {row.imgSrc && (
+                    <Image
+                      width={48}
+                      height={48}
+                      src={row.imgSrc}
+                      alt="avatar"
+                    />
+                  )}
+                  <Typography>{row.fullName}</Typography>
+                </TableCell>
+                <TableCell>
+                  {row.role !== UserGroupRole.STUDENT && (
                     <Tag
                       text={roleNamesMapper[row.role]}
                       variant={TagVariant.DARKER}
                       size={TagSize.SMALL}
                     />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className={styles['other-content']}>
-              <div className={styles['email']}>{row.email}</div>
-              <div className={styles['side-buttons']}>
-                <EditingColumn student={row} refetch={refetch} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <Typography>{row.email}</Typography>
+                </TableCell>
+                <TableCell>
+                  <EditingColumn student={row} refetch={refetch} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };
-
 export default StudentsTable;
