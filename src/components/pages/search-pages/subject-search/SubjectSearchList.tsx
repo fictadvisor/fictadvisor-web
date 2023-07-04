@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { SubjectCard } from '@/components/common/ui/cards/subject-card';
 import useToast from '@/hooks/use-toast';
 import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
-import { Subject } from '@/types/subject';
 
 import styles from './SubjectSearchList.module.scss';
 
@@ -13,13 +12,10 @@ const TOAST_TIMER = 4000;
 export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
   const router = useRouter();
   const toast = useToast();
-  const [subjectList, setSubjectList] = useState<Subject[]>([]);
 
   useEffect(() => {
     if (!subjects.length) {
       toast.error('Цього предмета не існує', '', TOAST_TIMER);
-    } else {
-      setSubjectList([...subjectList, ...subjects]);
     }
   }, [subjects]);
 
@@ -29,7 +25,7 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
 
   return (
     <ul className={styles['subject-search-list']}>
-      {subjectList.map(subject => (
+      {subjects.map(subject => (
         <li key={subject.id}>
           <SubjectCard
             onClick={() => redirect(subject.id)}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button, {
@@ -48,8 +48,8 @@ export const TeacherSearchPage = () => {
   }, []);
 
   const { data, isLoading, refetch, isFetching } =
-    useQuery<GetTeachersResponse>(
-      'lecturers',
+    useInfiniteQuery<GetTeachersResponse>(
+      ['lecturers'],
       () => TeacherAPI.getAll(queryObj, PAGE_SIZE, curPage),
       {
         refetchOnWindowFocus: false,
@@ -63,8 +63,6 @@ export const TeacherSearchPage = () => {
   useEffect(() => {
     void refetch();
   }, [queryObj, curPage, refetch]);
-
-  console.log(data);
 
   return (
     <div className={styles['layout']}>
@@ -81,8 +79,11 @@ export const TeacherSearchPage = () => {
         localStorageName={localStorageName}
       />
 
-      {data && (
-        <TeacherSearchList teachers={data.teachers} className="teacher" />
+      {data && !isFetching && (
+        <TeacherSearchList
+          teachers={data.pages[0].teachers}
+          className="teacher"
+        />
       )}
 
       {(isLoading || isFetching) && (
@@ -91,7 +92,7 @@ export const TeacherSearchPage = () => {
         </div>
       )}
 
-      {!isLoading && data?.meta?.nextPageElems !== 0 && (
+      {!isLoading && data?.pages[0].meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"

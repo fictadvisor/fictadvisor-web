@@ -1,10 +1,9 @@
-import { FC, HTMLProps, useEffect, useState } from 'react';
+import { FC, HTMLProps, useEffect } from 'react';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
 import useToast from '@/hooks/use-toast';
 import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
-import { Teacher } from '@/types/teacher';
 
 import styles from './TeacherSearchList.module.scss';
 
@@ -19,20 +18,16 @@ export const TeacherSearchList: FC<TeacherSearchListProps> = ({
   className,
 }) => {
   const toast = useToast();
-  const [teacherList, setTeacherList] = useState<Omit<Teacher, 'role'>[]>([]);
-
   useEffect(() => {
     if (!teachers.length) {
       toast.error('Цього викладача не існує', '', TOAST_TIMER);
-    } else {
-      setTeacherList([...teacherList, ...teachers]);
     }
   }, [teachers]);
 
   return (
     <ul className={styles[`${className}-search-list`]}>
-      {teacherList?.map((teacher, index) => (
-        <Link key={index} href={`/teachers/${teacher.id}`}>
+      {teachers.map(teacher => (
+        <Link key={teacher.id} href={`/teachers/${teacher.id}`}>
           <TeacherCard
             avatar={teacher.avatar}
             key={teacher.id}

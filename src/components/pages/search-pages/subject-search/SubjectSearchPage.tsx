@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button, {
@@ -42,7 +42,7 @@ const SubjectSearchPage = () => {
   }, []);
 
   const { data, isLoading, refetch, isFetching } =
-    useQuery<GetListOfSubjectsResponse>(
+    useInfiniteQuery<GetListOfSubjectsResponse>(
       'subjects',
       () => SubjectsAPI.getAll(queryObj, PAGE_SIZE, curPage),
       { refetchOnWindowFocus: false },
@@ -68,14 +68,16 @@ const SubjectSearchPage = () => {
         //localStorageName={localStorageName}
       />
 
-      {data && <SubjectSearchList subjects={data.subjects} />}
+      {data && !isFetching && (
+        <SubjectSearchList subjects={data.pages[0].subjects} />
+      )}
       {(isLoading || isFetching) && (
         <div className={styles['page-loader']}>
           <Loader size={LoaderSize.SMALLEST} />
         </div>
       )}
 
-      {!isLoading && data?.meta?.nextPageElems !== 0 && (
+      {!isLoading && data?.pages[0].meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"
