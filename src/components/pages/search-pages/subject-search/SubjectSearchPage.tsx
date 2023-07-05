@@ -32,20 +32,29 @@ const PAGE_SIZE = 20;
 
 const SubjectSearchPage = () => {
   const [queryObj, setQueryObj] = useState(SubjectInitialValues);
-  const [curPage, setCurPage] = useState(0);
+
   const queryClient = useQueryClient();
-  //const localStorageName = 'subjectForm';
+  // const localStorageName = 'subjectForm';
 
   const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
     setQueryObj(query);
-    setCurPage(0);
   }, []);
 
-  const { data, isLoading, refetch, isFetching } =
+  const { data, refetch, isLoading, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery<GetListOfSubjectsResponse>(
-      'subjects',
-      () => SubjectsAPI.getAll(queryObj, PAGE_SIZE, curPage),
-      { refetchOnWindowFocus: false },
+      ['subjects'],
+      ({ pageParam = 0 }) => SubjectsAPI.getAll(queryObj, PAGE_SIZE, pageParam),
+      {
+        getNextPageParam: (lastPage, allPages) => {
+          if (allPages.length < 5) {
+            console.log('ALL PAGE LENGTH' + allPages.length);
+            return allPages.length;
+          } else {
+            return undefined;
+          }
+        },
+        refetchOnWindowFocus: false,
+      },
     );
 
   useEffect(() => {
@@ -54,7 +63,7 @@ const SubjectSearchPage = () => {
 
   useEffect(() => {
     void refetch();
-  }, [queryObj, curPage, refetch]);
+  }, [queryObj, refetch]);
 
   return (
     <div className={styles['layout']}>
@@ -65,25 +74,24 @@ const SubjectSearchPage = () => {
         filterDropDownOptions={[{ value: 'name', label: 'За назвою' }]}
         onSubmit={submitHandler}
         initialValues={SubjectInitialValues}
-        //localStorageName={localStorageName}
+        // localStorageName={localStorageName}
       />
 
-      {data && !isFetching && (
-        <SubjectSearchList subjects={data.pages[0].subjects} />
-      )}
+      {data && <SubjectSearchList data={data} />}
+
       {(isLoading || isFetching) && (
         <div className={styles['page-loader']}>
           <Loader size={LoaderSize.SMALLEST} />
         </div>
       )}
 
-      {!isLoading && data?.pages[0].meta?.nextPageElems !== 0 && (
+      {data && hasNextPage && data.pages[0].meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"
           variant={ButtonVariant.FILLED}
           color={ButtonColor.SECONDARY}
-          onClick={() => setCurPage(pr => pr + 1)}
+          onClick={() => fetchNextPage()}
         />
       )}
     </div>

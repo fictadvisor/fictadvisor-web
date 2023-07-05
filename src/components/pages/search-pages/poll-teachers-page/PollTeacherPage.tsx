@@ -50,7 +50,7 @@ const PollTeacherPage: FC = () => {
     }
   }, [dispatch, isLoggedIn, push, replace]);
 
-  const { data, isLoading, isFetching } = useQuery<PollTeachersResponse>(
+  const { data, isLoading } = useQuery<PollTeachersResponse>(
     'pollTeachers',
     () => PollAPI.getUserTeachers(user.id),
     {
@@ -80,12 +80,11 @@ const PollTeacherPage: FC = () => {
           {data && (
             <PollTeacherSearchList data={data} className="poll-teacher" />
           )}
-          {isLoading ||
-            (isFetching && (
-              <div className={styles['page-loader']}>
-                <Loader size={LoaderSize.SMALLEST} />
-              </div>
-            ))}
+          {isLoading && (
+            <div className={styles['page-loader']}>
+              <Loader size={LoaderSize.SMALLEST} />
+            </div>
+          )}
 
           {data?.teachers.length === (curPage + 1) * PAGE_SIZE && (
             <Button

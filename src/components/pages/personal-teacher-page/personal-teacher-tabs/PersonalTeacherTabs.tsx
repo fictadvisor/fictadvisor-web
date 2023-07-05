@@ -48,7 +48,7 @@ const PersonalTeacherTabs: FC<PersonalTeacherTabsProps> = ({
   tabIndex,
   handleChange,
 }) => {
-  const count = data.comments.questions[0]?.comments.length ?? 0;
+  const count = data.comments.questions[0]?.amount ?? 0;
   return (
     <Box>
       <TabContext value={tabIndex}>

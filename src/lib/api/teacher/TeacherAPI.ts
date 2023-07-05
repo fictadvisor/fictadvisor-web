@@ -29,8 +29,8 @@ class TeacherAPI {
         order,
         sort,
         group,
-        pageSize,
         page,
+        pageSize,
       },
     });
 
@@ -72,23 +72,23 @@ class TeacherAPI {
 
   async getTeacherComments(
     teacherId: string,
+    // pageSize: number,
+    // page: number,
     subjectId?: string,
     semester?: number,
     year?: number,
     sortBy?: string,
-    // pageSize: number,
-    // page: number,
   ) {
     const { data } = await client.get<GetTeacherCommentsResponse>(
       `/teachers/${teacherId}/comments`,
       {
         params: {
           semester,
+          // pageSize,
+          // page,
           subjectId,
           year,
           sortBy,
-          // pageSize,
-          // page,
         },
       },
     );

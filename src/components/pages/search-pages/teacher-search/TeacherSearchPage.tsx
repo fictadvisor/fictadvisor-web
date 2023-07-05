@@ -1,21 +1,22 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
+import Link from 'next/link';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button, {
   ButtonColor,
   ButtonVariant,
 } from '@/components/common/ui/button/Button';
+import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
 import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
 import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-form/types';
+import { TeacherSearchList } from '@/components/pages/search-pages/teacher-search/TeacherSearchList';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
 import { TeacherInitialValues } from '../search-form/constants';
 import { SearchForm } from '../search-form/SearchForm';
-
-import { TeacherSearchList } from './TeacherSearchList';
 
 import styles from '../SearchPage.module.scss';
 
@@ -38,20 +39,25 @@ export const TeacherSearchPage = () => {
   const localStorageName = 'teachersForm';
   const [queryObj, setQueryObj] =
     useState<TeacherSearchFormFields>(initialValues);
-  const [curPage, setCurPage] = useState(0);
 
   const queryClient = useQueryClient();
 
   const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
     setQueryObj(query as TeacherSearchFormFields);
-    setCurPage(0);
   }, []);
 
-  const { data, isLoading, refetch, isFetching } =
+  const { data, refetch, isLoading, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery<GetTeachersResponse>(
       ['lecturers'],
-      () => TeacherAPI.getAll(queryObj, PAGE_SIZE, curPage),
+      ({ pageParam = 0 }) => TeacherAPI.getAll(queryObj, PAGE_SIZE, pageParam),
       {
+        getNextPageParam: (lastPage, allPages) => {
+          if (allPages.length < 4) {
+            return allPages.length;
+          } else {
+            return undefined;
+          }
+        },
         refetchOnWindowFocus: false,
       },
     );
@@ -62,7 +68,7 @@ export const TeacherSearchPage = () => {
 
   useEffect(() => {
     void refetch();
-  }, [queryObj, curPage, refetch]);
+  }, [queryObj, refetch]);
 
   return (
     <div className={styles['layout']}>
@@ -79,26 +85,21 @@ export const TeacherSearchPage = () => {
         localStorageName={localStorageName}
       />
 
-      {data && !isFetching && (
-        <TeacherSearchList
-          teachers={data.pages[0].teachers}
-          className="teacher"
-        />
-      )}
+      {data && <TeacherSearchList data={data} className="teacher" />}
 
-      {(isLoading || isFetching) && (
+      {(isFetching || isLoading) && (
         <div className={styles['page-loader']}>
           <Loader size={LoaderSize.SMALLEST} />
         </div>
       )}
 
-      {!isLoading && data?.pages[0].meta?.nextPageElems !== 0 && (
+      {data && hasNextPage && data.pages[0].meta?.nextPageElems !== 0 && (
         <Button
           className={styles['load-btn']}
           text="Завантажити ще"
           variant={ButtonVariant.FILLED}
           color={ButtonColor.SECONDARY}
-          onClick={() => setCurPage(pr => pr + 1)}
+          onClick={() => fetchNextPage()}
         />
       )}
     </div>
