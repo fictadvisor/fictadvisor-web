@@ -60,8 +60,6 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
       );
     }
   };
-
-  if (user.group?.role) user.group.role = UserGroupRole.MODERATOR;
   const handleChangeStatus = async () => {
     try {
       setChangePopupOpen(false);

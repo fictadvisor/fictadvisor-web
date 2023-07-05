@@ -24,6 +24,7 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import theme from '@/styles/theme';
 import { UserGroupRole } from '@/types/user';
 
+import * as gridStyles from '../grid.styles';
 import { StudentsTableProps } from '../types';
 
 import * as styles from './StudentsTable.styles';
@@ -96,9 +97,9 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
         </Box>
       )}
 
-      <Grid container sx={styles.studentsGrid}>
+      <Grid container sx={gridStyles.studentsGrid}>
         {rows.map((row, index) => (
-          <Grid container key={index} sx={styles.row}>
+          <Grid container key={index} sx={gridStyles.row}>
             {row.imgSrc && (
               <Grid item desktop={4} mobile={9}>
                 <Image width={48} height={48} src={row.imgSrc} alt="avatar" />
