@@ -14,46 +14,51 @@ export const dividerWrapper: SxProps<Theme> = {
   pb: '20px',
 };
 
-export const tableContainer: SxProps<Theme> = {
+export const studentsGrid: SxProps<Theme> = {
+  backgroundColor: 'backgroundDark.200',
   borderRadius: '6px',
   border: '1px solid',
   borderColor: 'grey.200',
-  backgroundColor: 'backgroundDark.200',
   mb: '58px',
 };
-
 export const row: SxProps<Theme> = {
-  height: '70px',
-  display: 'flex',
-  alignItems: 'center',
-  p: '16px 12px',
-  borderBottom: '1px solid',
-  borderBottomColor: 'grey.200',
-  '&:last-child': {
-    border: 'none',
+  p: '12px 16px',
+  height: { mobile: '60px', desktop: '72px' },
+  '&:not(&:last-child)': {
+    borderBottom: '1px solid',
+    borderColor: 'grey.200',
   },
-  '& .MuiTableCell-root': {
-    color: 'white.main',
-    p: 0,
-    borderBottom: 'none',
-    '&:nth-of-type(2)': {
-      width: '15%',
-    },
+  '& .MuiGrid-root.MuiGrid-item': {
+    display: 'flex',
+    alignItems: 'center',
     '&:nth-of-type(4)': {
-      width: '25%',
+      justifyContent: 'flex-end',
+      gap: '8px',
     },
-    '&:nth-of-type(1),&:nth-of-type(3)': {
-      width: '30%',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
+    '&:nth-of-type(1)': {
+      pr: '16px',
       gap: '16px',
       '& img': {
         borderRadius: '50%',
+        width: { mobile: '36px', desktop: 'unset' },
+        height: { mobile: '36px', desktop: 'unset' },
       },
-      '& .MuiTypography-root': {
-        typography: 'body2',
+      '& .MuiBox-root': {
+        width: '100%',
       },
+    },
+  },
+  '& .MuiTypography-root': {
+    maxWidth: { mobile: '85%', desktop: 'unset' },
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    '&.email': {
+      typography: { mobile: 'overline', desktop: 'body1' },
+      textTransform: 'none !important',
+    },
+    '&.name': {
+      typography: { mobile: 'body1Bold', desktop: 'body2' },
     },
   },
 };

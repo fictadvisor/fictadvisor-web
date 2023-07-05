@@ -6,7 +6,7 @@ import {
   ArrowUpCircleIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
-import { TableCell } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 
 import { AlertColor } from '@/components/common/ui/alert';
 import Button from '@/components/common/ui/button-mui';
@@ -16,15 +16,21 @@ import {
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import { IconButtonShape } from '@/components/common/ui/icon-button-mui/types';
+import {
+  IconButtonColor,
+  IconButtonShape,
+} from '@/components/common/ui/icon-button-mui/types';
 import Popup from '@/components/common/ui/pop-ups-mui/Popup';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
+import MobileDropdown from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/MobileDropdown';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import theme from '@/styles/theme';
 import { UserGroupRole } from '@/types/user';
 
 import { StudentsTableItem } from '../../types';
+
 interface EditingColumnProps {
   student: StudentsTableItem;
   refetch: QueryObserverBaseResult['refetch'];
@@ -32,15 +38,18 @@ interface EditingColumnProps {
 
 const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const { user } = UseAuthentication();
-  const [isOpenDelete, setIsOpenDelete] = useState(false);
-  const [isOpenChange, setIsOpenChange] = useState(false);
+  const [deletePopupOpen, setDeletePopupOpen] = useState(false);
+  const [changePopupOpen, setChangePopupOpen] = useState(false);
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
 
   const dispatch = useDispatch();
   const handleDelete = async () => {
     try {
-      setIsOpenDelete(false);
-      // TODO: remove as and refactor props
-      await GroupAPI.removeStudent(user.group?.id as string, student.id);
+      setDeletePopupOpen(false);
+
+      if (user.group) await GroupAPI.removeStudent(user.group.id, student.id);
+
       await refetch();
     } catch (e) {
       dispatch(
@@ -52,15 +61,17 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     }
   };
 
+  if (user.group?.role) user.group.role = UserGroupRole.MODERATOR;
   const handleChangeStatus = async () => {
     try {
-      setIsOpenChange(false);
-      await GroupAPI.updateStudentRole(user?.group?.id as string, student.id, {
-        roleName:
-          student.role === UserGroupRole.MODERATOR
-            ? UserGroupRole.STUDENT
-            : UserGroupRole.MODERATOR,
-      });
+      setChangePopupOpen(false);
+      if (user.group)
+        await GroupAPI.updateStudentRole(user?.group?.id, student.id, {
+          roleName:
+            student.role === UserGroupRole.MODERATOR
+              ? UserGroupRole.STUDENT
+              : UserGroupRole.MODERATOR,
+        });
       await refetch();
     } catch (e) {
       dispatch(
@@ -89,9 +100,9 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     student.role !== UserGroupRole.CAPTAIN
   ) {
     return (
-      <TableCell>
+      <>
         <Popup
-          open={isOpenChange}
+          open={changePopupOpen}
           title={
             student.role === UserGroupRole.MODERATOR
               ? 'Зробити студентом'
@@ -102,14 +113,14 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
               ? 'студентом'
               : 'зам старостою'
           }?`}
-          onClose={() => setIsOpenChange(false)}
+          onClose={() => setChangePopupOpen(false)}
           firstButton={
             <Button
               size={ButtonSize.SMALL}
               text="Скасувати"
               color={ButtonColor.PRIMARY}
               variant={ButtonVariant.OUTLINE}
-              onClick={() => setIsOpenChange(false)}
+              onClick={() => setChangePopupOpen(false)}
             />
           }
           secondButton={
@@ -123,17 +134,17 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
           }
         />
         <Popup
-          open={isOpenDelete}
+          open={deletePopupOpen}
           title="Видалити користувача"
           text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буд відправити повторний запит до групи.`}
-          onClose={() => setIsOpenDelete(false)}
+          onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
               size={ButtonSize.SMALL}
               text="Скасувати"
               color={ButtonColor.PRIMARY}
               variant={ButtonVariant.OUTLINE}
-              onClick={() => setIsOpenDelete(false)}
+              onClick={() => setDeletePopupOpen(false)}
             />
           }
           secondButton={
@@ -146,38 +157,53 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        <Button
-          text={buttonText}
-          sx={{ width: 'fit-content', whiteSpace: 'nowrap' }}
-          size={ButtonSize.SMALL}
-          variant={ButtonVariant.OUTLINE}
-          startIcon={buttonIcon}
-          onClick={() => setIsOpenChange(true)}
-        />
-        <IconButton
-          onClick={() => setIsOpenDelete(true)}
-          icon={<TrashIcon />}
-          shape={IconButtonShape.CIRCLE}
-        />
-      </TableCell>
+        {!isMobile && (
+          <Button
+            text={buttonText}
+            sx={{ width: 'fit-content', whiteSpace: 'nowrap' }}
+            size={ButtonSize.SMALL}
+            variant={ButtonVariant.OUTLINE}
+            startIcon={buttonIcon}
+            onClick={() => setChangePopupOpen(true)}
+          />
+        )}
+        {isMobile ? (
+          <MobileDropdown
+            arrowIcon={buttonIcon}
+            setDeletePopupOpen={setDeletePopupOpen}
+            setChangePopupOpen={setChangePopupOpen}
+            student={student}
+          />
+        ) : (
+          <IconButton
+            onClick={() => setDeletePopupOpen(true)}
+            icon={<TrashIcon />}
+            shape={IconButtonShape.CIRCLE}
+            color={IconButtonColor.SECONDARY}
+          />
+        )}
+      </>
     );
   }
 
-  if (user.group?.role === UserGroupRole.MODERATOR && !student.role) {
+  if (
+    user.group?.role === UserGroupRole.MODERATOR &&
+    student.role == UserGroupRole.STUDENT
+  ) {
     return (
       <>
         <Popup
-          open={isOpenDelete}
+          open={deletePopupOpen}
           title="Видалити користувача"
           text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буд відправити повторний запит до групи.`}
-          onClose={() => setIsOpenDelete(false)}
+          onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
               size={ButtonSize.SMALL}
               text="Скасувати"
               color={ButtonColor.PRIMARY}
               variant={ButtonVariant.OUTLINE}
-              onClick={() => setIsOpenDelete(false)}
+              onClick={() => setDeletePopupOpen(false)}
             />
           }
           secondButton={
@@ -190,11 +216,21 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        <IconButton
-          onClick={() => setIsOpenDelete(true)}
-          icon={<TrashIcon />}
-          shape={IconButtonShape.CIRCLE}
-        />
+        {isMobile ? (
+          <MobileDropdown
+            arrowIcon={buttonIcon}
+            setDeletePopupOpen={setDeletePopupOpen}
+            setChangePopupOpen={setChangePopupOpen}
+            student={student}
+          />
+        ) : (
+          <IconButton
+            onClick={() => setDeletePopupOpen(true)}
+            icon={<TrashIcon />}
+            shape={IconButtonShape.CIRCLE}
+            color={IconButtonColor.SECONDARY}
+          />
+        )}
       </>
     );
   }

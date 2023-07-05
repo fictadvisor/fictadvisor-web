@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { useMediaQuery } from '@mui/material';
 import MobileRequestsTable from 'src/components/pages/account-page/components/group-tab/components/table/mobile-requests-table';
-import MobileStudentsTable from 'src/components/pages/account-page/components/group-tab/components/table/mobile-students-table';
 import RequestsTable from 'src/components/pages/account-page/components/group-tab/components/table/requests-table';
 import {
   transformRequestsData,
@@ -79,19 +78,13 @@ const GroupTab: FC = () => {
             rows={transformRequestsData(data.requests)}
           />
         ))}
-      {isMobile ? (
-        <MobileStudentsTable
-          refetch={refetch}
-          role={user.group.role}
-          rows={transformStudentsData(data.students)}
-        />
-      ) : (
+      {
         <StudentsTable
           refetch={refetch}
           role={user.group.role}
           rows={transformStudentsData(data.students)}
         />
-      )}
+      }
     </div>
   );
 };
