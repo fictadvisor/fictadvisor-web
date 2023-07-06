@@ -47,8 +47,8 @@ export const TextAreaPopup: React.FC<TextAreaPopup> = ({
         <Typography sx={styles.title}>Додати студента</Typography>
         <Typography sx={styles.description}>
           Ти можеш додати декількох студентів одразу, ввівши їх електронні
-          адреси через Enter або кому. Також скопіювавши весь рядок електронних
-          пошт з таблиці, вони зручно сформуються в один список
+          адреси через Enter або кому. Також, якщо скопіювати весь рядок
+          електронних пошт з таблиці, вони зручно сформуються в один список.
         </Typography>
         <Formik
           onSubmit={data => handleSubmit(data.textArea)}

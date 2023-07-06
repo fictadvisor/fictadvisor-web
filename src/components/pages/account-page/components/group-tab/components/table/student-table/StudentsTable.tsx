@@ -61,7 +61,7 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
           3000,
         );
       } else {
-        toast.error('Здається ти ввів неправильні значення!', '', 3000);
+        toast.error('Здається, ти ввів неправильні значення!', '', 3000);
       }
     }
   };

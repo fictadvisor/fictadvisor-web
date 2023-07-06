@@ -1,6 +1,5 @@
 import React, { FC, Fragment, useState } from 'react';
 import { QueryObserverBaseResult } from 'react-query';
-import { useDispatch } from 'react-redux';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
@@ -8,7 +7,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { useMediaQuery } from '@mui/material';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonColor,
@@ -24,8 +22,8 @@ import Popup from '@/components/common/ui/pop-ups-mui/Popup';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import MobileDropdown from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/MobileDropdown';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
+import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 import theme from '@/styles/theme';
 import { UserGroupRole } from '@/types/user';
 
@@ -42,8 +40,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const [changePopupOpen, setChangePopupOpen] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
-
-  const dispatch = useDispatch();
+  const toast = useToast();
   const handleDelete = async () => {
     try {
       setDeletePopupOpen(false);
@@ -52,12 +49,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
 
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!', '', 3000);
     }
   };
   const handleChangeStatus = async () => {
@@ -72,12 +64,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
         });
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!', '', 3000);
     }
   };
 

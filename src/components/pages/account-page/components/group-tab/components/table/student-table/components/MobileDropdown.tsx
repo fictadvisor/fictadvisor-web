@@ -30,7 +30,6 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
   setDeletePopupOpen,
   setChangePopupOpen,
   student,
-
   arrowIcon,
 }) => {
   const { user } = useAuthentication();
@@ -40,6 +39,10 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
     student.role === UserGroupRole.MODERATOR
       ? roleNamesMapper[UserGroupRole.STUDENT]
       : roleNamesMapper[UserGroupRole.MODERATOR];
+
+  const isOnlyUserCaptain =
+    user.group?.role === UserGroupRole.CAPTAIN &&
+    student.role !== UserGroupRole.CAPTAIN;
 
   return (
     <ClickAwayListener onClickAway={() => setIsPopperOpen(false)}>
@@ -60,18 +63,16 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
           anchorEl={EllipsisIconRef.current}
         >
           <Stack sx={styles.dropdown}>
-            {user.group?.role === UserGroupRole.CAPTAIN &&
-              student.role !== UserGroupRole.CAPTAIN && (
-                <Button
-                  size={ButtonSize.SMALL}
-                  text={buttonName}
-                  variant={ButtonVariant.TEXT}
-                  startIcon={arrowIcon}
-                  onClick={() => setChangePopupOpen(true)}
-                />
-              )}
-            {((user.group?.role === UserGroupRole.CAPTAIN &&
-              student.role !== UserGroupRole.CAPTAIN) ||
+            {isOnlyUserCaptain && (
+              <Button
+                size={ButtonSize.SMALL}
+                text={buttonName}
+                variant={ButtonVariant.TEXT}
+                startIcon={arrowIcon}
+                onClick={() => setChangePopupOpen(true)}
+              />
+            )}
+            {(isOnlyUserCaptain ||
               (user.group?.role === UserGroupRole.MODERATOR &&
                 student.role == UserGroupRole.STUDENT)) && (
               <Button
@@ -88,90 +89,4 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
     </ClickAwayListener>
   );
 };
-
-/*
-*
-*       {user.group?.role === UserGroupRole.CAPTAIN ? (
-            <>
-              {student.role !== UserGroupRole.CAPTAIN ? (
-                <div className={styles['button']}>
-                  <IconButton
-                    icon={}
-                    color={IconButtonColor.TRANSPARENT}
-                    onClick={() => onChange(value)}
-                  />
-                  {currentValue === value && (
-                    <div
-                      className={styles['dropdown-content']}
-                      ref={wrapperRef}
-                    >
-                      <Button
-                        className={styles['dropdown-button']}
-                        text={'Видалити'}
-                        variant={ButtonVariant.TEXT}
-                        startIcon={<TrashIcon className={'icon'} />}
-                        onClick={() => setIsOpenDelete(true)}
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className={styles['button']}>
-                  <IconButton
-                    icon={<EllipsisVerticalIcon className={'icon'} />}
-                    color={IconButtonColor.TRANSPARENT}
-                    disabled={true}
-                    className={styles['disabled-button']}
-                  />
-                </div>
-              )}
-            </>
-          ) : (
-            user.group?.role === UserGroupRole.MODERATOR && (
-              <>
-                {student.role !== UserGroupRole.STUDENT ? (
-                  <div className={styles['button']}>
-                    <IconButton
-                      icon={<EllipsisVerticalIcon className={'icon'} />}
-                      color={IconButtonColor.TRANSPARENT}
-                      onClick={() => onChange(value)}
-                    />
-                    {currentValue === value && (
-                      <div
-                        className={styles['moderator-dropdown-content']}
-                        ref={wrapperRef}
-                      >
-                        <Button
-                          className={styles['moderator-dropdown-button']}
-                          text={'Видалити'}
-                          variant={ButtonVariant.TEXT}
-                          startIcon={<TrashIcon className={'icon'} />}
-                          onClick={() => setIsOpenDelete(true)}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className={styles['button']}>
-                    <IconButton
-                      icon={<EllipsisVerticalIcon className={'icon'} />}
-                      color={IconButtonColor.TRANSPARENT}
-                      disabled={true}
-                      className={styles['disabled-button']}
-                    />
-                  </div>
-                )}
-              </>
-            )
-          )}
-*
-*
-*
-*
-*
-*
-*
-*
-* */
-
 export default MobileStudentsTableButtons;
