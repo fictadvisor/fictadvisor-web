@@ -93,10 +93,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
       <ArrowUpCircleIcon />
     );
 
-  if (
-    user.group?.role === UserGroupRole.CAPTAIN &&
-    student.role !== UserGroupRole.CAPTAIN
-  ) {
+  if (user.group?.role === UserGroupRole.CAPTAIN) {
     return (
       <>
         <Popup
@@ -177,7 +174,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             onClick={() => setDeletePopupOpen(true)}
             icon={<TrashIcon />}
             shape={IconButtonShape.CIRCLE}
-            color={IconButtonColor.SECONDARY}
+            color={IconButtonColor.ERROR}
           />
         )}
       </>

@@ -10,13 +10,14 @@ export const content: SxProps<Theme> = {
   borderRadius: '8px',
   minWidth: '100px',
   padding: { mobile: '16px', tablet: '35px' },
+  margin: { mobile: 'auto 30px' },
   maxWidth: '650px',
   height: 'fit-content',
 };
 
 export const close: SxProps<Theme> = {
   position: 'absolute',
-  top: '8px',
+  top: '10px',
   right: '8px',
   width: '36px',
   height: '36px',
@@ -25,7 +26,6 @@ export const close: SxProps<Theme> = {
 
 export const title: SxProps<Theme> = {
   typography: 'h6Bold',
-  textAlign: 'center',
 };
 export const description: SxProps<Theme> = {
   typography: 'body1',

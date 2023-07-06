@@ -49,7 +49,10 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
           icon={<EllipsisVerticalIcon className={'icon'} />}
           color={IconButtonColor.TRANSPARENT}
           onClick={() => setIsPopperOpen(pr => !pr)}
-          disabled={user.group?.role === UserGroupRole.STUDENT}
+          disabled={
+            user.group?.role === UserGroupRole.STUDENT ||
+            student.role === UserGroupRole.CAPTAIN
+          }
         ></IconButton>
         <Popper
           open={isPopperOpen}

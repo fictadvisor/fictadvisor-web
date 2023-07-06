@@ -41,7 +41,7 @@ export const row: SxProps<Theme> = {
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     '&.email': {
-      typography: { mobile: 'overline', desktop: 'body1' },
+      typography: { mobile: 'overline', desktop: 'body2' },
       textTransform: 'none !important',
     },
     '&.name': {

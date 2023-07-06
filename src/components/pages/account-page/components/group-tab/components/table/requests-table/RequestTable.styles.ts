@@ -5,4 +5,7 @@ export const fixSized: SxProps<Theme> = { width: 'fit-content' };
 export const lastColumn: SxProps<Theme> = {
   justifyContent: 'flex-end',
   gap: '8px',
+  '& button': {
+    color: 'white.main',
+  },
 };
