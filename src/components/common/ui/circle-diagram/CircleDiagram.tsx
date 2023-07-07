@@ -5,19 +5,20 @@ import { SxProps, Theme } from '@mui/material/styles';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './CircleDiagram.styles';
+import { CircleDiagramVariant } from './types';
 
 interface CircleDiagramProps {
   value: number;
-  variant?: 'determinate' | 'indeterminate';
+  variant?: CircleDiagramVariant;
   sx?: SxProps<Theme>;
   thickness?: number;
 }
 
 const CircleDiagram: FC<CircleDiagramProps> = ({
   value,
-  variant = 'determinate',
+  variant = CircleDiagramVariant.DETERMINATE,
   thickness = 3.5,
-  sx,
+  sx = {},
 }) => {
   const roundValue = value > 100 ? 100 : value < 0 ? 0 : Math.round(value);
   return (

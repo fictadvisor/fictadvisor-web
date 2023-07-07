@@ -2,7 +2,7 @@ import React from 'react';
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 
-import { TelegramForAccount } from '@/components/common/custom-svg/TelegramForAccount';
+import { TelegramForAccount } from '@/components/common/icons/TelegramForAccount';
 import Button, {
   ButtonSize,
   ButtonVariant,
@@ -36,12 +36,12 @@ const GeneralTab: FC = () => {
       </div>
       <div className={styles['avatar-and-telegram-info']}>
         <div className={styles['avatar']}>
-          <img src={user.avatar} alt={'avatar'} />
+          <img src={user.avatar} alt="avatar" />
         </div>
         <Button
           className={styles['telegram-button']}
           text={buttonText}
-          disabled={user.telegramId}
+          disabled={!!user.telegramId}
           size={ButtonSize.MEDIUM}
           startIcon={<TelegramForAccount />}
           variant={ButtonVariant.OUTLINE}
@@ -50,7 +50,7 @@ const GeneralTab: FC = () => {
         <Button
           className={styles['telegram-button-mobile']}
           text={buttonText}
-          disabled={user.telegramId}
+          disabled={!!user.telegramId}
           size={ButtonSize.SMALL}
           startIcon={<TelegramForAccount />}
           variant={ButtonVariant.OUTLINE}

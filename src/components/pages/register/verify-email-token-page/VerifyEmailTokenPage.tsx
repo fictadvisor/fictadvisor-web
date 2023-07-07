@@ -2,11 +2,10 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
-import PageLayout from '@/components/common/layout/page-layout';
 import { AlertColor } from '@/components/common/ui/alert';
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import useAuthentication from '@/hooks/use-authentication';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
 import { showAlert } from '@/redux/reducers/alert.reducer';
 
@@ -17,7 +16,7 @@ const VerifyEmailTokenPage = () => {
   const { update } = useAuthentication();
 
   const loadData = useCallback(
-    async token => {
+    async (token: string) => {
       if (router.isReady) {
         try {
           const { accessToken, refreshToken } = await AuthAPI.verifyEmailToken(
@@ -46,18 +45,16 @@ const VerifyEmailTokenPage = () => {
   }, [loadData, token]);
 
   return (
-    <PageLayout hasHeader={true} hasFooter={true}>
-      <div
-        style={{
-          flexGrow: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Loader size={LoaderSize.SMALLEST} />
-      </div>
-    </PageLayout>
+    <div
+      style={{
+        flexGrow: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Loader size={LoaderSize.SMALLEST} />
+    </div>
   );
 };
 

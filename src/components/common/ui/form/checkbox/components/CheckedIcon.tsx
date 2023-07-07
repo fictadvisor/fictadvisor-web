@@ -1,4 +1,4 @@
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 import theme from '@/styles/theme';
 
@@ -9,13 +9,10 @@ import { Icon } from './Icon';
 export const CheckedIcon = styled(Icon)(({ color, disabled }) => ({
   width: '18px',
   height: '18px',
-  background: `${alpha(
-    disabled ? theme.palette.grey[300] : ControlsColorMap[color],
-    1,
-  )}`,
+  background: `${disabled ? theme.palette.grey[300] : ControlsColorMap[color]}`,
   '&:before': {
     display: 'block',
-    backgroundImage: 'url(/assets/icons/check-mark.svg)',
+    backgroundImage: 'url(/icons/check-mark.svg)',
     content: '""',
     width: '14px',
     height: '11.57px',

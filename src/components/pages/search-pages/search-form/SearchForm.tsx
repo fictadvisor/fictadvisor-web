@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 import {
@@ -7,7 +7,7 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from '@heroicons/react/24/outline';
-import { Form, Formik } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 
 import {
   Dropdown,
@@ -21,47 +21,53 @@ import {
   IconButtonShape,
   IconButtonSize,
 } from '@/components/common/ui/icon-button';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 
 import { SubjectSearchFormFields, TeacherSearchFormFields } from './types';
 
 import styles from '../SearchPage.module.scss';
 
-interface SearchFormProps {
-  onSubmit: (obj) => void;
+export interface SearchFormProps {
+  onSubmit: (obj: SubjectSearchFormFields | TeacherSearchFormFields) => void;
   initialValues: SubjectSearchFormFields | TeacherSearchFormFields;
   filterDropDownOptions: { value: string; label: string }[];
-  serchPlaceholder: string;
+  searchPlaceholder: string;
+  localStorageName?: string;
 }
+
+// TODO: refactor this shit
+const FormObserver = (props: { name?: string }) => {
+  const { values } = useFormikContext();
+  useEffect(() => {
+    if (props.name) localStorage.setItem(props.name, JSON.stringify(values));
+  }, [values, props.name]);
+  return null;
+};
 
 export const SearchForm: FC<SearchFormProps> = ({
   onSubmit,
   initialValues,
   filterDropDownOptions,
-  serchPlaceholder,
+  searchPlaceholder,
+  localStorageName,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
-
   const { data: groupData } = useQuery('all-groups', GroupAPI.getAll, {
     staleTime: Infinity,
   });
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={values => {
-        onSubmit(values);
-      }}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ handleSubmit, values, setFieldValue }) => (
         <Form className={styles['form']}>
+          <FormObserver name={localStorageName} />
           <Input
             onDeterredChange={handleSubmit}
             className={styles['input']}
             size={InputSize.LARGE}
             type={InputType.SEARCH}
             name="search"
-            placeholder={serchPlaceholder}
+            placeholder={searchPlaceholder}
             showRemark={false}
           />
           <div className={styles['collapse-btn']}>
@@ -81,7 +87,8 @@ export const SearchForm: FC<SearchFormProps> = ({
             <>
               <div className={styles['dropdown-1']}>
                 <Dropdown
-                  placeholder="Група"
+                  placeholder="ІП-22"
+                  label="Група"
                   onChange={handleSubmit}
                   showRemark={false}
                   name="group"
@@ -97,7 +104,8 @@ export const SearchForm: FC<SearchFormProps> = ({
               </div>
               <div className={styles['dropdown-2']}>
                 <Dropdown
-                  placeholder="Сортувати за"
+                  label="Сортувати за"
+                  placeholder="Іменем"
                   onChange={handleSubmit}
                   showRemark={false}
                   name="sort"

@@ -1,15 +1,15 @@
 import React from 'react';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import { CustomShield } from '@/components/common/custom-svg/CustomShield';
-import PageLayout from '@/components/common/layout/page-layout';
-import Button, {
+import { CustomShield } from '@/components/common/icons/CustomShield';
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
-
-import styles from './PasswordResetValidLinkPage.module.scss';
+} from '@/components/common/ui/button-mui/types';
+import * as styles from '@/components/pages/password-recovery/link-valid/PasswordResetValidLinkPage.styles';
 
 const PasswordResetValidLinkPage = () => {
   const router = useRouter();
@@ -17,37 +17,26 @@ const PasswordResetValidLinkPage = () => {
     void router.push('/login');
   };
   return (
-    <PageLayout
-      hasHeader={false}
-      hasFooter={false}
-      description={'Пароль успішно змінено'}
-    >
-      <div className={styles['reset-password-valid-link-page']}>
-        <div className={styles['reset-password-valid-link-page-content']}>
-          <div className={styles['icon']}>
-            <CustomShield />
-          </div>
-
-          <h3 className={styles['headline']}>Пароль змінено</h3>
-
-          <div className={styles['text-and-button']}>
-            <h6 className={styles['text']}>
-              Твій пароль успішно змінено! Натисни нижче, щоб повернутися до
-              поля авторизації.
-            </h6>
-            <div className={styles['button-wrap']}>
-              <Button
-                text={'Повернутися до авторизації'}
-                variant={ButtonVariant.FILLED}
-                size={ButtonSize.LARGE}
-                color={ButtonColor.PRIMARY}
-                onClick={returnAuth}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </PageLayout>
+    <Box sx={styles.container}>
+      <Box sx={styles.content}>
+        <Box sx={styles.icon}>
+          <CustomShield />
+        </Box>
+        <Typography sx={styles.title}>Пароль змінено</Typography>
+        <Typography sx={styles.description}>
+          Твій пароль успішно змінено! Натисни нижче, щоб повернутися до поля
+          авторизації.
+        </Typography>
+        <Button
+          text="Повернутися до авторизації"
+          variant={ButtonVariant.FILLED}
+          size={ButtonSize.LARGE}
+          color={ButtonColor.PRIMARY}
+          onClick={returnAuth}
+          sx={styles.button}
+        />
+      </Box>
+    </Box>
   );
 };
 

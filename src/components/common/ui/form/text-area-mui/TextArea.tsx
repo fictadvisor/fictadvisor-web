@@ -11,33 +11,33 @@ import { useField } from 'formik';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './TextArea.styles';
+import { TextAreaSize, TextAreaState } from './types';
+
+const MAX_LENGTH = 4000;
 
 interface TextAreaProps {
   name: string;
   placeholder?: string;
   label?: string;
-  size?: 'medium' | 'small';
+  size?: TextAreaSize;
   disabled?: boolean;
   showRemark?: boolean;
   rowsNumber?: number;
   sx?: SxProps<Theme>;
 }
-
-const MAX_LENGTH = 2000;
-
 const TextArea: React.FC<TextAreaProps> = ({
   name,
   placeholder,
   label,
-  size = 'medium',
+  size = TextAreaSize.MEDIUM,
   disabled = false,
   showRemark = false,
   rowsNumber = 4,
-  sx,
+  sx = {},
 }) => {
   const [field, { touched, error }] = useField(name);
 
-  const state = touched && error ? 'error' : 'default';
+  const state = touched && error ? TextAreaState.ERROR : TextAreaState.DEFAULT;
 
   return (
     <FormControl

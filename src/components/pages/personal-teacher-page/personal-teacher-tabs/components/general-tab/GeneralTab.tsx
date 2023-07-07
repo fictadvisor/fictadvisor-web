@@ -8,26 +8,26 @@ import ListItemText from '@mui/material/ListItemText';
 
 import CircleDiagram from '@/components/common/ui/circle-diagram';
 import ColumnChart from '@/components/common/ui/column-chart';
-import LineGraph from '@/components/common/ui/line_graph';
+import LineGraph from '@/components/common/ui/line-graph';
 import Radar from '@/components/common/ui/radar';
 import FillerBox from '@/components/pages/personal-teacher-page/personal-teacher-tabs/components/general-tab/components';
-import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
-import {
-  AmountMarkType,
-  GetTeacherMarksDTO,
-  RadarCircleMarkType,
-} from '@/lib/api/teacher/dto/GetTeacherMarksDTO';
 import theme from '@/styles/theme';
+import {
+  TeacherAmountMark,
+  TeacherMarkType,
+  TeacherRadarCircleMark,
+  TeacherRole,
+} from '@/types/teacher';
 
 import * as styles from './GeneralTab.styles';
 
 interface GeneralTabProps {
-  marks: GetTeacherMarksDTO['marks'];
-  roles: TeacherRoles[];
+  marks: (TeacherRadarCircleMark | TeacherAmountMark)[];
+  roles: TeacherRole[];
 }
 
 const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
   const isLargeDesktop = useMediaQuery(
     theme.breakpoints.up('desktopSemiLarge'),
@@ -40,16 +40,20 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
   const updatedMarks = Object.values(marks);
 
   const radarMarks = updatedMarks?.filter(
-    mark => mark.type === 'RADAR',
-  ) as RadarCircleMarkType[];
+    mark => mark.type === TeacherMarkType.RADAR,
+  ) as TeacherRadarCircleMark[];
 
   const circleMarks = updatedMarks?.filter(
-    mark => mark.type === 'CIRCLE',
-  ) as RadarCircleMarkType[];
+    mark => mark.type === TeacherMarkType.CIRCLE,
+  ) as TeacherRadarCircleMark[];
 
   const columnMarks = updatedMarks?.filter(
-    mark => mark.type === 'AMOUNT',
-  ) as AmountMarkType[];
+    mark => mark.type === TeacherMarkType.AMOUNT,
+  ) as TeacherAmountMark[];
+
+  const maxValue = Math.max(
+    ...columnMarks.map(mark => Math.max(...Object.values(mark.mark))),
+  );
 
   return (
     <Box sx={styles.wrapper}>
@@ -90,7 +94,7 @@ const GeneralTab: FC<GeneralTabProps> = ({ marks, roles }) => {
       </Box>
       <Box sx={styles.columnWrapper}>
         {columnMarks.map(mark => (
-          <ColumnChart key={mark.name} data={mark} />
+          <ColumnChart key={mark.name} data={mark} maxValue={maxValue} />
         ))}
         {!isLargeDesktop && <FillerBox width="404px" />}
       </Box>

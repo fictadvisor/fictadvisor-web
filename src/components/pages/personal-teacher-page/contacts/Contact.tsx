@@ -1,24 +1,15 @@
-import React from 'react';
+import { FC } from 'react';
+import NextLink from 'next/link';
 
-import { GitHubIcon } from '@/components/common/custom-svg/GitHub';
-import { InstagramIcon } from '@/components/common/custom-svg/Instagram';
-import { MailIcon } from '@/components/common/custom-svg/Mail';
-import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
-import { TwitterIcon } from '@/components/common/custom-svg/Twitter';
-import { YouTubeIcon } from '@/components/common/custom-svg/YouTube';
+import { GitHub } from '@/components/common/icons/GitHub';
+import { Instagram } from '@/components/common/icons/Instagram';
+import { Mail } from '@/components/common/icons/Mail';
+import { Telegram } from '@/components/common/icons/Telegram';
+import { Twitter } from '@/components/common/icons/Twitter';
+import { YouTube } from '@/components/common/icons/YouTube';
+import { ContactType } from '@/types/contact';
 
 import styles from './Contact.module.scss';
-
-export enum ContactType {
-  YOUTUBE = 'YOUTUBE',
-  DISCORD = 'DISCORD',
-  TELEGRAM = 'TELEGRAM',
-  INSTAGRAM = 'INSTAGRAM',
-  FACEBOOK = 'FACEBOOK',
-  GITHUB = 'GITHUB',
-  TWITTER = 'TWITTER',
-  MAIL = 'MAIL',
-}
 
 export interface ContactProps {
   name: ContactType;
@@ -26,34 +17,29 @@ export interface ContactProps {
   link: string;
 }
 
-const Contact: React.FC<ContactProps> = ({ name, displayName, link }) => {
-  const icon = () => {
-    switch (name) {
-      case ContactType.YOUTUBE:
-        return <YouTubeIcon />;
-      case ContactType.TWITTER:
-        return <TwitterIcon />;
-      case ContactType.MAIL:
-        return <MailIcon />;
-      case ContactType.GITHUB:
-        return <GitHubIcon />;
-      case ContactType.INSTAGRAM:
-        return <InstagramIcon />;
-      case ContactType.DISCORD:
-        return <TelegramIcon />;
-      case ContactType.FACEBOOK:
-        return <TelegramIcon />;
-      case ContactType.TELEGRAM:
-        return <TelegramIcon />;
-    }
-  };
+const contactIconsMap: Record<ContactType, FC> = {
+  [ContactType.YOUTUBE]: YouTube,
+  [ContactType.TWITTER]: Twitter,
+  [ContactType.MAIL]: Mail,
+  [ContactType.GITHUB]: GitHub,
+  [ContactType.INSTAGRAM]: Instagram,
+  [ContactType.DISCORD]: Telegram,
+  [ContactType.FACEBOOK]: Telegram,
+  [ContactType.TELEGRAM]: Telegram,
+};
+
+const Contact: FC<ContactProps> = ({ name, displayName, link }) => {
+  const Icon = contactIconsMap[name];
+
   return (
     <div className={styles['contact']}>
-      <div className={styles[`icon`]}>{icon()}</div>
+      <div className={styles[`icon`]}>
+        <Icon />
+      </div>
       {link != '' && (
-        <a href={link} className={styles[`link`]}>
+        <NextLink href={link} className={styles[`link`]}>
           {displayName}
-        </a>
+        </NextLink>
       )}
       {link == '' && <p className={styles[`link`]}>{displayName}</p>}
     </div>

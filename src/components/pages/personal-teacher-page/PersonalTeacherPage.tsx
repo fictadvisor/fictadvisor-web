@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
-import PageLayout from '@/components/common/layout/page-layout';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Loader from '@/components/common/ui/loader';
 import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
@@ -12,6 +17,20 @@ import useAuthentication from '@/hooks/use-authentication';
 import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
 import TeacherService from '@/lib/services/teacher';
+import { Teacher } from '@/types/teacher';
+
+// TODO: move context to separate folder, move types to separate folder
+export interface TeacherContext {
+  floatingCardShowed: boolean;
+  setFloatingCardShowed: Dispatch<SetStateAction<boolean>>;
+  teacher: Teacher;
+}
+
+export const teacherContext = createContext<TeacherContext>({
+  floatingCardShowed: false,
+  setFloatingCardShowed: () => {},
+  teacher: {} as Teacher,
+});
 
 export enum TeachersPageTabs {
   GENERAL = 'general',
@@ -33,25 +52,30 @@ const PersonalTeacherPage = () => {
     },
   );
   const toast = useToast();
+  const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
   const { tab } = query;
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState({ tab, router, setIndex });
+  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
 
   useEffect(() => {
     if (isError) {
       toast.error('Куди ти лізеш, цієї людини не існує');
       void push('/teachers');
     }
-  }, [isError]);
+  }, [isError, push, toast]);
 
-  const teacher = data?.info?.teacher;
+  if (!data) return null;
+
+  const teacher = data?.info;
 
   return (
-    <PageLayout description={'Сторінка викладача'}>
+    <teacherContext.Provider
+      value={{ floatingCardShowed, setFloatingCardShowed, teacher }}
+    >
       <div className={styles['personal-teacher-page']}>
         {isLoading ? (
           <div className={styles['personal-teacher-page-content']}>
@@ -63,7 +87,7 @@ const PersonalTeacherPage = () => {
           !isError && (
             <div className={styles['personal-teacher-page-content']}>
               <Breadcrumbs
-                className={styles['breadcrumbs']}
+                sx={{ margin: '16px 0px 16px 0px' }} //TODO move inline styles when refactor
                 items={[
                   {
                     label: 'Головна',
@@ -90,7 +114,7 @@ const PersonalTeacherPage = () => {
           )
         )}
       </div>
-    </PageLayout>
+    </teacherContext.Provider>
   );
 };
 export default PersonalTeacherPage;

@@ -7,10 +7,11 @@ import Button, {
   ButtonVariant,
 } from '@/components/common/ui/button/Button';
 import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
-import { GetTeachersDTO } from '@/lib/api/teacher/dto/GetTeacherDTO';
-import { TeacherAPI } from '@/lib/api/teacher/TeacherAPI';
+import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
+import { TeacherSearchFormFields } from '@/components/pages/search-pages/search-form/types';
+import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
-import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { TeacherInitialValues } from '../search-form/constants';
 import { SearchForm } from '../search-form/SearchForm';
 
@@ -31,60 +32,62 @@ const breadcrumbs = [
 const pageSize = 20;
 
 export const TeacherSearchPage = () => {
-  const [queryObj, setQueryObj] = useState(TeacherInitialValues);
+  const initialValues = localStorage.getItem('teachersForm')
+    ? JSON.parse(localStorage.getItem('teachersForm') || '{}')
+    : TeacherInitialValues;
+  const localStorageName = 'teachersForm';
+  const [queryObj, setQueryObj] =
+    useState<TeacherSearchFormFields>(initialValues);
   const [curPage, setCurPage] = useState(0);
-
-  const submitHandler = useCallback(query => {
-    setQueryObj(query);
+  const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
+    setQueryObj(query as TeacherSearchFormFields);
     setCurPage(0);
   }, []);
 
-  const { data, isLoading, refetch, isFetching } = useQuery<GetTeachersDTO>(
-    'lecturers',
-    TeacherAPI.getAll.bind(null, queryObj, pageSize * (curPage + 1)),
-    { keepPreviousData: true, refetchOnWindowFocus: false },
-  );
+  const { data, isLoading, refetch, isFetching } =
+    useQuery<GetTeachersResponse>(
+      'lecturers',
+      () => TeacherAPI.getAll(queryObj, pageSize * (curPage + 1)),
+      { keepPreviousData: true, refetchOnWindowFocus: false },
+    );
 
   useEffect(() => {
-    refetch();
+    void refetch();
   }, [queryObj, curPage, refetch]);
 
   return (
-    <PageLayout title={'Викладачі'}>
-      <div className={styles['layout']}>
-        <Breadcrumbs items={breadcrumbs} className={styles['breadcrumb']} />
-
-        <SearchForm
-          serchPlaceholder="Оберіть викладача"
-          filterDropDownOptions={[
-            { value: 'firstName', label: 'Іменем' },
-            { value: 'lastName', label: 'Прізвищем' },
-          ]}
-          onSubmit={submitHandler}
-          initialValues={TeacherInitialValues}
+    <div className={styles['layout']}>
+      {/*//TODO move inline styles when refactor*/}
+      <Breadcrumbs items={breadcrumbs} sx={{ margin: '16px 0px 16px 0px' }} />
+      <SearchForm
+        searchPlaceholder="Оберіть викладача"
+        filterDropDownOptions={[
+          { value: 'firstName', label: 'Іменем' },
+          { value: 'lastName', label: 'Прізвищем' },
+        ]}
+        onSubmit={submitHandler}
+        initialValues={initialValues}
+        localStorageName={localStorageName}
+      />
+      {data && (
+        <TeacherSearchList teachers={data.teachers} className="teacher" />
+      )}
+      {isLoading ||
+        (isFetching && (
+          <div className={styles['page-loader']}>
+            <Loader size={LoaderSize.SMALLEST} />
+          </div>
+        ))}
+      {data?.teachers.length === (curPage + 1) * pageSize && (
+        <Button
+          className={styles['load-btn']}
+          text="Завантажити ще"
+          variant={ButtonVariant.FILLED}
+          color={ButtonColor.SECONDARY}
+          onClick={() => setCurPage(pr => pr + 1)}
         />
-
-        {data && (
-          <TeacherSearchList teachers={data.teachers} className="teacher" />
-        )}
-        {isLoading ||
-          (isFetching && (
-            <div className={styles['page-loader']}>
-              <Loader size={LoaderSize.SMALLEST} />
-            </div>
-          ))}
-
-        {data?.teachers.length === (curPage + 1) * pageSize && (
-          <Button
-            className={styles['load-btn']}
-            text="Завантажити ще"
-            variant={ButtonVariant.FILLED}
-            color={ButtonColor.SECONDARY}
-            onClick={() => setCurPage(pr => pr + 1)}
-          />
-        )}
-      </div>
-    </PageLayout>
+      )}
+    </div>
   );
 };
 

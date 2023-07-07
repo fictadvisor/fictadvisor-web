@@ -1,8 +1,7 @@
-import React from 'react';
-
-import { GitHubIcon } from '@/components/common/custom-svg/GitHub';
-import { InstagramIcon } from '@/components/common/custom-svg/Instagram';
-import { TelegramIcon } from '@/components/common/custom-svg/Telegram';
+import { GitHub } from '@/components/common/icons/GitHub';
+import { Instagram } from '@/components/common/icons/Instagram';
+import { Telegram } from '@/components/common/icons/Telegram';
+import { TikTok } from '@/components/common/icons/TikTok';
 
 export const mainLinks = [
   {
@@ -38,16 +37,21 @@ export const socialLinks = [
   {
     link: 'https://github.com/fictadvisor/',
     text: 'GitHub',
-    icon: <GitHubIcon />,
+    icon: <GitHub />,
   },
   {
     link: 'https://www.instagram.com/sr_fiot/',
     text: 'Instagram',
-    icon: <InstagramIcon />,
+    icon: <Instagram />,
   },
   {
     link: 'https://t.me/fict_time',
     text: 'Telegram',
-    icon: <TelegramIcon />,
+    icon: <Telegram />,
+  },
+  {
+    link: 'https://www.tiktok.com/@sr_fiot',
+    text: 'TikTok',
+    icon: <TikTok />,
   },
 ];

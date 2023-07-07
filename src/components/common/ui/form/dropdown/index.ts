@@ -1,1 +1,1 @@
-export { default, DropDownSize } from './Dropdown';
+export { default } from './Dropdown';

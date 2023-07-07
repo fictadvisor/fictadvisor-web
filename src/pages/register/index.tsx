@@ -1,8 +1,9 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 
+import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import RegisterPage from '@/components/pages/register/register-page';
 import type { RegisterPageProps } from '@/components/pages/register/register-page/RegisterPage';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 
 export const getStaticProps: GetStaticProps<RegisterPageProps> = async () => {
   let data: RegisterPageProps['data'];
@@ -21,7 +22,14 @@ export const getStaticProps: GetStaticProps<RegisterPageProps> = async () => {
 };
 
 const Register = (props: InferGetStaticPropsType<typeof getStaticProps>) => (
-  <RegisterPage {...props} />
+  <PageLayout
+    hasFooter={false}
+    hasHeader={false}
+    robots="noindex"
+    title="Реєстрація у FICT Advisor"
+  >
+    <RegisterPage {...props} />
+  </PageLayout>
 );
 
 export default Register;

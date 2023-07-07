@@ -1,6 +1,8 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, Formik } from 'formik';
+import { useMediaQuery } from '@mui/material';
+import { AxiosError } from 'axios';
+import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
 import { AlertColor } from '@/components/common/ui/alert';
@@ -9,18 +11,20 @@ import Button from '@/components/common/ui/button/Button';
 import { Slider, TextArea } from '@/components/common/ui/form';
 import RadioGroup from '@/components/common/ui/form/radio/RadipGroup';
 import Loader from '@/components/common/ui/loader/Loader';
-import { PollAPI } from '@/lib/api/poll/PollAPI';
+import PollAPI from '@/lib/api/poll/PollAPI';
 import { showAlert } from '@/redux/reducers/alert.reducer';
+import theme from '@/styles/theme';
+import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
-import { Category } from '../../PollPage';
-import { Answer, SendingStatus } from '../poll-form/PollForm';
+import { SendingStatus } from '../poll-form/PollForm';
 
+import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
 
 interface AnswersSheetProps {
-  questions: Category;
+  category: Category;
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   setCurrent: React.Dispatch<React.SetStateAction<number>>;
   setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,7 +37,7 @@ interface AnswersSheetProps {
   setIsSendingStatus: React.Dispatch<React.SetStateAction<SendingStatus>>;
 }
 
-const collectAnswers = (answers: Answer[], values) => {
+const collectAnswers = (answers: Answer[], values: FormikValues) => {
   let resultAnswers = [...answers];
   for (const valueId of Object.keys(values)) {
     const index = resultAnswers.findIndex(el => el.questionId === valueId);
@@ -49,7 +53,7 @@ const collectAnswers = (answers: Answer[], values) => {
   return resultAnswers;
 };
 
-export const getProgress = (answers: Answer[], questions) => {
+export const getProgress = (answers: Answer[], questions: Question[]) => {
   let count = 0;
   const resultAnswers = [...answers];
   for (const question of questions) {
@@ -62,7 +66,7 @@ export const getProgress = (answers: Answer[], questions) => {
 };
 
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-  questions,
+  category,
   isTheLast,
   current,
   answers,
@@ -75,22 +79,28 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   setIsSendingStatus,
 }) => {
   const dispatch = useDispatch();
-  const [initialValues, setInitialValues] = useState({});
+  // TODO: refactor this shit
+  const [initialValues, setInitialValues] = useState<Record<string, string>>(
+    {},
+  );
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const numberRowsTextArea = isMobile ? 8 : 4;
+
   useEffect(() => {
-    for (const question of questions.questions) {
-      if (question.type === 'SCALE') {
-        initialValues[question.id] = '1';
+    for (const question of category.questions) {
+      if (question.type === QuestionType.SCALE) {
+        setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
       }
     }
-  }, [questions]);
+  }, [category]);
 
-  const answer = values => {
+  const answer = (values: FormikValues) => {
     const resultAnswers = collectAnswers(answers, values);
     setAnswers(resultAnswers);
-    const count = getProgress(resultAnswers, questions.questions);
+    const count = getProgress(resultAnswers, category.questions);
     setProgress(previousProgress => {
       const temp = [...previousProgress];
       temp[current] = count;
@@ -126,7 +136,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           >
             <ArrowButton className={styles.arrow} />
             <b>
-              {current + 1} . {questions.name}
+              {current + 1} . {category.name}
             </b>
           </div>
           <div className={styles.answersWrapper}>
@@ -140,16 +150,18 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
               {({ values }) => (
                 <Form
                   onClick={(event: FormEvent<HTMLFormElement>) => {
-                    const name = (event.target as any).name;
-                    const value = (event.target as any).value;
+                    // TODO: refactor this shit
+                    const name = (event.target as HTMLFormElement).name;
+                    const value = (event.target as HTMLFormElement).value;
                     if (name && value) {
                       values[name] = String(value);
                       answer(values);
                     }
                   }}
                   onChange={(event: FormEvent<HTMLFormElement>) => {
-                    const name = (event.target as any).name;
-                    const value = (event.target as any).value;
+                    // TODO: refactor this shit
+                    const name = (event.target as HTMLFormElement).name;
+                    const value = (event.target as HTMLFormElement).value;
                     if (name && value) {
                       values[name] = String(value);
                       answer(values);
@@ -157,7 +169,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   }}
                   className={styles['form']}
                 >
-                  {questions.questions.map((question, id) => (
+                  {category.questions.map((question, id) => (
                     <div key={question.id} className={styles['question']}>
                       {question.type === 'TEXT' ? (
                         <p className={styles['question-number']}>
@@ -165,7 +177,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         </p>
                       ) : (
                         <p className={styles['question-number']}>
-                          Питання {id + 1} / {questions.count}
+                          Питання {id + 1} / {category.count}
                         </p>
                       )}
 
@@ -197,10 +209,12 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         />
                       ) : (
                         <TextArea
-                          className={styles['textarea']}
+                          rowsNumber={numberRowsTextArea}
+                          sx={sxStyles.textArea}
                           name={question.id}
                         />
                       )}
+
                       {question.criteria && (
                         <p className={styles['question-criteria']}>
                           {question.criteria}
@@ -223,13 +237,25 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                       } else {
                         setIsSendingStatus(SendingStatus.LOADING);
                         try {
+                          for (let i = 0; i < answers.length; i++) {
+                            answers[i].value = answers[i].value.trim();
+
+                            if (answers[i].value.length === 0) {
+                              answers = answers.filter(
+                                item => item !== answers[i],
+                              );
+                            }
+                          }
                           await PollAPI.createTeacherGrade(
                             { answers },
                             disciplineTeacherId,
                           );
                           setIsSendingStatus(SendingStatus.SUCCESS);
-                        } catch (e) {
-                          const errorName = e.response.data.error;
+                        } catch (error) {
+                          // TODO: refactor this shit
+                          const errorName = (
+                            error as AxiosError<{ error: string }>
+                          ).response?.data.error;
                           if (errorName === 'InvalidEntityIdException') {
                             dispatch(
                               showAlert({
