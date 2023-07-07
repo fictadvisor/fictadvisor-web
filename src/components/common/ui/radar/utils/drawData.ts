@@ -1,4 +1,10 @@
-const getData = (grades: number[]) => {
+// TODO: find types from library
+interface TooltipContext {
+  dataIndex: number;
+  formattedValue: string;
+}
+
+const getData = (grades: number[], names: string[]) => {
   const labels = new Array(grades.length).fill('');
   const formattedValues = grades.map(x => Math.round(x));
   return {
@@ -19,19 +25,15 @@ const getData = (grades: number[]) => {
         borderWidth: 1,
         pointRadius: 3,
         lineTension: 0,
-      },
-      {
-        color: 'transparent',
-        label: '',
-        data: Array(grades.length).fill(9),
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
-        pointBorderColor: 'transparent',
-        pointBackgroundColor: '#212121',
-        pointBorderWidth: 0,
-        borderWidth: 0,
-        pointRadius: 3,
-        lineTension: 0,
+        tooltip: {
+          callbacks: {
+            label: (context: TooltipContext) => {
+              return (
+                names[context.dataIndex] + ': ' + context.formattedValue + '%'
+              );
+            },
+          },
+        },
       },
     ],
   };

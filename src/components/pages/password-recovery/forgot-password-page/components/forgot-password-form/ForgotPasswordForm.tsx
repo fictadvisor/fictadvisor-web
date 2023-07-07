@@ -1,41 +1,38 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import Button, { ButtonSize } from '@/components/common/ui/button';
 import { Input, InputSize, InputType } from '@/components/common/ui/form';
 import { initialValues } from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form/constants';
 import { ForgotPasswordFormFields } from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form/types';
 import { validationSchema } from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form/validation';
 import styles from '@/components/pages/password-recovery/forgot-password-page/ForgotPasswordPage.module.scss';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
+import useToast from '@/hooks/use-toast';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 
 const ForgotPasswordForm: FC = () => {
-  const dispatch = useDispatch();
+  const toast = useToast();
   const router = useRouter();
 
-  const handleSubmit = async (data: ForgotPasswordFormFields) => {
-    let errorMessage;
+  const handleSubmit = async (values: ForgotPasswordFormFields) => {
     try {
-      const email = data.emailAddress.toLowerCase();
+      const email = values.email.toLowerCase();
       await AuthAPI.forgotPassword({ email });
       await router.push(`/password-recovery/email-verification?email=${email}`);
-    } catch (e) {
-      const errorName = e.response.data.error;
-      if (errorName == 'InvalidBodyException') {
+    } catch (error) {
+      let errorMessage = '';
+      // TODO: remove as and create types
+      const errorName = (error as AxiosError<{ error: string }>).response?.data
+        .error;
+
+      if (errorName === 'InvalidBodyException') {
         errorMessage = 'Невірно введено пошту для відновлення';
-      } else if (errorName == 'NotRegisteredException') {
+      } else if (errorName === 'NotRegisteredException') {
         errorMessage = 'На цю пошту не зареєстровано користувача';
       }
-      dispatch(
-        showAlert({
-          title: errorMessage,
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error(errorMessage);
     }
   };
 
@@ -55,7 +52,7 @@ const ForgotPasswordForm: FC = () => {
             placeholder="example@gmail.com"
             size={InputSize.LARGE}
             type={InputType.DEFAULT}
-            name="emailAddress"
+            name="email"
           />
           <Button
             text="Надіслати лист"

@@ -5,20 +5,21 @@ import { SxProps, Theme } from '@mui/material/styles';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Progress.styles';
-import { ProgressColours, ProgressSize } from './types';
+import { ProgressColor, ProgressSize, ProgressVariant } from './types';
 
 interface ProgressProps {
   value?: number;
-  variant?: 'determinate' | 'indeterminate';
+  variant?: ProgressVariant;
   sx?: SxProps<Theme>;
   size?: ProgressSize;
-  color?: ProgressColours;
+  color?: ProgressColor;
 }
+
 const Progress: FC<ProgressProps> = ({
-  variant = 'determinate',
-  sx,
-  size,
-  color = 'primary',
+  variant = ProgressVariant.DETERMINATE,
+  sx = {},
+  size = ProgressSize.MEDIUM,
+  color = ProgressColor.PRIMARY,
 }) => {
   return (
     <Box>

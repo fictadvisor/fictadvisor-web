@@ -2,7 +2,10 @@ import { FC, memo } from 'react';
 import { Box, Slide, Snackbar } from '@mui/material';
 
 import Alert from '@/components/common/ui/alert-mui';
-import { AlertType } from '@/components/common/ui/alert-mui/Alert';
+import {
+  AlertType,
+  AlertVariant,
+} from '@/components/common/ui/alert-mui/types';
 
 import * as styles from './Toast.styles';
 
@@ -14,16 +17,24 @@ interface ToastProps {
   title: string;
   type: AlertType;
   description?: string;
+  timer?: number;
 }
 
-const Toast: FC<ToastProps> = ({ open, onClose, title, type, description }) => {
+const Toast: FC<ToastProps> = ({
+  open,
+  onClose,
+  title,
+  type,
+  description,
+  timer,
+}) => {
   return (
     <Snackbar
       key={title + type + description}
       TransitionComponent={props => <Slide {...props} direction="left" />}
       open={open}
       ClickAwayListenerProps={{ onClickAway: () => null }}
-      autoHideDuration={AUTO_HIDE_DURATION}
+      autoHideDuration={timer ?? AUTO_HIDE_DURATION}
       onClose={onClose}
       anchorOrigin={{
         vertical: 'bottom',
@@ -37,7 +48,7 @@ const Toast: FC<ToastProps> = ({ open, onClose, title, type, description }) => {
           title={title}
           description={description}
           onClose={onClose}
-          variant="filled"
+          variant={AlertVariant.FILLED}
         />
       </Box>
     </Snackbar>

@@ -1,21 +1,33 @@
 import { FC } from 'react';
 import { Box, Link, Typography, useMediaQuery } from '@mui/material';
+import Image from 'next/image';
 import NextLink from 'next/link';
 
-import Button from '../../ui/button-mui';
-import IconButton from '../../ui/icon-button-mui/IconButton';
+import Button from '@/components/common/ui/button-mui';
+import {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
+import IconButton from '@/components/common/ui/icon-button-mui/IconButton';
+import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
+import theme from '@/styles/theme';
 
 import { mainLinks, socialLinks, supportLinks } from './constants';
 import * as styles from './Footer.styles';
 
 const Footer: FC = () => {
-  const isMobile = useMediaQuery('(max-width:1024px)');
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
 
   return (
     <Box sx={styles.footerContainer}>
       <Box sx={styles.footerLogoContainer}>
         <Link href="/" component={NextLink} sx={styles.footerLogo}>
-          <Box component="img" src="/assets/logo.png" alt="logo" />
+          <Image
+            src={'/icons/fly-logo.svg'}
+            alt="FA logo"
+            width={197}
+            height={28}
+          />
         </Link>
         <Typography sx={styles.signature}>By Dev-відділ СР ФІОТ</Typography>
       </Box>
@@ -32,8 +44,8 @@ const Footer: FC = () => {
             <Button
               sx={styles.button}
               text={data.text}
-              size="small"
-              variant="text"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
             />
           </Link>
         ))}
@@ -51,8 +63,8 @@ const Footer: FC = () => {
             <Button
               sx={styles.button}
               text={data.text}
-              size="small"
-              variant="text"
+              size={ButtonSize.SMALL}
+              variant={ButtonVariant.TEXT}
             />
           </Link>
         ))}
@@ -73,7 +85,7 @@ const Footer: FC = () => {
               <IconButton
                 sx={styles.button}
                 icon={data.icon}
-                color="transparent"
+                color={IconButtonColor.TRANSPARENT}
               />
               <Typography variant="body1Bold" color="grey.600">
                 {!isMobile && data.text}

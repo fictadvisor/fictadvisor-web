@@ -8,34 +8,56 @@
   width: 100%;
   grid-template-columns: auto auto minmax(296px, 1fr);
   grid-template-rows: auto  1fr  1fr;
+
 }
 .contacts-hidden{
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 16px;
-  border-left: solid $white 2px;
+
   width:fit-content;
-  height: fit-content;
-  padding-right: 5%;
-  padding-left: 42px;
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 5;
+  height: 100%;
+  overflow: hidden;
+  padding: 12px 5% 12px 42px;
 }
 .contacts-shown{
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border-left: solid $white 2px;
   width:fit-content;
   height: fit-content;
-  //padding-right: 142px;
   padding-left: 42px;
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 4;
+}
+
+.contacts-item{
+
+  &:nth-child(n+1)::after {
+    top: 1px;
+    height: 130px;
+  }
+  &:nth-child(n+4)::after {
+    top: 1px;
+    height: 100%;
+  }
+
+  &::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 2px;
+    background-color: white;
+  }
 }
 
 .photo{
@@ -51,7 +73,9 @@
   width:200px;
   border-radius: 50%;
 }
+
 .name-and-rating{
+  gap: 8px;
   display: flex;
   min-width: unset;
   width: 100%;
@@ -101,6 +125,7 @@
   flex-direction: column;
   align-items: flex-start;
   overflow-wrap: anywhere;
+  padding-right: 42px;
   h5{
     @include h5--bold;
   }
@@ -130,6 +155,7 @@
     width: 140px;
   }
   .name-and-rating {
+    gap: 2px;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
@@ -153,6 +179,11 @@
 
   .contacts-hidden{
     display: none;
+  }
+  .contacts-item{
+    &::after{
+      display: none;
+    }
   }
   .contacts-shown{
     display: flex;
@@ -230,6 +261,7 @@
     h5{
       @include body-secondary--bold;
     }
+    padding-right: 0;
     padding-bottom: 8px;
     padding-top: unset;
   }
@@ -267,6 +299,11 @@
   }
   .contacts-hidden{
     display: none;
+  }
+  .contacts-item{
+    &::after{
+      display: none;
+    }
   }
   .contacts-shown{
     grid-column-start: 1;

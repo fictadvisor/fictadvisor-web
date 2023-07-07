@@ -1,8 +1,6 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BannerImage from 'public/assets/main-page/BannerImage';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import Button, {
@@ -10,31 +8,31 @@ import Button, {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import Loader from '@/components/common/ui/loader';
 import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import useAuthentication from '@/hooks/use-authentication';
-import { StudentResourcesAPI } from '@/lib/api/student-resources/StudentResourcesAPI';
+import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
+
+import BannerImage from '../../common/icons/BannerImage';
 
 import ResourceCard from './components/resource-card/ResourceCard';
 
 import styles from './MainPage.module.scss';
-const MainPage = () => {
-  const { isLoading, data } = useQuery(
-    ['resources'],
-    StudentResourcesAPI.getAll,
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
 
+export interface MainPageProps {
+  data: GetStudentResourcesResponse | null;
+}
+
+const MainPage: FC<MainPageProps> = ({ data }) => {
   const { query, isReady } = useRouter();
   const token = query.token as string;
   const { isLoggedIn } = useAuthentication();
 
   return (
     <PageLayout
-      description={'Головна сторінка'}
-      hasFooter={true}
+      description="FICT Advisor - офіційний сайт Студради ФІОТ.
+     Зустрічайте ваш студентський портал, який надає багато корисних інструментів для студентів.
+     Тут ви знайдете опитування про викладачів, багатофункціональний розклад, можливість керувати групою,
+      набори в активне ком’юніті та багато інших цікавих інструментів."
       className={styles['main-page']}
     >
       <div className={styles['main-page-content']}>
@@ -42,7 +40,7 @@ const MainPage = () => {
         <div className={styles['header']}>
           <div className={styles['header-info']}>
             <div className={styles['header-info-content']}>
-              <h2>Твій студентський портал</h2>
+              <h1 className={styles['title']}>Твій студентський портал</h1>
               <p>
                 Зустрічай FICT Advisor — офіційний сайт Студради ФІОТ.
                 Опитування про викладачів, багатофункціональний розклад,
@@ -67,7 +65,7 @@ const MainPage = () => {
                   )}
                   <Link href={'/poll'}>
                     <Button
-                      text={'Пройти Опитування 2023'}
+                      text={'Опитування 2023'}
                       disabled={false}
                       variant={ButtonVariant.OUTLINE}
                       size={ButtonSize.LARGE}
@@ -91,7 +89,7 @@ const MainPage = () => {
                   )}
                   <Link href={'/poll'}>
                     <Button
-                      text={'Пройти Опитування 2023'}
+                      text={'Опитування 2023'}
                       disabled={false}
                       variant={ButtonVariant.OUTLINE}
                       size={ButtonSize.MEDIUM}
@@ -132,15 +130,11 @@ const MainPage = () => {
           <h3>Студентські ресурси</h3>
           <div className={styles['resource-card-container']}>
             <div className={styles['resources-cards']}>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                data?.studentResources.map(({ name, id, icon, link }) => (
-                  <div className={styles['card-holder']} key={id}>
-                    <ResourceCard text={name} image={icon} href={link} />
-                  </div>
-                ))
-              )}
+              {data?.studentResources.map(({ name, id, icon, link }) => (
+                <div className={styles['card-holder']} key={id}>
+                  <ResourceCard text={name} image={icon} href={link} />
+                </div>
+              ))}
             </div>
           </div>
         </div>

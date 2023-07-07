@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
-import PageLayout from '@/components/common/layout/page-layout';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Loader from '@/components/common/ui/loader';
 import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
@@ -13,6 +18,20 @@ import useAuthentication from '@/hooks/use-authentication';
 import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
 import TeacherService from '@/lib/services/teacher/TeacherService';
+import { TeacherWithSubject } from '@/types/teacher';
+
+// TODO: move context and types to separate folders
+export interface TeacherSubjectContext {
+  floatingCardShowed: boolean;
+  setFloatingCardShowed: Dispatch<SetStateAction<boolean>>;
+  teacher: TeacherWithSubject;
+}
+
+export const teacherSubjectContext = createContext<TeacherSubjectContext>({
+  floatingCardShowed: false,
+  setFloatingCardShowed: () => {},
+  teacher: {} as TeacherWithSubject,
+});
 
 const PersonalTeacherSubjectPage = () => {
   const router = useRouter();
@@ -21,8 +40,13 @@ const PersonalTeacherSubjectPage = () => {
   const teacherId = router.query.teacherId as string;
   const subjectId = router.query.subjectId as string;
   const { user } = useAuthentication();
+  const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
-  const { isLoading, isError, data } = useQuery(
+  const {
+    isLoading,
+    isError,
+    data: teacherInfo,
+  } = useQuery(
     ['teacher', teacherId, subjectId],
     () =>
       TeacherService.getTeacherSubjectPageInfo(teacherId, subjectId, user?.id),
@@ -45,12 +69,16 @@ const PersonalTeacherSubjectPage = () => {
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState({ tab, router, setIndex });
+  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
 
-  const teacher = data?.info;
+  if (!teacherInfo) return null;
+
+  const teacher = teacherInfo.info;
 
   return (
-    <PageLayout description={'Сторінка викладача'}>
+    <teacherSubjectContext.Provider
+      value={{ floatingCardShowed, setFloatingCardShowed, teacher }}
+    >
       <div className={styles['personal-teacher-page']}>
         {isLoading ? (
           <div className={styles['personal-teacher-page-content']}>
@@ -62,7 +90,7 @@ const PersonalTeacherSubjectPage = () => {
           !isError && (
             <div className={styles['personal-teacher-page-content']}>
               <Breadcrumbs
-                className={styles['breadcrumbs']}
+                sx={{ margin: '16px 0px 16px 0px' }} //TODO move inline styles when refactor
                 items={[
                   {
                     label: 'Головна',
@@ -80,11 +108,11 @@ const PersonalTeacherSubjectPage = () => {
                 ]}
               />
               <div className={styles['card-wrapper']}>
-                <PersonalTeacherSubjectCard {...data.info} />
+                <PersonalTeacherSubjectCard {...teacher} />
               </div>
               <div className={styles['tabs']}>
                 <PersonalSubjectTeacherTabs
-                  data={data}
+                  data={teacherInfo}
                   tabIndex={index}
                   handleChange={handleChange}
                 />
@@ -93,7 +121,7 @@ const PersonalTeacherSubjectPage = () => {
           )
         )}
       </div>
-    </PageLayout>
+    </teacherSubjectContext.Provider>
   );
 };
 export default PersonalTeacherSubjectPage;

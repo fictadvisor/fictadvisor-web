@@ -1,16 +1,15 @@
 import React from 'react';
 import { ChevronLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
 import ForgotPasswordForm from '@/components/pages/password-recovery/forgot-password-page/components/forgot-password-form';
-
-import PageLayout from '../../../common/layout/page-layout/PageLayout';
-
-import styles from './ForgotPasswordPage.module.scss';
+import * as styles from '@/components/pages/password-recovery/forgot-password-page/ForgotPasswordPage.styles';
 
 const ForgotPasswordPage = () => {
   const router = useRouter();
@@ -18,35 +17,27 @@ const ForgotPasswordPage = () => {
     void router.push('/login');
   };
   return (
-    <PageLayout
-      hasHeader={false}
-      hasFooter={false}
-      description={'Сторінка для створення нового паролю'}
-    >
-      <div className={styles['forgot-password-page']}>
-        <div className={styles['forgot-password-page-content']}>
-          <div className={styles['icon']}>
-            <EnvelopeIcon />
-          </div>
-          <div className={styles['headline']}>
-            <h3>Забув пароль?</h3>
-          </div>
-          <div className={styles['text']}>
-            <h6>Ми надішлемо на введену пошту лист для зміни паролю</h6>
-          </div>
-          <div className={styles['formik']}>
-            <ForgotPasswordForm />
-          </div>
-          <Button
-            text={'Повернутись до авторизації'}
-            startIcon={<ChevronLeftIcon className="icon" />}
-            variant={ButtonVariant.TEXT}
-            size={ButtonSize.SMALL}
-            onClick={returnAuth}
-          />
-        </div>
-      </div>
-    </PageLayout>
+    <Box sx={styles.container}>
+      <Box sx={styles.content}>
+        <Box sx={styles.icon}>
+          <EnvelopeIcon />
+        </Box>
+        <Typography sx={styles.title}>Забув пароль?</Typography>
+        <Typography sx={styles.text}>
+          Ми надішлемо на введену пошту лист для зміни паролю
+        </Typography>
+        <Box sx={styles.form}>
+          <ForgotPasswordForm />
+        </Box>
+        <Button
+          text="Повернутись до авторизації"
+          variant={ButtonVariant.TEXT}
+          size={ButtonSize.SMALL}
+          startIcon={<ChevronLeftIcon />}
+          onClick={returnAuth}
+        />
+      </Box>
+    </Box>
   );
 };
 

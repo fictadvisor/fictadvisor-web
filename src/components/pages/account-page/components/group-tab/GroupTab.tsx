@@ -1,88 +1,86 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useQuery } from 'react-query';
+import RequestsTable from 'src/components/pages/account-page/components/group-tab/components/table/requests-table';
+import {
+  transformRequestsData,
+  transformStudentsData,
+} from 'src/components/pages/account-page/components/group-tab/components/table/utils';
 
 import Loader, { LoaderSize } from '@/components/common/ui/loader';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
-import MobileRequestTable from '@/components/pages/account-page/components/group-tab/components/table/mobile-request-table';
-import MobileStudentTable from '@/components/pages/account-page/components/group-tab/components/table/mobile-student-table';
-import RequestTable from '@/components/pages/account-page/components/group-tab/components/table/request-table';
-import StudentTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';
-import {
-  dataMapper,
-  transformRequestsData,
-  transformStudentsData,
-} from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
+import StudentsTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';
 import useAuthentication from '@/hooks/use-authentication';
-import useIsMobile from '@/hooks/use-is-mobile';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
+import GroupAPI from '@/lib/api/group/GroupAPI';
+import { PendingStudent } from '@/types/student';
+import { User, UserGroupRole, UserGroupState } from '@/types/user';
 
 import styles from './GroupTab.module.scss';
 
-const getStudents = user => {
-  return async function () {
-    let students, requests;
-    try {
-      students = (await GroupAPI.getGroupStudents(user.group.id)).students;
-      requests = (await GroupAPI.getRequestStudents(user.group.id)).students;
-    } finally {
-      return {
-        students,
-        requests,
-      };
-    }
+const getStudents = async (user: User) => {
+  const { students } = await GroupAPI.getGroupStudents(
+    user.group?.id as string,
+  );
+  let requests: PendingStudent[] = [];
+
+  if (user.group?.role !== UserGroupRole.STUDENT) {
+    const { students: pendingStudents } = await GroupAPI.getRequestStudents(
+      user.group?.id as string,
+    );
+
+    requests = pendingStudents;
+  }
+
+  return {
+    students,
+    requests,
   };
 };
 
 const GroupTab: FC = () => {
-  const isMobile = useIsMobile(1024);
   const { user } = useAuthentication();
 
   const { data, isLoading, refetch } = useQuery(
     ['students'],
-    getStudents(user),
+    () => getStudents(user),
     {
       retry: false,
       refetchOnWindowFocus: false,
     },
   );
 
+  console.log(user);
+
   if (isLoading) return <Loader size={LoaderSize.SMALLEST} />;
 
-  if (!user.group.role) return <NoGroupBlock />;
+  if (
+    user?.group?.state === UserGroupState.DECLINED ||
+    user?.group?.state === UserGroupState.PENDING
+  )
+    return <NoGroupBlock />;
+
+  if (!data || !user?.group || !user?.group.role) return null;
 
   const showRequests =
-    data.requests && data.requests.length !== 0 && dataMapper[user.group.role];
+    data?.requests?.length !== 0 && user?.group?.role !== UserGroupRole.STUDENT;
 
   return (
     <div className={styles['content']}>
       <div className={styles['text-content']}>
         <h4>Список групи {user.group.code}</h4>
       </div>
-      {showRequests &&
-        (isMobile ? (
-          <MobileRequestTable
-            refetch={refetch}
-            rows={transformRequestsData(data.requests)}
-          />
-        ) : (
-          <RequestTable
-            refetch={refetch}
-            rows={transformRequestsData(data.requests)}
-          />
-        ))}
-      {isMobile ? (
-        <MobileStudentTable
+      {showRequests && (
+        <RequestsTable
           refetch={refetch}
-          variant={dataMapper[user.group.role]}
-          rows={transformStudentsData(data.students)}
-        />
-      ) : (
-        <StudentTable
-          refetch={refetch}
-          variant={dataMapper[user.group.role]}
-          rows={transformStudentsData(data.students)}
+          rows={transformRequestsData(data.requests)}
         />
       )}
+      {
+        <StudentsTable
+          refetch={refetch}
+          role={user.group.role}
+          rows={transformStudentsData(data.students)}
+        />
+      }
     </div>
   );
 };

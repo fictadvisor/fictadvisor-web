@@ -1,15 +1,17 @@
 import React from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import CustomTelegramIcon from '@/components/common/custom-svg/CustomTelegramIcon';
+import CustomTelegram from '@/components/common/icons/CustomTelegram';
 import Button, {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import Divider, { DividerTextPosition } from '@/components/common/ui/divider';
+import Divider from '@/components/common/ui/divider-mui';
+import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import LoginForm from '@/components/pages/login-page/components/login-form';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth/AuthService';
@@ -32,18 +34,19 @@ const RightBlock = () => {
 
   return (
     <div className={styles['right-block']}>
-      <Link href="/">
-        <img
-          className={styles['mobile-login-logo']}
-          src="/assets/login-page/new_logo.png"
+      <Link href="/" className={styles['mobile-login-logo']}>
+        <Image
+          src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
+          priority
+          fill
         />
       </Link>
       <h3 className={styles['register-header']}>З поверненням!</h3>
       <Button
         endIcon={
           <div className="icon">
-            <CustomTelegramIcon />
+            <CustomTelegram />
           </div>
         }
         text="Увійти за допомогою"
@@ -55,7 +58,7 @@ const RightBlock = () => {
       <Button
         startIcon={
           <div className="icon">
-            <CustomTelegramIcon />
+            <CustomTelegram />
           </div>
         }
         text="Увійти за допомогою Telegram"
@@ -64,11 +67,7 @@ const RightBlock = () => {
         onClick={handleClick}
         className={styles['telegram-button']}
       />
-      <Divider
-        text="або"
-        textPosition={DividerTextPosition.CENTER}
-        className={styles['right-divider']}
-      />
+      <Divider text="або" textAlign={DividerTextAlign.CENTER} />
       <LoginForm />
       <p className={styles['mobile-text']}>Ти ще не з нами? </p>
       <Button

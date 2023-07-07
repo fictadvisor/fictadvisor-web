@@ -5,9 +5,11 @@ import { SxProps, Theme } from '@mui/material/styles';
 import * as styles from '@/components/common/ui/alert-button-mui/AlertButton.styles';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
+import { AlertButtonVariant } from './types';
+
 interface AlertButtonProps {
   text?: string;
-  variant?: 'error_fill' | 'error_outline' | 'success';
+  variant?: AlertButtonVariant;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   sx?: SxProps<Theme>;
@@ -15,13 +17,12 @@ interface AlertButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   href?: string;
 }
-
 const AlertButton: FC<AlertButtonProps> = ({
   text,
-  variant,
+  variant = AlertButtonVariant.SUCCESS,
   startIcon,
   endIcon,
-  sx,
+  sx = {},
   ...rest
 }) => {
   return (

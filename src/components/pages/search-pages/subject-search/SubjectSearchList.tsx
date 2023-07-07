@@ -1,16 +1,26 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { SubjectCard } from '@/components/common/composite/cards/subject-card';
-import { GetListOfSubjectsDTO } from '@/lib/api/subject/dto/GetListOfSubjectsDTO';
+import { SubjectCard } from '@/components/common/ui/cards/subject-card';
+import useToast from '@/hooks/use-toast';
+import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
 import styles from './SubjectSearchList.module.scss';
 
-export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
+const TOAST_TIMER = 4000;
+
+export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
   const router = useRouter();
+  const toast = useToast();
+
+  useEffect(() => {
+    if (!subjects.length) {
+      toast.error('Цього предмета не існує', '', TOAST_TIMER);
+    }
+  }, [subjects.length]);
 
   const redirect = (subjectId: string) => {
-    router.push(`/subjects/${subjectId}/teachers`);
+    void router.push(`/subjects/${subjectId}/teachers`);
   };
 
   return (
@@ -19,7 +29,6 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsDTO) => {
         subjects.map(subject => (
           <li key={subject.id}>
             <SubjectCard
-              // className={'subject-card'}
               onClick={() => redirect(subject.id)}
               name={`${subject.name}`}
               details={`${

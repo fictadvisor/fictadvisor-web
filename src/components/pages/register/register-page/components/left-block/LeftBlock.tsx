@@ -1,25 +1,24 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import CustomTelegramIcon from '@/components/common/custom-svg/CustomTelegramIcon';
+import CustomTelegram from '@/components/common/icons/CustomTelegram';
 import Button, {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button';
-import Divider, { DividerTextPosition } from '@/components/common/ui/divider';
+import Divider from '@/components/common/ui/divider-mui';
+import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import RegisterForm from '@/components/pages/register/register-page/components/register-form';
+import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 import AuthService from '@/lib/services/auth/AuthService';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 import styles from './LeftBlock.module.scss';
 
-interface LeftBlockProps {
-  groups;
-}
-
-const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
+const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
   const hasTelegram = !!StorageUtil.getTelegramInfo();
   const handleClick = async () => {
@@ -29,10 +28,10 @@ const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
   return (
     <div className={styles['left-block']}>
       <Link href="/" className={styles['mobile-register-logo-container']}>
-        <img
-          className={styles['mobile-register-logo']}
-          src="/assets/login-page/new_logo.png"
+        <Image
+          src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
+          fill
         />
       </Link>
       <h3 className={styles['login-header']}>Створи акаунт</h3>
@@ -45,7 +44,7 @@ const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
           <Button
             startIcon={
               <div className="icon">
-                <CustomTelegramIcon />
+                <CustomTelegram />
               </div>
             }
             text="Приєднай Telegram"
@@ -57,7 +56,7 @@ const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
           <Button
             startIcon={
               <div className="icon">
-                <CustomTelegramIcon />
+                <CustomTelegram />
               </div>
             }
             text="Приєднай Telegram"
@@ -68,8 +67,7 @@ const LeftBlock: FC<LeftBlockProps> = ({ groups }) => {
           />
           <Divider
             text="та введи дані нижче"
-            textPosition={DividerTextPosition.CENTER}
-            className={styles['right-divider']}
+            textAlign={DividerTextAlign.CENTER}
           />
         </>
       )}

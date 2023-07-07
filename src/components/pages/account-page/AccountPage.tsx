@@ -1,64 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   AcademicCapIcon,
+  FireIcon,
   LockClosedIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
-import {
-  TabItem,
-  TabItemContentPosition,
-  TabList,
-  TabPanel,
-  TabPanelsList,
-} from '@/components/common/ui/tab';
-import { TabItemContentSize } from '@/components/common/ui/tab/tab-item/TabItem';
+import Tab from '@/components/common/ui/tab-mui/tab';
+import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
+import TabContext from '@/components/common/ui/tab-mui/tab-context';
+import TabList from '@/components/common/ui/tab-mui/tab-list';
+import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
 import GeneralTab from '@/components/pages/account-page/components/general-tab';
 import GroupTab from '@/components/pages/account-page/components/group-tab';
 import SecurityTab from '@/components/pages/account-page/components/security-tab';
+import SelectiveTab from '@/components/pages/account-page/components/selective-tab';
 import useAuthentication from '@/hooks/use-authentication';
 
-import PageLayout from '../../common/layout/page-layout/PageLayout';
+import * as stylesMui from './AccountPage.styles';
 
 import styles from './AccountPage.module.scss';
 
-enum AccountPageTabs {
+enum AccountPageTab {
   GENERAL = 'general',
   SECURITY = 'security',
   GROUP = 'group',
+  SELECTIVE = 'selective',
 }
 
 const AccountPagesMapper = {
   group: 'Група',
   security: 'Безпека',
   general: 'Загальне',
+  selective: 'Мої вибіркові',
 };
 
 const AccountPage = () => {
-  const { push, replace, query, isReady } = useRouter();
+  const { replace, query, isReady } = useRouter();
 
   const { tab } = query;
-  const [index, setIndex] = useState<AccountPageTabs>(AccountPageTabs.GENERAL);
+  const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
 
   useEffect(() => {
     if (!isReady) {
       return;
     }
-    if (Object.values(AccountPageTabs).includes(tab as AccountPageTabs)) {
-      setIndex(tab as AccountPageTabs);
+    if (Object.values(AccountPageTab).includes(tab as AccountPageTab)) {
+      setIndex(tab as AccountPageTab);
     } else {
-      void push(
-        { query: { ...query, tab: AccountPageTabs.GENERAL } },
+      void replace(
+        { query: { ...query, tab: AccountPageTab.GENERAL } },
         undefined,
         {
           shallow: true,
         },
       );
     }
-  }, [tab, isReady, push, query]);
+  }, [tab, isReady, query, replace]);
 
   const { isLoggedIn } = useAuthentication();
   const dispatch = useDispatch();
@@ -67,10 +69,17 @@ const AccountPage = () => {
     if (!isLoggedIn) {
       void replace('/login?~account');
     }
-  }, [dispatch, isLoggedIn, push, replace]);
+  }, [dispatch, isLoggedIn, replace]);
+
+  const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
+    await replace({ query: { ...query, tab: value } }, undefined, {
+      shallow: true,
+    });
+    setIndex(value);
+  };
 
   return (
-    <PageLayout hasFooter={true}>
+    <>
       <div className={styles['breadcrumb']}>
         <Breadcrumbs
           items={[
@@ -85,68 +94,56 @@ const AccountPage = () => {
           ]}
         />
       </div>
-      <div className={styles['tabs-content']}>
-        <TabList
-          className={styles['tab-list']}
-          onChange={async value => {
-            await push({ query: { ...query, tab: value } }, undefined, {
-              shallow: true,
-            });
-            setIndex(value as AccountPageTabs);
-          }}
-          currentValue={index}
-        >
-          <TabItem
-            size={TabItemContentSize.NORMAL}
-            text="Загальне"
-            position={TabItemContentPosition.LEFT}
-            icon={<AcademicCapIcon className="icon" />}
-            value={AccountPageTabs.GENERAL}
-          />
-          <TabItem
-            size={TabItemContentSize.NORMAL}
-            text="Безпека"
-            position={TabItemContentPosition.LEFT}
-            icon={<LockClosedIcon className="icon" />}
-            value={AccountPageTabs.SECURITY}
-          />
-          <TabItem
-            size={TabItemContentSize.NORMAL}
-            text="Група"
-            position={TabItemContentPosition.LEFT}
-            icon={<UsersIcon className="icon" />}
-            value={AccountPageTabs.GROUP}
-          />
-        </TabList>
-        {isLoggedIn && (
-          <TabPanelsList
-            className={styles['tab-panels-list']}
-            currentValue={index}
-          >
-            <>
-              <TabPanel
-                className={styles['tab-panel']}
-                value={AccountPageTabs.GENERAL}
-              >
+      <Box sx={stylesMui.tabContext}>
+        <TabContext value={index}>
+          <TabList onChange={handleChange} sx={stylesMui.tabList}>
+            <Tab
+              label="Загальне"
+              value={AccountPageTab.GENERAL}
+              icon={<AcademicCapIcon />}
+              textPosition={TabTextPosition.LEFT}
+            />
+            <Tab
+              label="Безпека"
+              value={AccountPageTab.SECURITY}
+              icon={<LockClosedIcon />}
+              textPosition={TabTextPosition.LEFT}
+            />
+            <Tab
+              label="Група"
+              value={AccountPageTab.GROUP}
+              icon={<UsersIcon />}
+              textPosition={TabTextPosition.LEFT}
+            />
+            <Tab
+              label="Мої вибіркові"
+              value={AccountPageTab.SELECTIVE}
+              icon={<FireIcon />}
+              textPosition={TabTextPosition.LEFT}
+            />
+          </TabList>
+          {isLoggedIn && (
+            <Box sx={stylesMui.tabPanelsList}>
+              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.GENERAL}>
                 <GeneralTab />
               </TabPanel>
-              <TabPanel
-                className={styles['tab-panel']}
-                value={AccountPageTabs.SECURITY}
-              >
+              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.SECURITY}>
                 <SecurityTab />
               </TabPanel>
-              <TabPanel
-                className={styles['tab-panel']}
-                value={AccountPageTabs.GROUP}
-              >
+              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.GROUP}>
                 <GroupTab />
               </TabPanel>
-            </>
-          </TabPanelsList>
-        )}
-      </div>
-    </PageLayout>
+              <TabPanel
+                sx={stylesMui.tabPanel}
+                value={AccountPageTab.SELECTIVE}
+              >
+                <SelectiveTab />
+              </TabPanel>
+            </Box>
+          )}
+        </TabContext>
+      </Box>
+    </>
   );
 };
 

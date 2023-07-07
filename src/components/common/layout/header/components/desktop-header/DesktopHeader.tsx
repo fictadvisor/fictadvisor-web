@@ -4,8 +4,13 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 
 import Button from '@/components/common/ui/button-mui';
+import {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
 
 import { mainLinks } from '../../constants';
+import { TransformedUser } from '../../types';
 import AuthenticationButtons from '../authentication-buttons';
 import HeaderDesktopCard from '../header-desktop-card';
 
@@ -13,14 +18,19 @@ import * as styles from './DesktopHeader.styles';
 
 interface DesktopHeaderProps {
   isLoggedIn: boolean;
-  user: any;
+  user: TransformedUser;
 }
 
 const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
   return (
     <AppBar sx={styles.headerContainer}>
       <Link href="/" component={NextLink} sx={styles.logoContainer}>
-        <Image src="/assets/logo.png" alt="FA logo" width={197} height={20} />
+        <Image
+          src={'/icons/fly-logo.svg'}
+          alt="FA logo"
+          width={197}
+          height={28}
+        />
       </Link>
       <Toolbar sx={styles.menu}>
         {mainLinks.map((record, index) => (
@@ -33,8 +43,8 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
             <Button
               sx={styles.button}
               text={record.text}
-              size="medium"
-              variant="text"
+              size={ButtonSize.MEDIUM}
+              variant={ButtonVariant.TEXT}
             />
           </Link>
         ))}
@@ -47,12 +57,7 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
             href="/account"
             underline="none"
           >
-            <HeaderDesktopCard
-              name={user.name}
-              groupName={user.groupName}
-              position={user.position}
-              url={user.avatar}
-            />
+            <HeaderDesktopCard {...user} />
           </Link>
         ) : (
           <AuthenticationButtons />
