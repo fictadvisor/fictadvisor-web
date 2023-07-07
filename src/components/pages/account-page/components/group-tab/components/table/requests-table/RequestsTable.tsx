@@ -52,13 +52,13 @@ const RequestsTable: FC<RequestsTableProps> = ({ rows, refetch }) => {
       <Divider
         text="Нові запити"
         textAlign={DividerTextAlign.LEFT}
-        sx={{ pb: '20px' }}
+        sx={styles.divider}
       />
       <Grid container sx={gridStyles.studentsGrid}>
         {rows.map((row, index) => (
           <Grid container key={index} sx={gridStyles.row}>
             {row.imgSrc && (
-              <Grid item desktop={5} mobile={7}>
+              <Grid item desktop={6} mobile={7}>
                 <Image width={48} height={48} src={row.imgSrc} alt="avatar" />
                 {!isMobile && (
                   <Typography className="name">{row.fullName}</Typography>
@@ -72,7 +72,7 @@ const RequestsTable: FC<RequestsTableProps> = ({ rows, refetch }) => {
               </Grid>
             )}
 
-            <Grid item mobile={3} desktop={5}>
+            <Grid item mobile={3} desktop={4}>
               {!isMobile && (
                 <Typography className="email">{row.email}</Typography>
               )}

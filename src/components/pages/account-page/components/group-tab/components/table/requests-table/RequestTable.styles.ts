@@ -9,3 +9,8 @@ export const lastColumn: SxProps<Theme> = {
     color: 'white.main',
   },
 };
+
+export const divider: SxProps<Theme> = {
+  pb: '20px',
+  typography: 'body1',
+};

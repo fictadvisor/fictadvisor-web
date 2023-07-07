@@ -12,4 +12,5 @@ export const dividerWrapper: SxProps<Theme> = {
   gap: '18px',
   alignItems: 'center',
   pb: '20px',
+  typography: 'body1',
 };

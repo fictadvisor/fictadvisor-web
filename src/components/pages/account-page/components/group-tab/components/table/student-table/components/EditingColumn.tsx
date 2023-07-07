@@ -118,7 +118,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
         <Popup
           open={deletePopupOpen}
           title="Видалити користувача"
-          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буд відправити повторний запит до групи.`}
+          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
           onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
@@ -177,7 +177,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
         <Popup
           open={deletePopupOpen}
           title="Видалити користувача"
-          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буд відправити повторний запит до групи.`}
+          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
           onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
