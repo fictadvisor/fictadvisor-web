@@ -1,23 +1,22 @@
 import type { FC } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { Box, Stack } from '@mui/material';
 import { Form, Formik } from 'formik';
 
 import Button from '@/components/common/ui/button-mui/Button';
-import { Dropdown } from '@/components/common/ui/form/dropdown-mui/Dropdown';
+import {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
 
-import { DatePicker } from './date-picker/DatePicker';
-import { TabSection } from './tabs-section/TabSection';
+import { CheckBoxSection } from './components/checkboxes-section/CheckBoxSection';
+import { DatePicker } from './components/date-picker/DatePicker';
+import { TabSection } from './components/tabs-section/TabSection';
+import * as styles from './CalendarSection.styles';
 
-import styles from './calendar-section.module.scss';
-export const CalendarSection: FC<any> = ({}) => {
+export const CalendarSection: FC<never> = () => {
   return (
-    <section className={styles['calendar-section']}>
-      <Button
-        sx={{ maxWidth: '330px' }}
-        text={'Додати подію'}
-        variant={'outline'}
-        startIcon={<PlusIcon />}
-      />
+    <Box sx={styles.mainWrapper}>
       <Formik
         validateOnMount
         validateOnChange
@@ -26,27 +25,22 @@ export const CalendarSection: FC<any> = ({}) => {
           console.log(values);
         }}
       >
-        <Form
-          style={{
-            width: '90%',
-            display: 'flex',
-            gap: '24px',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <TabSection />
-          <Dropdown
-            width={'min(300px,100%)'}
-            placeholder="NO LABEL MFCKRS"
-            options={[{ label: 'l1', id: 'id1' }]}
-            name="teacherId1"
-            showRemark
-            label="Група"
-          />
-          <DatePicker />
-        </Form>
+        <Box sx={styles.sticky}>
+          <Form>
+            <Stack sx={styles.wrapper}>
+              <Button
+                text={'Додати подію'}
+                variant={ButtonVariant.OUTLINE}
+                startIcon={<PlusIcon />}
+                size={ButtonSize.SMALL}
+              />
+              <TabSection />
+              <DatePicker />
+              <CheckBoxSection />
+            </Stack>
+          </Form>
+        </Box>
       </Formik>
-    </section>
+    </Box>
   );
 };
