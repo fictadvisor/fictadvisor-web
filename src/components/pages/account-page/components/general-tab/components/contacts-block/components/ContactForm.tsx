@@ -6,7 +6,8 @@ import * as yup from 'yup';
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import { AlertColor } from '@/components/common/ui/alert';
 import Button, { ButtonColor, ButtonSize } from '@/components/common/ui/button';
-import { Dropdown, Input, InputSize } from '@/components/common/ui/form';
+import { Input, InputSize } from '@/components/common/ui/form';
+import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import styles from '@/components/pages/account-page/components/general-tab/GeneralTab.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
@@ -23,7 +24,7 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
   const dispatch = useDispatch();
   const options = Object.values(ContactType).map(contact => ({
     label: contact,
-    value: contact,
+    id: contact,
   }));
 
   const handleSubmit = async (data: AddContactBody) => {
@@ -58,9 +59,9 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
         }}
         onSubmit={handleSubmit}
       >
-        {({}) => (
+        {() => (
           <Form>
-            <Dropdown
+            <FormikDropdown
               options={options}
               name="name"
               label="Соціальна мережа"
