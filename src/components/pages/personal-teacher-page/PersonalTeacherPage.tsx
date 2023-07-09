@@ -55,11 +55,18 @@ const PersonalTeacherPage = () => {
   const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
   const { tab } = query;
+
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
+  const handleChange = useTabState(
+    tab,
+    router,
+    setIndex,
+    TeachersPageTabs,
+    TeachersPageTabs.GENERAL,
+  );
 
   useEffect(() => {
     if (isError) {
