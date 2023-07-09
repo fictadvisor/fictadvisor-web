@@ -55,7 +55,6 @@ const SubjectSearchPage = () => {
         filterDropDownOptions={filterOptions}
         onSubmit={submitHandler}
         initialValues={SubjectInitialValues}
-        //localStorageName={localStorageName}
       />
       {data && <SubjectSearchList subjects={data.subjects} />}
       {isLoading ||
