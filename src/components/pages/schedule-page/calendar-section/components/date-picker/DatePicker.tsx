@@ -22,6 +22,7 @@ const CustomPickersDay = styled(PickersDay, {
   ...(props.dayIsBetween && {
     borderRadius: 0,
     backgroundColor: props.theme.palette.grey['100'],
+    color: '',
   }),
   ...(props.isFirstDay && {
     borderTopLeftRadius: '10px',
@@ -72,7 +73,7 @@ export function DatePicker() {
       slotProps={{
         day: {
           selectedDay: value,
-        } as any,
+        } as unknown as Dayjs,
       }}
       showDaysOutsideCurrentMonth={true}
     />
