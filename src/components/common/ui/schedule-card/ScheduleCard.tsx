@@ -12,7 +12,16 @@ interface ScheduleCardProps {
   onClick: any;
 }
 
-const ScheduleCard: FC<ScheduleCardProps> = ({
+export enum DisciplineType {
+  LECTURE = 'LECTURE',
+  PRACTICE = 'PRACTICE',
+  LABORATORY = 'LABORATORY',
+  CONSULTATION = 'CONSULTATION',
+  WORKOUT = 'WORKOUT',
+  EXAM = 'EXAM',
+}
+
+export const ScheduleCard: FC<ScheduleCardProps> = ({
   name,
   startTime,
   endTime,
@@ -34,5 +43,3 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
     </Button>
   );
 };
-
-export default ScheduleCard;

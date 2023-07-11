@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-import ScheduleCard from '@/components/common/ui/schedule-card';
+import {
+  DisciplineType,
+  ScheduleCard,
+} from '@/components/common/ui/schedule-card';
 
 import * as styles from './ScheduleCardPage.styles';
 
@@ -21,7 +24,7 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'lecture'}
+          disciplineType={DisciplineType.LECTURE}
           disabled={false}
           onClick={handleClick}
         />
@@ -29,7 +32,7 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'practice'}
+          disciplineType={DisciplineType.PRACTICE}
           disabled={false}
           onClick={handleClick}
         />
@@ -37,7 +40,7 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'laboratory'}
+          disciplineType={DisciplineType.LABORATORY}
           disabled={false}
           onClick={handleClick}
         />
@@ -45,7 +48,23 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'other'}
+          disciplineType={DisciplineType.CONSULTATION}
+          disabled={false}
+          onClick={handleClick}
+        />
+        <ScheduleCard
+          name={name}
+          startTime={startTime}
+          endTime={endTime}
+          disciplineType={DisciplineType.WORKOUT}
+          disabled={false}
+          onClick={handleClick}
+        />
+        <ScheduleCard
+          name={name}
+          startTime={startTime}
+          endTime={endTime}
+          disciplineType={DisciplineType.EXAM}
           disabled={false}
           onClick={handleClick}
         />
@@ -56,7 +75,7 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'lecture'}
+          disciplineType={DisciplineType.LECTURE}
           disabled={true}
           onClick={handleClick}
         />
@@ -64,7 +83,7 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'practice'}
+          disciplineType={DisciplineType.PRACTICE}
           disabled={true}
           onClick={handleClick}
         />
@@ -72,7 +91,7 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'laboratory'}
+          disciplineType={DisciplineType.LABORATORY}
           disabled={true}
           onClick={handleClick}
         />
@@ -80,7 +99,23 @@ const ScheduleCardPage = () => {
           name={name}
           startTime={startTime}
           endTime={endTime}
-          disciplineType={'other'}
+          disciplineType={DisciplineType.CONSULTATION}
+          disabled={true}
+          onClick={handleClick}
+        />
+        <ScheduleCard
+          name={name}
+          startTime={startTime}
+          endTime={endTime}
+          disciplineType={DisciplineType.WORKOUT}
+          disabled={true}
+          onClick={handleClick}
+        />
+        <ScheduleCard
+          name={name}
+          startTime={startTime}
+          endTime={endTime}
+          disciplineType={DisciplineType.EXAM}
           disabled={true}
           onClick={handleClick}
         />
