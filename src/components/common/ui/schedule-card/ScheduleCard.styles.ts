@@ -39,7 +39,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       backgroundColor: 'indigo.100',
       borderColor: 'indigo.200',
       '& .MuiTypography-body1': {
-        color: '#90929A',
+        color: '#918C91',
       },
     },
   }),
@@ -63,7 +63,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       backgroundColor: 'orange.200',
       borderColor: 'orange.400',
       '& .MuiTypography-body1': {
-        color: '#A28880',
+        color: '#918C91',
       },
     },
   }),
@@ -87,7 +87,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       backgroundColor: 'mint.50',
       borderColor: 'mint.200',
       '& .MuiTypography-body1': {
-        color: '#7B9B97',
+        color: '#918C91',
       },
     },
   }),
@@ -111,7 +111,10 @@ export const wrapper = (type): SxProps<Theme> => ({
       backgroundColor: 'violet.50',
       borderColor: 'violet.300',
       '& .MuiTypography-body1': {
-        color: '#967996',
+        color: '#918C91',
+      },
+      '& .MuiTypography-body2': {
+        color: '#918C91',
       },
     },
   }),
