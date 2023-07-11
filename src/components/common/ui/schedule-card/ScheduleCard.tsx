@@ -22,7 +22,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
 }) => {
   return (
     <Button
-      sx={styles.wrapper(disciplineType)}
+      sx={styles.card(disciplineType)}
       disableRipple
       disabled={disabled}
       onClick={onClick}
