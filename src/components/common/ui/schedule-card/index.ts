@@ -1,1 +1,1 @@
-export { default } from './ScheduleCard';
+export { DisciplineType, ScheduleCard } from './ScheduleCard';

@@ -1,6 +1,33 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const wrapper = (type): SxProps<Theme> => ({
+const otherSubjects: SxProps<Theme> = {
+  backgroundColor: 'violet.100',
+  borderColor: 'violet.700',
+  '& .MuiTypography-body2': {
+    typography: 'body1',
+    color: '#967996',
+  },
+  '&:hover': {
+    backgroundColor: 'violet.200',
+    borderColor: 'violet.800',
+  },
+  '&:active': {
+    backgroundColor: 'violet.300',
+    borderColor: 'violet.900',
+  },
+  '&:disabled': {
+    backgroundColor: 'violet.50',
+    borderColor: 'violet.300',
+    '& .MuiTypography-body1': {
+      color: '#918C91',
+    },
+    '& .MuiTypography-body2': {
+      color: '#7E797E',
+    },
+  },
+};
+
+export const card = (disciplineType): SxProps<Theme> => ({
   width: {
     mobileMedium: '128px',
     mobile: '252px',
@@ -9,7 +36,6 @@ export const wrapper = (type): SxProps<Theme> => ({
     mobileMedium: '131px',
     mobile: '80px',
   },
-  backgroundColor: '#262B3A',
   padding: '8px 8px 12px 8px',
   borderLeft: '8px solid',
   borderRadius: '6px',
@@ -25,7 +51,7 @@ export const wrapper = (type): SxProps<Theme> => ({
     color: 'grey.600',
     typography: 'body1Medium',
   },
-  ...(type === 'lecture' && {
+  ...(disciplineType === 'LECTURE' && {
     backgroundColor: 'indigo.100',
     borderColor: 'indigo.700',
     '& .MuiTypography-body2': {
@@ -51,7 +77,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       },
     },
   }),
-  ...(type === 'practice' && {
+  ...(disciplineType === 'PRACTICE' && {
     backgroundColor: 'orange.100',
     borderColor: 'orange.500',
     '& .MuiTypography-body2': {
@@ -77,7 +103,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       },
     },
   }),
-  ...(type === 'laboratory' && {
+  ...(disciplineType === 'LABORATORY' && {
     backgroundColor: 'mint.100',
     borderColor: 'mint.600',
     '& .MuiTypography-body2': {
@@ -103,30 +129,13 @@ export const wrapper = (type): SxProps<Theme> => ({
       },
     },
   }),
-  ...(type === 'other' && {
-    backgroundColor: 'violet.100',
-    borderColor: 'violet.700',
-    '& .MuiTypography-body2': {
-      typography: 'body1',
-      color: '#967996',
-    },
-    '&:hover': {
-      backgroundColor: 'violet.200',
-      borderColor: 'violet.800',
-    },
-    '&:active': {
-      backgroundColor: 'violet.300',
-      borderColor: 'violet.900',
-    },
-    '&:disabled': {
-      backgroundColor: 'violet.50',
-      borderColor: 'violet.300',
-      '& .MuiTypography-body1': {
-        color: '#918C91',
-      },
-      '& .MuiTypography-body2': {
-        color: '#7E797E',
-      },
-    },
+  ...(disciplineType === 'CONSULTATION' && {
+    ...otherSubjects,
+  }),
+  ...(disciplineType === 'WORKOUT' && {
+    ...otherSubjects,
+  }),
+  ...(disciplineType === 'EXAM' && {
+    ...otherSubjects,
   }),
 });
