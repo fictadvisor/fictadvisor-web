@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const wrapper = (type): SxProps<Theme> => ({
+export const wrapper = (disciplineType): SxProps<Theme> => ({
   width: {
     mobileMedium: '128px',
     mobile: '252px',
@@ -25,7 +25,7 @@ export const wrapper = (type): SxProps<Theme> => ({
     color: 'grey.600',
     typography: 'body1Medium',
   },
-  ...(type === 'lecture' && {
+  ...(disciplineType === 'lecture' && {
     backgroundColor: 'indigo.100',
     borderColor: 'indigo.700',
     '& .MuiTypography-body2': {
@@ -51,7 +51,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       },
     },
   }),
-  ...(type === 'practice' && {
+  ...(disciplineType === 'practice' && {
     backgroundColor: 'orange.100',
     borderColor: 'orange.500',
     '& .MuiTypography-body2': {
@@ -77,7 +77,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       },
     },
   }),
-  ...(type === 'laboratory' && {
+  ...(disciplineType === 'laboratory' && {
     backgroundColor: 'mint.100',
     borderColor: 'mint.600',
     '& .MuiTypography-body2': {
@@ -103,7 +103,7 @@ export const wrapper = (type): SxProps<Theme> => ({
       },
     },
   }),
-  ...(type === 'other' && {
+  ...(disciplineType === 'other' && {
     backgroundColor: 'violet.100',
     borderColor: 'violet.700',
     '& .MuiTypography-body2': {
