@@ -10,7 +10,10 @@ export const wrapper: SxProps<Theme> = {
 
 export const cards: SxProps<Theme> = {
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: {
+    mobile: 'column',
+    mobileMedium: 'row',
+  },
   justifyContent: 'center',
   alignItems: 'center',
   gap: '50px',
