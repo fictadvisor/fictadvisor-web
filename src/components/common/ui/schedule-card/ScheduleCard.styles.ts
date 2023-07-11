@@ -27,7 +27,7 @@ const otherSubjects: SxProps<Theme> = {
   },
 };
 
-export const card = (disciplineType): SxProps<Theme> => ({
+export const card = (disciplineType: string): SxProps<Theme> => ({
   width: {
     mobileMedium: '128px',
     mobile: '252px',
