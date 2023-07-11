@@ -1,10 +1,16 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const wrapper = (type): SxProps<Theme> => ({
-  width: '128px',
-  height: '131px',
+  width: {
+    mobileMedium: '128px',
+    mobile: '252px',
+  },
+  height: {
+    mobileMedium: '131px',
+    mobile: '80px',
+  },
   backgroundColor: '#262B3A',
-  padding: '8px',
+  padding: '8px 8px 12px 8px',
   borderLeft: '8px solid',
   borderRadius: '6px',
   cursor: 'pointer',
@@ -17,95 +23,100 @@ export const wrapper = (type): SxProps<Theme> => ({
   gap: '4px',
   '& .MuiTypography-body1': {
     color: 'grey.600',
-    fontWeight: 500,
+    typography: 'body1Medium',
   },
   ...(type === 'lecture' && {
-    backgroundColor: '#262B3A',
-    borderColor: '#4E67BA',
+    backgroundColor: 'indigo.100',
+    borderColor: 'indigo.700',
     '& .MuiTypography-body2': {
-      fontSize: '14px',
-      fontWeight: 400,
+      typography: 'body1',
       color: '#84899D',
     },
     '&:hover': {
-      backgroundColor: '#292F3F',
-      borderColor: '#5F77C6',
+      backgroundColor: 'indigo.200',
+      borderColor: 'indigo.800',
     },
     '&:active': {
-      backgroundColor: '#2A3043',
-      borderColor: '#7D92D7',
+      backgroundColor: 'indigo.300',
+      borderColor: 'indigo.900',
     },
     '&:disabled': {
       backgroundColor: 'indigo.100',
-      borderColor: 'indigo.200',
+      borderColor: 'indigo.300',
       '& .MuiTypography-body1': {
+        color: '#918C91',
+      },
+      '& .MuiTypography-body2': {
         color: '#918C91',
       },
     },
   }),
   ...(type === 'practice' && {
-    backgroundColor: '#442C24',
-    borderColor: '#BB5A39',
+    backgroundColor: 'orange.100',
+    borderColor: 'orange.500',
     '& .MuiTypography-body2': {
-      fontSize: '14px',
-      fontWeight: 400,
+      typography: 'body1',
       color: '#A28880',
     },
     '&:hover': {
-      backgroundColor: '#4B2E24',
-      borderColor: '#DA5F35',
+      backgroundColor: 'orange.200',
+      borderColor: 'orange.600',
     },
     '&:active': {
-      backgroundColor: '#4F332A',
-      borderColor: '#E9764F',
+      backgroundColor: 'orange.300',
+      borderColor: 'orange.700',
     },
     '&:disabled': {
       backgroundColor: 'orange.200',
       borderColor: 'orange.400',
       '& .MuiTypography-body1': {
-        color: '#918C91',
+        color: '#A2948F',
+      },
+      '& .MuiTypography-body2': {
+        color: '#A2948F',
       },
     },
   }),
   ...(type === 'laboratory' && {
-    backgroundColor: '#263836',
-    borderColor: '#5BBEAF',
+    backgroundColor: 'mint.100',
+    borderColor: 'mint.600',
     '& .MuiTypography-body2': {
-      fontSize: '14px',
-      fontWeight: 400,
+      typography: 'body1',
       color: '#7B9B97',
     },
     '&:hover': {
-      backgroundColor: '#29403C',
-      borderColor: '#69D3C3',
+      backgroundColor: 'mint.200',
+      borderColor: 'mint.800',
     },
     '&:active': {
-      backgroundColor: '#2D4441',
-      borderColor: '#8EECDD',
+      backgroundColor: 'mint.300',
+      borderColor: 'mint.900',
     },
     '&:disabled': {
       backgroundColor: 'mint.50',
       borderColor: 'mint.200',
       '& .MuiTypography-body1': {
-        color: '#918C91',
+        color: '#8E9694',
+      },
+      '& .MuiTypography-body2': {
+        color: '#7B8381',
       },
     },
   }),
   ...(type === 'other' && {
-    backgroundColor: '#322032',
-    borderColor: '#984C98',
+    backgroundColor: 'violet.100',
+    borderColor: 'violet.700',
     '& .MuiTypography-body2': {
-      fontSize: '14px',
-      fontWeight: 400,
+      typography: 'body1',
       color: '#967996',
     },
     '&:hover': {
-      backgroundColor: '#362336',
-      borderColor: '#BA6CBA',
+      backgroundColor: 'violet.200',
+      borderColor: 'violet.800',
     },
     '&:active': {
-      backgroundColor: '#3B293B',
-      borderColor: '#D78ED7',
+      backgroundColor: 'violet.300',
+      borderColor: 'violet.900',
     },
     '&:disabled': {
       backgroundColor: 'violet.50',
@@ -114,7 +125,7 @@ export const wrapper = (type): SxProps<Theme> => ({
         color: '#918C91',
       },
       '& .MuiTypography-body2': {
-        color: '#918C91',
+        color: '#7E797E',
       },
     },
   }),

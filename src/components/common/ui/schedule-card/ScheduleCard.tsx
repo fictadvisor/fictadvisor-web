@@ -4,22 +4,33 @@ import { Button, Typography } from '@mui/material';
 import * as styles from './ScheduleCard.styles';
 
 interface ScheduleCardProps {
-  subject: string;
-  time: string;
-  type: string;
+  name: string;
+  startTime: string;
+  endTime: string;
+  disciplineType: string;
   disabled: boolean;
+  onClick: any;
 }
 
 const ScheduleCard: FC<ScheduleCardProps> = ({
-  subject,
-  time,
-  type,
+  name,
+  startTime,
+  endTime,
+  disciplineType,
   disabled,
+  onClick,
 }) => {
   return (
-    <Button sx={styles.wrapper(type)} disableRipple disabled={disabled}>
-      <Typography variant={'body1'}>{subject}</Typography>
-      <Typography variant={'body2'}>{time}</Typography>
+    <Button
+      sx={styles.wrapper(disciplineType)}
+      disableRipple
+      disabled={disabled}
+      onClick={onClick}
+    >
+      <Typography variant={'body1'}>{name}</Typography>
+      <Typography variant={'body2'}>
+        {startTime} - {endTime}
+      </Typography>
     </Button>
   );
 };
