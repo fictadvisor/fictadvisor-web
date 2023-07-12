@@ -44,7 +44,7 @@ const NoGroupBlock: FC = () => {
     }
   };
 
-  if (isLoading) return <Progress size={ProgressSize.SMALL} />;
+  if (isLoading) return <Progress />;
 
   if (!data) return null;
 

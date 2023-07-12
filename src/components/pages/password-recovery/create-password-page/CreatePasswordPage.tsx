@@ -40,7 +40,7 @@ const CreatePasswordPage = () => {
     <Box sx={styles.container}>
       <Box sx={styles.content}>
         {isFetching || !data.isAvailable ? (
-          <Progress size={ProgressSize.SMALL} />
+          <Progress />
         ) : (
           <>
             <Box sx={styles.icon}>

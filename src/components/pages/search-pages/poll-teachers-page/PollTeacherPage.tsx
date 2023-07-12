@@ -78,7 +78,7 @@ const PollTeacherPage: FC = () => {
           {isLoading ||
             (isFetching && (
               <div className={styles['page-loader']}>
-                <Progress size={ProgressSize.SMALL} />
+                <Progress />
               </div>
             ))}
 

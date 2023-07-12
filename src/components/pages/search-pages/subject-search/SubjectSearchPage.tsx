@@ -67,7 +67,7 @@ const SubjectSearchPage = () => {
       {isLoading ||
         (isFetching && (
           <div className={styles['page-loader']}>
-            <Progress size={ProgressSize.SMALL} />
+            <Progress />
           </div>
         ))}
       {data?.subjects?.length === (curPage + 1) * pageSize && (

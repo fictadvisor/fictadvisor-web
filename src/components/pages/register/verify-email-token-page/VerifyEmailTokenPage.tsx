@@ -50,7 +50,7 @@ const VerifyEmailTokenPage = () => {
         justifyContent: 'center',
       }}
     >
-      <Progress size={ProgressSize.SMALL} />
+      <Progress />
     </div>
   );
 };

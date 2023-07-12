@@ -76,7 +76,7 @@ export const TeacherSearchPage = () => {
       {isLoading ||
         (isFetching && (
           <div className={styles['page-loader']}>
-            <Progress size={ProgressSize.SMALL} />
+            <Progress />
           </div>
         ))}
       {data?.teachers.length === (curPage + 1) * pageSize && (

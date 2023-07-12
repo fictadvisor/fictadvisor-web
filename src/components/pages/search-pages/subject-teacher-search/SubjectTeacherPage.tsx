@@ -45,7 +45,7 @@ const SubjectTeacherPage = () => {
       <h4 className={styles['subject-title']}>{data?.subjectName}</h4>
       {isLoading && (
         <div className={styles['page-loader']}>
-          <Progress size={ProgressSize.SMALL} />
+          <Progress />
         </div>
       )}
       {data && !isLoading && (
