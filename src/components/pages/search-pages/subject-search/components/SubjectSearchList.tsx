@@ -4,10 +4,12 @@ import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { SubjectCard } from '@/components/common/ui/cards/subject-card';
+import { breakpoints } from '@/components/pages/search-pages/subject-search/components/constants/breakpoints';
 import useToast from '@/hooks/use-toast';
 import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
 import * as styles from './SubjectSearchList.styles';
+
 const TOAST_TIMER = 4000;
 
 export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
@@ -26,13 +28,6 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
     },
     [],
   );
-
-  const breakpoints = {
-    desktop: 4,
-    tablet: 3,
-    mobileSemiMedium: 2,
-    mobile: 1,
-  };
 
   return (
     <Masonry columns={breakpoints} spacing={2} sx={styles.masonry}>
