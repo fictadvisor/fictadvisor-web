@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from 'react';
+import Masonry from '@mui/lab/Masonry';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
+
 import { SubjectCard } from '@/components/common/ui/cards/subject-card';
 import useToast from '@/hooks/use-toast';
 import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
@@ -25,13 +27,20 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
     [],
   );
 
+  const breakpoints = {
+    desktop: 4,
+    tablet: 3,
+    mobileSemiMedium: 2,
+    mobile: 1,
+  };
+
   return (
-    <Box component="ul" sx={styles.subjectList}>
+    <Masonry columns={breakpoints} spacing={2} sx={styles.masonry}>
       {subjects &&
         subjects.map(subject => (
-          <Box component="li" key={subject.id}>
+          <Box key={subject.id}>
             <SubjectCard
-              onClick={() => redirect(subject.id)}
+              onClick={redirect(subject.id)}
               name={`${subject.name}`}
               details={`${
                 subject.amount +
@@ -47,6 +56,6 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
             />
           </Box>
         ))}
-    </Box>
+    </Masonry>
   );
 };
