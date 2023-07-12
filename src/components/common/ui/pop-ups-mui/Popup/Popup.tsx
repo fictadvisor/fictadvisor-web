@@ -6,7 +6,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 import PopupsActions from '@/components/common/ui/pop-ups-mui/PopupActions';
 import PopupsContent from '@/components/common/ui/pop-ups-mui/PopupContent';
 import PopupsTitle from '@/components/common/ui/pop-ups-mui/PopupTitle';
-import { useScrollLock } from '@/hooks/use-scroll-lock/useScrollLock';
+// import { useScrollLock } from '@/hooks/use-scroll-lock/useScrollLock';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Popup.styles';
@@ -36,7 +36,6 @@ const Popup: FC<PopupProps> = ({
   secondButton,
   contentLeft = false,
 }) => {
-  useScrollLock();
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const handleClose = (event: MouseEvent) => {
@@ -53,7 +52,6 @@ const Popup: FC<PopupProps> = ({
       open={open}
       onClose={onClose}
       onClick={handleClose}
-      disableScrollLock
     >
       <PopupsTitle
         sx={styles.popupsTitle(contentLeft)}
