@@ -6,7 +6,6 @@ import { SxProps, Theme } from '@mui/material/styles';
 import PopupsActions from '@/components/common/ui/pop-ups-mui/PopupActions';
 import PopupsContent from '@/components/common/ui/pop-ups-mui/PopupContent';
 import PopupsTitle from '@/components/common/ui/pop-ups-mui/PopupTitle';
-// import { useScrollLock } from '@/hooks/use-scroll-lock/useScrollLock';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Popup.styles';
