@@ -16,7 +16,7 @@ export const layout: SxProps<Theme> = {
   flexDirection: 'column',
   padding: {
     tablet: '12px 16px',
-    desktop: '0px 80px 32px 80px',
+    desktop: '0px 80px 32px',
   },
   columnGap: {
     desktop: 'auto',
