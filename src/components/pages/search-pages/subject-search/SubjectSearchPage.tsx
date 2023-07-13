@@ -35,16 +35,16 @@ const SubjectSearchPage = () => {
     setCurPage(0);
   }, []);
 
+  const downloadHandler = () => {
+    setCurPage(prev => prev + 1);
+  };
+
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetListOfSubjectsResponse>(
       'subjects',
       () => SubjectsAPI.getAll(queryObj, PAGE_SIZE * (curPage + 1)),
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
-
-  const downloadHandler = () => {
-    setCurPage(prev => prev + 1);
-  };
 
   useEffect(() => {
     void refetch();
