@@ -15,8 +15,8 @@ import {
 import getData from '@/components/common/ui/radar/utils/drawData';
 import getBackgroundImage from '@/components/common/ui/radar/utils/findImage';
 import getOptions from '@/components/common/ui/radar/utils/getOptions';
-import { TeacherRoles } from '@/lib/api/teacher/dto/GetTeacherDTO';
 import theme from '@/styles/theme';
+import { TeacherRadarCircleMark, TeacherRole } from '@/types/teacher';
 
 import * as styles from './Radar.styles';
 
@@ -29,14 +29,10 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
-export interface RadarProps {
-  roles: TeacherRoles[];
-  marks: {
-    name: string;
-    amount: number;
-    type: 'RADAR' | 'CIRCLE';
-    mark: number;
-  }[];
+
+interface RadarProps {
+  roles: TeacherRole[];
+  marks: TeacherRadarCircleMark[];
 }
 
 const RadarChart: FC<RadarProps> = ({ marks, roles }) => {

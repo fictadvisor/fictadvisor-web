@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import {
   AcademicCapIcon,
   FireIcon,
@@ -11,6 +10,7 @@ import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Tab from '@/components/common/ui/tab-mui/tab';
+import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
@@ -20,13 +20,11 @@ import SecurityTab from '@/components/pages/account-page/components/security-tab
 import SelectiveTab from '@/components/pages/account-page/components/selective-tab';
 import useAuthentication from '@/hooks/use-authentication';
 
-import PageLayout from '../../common/layout/page-layout/PageLayout';
-
 import * as stylesMui from './AccountPage.styles';
 
 import styles from './AccountPage.module.scss';
 
-enum AccountPageTabs {
+enum AccountPageTab {
   GENERAL = 'general',
   SECURITY = 'security',
   GROUP = 'group',
@@ -44,17 +42,17 @@ const AccountPage = () => {
   const { replace, query, isReady } = useRouter();
 
   const { tab } = query;
-  const [index, setIndex] = useState<AccountPageTabs>(AccountPageTabs.GENERAL);
+  const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
 
   useEffect(() => {
     if (!isReady) {
       return;
     }
-    if (Object.values(AccountPageTabs).includes(tab as AccountPageTabs)) {
-      setIndex(tab as AccountPageTabs);
+    if (Object.values(AccountPageTab).includes(tab as AccountPageTab)) {
+      setIndex(tab as AccountPageTab);
     } else {
       void replace(
-        { query: { ...query, tab: AccountPageTabs.GENERAL } },
+        { query: { ...query, tab: AccountPageTab.GENERAL } },
         undefined,
         {
           shallow: true,
@@ -64,23 +62,22 @@ const AccountPage = () => {
   }, [tab, isReady, query, replace]);
 
   const { isLoggedIn } = useAuthentication();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isLoggedIn) {
       void replace('/login?~account');
     }
-  }, [dispatch, isLoggedIn, replace]);
+  }, [isLoggedIn, replace]);
 
-  const handleChange = async (event, value) => {
+  const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
     await replace({ query: { ...query, tab: value } }, undefined, {
       shallow: true,
     });
-    setIndex(value as AccountPageTabs);
+    setIndex(value);
   };
 
   return (
-    <PageLayout hasFooter={true}>
+    <>
       <div className={styles['breadcrumb']}>
         <Breadcrumbs
           items={[
@@ -100,46 +97,43 @@ const AccountPage = () => {
           <TabList onChange={handleChange} sx={stylesMui.tabList}>
             <Tab
               label="Загальне"
-              value={AccountPageTabs.GENERAL}
+              value={AccountPageTab.GENERAL}
               icon={<AcademicCapIcon />}
-              textPosition="left"
+              textPosition={TabTextPosition.LEFT}
             />
             <Tab
               label="Безпека"
-              value={AccountPageTabs.SECURITY}
+              value={AccountPageTab.SECURITY}
               icon={<LockClosedIcon />}
-              textPosition="left"
+              textPosition={TabTextPosition.LEFT}
             />
             <Tab
               label="Група"
-              value={AccountPageTabs.GROUP}
+              value={AccountPageTab.GROUP}
               icon={<UsersIcon />}
-              textPosition="left"
+              textPosition={TabTextPosition.LEFT}
             />
             <Tab
               label="Мої вибіркові"
-              value={AccountPageTabs.SELECTIVE}
+              value={AccountPageTab.SELECTIVE}
               icon={<FireIcon />}
-              textPosition="left"
+              textPosition={TabTextPosition.LEFT}
             />
           </TabList>
           {isLoggedIn && (
             <Box sx={stylesMui.tabPanelsList}>
-              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTabs.GENERAL}>
+              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.GENERAL}>
                 <GeneralTab />
               </TabPanel>
-              <TabPanel
-                sx={stylesMui.tabPanel}
-                value={AccountPageTabs.SECURITY}
-              >
+              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.SECURITY}>
                 <SecurityTab />
               </TabPanel>
-              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTabs.GROUP}>
+              <TabPanel sx={stylesMui.tabPanel} value={AccountPageTab.GROUP}>
                 <GroupTab />
               </TabPanel>
               <TabPanel
                 sx={stylesMui.tabPanel}
-                value={AccountPageTabs.SELECTIVE}
+                value={AccountPageTab.SELECTIVE}
               >
                 <SelectiveTab />
               </TabPanel>
@@ -147,7 +141,7 @@ const AccountPage = () => {
           )}
         </TabContext>
       </Box>
-    </PageLayout>
+    </>
   );
 };
 

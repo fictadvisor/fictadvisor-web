@@ -1,110 +1,108 @@
-import React, { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, Fragment, useState } from 'react';
+import { QueryObserverBaseResult } from 'react-query';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline';
-import Popup from 'src/components/common/ui/pop-ups-mui/Popup';
+import { useMediaQuery } from '@mui/material';
 
-import { AlertColor } from '@/components/common/ui/alert';
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
-import { TrashBucketButton } from '@/components/common/ui/icon-button/variants';
+} from '@/components/common/ui/button-mui/types';
+import IconButton from '@/components/common/ui/icon-button-mui';
 import {
-  StudentRole,
-  StudentTableItem,
-} from '@/components/pages/account-page/components/group-tab/components/table/student-table/StudentTable';
-import dataMapper from '@/components/pages/account-page/components/group-tab/components/table/student-table/utils';
+  IconButtonColor,
+  IconButtonShape,
+} from '@/components/common/ui/icon-button-mui/types';
+import Popup from '@/components/common/ui/pop-ups-mui/Popup';
+import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
+import MobileDropdown from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/MobileDropdown';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
-import { GroupAPI } from '@/lib/api/group/GroupAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
+import useToast from '@/hooks/use-toast';
+import GroupAPI from '@/lib/api/group/GroupAPI';
+import theme from '@/styles/theme';
+import { UserGroupRole } from '@/types/user';
 
-import styles from '../StudentTable.module.scss';
+import { StudentsTableItem } from '../../types';
 
 interface EditingColumnProps {
-  student: StudentTableItem;
-  refetch;
+  student: StudentsTableItem;
+  refetch: QueryObserverBaseResult['refetch'];
 }
 
 const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const { user } = UseAuthentication();
-  const [isOpenDelete, setIsOpenDelete] = useState(false);
-  const [isOpenChange, setIsOpenChange] = useState(false);
+  const [deletePopupOpen, setDeletePopupOpen] = useState(false);
+  const [changePopupOpen, setChangePopupOpen] = useState(false);
 
-  const dispatch = useDispatch();
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const toast = useToast();
   const handleDelete = async () => {
     try {
-      setIsOpenDelete(false);
-      await GroupAPI.removeStudent(user.group.id, student.id);
+      setDeletePopupOpen(false);
+
+      if (user.group) await GroupAPI.removeStudent(user.group.id, student.id);
+
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!', '', 3000);
     }
   };
-
   const handleChangeStatus = async () => {
     try {
-      setIsOpenChange(false);
-      await GroupAPI.switchStudentRole(user.group.id, student.id, {
-        roleName:
-          student.role === StudentRole.MODERATOR ? 'STUDENT' : 'MODERATOR',
-      });
+      setChangePopupOpen(false);
+      if (user.group)
+        await GroupAPI.updateStudentRole(user?.group?.id, student.id, {
+          roleName:
+            student.role === UserGroupRole.MODERATOR
+              ? UserGroupRole.STUDENT
+              : UserGroupRole.MODERATOR,
+        });
       await refetch();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!', '', 3000);
     }
   };
 
   const buttonText =
-    student.role === StudentRole.MODERATOR
-      ? StudentRole.STUDENT
-      : StudentRole.MODERATOR;
+    student.role === UserGroupRole.MODERATOR
+      ? roleNamesMapper[UserGroupRole.STUDENT]
+      : roleNamesMapper[UserGroupRole.MODERATOR];
+
   const buttonIcon =
-    student.role === StudentRole.MODERATOR ? (
-      <ArrowDownCircleIcon className="icon" />
+    student.role === UserGroupRole.MODERATOR ? (
+      <ArrowDownCircleIcon />
     ) : (
-      <ArrowUpCircleIcon className="icon" />
+      <ArrowUpCircleIcon />
     );
 
-  if (
-    dataMapper[user.group.role] === StudentRole.CAPTAIN &&
-    student.role !== StudentRole.CAPTAIN
-  ) {
+  if (user.group?.role === UserGroupRole.CAPTAIN) {
     return (
-      <div className={styles['side-buttons']}>
+      <>
         <Popup
-          open={isOpenChange}
+          open={changePopupOpen}
           title={
-            student.role === StudentRole.MODERATOR
+            student.role === UserGroupRole.MODERATOR
               ? 'Зробити студентом'
               : 'Зробити зам старостою'
           }
           text={`Ви дійсно бажаєте зробити користувача ${student.fullName} ${
-            student.role === StudentRole.MODERATOR
+            student.role === UserGroupRole.MODERATOR
               ? 'студентом'
               : 'зам старостою'
           }?`}
-          onClose={() => setIsOpenChange(false)}
+          onClose={() => setChangePopupOpen(false)}
           firstButton={
             <Button
               size={ButtonSize.SMALL}
               text="Скасувати"
               color={ButtonColor.PRIMARY}
               variant={ButtonVariant.OUTLINE}
-              onClick={() => setIsOpenChange(false)}
+              onClick={() => setChangePopupOpen(false)}
             />
           }
           secondButton={
@@ -118,17 +116,17 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
           }
         />
         <Popup
-          open={isOpenDelete}
+          open={deletePopupOpen}
           title="Видалити користувача"
-          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буд відправити повторний запит до групи.`}
-          onClose={() => setIsOpenDelete(false)}
+          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
+          onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
               size={ButtonSize.SMALL}
               text="Скасувати"
               color={ButtonColor.PRIMARY}
               variant={ButtonVariant.OUTLINE}
-              onClick={() => setIsOpenDelete(false)}
+              onClick={() => setDeletePopupOpen(false)}
             />
           }
           secondButton={
@@ -141,38 +139,53 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        <div>
+        {!isMobile && (
           <Button
             text={buttonText}
+            sx={{ width: 'fit-content', whiteSpace: 'nowrap' }}
             size={ButtonSize.SMALL}
             variant={ButtonVariant.OUTLINE}
             startIcon={buttonIcon}
-            className={styles['role-modifier']}
-            onClick={() => setIsOpenChange(true)}
+            onClick={() => setChangePopupOpen(true)}
           />
-        </div>
-        <div>
-          <TrashBucketButton onClick={() => setIsOpenDelete(true)} />
-        </div>
-      </div>
+        )}
+        {isMobile ? (
+          <MobileDropdown
+            arrowIcon={buttonIcon}
+            setDeletePopupOpen={setDeletePopupOpen}
+            setChangePopupOpen={setChangePopupOpen}
+            student={student}
+          />
+        ) : (
+          <IconButton
+            onClick={() => setDeletePopupOpen(true)}
+            icon={<TrashIcon />}
+            shape={IconButtonShape.CIRCLE}
+            color={IconButtonColor.ERROR}
+          />
+        )}
+      </>
     );
   }
 
-  if (dataMapper[user.group.role] === StudentRole.MODERATOR && !student.role) {
+  if (
+    user.group?.role === UserGroupRole.MODERATOR &&
+    student.role == UserGroupRole.STUDENT
+  ) {
     return (
       <>
         <Popup
-          open={isOpenDelete}
+          open={deletePopupOpen}
           title="Видалити користувача"
-          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буд відправити повторний запит до групи.`}
-          onClose={() => setIsOpenDelete(false)}
+          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
+          onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
               size={ButtonSize.SMALL}
               text="Скасувати"
               color={ButtonColor.PRIMARY}
               variant={ButtonVariant.OUTLINE}
-              onClick={() => setIsOpenDelete(false)}
+              onClick={() => setDeletePopupOpen(false)}
             />
           }
           secondButton={
@@ -185,14 +198,25 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        <TrashBucketButton
-          onClick={() => {
-            setIsOpenDelete(true);
-          }}
-        />
+        {isMobile ? (
+          <MobileDropdown
+            arrowIcon={buttonIcon}
+            setDeletePopupOpen={setDeletePopupOpen}
+            setChangePopupOpen={setChangePopupOpen}
+            student={student}
+          />
+        ) : (
+          <IconButton
+            onClick={() => setDeletePopupOpen(true)}
+            icon={<TrashIcon />}
+            shape={IconButtonShape.CIRCLE}
+            color={IconButtonColor.SECONDARY}
+          />
+        )}
       </>
     );
   }
+  return <Fragment></Fragment>;
 };
 
 export default EditingColumn;

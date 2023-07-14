@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { PollTeacherCard } from '@/components/common/ui/cards/poll-teacher-card';
 import useAuthentication from '@/hooks/use-authentication';
-import { PollTeachersDTO } from '@/lib/api/poll/dto/PollTeachersDTO';
+import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 import theme from '@/styles/theme';
 
 import * as stylesMUI from './PollTeacherSearchList.styles';
@@ -12,7 +12,7 @@ import * as stylesMUI from './PollTeacherSearchList.styles';
 import styles from './PollTeacherSearchList.module.scss';
 
 interface PollTeacherSearchListProps {
-  data: PollTeachersDTO;
+  data: PollTeachersResponse;
   className: string;
 }
 
@@ -24,13 +24,13 @@ const PollTeacherSearchList: FC<PollTeacherSearchListProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   const isCompleted = data.teachers?.length === 0;
-  const groupName = user?.group.code;
+  const groupName = user?.group?.code;
   return (
     <>
       <Typography sx={stylesMUI.headText}>
         Викладачі предметів групи {groupName}
       </Typography>
-      {isCompleted && (
+      {isCompleted ? (
         <Box sx={stylesMUI.wrapper}>
           <Box sx={stylesMUI.content}>
             <Image
@@ -48,21 +48,22 @@ const PollTeacherSearchList: FC<PollTeacherSearchListProps> = ({
             </Typography>
           </Box>
         </Box>
+      ) : (
+        <ul className={styles[`${className}-search-list`]}>
+          {data &&
+            data.teachers?.map(teacher => (
+              <PollTeacherCard
+                key={teacher.disciplineTeacherId}
+                description={teacher.subject.name}
+                avatar={teacher.avatar}
+                name={`${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}
+                roles={teacher.roles}
+                href={`/poll/${teacher.disciplineTeacherId}`}
+                id={teacher.disciplineTeacherId}
+              />
+            ))}
+        </ul>
       )}
-      <ul className={styles[`${className}-search-list`]}>
-        {data &&
-          data.teachers?.map(teacher => (
-            <PollTeacherCard
-              key={teacher.disciplineTeacherId}
-              description={teacher.subject.name}
-              avatar={teacher.avatar}
-              name={`${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}
-              roles={teacher.roles}
-              href={`/poll/${teacher.disciplineTeacherId}`}
-              id={teacher.disciplineTeacherId}
-            />
-          ))}
-      </ul>
     </>
   );
 };

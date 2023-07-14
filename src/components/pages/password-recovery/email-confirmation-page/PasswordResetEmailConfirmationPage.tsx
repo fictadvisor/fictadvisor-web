@@ -1,20 +1,25 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { Box, Typography } from '@mui/material';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 
 import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
-import PageLayout from '@/components/common/layout/page-layout';
-import Alert, { AlertColor, AlertVariant } from '@/components/common/ui/alert';
-import Button, {
+import Alert from '@/components/common/ui/alert-mui';
+import {
+  AlertType,
+  AlertVariant,
+} from '@/components/common/ui/alert-mui/types';
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
-
-import styles from './PasswordResetEmailConfirmationPage.module.scss';
+} from '@/components/common/ui/button-mui/types';
+import * as styles from '@/components/pages/password-recovery/email-confirmation-page/PasswordResetEmailConfirmationPage.module';
+import chooseMessageError from '@/components/pages/password-recovery/email-confirmation-page/utils/chooseMessageError';
+import useToast from '@/hooks/use-toast';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 
 const PasswordResetEmailConfirmationPage = () => {
   const router = useRouter();
@@ -23,93 +28,60 @@ const PasswordResetEmailConfirmationPage = () => {
     ? 'Ми надіслали листа для зміни пароля на адресу '
     : 'Ми надіслали листа для зміни пароля';
   const returnRegister = () => {
-    router.push('/register');
+    void router.push('/register');
   };
 
-  let tries = 0;
-  const dispatch = useDispatch();
+  const tries = 0;
+  const toast = useToast();
   const handleSendAgain = async () => {
     try {
       await AuthAPI.forgotPassword({ email });
-    } catch (e) {
-      const errorName = e.response.data.error;
-      let errorMessage;
-      if (errorName === 'TooManyActionsException') {
-        tries++;
-        if (tries >= 5) errorMessage = 'Да ти заєбав';
-        else errorMessage = ' Час для надсилання нового листа ще не сплив';
-      } else if (errorName === 'NotRegisteredException') {
-        errorMessage = 'Упс, реєструйся заново';
-      }
-      dispatch(
-        showAlert({
-          title: errorMessage,
-          color: AlertColor.ERROR,
-        }),
-      );
+    } catch (error) {
+      const errorName =
+        (error as AxiosError<{ error: string }>).response?.data.error || '';
+      toast.error(chooseMessageError(errorName, tries));
     }
   };
 
   return (
-    <PageLayout
-      hasHeader={false}
-      hasFooter={false}
-      description={'Перевірка пошти при скиданні пароля'}
-    >
-      <div className={styles['reset-password-email-confirmation-page']}>
-        <div
-          className={styles['reset-password-email-confirmation-page-content']}
-        >
-          <div className={styles['icon']}>
-            <CustomEnvelopeOpen />
-          </div>
-
-          <h3 className={styles['headline']}>Перевір свою пошту</h3>
-
-          <div className={styles['text-and-button']}>
-            <h6>
-              {emailText}
-              <span className={styles['email']}>{email}</span>
-            </h6>
-            <div className={styles['email-not-received']}>
-              <h6>Не отримав листа?</h6>
-              <div className={styles['mobile']}>
-                <Button
-                  text={'Надіслати повторно'}
-                  variant={ButtonVariant.TEXT}
-                  size={ButtonSize.SMALL}
-                  color={ButtonColor.PRIMARY}
-                />
-              </div>
-              <div className={styles['desktop']}>
-                <Button
-                  text={'Надіслати повторно'}
-                  variant={ButtonVariant.TEXT}
-                  size={ButtonSize.SMALL}
-                  color={ButtonColor.PRIMARY}
-                  onClick={handleSendAgain}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles['alert']}>
-            <Alert
-              title={'Лист реєстрації діє 1 годину'}
-              color={AlertColor.INFO}
-              variant={AlertVariant.DARKER}
-              isClosable={false}
-            />
-          </div>
+    <Box sx={styles.container}>
+      <Box sx={styles.content}>
+        <Box sx={styles.icon}>
+          <CustomEnvelopeOpen />
+        </Box>
+        <Typography sx={styles.title}>Перевір свою пошту</Typography>
+        <Typography sx={styles.description}>
+          {emailText}
+          <Box component="span" sx={styles.email}>
+            {email}
+          </Box>
+        </Typography>
+        <Box sx={styles.flex}>
+          <Typography sx={styles.question}>Не отримав листа?</Typography>
           <Button
-            text={'Повернутись до авторизації'}
-            startIcon={<ChevronLeftIcon className="icon" />}
+            text="Надіслати повторно"
             variant={ButtonVariant.TEXT}
             size={ButtonSize.SMALL}
-            onClick={returnRegister}
+            color={ButtonColor.PRIMARY}
+            onClick={handleSendAgain}
+            sx={styles.button}
           />
-        </div>
-      </div>
-    </PageLayout>
+        </Box>
+        <Alert
+          title="Лист реєстрації діє 1 годину"
+          type={AlertType.INFO}
+          variant={AlertVariant.DARKER}
+        />
+        <Button
+          text="Повернутись до авторизації"
+          variant={ButtonVariant.TEXT}
+          size={ButtonSize.SMALL}
+          startIcon={<ChevronLeftIcon />}
+          onClick={returnRegister}
+          sx={styles.arrow}
+        />
+      </Box>
+    </Box>
   );
 };
 

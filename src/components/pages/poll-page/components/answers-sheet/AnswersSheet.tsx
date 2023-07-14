@@ -1,19 +1,20 @@
-import React, { FormEvent, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Form, Formik } from 'formik';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { useMediaQuery } from '@mui/material';
+import { AxiosError } from 'axios';
+import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import ArrowButton from '@/components/common/ui/arrow-button/ArrowButton';
 import Button from '@/components/common/ui/button/Button';
 import { Slider, TextArea } from '@/components/common/ui/form';
 import RadioGroup from '@/components/common/ui/form/radio/RadipGroup';
-import Loader from '@/components/common/ui/loader/Loader';
-import { PollAPI } from '@/lib/api/poll/PollAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
+import Progress from '@/components/common/ui/progress-mui';
+import useToast from '@/hooks/use-toast';
+import PollAPI from '@/lib/api/poll/PollAPI';
+import theme from '@/styles/theme';
+import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
-import { Category } from '../../PollPage';
-import { Answer, SendingStatus } from '../poll-form/PollForm';
+import { SendingStatus } from '../poll-form/PollForm';
 
 import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
@@ -21,7 +22,7 @@ import AnswersSaved from './AnswersSaved';
 import styles from './AnswersSheet.module.scss';
 
 interface AnswersSheetProps {
-  questions: Category;
+  category: Category;
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   setCurrent: React.Dispatch<React.SetStateAction<number>>;
   setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,7 +35,7 @@ interface AnswersSheetProps {
   setIsSendingStatus: React.Dispatch<React.SetStateAction<SendingStatus>>;
 }
 
-const collectAnswers = (answers: Answer[], values) => {
+const collectAnswers = (answers: Answer[], values: FormikValues) => {
   let resultAnswers = [...answers];
   for (const valueId of Object.keys(values)) {
     const index = resultAnswers.findIndex(el => el.questionId === valueId);
@@ -50,7 +51,7 @@ const collectAnswers = (answers: Answer[], values) => {
   return resultAnswers;
 };
 
-export const getProgress = (answers: Answer[], questions) => {
+export const getProgress = (answers: Answer[], questions: Question[]) => {
   let count = 0;
   const resultAnswers = [...answers];
   for (const question of questions) {
@@ -62,10 +63,8 @@ export const getProgress = (answers: Answer[], questions) => {
   return count;
 };
 
-let initialValues = {};
-
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-  questions,
+  category,
   isTheLast,
   current,
   answers,
@@ -77,32 +76,35 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   sendingStatus,
   setIsSendingStatus,
 }) => {
-  const dispatch = useDispatch();
+  const toast = useToast();
+  // TODO: refactor this shit
+  const [initialValues, setInitialValues] = useState<Record<string, string>>(
+    {},
+  );
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const numberRowsTextArea = isMobile ? 8 : 4;
+
   useEffect(() => {
-    for (const question of questions.questions) {
-      if (question.type === 'SCALE') {
-        initialValues[question.id] = '1';
+    for (const question of category.questions) {
+      if (question.type === QuestionType.SCALE) {
+        setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
       }
     }
-  }, [questions]);
+  }, [category]);
 
-  const answer = values => {
+  const answer = (values: FormikValues) => {
     const resultAnswers = collectAnswers(answers, values);
     setAnswers(resultAnswers);
-    const count = getProgress(resultAnswers, questions.questions);
+    const count = getProgress(resultAnswers, category.questions);
     setProgress(previousProgress => {
       const temp = [...previousProgress];
       temp[current] = count;
       return temp;
     });
   };
-
-  useEffect(() => {
-    initialValues = {};
-  }, []);
 
   const handleSubmit = () => {};
 
@@ -116,7 +118,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     >
       {sendingStatus === SendingStatus.LOADING ? (
         <div className={styles.loaderWrapper}>
-          <Loader />
+          <Progress />
         </div>
       ) : sendingStatus === SendingStatus.SUCCESS ? (
         <div className={styles.wrapper}>
@@ -132,30 +134,32 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           >
             <ArrowButton className={styles.arrow} />
             <b>
-              {current + 1} . {questions.name}
+              {current + 1} . {category.name}
             </b>
           </div>
           <div className={styles.answersWrapper}>
             <Formik
               validateOnMount
               validateOnChange
-              initialValues={{}}
+              initialValues={initialValues}
               enableReinitialize
               onSubmit={handleSubmit}
             >
               {({ values }) => (
                 <Form
                   onClick={(event: FormEvent<HTMLFormElement>) => {
-                    const name = (event.target as any).name;
-                    const value = (event.target as any).value;
+                    // TODO: refactor this shit
+                    const name = (event.target as HTMLFormElement).name;
+                    const value = (event.target as HTMLFormElement).value;
                     if (name && value) {
                       values[name] = String(value);
                       answer(values);
                     }
                   }}
                   onChange={(event: FormEvent<HTMLFormElement>) => {
-                    const name = (event.target as any).name;
-                    const value = (event.target as any).value;
+                    // TODO: refactor this shit
+                    const name = (event.target as HTMLFormElement).name;
+                    const value = (event.target as HTMLFormElement).value;
                     if (name && value) {
                       values[name] = String(value);
                       answer(values);
@@ -163,7 +167,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   }}
                   className={styles['form']}
                 >
-                  {questions.questions.map((question, id) => (
+                  {category.questions.map((question, id) => (
                     <div key={question.id} className={styles['question']}>
                       {question.type === 'TEXT' ? (
                         <p className={styles['question-number']}>
@@ -171,7 +175,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         </p>
                       ) : (
                         <p className={styles['question-number']}>
-                          Питання {id + 1} / {questions.count}
+                          Питання {id + 1} / {category.count}
                         </p>
                       )}
 
@@ -202,7 +206,11 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                           name={question.id}
                         />
                       ) : (
-                        <TextArea sx={sxStyles.textArea} name={question.id} />
+                        <TextArea
+                          rowsNumber={numberRowsTextArea}
+                          sx={sxStyles.textArea}
+                          name={question.id}
+                        />
                       )}
 
                       {question.criteria && (
@@ -241,59 +249,31 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                             disciplineTeacherId,
                           );
                           setIsSendingStatus(SendingStatus.SUCCESS);
-                        } catch (e) {
-                          const errorName = e.response.data.error;
+                        } catch (error) {
+                          // TODO: refactor this shit
+                          const errorName = (
+                            error as AxiosError<{ error: string }>
+                          ).response?.data.error;
                           if (errorName === 'InvalidEntityIdException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description:
-                                  'Не знайдено опитування з таким Id!',
-                                color: AlertColor.ERROR,
-                              }),
+                            toast.error(
+                              'Помилка',
+                              'Не знайдено опитування з таким Id!',
                             );
                           } else if (errorName === 'ExcessiveAnswerException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: 'Знайдено зайві відповіді!',
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка', 'Знайдено зайві відповіді!');
                           } else if (
                             errorName === 'NotEnoughAnswersException'
                           ) {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Ви відповіли не на всі обов'язкові запитання!`,
-                                color: AlertColor.ERROR,
-                              }),
+                            toast.error(
+                              'Помилка',
+                              "Ви відповіли не на всі обов'язкові запитання!",
                             );
                           } else if (errorName === 'AlreadyAnsweredException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Ви вже відповіли!`,
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка', 'Ви вже відповіли!');
                           } else if (errorName === 'NoPermissionException') {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Недостатньо прав!`,
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка', 'Недостатньо прав!');
                           } else {
-                            dispatch(
-                              showAlert({
-                                title: 'Помилка',
-                                description: `Помилка на сервері :(`,
-                                color: AlertColor.ERROR,
-                              }),
-                            );
+                            toast.error('Помилка', 'Помилка на сервері :(');
                           }
                           setIsSendingStatus(SendingStatus.ERROR);
                         }

@@ -11,41 +11,13 @@ import {
   FieldState,
 } from '@/components/common/ui/form/common/types';
 
-import type { TagProps } from '../../tag-mui/Tag';
-
+import Option from './components/option';
 import * as styles from './Dropdown.styles';
-import { Option } from './Option';
+import { DropDownOption, DropdownProps } from './types';
 
-interface OptionBase {
-  value: string;
-}
-interface DropDownTextOption extends OptionBase {
-  label: string;
-}
-
-interface DropDownTagOption extends OptionBase, TagProps {}
-
-export type DropDownOption = DropDownTagOption | DropDownTextOption;
-
-interface DropdownProps {
-  options: DropDownTextOption[] | DropDownTagOption[];
-  label?: string;
-  name?: string;
-  isDisabled?: boolean;
-  placeholder?: string;
-  isSuccessOnDefault?: boolean;
-  defaultRemark?: string;
-  showRemark?: boolean;
-  size?: FieldSize;
-  noOptionsText?: string;
-  width?: string;
-  onChange?: () => void;
-  defaultValue?: any;
-}
-
-export const Dropdown: FC<DropdownProps> = ({
+const Dropdown: FC<DropdownProps> = ({
   options,
-  name,
+  name = '',
   width,
   onChange,
   defaultRemark,
@@ -56,10 +28,11 @@ export const Dropdown: FC<DropdownProps> = ({
   showRemark = true,
   size = FieldSize.MEDIUM,
   isDisabled = false,
-  defaultValue,
+  disableClearable = false,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [values, { touched, error }, { setTouched, setValue }] = useField(name);
+
   const dropdownState = useMemo(() => {
     if (isDisabled) return FieldState.DISABLED;
     else if (touched && error) return FieldState.ERROR;
@@ -67,11 +40,12 @@ export const Dropdown: FC<DropdownProps> = ({
     else return FieldState.DEFAULT;
   }, [touched, error, isSuccessOnDefault, isDisabled]);
 
-  const handleChange = (_: SyntheticEvent, option: DropDownOption) => {
+  const handleChange = (_: SyntheticEvent, option: DropDownOption | null) => {
     setTouched(true);
     setValue(option?.value || '', true);
     if (onChange) onChange();
   };
+
   return (
     <Box
       sx={{
@@ -80,6 +54,9 @@ export const Dropdown: FC<DropdownProps> = ({
     >
       <Box sx={styles.dropdown}>
         <Autocomplete
+          disableClearable={disableClearable}
+          value={values.value}
+          onChange={handleChange}
           disabled={isDisabled}
           onFocus={() => {
             setIsFocused(true);
@@ -89,13 +66,12 @@ export const Dropdown: FC<DropdownProps> = ({
           }}
           fullWidth
           disablePortal
-          onChange={handleChange}
           blurOnSelect={true}
           options={options}
+          // TODO: check why value is string
           isOptionEqualToValue={(option, value) => option.value === value.value}
           renderInput={params => (
             <TextField
-              inputProps={values}
               {...params}
               label={label}
               sx={styles.input(dropdownState, size)}
@@ -103,9 +79,11 @@ export const Dropdown: FC<DropdownProps> = ({
               disabled={isDisabled}
             />
           )}
-          getOptionLabel={option =>
-            'text' in option ? option.text : option.label
-          }
+          getOptionLabel={value => {
+            const option = options.find(opt => opt.value === value);
+            if (!option) return '';
+            return 'text' in option ? option.text : option.label;
+          }}
           componentsProps={{
             popper: {
               placement: 'bottom-start',
@@ -132,10 +110,9 @@ export const Dropdown: FC<DropdownProps> = ({
           popupIcon={
             <ChevronDownIcon width={24} height={24} strokeWidth={1.5} />
           }
-          value={defaultValue ?? null}
           noOptionsText={noOptionsText}
           renderOption={(props, option: DropDownOption) => (
-            <Option props={props} option={option} key={option.value} />
+            <Option {...props} option={option} key={option.value} />
           )}
         />
         {showRemark && (
@@ -147,3 +124,5 @@ export const Dropdown: FC<DropdownProps> = ({
     </Box>
   );
 };
+
+export default Dropdown;

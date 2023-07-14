@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
-import { shallowEqual, useDispatch } from 'react-redux';
+import { shallowEqual } from 'react-redux';
 import { Form, Formik } from 'formik';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
-import { AlertColor } from '@/components/common/ui/alert';
 import Button, { ButtonSize } from '@/components/common/ui/button';
 import { Input } from '@/components/common/ui/form';
 import { PersonalInfoForm } from '@/components/pages/account-page/components/general-tab/components/personal-info/types';
 import { validationSchema } from '@/components/pages/account-page/components/general-tab/components/personal-info/validation';
 import useAuthentication from '@/hooks/use-authentication';
-import { UserAPI } from '@/lib/api/user/UserAPI';
-import { showAlert } from '@/redux/reducers/alert.reducer';
+import useToast from '@/hooks/use-toast';
+import UserAPI from '@/lib/api/user/UserAPI';
 
 import styles from '../../GeneralTab.module.scss';
 
@@ -22,7 +21,7 @@ const PersonalInfoBlock: FC = () => {
     middleName: user.middleName,
   };
 
-  const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleSubmit = async (data: PersonalInfoForm) => {
     data.firstName = data.firstName.trim().replace('`', `'`).replace('ʼ', `'`);
@@ -36,14 +35,9 @@ const PersonalInfoBlock: FC = () => {
 
     try {
       await UserAPI.changeInfo(user.id, data);
-      update();
+      await update();
     } catch (e) {
-      dispatch(
-        showAlert({
-          title: 'Щось пішло не так, спробуй пізніше!',
-          color: AlertColor.ERROR,
-        }),
-      );
+      toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 

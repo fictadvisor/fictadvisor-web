@@ -5,6 +5,7 @@ html, body {
   background-color: $background-dark--10;
   color: $gray-600;
   scrollbar-gutter: stable;
+  padding: 0 !important;
 }
 
 html {
@@ -23,6 +24,9 @@ html {
   &:hover, &:focus{
     scrollbar-color: $black $background-dark-200;
   }
+}
+*::selection{
+  background-color: $gray-200;
 }
 ::-webkit-scrollbar{
   width: 6px;

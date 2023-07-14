@@ -1,21 +1,21 @@
 import React from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { CustomClock } from '@/components/common/icons/CustomClock';
-import PageLayout from '@/components/common/layout/page-layout';
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
-
-import styles from './PasswordResetLinkExpiredPage.module.scss';
+} from '@/components/common/ui/button-mui/types';
+import * as styles from '@/components/pages/password-recovery/link-expired/PasswordResetLinkExpiredPage.styles';
 
 const PasswordResetLinkExpiredPage = () => {
   const router = useRouter();
   const returnRegister = () => {
-    router.push('/register');
+    void router.push('/register');
   };
 
   const handleSubmit = () => {
@@ -23,44 +23,34 @@ const PasswordResetLinkExpiredPage = () => {
   };
 
   return (
-    <PageLayout
-      hasHeader={false}
-      hasFooter={false}
-      description={'Час зміни пароля вичерпано'}
-    >
-      <div className={styles['reset-password-link-expired-page']}>
-        <div className={styles['reset-password-link-expired-page-content']}>
-          <div className={styles['icon']}>
-            <CustomClock />
-          </div>
-
-          <h3 className={styles['headline']}>Посилання більше не активне </h3>
-
-          <div className={styles['text-and-button']}>
-            <h6>
-              Час зміни пароля вичерпано. Для повторної відправки листа, натисни
-              на кнопку.
-            </h6>
-            <div className={styles['button-wrap']}>
-              <Button
-                text={'Надіслати лист'}
-                variant={ButtonVariant.FILLED}
-                size={ButtonSize.LARGE}
-                color={ButtonColor.PRIMARY}
-                onClick={handleSubmit}
-              />
-            </div>
-          </div>
-          <Button
-            text={'Повернутись до введення даних'}
-            startIcon={<ChevronLeftIcon className="icon" />}
-            variant={ButtonVariant.TEXT}
-            size={ButtonSize.SMALL}
-            onClick={returnRegister}
-          />
-        </div>
-      </div>
-    </PageLayout>
+    <Box sx={styles.container}>
+      <Box sx={styles.content}>
+        <Box sx={styles.icon}>
+          <CustomClock />
+        </Box>
+        <Typography sx={styles.title}>Посилання більше не активне</Typography>
+        <Typography sx={styles.description}>
+          Час зміни пароля вичерпано. Для повторної відправки листа, натисни на
+          кнопку.
+        </Typography>
+        <Button
+          text="Надіслати лист"
+          variant={ButtonVariant.FILLED}
+          size={ButtonSize.LARGE}
+          color={ButtonColor.PRIMARY}
+          onClick={handleSubmit}
+          sx={styles.button}
+        />
+        <Button
+          text="Повернутись до введення даних"
+          variant={ButtonVariant.TEXT}
+          size={ButtonSize.SMALL}
+          startIcon={<ChevronLeftIcon />}
+          onClick={returnRegister}
+          sx={styles.buttonBack}
+        />
+      </Box>
+    </Box>
   );
 };
 

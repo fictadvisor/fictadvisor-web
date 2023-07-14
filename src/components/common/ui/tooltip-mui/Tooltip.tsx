@@ -1,28 +1,28 @@
-import React, { FC } from 'react';
-import { SxProps, Theme, Tooltip as TooltipMui } from '@mui/material';
+import React, { FC, ReactElement } from 'react';
+import { SxProps, Theme, Tooltip as MuiTooltip } from '@mui/material';
 
 import * as styles from './Tooltip.styles';
-
-export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
+import { TooltipPosition } from './types';
 
 interface TooltipProps {
   text: string;
   hasArrow?: boolean;
   position?: TooltipPosition;
-  children?: React.ReactElement;
+  children: ReactElement;
   sx?: SxProps<Theme>;
 }
+
 const Tooltip: FC<TooltipProps> = ({
   text,
   hasArrow = true,
-  position = 'bottom',
+  position = TooltipPosition.BOTTOM,
   children,
   sx,
 }) => {
   return (
-    <TooltipMui
+    <MuiTooltip
       sx={sx}
-      componentsProps={{
+      slotProps={{
         tooltip: { sx: styles.tooltip },
         arrow: { sx: styles.arrow },
       }}
@@ -31,7 +31,7 @@ const Tooltip: FC<TooltipProps> = ({
       placement={position}
     >
       {children}
-    </TooltipMui>
+    </MuiTooltip>
   );
 };
 

@@ -1,40 +1,42 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Form, Formik } from 'formik';
+import { AxiosError } from 'axios';
+import { Form, Formik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
-import { AlertColor } from '@/components/common/ui/alert';
 import Button, { ButtonSize } from '@/components/common/ui/button';
 import { Input, InputType } from '@/components/common/ui/form';
-import Link from '@/components/common/ui/link';
-import { AuthAPI } from '@/lib/api/auth/AuthAPI';
+import CustomLink from '@/components/common/ui/link-mui';
+import { CustomLinkType } from '@/components/common/ui/link-mui/types';
+import useToast from '@/hooks/use-toast';
+import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
+import { initialValues } from './constants';
+import { ChangePasswordFormFields } from './types';
 import { validationSchema } from './validation';
 
 import styles from '../../SecurityTab.module.scss';
 
 const ChangePasswordForm = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const handleSubmit = async (data, { setErrors }) => {
+  const toast = useToast();
+  const handleSubmit = async (
+    data: ChangePasswordFormFields,
+    { setErrors }: FormikHelpers<ChangePasswordFormFields>,
+  ) => {
     try {
       const { accessToken, refreshToken } = await AuthAPI.changePassword({
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       });
       StorageUtil.setTokens(accessToken, refreshToken);
-      dispatch(
-        showAlert({
-          title: 'Пароль успішно змінено',
-          color: AlertColor.SUCCESS,
-        }),
-      );
+      toast.success('Пароль успішно змінено');
       router.reload();
-    } catch (e) {
-      const name = e.response?.data.error;
+    } catch (error) {
+      // TODO: refactor this shit
+      const name = (error as AxiosError<{ error: string }>).response?.data
+        .error;
       if (name === 'PasswordRepeatException') {
         setErrors({
           oldPassword: 'Не можна встановлювати пароль, ідентичний існуючому',
@@ -52,11 +54,7 @@ const ChangePasswordForm = () => {
 
   return (
     <Formik
-      initialValues={{
-        oldPassword: '',
-        newPassword: '',
-        passwordConfirmation: '',
-      }}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
       validateOnMount
@@ -75,7 +73,11 @@ const ChangePasswordForm = () => {
           {errors.oldPassword === 'Введений пароль недійсний' && (
             <p className="body-primary">
               Забули пароль? Щоб відновити, перейдіть за{' '}
-              <Link href="/password-recovery" text="посиланням" />
+              <CustomLink
+                href="/password-recovery"
+                type={CustomLinkType.BLUE}
+                text="посиланням"
+              />
             </p>
           )}
           <Input
@@ -92,7 +94,7 @@ const ChangePasswordForm = () => {
             label="Підтвердження паролю"
             placeholder="підтверди новий пароль"
             type={InputType.PASSWORD}
-            name="passwordConfirmation"
+            name="confirmationPassword"
             disabled={!!errors.oldPassword || !!errors.newPassword}
             isSuccessOnDefault={true}
           />

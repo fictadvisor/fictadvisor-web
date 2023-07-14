@@ -6,11 +6,11 @@ import Button, {
   ButtonColor,
   ButtonVariant,
 } from '@/components/common/ui/button/Button';
-import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
-import { GetListOfSubjectsDTO } from '@/lib/api/subject/dto/GetListOfSubjectsDTO';
-import { SubjectsAPI } from '@/lib/api/subject/SubjectAPI';
+import Progress from '@/components/common/ui/progress-mui';
+import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
+import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
+import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
-import PageLayout from '../../../common/layout/page-layout/PageLayout';
 import { SubjectInitialValues } from '../search-form/constants';
 import { SearchForm } from '../search-form/SearchForm';
 
@@ -35,54 +35,50 @@ const SubjectSearchPage = () => {
   const [curPage, setCurPage] = useState(0);
   //const localStorageName = 'subjectForm';
 
-  const submitHandler = useCallback(query => {
+  const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
     setQueryObj(query);
     setCurPage(0);
   }, []);
 
   const { data, isLoading, refetch, isFetching } =
-    useQuery<GetListOfSubjectsDTO>(
+    useQuery<GetListOfSubjectsResponse>(
       'subjects',
-      SubjectsAPI.getAll.bind(null, queryObj, pageSize * (curPage + 1)),
+      () => SubjectsAPI.getAll(queryObj, pageSize * (curPage + 1)),
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
 
   useEffect(() => {
-    refetch();
+    void refetch();
   }, [queryObj, curPage, refetch]);
 
   return (
-    <PageLayout title={'Предмети'}>
-      <div className={styles['layout']}>
-        <Breadcrumbs items={breadcrumbs} className={styles['breadcrumb']} />
-
-        <SearchForm
-          serchPlaceholder="Оберіть предмет"
-          filterDropDownOptions={[{ value: 'name', label: 'За назвою' }]}
-          onSubmit={submitHandler}
-          initialValues={SubjectInitialValues}
-          //localStorageName={localStorageName}
+    <div className={styles['layout']}>
+      {/*TODO move inline styles when refactor*/}
+      <Breadcrumbs items={breadcrumbs} sx={{ margin: '16px 0px 16px 0px' }} />
+      <SearchForm
+        searchPlaceholder="Оберіть предмет"
+        filterDropDownOptions={[{ value: 'name', label: 'За назвою' }]}
+        onSubmit={submitHandler}
+        initialValues={SubjectInitialValues}
+        //localStorageName={localStorageName}
+      />
+      {data && <SubjectSearchList subjects={data.subjects} />}
+      {isLoading ||
+        (isFetching && (
+          <div className={styles['page-loader']}>
+            <Progress />
+          </div>
+        ))}
+      {data?.subjects?.length === (curPage + 1) * pageSize && (
+        <Button
+          className={styles['load-btn']}
+          text="Завантажити ще"
+          variant={ButtonVariant.FILLED}
+          color={ButtonColor.SECONDARY}
+          onClick={() => setCurPage(pr => pr + 1)}
         />
-
-        {data && <SubjectSearchList subjects={data.subjects} />}
-        {isLoading ||
-          (isFetching && (
-            <div className={styles['page-loader']}>
-              <Loader size={LoaderSize.SMALLEST} />
-            </div>
-          ))}
-
-        {data?.subjects?.length === (curPage + 1) * pageSize && (
-          <Button
-            className={styles['load-btn']}
-            text="Завантажити ще"
-            variant={ButtonVariant.FILLED}
-            color={ButtonColor.SECONDARY}
-            onClick={() => setCurPage(pr => pr + 1)}
-          />
-        )}
-      </div>
-    </PageLayout>
+      )}
+    </div>
   );
 };
 

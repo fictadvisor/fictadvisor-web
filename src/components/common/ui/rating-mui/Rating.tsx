@@ -1,14 +1,11 @@
 import { FC } from 'react';
-import { Box, Icon, Rating as RatingMui, SxProps, Theme } from '@mui/material';
+import { Box, Icon, Rating as MuiRating, SxProps, Theme } from '@mui/material';
 
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Rating.styles';
+import { RatingVariant } from './types';
 
-export enum RatingVariant {
-  LONG = 'long',
-  SHORT = 'short',
-}
 interface RatingProps {
   rating: number;
   variant?: RatingVariant;
@@ -18,17 +15,18 @@ interface RatingProps {
 const Rating: FC<RatingProps> = ({
   rating,
   variant = RatingVariant.LONG,
-  sx,
+  sx = {},
 }) => {
   const isLongVariant = variant === RatingVariant.LONG;
   const maxStarsNumber = isLongVariant ? 5 : 1;
   const value = isLongVariant ? rating : rating / 5;
   const ratingText = isLongVariant ? rating.toFixed(2) : rating.toFixed(1);
   const precision = isLongVariant ? 0.1 : 0.02;
+
   return (
     <Box sx={mergeSx(styles.rating(variant), sx)}>
       {!isLongVariant && <Box>{ratingText}</Box>}
-      <RatingMui
+      <MuiRating
         value={value}
         sx={styles.ratingStars}
         precision={precision}

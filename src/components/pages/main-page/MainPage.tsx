@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { isIOS, isSafari } from 'react-device-detect';
+import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -10,7 +12,7 @@ import Button, {
 } from '@/components/common/ui/button';
 import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import useAuthentication from '@/hooks/use-authentication';
-import { GetStudentResourcesDTO } from '@/lib/api/student-resources/dto/GetStudentResourcesDTO';
+import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
 
 import BannerImage from '../../common/icons/BannerImage';
 
@@ -19,7 +21,7 @@ import ResourceCard from './components/resource-card/ResourceCard';
 import styles from './MainPage.module.scss';
 
 export interface MainPageProps {
-  data: GetStudentResourcesDTO;
+  data: GetStudentResourcesResponse | null;
 }
 
 const MainPage: FC<MainPageProps> = ({ data }) => {
@@ -29,8 +31,10 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
 
   return (
     <PageLayout
-      description={'Головна сторінка'}
-      hasFooter={true}
+      description="FICT Advisor - офіційний сайт Студради ФІОТ.
+     Зустрічайте ваш студентський портал, який надає багато корисних інструментів для студентів.
+     Тут ви знайдете опитування про викладачів, багатофункціональний розклад, можливість керувати групою,
+      набори в активне ком’юніті та багато інших цікавих інструментів."
       className={styles['main-page']}
     >
       <div className={styles['main-page-content']}>
@@ -38,7 +42,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
         <div className={styles['header']}>
           <div className={styles['header-info']}>
             <div className={styles['header-info-content']}>
-              <h2>Твій студентський портал</h2>
+              <h1 className={styles['title']}>Твій студентський портал</h1>
               <p>
                 Зустрічай FICT Advisor — офіційний сайт Студради ФІОТ.
                 Опитування про викладачів, багатофункціональний розклад,
@@ -120,7 +124,11 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
               </div>
             </div>
           </div>
-          <div className={styles['build-image']}>
+          <div
+            className={cn(styles['build-image'], {
+              [styles['animate']]: !isIOS && !isSafari,
+            })}
+          >
             <BannerImage />
           </div>
         </div>
