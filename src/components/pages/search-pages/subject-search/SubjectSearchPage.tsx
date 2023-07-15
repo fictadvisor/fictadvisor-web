@@ -28,7 +28,6 @@ const SubjectSearchPage = () => {
   const [queryObj, setQueryObj] =
     useState<SearchFormFields>(SubjectInitialValues);
   const [curPage, setCurPage] = useState(0);
-  //const localStorageName = 'subjectForm';
 
   const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
     setQueryObj(prev => ({ ...prev, ...query }));
