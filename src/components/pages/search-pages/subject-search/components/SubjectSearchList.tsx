@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
-
 import { SubjectCard } from '@/components/common/ui/cards/subject-card';
 import useToast from '@/hooks/use-toast';
 import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
 
-import styles from './SubjectSearchList.module.scss';
-
+import * as styles from './SubjectSearchList.styles';
 const TOAST_TIMER = 4000;
 
 export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
@@ -19,15 +18,18 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
     }
   }, [subjects.length]);
 
-  const redirect = (subjectId: string) => {
-    void router.push(`/subjects/${subjectId}/teachers`);
-  };
+  const redirect = useCallback(
+    (subjectId: string) => () => {
+      void router.push(`/subjects/${subjectId}/teachers`);
+    },
+    [],
+  );
 
   return (
-    <ul className={styles['subject-search-list']}>
+    <Box component="ul" sx={styles.subjectList}>
       {subjects &&
         subjects.map(subject => (
-          <li key={subject.id}>
+          <Box component="li" key={subject.id}>
             <SubjectCard
               onClick={() => redirect(subject.id)}
               name={`${subject.name}`}
@@ -43,8 +45,8 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
                   : 'викладачів')
               }`}
             />
-          </li>
+          </Box>
         ))}
-    </ul>
+    </Box>
   );
 };

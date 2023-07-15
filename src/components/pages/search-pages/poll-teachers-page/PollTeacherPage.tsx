@@ -14,7 +14,7 @@ import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 
-import styles from '../SearchPage.module.scss';
+import styles from './PollTeacherPage.module.scss';
 
 const breadcrumbs = [
   {
