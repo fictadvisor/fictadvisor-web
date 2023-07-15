@@ -14,8 +14,8 @@ const FormikDropdown: FC<FormikDropdownProps> = ({ name, ...props }) => {
     useField(name);
 
   const onChange = (option: string) => {
-    setValue(option);
     setTouched(true);
+    setValue(option);
   };
 
   return (

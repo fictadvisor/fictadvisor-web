@@ -53,6 +53,7 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
           link: '',
           displayName: '',
         }}
+        validateOnChange
         onSubmit={handleSubmit}
       >
         {() => (

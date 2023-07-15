@@ -65,6 +65,7 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
       onSubmit={handleSubmit}
       validateOnMount
       validateOnChange
+      enableReinitialize
       validationSchema={validationSchema}
     >
       {({ isValid }) => (
