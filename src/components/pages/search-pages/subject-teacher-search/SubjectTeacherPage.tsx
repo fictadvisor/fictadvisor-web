@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import { Breadcrumb } from '@/components/common/ui/breadcrumbs/types';
-import Loader, { LoaderSize } from '@/components/common/ui/loader';
+import Progress from '@/components/common/ui/progress-mui';
 import styles from '@/components/pages/search-pages/SearchPage.module.scss';
 import { SubjectTeacherSearchList } from '@/components/pages/search-pages/subject-teacher-search/SubjectTeacherSearchList';
 import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
@@ -44,7 +44,7 @@ const SubjectTeacherPage = () => {
       <h4 className={styles['subject-title']}>{data?.subjectName}</h4>
       {isLoading && (
         <div className={styles['page-loader']}>
-          <Loader size={LoaderSize.SMALLEST} />
+          <Progress />
         </div>
       )}
       {data && !isLoading && (
