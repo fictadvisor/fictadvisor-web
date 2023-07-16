@@ -29,13 +29,6 @@ export const SubjectSearchList = ({ subjects }: GetListOfSubjectsResponse) => {
     [],
   );
 
-  const breakpoints = {
-    desktop: 4,
-    tablet: 3,
-    mobileSemiMedium: 2,
-    mobile: 1,
-  };
-
   return (
     <Masonry columns={breakpoints} spacing={2} sx={styles.masonry}>
       {subjects &&
