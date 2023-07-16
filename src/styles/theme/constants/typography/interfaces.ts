@@ -8,6 +8,7 @@ declare module '@mui/material/styles' {
     h3SemiBold: CSSProperties;
     h4Medium: CSSProperties;
     h4Bold: CSSProperties;
+    h5Bold: CSSProperties;
     h6Medium: CSSProperties;
     h6Bold: CSSProperties;
     body1Bold: CSSProperties;
@@ -22,6 +23,7 @@ declare module '@mui/material/styles' {
     h3SemiBold?: CSSProperties;
     h4Medium?: CSSProperties;
     h4Bold?: CSSProperties;
+    h5Bold: CSSProperties;
     h6Medium?: CSSProperties;
     h6Bold?: CSSProperties;
     body1Bold?: CSSProperties;
