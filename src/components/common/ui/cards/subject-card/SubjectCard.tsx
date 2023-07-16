@@ -5,7 +5,6 @@ import * as styles from './SubjectCard.styles';
 interface SubjectCardProps {
   name: string;
   details?: string;
-  rating?: number;
   disabled?: boolean;
   onClick?: () => void;
 }
