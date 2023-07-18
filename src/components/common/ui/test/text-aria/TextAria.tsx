@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { SxProps, Theme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
-import { TextAriaSize } from '@/components/pages/test-pages/text-aria/types';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './TextAria.styles';
+import { TextAriaSize } from './types';
 
 export interface TextAriaProps {
   value: string;
