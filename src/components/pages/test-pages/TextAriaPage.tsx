@@ -1,12 +1,11 @@
-import { FC } from 'react';
 import { Box } from '@mui/material';
 
-import TextAria from '@/components/pages/test-pages/text-aria';
-import { TextAriaSize } from '@/components/pages/test-pages/text-aria/types';
+import TextAria from '@/components/common/ui/test/text-aria';
+import { TextAriaSize } from '@/components/common/ui/test/text-aria/types';
 
 import * as styles from './TextAriaPage.styles';
 
-const TextAriaPage: FC<TextAriaSize> = () => {
+const TextAriaPage = () => {
   return (
     <Box sx={styles.container}>
       <TextAria value={'Text Aria'} size={TextAriaSize.NORMAL} />

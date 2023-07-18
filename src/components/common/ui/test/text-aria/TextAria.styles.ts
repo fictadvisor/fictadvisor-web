@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import { TextAriaSize } from '@/components/pages/test-pages/text-aria/types';
+import { TextAriaSize } from './types';
 
 export const textAria = (size: TextAriaSize): SxProps<Theme> => ({
   backgroundColor: 'backgroundDark.200',
