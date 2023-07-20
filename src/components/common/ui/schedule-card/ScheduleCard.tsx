@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
+
+import calculateHeight from '@/components/common/ui/schedule-card/utils/calculateHeight';
 
 import * as styles from './ScheduleCard.styles';
 
@@ -9,19 +11,10 @@ interface ScheduleCardProps {
   endTime: string;
   disciplineType: string;
   disabled: boolean;
-  onClick: any;
+  onClick: () => void;
 }
 
-export enum DisciplineType {
-  LECTURE = 'LECTURE',
-  PRACTICE = 'PRACTICE',
-  LABORATORY = 'LABORATORY',
-  CONSULTATION = 'CONSULTATION',
-  WORKOUT = 'WORKOUT',
-  EXAM = 'EXAM',
-}
-
-export const ScheduleCard: FC<ScheduleCardProps> = ({
+const ScheduleCard: FC<ScheduleCardProps> = ({
   name,
   startTime,
   endTime,
@@ -29,17 +22,24 @@ export const ScheduleCard: FC<ScheduleCardProps> = ({
   disabled,
   onClick,
 }) => {
+  const height = calculateHeight(startTime, endTime);
   return (
     <Button
-      sx={styles.card(disciplineType)}
+      sx={styles.card(disciplineType, height)}
       disableRipple
       disabled={disabled}
       onClick={onClick}
     >
-      <Typography variant={'body1'}>{name}</Typography>
-      <Typography variant={'body2'}>
-        {startTime} - {endTime}
-      </Typography>
+      <Box>
+        <Typography sx={styles.layout} variant="body1">{name}</Typography>
+      </Box>
+      {startTime && endTime && (
+        <Typography variant="body2">
+          {startTime} - {endTime}
+        </Typography>
+      )}
     </Button>
   );
 };
+
+export default ScheduleCard;

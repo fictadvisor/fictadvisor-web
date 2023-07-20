@@ -5,7 +5,8 @@ const otherSubjects: SxProps<Theme> = {
   borderColor: 'violet.700',
   '& .MuiTypography-body2': {
     typography: 'body1',
-    color: '#967996',
+    color: 'violet.A100',
+    opacity: 0.5,
   },
   '&:hover': {
     backgroundColor: 'violet.200',
@@ -19,21 +20,26 @@ const otherSubjects: SxProps<Theme> = {
     backgroundColor: 'violet.50',
     borderColor: 'violet.300',
     '& .MuiTypography-body1': {
-      color: '#918C91',
+      color: 'grey.800',
+      opacity: 0.5,
     },
     '& .MuiTypography-body2': {
-      color: '#7E797E',
+      color: 'grey.600',
+      opacity: 0.5,
     },
   },
 };
 
-export const card = (disciplineType: string): SxProps<Theme> => ({
+export const card = (
+  disciplineType: string,
+  height: number | undefined,
+): SxProps<Theme> => ({
   width: {
     mobileMedium: '128px',
     mobile: '252px',
   },
   height: {
-    mobileMedium: '131px',
+    mobileMedium: height,
     mobile: '80px',
   },
   padding: '8px 8px 12px 8px',
@@ -42,21 +48,18 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
   cursor: 'pointer',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'start',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
   textAlign: 'start',
   textTransform: 'none',
   gap: '4px',
-  '& .MuiTypography-body1': {
-    color: 'grey.600',
-    typography: 'body1Medium',
-  },
   ...(disciplineType === 'LECTURE' && {
     backgroundColor: 'indigo.100',
     borderColor: 'indigo.700',
     '& .MuiTypography-body2': {
       typography: 'body1',
-      color: '#84899D',
+      color: 'indigo.A100',
+      opacity: 0.5,
     },
     '&:hover': {
       backgroundColor: 'indigo.200',
@@ -70,10 +73,12 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
       backgroundColor: 'indigo.100',
       borderColor: 'indigo.300',
       '& .MuiTypography-body1': {
-        color: '#918C91',
+        color: 'grey.800',
+        opacity: 0.5,
       },
       '& .MuiTypography-body2': {
-        color: '#918C91',
+        color: 'grey.800',
+        opacity: 0.5,
       },
     },
   }),
@@ -82,7 +87,8 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
     borderColor: 'orange.500',
     '& .MuiTypography-body2': {
       typography: 'body1',
-      color: '#A28880',
+      color: 'orange.A100',
+      opacity: 0.5,
     },
     '&:hover': {
       backgroundColor: 'orange.200',
@@ -96,10 +102,12 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
       backgroundColor: 'orange.200',
       borderColor: 'orange.400',
       '& .MuiTypography-body1': {
-        color: '#A2948F',
+        color: 'grey.800',
+        opacity: 0.5,
       },
       '& .MuiTypography-body2': {
-        color: '#A2948F',
+        color: 'grey.600',
+        opacity: 0.5,
       },
     },
   }),
@@ -108,7 +116,8 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
     borderColor: 'mint.600',
     '& .MuiTypography-body2': {
       typography: 'body1',
-      color: '#7B9B97',
+      color: 'mint.A100',
+      opacity: 0.5,
     },
     '&:hover': {
       backgroundColor: 'mint.200',
@@ -122,10 +131,12 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
       backgroundColor: 'mint.50',
       borderColor: 'mint.200',
       '& .MuiTypography-body1': {
-        color: '#8E9694',
+        color: 'grey.800',
+        opacity: 0.5,
       },
       '& .MuiTypography-body2': {
-        color: '#7B8381',
+        color: 'grey.600',
+        opacity: 0.5,
       },
     },
   }),
@@ -139,3 +150,13 @@ export const card = (disciplineType: string): SxProps<Theme> => ({
     ...otherSubjects,
   }),
 });
+
+export const layout: SxProps<Theme> = {
+  color: 'grey.600',
+  typography: 'body1Medium',
+  width: '100px',
+  height: '80%',
+  display: '-webkit-box !important',
+  '-webkit-line-clamp': 4,
+  '-webkit-box-orient': 'vertical',
+};
