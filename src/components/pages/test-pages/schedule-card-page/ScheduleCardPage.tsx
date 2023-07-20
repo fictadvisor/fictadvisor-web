@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import {Box, Typography} from '@mui/material';
 
 import ScheduleCard from '@/components/common/ui/schedule-card';
 import { DisciplineType } from '@/components/common/ui/schedule-card/types';
@@ -11,12 +11,12 @@ const handleClick = () => {
 };
 
 const ScheduleCardPage = () => {
-  const name = 'Новітні технології в авіації і космонавтиці';
-  const startTime = '';
+  const name = 'Компоненти програмної інженерії. Частина 1. Вступ до програмної інженерії';
+  const startTime = '8:30';
   const endTime = '10:05';
   return (
     <Box sx={styles.wrapper}>
-      <h3>Cards</h3>
+      <Typography variant="h3">Cards</Typography>
       <Box sx={styles.cards}>
         <ScheduleCard
           name={name}
@@ -67,7 +67,7 @@ const ScheduleCardPage = () => {
           onClick={handleClick}
         />
       </Box>
-      <h3>Disabled cards</h3>
+      <Typography variant="h3">Disabled cards</Typography>
       <Box sx={styles.cards}>
         <ScheduleCard
           name={name}

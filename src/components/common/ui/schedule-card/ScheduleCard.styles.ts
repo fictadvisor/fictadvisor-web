@@ -56,6 +56,11 @@ export const card = (
   '& .MuiTypography-body1': {
     color: 'grey.600',
     typography: 'body1Medium',
+    display: '-webkit-box !important',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   ...(disciplineType === 'LECTURE' && {
     backgroundColor: 'indigo.100',
