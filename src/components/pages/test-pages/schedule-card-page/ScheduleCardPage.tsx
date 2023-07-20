@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import ScheduleCard from '@/components/common/ui/schedule-card';
 import { DisciplineType } from '@/components/common/ui/schedule-card/types';
@@ -11,7 +11,8 @@ const handleClick = () => {
 };
 
 const ScheduleCardPage = () => {
-  const name = 'Компоненти програмної інженерії. Частина 1. Вступ до програмної інженерії';
+  const name =
+    'Компоненти програмної інженерії. Частина 1. Вступ до програмної інженерії';
   const startTime = '8:30';
   const endTime = '10:05';
   return (

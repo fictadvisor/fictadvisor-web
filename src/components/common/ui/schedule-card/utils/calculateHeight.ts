@@ -1,7 +1,4 @@
-const calculateHeight = (
-  startTime: string,
-  endTime: string,
-): string => {
+const calculateHeight = (startTime: string, endTime: string): string => {
   if (startTime && endTime) {
     const start = new Date(`2023-07-18 ${startTime}`);
     const end = new Date(`2023-07-18 ${endTime}`);
