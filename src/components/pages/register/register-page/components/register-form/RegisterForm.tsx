@@ -1,28 +1,22 @@
 import React, { FC, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
-import { AlertColor } from '@/components/common/ui/alert';
 import Button, { ButtonSize } from '@/components/common/ui/button';
-import {
-  Checkbox,
-  Dropdown,
-  Input,
-  InputType,
-} from '@/components/common/ui/form';
+import { Checkbox, Input, InputType } from '@/components/common/ui/form';
 import { FieldSize } from '@/components/common/ui/form/common/types';
+import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import { RegisterFormFields } from '@/components/pages/register/register-page/components/register-form/types';
 import {
   transformData,
   transformGroups,
 } from '@/components/pages/register/register-page/components/register-form/utils';
+import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';
-import { showAlert } from '@/redux/reducers/alert.reducer';
 
 import { initialValues } from './constants';
 import { validationSchema } from './validation';
@@ -31,68 +25,38 @@ import styles from '../left-block/LeftBlock.module.scss';
 
 const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleSubmit = useCallback(
     async (data: RegisterFormFields) => {
       try {
         const hasCaptain = await AuthAPI.groupHasCaptain(data.group);
         if (data.isCaptain && hasCaptain) {
-          dispatch(
-            showAlert({
-              title: 'В групі вже є староста',
-              color: AlertColor.ERROR,
-            }),
-          );
+          toast.error('В групі вже є староста');
         } else if (!data.isCaptain && !hasCaptain) {
-          dispatch(
-            showAlert({
-              title: 'Дочекайся, поки зареєструється староста',
-              color: AlertColor.ERROR,
-            }),
-          );
+          toast.error('Дочекайся, поки зареєструється староста');
         } else {
           await AuthService.register(transformData(data));
           StorageUtil.deleteTelegramInfo();
           await router.push(`/register/email-verification?email=${data.email}`);
         }
       } catch (error) {
-        // Temporary solution
+        // TODO: refactor this shit
         const errorName = (error as AxiosError<{ error: string }>).response
           ?.data.error;
 
         if (errorName === 'AlreadyRegisteredException') {
-          dispatch(
-            showAlert({
-              title: 'Пошта або юзернейм вже зайняті',
-              color: AlertColor.ERROR,
-            }),
-          );
+          toast.error('Пошта або юзернейм вже зайняті');
         } else if (errorName === 'InvalidTelegramCredentialsException') {
-          dispatch(
-            showAlert({
-              title: 'Як ти це зробив? :/',
-              color: AlertColor.ERROR,
-            }),
-          );
+          toast.error('Як ти це зробив? :/');
         } else if (errorName === 'InvalidBodyException') {
-          dispatch(
-            showAlert({
-              title: 'Некорректно введені дані',
-              color: AlertColor.ERROR,
-            }),
-          );
+          toast.error('Некорректно введені дані');
         } else {
-          dispatch(
-            showAlert({
-              title: 'Як ти це зробив? :/',
-              color: AlertColor.ERROR,
-            }),
-          );
+          toast.error('Як ти це зробив? :/');
         }
       }
     },
-    [dispatch, router],
+    [toast, router],
   );
 
   return (
@@ -101,6 +65,7 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
       onSubmit={handleSubmit}
       validateOnMount
       validateOnChange
+      enableReinitialize
       validationSchema={validationSchema}
     >
       {({ isValid }) => (
@@ -136,7 +101,7 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
             name="email"
           />
           <div className={styles['one-line']}>
-            <Dropdown
+            <FormikDropdown
               size={FieldSize.LARGE}
               options={transformGroups(groups)}
               label="Група"
