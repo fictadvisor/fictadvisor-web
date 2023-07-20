@@ -11,9 +11,8 @@ const handleClick = () => {
 };
 
 const ScheduleCardPage = () => {
-  const name =
-    'Компоненти програмної інженерії. Частина 1. Вступ до програмної інженерії';
-  const startTime = '8:30';
+  const name = 'Новітні технології в авіації і космонавтиці';
+  const startTime = '';
   const endTime = '10:05';
   return (
     <Box sx={styles.wrapper}>

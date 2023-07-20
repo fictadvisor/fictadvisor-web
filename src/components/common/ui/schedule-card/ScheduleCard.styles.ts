@@ -32,7 +32,7 @@ const otherSubjects: SxProps<Theme> = {
 
 export const card = (
   disciplineType: string,
-  height: number | undefined,
+  height: string,
 ): SxProps<Theme> => ({
   width: {
     mobileMedium: '128px',
@@ -53,6 +53,10 @@ export const card = (
   textAlign: 'start',
   textTransform: 'none',
   gap: '4px',
+  '& .MuiTypography-body1': {
+    color: 'grey.600',
+    typography: 'body1Medium',
+  },
   ...(disciplineType === 'LECTURE' && {
     backgroundColor: 'indigo.100',
     borderColor: 'indigo.700',
@@ -150,13 +154,3 @@ export const card = (
     ...otherSubjects,
   }),
 });
-
-export const layout: SxProps<Theme> = {
-  color: 'grey.600',
-  typography: 'body1Medium',
-  width: '100px',
-  height: '80%',
-  display: '-webkit-box !important',
-  '-webkit-line-clamp': 4,
-  '-webkit-box-orient': 'vertical',
-};

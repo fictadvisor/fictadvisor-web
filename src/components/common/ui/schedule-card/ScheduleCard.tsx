@@ -30,9 +30,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
       disabled={disabled}
       onClick={onClick}
     >
-      <Box>
-        <Typography sx={styles.layout} variant="body1">{name}</Typography>
-      </Box>
+      <Typography variant="body1">{name}</Typography>
       {startTime && endTime && (
         <Typography variant="body2">
           {startTime} - {endTime}
