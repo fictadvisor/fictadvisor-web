@@ -7,7 +7,7 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import * as styles from './TextAria.styles';
 import { TextAriaSize } from './types';
 
-export interface TextAriaProps {
+interface TextAriaProps {
   value: string;
   size: TextAriaSize;
   sx?: SxProps<Theme>;
