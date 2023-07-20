@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Typography, Box } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 import calculateHeight from '@/components/common/ui/schedule-card/utils/calculateHeight';
 
