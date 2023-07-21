@@ -3,6 +3,7 @@ import { Box, Icon, Rating as MuiRating, SxProps, Theme } from '@mui/material';
 
 import StarsEmpty from '@/components/common/icons/StarsEmpty';
 import StarsFull from '@/components/common/icons/StarsFull';
+import getRatingValue from '@/components/common/ui/rating-mui/utils/getRatingValue';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Rating.styles';
@@ -21,7 +22,7 @@ const Rating: FC<RatingProps> = ({
 }) => {
   const isLongVariant = variant === RatingVariant.LONG;
   const maxStarsNumber = isLongVariant ? 5 : 1;
-  const value = isLongVariant ? rating : rating / 5;
+  const value = getRatingValue(isLongVariant, rating);
   const ratingText = isLongVariant ? rating.toFixed(2) : rating.toFixed(1);
   const precision = isLongVariant ? 0.1 : 0.02;
 
