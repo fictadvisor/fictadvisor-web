@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { Link as MuiLink } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 
-import { CustomLinkType } from '@/components/common/ui/link-mui/types';
+import { CustomLinkType } from '@/components/common/ui/custom-link/types';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './CustomLink.styles';
