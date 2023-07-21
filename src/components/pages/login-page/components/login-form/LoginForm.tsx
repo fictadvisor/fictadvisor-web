@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 
 import Button, { ButtonSize } from '@/components/common/ui/button';
 import { Input, InputSize, InputType } from '@/components/common/ui/form';
-import CustomLink from '@/components/common/ui/link-mui';
-import { CustomLinkType } from '@/components/common/ui/link-mui/types';
+import CustomLink from '@/components/common/ui/custom-link';
+import { CustomLinkType } from '@/components/common/ui/custom-link/types';
 import { initialValues } from '@/components/pages/login-page/components/login-form/constants';
 import { LoginFormFields } from '@/components/pages/login-page/components/login-form/types';
 import { validationSchema } from '@/components/pages/login-page/components/login-form/validation';

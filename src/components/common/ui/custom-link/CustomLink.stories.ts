@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import CustomLink from '@/components/common/ui/link-mui/CustomLink';
+import CustomLink from '@/components/common/ui/custom-link/CustomLink';
 
 const meta = {
   title: 'Ui Kit/Components/CustomLink',
