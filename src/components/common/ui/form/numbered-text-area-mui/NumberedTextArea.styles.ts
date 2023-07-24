@@ -43,6 +43,7 @@ export const formControl = (
 export const input: SxProps<Theme> = {
   padding: '0',
   marginTop: '8px',
+  marginRight: '8px',
   width: '100%',
 
   backgroundColor: 'backgroundDark.50',
@@ -50,7 +51,10 @@ export const input: SxProps<Theme> = {
   typography: 'body2',
 
   textarea: {
+    cursor: 'auto',
     paddingRight: '8px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     '::placeholder': {
       color: 'grey.500',
     },
