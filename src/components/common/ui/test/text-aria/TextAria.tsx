@@ -8,7 +8,7 @@ import * as styles from './TextAria.styles';
 import { TextAriaSize } from './types';
 
 interface TextAriaProps {
-  value: string;
+  placeholder: string;
   size: TextAriaSize;
   sx?: SxProps<Theme>;
 }
@@ -16,14 +16,14 @@ interface TextAriaProps {
 const TextAria: FC<TextAriaProps> = ({
   size = TextAriaSize.NORMAL,
   sx = {},
-  value = 'Text Aria',
+  placeholder = 'Text Aria',
 }) => {
   return (
     <TextField
       variant="standard"
       margin="normal"
       sx={mergeSx(styles.textAria(size), sx)}
-      placeholder={value}
+      placeholder={placeholder}
       multiline
       rows={5}
       maxRows={5}

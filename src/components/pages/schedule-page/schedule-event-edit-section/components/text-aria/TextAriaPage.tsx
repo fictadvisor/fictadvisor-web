@@ -8,8 +8,8 @@ import * as styles from './TextAriaPage.styles';
 const TextAriaPage = () => {
   return (
     <Box sx={styles.container}>
-      <TextAria value={'Text Aria'} size={TextAriaSize.NORMAL} />
-      <TextAria value={'Text Aria'} size={TextAriaSize.SMALL} />
+      <TextAria placeholder={'Text Aria'} size={TextAriaSize.NORMAL} />
+      <TextAria placeholder={'Text Aria'} size={TextAriaSize.SMALL} />
     </Box>
   );
 };
