@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Button, Typography } from '@mui/material';
 
-import calculateHeight from '@/components/common/ui/schedule-card/utils/calculateHeight';
+import calculateHeight from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateHeight';
 
 import * as styles from './ScheduleCard.styles';
 

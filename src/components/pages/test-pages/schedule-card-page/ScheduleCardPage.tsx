@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-import ScheduleCard from '@/components/common/ui/schedule-card';
-import { DisciplineType } from '@/components/common/ui/schedule-card/types';
+import ScheduleCard from '@/components/pages/schedule-page/schedule-section/components/schedule-card';
+import { DisciplineType } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/types';
 
 import * as styles from './ScheduleCardPage.styles';
 
