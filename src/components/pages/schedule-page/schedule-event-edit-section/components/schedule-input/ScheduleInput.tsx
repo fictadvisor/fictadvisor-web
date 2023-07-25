@@ -30,7 +30,7 @@ const ScheduleInput: FC<ScheduleInputProps> = ({
       placeholder={placeholder}
       disabled={isDisabled}
       multiline={size === ScheduleInputSize.LARGE}
-      sx={mergeSx(styles.input(size), sx)}
+      sx={sx ? mergeSx(styles.input(size), sx) : mergeSx(styles.input(size))}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">{icon}</InputAdornment>

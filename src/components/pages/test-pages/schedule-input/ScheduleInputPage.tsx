@@ -3,7 +3,7 @@ import { Box, List } from '@mui/material';
 import { LockClosed } from '@/components/common/icons/LockClosed';
 import ScheduleInput, {
   ScheduleInputSize,
-} from '@/components/common/ui/schedule-input/ScheduleInput';
+} from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-input/ScheduleInput';
 
 import * as styles from './ScheduleInputPage.styles';
 
