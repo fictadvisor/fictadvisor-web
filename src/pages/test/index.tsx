@@ -1,7 +1,7 @@
-import TextAriaPage from '@/components/pages/schedule-page/schedule-event-edit-section/components/text-aria';
+import TextAreaPage from '@/components/pages/schedule-page/schedule-event-edit-section/components/text-area';
 
-const TextAriaTestPage = () => {
-  return <TextAriaPage />;
+const TextAreaTestPage = () => {
+  return <TextAreaPage />;
 };
 
-export default TextAriaTestPage;
+export default TextAreaTestPage;

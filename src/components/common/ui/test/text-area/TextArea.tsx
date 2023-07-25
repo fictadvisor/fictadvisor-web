@@ -1,28 +1,29 @@
 import { FC } from 'react';
-import { SxProps, Theme } from '@mui/material/styles';
+import { SxProps } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import { Theme } from '@mui/system';
 
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
-import * as styles from './TextAria.styles';
-import { TextAriaSize } from './types';
+import * as styles from './TextArea.styles';
+import { TextAreaSize } from './types';
 
-interface TextAriaProps {
+interface TextAreaProps {
   placeholder: string;
-  size: TextAriaSize;
+  size: TextAreaSize;
   sx?: SxProps<Theme>;
 }
 
-const TextAria: FC<TextAriaProps> = ({
-  size = TextAriaSize.NORMAL,
+const TextArea: FC<TextAreaProps> = ({
+  size = TextAreaSize.NORMAL,
   sx = {},
-  placeholder = 'Text Aria',
+  placeholder = 'Text Area',
 }) => {
   return (
     <TextField
       variant="standard"
       margin="normal"
-      sx={mergeSx(styles.textAria(size), sx)}
+      sx={mergeSx(styles.textArea(size), sx)}
       placeholder={placeholder}
       multiline
       rows={5}
@@ -34,4 +35,4 @@ const TextAria: FC<TextAriaProps> = ({
   );
 };
 
-export default TextAria;
+export default TextArea;

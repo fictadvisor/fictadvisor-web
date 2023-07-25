@@ -1,8 +1,8 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-import { TextAriaSize } from './types';
+import { TextAreaSize } from './types';
 
-export const textAria = (size: TextAriaSize): SxProps<Theme> => ({
+export const textArea = (size: TextAreaSize): SxProps<Theme> => ({
   backgroundColor: 'backgroundDark.200',
   borderRadius: '8px',
   '& div': {
@@ -13,14 +13,14 @@ export const textAria = (size: TextAriaSize): SxProps<Theme> => ({
       color: 'grey.700',
     },
   },
-  ...(size === TextAriaSize.SMALL && {
+  ...(size === TextAreaSize.SMALL && {
     width: '308px',
     div: {
       padding: '12px',
       fontSize: 'body1.fontSize',
     },
   }),
-  ...(size === TextAriaSize.NORMAL && {
+  ...(size === TextAreaSize.NORMAL && {
     width: '480px',
     div: {
       padding: '16px 16px 16px 20px',
