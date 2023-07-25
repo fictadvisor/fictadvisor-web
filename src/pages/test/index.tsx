@@ -1,4 +1,4 @@
-import TextAriaPage from '@/components/pages/test-pages/TextAriaPage';
+import TextAriaPage from '@/components/pages/schedule-page/schedule-event-edit-section/components/text-aria';
 
 const TextAriaTestPage = () => {
   return <TextAriaPage />;
