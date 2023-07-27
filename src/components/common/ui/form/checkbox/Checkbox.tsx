@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import {
   Checkbox as MuiCheckbox,
   FormControlLabel,
@@ -21,6 +21,8 @@ interface CheckboxProps {
   name: string;
   color?: CheckboxColor;
   textType?: CheckboxTextType;
+  checked?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Checkbox: FC<CheckboxProps> = ({
@@ -28,6 +30,8 @@ const Checkbox: FC<CheckboxProps> = ({
   disabled = false,
   sx = {},
   name,
+  checked,
+  onChange,
   color = CheckboxColor.PRIMARY,
   textType = CheckboxTextType.BODY1,
 }) => {
@@ -41,7 +45,9 @@ const Checkbox: FC<CheckboxProps> = ({
       control={
         <MuiCheckbox
           {...field}
+          checked={checked}
           name={name}
+          onChange={onChange}
           checkedIcon={
             <CheckedIcon disabled={disabled} color={checkboxColor} />
           }
