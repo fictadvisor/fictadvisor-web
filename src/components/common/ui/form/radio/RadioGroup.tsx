@@ -16,9 +16,7 @@ interface RadioGroupProps {
   disabled?: boolean;
   name: string;
   textType?: 'body1' | 'body2Medium';
-  onChange?: (
-    event: FormEvent<HTMLDivElement> | React.ChangeEvent<HTMLInputElement>,
-  ) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   sx?: SxProps<Theme>;
 }
 
