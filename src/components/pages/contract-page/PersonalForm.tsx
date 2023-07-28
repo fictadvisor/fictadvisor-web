@@ -1,133 +1,293 @@
-import React, { FC, FormEvent, useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import { Form, Formik } from 'formik';
+import React, { FC, useState } from 'react';
+import {
+  Box,
+  Checkbox as CheckboxMUI,
+  FormControlLabel,
+  Typography,
+} from '@mui/material';
+import { Field } from 'formik';
 
-import Button from '@/components/common/ui/button-mui';
 import Divider from '@/components/common/ui/divider-mui';
 import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import { Input } from '@/components/common/ui/form';
 import Checkbox from '@/components/common/ui/form/checkbox';
+import { FieldSize } from '@/components/common/ui/form/common/types';
+// import Checkbox from '@/components/common/ui/form/checkbox';
 import RadioGroup from '@/components/common/ui/form/radio';
+import Radio from '@/components/common/ui/form/radio/radio-button';
+import FormikCheckbox from '@/components/common/ui/form/with-formik/checkbox';
+import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
+import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
+import FormikStep from '@/components/pages/contract-page/components/formik-step/FormikStep';
+import FormikStepper from '@/components/pages/contract-page/components/formik-stepper/FormikStepper';
 import { initialValues } from '@/components/pages/contract-page/constants';
-import { validationSchema } from '@/components/pages/contract-page/validation';
-import useToast from '@/hooks/use-toast';
+import {
+  entrantValidation,
+  representativeValidation,
+} from '@/components/pages/contract-page/validation';
+import { transformGroups } from '@/components/pages/register/register-page/components/register-form/utils';
 import ContractAPI from '@/lib/api/contract/ContractAPI';
 import {
   ContractBody,
   StudyFormParam,
+  StudyTypeParam,
 } from '@/lib/api/contract/types/ContractBody';
 
 import * as stylesMui from './ContractPage.styles';
 
-interface PersonalFormProps {
-  person?: string;
-}
-
-const PersonalForm: FC<PersonalFormProps> = ({ person = 'вступника' }) => {
+const PersonalForm: FC = () => {
   const [state, setState] = useState({
     isAdult: false,
-    isNoMiddleName: false,
-    isForeignPassport: false,
-    isCodeRefused: false,
-    isOldPassport: false,
+    entrantHasNoMiddleName: false,
+    representativeHasNoMiddleName: false,
+    entrantHasForeignPassport: false,
+    representativeHasForeignPassport: false,
+    entrantRefusedCode: false,
+    representativeRefusedCode: false,
+    entrantHasOldPassport: false,
+    representativeHasOldPassport: false,
   });
+
   const {
     isAdult,
-    isNoMiddleName,
-    isForeignPassport,
-    isCodeRefused,
-    isOldPassport,
+    entrantHasNoMiddleName,
+    representativeHasNoMiddleName,
+    entrantHasForeignPassport,
+    representativeHasForeignPassport,
+    entrantRefusedCode,
+    representativeRefusedCode,
+    entrantHasOldPassport,
+    representativeHasOldPassport,
   } = state;
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
     });
+    console.log(event.target.checked);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
   };
 
   return (
-    <Formik
+    <FormikStepper
       initialValues={initialValues}
+      // validationSchema={validationSchema}
+      // validateOnChange
+      // enableReinitialize
       onSubmit={async (values: ContractBody) => {
         // await ContractAPI.createContract(values);
         console.log(JSON.stringify(values, null, 2));
       }}
     >
-      {({ values, isValid }) => (
-        <Form
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            width: '100%',
-          }}
-        >
-          <Box sx={stylesMui.item}>
-            <Typography variant="h6Bold">
-              Форма навчання (бюджет/контракт)
-            </Typography>
-            <RadioGroup
-              name="meta.studyType"
-              options={[
-                { value: 'Бюджет', label: 'Бюджет' },
-                { value: 'Контракт', label: 'Контракт' },
-              ]}
-              onChange={handleChange}
-              sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Typography variant="h6Bold">
-              Форма навчання (денна/заочна)
-            </Typography>
-            <RadioGroup
-              name="meta.studyForm"
-              onChange={handleChange}
-              options={[
-                { value: StudyFormParam.FULL_TIME, label: 'Денна' },
-                { value: StudyFormParam.PART_TIME, label: 'Заочна' },
-              ]}
-              sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
-            />
-          </Box>
+      <FormikStep>
+        <Box sx={stylesMui.item}>
+          <Typography variant="h6Bold">
+            Форма навчання (бюджет/контракт)
+          </Typography>
+          <Field
+            name="meta.studyType"
+            options={[
+              { label: 'Бюджет', value: StudyTypeParam.BUDGET },
+              { label: 'Контракт', value: StudyTypeParam.CONTRACT },
+            ]}
+            component={FormikRadioGroup}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Typography variant="h6Bold">
+            Форма навчання (денна/заочна)
+          </Typography>
+          <Field
+            name="meta.studyForm"
+            options={[
+              { label: 'Денна', value: StudyFormParam.FULL_TIME },
+              { label: 'Заочна', value: StudyFormParam.PART_TIME },
+            ]}
+            component={FormikRadioGroup}
+          />
+        </Box>
 
-          <Box sx={stylesMui.item}>
-            <Typography variant="h6Bold">Спеціальність</Typography>
-            <RadioGroup
-              name="meta.speciality"
-              onChange={handleChange}
-              options={[
-                {
-                  value: '121',
-                  label: '121 Інженерія програмного забезпечення',
-                },
-                { value: '123', label: '123 Комп’ютерна інженерія' },
-                {
-                  value: '126',
-                  label: '126 Інформаційні системи та технології',
-                },
-              ]}
-              sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            {/*<Checkbox name="adult" label="Є 18 років" onChange={handleChange} />*/}
-            <Checkbox
-              name="meta.isToAdmission"
-              label="Подаю документи в корпусі"
-            />
-            <Checkbox
-              name="isAdult"
-              checked={isAdult}
-              label="Є 18 років"
-              onChange={handleCheck}
-            />
-          </Box>
-          {isAdult && <Typography>Random text</Typography>}
+        <Box sx={stylesMui.item}>
+          <Typography variant="h6Bold">Спеціальність</Typography>
+          <Field
+            name="meta.speciality"
+            options={[
+              {
+                value: '121',
+                label: '121 Інженерія програмного забезпечення',
+              },
+              { value: '123', label: '123 Комп’ютерна інженерія' },
+              {
+                value: '126',
+                label: '126 Інформаційні системи та технології',
+              },
+            ]}
+            component={FormikRadioGroup}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Field
+            type="checkbox"
+            name="meta.isToAdmission"
+            as={FormControlLabel}
+            control={<FormikCheckbox />}
+            label="Подаю документи в корпусі"
+          />
+          {/*<Checkbox*/}
+          {/*  name="meta.isToAdmission"*/}
+          {/*  label="Подаю документи в корпусі"*/}
+          {/*/>*/}
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Checkbox
+            name="isAdult"
+            checked={isAdult}
+            label="Є 18 років"
+            onChange={handleCheck}
+          />
+        </Box>
+      </FormikStep>
 
+      <FormikStep validationSchema={entrantValidation}>
+        <Box sx={stylesMui.item}>
+          <Divider
+            textAlign={DividerTextAlign.LEFT}
+            text="Особисті дані"
+            sx={stylesMui.divider}
+          />
+          <Input
+            name="entrant.lastName"
+            placeholder="Шевченко"
+            label={`Прізвище вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.firstName"
+            placeholder="Тарас"
+            label={`Ім’я вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Checkbox
+            name="entrantHasNoMiddleName"
+            checked={entrantHasNoMiddleName}
+            label="Немає по-батькові"
+            onChange={handleCheck}
+          />
+          <Input
+            name="entrant.middleName"
+            disabled={entrantHasNoMiddleName}
+            placeholder={'Григорович'}
+            label={`По-батькові вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.phoneNumber"
+            placeholder="+9970951234567"
+            label={`Номер телефону вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.email"
+            placeholder="smthcool@gmail.com"
+            label={`Електронна пошта вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Divider
+            textAlign={DividerTextAlign.LEFT}
+            text="Паспортні дані"
+            sx={stylesMui.divider}
+          />
+          <Checkbox
+            name="entrantHasOldPassport"
+            label="Паспорт старого зразка"
+            checked={entrantHasOldPassport}
+            onChange={handleCheck}
+          />
+          <Checkbox
+            name="entrantHasForeignPassport"
+            checked={entrantHasForeignPassport}
+            label="Закордонний паспорт"
+            onChange={handleCheck}
+          />
+          <Input
+            name="entrant.passportNumber"
+            label={`Номер паспорту вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.passportDate"
+            label={`Дата видачі паспорту вступника`}
+            placeholder="25.07.2017"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.passportInstitute"
+            label={`Орган видачі паспорту вступника`}
+            placeholder="1234"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Checkbox
+            name="entrantRefusedCode"
+            checked={entrantRefusedCode}
+            onChange={handleCheck}
+            label="Відмова від РНОКПП"
+          />
+          <Input
+            name="entrant.idCode"
+            disabled={entrantRefusedCode}
+            label={`Ідентифікаційний код (РНОКПП) вступника`}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Divider
+            textAlign={DividerTextAlign.LEFT}
+            text="Місце проживання"
+            sx={stylesMui.divider}
+          />
+          <Typography variant="body2">Питання 10 / 13</Typography>
+          {/*<FormikDropdown*/}
+          {/*  size={FieldSize.LARGE}*/}
+          {/*  options={transformGroups(groups)}*/}
+          {/*  label="Група"*/}
+          {/*  name="group"*/}
+          {/*  placeholder="вибери зі списку"*/}
+          {/*/>*/}
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.settlement"
+            placeholder="м. Київ"
+            label="Населений пункт"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.address"
+            label={`Адреса вступника`}
+            placeholder="Вулиця, дім, квартира"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="entrant.index"
+            label={`Поштовий індекс вступника`}
+            placeholder="12345"
+          />
+        </Box>
+      </FormikStep>
+
+      {!isAdult && (
+        <FormikStep validationSchema={representativeValidation}>
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
@@ -135,44 +295,44 @@ const PersonalForm: FC<PersonalFormProps> = ({ person = 'вступника' }) 
               sx={stylesMui.divider}
             />
             <Input
-              name="entrant.lastName"
+              name="representative.lastName"
               placeholder="Шевченко"
-              label={`Прізвище ${person}`}
+              label="Прізвище представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.firstName"
+              name="representative.firstName"
               placeholder="Тарас"
-              label={`Ім’я  ${person}`}
+              label="Ім’я представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Checkbox
-              name="isNoMiddleName"
-              checked={isNoMiddleName}
+              name="representativeHasNoMiddleName"
+              checked={representativeHasNoMiddleName}
               label="Немає по-батькові"
               onChange={handleCheck}
             />
             <Input
-              name="entrant.middleName"
-              disabled={isNoMiddleName}
-              placeholder={isNoMiddleName ? '' : 'Григорович'}
-              label={`По-батькові  ${person}`}
+              name="representative.middleName"
+              disabled={representativeHasNoMiddleName}
+              placeholder={'Григорович'}
+              label="По-батькові представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.phoneNumber"
+              name="representative.phoneNumber"
               placeholder="+9970951234567"
-              label={`Номер телефону  ${person}`}
+              label="Номер телефону представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.email"
+              name="representative.email"
               placeholder="smthcool@gmail.com"
-              label={`Електронна пошта ${person}`}
+              label="Електронна пошта представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
@@ -182,46 +342,52 @@ const PersonalForm: FC<PersonalFormProps> = ({ person = 'вступника' }) 
               sx={stylesMui.divider}
             />
             <Checkbox
-              name="oldPassport"
+              name="representativeHasOldPassport"
+              checked={representativeHasOldPassport}
               label="Паспорт старого зразка"
               onChange={handleCheck}
             />
             <Checkbox
-              name="isForeignPassport"
-              checked={isForeignPassport}
+              name="representativeHasForeignPassport"
+              checked={representativeHasForeignPassport}
               label="Закордонний паспорт"
               onChange={handleCheck}
             />
             <Input
-              name="entrant.passportNumber"
-              label={`Номер паспорту ${person}`}
+              name="representative.passportSeries"
+              label="Серія паспорту представника"
+              disabled={!representativeHasOldPassport}
+            />
+            <Input
+              name="representative.passportNumber"
+              label="Номер паспорту представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.passportDate"
-              label={`Дата видачі паспорту ${person}`}
+              name="representative.passportDate"
+              label="Дата видачі паспорту представника"
               placeholder="25.07.2017"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.passportInstitute"
-              label={`Орган видачі паспорту ${person}`}
+              name="representative.passportInstitute"
+              label="Орган видачі паспорту представника"
               placeholder="1234"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Checkbox
-              name="isCodeRefused"
-              checked={isCodeRefused}
+              name="representativeRefusedCode"
+              checked={representativeRefusedCode}
               onChange={handleCheck}
               label="Відмова від РНОКПП"
             />
             <Input
-              name="entrant.idCode"
-              disabled={isCodeRefused}
-              label={`Ідентифікаційний код (РНОКПП) ${person}`}
+              name="representative.idCode"
+              disabled={representativeRefusedCode}
+              label="Ідентифікаційний код (РНОКПП) представника"
             />
           </Box>
           <Box sx={stylesMui.item}>
@@ -234,29 +400,28 @@ const PersonalForm: FC<PersonalFormProps> = ({ person = 'вступника' }) 
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.settlement"
+              name="representative.settlement"
               placeholder="м. Київ"
               label="Населений пункт"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.address"
-              label={`Адреса ${person}`}
+              name="representative.address"
+              label="Адреса представника"
               placeholder="Вулиця, дім, квартира"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
-              name="entrant.index"
-              label={`Поштовий індекс ${person}`}
+              name="representative.index"
+              label="Поштовий індекс представника"
               placeholder="12345"
             />
           </Box>
-          <Button text="Надіслати дані" type="submit" disabled={!isValid} />
-        </Form>
+        </FormikStep>
       )}
-    </Formik>
+    </FormikStepper>
   );
 };
 export default PersonalForm;
