@@ -26,13 +26,14 @@ interface PersonalData {
   idCode?: string;
   phoneNumber: string;
   email: string;
+  index: string;
 }
 
 interface MetaContract {
   speciality: string;
-  studyType: StudyTypeParam;
-  studyForm: StudyFormParam;
-  paymentType?: PaymentTypeParam;
+  studyType: string;
+  studyForm: string;
+  paymentType?: string;
   isToAdmission: boolean;
 }
 
