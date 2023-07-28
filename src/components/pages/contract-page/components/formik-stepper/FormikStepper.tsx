@@ -23,9 +23,11 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
     <Formik
       {...props}
       validationSchema={currentChild?.props?.validationSchema}
-      onSubmit={async (values, formikHelpers) => {
+      onSubmit={async values => {
         if (isLastStep()) {
-          await props.onSubmit(values, formikHelpers);
+          // await props.onSubmit(values, formikHelpers);
+          // await ContractAPI.createContract(values);
+          console.log(JSON.stringify(values, null, 2));
         } else {
           setStep(s => s + 1);
         }

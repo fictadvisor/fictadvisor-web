@@ -1,9 +1,33 @@
-import {
-  ContractBody,
-  PaymentTypeParam,
-  StudyFormParam,
-  StudyTypeParam,
-} from '@/lib/api/contract/types/ContractBody';
+import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
+import { ContractBody } from '@/lib/api/contract/types/ContractBody';
+
+export const REGIONS: DropDownOption[] = [
+  { label: 'Київська обл.', id: 'Київська обл.' },
+  { label: 'Вінницька обл.', id: 'Вінницька обл.' },
+  { label: 'Волинська обл.', id: 'Волинська обл.' },
+  { label: 'Дніпропетровська обл.', id: 'Дніпропетровська обл.' },
+  { label: 'Донецька обл.', id: 'Донецька обл.' },
+  { label: 'Житомирська обл.', id: 'Житомирська обл.' },
+  { label: 'Закарпатська обл.', id: 'Закарпатська обл.' },
+  { label: 'Запорізька обл.', id: 'Запорізька обл.' },
+  { label: 'Івано-Франківська обл.', id: 'Івано-Франківська обл.' },
+  { label: 'Кіровоградська обл.', id: 'Кіровоградська обл.' },
+  { label: 'АР Крим', id: 'АР Крим' },
+  { label: 'Луганська обл.', id: 'Луганська обл.' },
+  { label: 'Львівська обл.', id: 'Львівська обл.' },
+  { label: 'Миколаївська обл.', id: 'Миколаївська обл.' },
+  { label: 'Одеська обл.', id: 'Одеська обл.' },
+  { label: 'Полтавська обл.', id: 'Полтавська обл.' },
+  { label: 'Рівненська обл.', id: 'Рівненська обл.' },
+  { label: 'Сумська обл.', id: 'Сумська обл.' },
+  { label: 'Тернопільська обл.', id: 'Тернопільська обл.' },
+  { label: 'Харківська обл.', id: 'Харківська обл.' },
+  { label: 'Херсонська обл.', id: 'Херсонська обл.' },
+  { label: 'Хмельницька обл.', id: 'Хмельницька обл.' },
+  { label: 'Черкаська обл.', id: 'Черкаська обл.' },
+  { label: 'Чернівецька обл.', id: 'Чернівецька обл.' },
+  { label: 'Чернігівська обл.', id: 'Чернігівська обл.' },
+];
 
 export const initialValues: ContractBody = {
   entrant: {

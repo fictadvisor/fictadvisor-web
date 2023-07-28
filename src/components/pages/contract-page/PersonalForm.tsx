@@ -1,10 +1,5 @@
 import React, { FC, useState } from 'react';
-import {
-  Box,
-  Checkbox as CheckboxMUI,
-  FormControlLabel,
-  Typography,
-} from '@mui/material';
+import { Box, FormControlLabel, Typography } from '@mui/material';
 import { Field } from 'formik';
 
 import Divider from '@/components/common/ui/divider-mui';
@@ -12,23 +7,21 @@ import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import { Input } from '@/components/common/ui/form';
 import Checkbox from '@/components/common/ui/form/checkbox';
 import { FieldSize } from '@/components/common/ui/form/common/types';
-// import Checkbox from '@/components/common/ui/form/checkbox';
-import RadioGroup from '@/components/common/ui/form/radio';
-import Radio from '@/components/common/ui/form/radio/radio-button';
 import FormikCheckbox from '@/components/common/ui/form/with-formik/checkbox';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import FormikStep from '@/components/pages/contract-page/components/formik-step/FormikStep';
 import FormikStepper from '@/components/pages/contract-page/components/formik-stepper/FormikStepper';
-import { initialValues } from '@/components/pages/contract-page/constants';
+import {
+  initialValues,
+  REGIONS,
+} from '@/components/pages/contract-page/constants';
 import {
   entrantValidation,
   representativeValidation,
 } from '@/components/pages/contract-page/validation';
 import { transformGroups } from '@/components/pages/register/register-page/components/register-form/utils';
-import ContractAPI from '@/lib/api/contract/ContractAPI';
 import {
-  ContractBody,
   StudyFormParam,
   StudyTypeParam,
 } from '@/lib/api/contract/types/ContractBody';
@@ -64,23 +57,10 @@ const PersonalForm: FC = () => {
       ...state,
       [event.target.name]: event.target.checked,
     });
-    console.log(event.target.checked);
-  };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
   };
 
   return (
-    <FormikStepper
-      initialValues={initialValues}
-      // validationSchema={validationSchema}
-      // validateOnChange
-      // enableReinitialize
-      onSubmit={async (values: ContractBody) => {
-        // await ContractAPI.createContract(values);
-        console.log(JSON.stringify(values, null, 2));
-      }}
-    >
+    <FormikStepper initialValues={initialValues}>
       <FormikStep>
         <Box sx={stylesMui.item}>
           <Typography variant="h6Bold">
@@ -187,7 +167,7 @@ const PersonalForm: FC = () => {
         <Box sx={stylesMui.item}>
           <Input
             name="entrant.phoneNumber"
-            placeholder="+9970951234567"
+            placeholder="+380123456789"
             label={`Номер телефону вступника`}
           />
         </Box>
@@ -215,6 +195,11 @@ const PersonalForm: FC = () => {
             checked={entrantHasForeignPassport}
             label="Закордонний паспорт"
             onChange={handleCheck}
+          />
+          <Input
+            name="representative.passportSeries"
+            label="Серія паспорту представника"
+            disabled={!representativeHasOldPassport}
           />
           <Input
             name="entrant.passportNumber"
@@ -254,14 +239,13 @@ const PersonalForm: FC = () => {
             text="Місце проживання"
             sx={stylesMui.divider}
           />
-          <Typography variant="body2">Питання 10 / 13</Typography>
-          {/*<FormikDropdown*/}
-          {/*  size={FieldSize.LARGE}*/}
-          {/*  options={transformGroups(groups)}*/}
-          {/*  label="Група"*/}
-          {/*  name="group"*/}
-          {/*  placeholder="вибери зі списку"*/}
-          {/*/>*/}
+          <FormikDropdown
+            size={FieldSize.LARGE}
+            options={REGIONS}
+            label="Область"
+            name="entrant.region"
+            placeholder="виберіть зі списку"
+          />
         </Box>
         <Box sx={stylesMui.item}>
           <Input

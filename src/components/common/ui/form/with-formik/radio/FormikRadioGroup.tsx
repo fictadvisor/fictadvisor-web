@@ -24,21 +24,12 @@ const renderOptions = (options: GroupOption[]) => {
 
 interface FormikRadioGroup {
   options: GroupOption[];
-  name: string;
+  field: { name: string };
 }
 
-const FormikRadioGroup = ({
-  field,
-  form: { touched, errors },
-  name,
-  options,
-  children,
-  ...props
-}: FormikRadioGroup) => {
-  // const [field, { touched, error }] = useField(name);
-  const fieldName = name || field.name;
+const FormikRadioGroup = ({ field, options, ...props }: FormikRadioGroup) => {
   return (
-    <RadioGroup {...field} {...props} name={fieldName} sx={{ gap: '12px' }}>
+    <RadioGroup {...field} {...props} name={field.name} sx={{ gap: '12px' }}>
       {renderOptions(options)}
     </RadioGroup>
   );

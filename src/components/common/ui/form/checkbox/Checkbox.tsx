@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 import {
   Checkbox as MuiCheckbox,
   FormControlLabel,
