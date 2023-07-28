@@ -60,8 +60,8 @@ const PersonalForm: FC = () => {
   };
 
   return (
-    <FormikStepper initialValues={initialValues}>
-      <FormikStep>
+    <FormikStepper initialValues={initialValues} onSubmit={() => {}}>
+      <FormikStep visible={true}>
         <Box sx={stylesMui.item}>
           <Typography variant="h6Bold">
             Форма навчання (бюджет/контракт)
@@ -115,10 +115,6 @@ const PersonalForm: FC = () => {
             control={<FormikCheckbox />}
             label="Подаю документи в корпусі"
           />
-          {/*<Checkbox*/}
-          {/*  name="meta.isToAdmission"*/}
-          {/*  label="Подаю документи в корпусі"*/}
-          {/*/>*/}
         </Box>
         <Box sx={stylesMui.item}>
           <Checkbox
@@ -269,8 +265,7 @@ const PersonalForm: FC = () => {
           />
         </Box>
       </FormikStep>
-
-      {!isAdult && (
+      {!isAdult ? (
         <FormikStep validationSchema={representativeValidation}>
           <Box sx={stylesMui.item}>
             <Divider
@@ -404,6 +399,8 @@ const PersonalForm: FC = () => {
             />
           </Box>
         </FormikStep>
+      ) : (
+        <></>
       )}
     </FormikStepper>
   );

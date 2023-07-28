@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
+import formatters from 'chart.js/dist/core/core.ticks';
 import { Form, Formik, FormikConfig, FormikValues } from 'formik';
 
 import Button from '@/components/common/ui/button-mui';
@@ -33,25 +34,28 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
         }
       }}
     >
-      <Form autoComplete="off" style={{ width: '100%' }}>
-        <Box sx={styles.formWrapper}>
-          {currentChild}
-          <Box sx={styles.buttonPanel}>
-            {step > 0 ? (
+      {({ isValid }) => (
+        <Form autoComplete="off" style={{ width: '100%' }}>
+          <Box sx={styles.formWrapper}>
+            {currentChild}
+            <Box sx={styles.buttonPanel}>
+              {step > 0 ? (
+                <Button
+                  sx={styles.button}
+                  onClick={() => setStep(s => s - 1)}
+                  text="Назад"
+                />
+              ) : null}
               <Button
                 sx={styles.button}
-                onClick={() => setStep(s => s - 1)}
-                text="Назад"
+                text={isLastStep() ? 'Надіслати дані' : 'Далі'}
+                disabled={!isValid}
+                type="submit"
               />
-            ) : null}
-            <Button
-              sx={styles.button}
-              text={isLastStep() ? 'Надіслати дані' : 'Далі'}
-              type="submit"
-            />
+            </Box>
           </Box>
-        </Box>
-      </Form>
+        </Form>
+      )}
     </Formik>
   );
 };
