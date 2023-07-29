@@ -20,7 +20,7 @@ import StorageUtil from '@/lib/utils/StorageUtil';
 
 import * as stylesMUI from './LeftBlock.styles';
 
-import styles from './LeftBlock.module.scss';
+import styles from './Link.module.scss';
 
 const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
