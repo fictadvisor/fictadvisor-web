@@ -9,6 +9,7 @@ export const formWrapper: SxProps<Theme> = {
   flexDirection: 'column',
 };
 export const buttonPanel: SxProps<Theme> = {
+  width: '100%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

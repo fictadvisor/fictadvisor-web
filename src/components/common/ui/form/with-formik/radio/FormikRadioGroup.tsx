@@ -24,7 +24,7 @@ const FormikRadioGroup = ({ field, options, ...props }: FormikRadioGroup) => {
           value={option.value}
           control={<FormikRadio />}
           label={option.label}
-          sx={{ gap: '8px', margin: '0' }}
+          sx={{ gap: '8px', margin: '0', width: 'fit-content' }}
         />
       ))}
     </RadioGroup>

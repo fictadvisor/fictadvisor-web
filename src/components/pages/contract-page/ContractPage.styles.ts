@@ -12,12 +12,11 @@ export const page: SxProps<Theme> = {
 };
 
 export const form: SxProps<Theme> = {
-  width: '100%',
+  width: { tablet: '480px', mobile: '100%' },
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  padding: { desktop: '0px 80px 50px', mobile: '0' },
 };
 export const divider: SxProps<Theme> = {
   borderColor: 'grey.400',
@@ -36,5 +35,5 @@ export const item: SxProps<Theme> = {
   flexDirection: 'column',
   gap: '12px',
   marginBottom: '40px',
-  width: '100%',
+  width: { tablet: '480px', mobile: '100%' },
 };

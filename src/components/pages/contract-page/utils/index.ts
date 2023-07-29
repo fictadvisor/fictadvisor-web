@@ -1,6 +1,5 @@
 import { FormikValues } from 'formik';
 
-export const clearRepresentative = (representative: object) => {};
 export const optionalFieldsPrepare = (
   values: FormikValues,
   state: {

@@ -27,16 +27,17 @@ interface FormikStepperProps extends FormikConfig<FormikValues> {
   };
 }
 const FormikStepper = ({ state, children, ...props }: FormikStepperProps) => {
+  const [step, setStep] = useState(0);
+  const [completed, setCompleted] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
+
   const childrenArr = React.Children.toArray(
     children,
   ) as React.ReactElement<FormikStepProps>[];
-  const [step, setStep] = useState(0);
-  const [completed, setCompleted] = useState(false);
   const currentChild = childrenArr[step];
   const isLastStep = () => {
     return step === childrenArr.length - 1;
   };
-  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
   return (
     <Formik
       {...props}
@@ -77,6 +78,7 @@ const FormikStepper = ({ state, children, ...props }: FormikStepperProps) => {
                   приймальної комісії та запросять на підписання.
                 </Typography>
                 <Button
+                  href={'/contract'}
                   sx={{ width: '80%' }}
                   size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                   text="Подати дані на ще один договір"
@@ -98,6 +100,7 @@ const FormikStepper = ({ state, children, ...props }: FormikStepperProps) => {
                         behavior: 'smooth',
                       });
                     }}
+                    size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                     text="Назад"
                   />
                 ) : null}
@@ -106,12 +109,14 @@ const FormikStepper = ({ state, children, ...props }: FormikStepperProps) => {
                     sx={styles.button}
                     text={'Надіслати дані'}
                     disabled={!isValid}
+                    size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                     type="submit"
                   />
                 ) : (
                   <Button
                     sx={styles.button}
                     text={'Наступні питання'}
+                    size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                     type="submit"
                   />
                 )}
