@@ -1,3 +1,5 @@
+import { FormikValues } from 'formik';
+
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 import { ContractBody } from '@/lib/api/contract/types/ContractBody';
 
@@ -42,6 +44,7 @@ export const initialValues: ContractBody = {
     settlement: '',
     idCode: undefined,
     phoneNumber: '',
+    region: '',
     email: '',
     index: '',
   },
@@ -56,6 +59,7 @@ export const initialValues: ContractBody = {
     address: '',
     settlement: '',
     idCode: undefined,
+    region: '',
     phoneNumber: '',
     email: '',
     index: '',

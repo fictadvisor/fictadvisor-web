@@ -16,10 +16,6 @@ import {
   initialValues,
   REGIONS,
 } from '@/components/pages/contract-page/constants';
-import {
-  entrantValidation,
-  representativeValidation,
-} from '@/components/pages/contract-page/validation';
 import { StudyFormParam, StudyTypeParam } from '@/types/contract';
 
 import * as stylesMui from './ContractPage.styles';
@@ -61,7 +57,7 @@ const PersonalForm: FC = () => {
       onSubmit={() => {}}
       state={state}
     >
-      <FormikStep visible={true}>
+      <FormikStep>
         <Box sx={stylesMui.item}>
           <Typography variant="h6Bold">
             Форма навчання (бюджет/контракт)
@@ -276,300 +272,160 @@ const PersonalForm: FC = () => {
         </Box>
       </FormikStep>
 
-      {!isAdult ? (
-        <FormikStep>
-          <Box sx={stylesMui.item}>
-            <Divider
-              textAlign={DividerTextAlign.LEFT}
-              text="Особисті дані"
-              sx={stylesMui.divider}
-            />
-            <Input
-              name="representative.lastName"
-              placeholder="Шевченко"
-              label="Прізвище представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.firstName"
-              placeholder="Тарас"
-              label="Ім’я представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Checkbox
-              name="representativeHasNoMiddleName"
-              checked={representativeHasNoMiddleName}
-              label="Немає по-батькові"
-              onChange={handleCheck}
-            />
-            <Input
-              name="representative.middleName"
-              disabled={representativeHasNoMiddleName}
-              placeholder={'Григорович'}
-              label="По-батькові представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.phoneNumber"
-              placeholder="+9970951234567"
-              label="Номер телефону представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.email"
-              placeholder="smthcool@gmail.com"
-              label="Електронна пошта представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Divider
-              textAlign={DividerTextAlign.LEFT}
-              text="Паспортні дані"
-              sx={stylesMui.divider}
-            />
-            <Checkbox
-              name="representativeHasOldPassport"
-              checked={representativeHasOldPassport}
-              label="Паспорт старого зразка"
-              onChange={handleCheck}
-            />
-            <Checkbox
-              name="representativeHasForeignPassport"
-              checked={representativeHasForeignPassport}
-              label="Закордонний паспорт"
-              onChange={handleCheck}
-            />
-            <Input
-              name="representative.passportSeries"
-              label="Серія паспорту представника"
-              disabled={!representativeHasOldPassport}
-            />
-            <Input
-              name="representative.passportNumber"
-              label="Номер паспорту представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.passportDate"
-              label="Дата видачі паспорту представника"
-              placeholder="25.07.2017"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.passportInstitute"
-              label="Орган видачі паспорту представника"
-              placeholder="1234"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Checkbox
-              name="representativeRefusedCode"
-              checked={representativeRefusedCode}
-              onChange={handleCheck}
-              label="Відмова від РНОКПП"
-            />
-            <Input
-              name="representative.idCode"
-              disabled={representativeRefusedCode}
-              label="Ідентифікаційний код (РНОКПП) представника"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Divider
-              textAlign={DividerTextAlign.LEFT}
-              text="Місце проживання"
-              sx={stylesMui.divider}
-            />
-            <FormikDropdown
-              size={FieldSize.LARGE}
-              options={REGIONS}
-              label="Область"
-              name="representative.region"
-              placeholder="виберіть зі списку"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.settlement"
-              placeholder="м. Київ"
-              label="Населений пункт"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.address"
-              label="Адреса представника"
-              placeholder="Вулиця, дім, квартира"
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.index"
-              label="Поштовий індекс представника"
-              placeholder="12345"
-            />
-          </Box>
-        </FormikStep>
-      ) : (
-        <FormikStep>
-          <Box sx={stylesMui.item}>
-            <Divider
-              textAlign={DividerTextAlign.LEFT}
-              text="Особисті дані"
-              sx={stylesMui.divider}
-            />
-            <Input
-              name="representative.lastName"
-              placeholder="Шевченко"
-              label="Прізвище представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.firstName"
-              placeholder="Тарас"
-              label="Ім’я представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Checkbox
-              name="representativeHasNoMiddleName"
-              checked={representativeHasNoMiddleName}
-              label="Немає по-батькові"
-              onChange={handleCheck}
-            />
-            <Input
-              name="representative.middleName"
-              disabled={representativeHasNoMiddleName}
-              placeholder={'Григорович'}
-              label="По-батькові представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.phoneNumber"
-              placeholder="+9970951234567"
-              label="Номер телефону представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.email"
-              placeholder="smthcool@gmail.com"
-              label="Електронна пошта представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Divider
-              textAlign={DividerTextAlign.LEFT}
-              text="Паспортні дані"
-              sx={stylesMui.divider}
-            />
-            <Checkbox
-              name="representativeHasOldPassport"
-              checked={representativeHasOldPassport}
-              label="Паспорт старого зразка"
-              onChange={handleCheck}
-            />
-            <Checkbox
-              name="representativeHasForeignPassport"
-              checked={representativeHasForeignPassport}
-              label="Закордонний паспорт"
-              onChange={handleCheck}
-            />
-            <Input
-              name="representative.passportSeries"
-              label="Серія паспорту представника"
-              disabled={!representativeHasOldPassport}
-              value=""
-            />
-            <Input
-              name="representative.passportNumber"
-              label="Номер паспорту представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.passportDate"
-              label="Дата видачі паспорту представника"
-              placeholder="25.07.2017"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.passportInstitute"
-              label="Орган видачі паспорту представника"
-              placeholder="1234"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Checkbox
-              name="representativeRefusedCode"
-              checked={representativeRefusedCode}
-              onChange={handleCheck}
-              label="Відмова від РНОКПП"
-            />
-            <Input
-              name="representative.idCode"
-              disabled={representativeRefusedCode}
-              label="Ідентифікаційний код (РНОКПП) представника"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Divider
-              textAlign={DividerTextAlign.LEFT}
-              text="Місце проживання"
-              sx={stylesMui.divider}
-            />
-            <FormikDropdown
-              size={FieldSize.LARGE}
-              label="Область"
-              name="representative.region"
-              placeholder="виберіть зі списку"
-              options={[{ id: '0', label: '' }]}
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.settlement"
-              placeholder="м. Київ"
-              label="Населений пункт"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.address"
-              label="Адреса представника"
-              placeholder="Вулиця, дім, квартира"
-              value=""
-            />
-          </Box>
-          <Box sx={stylesMui.item}>
-            <Input
-              name="representative.index"
-              label="Поштовий індекс представника"
-              placeholder="12345"
-              value=""
-            />
-          </Box>
-        </FormikStep>
-      )}
+      <FormikStep>
+        <Box sx={stylesMui.item}>
+          <Divider
+            textAlign={DividerTextAlign.LEFT}
+            text="Особисті дані"
+            sx={stylesMui.divider}
+          />
+          <Input
+            name="representative.lastName"
+            placeholder="Шевченко"
+            label="Прізвище представника"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.firstName"
+            placeholder="Тарас"
+            label="Ім’я представника"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Checkbox
+            name="representativeHasNoMiddleName"
+            checked={representativeHasNoMiddleName}
+            label="Немає по-батькові"
+            disabled={isAdult}
+            onChange={handleCheck}
+          />
+          <Input
+            name="representative.middleName"
+            disabled={representativeHasNoMiddleName || isAdult}
+            placeholder={'Григорович'}
+            label="По-батькові представника"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.phoneNumber"
+            placeholder="+9970951234567"
+            label="Номер телефону представника"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.email"
+            placeholder="smthcool@gmail.com"
+            label="Електронна пошта представника"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Divider
+            textAlign={DividerTextAlign.LEFT}
+            text="Паспортні дані"
+            sx={stylesMui.divider}
+          />
+          <Checkbox
+            name="representativeHasOldPassport"
+            checked={representativeHasOldPassport}
+            label="Паспорт старого зразка"
+            disabled={isAdult}
+            onChange={handleCheck}
+          />
+          <Checkbox
+            name="representativeHasForeignPassport"
+            checked={representativeHasForeignPassport}
+            label="Закордонний паспорт"
+            disabled={isAdult}
+            onChange={handleCheck}
+          />
+          <Input
+            name="representative.passportSeries"
+            label="Серія паспорту представника"
+            disabled={!representativeHasOldPassport}
+          />
+          <Input
+            name="representative.passportNumber"
+            label="Номер паспорту представника"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.passportDate"
+            label="Дата видачі паспорту представника"
+            disabled={isAdult}
+            placeholder="25.07.2017"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.passportInstitute"
+            label="Орган видачі паспорту представника"
+            placeholder="1234"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Checkbox
+            name="representativeRefusedCode"
+            checked={representativeRefusedCode}
+            onChange={handleCheck}
+            disabled={isAdult}
+            label="Відмова від РНОКПП"
+          />
+          <Input
+            name="representative.idCode"
+            disabled={representativeRefusedCode || isAdult}
+            label="Ідентифікаційний код (РНОКПП) представника"
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Divider
+            textAlign={DividerTextAlign.LEFT}
+            text="Місце проживання"
+            sx={stylesMui.divider}
+          />
+          <FormikDropdown
+            size={FieldSize.LARGE}
+            options={REGIONS}
+            label="Область"
+            name="representative.region"
+            placeholder="виберіть зі списку"
+            isDisabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.settlement"
+            placeholder="м. Київ"
+            label="Населений пункт"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.address"
+            label="Адреса представника"
+            placeholder="Вулиця, дім, квартира"
+            disabled={isAdult}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Input
+            name="representative.index"
+            label="Поштовий індекс представника"
+            placeholder="12345"
+            disabled={isAdult}
+          />
+        </Box>
+      </FormikStep>
     </FormikStepper>
   );
 };

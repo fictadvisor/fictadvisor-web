@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const button: SxProps<Theme> = {
-  maxWidth: '200px',
+  maxWidth: '240px',
 };
 export const formWrapper: SxProps<Theme> = {
   display: 'flex',
