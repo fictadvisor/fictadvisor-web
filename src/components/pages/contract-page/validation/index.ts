@@ -81,13 +81,16 @@ export const entrantValidation = yup.object().shape({
       .required(`Обов'язкове поле`)
       .matches(
         /^[+][(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-        'Має починатися з символу "+" і коду країни',
+        'Має починатися з символу "+" і коду країни ',
       ),
     email: yup
       .string()
       .required(`Обов'язкове поле`)
       .email('Це не схоже на поштову адресу'),
-    passportSeries: yup.string().optional(),
+    passportSeries: yup
+      .string()
+      .optional()
+      .max(2, 'Серія складається з 2 символів'),
     passportNumber: yup.number().required(`Обов'язкове поле`),
     passportDate: yup
       .string()
@@ -96,31 +99,39 @@ export const entrantValidation = yup.object().shape({
         /^\s*((?:3[01]|[12][0-9]|0[1-9])\.(1[012]|0[1-9])\.((?:19|20)\d{2}))\s*$/,
         'Має бути формату dd.mm.yyyy',
       ),
-    passportInstitute: yup
-      .string()
-      .required(`Обов'язкове поле`)
-      .max(4, 'Лише 4 цифри')
-      .matches(/(\d{4})/, 'Лише 4 цифри'),
+    passportInstitute: yup.string().required(`Обов'язкове поле`),
     idCode: yup
       .string()
       .optional()
       .max(10, 'Лише 10 цифр')
       .matches(/(\d{10})/, 'Лише 10 цифр'),
     region: yup.string().required(`Обов'язкове поле`),
-    settlement: yup.string().required(`Обов'язкове поле`),
-    address: yup.string().required(`Обов'язкове поле`),
+    settlement: yup
+      .string()
+      .required(`Обов'язкове поле`)
+      .matches(
+        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя0-9\-`ʼ',. ]+$/,
+        'Має містити українські літери, апостроф або дефіс',
+      ),
+    address: yup
+      .string()
+      .required(`Обов'язкове поле`)
+      .matches(
+        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя0-9\-`ʼ',. ]+$/,
+        'Має містити українські літери, апостроф або дефіс',
+      ),
     index: yup
       .string()
       .required(`Обов'язкове поле`)
       .max(5, 'Лише 5 цифр')
       .matches(/(\d{5})/, 'Лише 5 цифр'),
   }),
+});
 
-  // meta: yup.object().shape({
-  //   studyType: yup.string().trim().required(`Обов'язкове поле`),
-  //   studyForm: yup.string().required(`Обов'язкове поле`),
-  //   paymentType: yup.string().optional(),
-  //   speciality: yup.string().required(`Обов'язкове поле`),
-  //   isToAdmission: yup.boolean().optional(),
-  // }),
+export const metaValidation = yup.object().shape({
+  studyType: yup.string().trim().required(`Обов'язкове поле`),
+  studyForm: yup.string().required(`Обов'язкове поле`),
+  paymentType: yup.string().optional(),
+  speciality: yup.string().required(`Обов'язкове поле`),
+  isToAdmission: yup.boolean().optional(),
 });
