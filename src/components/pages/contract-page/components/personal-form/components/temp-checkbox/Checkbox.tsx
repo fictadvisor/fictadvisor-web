@@ -7,12 +7,14 @@ import {
 import { SxProps, Theme } from '@mui/material/styles';
 import { useField } from 'formik';
 
+import * as styles from '@/components/common/ui/form/checkbox/Checkbox.styles';
+import CheckedIcon from '@/components/common/ui/form/checkbox/components/CheckedIcon';
+import Icon from '@/components/common/ui/form/checkbox/components/Icon';
+import {
+  CheckboxColor,
+  CheckboxTextType,
+} from '@/components/common/ui/form/checkbox/types';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
-
-import CheckedIcon from './components/CheckedIcon';
-import Icon from './components/Icon';
-import * as styles from './Checkbox.styles';
-import { CheckboxColor, CheckboxTextType } from './types';
 
 interface CheckboxProps {
   label?: string;
@@ -21,6 +23,8 @@ interface CheckboxProps {
   name: string;
   color?: CheckboxColor;
   textType?: CheckboxTextType;
+  checked?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Checkbox: FC<CheckboxProps> = ({
@@ -28,6 +32,8 @@ const Checkbox: FC<CheckboxProps> = ({
   disabled = false,
   sx = {},
   name,
+  checked,
+  onChange,
   color = CheckboxColor.PRIMARY,
   textType = CheckboxTextType.BODY1,
 }) => {
@@ -41,7 +47,9 @@ const Checkbox: FC<CheckboxProps> = ({
       control={
         <MuiCheckbox
           {...field}
+          checked={checked}
           name={name}
+          onChange={onChange}
           checkedIcon={
             <CheckedIcon disabled={disabled} color={checkboxColor} />
           }

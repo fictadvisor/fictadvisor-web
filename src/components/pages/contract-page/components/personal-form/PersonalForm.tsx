@@ -5,13 +5,13 @@ import { Field } from 'formik';
 import Divider from '@/components/common/ui/divider-mui';
 import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
 import { Input } from '@/components/common/ui/form';
-import Checkbox from '@/components/common/ui/form/checkbox';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import FormikCheckbox from '@/components/common/ui/form/with-formik/checkbox';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import FormikStep from '@/components/pages/contract-page/components/formik-step/FormikStep';
 import FormikStepper from '@/components/pages/contract-page/components/formik-stepper/FormikStepper';
+import Checkbox from '@/components/pages/contract-page/components/personal-form/components/temp-checkbox/Checkbox';
 import {
   initialValues,
   REGIONS,
@@ -32,8 +32,6 @@ const PersonalForm: FC = () => {
     entrantHasOldPassport: false,
     representativeHasOldPassport: false,
   });
-
-  const [passportSerie, setPassportSerie] = useState(false);
 
   const {
     isAdult,
