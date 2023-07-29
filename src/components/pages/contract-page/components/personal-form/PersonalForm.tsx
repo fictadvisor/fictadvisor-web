@@ -18,7 +18,7 @@ import {
 } from '@/components/pages/contract-page/constants';
 import { StudyFormParam, StudyTypeParam } from '@/types/contract';
 
-import * as stylesMui from './ContractPage.styles';
+import * as stylesMui from '../../ContractPage.styles';
 
 const PersonalForm: FC = () => {
   const [state, setState] = useState({
@@ -33,6 +33,8 @@ const PersonalForm: FC = () => {
     representativeHasOldPassport: false,
   });
 
+  const [passportSerie, setPassportSerie] = useState(false);
+
   const {
     isAdult,
     entrantHasNoMiddleName,
@@ -44,6 +46,7 @@ const PersonalForm: FC = () => {
     entrantHasOldPassport,
     representativeHasOldPassport,
   } = state;
+
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
@@ -181,18 +184,20 @@ const PersonalForm: FC = () => {
             name="entrantHasOldPassport"
             label="Паспорт старого зразка"
             checked={entrantHasOldPassport}
+            disabled={entrantHasForeignPassport}
             onChange={handleCheck}
           />
           <Checkbox
             name="entrantHasForeignPassport"
-            checked={entrantHasForeignPassport}
             label="Закордонний паспорт"
+            checked={entrantHasForeignPassport}
+            disabled={entrantHasOldPassport}
             onChange={handleCheck}
           />
           <Input
             name="entrant.passportSeries"
             label="Серія паспорту представника"
-            disabled={!entrantHasOldPassport}
+            disabled={!entrantHasForeignPassport && !entrantHasOldPassport}
           />
           <Input
             name="entrant.passportNumber"
@@ -335,20 +340,22 @@ const PersonalForm: FC = () => {
             name="representativeHasOldPassport"
             checked={representativeHasOldPassport}
             label="Паспорт старого зразка"
-            disabled={isAdult}
+            disabled={isAdult || representativeHasForeignPassport}
             onChange={handleCheck}
           />
           <Checkbox
             name="representativeHasForeignPassport"
             checked={representativeHasForeignPassport}
             label="Закордонний паспорт"
-            disabled={isAdult}
+            disabled={isAdult || representativeHasOldPassport}
             onChange={handleCheck}
           />
           <Input
             name="representative.passportSeries"
             label="Серія паспорту представника"
-            disabled={!representativeHasOldPassport}
+            disabled={
+              !representativeHasForeignPassport && !representativeHasOldPassport
+            }
           />
           <Input
             name="representative.passportNumber"

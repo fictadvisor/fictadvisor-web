@@ -6,6 +6,8 @@ export const optionalFieldsPrepare = (
     isAdult: boolean;
     entrantHasNoMiddleName: boolean;
     representativeHasNoMiddleName: boolean;
+    entrantHasForeignPassport: boolean;
+    representativeHasForeignPassport: boolean;
     entrantRefusedCode: boolean;
     representativeRefusedCode: boolean;
     entrantHasOldPassport: boolean;
@@ -29,10 +31,13 @@ export const optionalFieldsPrepare = (
   if (state.representativeRefusedCode) {
     values.representative['idCode'] = '';
   }
-  if (!state.entrantHasOldPassport) {
+  if (!state.entrantHasOldPassport && !state.entrantHasForeignPassport) {
     values.entrant['passportSeries'] = '';
   }
-  if (!state.representativeHasOldPassport) {
+  if (
+    !state.representativeHasOldPassport &&
+    !state.representativeHasForeignPassport
+  ) {
     values.representative['passportSeries'] = '';
   }
 };
