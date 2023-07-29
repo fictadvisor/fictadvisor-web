@@ -58,7 +58,7 @@ const FormikStepper = ({ state, children, ...props }: FormikStepperProps) => {
       }}
     >
       {({ isValid, values, status }) => (
-        <Form autoComplete="off" style={{ width: '100%' }}>
+        <Form style={{ width: '100%' }}>
           {completed ? (
             <Box sx={stylesMUI.wrapper}>
               <Box sx={stylesMUI.content}>

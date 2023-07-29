@@ -16,6 +16,10 @@ import {
   initialValues,
   REGIONS,
 } from '@/components/pages/contract-page/constants';
+import {
+  entrantValidationSchema,
+  representativeValidationSchema,
+} from '@/components/pages/contract-page/validation';
 import { StudyFormParam, StudyTypeParam } from '@/types/contract';
 
 import * as stylesMui from '../../ContractPage.styles';
@@ -124,7 +128,7 @@ const PersonalForm: FC = () => {
         </Box>
       </FormikStep>
 
-      <FormikStep>
+      <FormikStep validationSchema={entrantValidationSchema}>
         <Box sx={stylesMui.item}>
           <Divider
             textAlign={DividerTextAlign.LEFT}
@@ -275,7 +279,7 @@ const PersonalForm: FC = () => {
         </Box>
       </FormikStep>
 
-      <FormikStep>
+      <FormikStep validationSchema={representativeValidationSchema}>
         <Box sx={stylesMui.item}>
           <Divider
             textAlign={DividerTextAlign.LEFT}
