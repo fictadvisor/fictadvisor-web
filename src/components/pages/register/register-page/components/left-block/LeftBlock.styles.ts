@@ -15,15 +15,6 @@ export const telegramConnected: SxProps<Theme> = {
   textAlign: 'center',
 };
 
-export const form: SxProps<Theme> = {
-  marginTop: '16px',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-};
-
 export const loginHeader: SxProps<Theme> = {
   marginTop: '36px',
   textAlign: 'center',

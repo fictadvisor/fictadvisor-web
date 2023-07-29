@@ -1,12 +1,15 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
+import { Box } from '@mui/material';
 import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
-import Button, { ButtonSize } from '@/components/common/ui/button';
-import { Checkbox, Input, InputType } from '@/components/common/ui/form';
+import Button from '@/components/common/ui/button-mui';
+import { ButtonSize } from '@/components/common/ui/button-mui/types';
+import { Input, InputType } from '@/components/common/ui/form';
+import Checkbox from '@/components/common/ui/form/checkbox';
 import { FieldSize } from '@/components/common/ui/form/common/types';
-import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
+import Dropdown from '@/components/common/ui/form/dropdown';
 import { RegisterFormFields } from '@/components/pages/register/register-page/components/register-form/types';
 import {
   transformData,
@@ -19,14 +22,18 @@ import AuthService from '@/lib/services/auth';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 import { initialValues } from './constants';
+import * as stylesMUI from './RegisterForm.styles';
 import { validationSchema } from './validation';
 
-import styles from '../left-block/LeftBlock.module.scss';
-
+import styles from './FormStyles.module.scss';
+import { dropdownContainer } from "./RegisterForm.styles";
 const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
   const toast = useToast();
-
+  const [group, setGroup] = useState('');
+  const onGroupChange = (group: string) => {
+    setGroup(group);
+  };
   const handleSubmit = useCallback(
     async (data: RegisterFormFields) => {
       try {
@@ -71,56 +78,46 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
       {({ isValid }) => (
         <Form className={styles['form']}>
           <Input
-            className={styles['login-input']}
             label="Юзернейм"
             placeholder="використовуй латиницю без пробілів"
             name="username"
           />
           <Input
-            className={styles['login-input']}
             label="Прізвище"
             placeholder="вводь справжнє прізвище для коректної інформації"
             name="lastName"
           />
           <Input
-            className={styles['login-input']}
             label="Ім'я"
             placeholder="вводь справжнє ім'я для коректної інформації"
             name="firstName"
           />
           <Input
-            className={styles['login-input']}
             label="По батькові"
             placeholder="вводь справжнє по батькові для коректної інформації"
             name="middleName"
           />
-          <Input
-            className={styles['login-input']}
-            label="Пошта"
-            placeholder="введи свою пошту"
-            name="email"
-          />
-          <div className={styles['one-line']}>
-            <FormikDropdown
+          <Input label="Пошта" placeholder="введи свою пошту" name="email" />
+          <Box sx={stylesMUI.dropdownContainer}>
+            <Dropdown
               size={FieldSize.LARGE}
               options={transformGroups(groups)}
               label="Група"
-              name="group"
               placeholder="вибери зі списку"
+              onChange={onGroupChange}
+              value={group}
             />
-            <div className={styles['checkbox-container']}>
+            <Box sx={stylesMUI.checkboxContainer}>
               <Checkbox label="Я староста" name="isCaptain" />
-            </div>
-          </div>
+            </Box>
+          </Box>
           <Input
-            className={styles['login-input']}
             label="Пароль"
             type={InputType.PASSWORD}
             placeholder="введи свій пароль"
             name="password"
           />
           <Input
-            className={styles['login-input']}
             label="Підтвердження пароля"
             type={InputType.PASSWORD}
             placeholder="підтверди свій пароль"
@@ -130,13 +127,12 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
             label={'Погоджуюсь на обробку персональних даних'}
             name={'agreement'}
           />
-
           <Button
             text="Зареєструватись"
             type="submit"
             size={ButtonSize.LARGE}
             disabled={!isValid}
-            className={styles['register-button']}
+            sx={stylesMUI.registerButton}
           />
         </Form>
       )}
