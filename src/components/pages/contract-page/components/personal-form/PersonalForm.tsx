@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import { Box, FormControlLabel, Typography } from '@mui/material';
 import { Field } from 'formik';
 
-import Divider from '@/components/common/ui/divider-mui';
-import { DividerTextAlign } from '@/components/common/ui/divider-mui/types';
+import Divider from '@/components/common/ui/divider';
+import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import FormikCheckbox from '@/components/common/ui/form/with-formik/checkbox';
@@ -18,9 +18,14 @@ import {
 } from '@/components/pages/contract-page/constants';
 import {
   entrantValidationSchema,
-  representativeValidationSchema,
+  metaValidationSchema,
+  representativeValidation,
 } from '@/components/pages/contract-page/validation';
-import { StudyFormParam, StudyTypeParam } from '@/types/contract';
+import {
+  PaymentTypeParam,
+  StudyFormParam,
+  StudyTypeParam,
+} from '@/types/contract';
 
 import * as stylesMui from '../../ContractPage.styles';
 
@@ -35,8 +40,8 @@ const PersonalForm: FC = () => {
     representativeRefusedCode: false,
     entrantHasOldPassport: false,
     representativeHasOldPassport: false,
+    // selectedStudyType: StudyTypeParam.BUDGET,
   });
-
   const {
     isAdult,
     entrantHasNoMiddleName,
@@ -47,6 +52,7 @@ const PersonalForm: FC = () => {
     representativeRefusedCode,
     entrantHasOldPassport,
     representativeHasOldPassport,
+    // selectedStudyType,
   } = state;
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +68,7 @@ const PersonalForm: FC = () => {
       onSubmit={() => {}}
       state={state}
     >
-      <FormikStep>
+      <FormikStep validationSchema={metaValidationSchema}>
         <Box sx={stylesMui.item}>
           <Typography variant="h6Bold">
             Форма навчання (бюджет/контракт)
@@ -103,6 +109,25 @@ const PersonalForm: FC = () => {
               {
                 value: '126',
                 label: '126 Інформаційні системи та технології',
+              },
+            ]}
+            component={FormikRadioGroup}
+          />
+        </Box>
+        <Box sx={stylesMui.item}>
+          <Typography variant="h6Bold">
+            Оплата(Щосеместрово/Щоквартально)
+          </Typography>
+          <Field
+            name="meta.paymentType"
+            options={[
+              {
+                value: PaymentTypeParam.EVERY_SEMESTER,
+                label: 'Щосеместрово',
+              },
+              {
+                value: PaymentTypeParam.EVERY_QUARTER,
+                label: 'Щоквартально',
               },
             ]}
             component={FormikRadioGroup}
@@ -196,15 +221,17 @@ const PersonalForm: FC = () => {
             disabled={entrantHasOldPassport}
             onChange={handleCheck}
           />
-          <Input
-            name="entrant.passportSeries"
-            label="Серія паспорту представника"
-            disabled={!entrantHasForeignPassport && !entrantHasOldPassport}
-          />
-          <Input
-            name="entrant.passportNumber"
-            label={`Номер паспорту вступника`}
-          />
+          <Box sx={{ gap: '24px' }}>
+            <Input
+              name="entrant.passportSeries"
+              label="Серія паспорту вступника"
+              disabled={!entrantHasForeignPassport && !entrantHasOldPassport}
+            />
+            <Input
+              name="entrant.passportNumber"
+              label={`Номер паспорту вступника`}
+            />
+          </Box>
         </Box>
         <Box sx={stylesMui.item}>
           <Input
@@ -279,7 +306,9 @@ const PersonalForm: FC = () => {
         </Box>
       </FormikStep>
 
-      <FormikStep validationSchema={representativeValidationSchema}>
+      <FormikStep
+        validationSchema={isAdult ? undefined : representativeValidation}
+      >
         <Box sx={stylesMui.item}>
           <Divider
             textAlign={DividerTextAlign.LEFT}

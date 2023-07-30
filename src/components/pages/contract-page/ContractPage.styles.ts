@@ -34,6 +34,6 @@ export const item: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   gap: '12px',
-  marginBottom: '40px',
+  marginBottom: '24px',
   width: { tablet: '480px', mobile: '100%' },
 };

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Box } from '@mui/material';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
@@ -5,7 +6,7 @@ import PersonalForm from '@/components/pages/contract-page/components/personal-f
 
 import * as styles from './ContractPage.styles';
 
-const ContractPage = () => {
+const ContractPage: FC = () => {
   return (
     <Box sx={styles.page}>
       <Breadcrumbs

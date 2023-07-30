@@ -1,20 +1,27 @@
 import * as yup from 'yup';
-
-export const representativeValidationSchema = yup.object().shape({
-  representative: yup.object().shape({
-    lastName: yup.string().when('isAdult', {
-      is: true,
-      then: schema =>
-        schema
-          .required(`Обов'язкове поле`)
-          .min(2, 'Не коротше 2 символів')
-          .max(40, 'Не довше 40 символів')
-          .matches(
-            /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя\-`ʼ' ]+$/,
-            'Має містити українські літери, апостроф або дефіс',
-          ),
+export const metaValidationSchema = yup.object().shape({
+  meta: yup.object().shape({
+    speciality: yup.string().required(`Обов'язкове поле`),
+    studyType: yup.string().required(`Обов'язкове поле`),
+    studyForm: yup.string().required(`Обов'язкове поле`),
+    paymentType: yup.string().when('studyType', {
+      is: 'Контракт',
+      then: schema => schema.required(`Обов'язкове поле`),
       otherwise: schema => schema.optional(),
     }),
+  }),
+});
+export const representativeValidation = yup.object().shape({
+  representative: yup.object().shape({
+    lastName: yup
+      .string()
+      .required(`Обов'язкове поле`)
+      .min(2, 'Не коротше 2 символів')
+      .max(40, 'Не довше 40 символів')
+      .matches(
+        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя\-`ʼ' ]+$/,
+        'Має містити українські літери, апостроф або дефіс',
+      ),
     firstName: yup
       .string()
       .required(`Обов'язкове поле`)
@@ -24,6 +31,7 @@ export const representativeValidationSchema = yup.object().shape({
         /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя\-`ʼ' ]+$/,
         'Має містити українські літери, апостроф або дефіс',
       ),
+
     middleName: yup
       .string()
       .min(2, 'Не коротше 2 символів')

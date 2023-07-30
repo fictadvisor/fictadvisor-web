@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormControlLabel, RadioGroup } from '@mui/material';
 
-import { FieldState } from '@/components/common/ui/form/common/types';
 import FormikRadio from '@/components/common/ui/form/with-formik/radio/FormikRadio';
 
 interface GroupOption {
   value: string;
   label: string;
+  disabled?: boolean;
 }
 
 interface FormikRadioGroup {
@@ -22,7 +22,7 @@ const FormikRadioGroup = ({ field, options, ...props }: FormikRadioGroup) => {
         <FormControlLabel
           key={option.label}
           value={option.value}
-          control={<FormikRadio />}
+          control={<FormikRadio disabled={option.disabled} />}
           label={option.label}
           sx={{ gap: '8px', margin: '0', width: 'fit-content' }}
         />

@@ -14,6 +14,9 @@ export const optionalFieldsPrepare = (
     representativeHasOldPassport: boolean;
   },
 ) => {
+  if (values.meta.studyType === 'Бюджет') {
+    values.meta['paymentType'] = '';
+  }
   if (state.isAdult) {
     Object.keys(values.representative).forEach(key => {
       values.representative[key] = '';

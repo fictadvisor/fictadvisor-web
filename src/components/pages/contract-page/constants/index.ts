@@ -68,7 +68,7 @@ export const initialValues: ContractBody = {
   meta: {
     studyType: '',
     studyForm: '',
-    paymentType: undefined,
+    paymentType: '',
     speciality: '',
     isToAdmission: false,
   },
