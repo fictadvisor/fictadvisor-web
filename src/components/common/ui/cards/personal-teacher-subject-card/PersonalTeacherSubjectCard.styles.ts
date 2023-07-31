@@ -7,7 +7,7 @@ export const card: SxProps<Theme> = {
   width: '100%',
   gridTemplateRows: {
     mobile: 'auto 1fr auto auto auto',
-    desktopSemiMedium: 'auto 1fr auto auto auto',
+    desktopSemiMedium: 'auto 1fr 1fr auto auto',
   },
   gridTemplateColumns: {
     mobile: '80px 1fr',
@@ -32,7 +32,7 @@ export const photo: SxProps<Theme> = {
   },
   width: 'fit-content',
   paddingRight: {
-    mobile: '8px',
+    mobile: '12px',
     mobileMedium: '32px',
   },
 };
@@ -43,14 +43,10 @@ export const image: SxProps<Theme> = {
     mobileMedium: '140px',
     desktopSemiMedium: '200px',
   },
-  '& img': {
-    borderRadius: '50%',
-    width: '100%',
-  },
+  borderRadius: '50%',
 };
 
 export const nameAndRating = {
-  outlineColor: '#1C6B1C',
   display: 'flex',
   minWidth: 'unset',
   width: {
@@ -67,9 +63,9 @@ export const nameAndRating = {
   flexDirection: 'column',
   alignItems: 'flex-start',
   overflowWrap: 'anywhere',
-  padding: {
+  paddingRight: {
     mobile: '1px',
-    desktopSemiMedium: '0 26px 42px 0',
+    desktopSemiMedium: '42px',
   },
   gap: {
     mobile: '2px',
@@ -82,24 +78,6 @@ export const name: SxProps<Theme> = {
     mobile: 'buttonBold',
     mobileMedium: 'h4Medium',
   },
-};
-
-export const subject: SxProps<Theme> = {
-  display: 'flex',
-  minWidth: 'unset',
-  width: '100%',
-  gridColumnStart: 2,
-  gridColumnEnd: 3,
-  gridRowStart: 2,
-  gridRowEnd: 3,
-  flexDirection: 'column',
-  paddingRight: '42px',
-  paddingBottom: '18px',
-  paddingTop: '21px',
-};
-
-export const subjectName: SxProps<Theme> = {
-  typography: 'h5Bold',
 };
 
 export const tags: SxProps<Theme> = {
@@ -122,14 +100,39 @@ export const tags: SxProps<Theme> = {
     desktopSemiMedium: '100%',
   },
   padding: {
-    mobile: '14px 0 8px 0',
+    mobile: '8px 0 8px 0',
     mobileMedium: '14px 0 0 0',
     desktopSemiMedium: '0 42px 26px 0',
   },
 };
 
-export const tagsText: SxProps<Theme> = {
+export const tag: SxProps<Theme> = {
   typography: 'body1',
+};
+
+export const subject: SxProps<Theme> = {
+  display: 'flex',
+  minWidth: 'unset',
+  width: '100%',
+  gridColumnStart: {
+    mobile: 1,
+    mobileMedium: 2,
+  },
+  gridColumnEnd: 3,
+  gridRowStart: 2,
+  gridRowEnd: 3,
+  flexDirection: 'column',
+  padding: {
+    mobile: '16px 42px 0 0',
+    desktopSemiMedium: '16px 42px 16px 0',
+  },
+};
+
+export const subjectName: SxProps<Theme> = {
+  typography: {
+    mobile: 'body2Bold',
+    desktopSemiMedium: 'h5Bold',
+  },
 };
 
 export const contactsButton: SxProps<Theme> = {
@@ -138,9 +141,11 @@ export const contactsButton: SxProps<Theme> = {
   gridRowStart: 4,
   gridRowEnd: 5,
   button: {
-    color: 'grey.600',
+    color: 'grey.800',
     width: 'fit-content',
-    paddingLeft: '2px',
+    paddingTop: 0,
+    paddingLeft: 0,
+    typography: 'body1Medium',
     display: {
       mobile: 'flex',
       desktopSemiMedium: 'none',
@@ -165,7 +170,7 @@ export const contacts = (status: string) => ({
   flexDirection: 'column',
   gap: '16px',
   gridColumnStart: 3,
-  gridColumnEnd: 4,
+  gridColumnEnd: 3,
   gridRowStart: 1,
   ...(status === 'hidden' && {
     position: 'relative',
@@ -187,7 +192,13 @@ export const contacts = (status: string) => ({
       desktopSemiMedium: '42px',
     },
     borderRight: 'unset',
-    gridRowEnd: 5,
+    gridColumnStart: 1,
+    gridColumnEnd: 4,
+    gridRowStart: 5,
+    gridRowEnd: {
+      mobile: 6,
+      desktopSemiMedium: 4,
+    },
     border: {
       mobile: 'unset',
       mobileMedium: 'none',

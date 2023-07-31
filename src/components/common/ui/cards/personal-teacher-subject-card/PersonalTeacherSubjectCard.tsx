@@ -36,6 +36,7 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
         setFloatingCardShowed(false);
       }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -45,9 +46,7 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
   return (
     <Box ref={blockRef} sx={styles.card}>
       <Box sx={styles.photo}>
-        <Box sx={styles.image}>
-          <img src={avatar} alt="photo" />
-        </Box>
+        <Box component="img" sx={styles.image} src={avatar} alt="photo" />
       </Box>
       <Box sx={styles.nameAndRating}>
         <Typography variant="h4" sx={styles.name}>
@@ -60,10 +59,11 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
           {subject.name}
         </Typography>
       </Box>
+
       <Box sx={styles.tags}>
         {roles.includes(TeacherRole.LECTURER) && (
           <Tag
-            sx={styles.tagsText}
+            sx={styles.tag}
             color={TagColor.INDIGO}
             size={TagSize.SMALL}
             text="Лекції"
@@ -72,7 +72,7 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
 
         {roles.includes(TeacherRole.PRACTICIAN) && (
           <Tag
-            sx={styles.tagsText}
+            sx={styles.tag}
             color={TagColor.ORANGE}
             size={TagSize.SMALL}
             text="Практики"
@@ -81,7 +81,7 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
 
         {roles.includes(TeacherRole.LABORANT) && (
           <Tag
-            sx={styles.tagsText}
+            sx={styles.tag}
             color={TagColor.MINT}
             size={TagSize.SMALL}
             text="Лабораторні"
@@ -99,20 +99,20 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
             variant={ButtonVariant.TEXT}
             onClick={() => setContactsVisibility(!isContactsVisible)}
           />
-
-          <Box sx={styles.contacts(isContactsVisible ? `shown` : `hidden`)}>
-            {contacts.map((contact, index) => (
-              <Box key={index} sx={styles.contactsItem}>
-                <Contact
-                  name={contact.name}
-                  displayName={contact.displayName}
-                  link={contact.link}
-                />
-              </Box>
-            ))}
-          </Box>
         </Box>
       )}
+
+      <Box sx={styles.contacts(isContactsVisible ? `shown` : `hidden`)}>
+        {contacts.map((contact, index) => (
+          <Box key={index} sx={styles.contactsItem}>
+            <Contact
+              name={contact.name}
+              displayName={contact.displayName}
+              link={contact.link}
+            />
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 };
