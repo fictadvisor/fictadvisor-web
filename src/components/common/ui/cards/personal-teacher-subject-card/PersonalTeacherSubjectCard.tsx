@@ -9,7 +9,7 @@ import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
 import { teacherSubjectContext } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
 import { TeacherRole, TeacherWithSubject } from '@/types/teacher';
 
-import Contact from '../contacts/Contact';
+import Contact from '../../../../pages/personal-teacher-subject-page/contacts/Contact';
 
 import * as styles from './PersonalTeacherSubjectCard.styles';
 
