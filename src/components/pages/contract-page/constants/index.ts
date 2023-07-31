@@ -1,8 +1,5 @@
-import { FormikValues } from 'formik';
-import { boolean } from 'yup';
-
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
-import { ContractBody } from '@/lib/api/contract/types/ContractBody';
+import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
 
 export const REGIONS: DropDownOption[] = [
   { label: 'Київська обл.', id: 'Київська обл.' },
@@ -32,7 +29,7 @@ export const REGIONS: DropDownOption[] = [
   { label: 'Чернігівська обл.', id: 'Чернігівська обл.' },
 ];
 
-export const initialValues: ContractBody = {
+export const initialValues: ExtendedContractBody = {
   entrant: {
     firstName: '',
     middleName: undefined,
@@ -71,5 +68,20 @@ export const initialValues: ContractBody = {
     paymentType: '',
     speciality: '',
     isToAdmission: false,
+  },
+  helper: {
+    entrantHasForeignPassport: false,
+    entrantHasOldPassport: false,
+    entrantHasNoCode: true,
+    entrantHasNoMiddleName: false,
+
+    isAdult: false,
+
+    secretNumber: '',
+
+    representativeHasForeignPassport: false,
+    representativeHasOldPassport: false,
+    representativeHasNoCode: true,
+    representativeHasNoMiddleName: false,
   },
 };

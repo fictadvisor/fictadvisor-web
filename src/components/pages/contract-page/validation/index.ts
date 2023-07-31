@@ -1,4 +1,7 @@
 import * as yup from 'yup';
+
+import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
+const secretString = /^1234$/;
 export const metaValidationSchema = yup.object().shape({
   meta: yup.object().shape({
     speciality: yup.string().required(`Обов'язкове поле`),
@@ -12,6 +15,9 @@ export const metaValidationSchema = yup.object().shape({
   }),
 });
 export const representativeValidation = yup.object().shape({
+  meta: yup.object().shape({
+    isToAdmission: yup.boolean(),
+  }),
   representative: yup.object().shape({
     lastName: yup
       .string()
@@ -54,7 +60,7 @@ export const representativeValidation = yup.object().shape({
     passportSeries: yup
       .string()
       .optional()
-      .matches(/^[A-Z]{2}$/, 'Має бути 2 великі латинські літери'),
+      .matches(/^[А-Я]{2}$/, 'Має бути 2 великі кириличні літери'),
     passportNumber: yup
       .number()
       .required(`Обов'язкове поле`)
@@ -93,9 +99,29 @@ export const representativeValidation = yup.object().shape({
       .max(5, 'Лише 5 цифр')
       .matches(/(\d{5})/, 'Лише 5 цифр'),
   }),
+  helper: yup.object().shape({
+    secretNumber: yup
+      .string()
+      .test(
+        'validSecretNumber',
+        'Зверніться до адміністратора',
+        function (value, context) {
+          const data = (
+            context.from as { schema: never; value: ExtendedContractBody }[]
+          )[1].value;
+
+          if (data.meta.isToAdmission) return !!value?.match(secretString);
+
+          return true;
+        },
+      ),
+  }),
 });
 
 export const entrantValidationSchema = yup.object().shape({
+  meta: yup.object().shape({
+    isToAdmission: yup.boolean(),
+  }),
   entrant: yup.object().shape({
     lastName: yup
       .string()
@@ -137,7 +163,7 @@ export const entrantValidationSchema = yup.object().shape({
     passportSeries: yup
       .string()
       .optional()
-      .matches(/^[A-Z]{2}$/, 'Має бути 2 великі латинські літери'),
+      .matches(/^[А-Я]{2}$/, 'Має бути 2 великі кириличні літери'),
     passportNumber: yup
       .number()
       .required(`Обов'язкове поле`)
@@ -175,5 +201,24 @@ export const entrantValidationSchema = yup.object().shape({
       .required(`Обов'язкове поле`)
       .max(5, 'Лише 5 цифр')
       .matches(/(\d{5})/, 'Лише 5 цифр'),
+  }),
+  helper: yup.object().shape({
+    isAdult: yup.boolean(),
+    secretNumber: yup
+      .string()
+      .test(
+        'validSecretNumber',
+        'Зверніться до адміністратора',
+        function (value, context) {
+          const data = (
+            context.from as { schema: never; value: ExtendedContractBody }[]
+          )[1].value;
+
+          if (context.parent.isAdult && data.meta.isToAdmission)
+            return !!value?.match(secretString);
+
+          return true;
+        },
+      ),
   }),
 });
