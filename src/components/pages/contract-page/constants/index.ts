@@ -1,6 +1,3 @@
-import { FormikValues } from 'formik';
-import { boolean } from 'yup';
-
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 import { ContractBody } from '@/lib/api/contract/types/ContractBody';
 
@@ -71,5 +68,15 @@ export const initialValues: ContractBody = {
     paymentType: '',
     speciality: '',
     isToAdmission: false,
+  },
+  helper: {
+    isAdult: false,
+    hasNoMiddleName: false,
+    representativeHasNoMiddleName: false,
+    entrantHasNoMiddleName: false,
+    representativeHasNoCode: false,
+    entrantHasNoCode: false,
+    entrantHasForeignPassport: false,
+    entrantHasOldPassport: false,
   },
 };

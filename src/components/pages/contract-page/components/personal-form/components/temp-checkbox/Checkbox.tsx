@@ -37,7 +37,7 @@ const Checkbox: FC<CheckboxProps> = ({
   color = CheckboxColor.PRIMARY,
   textType = CheckboxTextType.BODY1,
 }) => {
-  const [field, { touched, error }] = useField(name);
+  const [field, { touched, error }, {}] = useField(name);
   const checkboxColor = touched && error ? CheckboxColor.ERROR : color;
 
   return (

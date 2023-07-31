@@ -23,8 +23,19 @@ interface MetaContract {
   isToAdmission: boolean;
 }
 
+export interface HelperData {
+  entrantHasForeignPassport: boolean;
+  entrantHasOldPassport: boolean;
+  isAdult: boolean;
+  hasNoMiddleName: boolean;
+  representativeHasNoMiddleName: boolean;
+  entrantHasNoMiddleName: boolean;
+  representativeHasNoCode: boolean;
+  entrantHasNoCode: boolean;
+}
 export interface ContractBody {
   entrant: PersonalData;
-  representative?: PersonalData;
+  representative: PersonalData;
   meta: MetaContract;
+  helper: HelperData;
 }

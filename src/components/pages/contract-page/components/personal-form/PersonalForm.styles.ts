@@ -1,8 +1,6 @@
-import { SxProps, Theme } from '@mui/material/styles';
+import { SxProps } from '@mui/material/styles';
+import { Theme } from '@mui/system';
 
-export const button: SxProps<Theme> = {
-  maxWidth: '240px',
-};
 export const formWrapper: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
@@ -14,4 +12,7 @@ export const buttonPanel: SxProps<Theme> = {
   justifyContent: 'center',
   alignItems: 'center',
   gap: '40px',
+};
+export const button: SxProps<Theme> = {
+  maxWidth: '240px',
 };
