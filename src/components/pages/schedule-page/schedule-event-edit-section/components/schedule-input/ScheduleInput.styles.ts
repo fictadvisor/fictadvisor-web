@@ -14,11 +14,6 @@ export const input = (size: ScheduleInputSize): SxProps<Theme> => ({
     '&.Mui-disabled': {
       '-webkit-text-fill-color': 'unset',
       opacity: 0.3,
-      svg: {
-        fill: 'red',
-        '-webkit-text-fill-color': 'unset',
-        opacity: 0.3,
-      },
     },
   },
   '& .Mui-disabled': {
