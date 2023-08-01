@@ -39,3 +39,12 @@ export interface ContractBody {
   meta: MetaContract;
   helper: HelperData;
 }
+
+export interface AdminContractData {
+  contractNumber: string;
+  contractDate: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  speciality: string;
+}

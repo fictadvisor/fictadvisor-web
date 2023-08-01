@@ -7,11 +7,12 @@ import Button from '@/components/common/ui/button-mui';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
+import contractAPI from '@/lib/api/contract/ContractAPI';
 
 import { initialValues } from './constants/index';
 import * as styles from './ContractAdminPage.styles';
 
-interface FormData {
+interface AdminContractData {
   contractNumber: string;
   contractDate: string;
   firstName: string;
@@ -22,10 +23,10 @@ interface FormData {
 
 const ContractAdminPage = () => {
   const handleSubmit = (
-    values: FormData,
-    { resetForm }: FormikHelpers<FormData>,
+    values: AdminContractData,
+    { resetForm }: FormikHelpers<AdminContractData>,
   ) => {
-    console.log(values);
+    contractAPI.createAdminContract(values);
     resetForm();
   };
 
