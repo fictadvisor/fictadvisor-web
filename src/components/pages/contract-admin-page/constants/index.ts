@@ -4,8 +4,7 @@ export const initialValues = {
     contractDate: '',
     firstName: '',
     lastName: '',
-    middleName: undefined,
+    middleName: '',
     speciality: '',
-    grade: '',
   },
 };
