@@ -40,11 +40,19 @@ export interface ContractBody {
   helper: HelperData;
 }
 
-export interface AdminContractData {
-  contractNumber: string;
-  contractDate: string;
+interface PersonalAdminData {
   firstName: string;
-  lastName: string;
   middleName: string;
-  speciality: string;
+  lastName: string;
+  specialty: string;
+}
+
+interface ContractAdminData {
+  number: string;
+  date: string;
+}
+
+export interface AdminContractData {
+  entrant: PersonalAdminData;
+  contract: ContractAdminData;
 }

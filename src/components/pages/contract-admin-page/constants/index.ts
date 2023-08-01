@@ -1,8 +1,12 @@
 export const initialValues = {
-  contractNumber: '',
-  contractDate: '',
-  firstName: '',
-  lastName: '',
-  middleName: '',
-  speciality: '',
+  entrant: {
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    specialty: '',
+  },
+  contract: {
+    number: '',
+    date: '',
+  },
 };
