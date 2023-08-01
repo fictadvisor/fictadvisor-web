@@ -28,7 +28,7 @@ const ContractAdminPage = () => {
         ]}
       />
       <Formik initialValues={data} onSubmit={handleSubmit}>
-        {() => (
+        {({ resetForm }) => (
           <Form>
             <Box sx={styles.form}>
               <Box sx={styles.item}>
@@ -56,9 +56,13 @@ const ContractAdminPage = () => {
                 <Input name="input.lastName" placeholder="Ім'я" />
                 <Input name="input.middleName" placeholder="По батькові" />
                 <Input name="input.speciality" placeholder="Спеціальність" />
-                <Input name="input.grade" placeholder="Конкурсний бал" />
               </Box>
-              <Button sx={styles.button} text="Відправити" type="submit" />
+              <Button
+                sx={styles.button}
+                text="Відправити"
+                type="submit"
+                onClick={() => resetForm()}
+              />
             </Box>
           </Form>
         )}
