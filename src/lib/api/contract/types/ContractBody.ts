@@ -44,7 +44,6 @@ interface PersonalAdminData {
   firstName: string;
   middleName: string;
   lastName: string;
-  specialty: string;
 }
 
 interface ContractAdminData {
