@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import { Form, Formik, FormikHelpers } from 'formik';
 
@@ -8,18 +8,10 @@ import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
 import contractAPI from '@/lib/api/contract/ContractAPI';
+import { AdminContractData } from '@/lib/api/contract/types/ContractBody';
 
 import { initialValues } from './constants/index';
 import * as styles from './ContractAdminPage.styles';
-
-interface AdminContractData {
-  contractNumber: string;
-  contractDate: string;
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  speciality: string;
-}
 
 const ContractAdminPage = () => {
   const handleSubmit = (
@@ -30,8 +22,6 @@ const ContractAdminPage = () => {
     resetForm();
   };
 
-  const [data, setData] = useState(initialValues);
-
   return (
     <Box sx={styles.page}>
       <Breadcrumbs
@@ -41,7 +31,7 @@ const ContractAdminPage = () => {
           { label: 'Договір про навчання', href: '/contract-admin' },
         ]}
       />
-      <Formik initialValues={data} onSubmit={handleSubmit}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
             <Box sx={styles.form}>
@@ -51,8 +41,8 @@ const ContractAdminPage = () => {
                   textAlign={DividerTextAlign.LEFT}
                   text="Деталі договору"
                 />
-                <Input name="contractNumber" placeholder="Номер договору" />
-                <Input name="contractDate" placeholder="Дата заповнення" />
+                <Input name="contract.number" placeholder="Номер договору" />
+                <Input name="contract.date" placeholder="Дата заповнення" />
               </Box>
               <Box sx={styles.item}>
                 <Divider
@@ -60,10 +50,10 @@ const ContractAdminPage = () => {
                   textAlign={DividerTextAlign.LEFT}
                   text="Дані вступника"
                 />
-                <Input name="firstName" placeholder="Прізвище" />
-                <Input name="lastName" placeholder="Ім'я" />
-                <Input name="middleName" placeholder="По батькові" />
-                <Input name="speciality" placeholder="Спеціальність" />
+                <Input name="entrant.firstName" placeholder="Прізвище" />
+                <Input name="entrant.lastName" placeholder="Ім'я" />
+                <Input name="entrant.middleName" placeholder="По батькові" />
+                <Input name="entrant.specialty" placeholder="Спеціальність" />
               </Box>
               <Button sx={styles.button} text="Відправити" type="submit" />
             </Box>

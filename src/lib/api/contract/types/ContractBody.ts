@@ -48,13 +48,21 @@ export interface ExtendedContractBody {
   helper: HelperData;
 }
 
-export type ContractBody = Omit<ExtendedContractBody, 'helper'>;
+interface PersonalAdminData {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  specialty: string;
+}
+
+interface ContractAdminData {
+  number: string;
+  date: string;
+}
 
 export interface AdminContractData {
-  contractNumber: string;
-  contractDate: string;
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  speciality: string;
+  entrant: PersonalAdminData;
+  contract: ContractAdminData;
 }
+
+export type ContractBody = Omit<ExtendedContractBody, 'helper'>;
