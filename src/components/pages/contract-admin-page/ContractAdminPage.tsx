@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Button from '@/components/common/ui/button-mui';
@@ -11,9 +11,22 @@ import { Input } from '@/components/common/ui/form';
 import { initialValues } from './constants/index';
 import * as styles from './ContractAdminPage.styles';
 
+interface FormData {
+  contractNumber: string;
+  contractDate: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  speciality: string;
+}
+
 const ContractAdminPage = () => {
-  const handleSubmit = (values: object) => {
+  const handleSubmit = (
+    values: FormData,
+    { resetForm }: FormikHelpers<FormData>,
+  ) => {
     console.log(values);
+    resetForm();
   };
 
   const [data, setData] = useState(initialValues);
@@ -28,7 +41,7 @@ const ContractAdminPage = () => {
         ]}
       />
       <Formik initialValues={data} onSubmit={handleSubmit}>
-        {({ resetForm }) => (
+        {() => (
           <Form>
             <Box sx={styles.form}>
               <Box sx={styles.item}>
@@ -37,14 +50,8 @@ const ContractAdminPage = () => {
                   textAlign={DividerTextAlign.LEFT}
                   text="Деталі договору"
                 />
-                <Input
-                  name="input.contractNumber"
-                  placeholder="Номер договору"
-                />
-                <Input
-                  name="input.contractDate"
-                  placeholder="Дата заповнення"
-                />
+                <Input name="contractNumber" placeholder="Номер договору" />
+                <Input name="contractDate" placeholder="Дата заповнення" />
               </Box>
               <Box sx={styles.item}>
                 <Divider
@@ -52,17 +59,12 @@ const ContractAdminPage = () => {
                   textAlign={DividerTextAlign.LEFT}
                   text="Дані вступника"
                 />
-                <Input name="input.firstName" placeholder="Прізвище" />
-                <Input name="input.lastName" placeholder="Ім'я" />
-                <Input name="input.middleName" placeholder="По батькові" />
-                <Input name="input.speciality" placeholder="Спеціальність" />
+                <Input name="firstName" placeholder="Прізвище" />
+                <Input name="lastName" placeholder="Ім'я" />
+                <Input name="middleName" placeholder="По батькові" />
+                <Input name="speciality" placeholder="Спеціальність" />
               </Box>
-              <Button
-                sx={styles.button}
-                text="Відправити"
-                type="submit"
-                onClick={() => resetForm()}
-              />
+              <Button sx={styles.button} text="Відправити" type="submit" />
             </Box>
           </Form>
         )}
