@@ -8,6 +8,7 @@ import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
 import { validationSchema } from '@/components/pages/contract-admin-page/validation';
+import useToast from '@/hooks/use-toast';
 import contractAPI from '@/lib/api/contract/ContractAPI';
 import { AdminContractData } from '@/lib/api/contract/types/ContractBody';
 
@@ -15,11 +16,11 @@ import { initialValues } from './constants/index';
 import * as styles from './ContractAdminPage.styles';
 
 const ContractAdminPage = () => {
-  const handleSubmit = (
+  const handleSubmit = async (
     values: AdminContractData,
     { resetForm }: FormikHelpers<AdminContractData>,
   ) => {
-    contractAPI.createAdminContract(values);
+    await contractAPI.createAdminContract(values);
     resetForm();
   };
 
