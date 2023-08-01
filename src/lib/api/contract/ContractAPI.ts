@@ -6,6 +6,10 @@ class ContractAPI {
     const { data } = await client.post('/documents/contract', body);
     return data;
   }
+  async createAdminContract(body: ContractBody) {
+    const { data } = await client.post('/entrants/contract', body);
+    return data;
+  }
 }
 
 export default new ContractAPI();
