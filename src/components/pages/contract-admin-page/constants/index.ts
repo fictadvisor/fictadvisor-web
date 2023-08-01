@@ -3,7 +3,6 @@ export const initialValues = {
     firstName: '',
     middleName: '',
     lastName: '',
-    specialty: '',
   },
   contract: {
     number: '',

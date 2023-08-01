@@ -7,6 +7,7 @@ import Button from '@/components/common/ui/button-mui';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
+import { validationSchema } from '@/components/pages/contract-admin-page/validation';
 import contractAPI from '@/lib/api/contract/ContractAPI';
 import { AdminContractData } from '@/lib/api/contract/types/ContractBody';
 
@@ -31,7 +32,11 @@ const ContractAdminPage = () => {
           { label: 'Договір про навчання', href: '/contract-admin' },
         ]}
       />
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
         {() => (
           <Form>
             <Box sx={styles.form}>
@@ -53,7 +58,6 @@ const ContractAdminPage = () => {
                 <Input name="entrant.firstName" placeholder="Прізвище" />
                 <Input name="entrant.lastName" placeholder="Ім'я" />
                 <Input name="entrant.middleName" placeholder="По батькові" />
-                <Input name="entrant.specialty" placeholder="Спеціальність" />
               </Box>
               <Button sx={styles.button} text="Відправити" type="submit" />
             </Box>
