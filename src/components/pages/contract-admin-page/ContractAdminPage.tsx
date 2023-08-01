@@ -19,14 +19,6 @@ import * as styles from './ContractAdminPage.styles';
 
 const TOAST_TIMER = 4000;
 
-interface ErrorType {
-  response: {
-    data: {
-      error: string;
-    };
-  };
-}
-
 const ContractAdminPage = () => {
   const toast = useToast();
   const handleSubmit = async (
