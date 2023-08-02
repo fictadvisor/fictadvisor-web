@@ -15,28 +15,34 @@ export const initialValues: PriorityData = {
     3: '',
   },
 };
-
+enum EducationProgram {
+  CSSE = 'CSSE',
+  ISSE = 'ISSE',
+  IIS = 'IIS',
+  ISRS = 'ISRS',
+  IMST = 'IMST',
+}
 export const IPeduPrograms: DropDownOption[] = [
   {
     label: "Інженерія програмного забезпечення комп'ютерних систем",
-    id: 'one',
+    id: EducationProgram.CSSE,
   },
   {
     label: 'Інженерія програмного забезпечення інформаційних систем',
-    id: 'two',
+    id: EducationProgram.ISSE,
   },
 ];
 export const ISTeduPrograms: DropDownOption[] = [
   {
     label: 'Інформаційне забезпечення робототехнічних систем',
-    id: 'one',
+    id: EducationProgram.ISRS,
   },
   {
     label: 'Інтегровані інформаційні системи',
-    id: 'two',
+    id: EducationProgram.IIS,
   },
   {
     label: 'Інформаційні управляючі системи та технології',
-    id: 'third',
+    id: EducationProgram.IMST,
   },
 ];

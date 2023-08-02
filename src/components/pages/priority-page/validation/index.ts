@@ -28,10 +28,14 @@ export const validationSchema = yup.object().shape({
       'Має містити українські літери, апостроф або дефіс',
     ),
   specialty: yup.string().required("Обов'зкове поле"),
-  email: yup
-    .string()
-    .required(`Обов'язкове поле`)
-    .email('Це не схоже на поштову адресу'),
+  email: yup.string().when('isToAdmission', {
+    is: false,
+    then: schema =>
+      schema
+        .email('Це не схоже на поштову адресу')
+        .required(`Обов'язкове поле`),
+    otherwise: schema => schema.optional(),
+  }),
   day: yup
     .string()
     .required(`Обов'язкове поле`)

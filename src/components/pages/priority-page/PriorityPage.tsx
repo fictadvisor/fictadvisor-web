@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 
@@ -22,6 +22,7 @@ import ContractAPI from '@/lib/api/contract/ContractAPI';
 import { PriorityData } from '@/lib/api/contract/types/ContractBody';
 
 const PriorityPage: FC = () => {
+  const [submited, setSubmited] = useState(false);
   return (
     <Formik
       initialValues={initialValues}
@@ -29,7 +30,8 @@ const PriorityPage: FC = () => {
       onSubmit={(values: PriorityData) => {
         preparePriorityData(values);
         console.log(values);
-        ContractAPI.createPriority(values);
+        // ContractAPI.createPriority(values);
+        setSubmited(true);
       }}
     >
       {({ values, isValid, isSubmitting }) => (
@@ -99,7 +101,6 @@ const PriorityPage: FC = () => {
               </Box>
             )}
           </Box>
-
           <Box sx={{ gap: '24px' }}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
@@ -128,7 +129,6 @@ const PriorityPage: FC = () => {
                 label="Електронна пошта вступника"
               />
             )}
-
             <Button
               text="Підтвердити вибір"
               type="submit"
