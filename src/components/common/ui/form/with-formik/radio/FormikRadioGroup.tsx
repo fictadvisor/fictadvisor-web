@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { FC, useEffect } from 'react';
 import { FormControlLabel, RadioGroup } from '@mui/material';
+import { RadioGroupProps } from '@mui/material/RadioGroup/RadioGroup';
+import { useField } from 'formik';
 
 import FormikRadio from '@/components/common/ui/form/with-formik/radio/FormikRadio';
 
@@ -9,15 +11,35 @@ interface GroupOption {
   disabled?: boolean;
 }
 
-interface FormikRadioGroup {
+interface FormikRadioGroup extends RadioGroupProps {
   options: GroupOption[];
-  field: { name: string };
+  name: string;
+  //kostili ebani
+  clearValueOnUnmount?: boolean;
 }
 
-const FormikRadioGroup = ({ field, options, ...props }: FormikRadioGroup) => {
-  const name = field.name;
+const FormikRadioGroup: FC<FormikRadioGroup> = ({
+  options,
+  name,
+  clearValueOnUnmount = false,
+  ...props
+}: FormikRadioGroup) => {
+  const [field, , helpers] = useField(name);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', () => {});
+
+    // returned function will be called on component unmount
+    return () => {
+      window.removeEventListener('mousemove', () => {});
+      if (clearValueOnUnmount) {
+        helpers.setValue('');
+      }
+    };
+  }, []);
+
   return (
-    <RadioGroup {...field} {...props} name={field.name} sx={{ gap: '12px' }}>
+    <RadioGroup {...field} {...props} sx={{ gap: '12px' }}>
       {options.map(option => (
         <FormControlLabel
           key={option.label}

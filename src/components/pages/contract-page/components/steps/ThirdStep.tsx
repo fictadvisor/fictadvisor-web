@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikProps } from 'formik';
 
 import Divider from '@/components/common/ui/divider';
@@ -42,24 +42,20 @@ export const ThirdStep: FC<ThirdStepProps> = ({
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
-              text="Особисті дані"
+              text="Особисті дані представника"
               sx={stylesMui.divider}
             />
             <Input
               name="representative.lastName"
               placeholder="Шевченко"
-              label="Прізвище представника"
-              //TODO:figure out how to replace with values
-              //disabled={isAdult}
+              label="Прізвище"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="representative.firstName"
               placeholder="Тарас"
-              label="Ім’я представника"
-              //TODO:figure out how to replace with values
-              //disabled={isAdult}
+              label="Ім’я"
             />
           </Box>
           <Box sx={stylesMui.item}>
@@ -73,14 +69,14 @@ export const ThirdStep: FC<ThirdStepProps> = ({
                 disabled={true}
                 resetOnDisabled
                 placeholder={'Григорович'}
-                label={`По-батькові вступника`}
+                label={`По-батькові`}
               />
             ) : (
               <Input
                 name="representative.middleName"
                 disabled={false}
                 placeholder={'Григорович'}
-                label={`По-батькові вступника`}
+                label={`По-батькові`}
               />
             )}
           </Box>
@@ -88,20 +84,20 @@ export const ThirdStep: FC<ThirdStepProps> = ({
             <Input
               name="representative.phoneNumber"
               placeholder="+9970951234567"
-              label="Номер телефону представника"
+              label="Номер телефону"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="representative.email"
               placeholder="smthcool@gmail.com"
-              label="Електронна пошта представника"
+              label="Електронна пошта"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
-              text="Паспортні дані"
+              text="Паспортні дані представника"
               sx={stylesMui.divider}
             />
 
@@ -121,7 +117,7 @@ export const ThirdStep: FC<ThirdStepProps> = ({
 
             <CheckBox
               name="helper.representativeHasForeignPassport"
-              label="Паспорт старого зразка"
+              label="Закордонний паспорт"
               onClick={() =>
                 setValues({
                   ...values,
@@ -137,12 +133,12 @@ export const ThirdStep: FC<ThirdStepProps> = ({
             values?.helper?.representativeHasOldPassport ? (
               <Input
                 name="representative.passportSeries"
-                label="Серія паспорту представника"
+                label="Серія паспорту"
               />
             ) : (
               <Input
                 name="representative.passportSeries"
-                label="Серія паспорту представника"
+                label="Серія паспорту"
                 disabled
                 resetOnDisabled
               />
@@ -150,21 +146,20 @@ export const ThirdStep: FC<ThirdStepProps> = ({
 
             <Input
               name="representative.passportNumber"
-              label="Номер паспорту представника"
+              label="Номер паспорту"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="representative.passportDate"
-              label="Дата видачі паспорту представника"
+              label="Дата видачі паспорту"
               placeholder="25.07.2017"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="representative.passportInstitute"
-              label="Орган видачі паспорту представника"
-              placeholder="1234"
+              label="Орган видачі паспорту"
             />
           </Box>
           <Box sx={stylesMui.item}>
@@ -177,20 +172,20 @@ export const ThirdStep: FC<ThirdStepProps> = ({
                 name="representative.idCode"
                 disabled={true}
                 resetOnDisabled
-                label="Ідентифікаційний код (РНОКПП) представника"
+                label="Ідентифікаційний код (РНОКПП)"
               />
             ) : (
               <Input
                 name="representative.idCode"
                 disabled={false}
-                label="Ідентифікаційний код (РНОКПП) представника"
+                label="Ідентифікаційний код (РНОКПП)"
               />
             )}
           </Box>
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
-              text="Місце проживання"
+              text="Місце проживання представника"
               sx={stylesMui.divider}
             />
             <FormikDropdown
@@ -211,14 +206,14 @@ export const ThirdStep: FC<ThirdStepProps> = ({
           <Box sx={stylesMui.item}>
             <Input
               name="representative.address"
-              label="Адреса представника"
+              label="Адреса"
               placeholder="Вулиця, дім, квартира"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="representative.index"
-              label="Поштовий індекс представника"
+              label="Поштовий індекс"
               placeholder="12345"
             />
           </Box>
@@ -229,9 +224,12 @@ export const ThirdStep: FC<ThirdStepProps> = ({
                 text="Підтвердження даних"
                 sx={stylesMui.divider}
               />
+              <Typography variant="h6Bold">
+                Віддайте телефон адміністратору
+              </Typography>
               <Input
                 name="helper.secretNumber"
-                label="Віддайте телефон адміністратору"
+                label="Секретний код"
                 placeholder="0000"
               />
             </Box>

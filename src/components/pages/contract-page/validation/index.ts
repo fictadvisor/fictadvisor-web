@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
-const secretString = /^1234$/;
+const secretString = /^4261$/;
 export const metaValidationSchema = yup.object().shape({
   meta: yup.object().shape({
     speciality: yup.string().required(`Обов'язкове поле`),
@@ -90,7 +90,7 @@ export const representativeValidation = yup.object().shape({
       .string()
       .required(`Обов'язкове поле`)
       .matches(
-        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя0-9\-`ʼ',. ]+$/,
+        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя0-9\-`ʼ',. /]+$/,
         'Має містити українські літери, апостроф або дефіс',
       ),
     index: yup
@@ -193,7 +193,7 @@ export const entrantValidationSchema = yup.object().shape({
       .string()
       .required(`Обов'язкове поле`)
       .matches(
-        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя0-9\-`ʼ',. ]+$/,
+        /^[ҐЄІЇЬА-ЩЮЯґєіїьа-щюя0-9\-`ʼ',. /]+$/,
         'Має містити українські літери, апостроф або дефіс',
       ),
     index: yup

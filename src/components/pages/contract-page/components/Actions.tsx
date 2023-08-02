@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Box, useMediaQuery } from '@mui/material';
 
 import Button from '@/components/common/ui/button-mui';
@@ -21,7 +21,7 @@ export const Actions: FC<ActionsProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   const NextButton = useCallback(
-    ({ title = 'Наступні питання' }: { title?: string }) => {
+    ({ title = 'Далі' }: { title?: string }) => {
       return (
         <Button
           onClick={() => {
@@ -66,7 +66,7 @@ export const Actions: FC<ActionsProps> = ({
       {last && (
         <>
           <PrevButton />
-          <NextButton title={'Надіслати дані'} />
+          <NextButton title={'Надіслати'} />
         </>
       )}
       {!first && !last && (

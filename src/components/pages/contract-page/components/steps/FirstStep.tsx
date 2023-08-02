@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Box, FormControlLabel, Typography } from '@mui/material';
-import { Field, Form, Formik } from 'formik';
+import { Box, Typography } from '@mui/material';
+import { Form, Formik } from 'formik';
 
 import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import { CheckBox } from '@/components/pages/contract-page/components/CheckBox';
@@ -35,13 +35,12 @@ export const FirstStep: FC<FirstStepProps> = ({ onNextStep, data }) => {
             <Typography variant="h6Bold">
               Форма навчання (бюджет/контракт)
             </Typography>
-            <Field
+            <FormikRadioGroup
               name="meta.studyType"
               options={[
                 { label: 'Бюджет', value: StudyTypeParam.BUDGET },
                 { label: 'Контракт', value: StudyTypeParam.CONTRACT },
               ]}
-              component={FormikRadioGroup}
             />
           </Box>
           {values.meta.studyType === StudyTypeParam.CONTRACT && (
@@ -49,7 +48,7 @@ export const FirstStep: FC<FirstStepProps> = ({ onNextStep, data }) => {
               <Typography variant="h6Bold">
                 Оплата(Щосеместрово/Щоквартально)
               </Typography>
-              <Field
+              <FormikRadioGroup
                 name="meta.paymentType"
                 options={[
                   {
@@ -61,7 +60,7 @@ export const FirstStep: FC<FirstStepProps> = ({ onNextStep, data }) => {
                     label: 'Щоквартально',
                   },
                 ]}
-                component={FormikRadioGroup}
+                clearValueOnUnmount
               />
             </Box>
           )}
@@ -69,19 +68,18 @@ export const FirstStep: FC<FirstStepProps> = ({ onNextStep, data }) => {
             <Typography variant="h6Bold">
               Форма навчання (денна/заочна)
             </Typography>
-            <Field
+            <FormikRadioGroup
               name="meta.studyForm"
               options={[
                 { label: 'Денна', value: StudyFormParam.FULL_TIME },
                 { label: 'Заочна', value: StudyFormParam.PART_TIME },
               ]}
-              component={FormikRadioGroup}
             />
           </Box>
 
           <Box sx={stylesMui.item}>
             <Typography variant="h6Bold">Спеціальність</Typography>
-            <Field
+            <FormikRadioGroup
               name="meta.speciality"
               options={[
                 {
@@ -94,7 +92,6 @@ export const FirstStep: FC<FirstStepProps> = ({ onNextStep, data }) => {
                   label: '126 Інформаційні системи та технології',
                 },
               ]}
-              component={FormikRadioGroup}
             />
           </Box>
 

@@ -1,16 +1,13 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Box } from '@mui/material';
+import { AxiosError } from 'axios';
 
-import {
-  initialValues,
-  REGIONS,
-} from '@/components/pages/contract-page/constants';
-import {
-  ContractBody,
-  ExtendedContractBody,
-  PartialBy,
-} from '@/lib/api/contract/types/ContractBody';
+import { initialValues } from '@/components/pages/contract-page/constants';
+import useToast from '@/hooks/use-toast';
+import ContractAPI from '@/lib/api/contract/ContractAPI';
+import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
 
+import { prepareData } from '../../utils/index';
 import { PassFormAgain } from '../PassFormAgain';
 
 import { FirstStep } from './../steps/FirstStep';
@@ -19,17 +16,31 @@ import { ThirdStep } from './../steps/ThirdStep';
 import { formWrapper } from './PersonalForm.styles';
 
 export const PersonalForm: FC = () => {
+  const toast = useToast();
   const [data, setData] = useState(initialValues);
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleNextStep = (data: ExtendedContractBody, final = false) => {
-    setData(prevState => ({ ...prevState, ...data }));
-    if (final) {
-      setSubmitted(true);
+  const handleNextStep = async (data: ExtendedContractBody, final = false) => {
+    if (!final) setData(prevState => ({ ...prevState, ...data }));
 
-      delete (data as PartialBy<ExtendedContractBody, 'helper'>).helper;
-      console.log('sending data', data);
+    if (final) {
+      try {
+        await ContractAPI.createContract(prepareData(data));
+        setData(prevState => ({ ...prevState, ...data }));
+        setSubmitted(true);
+        toast.success(
+          `Ви успішно надіслали контракт, перевірте пошту ${data.entrant.email}`,
+        );
+      } catch (error) {
+        if ((error as AxiosError).status === 500) {
+          toast.error(`Внутрішня помилка сервера`);
+          return;
+        }
+        toast.error(
+          `Трапилась помилка, перевірте усі дані та спробуйте ще раз`,
+        );
+      }
       return;
     }
     setStep(pr => pr + 1);
