@@ -60,7 +60,30 @@ export const representativeValidation = yup.object().shape({
     passportSeries: yup
       .string()
       .optional()
-      .matches(/^[А-Я]{2}$/, 'Має бути 2 великі кириличні літери'),
+      .test(
+        'are2LatinLetters',
+        'Мають бути 2 великі латиничні літери',
+        (value, context) => {
+          const data = (
+            context.from as { schema: never; value: ExtendedContractBody }[]
+          )[1].value;
+          if (data.helper.representativeHasForeignPassport)
+            return !!value?.match(/^[A-Z]{2}$/);
+          return true;
+        },
+      )
+      .test(
+        'are2CirilicLetters',
+        'Мають бути 2 великі кириличні літери',
+        (value, context) => {
+          const data = (
+            context.from as { schema: never; value: ExtendedContractBody }[]
+          )[1].value;
+          if (data.helper.representativeHasOldPassport)
+            return !!value?.match(/^[А-Я]{2}$/);
+          return true;
+        },
+      ),
     passportNumber: yup
       .number()
       .required(`Обов'язкове поле`)
@@ -104,7 +127,7 @@ export const representativeValidation = yup.object().shape({
       .string()
       .test(
         'validSecretNumber',
-        'Зверніться до адміністратора',
+        'Зверніться до оператора',
         function (value, context) {
           const data = (
             context.from as { schema: never; value: ExtendedContractBody }[]
@@ -163,7 +186,31 @@ export const entrantValidationSchema = yup.object().shape({
     passportSeries: yup
       .string()
       .optional()
-      .matches(/^[А-Я]{2}$/, 'Має бути 2 великі кириличні літери'),
+      .test(
+        'are2LatinLetters',
+        'Мають бути 2 великі латиничні літери',
+        (value, context) => {
+          const data = (
+            context.from as { schema: never; value: ExtendedContractBody }[]
+          )[1].value;
+          if (data.helper.entrantHasForeignPassport)
+            return !!value?.match(/^[A-Z]{2}$/);
+          return true;
+        },
+      )
+      .test(
+        'are2CirilicLetters',
+        'Мають бути 2 великі кириличні літери',
+        (value, context) => {
+          const data = (
+            context.from as { schema: never; value: ExtendedContractBody }[]
+          )[1].value;
+          if (data.helper.entrantHasOldPassport)
+            return !!value?.match(/^[А-Я]{2}$/);
+          return true;
+        },
+      ),
+
     passportNumber: yup
       .number()
       .required(`Обов'язкове поле`)
@@ -208,7 +255,7 @@ export const entrantValidationSchema = yup.object().shape({
       .string()
       .test(
         'validSecretNumber',
-        'Зверніться до адміністратора',
+        'Зверніться до оператора',
         function (value, context) {
           const data = (
             context.from as { schema: never; value: ExtendedContractBody }[]

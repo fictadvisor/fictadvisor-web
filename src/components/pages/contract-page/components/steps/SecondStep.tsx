@@ -220,7 +220,7 @@ export const SecondStep: FC<SecondStepProps> = ({
                 sx={stylesMui.divider}
               />
               <Typography variant="h6Bold">
-                Віддайте телефон адміністратору
+                Віддайте телефон оператору
               </Typography>
               <Input
                 name="helper.secretNumber"
