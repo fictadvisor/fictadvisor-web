@@ -1,4 +1,7 @@
-import { ContractBody } from '@/lib/api/contract/types/ContractBody';
+import {
+  ContractBody,
+  EntrantsPriorityBody,
+} from '@/lib/api/contract/types/ContractBody';
 import { client } from '@/lib/api/instance';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 
@@ -9,6 +12,7 @@ class ContractAPI {
     const { data } = await client.post('/documents/contract', body);
     return data;
   }
+
   async createAdminContract(body: AdminContractData) {
     const { data } = await client.post(
       '/entrants/contract',
@@ -16,6 +20,22 @@ class ContractAPI {
       getAuthorizationHeader(),
     );
     return data;
+  }
+
+  async getEntrantPriority(body: EntrantsPriorityBody) {
+    const data = await client.get(
+      `/entrants/priority?firstName=${body.firstName}&middleName=${body.middleName}&lastName=${body.lastName}`,
+      getAuthorizationHeader(),
+    );
+    return data.data;
+  }
+
+  async entrantPriorityApprove(body: EntrantsPriorityBody) {
+    await client.patch(
+      '/entrants/priority/approve',
+      body,
+      getAuthorizationHeader(),
+    );
   }
 }
 

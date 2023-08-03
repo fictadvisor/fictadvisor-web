@@ -64,4 +64,10 @@ export interface AdminContractData {
   contract: ContractAdminData;
 }
 
+export interface EntrantsPriorityBody {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+}
+
 export type ContractBody = Omit<ExtendedContractBody, 'helper'>;
