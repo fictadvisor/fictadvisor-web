@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { Box } from '@mui/material';
-import formatters from 'chart.js/dist/core/core.ticks';
+import React, { FC, useRef } from 'react';
+import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikProps } from 'formik';
 
 import Divider from '@/components/common/ui/divider';
@@ -42,20 +41,20 @@ export const SecondStep: FC<SecondStepProps> = ({
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
-              text="Особисті дані"
+              text="Особисті дані вступника"
               sx={stylesMui.divider}
             />
             <Input
               name="entrant.lastName"
               placeholder="Шевченко"
-              label={`Прізвище вступника`}
+              label={`Прізвище`}
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.firstName"
               placeholder="Тарас"
-              label={`Ім’я вступника`}
+              label={`Ім’я`}
             />
           </Box>
           <Box sx={stylesMui.item}>
@@ -69,14 +68,14 @@ export const SecondStep: FC<SecondStepProps> = ({
                 name="entrant.middleName"
                 disabled={true}
                 placeholder={'Григорович'}
-                label={`По-батькові вступника`}
+                label={`По-батькові`}
               />
             ) : (
               <Input
                 name="entrant.middleName"
                 disabled={false}
                 placeholder={'Григорович'}
-                label={`По-батькові вступника`}
+                label={`По-батькові`}
               />
             )}
           </Box>
@@ -84,20 +83,20 @@ export const SecondStep: FC<SecondStepProps> = ({
             <Input
               name="entrant.phoneNumber"
               placeholder="+380123456789"
-              label={`Номер телефону вступника`}
+              label={`Номер телефону`}
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.email"
               placeholder="smthcool@gmail.com"
-              label={`Електронна пошта вступника`}
+              label={`Електронна пошта`}
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
-              text="Паспортні дані"
+              text="Паспортні дані вступника"
               sx={stylesMui.divider}
             />
 
@@ -117,7 +116,7 @@ export const SecondStep: FC<SecondStepProps> = ({
 
             <CheckBox
               name="helper.entrantHasForeignPassport"
-              label="Паспорт старого зразка"
+              label="Закордонний паспорт"
               onClick={() =>
                 setValues({
                   ...values,
@@ -132,36 +131,29 @@ export const SecondStep: FC<SecondStepProps> = ({
             <Box sx={{ gap: '24px' }}>
               {values?.helper?.entrantHasForeignPassport ||
               values?.helper?.entrantHasOldPassport ? (
-                <Input
-                  name="entrant.passportSeries"
-                  label="Серія паспорту вступника"
-                />
+                <Input name="entrant.passportSeries" label="Серія паспорту" />
               ) : (
                 <Input
                   name="entrant.passportSeries"
-                  label="Серія паспорту вступника"
+                  label="Серія паспорту"
                   disabled
                   resetOnDisabled
                 />
               )}
-              <Input
-                name="entrant.passportNumber"
-                label={`Номер паспорту вступника`}
-              />
+              <Input name="entrant.passportNumber" label={`Номер паспорту`} />
             </Box>
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.passportDate"
-              label={`Дата видачі паспорту вступника`}
+              label={`Дата видачі паспорту`}
               placeholder="25.07.2017"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.passportInstitute"
-              label={`Орган видачі паспорту вступника`}
-              placeholder="1234"
+              label={`Орган видачі паспорту`}
             />
           </Box>
           <Box sx={stylesMui.item}>
@@ -174,20 +166,20 @@ export const SecondStep: FC<SecondStepProps> = ({
                 name="entrant.idCode"
                 disabled={true}
                 resetOnDisabled
-                label="Ідентифікаційний код (РНОКПП) вступника"
+                label="Ідентифікаційний код (РНОКПП)"
               />
             ) : (
               <Input
                 name="entrant.idCode"
                 disabled={false}
-                label="Ідентифікаційний код (РНОКПП) вступника"
+                label="Ідентифікаційний код (РНОКПП)"
               />
             )}
           </Box>
           <Box sx={stylesMui.item}>
             <Divider
               textAlign={DividerTextAlign.LEFT}
-              text="Місце проживання"
+              text="Місце проживання вступника"
               sx={stylesMui.divider}
             />
             <FormikDropdown
@@ -208,28 +200,31 @@ export const SecondStep: FC<SecondStepProps> = ({
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.address"
-              label={`Адреса вступника`}
+              label={`Адреса`}
               placeholder="Вулиця, дім, квартира"
             />
           </Box>
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.index"
-              label={`Поштовий індекс вступника`}
+              label={`Поштовий індекс`}
               placeholder="12345"
             />
           </Box>
 
-          {values.meta.isToAdmission && values.helper.isAdult && (
+          {values.meta.isToAdmission && values?.helper?.isAdult && (
             <Box sx={stylesMui.item}>
               <Divider
                 textAlign={DividerTextAlign.LEFT}
                 text="Підтвердження даних"
                 sx={stylesMui.divider}
               />
+              <Typography variant="h6Bold">
+                Віддайте телефон оператору
+              </Typography>
               <Input
                 name="helper.secretNumber"
-                label="Віддайте телефон адміністратору"
+                label="Секретний код"
                 placeholder="0000"
               />
             </Box>

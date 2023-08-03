@@ -6,13 +6,13 @@ export const page: SxProps<Theme> = {
   alignItems: 'center',
   flexDirection: 'column',
   padding: {
-    mobileSemiMedium: '16px 80px 50px 80px',
+    mobileSemiMedium: '16px 40px 50px 40px',
     mobile: '16px 40px 50px 40px',
   },
 };
 
 export const form: SxProps<Theme> = {
-  width: { tablet: '480px', mobile: '100%' },
+  width: { tablet: '90%', mobile: '100%' },
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -34,6 +34,6 @@ export const item: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   gap: '12px',
-  marginBottom: '24px',
+  marginBottom: '12px',
   width: { tablet: '480px', mobile: '100%' },
 };

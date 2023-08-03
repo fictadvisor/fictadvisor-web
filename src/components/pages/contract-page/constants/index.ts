@@ -32,15 +32,15 @@ export const REGIONS: DropDownOption[] = [
 export const initialValues: ExtendedContractBody = {
   entrant: {
     firstName: '',
-    middleName: undefined,
+    middleName: '',
     lastName: '',
-    passportSeries: undefined,
+    passportSeries: '',
     passportNumber: '',
     passportInstitute: '',
     passportDate: '',
     address: '',
     settlement: '',
-    idCode: undefined,
+    idCode: '',
     phoneNumber: '',
     region: '',
     email: '',
@@ -48,15 +48,15 @@ export const initialValues: ExtendedContractBody = {
   },
   representative: {
     firstName: '',
-    middleName: undefined,
+    middleName: '',
     lastName: '',
-    passportSeries: undefined,
+    passportSeries: '',
     passportNumber: '',
     passportInstitute: '',
     passportDate: '',
     address: '',
     settlement: '',
-    idCode: undefined,
+    idCode: '',
     region: '',
     phoneNumber: '',
     email: '',
@@ -72,7 +72,7 @@ export const initialValues: ExtendedContractBody = {
   helper: {
     entrantHasForeignPassport: false,
     entrantHasOldPassport: false,
-    entrantHasNoCode: true,
+    entrantHasNoCode: false,
     entrantHasNoMiddleName: false,
 
     isAdult: false,
@@ -81,7 +81,7 @@ export const initialValues: ExtendedContractBody = {
 
     representativeHasForeignPassport: false,
     representativeHasOldPassport: false,
-    representativeHasNoCode: true,
+    representativeHasNoCode: false,
     representativeHasNoMiddleName: false,
   },
 };

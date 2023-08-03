@@ -7,6 +7,8 @@ import { getAuthorizationHeader } from '@/lib/api/utils';
 
 import { AdminContractData } from './types/ContractBody';
 
+  PriorityData,
+} from '@/lib/api/contract/types/ContractBody';
 class ContractAPI {
   async createContract(body: ContractBody) {
     const { data } = await client.post('/documents/contract', body);
@@ -36,6 +38,11 @@ class ContractAPI {
       body,
       getAuthorizationHeader(),
     );
+  }
+  
+  async createPriority(body: PriorityData) {
+    const { data } = await client.post('/documents/priority', body);
+    return data;
   }
 }
 
