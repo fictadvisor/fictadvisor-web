@@ -1,6 +1,6 @@
 const errors = {
   InvalidBodyException: 'Дані вказані невірно',
-  'Not Found': 'Дані не знайдено',
+  DataNotFoundException: 'Дані не знайдено',
   AlreadyExistException: 'Контракт вже існує',
   UnauthorizedException: 'Користувач не авторизований',
   NoPermissionException: 'У вас немає дозволу на виконання цієї дії',
