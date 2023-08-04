@@ -1,14 +1,14 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { useMediaQuery } from '@mui/material';
 import { AxiosError } from 'axios';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
-import ArrowButton from '@/components/common/ui/arrow-button/ArrowButton';
 import Button from '@/components/common/ui/button/Button';
 import { Slider, TextArea } from '@/components/common/ui/form';
-import RadioGroup from '@/components/common/ui/form/radio/RadipGroup';
-import Loader from '@/components/common/ui/loader/Loader';
+import RadioGroup from '@/components/common/ui/form/radio/RadioGroup';
+import Progress from '@/components/common/ui/progress-mui';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import theme from '@/styles/theme';
@@ -118,7 +118,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     >
       {sendingStatus === SendingStatus.LOADING ? (
         <div className={styles.loaderWrapper}>
-          <Loader />
+          <Progress />
         </div>
       ) : sendingStatus === SendingStatus.SUCCESS ? (
         <div className={styles.wrapper}>
@@ -132,7 +132,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
               setQuestionsListStatus(true);
             }}
           >
-            <ArrowButton className={styles.arrow} />
+            <ChevronLeftIcon style={{ height: '20px' }} />
             <b>
               {current + 1} . {category.name}
             </b>

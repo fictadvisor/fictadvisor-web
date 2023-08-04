@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import Loader, { LoaderSize } from '@/components/common/ui/loader';
+import Progress from '@/components/common/ui/progress-mui';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
@@ -49,7 +49,7 @@ const VerifyEmailTokenPage = () => {
         justifyContent: 'center',
       }}
     >
-      <Loader size={LoaderSize.SMALLEST} />
+      <Progress />
     </div>
   );
 };

@@ -7,14 +7,14 @@ import Button, {
   ButtonColor,
   ButtonVariant,
 } from '@/components/common/ui/button/Button';
-import Loader, { LoaderSize } from '@/components/common/ui/loader/Loader';
-import PollTeacherSearchList from '@/components/pages/search-pages/poll-teachers-page/PollTeacherSearchList';
+import Progress from '@/components/common/ui/progress-mui';
+import PollTeacherSearchList from '@/components/pages/search-pages/poll-teachers-page/components/PollTeacherSearchList';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import { PollTeachersResponse } from '@/lib/api/poll/types/PollTeachersResponse';
 
-import styles from '../SearchPage.module.scss';
+import styles from './PollTeacherPage.module.scss';
 
 const breadcrumbs = [
   {
@@ -60,7 +60,7 @@ const PollTeacherPage: FC = () => {
         'Обери свої вибіркові в профілі у вкладці "Мої вибіркові".',
       );
     }
-  }, [data, toast]);
+  }, [data]);
 
   return (
     <div className={styles['layout']}>
@@ -77,7 +77,7 @@ const PollTeacherPage: FC = () => {
           {isLoading ||
             (isFetching && (
               <div className={styles['page-loader']}>
-                <Loader size={LoaderSize.SMALLEST} />
+                <Progress />
               </div>
             ))}
 
