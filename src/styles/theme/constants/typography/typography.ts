@@ -48,7 +48,7 @@ const typography: TypographyOptions = {
     lineHeight: 1.28,
   },
   h5Bold: {
-    fontSize: '24px',
+    fontSize: 24,
     lineHeight: 1.28,
     fontWeight: 700,
   },
