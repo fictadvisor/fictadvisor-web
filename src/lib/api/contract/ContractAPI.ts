@@ -1,12 +1,11 @@
-import {
-  ContractBody,
-  EntrantsPriorityBody,
-  PriorityData,
-} from '@/lib/api/contract/types/ContractBody';
+import { ContractBody } from '@/lib/api/contract/types/ContractBody';
+import { DeleteEntrantBody } from '@/lib/api/contract/types/DeleteEntrantBody';
+import { EntrantsPriorityBody } from '@/lib/api/contract/types/EntrantsPriorityBody';
+import { PriorityDataBody } from '@/lib/api/contract/types/PriorityDataBody';
 import { client } from '@/lib/api/instance';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 
-import { AdminContractData } from './types/ContractBody';
+import { AdminContractBody } from './types/AdminContractBody';
 
 class ContractAPI {
   async createContract(body: ContractBody) {
@@ -14,7 +13,7 @@ class ContractAPI {
     return data;
   }
 
-  async createAdminContract(body: AdminContractData) {
+  async createAdminContract(body: AdminContractBody) {
     const { data } = await client.post(
       '/entrants/contract',
       body,
@@ -24,10 +23,10 @@ class ContractAPI {
   }
 
   async getEntrantPriority(body: EntrantsPriorityBody) {
-    const data = await client.get(
-      `/entrants/priority?firstName=${body.firstName}&middleName=${body.middleName}&lastName=${body.lastName}`,
-      getAuthorizationHeader(),
-    );
+    const data = await client.get(`/entrants/priority`, {
+      params: body,
+      ...getAuthorizationHeader(),
+    });
     return data.data;
   }
 
@@ -39,8 +38,16 @@ class ContractAPI {
     );
   }
 
-  async createPriority(body: PriorityData) {
+  async createPriority(body: PriorityDataBody) {
     const { data } = await client.post('/documents/priority', body);
+    return data;
+  }
+
+  async deleteEntrant(body: DeleteEntrantBody) {
+    const { data } = await client.delete('/entrants', {
+      params: body,
+      ...getAuthorizationHeader(),
+    });
     return data;
   }
 }

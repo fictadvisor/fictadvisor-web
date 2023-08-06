@@ -21,24 +21,30 @@ import {
   getLocalStorage,
   saveLocalStorage,
 } from '@/components/pages/priority-page/utils/localStorage';
-import { validationSchema } from '@/components/pages/priority-page/validation';
+import {
+  optionalValidationSchema,
+  validationSchema,
+} from '@/components/pages/priority-page/validation';
 import useTabClose from '@/hooks/use-tab-close';
 import useToast from '@/hooks/use-toast';
 import ContractAPI from '@/lib/api/contract/ContractAPI';
-import { ExtendedPriorityData } from '@/lib/api/contract/types/ContractBody';
+import { ExtendedPriorityDataBody } from '@/lib/api/contract/types/PriorityDataBody';
 
 import { prepareData } from './utils/prepareData';
 import { SuccessScreen } from './SuccessScreen';
 const PriorityPage: FC = () => {
   const [submited, setSubmited] = useState(false);
-  const form = useRef<FormikProps<ExtendedPriorityData>>(null);
+  const form = useRef<FormikProps<ExtendedPriorityDataBody>>(null);
+  const [isForcePushed, setIsForcePushed] = useState(
+    getLocalStorage()?.isForcePushed,
+  );
+
   const toast = useToast();
 
-  const handleFormSubmit = async (values: ExtendedPriorityData) => {
+  const handleFormSubmit = async (values: ExtendedPriorityDataBody) => {
     try {
       await ContractAPI.createPriority(prepareData({ ...values }));
       setSubmited(true);
-      saveLocalStorage(null);
     } catch (error) {
       if ((error as AxiosError).status === 500) {
         toast.error(`Внутрішня помилка сервера`);
@@ -62,7 +68,9 @@ const PriorityPage: FC = () => {
     <Formik
       innerRef={form}
       initialValues={getLocalStorage() || initialValues}
-      validationSchema={validationSchema}
+      validationSchema={
+        isForcePushed ? optionalValidationSchema : validationSchema
+      }
       onSubmit={handleFormSubmit}
     >
       {({ values, isValid }) => (
@@ -195,6 +203,25 @@ const PriorityPage: FC = () => {
                 <Input
                   name="secretNumber"
                   label="Секретний код"
+                  placeholder="0000"
+                />
+              </Box>
+            )}
+
+            <Box sx={stylesMui.item}>
+              <CheckBox
+                name="isForcePushed"
+                label="Надіслати примусово (пропустіть цю опцію)"
+                onClick={() =>
+                  setIsForcePushed(!form?.current?.values.isForcePushed)
+                }
+              />
+            </Box>
+            {values?.isForcePushed && (
+              <Box sx={stylesMui.item}>
+                <Input
+                  name="forcePushedNumber"
+                  label="Код форс пушу"
                   placeholder="0000"
                 />
               </Box>
