@@ -1,8 +1,8 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const teacherSearchList: SxProps<Theme> = {
-  mt: '40px',
-  mb: '16px',
+  marginTop: '40px',
+  marginBottom: '16px',
   display: 'grid',
   gridTemplateColumns: {
     mobile: 'repeat(2, 1fr)',

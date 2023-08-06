@@ -6,7 +6,7 @@ import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
 import useToast from '@/hooks/use-toast';
 import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 
-import * as styless from './TeacherSearchList.styles';
+import * as styles from './TeacherSearchList.styles';
 
 interface TeacherSearchListProps
   extends HTMLProps<HTMLDivElement>,
@@ -23,7 +23,7 @@ export const TeacherSearchList: FC<TeacherSearchListProps> = ({ teachers }) => {
     }
   }, [teachers.length]);
   return (
-    <Box sx={styless.teacherSearchList}>
+    <Box sx={styles.teacherSearchList}>
       {teachers?.map((teacher, index) => (
         <Link key={index} href={`/teachers/${teacher.id}`}>
           <TeacherCard

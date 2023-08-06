@@ -5,7 +5,7 @@ export const breadcrumbs: SxProps<Theme> = {
 };
 
 export const layout: SxProps<Theme> = {
-  width: 1,
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   padding: {
