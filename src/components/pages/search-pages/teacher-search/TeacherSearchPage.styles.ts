@@ -25,4 +25,5 @@ export const pageLoader: SxProps<Theme> = {
 export const loadBtn: SxProps<Theme> = {
   width: '200px',
   alignSelf: 'center',
+  borderRadius: '8px',
 };
