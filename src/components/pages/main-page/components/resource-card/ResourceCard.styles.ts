@@ -1,6 +1,7 @@
-import { SxProps } from '@mui/material/styles';
+import { alpha, SxProps } from '@mui/material/styles';
 import { Theme } from '@mui/system';
 
+import theme from '@/styles/theme';
 export const card: SxProps<Theme> = {
   width: {
     mobile: '104px',
@@ -10,8 +11,8 @@ export const card: SxProps<Theme> = {
     mobile: '112px',
     tablet: '200px',
   },
-  background: 'rgba(38, 38, 38, 0.26)',
-  border: '1px solid #4A4A4A',
+  background: alpha(theme.palette.grey[100], 0.26),
+  border: `1px solid ${theme.palette.grey[200]}`,
   boxShadow: '2px 4px 8px rgba(0, 0, 0, 0.11)',
   borderRadius: '8px',
 };
