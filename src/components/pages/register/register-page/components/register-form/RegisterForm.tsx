@@ -30,33 +30,45 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
   const router = useRouter();
   const toast = useToast();
 
+  interface MyAxiosErrorData {
+    error: string;
+  }
+
+  type MyAxiosError = AxiosError<MyAxiosErrorData>;
+
+  const errorMessages: { [key: string]: string } = {
+    AlreadyRegisteredException: 'Пошта або юзернейм вже зайняті',
+    InvalidTelegramCredentialsException: 'Як ти це зробив? :/',
+    InvalidBodyException: 'Некорректно введені дані',
+    default: 'Як ти це зробив? :/',
+    unknown: 'Невідома помилка',
+  } as const;
+
+  const getErrorMessage = (errorName: string): string => {
+    return errorMessages[errorName] || errorMessages.default;
+  };
+
   const handleSubmit = useCallback(
     async (data: RegisterFormFields) => {
       try {
-        const hasCaptain = await AuthAPI.groupHasCaptain(data.group);
-        if (data.isCaptain && hasCaptain) {
+        const { isCaptain, group, email } = data;
+        const hasCaptain = await AuthAPI.groupHasCaptain(group);
+
+        if (isCaptain && hasCaptain) {
           toast.error('В групі вже є староста');
-        } else if (!data.isCaptain && !hasCaptain) {
+        } else if (!isCaptain && !hasCaptain) {
           toast.error('Дочекайся, поки зареєструється староста');
         } else {
           await AuthService.register(transformData(data));
           StorageUtil.deleteTelegramInfo();
-          await router.push(`/register/email-verification?email=${data.email}`);
+          await router.push(`/register/email-verification?email=${email}`);
         }
       } catch (error) {
-        // TODO: refactor this shit
-        const errorName = (error as AxiosError<{ error: string }>).response
-          ?.data.error;
-
-        if (errorName === 'AlreadyRegisteredException') {
-          toast.error('Пошта або юзернейм вже зайняті');
-        } else if (errorName === 'InvalidTelegramCredentialsException') {
-          toast.error('Як ти це зробив? :/');
-        } else if (errorName === 'InvalidBodyException') {
-          toast.error('Некорректно введені дані');
-        } else {
-          toast.error('Як ти це зробив? :/');
-        }
+        const errorName = (error as MyAxiosError)?.response?.data?.error;
+        const errorMessage = errorName
+          ? getErrorMessage(errorName)
+          : errorMessages.unknown;
+        toast.error(errorMessage);
       }
     },
     [toast, router],
