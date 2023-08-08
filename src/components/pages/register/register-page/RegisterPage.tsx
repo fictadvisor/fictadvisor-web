@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 
-import Divider from '@/components/common/ui/divider-mui';
+import Divider from '@/components/common/ui/divider';
 import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 
 import LeftBlock from './components/left-block';
