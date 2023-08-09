@@ -66,6 +66,7 @@ const LeftBlock: FC<GetAllResponse> = ({ groups }) => {
           <Divider
             text="та введи дані нижче"
             textAlign={DividerTextAlign.CENTER}
+            sx={stylesMUI.divider}
           />
         </>
       )}

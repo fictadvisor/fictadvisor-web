@@ -15,6 +15,10 @@ export const telegramConnected: SxProps<Theme> = {
   textAlign: 'center',
 };
 
+export const divider: SxProps<Theme> = {
+  width: '100%',
+};
+
 export const loginHeader: SxProps<Theme> = {
   marginTop: '36px',
   textAlign: 'center',
@@ -33,16 +37,19 @@ export const telegramButton: SxProps<Theme> = {
     mobile: 'none',
     tablet: 'flex',
   },
+  borderRadius: '8px',
 };
 
 export const mobileTelegramButton: SxProps<Theme> = {
   margin: '0 0 16px 0',
-  typography: 'body2Bold',
+  padding: '16px 0',
+  typography: 'buttonBold',
   whiteSpace: 'normal',
   display: {
     mobile: 'flex',
     tablet: 'none',
   },
+  borderRadius: '8px',
 };
 
 export const mobileText: SxProps<Theme> = {
@@ -65,4 +72,5 @@ export const loginMobileButton: SxProps<Theme> = {
     mobile: 'flex',
     desktopSemiMedium: 'none',
   },
+  borderRadius: '6px',
 };

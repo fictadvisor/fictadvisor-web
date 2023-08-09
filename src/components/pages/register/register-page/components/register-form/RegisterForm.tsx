@@ -87,25 +87,25 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
         <Form className={styles['form']}>
           <Input
             label="Юзернейм"
-            placeholder="використовуй латиницю без пробілів"
+            placeholder="Використовуй латиницю без пробілів"
             name="username"
           />
           <Input
             label="Прізвище"
-            placeholder="вводь справжнє прізвище для коректної інформації"
+            placeholder="Вводь справжнє прізвище для коректної інформації"
             name="lastName"
           />
           <Input
             label="Ім'я"
-            placeholder="вводь справжнє ім'я для коректної інформації"
+            placeholder="Вводь справжнє ім'я для коректної інформації"
             name="firstName"
           />
           <Input
             label="По батькові"
-            placeholder="вводь справжнє по батькові для коректної інформації"
+            placeholder="Вводь справжнє по батькові для коректної інформації"
             name="middleName"
           />
-          <Input label="Пошта" placeholder="введи свою пошту" name="email" />
+          <Input label="Пошта" placeholder="example@gmail.com" name="email" />
           <Box sx={stylesMUI.dropdownContainer}>
             <FormikDropdown
               size={FieldSize.LARGE}
@@ -121,18 +121,19 @@ const RegisterForm: FC<GetAllResponse> = ({ groups }) => {
           <Input
             label="Пароль"
             type={InputType.PASSWORD}
-            placeholder="введи свій пароль"
+            placeholder="user2000"
             name="password"
           />
           <Input
             label="Підтвердження пароля"
             type={InputType.PASSWORD}
-            placeholder="підтверди свій пароль"
+            placeholder="user2000"
             name="passwordConfirmation"
           />
           <Checkbox
             label={'Погоджуюсь на обробку персональних даних'}
             name={'agreement'}
+            sx={stylesMUI.checkbox}
           />
           <Button
             text="Зареєструватись"
