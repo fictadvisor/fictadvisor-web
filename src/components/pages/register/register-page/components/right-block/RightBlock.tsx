@@ -20,8 +20,8 @@ const RightBlock = () => {
           src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
           priority
-          width={300}
-          height={54}
+          width={394}
+          height={70}
         />
       </Link>
       <Typography variant="h3" sx={stylesMUI.loginText}>

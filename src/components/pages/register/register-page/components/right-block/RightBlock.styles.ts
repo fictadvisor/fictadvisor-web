@@ -20,5 +20,7 @@ export const loginText: SxProps<Theme> = {
 };
 
 export const loginButton: SxProps<Theme> = {
-  maxWidth: '300px',
+  maxWidth: '324px',
+  maxHeight: '48px',
+  borderRadius: '8px',
 };
