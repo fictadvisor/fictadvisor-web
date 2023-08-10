@@ -1,8 +1,4 @@
-import { Fullname } from '@/types/contract';
-
-export interface PersonalEntrantData extends Fullname {
-  specialty: string;
-}
+import { EntrantBody } from '@/types/contract';
 
 export interface ContractAdminBody {
   number: string;
@@ -10,6 +6,6 @@ export interface ContractAdminBody {
 }
 
 export interface AdminContractBody {
-  entrant: PersonalEntrantData;
+  entrant: EntrantBody;
   contract: ContractAdminBody;
 }
