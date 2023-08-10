@@ -18,5 +18,8 @@ export interface Fullname {
   firstName: string;
   middleName?: string;
   lastName: string;
-  specialty?: string;
+}
+
+export interface EntrantBody extends Fullname {
+  specialty: string;
 }
