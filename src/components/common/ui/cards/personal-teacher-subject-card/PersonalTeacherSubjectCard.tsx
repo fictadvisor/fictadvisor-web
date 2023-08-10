@@ -59,7 +59,6 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
           {subject.name}
         </Typography>
       </Box>
-
       <Box sx={styles.tags}>
         {roles.includes(TeacherRole.LECTURER) && (
           <Tag
@@ -69,7 +68,6 @@ const PersonalTeacherSubjectCard: FC<TeacherWithSubject> = ({
             text="Лекції"
           />
         )}
-
         {roles.includes(TeacherRole.PRACTICIAN) && (
           <Tag
             sx={styles.tag}
