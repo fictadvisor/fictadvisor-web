@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 import {
   Box,
   FormControl,
@@ -7,13 +7,13 @@ import {
   useMediaQuery,
 } from '@mui/material';
 
-import LineNumbers from '@/components/common/ui/form/numbered-text-area-mui/components';
-import { transformValue } from '@/components/common/ui/form/numbered-text-area-mui/utils';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import theme from '@/styles/theme';
 
+import LineNumbers from './components/LineNumbers';
 import * as styles from './NumberedTextArea.styles';
 import { NumberedTextAreaProps } from './types';
+import { transformValue } from './utils';
 
 const MAX_LENGTH = 2000;
 const MOBILE_ROWS = 7;
@@ -25,11 +25,13 @@ const NumberedTextArea: React.FC<NumberedTextAreaProps> = ({
   showRemark = false,
   sx = {},
   error,
+  touched,
+  value,
+  onChange = () => {},
 }) => {
-  const [input, setInput] = useState('');
-  const [touched, setTouched] = useState(false);
   const lineRef = useRef<HTMLDivElement>(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('mobileMedium'));
+  const state = touched && error ? 'error' : 'default';
 
   const handleScroll = (event: React.UIEvent<HTMLTextAreaElement>) => {
     const { currentTarget } = event;
@@ -39,20 +41,14 @@ const NumberedTextArea: React.FC<NumberedTextAreaProps> = ({
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const formattedValue = transformValue(event.target.value);
-    setInput(formattedValue);
-    if (formattedValue.trim() === '') {
-      setTouched(true);
-    } else {
-      setTouched(false);
-    }
+    const transformedValue = transformValue(event.target.value);
+    onChange(transformedValue);
   };
-  const state = touched && error ? 'error' : 'default';
 
   return (
     <Box sx={mergeSx(styles.wrapper, sx)}>
       <FormControl sx={styles.formControl(state, disabled)} disabled={disabled}>
-        <LineNumbers value={input} ref={lineRef} />
+        <LineNumbers value={value} ref={lineRef} />
 
         <OutlinedInput
           sx={styles.input}
@@ -62,7 +58,7 @@ const NumberedTextArea: React.FC<NumberedTextAreaProps> = ({
             maxLength: MAX_LENGTH,
             onScroll: handleScroll,
           }}
-          value={input}
+          value={value}
           placeholder={placeholder}
           onChange={handleChange}
         />
