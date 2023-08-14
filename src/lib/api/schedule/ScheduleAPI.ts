@@ -2,14 +2,7 @@ import { client } from '@/lib/api/instance';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 import { Event, TDiscipline } from '@/types/schedule';
 class ScheduleAPI {
-  async getLessonsByGroup(
-    groupId: string,
-    week: number,
-    /*
-     * TODO: add this to params when the back is ready
-     * disciplineType:TDiscipline
-     * */
-  ) {
+  async getLessons(groupId: string, week: number) {
     const { data } = await client.get<Event[]>(
       `/schedule/groups/${groupId}/general`,
       {
@@ -17,6 +10,14 @@ class ScheduleAPI {
       },
     );
 
+    return data;
+  }
+
+  async getLessonsByGroup(groupId: string, week: number): Promise<Event[]> {
+    const { data } = await client.get(`schedule/groups/${groupId}/events`, {
+      ...getAuthorizationHeader(),
+      params: { week },
+    });
     return data;
   }
 }
