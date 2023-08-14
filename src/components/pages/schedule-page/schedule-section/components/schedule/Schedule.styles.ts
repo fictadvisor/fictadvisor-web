@@ -7,10 +7,3 @@ export const layout: SxProps<Theme> = {
   width: '1082px',
   height: '1354px',
 };
-
-export const column: SxProps<Theme> = {
-  display: 'flex',
-  backgroundColor: 'purple',
-  width: '148px',
-  height: '1354px',
-};
