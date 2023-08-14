@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { Box } from '@mui/material';
 
-import Progress from '@/components/common/ui/progress-mui';
+import Progress from '@/components/common/ui/progress';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
 import RequestsTable from '@/components/pages/account-page/components/group-tab/components/table/requests-table';
 import StudentsTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';

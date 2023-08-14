@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Progress from '@/components/common/ui/progress-mui/Progress';
+import Progress from '@/components/common/ui/progress/Progress';
 
 const meta = {
   title: 'Ui Kit/Components/Progress',
