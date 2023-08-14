@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Link from 'next/link';
+import Tooltip from 'src/components/common/ui/tooltip';
 
 import Button, {
   ButtonColor,
@@ -12,7 +13,6 @@ import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import Tooltip from '@/components/common/ui/tooltip-mui';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { TeacherRole } from '@/types/teacher';
 
