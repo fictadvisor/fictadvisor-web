@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { shallowEqual } from 'react-redux';
 import { Form, Formik } from 'formik';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
@@ -13,6 +12,9 @@ import UserAPI from '@/lib/api/user/UserAPI';
 
 import styles from '../../GeneralTab.module.scss';
 
+const objectsEqual = (obj1: object, obj2: object) => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+};
 const PersonalInfoBlock: FC = () => {
   const { user, update } = useAuthentication();
   const initialValues: PersonalInfoForm = {
@@ -68,7 +70,7 @@ const PersonalInfoBlock: FC = () => {
                 startIcon={<CustomCheck />}
                 size={ButtonSize.MEDIUM}
                 type="submit"
-                disabled={!isValid || shallowEqual(initialValues, values)}
+                disabled={!isValid || objectsEqual(initialValues, values)}
                 className={styles['change-password-button']}
               />
             </div>
@@ -78,7 +80,7 @@ const PersonalInfoBlock: FC = () => {
                 startIcon={<CustomCheck />}
                 size={ButtonSize.SMALL}
                 type="submit"
-                disabled={!isValid || shallowEqual(initialValues, values)}
+                disabled={!isValid || objectsEqual(initialValues, values)}
                 className={styles['change-password-button']}
               />
             </div>

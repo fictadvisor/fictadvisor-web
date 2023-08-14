@@ -37,11 +37,11 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
     "react-query": "^3.39.2",
-    "react-redux": "^8.0.5",
     "react-select": "^5.7.0",
     "react-textarea-autosize": "^8.4.0",
     "sass": "^1.58.0",
-    "yup": "^1.0.0"
+    "yup": "^1.0.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.2.4",
