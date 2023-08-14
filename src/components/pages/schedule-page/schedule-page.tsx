@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
@@ -5,6 +7,10 @@ import { ScheduleSection } from './schedule-section/ScheduleSection';
 
 import styles from './schedule-page.module.scss';
 const SchedulePage = () => {
+  const router = useRouter();
+
+  console.log(router.query);
+
   return (
     <PageLayout title={'Розклад'}>
       <div className={styles['schedule-layout']}>
