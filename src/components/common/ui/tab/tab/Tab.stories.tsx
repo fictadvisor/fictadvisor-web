@@ -1,7 +1,7 @@
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Tab from '@/components/common/ui/tab-mui/tab/Tab';
+import Tab from '@/components/common/ui/tab/tab/Tab';
 
 const meta = {
   title: 'Ui Kit/Components/Tab',
