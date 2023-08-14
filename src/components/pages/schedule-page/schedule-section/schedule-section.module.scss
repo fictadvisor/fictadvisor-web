@@ -1,7 +1,7 @@
-@import "../../../../styles/partials/theme";
-
-.schedule-section{
+.schedule-section {
+  display: flex;
+  flex-direction: column;
+  margin: 6px;
   width: 75%;
   height: calc(100vh - 400px);
-  background-color: $violet-200;
-}
+};
