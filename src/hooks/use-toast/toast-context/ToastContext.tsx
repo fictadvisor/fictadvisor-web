@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import { AlertType } from '@/components/common/ui/alert-mui/types';
-import Toast from '@/components/common/ui/toast-mui';
+import Toast from '@/components/common/ui/toast';
 
 import { ToastActionProps, ToastContext, ToastState } from '../types';
 

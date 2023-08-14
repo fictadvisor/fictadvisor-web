@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Toast from '@/components/common/ui/toast-mui/Toast';
+import Toast from '@/components/common/ui/toast/Toast';
 
 import { AlertType } from '../alert-mui/types';
 
