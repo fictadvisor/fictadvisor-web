@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Rating from '@/components/common/ui/rating-mui/Rating';
+import Rating from '@/components/common/ui/rating/Rating';
 
 const meta = {
   title: 'Ui Kit/Components/Rating',

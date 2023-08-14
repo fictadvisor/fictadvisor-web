@@ -3,7 +3,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 
 import Button, { ButtonVariant } from '@/components/common/ui/button';
-import Rating from '@/components/common/ui/rating-mui';
+import Rating from '@/components/common/ui/rating';
 import Tag from '@/components/common/ui/tag';
 import { TagColor, TagSize } from '@/components/common/ui/tag/types';
 import { teacherSubjectContext } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
