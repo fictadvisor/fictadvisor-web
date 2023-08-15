@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Box, Divider, SxProps, Theme } from '@mui/material';
 
 import Tooltip from '@/components/common/ui/tooltip-mui';
-import { TooltipPosition } from '@/components/common/ui/tooltip-mui/types';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './ScheduleLine.styles';
@@ -22,9 +21,9 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
   sx = {},
 }) => {
   return (
-    <Box sx={mergeSx(styles.container(variant), sx)}>
+    <Box sx={mergeSx(styles.container(), sx)}>
       {label ? (
-        <Tooltip text={label} position={TooltipPosition.LEFT}>
+        <Tooltip title={label} placement={'left'}>
           <Box sx={styles.verticalDivider(variant)}></Box>
         </Tooltip>
       ) : (
