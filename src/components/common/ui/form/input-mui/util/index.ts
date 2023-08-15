@@ -10,7 +10,7 @@ import {
 import {
   InputState,
   InputType,
-} from '@/components/common/ui/form/input-mui/Input';
+} from '@/components/common/ui/form/input-mui/types';
 
 export const getState = (
   disabled: boolean,

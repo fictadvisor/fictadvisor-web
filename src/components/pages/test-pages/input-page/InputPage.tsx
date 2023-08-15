@@ -8,7 +8,7 @@ import Input from '@/components/common/ui/form/input-mui';
 import {
   InputSize,
   InputType,
-} from '@/components/common/ui/form/input-mui/Input';
+} from '@/components/common/ui/form/input-mui/types';
 
 import * as styles from './InputPage.styles';
 

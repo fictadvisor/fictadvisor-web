@@ -5,8 +5,14 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material';
-import { SxProps, Theme } from '@mui/material/styles';
 
+import { MAX_LENGTH } from '@/components/common/ui/form/input-mui/constants';
+import {
+  InputProps,
+  InputSize,
+  InputState,
+  InputType,
+} from '@/components/common/ui/form/input-mui/types';
 import {
   getLeftIcon,
   getRightIcon,
@@ -16,44 +22,6 @@ import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
 import * as styles from './Input.styles';
 
-export enum InputState {
-  DISABLED = 'disabled',
-  DEFAULT = 'default',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
-
-export enum InputSize {
-  LARGE = 'large',
-  MEDIUM = 'medium',
-}
-
-export enum InputType {
-  DEFAULT = 'text',
-  PASSWORD = 'password',
-  SEARCH = 'search',
-}
-
-interface InputProps
-  extends Omit<React.ComponentPropsWithoutRef<'input'>, 'size'> {
-  label?: string;
-  placeholder?: string;
-  size?: InputSize;
-  type?: InputType;
-  isSuccessOnDefault?: boolean;
-  defaultRemark?: string;
-  showRemark?: boolean;
-  sx?: SxProps<Theme>;
-  onDeterredChange?: () => void;
-  isImmutable?: boolean;
-  touched?: boolean;
-  error?: string;
-  value?: string;
-  name: string;
-}
-
-const MAX_LENGTH = 2000;
-
 const Input: React.FC<InputProps> = ({
   label,
   placeholder,
@@ -62,12 +30,13 @@ const Input: React.FC<InputProps> = ({
   isSuccessOnDefault = false,
   defaultRemark,
   showRemark = true,
-  sx,
+  sx = {},
   onDeterredChange,
   disabled = false,
-  value,
-  error,
-  touched,
+  value = '',
+  error = '',
+  touched = false,
+  handleRightIconClick = undefined,
   ...rest
 }) => {
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
@@ -76,11 +45,13 @@ const Input: React.FC<InputProps> = ({
   const LeftIcon = getLeftIcon(type);
   const RightIcon = getRightIcon(type, isHidden, state, value);
 
-  const handleRightIconClick = () => {
-    if (type === InputType.PASSWORD) {
-      setIsHidden(!isHidden);
-    }
-  };
+  if (!handleRightIconClick) {
+    handleRightIconClick = () => {
+      if (type === InputType.PASSWORD) {
+        setIsHidden(!isHidden);
+      }
+    };
+  }
 
   useEffect(() => {
     const curTimer = setTimeout(() => {
