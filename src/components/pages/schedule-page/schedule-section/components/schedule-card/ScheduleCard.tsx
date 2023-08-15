@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { Button, Typography } from '@mui/material';
 
 import calculateHeight from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateHeight';
+import { calctulateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateTop';
+import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
 
 import * as styles from './ScheduleCard.styles';
 
@@ -23,9 +25,14 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
   onClick,
 }) => {
   const height = calculateHeight(startTime, endTime);
+  const top = calctulateTop(startTime);
+
+  const start = getCurrentTime(startTime);
+  const end = getCurrentTime(endTime);
+
   return (
     <Button
-      sx={styles.card(disciplineType, height)}
+      sx={styles.card(disciplineType, height, top)}
       disableRipple
       disabled={disabled}
       onClick={onClick}
@@ -33,7 +40,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
       <Typography variant="body1">{name}</Typography>
       {startTime && endTime && (
         <Typography variant="body2">
-          {startTime} - {endTime}
+          {start} - {end}
         </Typography>
       )}
     </Button>

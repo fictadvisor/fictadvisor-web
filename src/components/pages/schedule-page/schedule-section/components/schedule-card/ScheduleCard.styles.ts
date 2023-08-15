@@ -33,6 +33,7 @@ const otherSubjects: SxProps<Theme> = {
 export const card = (
   disciplineType: string,
   height: string,
+  top: string,
 ): SxProps<Theme> => ({
   width: {
     mobileMedium: '128px',
@@ -42,6 +43,9 @@ export const card = (
     mobileMedium: height,
     mobile: '80px',
   },
+  left: 0,
+  top: top,
+  position: 'absolute',
   padding: '8px 8px 12px 8px',
   borderLeft: '8px solid',
   borderRadius: '6px',
