@@ -10,6 +10,6 @@ export interface GetEventTransformedBody {
   week: string;
   days: {
     day: Date;
-    events: Event[];
+    events: (Event | Event[])[];
   }[];
 }

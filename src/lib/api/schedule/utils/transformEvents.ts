@@ -2,6 +2,7 @@ import {
   GetEventBody,
   GetEventTransformedBody,
 } from '@/lib/api/schedule/types/GetEventBody';
+import { Event } from '@/types/schedule';
 
 const MS_IN_DAY = 1000 * 60 * 60 * 24;
 const MS_IN_WEEK = MS_IN_DAY * 7;
@@ -12,13 +13,15 @@ export function transformEvents({
 }: GetEventBody): GetEventTransformedBody {
   const firstDayDate = new Date(startTime);
   const firstDayDateMs = firstDayDate.getTime();
+  let helperMs = firstDayDateMs;
 
+  const allEvents: (Event[] | Event)[] = [];
+  const groupedEvents: Event[][] = [];
   const resultedData: GetEventTransformedBody = {
     week: week,
     days: [],
   };
 
-  let helperMs = firstDayDateMs;
   for (let i = 0; i < 7; i++) {
     const date = new Date(helperMs);
     resultedData.days.push({
@@ -29,9 +32,34 @@ export function transformEvents({
   }
 
   for (const event of events) {
+    if (
+      events.some(
+        _event =>
+          _event !== event &&
+          _event.startTime === event.startTime &&
+          _event.endTime === event.endTime,
+      )
+    ) {
+      //push this event to repeated events
+      const _events = groupedEvents.find(
+        _events => _events[0].startTime === event.startTime,
+      );
+
+      if (_events) _events.push(event);
+      else groupedEvents.push([event]);
+    } else {
+      allEvents.push(event);
+    }
+  }
+
+  allEvents.push(...groupedEvents);
+
+  for (const _event of allEvents) {
+    const event: Event = Array.isArray(_event) ? _event[0] : _event;
+
     const eventMs = new Date(event.startTime).getTime() - firstDayDateMs;
     const dateIndex = Math.floor((eventMs / MS_IN_WEEK) * 7);
-    resultedData.days[dateIndex].events.push(event);
+    resultedData.days[dateIndex].events.push(_event);
   }
 
   return resultedData;
