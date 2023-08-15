@@ -4,9 +4,8 @@ import {
   InputSize,
   InputState,
   InputType,
-} from '@/components/common/ui/form/input-mui/Input';
+} from '@/components/common/ui/form/input-mui/types';
 import theme from '@/styles/theme';
-import palette from '@/styles/theme/constants/pallete';
 
 export const wrapper: SxProps<Theme> = {
   width: '100%',
@@ -17,7 +16,7 @@ export const label = (state: InputState): SxProps<Theme> => ({
   overflow: 'unset',
   padding: '2px 8px',
   maxWidth: '100%',
-
+  //it is a bug fix and if someone can fix it would be great
   // Makes only lower half of the label to have background (designers asked to do this)
   background: `linear-gradient(180deg, rgba(30, 30, 30, 0) 50%, ${theme.palette.backgroundDark[50]} 49.95%)`,
 
@@ -144,11 +143,11 @@ export const rightIcon = (type: InputType, state: InputState) => ({
   }),
   ...(state === InputState.ERROR &&
     type !== InputType.PASSWORD && {
-      color: palette.error[500],
+      color: theme.palette.error[500],
     }),
 
   ...(state === InputState.SUCCESS &&
     type !== InputType.PASSWORD && {
-      color: palette.success[600],
+      color: theme.palette.success[600],
     }),
 });
