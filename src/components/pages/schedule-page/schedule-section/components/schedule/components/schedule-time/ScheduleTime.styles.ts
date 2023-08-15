@@ -4,7 +4,7 @@ export const time: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   width: '39px',
-  gap: '64px',
+  gap: '64.4px',
   marginTop: '74px',
   marginRight: '7px',
 };

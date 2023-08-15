@@ -19,14 +19,28 @@ const ScheduleHeader = () => {
   }));
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
-  const month = 'Лютий';
   const startWeek = new Date('2023-08-14T16:43:37.041Z');
+  const monthNumber = startWeek.getMonth();
   const startWeekDate = new Date('2023-08-14T16:43:37.041Z').getDate();
   const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+  const monthMapper = [
+    'Січень',
+    'Лютий',
+    'Березень',
+    'Квітень',
+    'Травень',
+    'Червень',
+    'Липень',
+    'Серпень',
+    'Вересень',
+    'Жовтень',
+    'Листопад',
+    'Грудень',
+  ];
   const columns = [];
 
-  const getDayName = (index: number) => {
-    return dayMapper[index - 1];
+  const getName = (mapper: string[], index: number) => {
+    return mapper[index - 1];
   };
 
   for (let i = 0; i < 7; i++) {
@@ -34,7 +48,7 @@ const ScheduleHeader = () => {
     columns.push(
       <Box sx={styles.column} key={i}>
         <Typography sx={styles.dayName(isCurDay)}>
-          {getDayName(startWeek.getDay() + i)}
+          {getName(dayMapper, startWeek.getDay() + i)}
         </Typography>
         <Typography sx={styles.dayNumber(isCurDay)}>
           {startWeekDate + i}
@@ -43,13 +57,9 @@ const ScheduleHeader = () => {
     );
   }
 
-  const nextWeek = () => {
-    setWeek(week + 1);
-  };
+  const nextWeek = () => setWeek(week + 1);
 
-  const prevWeek = () => {
-    setWeek(week - 1);
-  };
+  const prevWeek = () => setWeek(week - 1);
 
   useEffect(() => {
     week === 1 ? setPrevButton(true) : setPrevButton(false);
@@ -59,7 +69,9 @@ const ScheduleHeader = () => {
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
-        <Typography sx={styles.month}>{month}</Typography>
+        <Typography sx={styles.month}>
+          {getName(monthMapper, monthNumber + 1)}
+        </Typography>
         <Box sx={styles.weekWrapper}>
           <IconButton
             disabled={prevButton}
