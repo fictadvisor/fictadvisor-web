@@ -6,7 +6,6 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
-import { useField } from 'formik';
 
 import {
   getLeftIcon,
@@ -47,6 +46,10 @@ interface InputProps
   sx?: SxProps<Theme>;
   onDeterredChange?: () => void;
   isImmutable?: boolean;
+  touched?: boolean;
+  error?: string;
+  value?: string;
+  name: string;
 }
 
 const MAX_LENGTH = 2000;
@@ -62,25 +65,20 @@ const Input: React.FC<InputProps> = ({
   sx,
   onDeterredChange,
   disabled = false,
+  value,
+  error,
+  touched,
   ...rest
 }) => {
-  const [field, { touched, error }, { setTouched, setValue }] = useField(
-    rest.name,
-  );
-
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
   const state = getState(disabled, touched, error, isSuccessOnDefault);
 
   const LeftIcon = getLeftIcon(type);
-  const RightIcon = getRightIcon(type, isHidden, state, field.value);
+  const RightIcon = getRightIcon(type, isHidden, state, value);
 
   const handleRightIconClick = () => {
     if (type === InputType.PASSWORD) {
       setIsHidden(!isHidden);
-    }
-    if (type === InputType.SEARCH) {
-      setTouched(false);
-      setValue('');
     }
   };
 
@@ -89,7 +87,7 @@ const Input: React.FC<InputProps> = ({
       if (onDeterredChange) onDeterredChange();
     }, 500);
     return () => clearTimeout(curTimer);
-  }, [field.value, onDeterredChange]);
+  }, [value, onDeterredChange]);
 
   return (
     <FormControl
@@ -105,7 +103,6 @@ const Input: React.FC<InputProps> = ({
 
       <OutlinedInput
         {...rest}
-        {...field}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
