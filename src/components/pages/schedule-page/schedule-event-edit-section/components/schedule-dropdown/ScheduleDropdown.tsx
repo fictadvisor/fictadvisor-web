@@ -6,7 +6,7 @@ import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 
 import * as styles from './ScheduleDropdown.styles';
 
-export interface ScheduleDropdownProps {
+interface ScheduleDropdownProps {
   options: DropDownOption[];
   placeholder?: string;
   isDisabled?: boolean;
@@ -32,9 +32,8 @@ const ScheduleDropdown: FC<ScheduleDropdownProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    console.log(icon ? true : false);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
   return (
     <Dropdown
@@ -44,10 +43,7 @@ const ScheduleDropdown: FC<ScheduleDropdownProps> = ({
       placeholder={placeholder}
       onChange={onChange}
       onInputChange={handleInputChange}
-      inputSx={styles.input(
-        inputValue || value ? true : false,
-        icon ? true : false,
-      )}
+      inputSx={styles.input(inputValue || value ? true : false, !!icon)}
       dropdownSx={styles.dropdown}
       isDisabled={isDisabled}
       icon={icon}

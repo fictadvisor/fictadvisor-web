@@ -29,7 +29,7 @@ export interface DropdownProps {
   disableClearable?: boolean;
   value: string;
   onChange: (value: string) => void;
-  onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   touched?: boolean;
   error?: string;
   icon?: ReactNode;

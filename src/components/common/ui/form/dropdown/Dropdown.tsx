@@ -103,9 +103,9 @@ const Dropdown: FC<DropdownProps> = ({
             popper: popperProps,
           }}
           popupIcon={
-            hasPopup ? (
+            hasPopup && (
               <ChevronDownIcon width={24} height={24} strokeWidth={1.5} />
-            ) : null
+            )
           }
           noOptionsText={noOptionsText}
           renderOption={(props, option: DropDownOption) => (

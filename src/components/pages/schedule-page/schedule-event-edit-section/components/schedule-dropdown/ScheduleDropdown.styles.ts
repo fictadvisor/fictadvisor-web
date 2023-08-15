@@ -14,12 +14,10 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
   },
   '& .Mui-focused': {
     svg: {
-      '-webkit-text-fill-color': 'unset',
       opacity: 0.3,
     },
     '& .MuiOutlinedInput-input': {
       '&::placeholder': {
-        '-webkit-text-fill-color': 'unset',
         opacity: 0.3,
       },
     },
