@@ -6,7 +6,7 @@ import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 
 import * as styles from './ScheduleDropdown.styles';
 
-interface ScheduleDropdownProps {
+export interface ScheduleDropdownProps {
   options: DropDownOption[];
   placeholder?: string;
   isDisabled?: boolean;
