@@ -1,189 +1,121 @@
-import { SxProps, Theme } from '@mui/material/styles';
-
+import React, { useEffect, useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material';
+
+import { MAX_LENGTH } from '@/components/common/ui/form/input-mui/constants';
+import {
+  InputProps,
   InputSize,
   InputState,
   InputType,
 } from '@/components/common/ui/form/input-mui/types';
-import theme from '@/styles/theme';
+import {
+  getRightIcon,
+  getState,
+} from '@/components/common/ui/form/input-mui/util';
+import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 
-export const wrapper: SxProps<Theme> = {
-  width: '100%',
-  padding: 0,
+import * as styles from './Input.styles';
+
+const Input: React.FC<InputProps> = ({
+                                       label,
+                                       placeholder,
+                                       name,
+                                       size = InputSize.LARGE,
+                                       type = InputType.DEFAULT,
+                                       isSuccessOnDefault,
+                                       defaultRemark,
+                                       showRemark = false,
+                                       readOnly = false,
+                                       sx = {},
+                                       onDeterredChange,
+                                       disabled = false,
+                                       value,
+                                       onChange,
+                                       error,
+                                       touched,
+                                     }) => {
+  const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
+  const state = getState(
+    disabled,
+    touched,
+    !!error,
+    isSuccessOnDefault,
+    readOnly,
+  );
+  const RightIcon = getRightIcon(type, isHidden, state, value);
+
+  const handleRightIconClick = () => {
+    if (
+      type === InputType.PASSWORD &&
+      state !== InputState.DISABLED &&
+      state !== InputState.READONLY
+    )
+      setIsHidden(!isHidden);
+    else if (
+      type === InputType.SEARCH &&
+      state !== InputState.DISABLED &&
+      state !== InputState.READONLY
+    )
+      onChange('');
+  };
+
+  useEffect(() => {
+    const curTimer = setTimeout(() => {
+      if (onDeterredChange) onDeterredChange();
+    }, 500);
+    return () => clearTimeout(curTimer);
+  }, [value, onDeterredChange]);
+
+  return (
+    <FormControl
+      sx={mergeSx(styles.wrapper, sx)}
+  margin="none"
+  disabled={disabled}
+    >
+    {label && (
+      <InputLabel sx={styles.label(state)} size="normal">
+    {label}
+    </InputLabel>
+)}
+
+  <OutlinedInput
+    onChange={event => onChange(event.target.value)}
+  value={value}
+  readOnly={readOnly}
+  name={name}
+  sx={styles.input(state, size)}
+  inputProps={{ maxLength: MAX_LENGTH }}
+  color="warning"
+  type={isHidden ? 'password' : 'text'}
+  placeholder={placeholder}
+  startAdornment={
+    type === InputType.SEARCH && (
+    <MagnifyingGlassIcon style={styles.glassIcon(type, state)} />
+)
+}
+  endAdornment={
+    RightIcon && (
+    <RightIcon
+      onClick={handleRightIconClick}
+  style={styles.rightIcon(type, state)}
+  />
+)
+}
+  />
+
+  {showRemark && (
+    <FormHelperText sx={styles.remark(state)}>
+    {state === InputState.ERROR ? error : defaultRemark}
+    </FormHelperText>
+  )}
+  </FormControl>
+);
 };
 
-export const label = (state: InputState): SxProps<Theme> => ({
-  overflow: 'hidden',
-  padding: '2px 8px',
-  maxWidth: '78%',
-  background: `linear-gradient(180deg, rgba(30, 30, 30, 0) 50%, ${theme.palette.backgroundDark[100]} 49.95%)`,
-
-  ...(state === InputState.ERROR && {
-    color: theme.palette.error[500],
-    '&.Mui-focused': {
-      color: theme.palette.error[500],
-    },
-  }),
-
-  ...(state === InputState.READONLY && {
-    color: theme.palette.grey[800],
-    '&.Mui-focused': {
-      color: theme.palette.grey[800],
-    },
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  }),
-
-  ...(state === InputState.SUCCESS && {
-    color: theme.palette.success[600],
-    '&.Mui-focused': {
-      color: theme.palette.success[600],
-    },
-  }),
-
-  ...(state === InputState.DEFAULT && {
-    color: theme.palette.grey[800],
-    '&.Mui-focused': {
-      color: theme.palette.grey[800],
-    },
-  }),
-
-  '&.Mui-disabled': {
-    color: theme.palette.grey[200],
-  },
-});
-
-export const remark = (state: InputState): SxProps<Theme> => ({
-  margin: '2px 8px 0 16px',
-  '&.MuiFormHelperText-root': {
-    textTransform: 'lowercase',
-  },
-
-  ...(state === InputState.ERROR && {
-    color: theme.palette.error[500],
-  }),
-
-  ...(state === InputState.SUCCESS && {
-    color: theme.palette.success[600],
-  }),
-
-  typography: theme.typography.overline,
-  minHeight: '20px',
-});
-
-export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
-  transition: 'all 0.2s ease-in-out',
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-  backgroundColor: theme.palette.backgroundDark[100],
-  borderRadius: '8px',
-  resize: 'none',
-  border: '2px solid',
-  color: theme.palette.grey[800],
-
-  ...(size === InputSize.LARGE && {
-    padding: '14px 16px',
-    typography: theme.typography.body2,
-  }),
-
-  ...(size === InputSize.MEDIUM && {
-    padding: '13px 12px',
-    typography: theme.typography.body1,
-  }),
-
-  ...(state === InputState.READONLY && {
-    borderColor: theme.palette.grey[500],
-    '&:hover': {
-      cursor: 'pointer',
-      borderColor: theme.palette.grey[700],
-    },
-    '&.MuiOutlinedInput-root': {
-      input: {
-        cursor: 'pointer',
-      },
-    },
-  }),
-
-  ...(state === InputState.DEFAULT && {
-    borderColor: theme.palette.grey[500],
-    '&:hover': {
-      borderColor: theme.palette.grey[700],
-    },
-    '&.Mui-focused': {
-      borderColor: theme.palette.grey[700],
-    },
-  }),
-
-  ...(state === InputState.ERROR && {
-    borderColor: theme.palette.error[500],
-  }),
-
-  ...(state === InputState.SUCCESS && {
-    borderColor: theme.palette.success[600],
-  }),
-
-  '&.Mui-disabled': {
-    borderColor: theme.palette.grey[200],
-    color: theme.palette.grey[200],
-  },
-
-  svg: {
-    ...(size === InputSize.LARGE && {
-      width: '24px',
-      height: '24px',
-    }),
-
-    ...(size === InputSize.MEDIUM && {
-      width: '22px',
-      height: '22px',
-    }),
-
-    flexShrink: '0',
-    p: 0,
-  },
-
-  input: {
-    '&.Mui-disabled': {
-      WebkitTextFillColor: theme.palette.grey[200],
-      '&:hover': {
-        cursor: 'not-allowed',
-      },
-    },
-    padding: 0,
-    '::placeholder': {
-      color: theme.palette.grey[500],
-    },
-  },
-
-  fieldset: {
-    border: 'none',
-  },
-});
-
-export const rightIcon = (type: InputType, state: InputState) => ({
-  ...((type === InputType.SEARCH || type === InputType.PASSWORD) && {
-    cursor: 'pointer',
-  }),
-  ...((type === InputType.PASSWORD || type === InputType.SEARCH) &&
-    state === InputState.DISABLED && {
-      cursor: 'not-allowed',
-    }),
-  ...(state === InputState.ERROR &&
-    type !== InputType.PASSWORD && {
-      color: theme.palette.error[500],
-    }),
-  ...(state === InputState.SUCCESS &&
-    type !== InputType.PASSWORD && {
-      color: theme.palette.success[600],
-    }),
-});
-
-export const glassIcon = (type: InputType, state: InputState) => ({
-  ...(type === InputType.SEARCH &&
-    state === InputState.DISABLED && {
-      color: theme.palette.grey[200],
-    }),
-});
+export default Input;

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { QueryObserverBaseResult } from 'react-query';
-import Link from 'next/link';
 
 import Input from '@/components/common/ui/form/input-mui';
 import { TrashBucketButton } from '@/components/common/ui/icon-button-mui/variants';
@@ -14,7 +13,6 @@ interface ContactProps extends Contact {
 }
 const ContactItem: FC<ContactProps> = ({
   refetchContacts,
-  link,
   name,
   displayName,
 }) => {
@@ -26,15 +24,7 @@ const ContactItem: FC<ContactProps> = ({
 
   return (
     <div className={styles['contact-item']}>
-      <Link href={link}>
-        <Input
-          readOnly
-          onChange={() => {}}
-          name={name}
-          value={displayName}
-          label={name}
-        />
-      </Link>
+      <Input name={name} value={displayName} label={name} />
       <TrashBucketButton onClick={handleDeleteClick} />
     </div>
   );
