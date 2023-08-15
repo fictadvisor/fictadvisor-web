@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import ScheduleLine from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-line';
-import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-line/types';
+import ScheduleLine from '@/components/pages/schedule-page/schedule-section/components/schedule-line';
+import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule-line/types';
 
 const ScheduleLinePage = () => {
   return (

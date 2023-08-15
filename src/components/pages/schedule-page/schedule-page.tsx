@@ -11,10 +11,17 @@ import styles from './schedule-page.module.scss';
 
 const SchedulePage = () => {
   const router = useRouter();
-  const { setGroupId, setWeek } = useSchedule(state => ({
+  const { setGroupId, setWeek, setDate } = useSchedule(state => ({
     setGroupId: state.setGroupId,
     setWeek: state.setWeek,
+    setDate: state.setDate,
   }));
+
+  useEffect(() => {
+    setInterval(() => {
+      setDate(new Date());
+    }, 1000 * 60);
+  }, []);
 
   useEffect(() => {
     if (!router.isReady) return;
