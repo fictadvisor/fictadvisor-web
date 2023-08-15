@@ -1,11 +1,10 @@
-import React from 'react';
 import { SxProps, Theme } from '@mui/material/styles';
-
 export enum InputState {
   DISABLED = 'disabled',
   DEFAULT = 'default',
   SUCCESS = 'success',
   ERROR = 'error',
+  READONLY = 'readonly',
 }
 
 export enum InputSize {
@@ -19,11 +18,13 @@ export enum InputType {
   SEARCH = 'search',
 }
 
-export interface InputProps
-  extends Omit<React.ComponentPropsWithoutRef<'input'>, 'size'> {
+export interface InputProps {
   label?: string;
   placeholder?: string;
+  name?: string;
   size?: InputSize;
+  onChange: (value: string) => void;
+  value: string;
   type?: InputType;
   isSuccessOnDefault?: boolean;
   defaultRemark?: string;
@@ -31,7 +32,7 @@ export interface InputProps
   sx?: SxProps<Theme>;
   onDeterredChange?: () => void;
   touched?: boolean;
+  disabled?: boolean;
   error?: string;
-  value?: string;
-  handleRightIconClick?: () => void;
+  readOnly?: boolean;
 }
