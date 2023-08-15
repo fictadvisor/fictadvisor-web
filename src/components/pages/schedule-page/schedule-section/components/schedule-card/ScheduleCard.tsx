@@ -4,6 +4,7 @@ import { Button, Typography } from '@mui/material';
 import calculateHeight from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateHeight';
 import { calctulateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateTop';
 import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
+import { useSchedule } from '@/store/useSchedule';
 
 import * as styles from './ScheduleCard.styles';
 
@@ -12,7 +13,6 @@ interface ScheduleCardProps {
   startTime: string;
   endTime: string;
   disciplineType: string;
-  disabled: boolean;
   onClick: () => void;
 }
 
@@ -21,7 +21,6 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
   startTime,
   endTime,
   disciplineType,
-  disabled,
   onClick,
 }) => {
   const height = calculateHeight(startTime, endTime);
@@ -30,11 +29,13 @@ const ScheduleCard: FC<ScheduleCardProps> = ({
   const start = getCurrentTime(startTime);
   const end = getCurrentTime(endTime);
 
+  const currentTime = useSchedule(state => state.currentTime).getTime();
+
   return (
     <Button
       sx={styles.card(disciplineType, height, top)}
       disableRipple
-      disabled={disabled}
+      disabled={currentTime > new Date(endTime).getTime()}
       onClick={onClick}
     >
       <Typography variant="body1">{name}</Typography>

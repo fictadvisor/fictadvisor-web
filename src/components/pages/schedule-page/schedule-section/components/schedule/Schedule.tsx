@@ -11,17 +11,17 @@ import { useSchedule } from '@/store/useSchedule';
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {
-  const groupId = 'e1198b61-be34-4cde-9134-40141be6f349';
+  const groupId = 'b49dd1d3-5111-4c74-a10c-768f958a19da';
   const week = useSchedule(state => state.week).toString();
   const [data, setData] = useState<GetEventTransformedBody | null>(null);
 
-  const api = async () => {
+  const getEvents = async () => {
     const res = await scheduleService.getEvents(groupId, +week);
     res.startTime = '2023-02-06T00:00:00.000Z';
     setData(transformEvents(res));
   };
 
-  api();
+  getEvents();
 
   return (
     <Box sx={styles.layout}>
