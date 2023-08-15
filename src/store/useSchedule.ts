@@ -8,6 +8,7 @@ type State = {
   groupId: string;
   events: Event[];
   isNewEventAdded: boolean;
+  currentTime: Date;
 };
 
 type Action = {
@@ -17,9 +18,11 @@ type Action = {
   setEvents: (events: Event[]) => void;
   setIsNewEventAdded: (isAdded: boolean) => void;
   deleteEvent: (eventId: string) => void;
+  setDate: (newDate: Date) => void;
 };
 
 export const useSchedule = create<State & Action>((set, get) => ({
+  currentTime: new Date(),
   isNewEventAdded: false,
   disciplineType: undefined,
   week: 1,
@@ -53,6 +56,11 @@ export const useSchedule = create<State & Action>((set, get) => ({
   setIsNewEventAdded(isAdded: boolean) {
     set(_ => ({
       isNewEventAdded: isAdded,
+    }));
+  },
+  setDate(newDate: Date) {
+    set(_ => ({
+      currentTime: newDate,
     }));
   },
 }));

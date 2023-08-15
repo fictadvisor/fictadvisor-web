@@ -4,7 +4,7 @@ import theme from '@/styles/theme';
 
 import { ScheduleLineVariant } from './types';
 
-export const container = (variant: ScheduleLineVariant): SxProps<Theme> => ({
+export const container = (): SxProps<Theme> => ({
   display: 'flex',
   alignItems: 'center',
 });
@@ -29,17 +29,25 @@ export const verticalDivider = (
 export const horizontalDivider = (
   variant: ScheduleLineVariant,
 ): SxProps<Theme> => ({
-  flex: 1,
+  flex: 'none',
+  marginRight: '8px',
+  borderBottomRightRadius: '2px',
+  borderTopRightRadius: '2px',
 
   ...(variant === ScheduleLineVariant.SHORT && {
     border: `1px solid ${theme.palette.primary[600]}`,
+    width: '292px',
   }),
 
   ...(variant === ScheduleLineVariant.LONG && {
     border: `2px solid ${theme.palette.primary[600]}`,
+    width: '142px',
   }),
 });
 
 export const dashed = (): SxProps<Theme> => ({
-  border: `1px dashed ${theme.palette.primary[600]}`,
+  backgroundRepeat: 'repeat-x',
+  backgroundImage: 'url("/icons/schedule-line.svg")',
+  width: '100%',
+  height: '2px',
 });
