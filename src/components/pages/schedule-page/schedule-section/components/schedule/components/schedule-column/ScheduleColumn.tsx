@@ -14,7 +14,6 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ events }) => {
   const handleClick = () => {
     console.log('card');
   };
-  console.log(events);
   return (
     <Box sx={styles.column}>
       {events.map(
@@ -26,7 +25,6 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ events }) => {
               startTime={event.startTime}
               endTime={event.endTime}
               disciplineType={event.disciplineType.name}
-              disabled={false}
               onClick={handleClick}
             />
           ),

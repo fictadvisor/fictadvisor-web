@@ -34,6 +34,7 @@ export const button: SxProps<Theme> = {
 export const columns: SxProps<Theme> = {
   marginLeft: '71px',
   marginTop: '27px',
+  marginBottom: '6px',
   display: 'flex',
   flexDirection: 'row',
 };
