@@ -11,7 +11,7 @@ import styles from './schedule-section.module.scss';
 export const ScheduleSection = ({}) => {
   const groupId = '55b537e3-6786-454c-b934-3b92c7242095';
   const week = useSchedule(state => state.week);
-  const setEventsBody = useSchedule(state => state.setEventsBody);
+  const addEventBody = useSchedule(state => state.addEventBody);
   const eventsBody = useSchedule(state => state.eventsBody);
   useEffect(() => {
     const getEvents = async () => {
@@ -22,11 +22,12 @@ export const ScheduleSection = ({}) => {
         true,
         true,
       );
-      setEventsBody(res);
+      console.log(res);
+      addEventBody(res);
     };
 
     getEvents();
-  }, [setEventsBody, week]);
+  }, [addEventBody, week]);
 
   if (!eventsBody) return <Progress />;
 

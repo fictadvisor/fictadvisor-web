@@ -32,7 +32,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
   disciplineType: undefined,
   week: 1,
   groupId: '',
-  eventsBody: [],
+  eventsBody: new Array(21),
   chosenDay: new Date(),
 
   addEventBody(_eventsBody: GetEventBody) {

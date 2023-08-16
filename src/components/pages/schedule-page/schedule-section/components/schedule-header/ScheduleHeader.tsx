@@ -39,14 +39,9 @@ const ScheduleHeader = () => {
   ];
 
   const [isCurDay, setIsCurDay] = useState(false);
-  const monthNumber = transformEvents(
-    eventsBody as GetEventBody,
-  ).days[0].day.getMonth();
-
-  console.log(new Date().getDate());
 
   useEffect(() => {
-    const days = transformEvents(eventsBody as GetEventBody).days;
+    const days = transformEvents(eventsBody[week - 1] as GetEventBody).days;
     for (const { day } of days) {
       if (
         day.getDate() === new Date().getDate() &&
@@ -59,8 +54,6 @@ const ScheduleHeader = () => {
     }
   }, [eventsBody]);
 
-  console.log(week);
-
   const nextWeek = () => setWeek(week + 1);
 
   const prevWeek = () => setWeek(week - 1);
@@ -69,6 +62,10 @@ const ScheduleHeader = () => {
     week === 1 ? setPrevButton(true) : setPrevButton(false);
     week === 20 ? setNextButton(true) : setNextButton(false);
   }, [week]);
+  if (!eventsBody[week - 1]) return null;
+  const monthNumber = transformEvents(
+    eventsBody[week - 1] as GetEventBody,
+  ).days[0].day.getMonth();
 
   return (
     <Box sx={styles.wrapper}>
@@ -97,8 +94,8 @@ const ScheduleHeader = () => {
         </Box>
       </Box>
       <Box sx={styles.columns}>
-        {eventsBody &&
-          transformEvents(eventsBody).days.map(({ day }, index) => (
+        {eventsBody[week - 1] &&
+          transformEvents(eventsBody[week - 1]).days.map(({ day }, index) => (
             <Box sx={styles.column} key={index}>
               <Typography sx={styles.dayName(isCurDay)}>
                 {dayMapper[day.getDay()]}
