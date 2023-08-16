@@ -9,7 +9,7 @@ type State = {
   disciplineType?: TDiscipline[];
   week: number;
   groupId: string;
-  eventsBody: GetEventBody | null;
+  eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
   currentTime: Date;
   chosenDay: Date;
@@ -19,7 +19,7 @@ type Action = {
   setWeek: (week: number) => void;
   setDiscipline: (discipline: TDiscipline[]) => void;
   setGroupId: (id: string) => void;
-  setEventsBody: (_eventsBody: GetEventBody) => void;
+  addEventBody: (_eventsBody: GetEventBody) => void;
   setIsNewEventAdded: (isAdded: boolean) => void;
   deleteEvent: (eventId: string) => void;
   setDate: (newDate: Date) => void;
@@ -32,20 +32,26 @@ export const useSchedule = create<State & Action>((set, get) => ({
   disciplineType: undefined,
   week: 1,
   groupId: '',
-  eventsBody: null,
+  eventsBody: [],
   chosenDay: new Date(),
 
-  setEventsBody(_eventsBody: GetEventBody) {
+  addEventBody(_eventsBody: GetEventBody) {
     set(_ => ({
-      eventsBody: _eventsBody,
+      eventsBody: [...(get().eventsBody as GetEventBody[]), _eventsBody],
     }));
   },
+  /*
+   * This method is error prone
+   * */
   deleteEvent(eventId: string) {
+    const allEventBodies = [...get().eventsBody];
+    const currentEventBody = allEventBodies[get().week - 1];
+    currentEventBody.events = currentEventBody.events.filter(
+      _event => _event.id !== eventId,
+    );
+
     set(_ => ({
-      eventsBody: {
-        ...get().eventsBody,
-        events: get().eventsBody?.events.filter(event => event.id !== eventId),
-      } as GetEventBody,
+      eventsBody: allEventBodies,
     }));
   },
   setDiscipline(disciplines: TDiscipline[]) {
