@@ -1,10 +1,13 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
+
+import theme from '@/styles/theme';
 
 import * as styles from './AboutPage.styles';
 import { specialtyTextCard, studentTextCard } from './AboutPage.styles';
 
 const AboutPage = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   return (
     <Box sx={styles.container}>
       <Box
@@ -13,19 +16,21 @@ const AboutPage = () => {
           height: '775px',
         }}
       >
-        <Box
-          sx={{
-            width: '40%',
-            left: '0%',
-            top: '0%',
-            position: 'absolute',
-            background: 'rgba(30, 30, 30, 0.99)',
-            boxShadow: '50px 0px 50px 0px #1e1e1e',
-            height: '100%',
-            backdropFilter: 'blur(1px)',
-            zIndex: 1,
-          }}
-        />
+        {!isMobile && (
+          <Box
+            sx={{
+              width: '40%',
+              left: '0%',
+              top: '0%',
+              position: 'absolute',
+              background: 'rgba(30, 30, 30, 0.99)',
+              boxShadow: '50px 0px 50px 0px #1e1e1e',
+              height: '100%',
+              backdropFilter: 'blur(1px)',
+              zIndex: 1,
+            }}
+          />
+        )}
         <Box
           sx={{
             borderRadius: '100%',
@@ -40,8 +45,8 @@ const AboutPage = () => {
           }}
         />
         <Box sx={styles.fictCard}>
-          <Typography variant="h2Bold">ФІОТ</Typography>
-          <Typography variant="h6">
+          <Typography variant={isMobile ? 'h4Bold' : 'h2Bold'}>ФІОТ</Typography>
+          <Typography variant={isMobile ? 'body1' : 'h6'}>
             <b>Факультет інформатики та обчислювальної техніки</b> — це не
             просто гучна назва, а ціла спільнота з{' '}
             <b>понад 3 тисяч студентів</b>, які розподілені на багатьох освітніх
@@ -59,27 +64,33 @@ const AboutPage = () => {
           borderRadius: '0 0 0 12px',
           zIndex: 0,
         }}
+        alt="Вітраж"
       />
+
       <Box
         sx={{
           width: '100%',
           display: 'flex',
+          flexDirection: { desktop: 'row', mobile: 'column-reverse' },
           justifyContent: 'center',
+          alignItems: 'center',
           gap: '5%',
           marginTop: '140px',
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '400px',
-            gap: '18px',
-            justifyContent: 'center',
+            maxWidth: '400px',
+            gap: { desktop: '18px', mobile: '6px' },
           }}
         >
-          <Typography variant="h4Bold">Із чого все починалось?</Typography>
-          <Typography variant="body2">
+          <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
+            Із чого все починалось?
+          </Typography>
+          <Typography
+            variant={isMobile ? 'body1' : 'body2'}
+            mt={isMobile ? '6px' : '18px'}
+          >
             <p>
               У 1918 році в КПІ заснували електротехнічний факультет, з якого
               беруть початок сучасні катедри ФІОТу.
@@ -99,11 +110,23 @@ const AboutPage = () => {
             </p>
           </Typography>
         </Box>
-        <img
-          src="/images/about-page/basic.png"
-          style={{ borderRadius: '12px', height: '360px', zIndex: 1 }}
-          alt="Basic"
-        />
+        <Box
+          sx={{
+            height: { desktop: '360px', mobile: '200px' },
+            width: { desktop: '520px', mobile: '310px' },
+          }}
+        >
+          <img
+            src="/images/about-page/basic.png"
+            style={{
+              borderRadius: '12px',
+              width: '100%',
+              height: '100%',
+            }}
+            alt="Basic"
+          />
+        </Box>
+
         <Box
           sx={{
             borderRadius: '100%',
@@ -127,15 +150,32 @@ const AboutPage = () => {
           marginTop: '140px',
         }}
       >
-        <Box display="flex" flexDirection="column" gap="9px">
-          <Typography variant="h4Bold">Катедри факультету</Typography>
-
-          <Typography variant="body2Medium">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
+            Катедри факультету
+          </Typography>
+          <Typography
+            variant={isMobile ? 'body1Medium' : 'body2Medium'}
+            mt="9px"
+          >
             Після реструктуризації факультету у 2021 році катедр залишилося лише
             три:
           </Typography>
         </Box>
-        <Box display="flex" gap="16px" position="relative">
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '16px',
+            position: 'relative',
+            flexDirection: { desktop: 'row', mobile: 'column' },
+            height: 'fit-content',
+          }}
+        >
           <Box sx={styles.cathedraCard}>
             <Typography variant="h4Bold">ОТ</Typography>
             <Box
@@ -218,12 +258,19 @@ const AboutPage = () => {
       </Box>
 
       <Box
-        sx={styles.section}
-        marginTop="140px"
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: {
+            desktop: 'row',
+            mobile: 'column',
+          },
+          marginTop: '140px',
+          gap: '16px',
+          zIndex: 0,
+        }}
         position="relative"
-        gap="16px"
         justifyContent="space-around"
-        zIndex={0}
       >
         <Box
           sx={{
@@ -272,15 +319,21 @@ const AboutPage = () => {
             <Typography variant="h4Bold" width="370px">
               Спеціальності факультету
             </Typography>
-            <Typography width="340px" marginTop="16px" variant="body2">
+            <Typography
+              width="340px"
+              marginTop="16px"
+              variant={isMobile ? 'body1' : 'body2'}
+            >
               Факультет надає можливість обрати власну спеціалізацію та стати
               фахівцем у галузі ІТ-технологій. Наразі катедри пропонують освітні
               програми для трьох спеціальностей:
             </Typography>
           </Box>
           <Box sx={styles.specialtyTextCard}>
-            <Typography variant="h4Bold">121</Typography>
-            <Typography variant="body2">
+            <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
+              121
+            </Typography>
+            <Typography variant={isMobile ? 'body1' : 'body2'}>
               Спеціальність «121 Інженерія програмного забезпечення» готує
               програмістів у класичному розумінні. Протягом навчання можна
               поглиблено опанувати розробку програмного забезпечення для різних
@@ -294,8 +347,10 @@ const AboutPage = () => {
         </Box>
         <Box display="flex" flexDirection="column" gap="20px">
           <Box sx={styles.specialtyTextCard}>
-            <Typography variant="h4Bold">123</Typography>
-            <Typography variant="body2">
+            <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
+              123
+            </Typography>
+            <Typography variant={isMobile ? 'body1' : 'body2'}>
               Спеціальність «123 Комп`ютерна інженерія» зосереджена на
               низькорівневому програмуванні та фізичних аспектах комп`ютерів.
               Випускники мають глибокі знання в галузі проєктування процесорів,
@@ -307,8 +362,10 @@ const AboutPage = () => {
             </Typography>
           </Box>
           <Box sx={styles.specialtyTextCard}>
-            <Typography variant="h4Bold">126</Typography>
-            <Typography variant="body2">
+            <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
+              126
+            </Typography>
+            <Typography variant={isMobile ? 'body1' : 'body2'}>
               Спеціальність «126 Інформаційні системи та технології» виникла в
               Україні саме за ініціативи ФІОТу в 2017 році. Студентам надають
               знання з усіх можливих галузей: бекенд, створення серверних

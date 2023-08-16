@@ -4,28 +4,22 @@ export const container: SxProps<Theme> = {
   dislpay: 'flex',
   width: '100%',
   flexDirection: 'column',
-  paddingLeft: '80px',
-  paddingRight: '80px',
+  padding: { desktop: '0 80px 0', mobile: '0 16px 0' },
   overflow: 'hidden',
-  gap: '140px',
-};
-
-export const section: SxProps<Theme> = {
-  width: '100%',
-  display: 'flex',
-  flexGrow: 1,
 };
 
 export const fictCard: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
-  width: '524px',
-  height: '344px',
-  marginLeft: '80px',
-  position: 'absolute',
-  marginTop: '216px',
+  maxWidth: '524px',
+  width: '100%',
+  height: { desktop: '344px', mobile: 'fit-content' },
+  justifyContent: 'center',
+  marginLeft: { desktop: '80px', mobile: '0' },
+  position: { desktop: 'absolute', mobile: 'relative' },
+  marginTop: { desktop: '216px', mobile: '400px' },
   gap: { desktop: '12px', mobile: '4px' },
-  padding: '40px',
+  padding: { desktop: '40px', mobile: '16px' },
   background: 'rgba(30, 30, 30, 0.35)',
   border: '1px solid #A3A3A3',
   backdropFilter: 'blur(10px)',
@@ -35,10 +29,8 @@ export const fictCard: SxProps<Theme> = {
 export const cathedraCard: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
-  height: '324px',
-  padding: '24px 20px 16px',
-  flex: '1 1 0',
-  width: '0',
+  width: '100%',
+  padding: { desktop: '24px 20px 16px', mobile: '24px 16px 16px' },
   background: 'rgba(30, 30, 30, 0.35)',
   border: '1px solid #A3A3A3',
   backdropFilter: 'blur(10px)',
@@ -49,11 +41,11 @@ export const cathedraCard: SxProps<Theme> = {
 export const specialtyTextCard: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
+  alignItems: 'flex-start',
+  gap: { desktop: '20px', mobile: '16px' },
+  padding: { desktop: '30px', mobile: '16px' },
   borderRadius: '12px',
   background: '#1E1E1E',
-  alignItems: 'flex-start',
-  padding: '30px',
 };
 
 export const studentTextCard: SxProps<Theme> = {
