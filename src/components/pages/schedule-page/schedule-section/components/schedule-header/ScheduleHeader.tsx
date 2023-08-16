@@ -8,21 +8,21 @@ import {
 } from '@/components/common/ui/icon-button';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
+import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
+import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/useSchedule';
 
 import * as styles from './ScheduleHeader.styles';
 
 const ScheduleHeader = () => {
-  const { week, setWeek } = useSchedule(state => ({
+  const { week, setWeek, eventsBody } = useSchedule(state => ({
     week: state.week,
     setWeek: state.setWeek,
+    eventsBody: state.eventsBody,
   }));
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
-  const startWeek = new Date('2023-08-14T16:43:37.041Z');
-  const monthNumber = startWeek.getMonth();
-  const startWeekDate = new Date('2023-08-14T16:43:37.041Z').getDate();
-  const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+  const dayMapper = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
   const monthMapper = [
     'Січень',
     'Лютий',
@@ -37,25 +37,29 @@ const ScheduleHeader = () => {
     'Листопад',
     'Грудень',
   ];
-  const columns = [];
 
-  const getName = (mapper: string[], index: number) => {
-    return mapper[index - 1];
-  };
+  const [isCurDay, setIsCurDay] = useState(false);
+  const monthNumber = transformEvents(
+    eventsBody as GetEventBody,
+  ).days[0].day.getMonth();
 
-  for (let i = 0; i < 7; i++) {
-    const isCurDay = startWeekDate + i === new Date().getDate();
-    columns.push(
-      <Box sx={styles.column} key={i}>
-        <Typography sx={styles.dayName(isCurDay)}>
-          {getName(dayMapper, startWeek.getDay() + i)}
-        </Typography>
-        <Typography sx={styles.dayNumber(isCurDay)}>
-          {startWeekDate + i}
-        </Typography>
-      </Box>,
-    );
-  }
+  console.log(new Date().getDate());
+
+  useEffect(() => {
+    const days = transformEvents(eventsBody as GetEventBody).days;
+    for (const { day } of days) {
+      if (
+        day.getDate() === new Date().getDate() &&
+        day.getMonth() === new Date().getMonth()
+      ) {
+        setIsCurDay(true);
+      } else {
+        setIsCurDay(false);
+      }
+    }
+  }, [eventsBody]);
+
+  console.log(week);
 
   const nextWeek = () => setWeek(week + 1);
 
@@ -69,9 +73,7 @@ const ScheduleHeader = () => {
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
-        <Typography sx={styles.month}>
-          {getName(monthMapper, monthNumber + 1)}
-        </Typography>
+        <Typography sx={styles.month}>{monthMapper[monthNumber]}</Typography>
         <Box sx={styles.weekWrapper}>
           <IconButton
             disabled={prevButton}
@@ -94,7 +96,19 @@ const ScheduleHeader = () => {
           />
         </Box>
       </Box>
-      <Box sx={styles.columns}>{columns.map(column => column)}</Box>
+      <Box sx={styles.columns}>
+        {eventsBody &&
+          transformEvents(eventsBody).days.map(({ day }, index) => (
+            <Box sx={styles.column} key={index}>
+              <Typography sx={styles.dayName(isCurDay)}>
+                {dayMapper[day.getDay()]}
+              </Typography>
+              <Typography sx={styles.dayNumber(isCurDay)}>
+                {day.getDate()}
+              </Typography>
+            </Box>
+          ))}
+      </Box>
     </Box>
   );
 };
