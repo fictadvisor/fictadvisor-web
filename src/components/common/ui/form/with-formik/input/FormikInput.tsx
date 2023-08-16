@@ -12,7 +12,7 @@ interface FormikInputProps extends Omit<InputProps, 'value'> {
   name: string;
 }
 
-const FormikDropdown: FC<FormikInputProps> = ({
+const FormikInput: FC<FormikInputProps> = ({
   name,
   handleRightIconClick,
   type,
@@ -34,7 +34,6 @@ const FormikDropdown: FC<FormikInputProps> = ({
 
   return (
     <Input
-      name={name}
       {...props}
       value={value}
       touched={touched}
@@ -44,4 +43,4 @@ const FormikDropdown: FC<FormikInputProps> = ({
   );
 };
 
-export default FormikDropdown;
+export default FormikInput;

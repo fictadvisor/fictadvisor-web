@@ -3,7 +3,6 @@ import {
   ExclamationCircleIcon,
   EyeIcon,
   EyeSlashIcon,
-  MagnifyingGlassIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
@@ -24,9 +23,6 @@ export const getState = (
   else return InputState.DEFAULT;
 };
 
-export const getLeftIcon = (type: InputType) =>
-  type === InputType.SEARCH ? MagnifyingGlassIcon : null;
-
 export const getRightIcon = (
   type: InputType,
   isHidden: boolean,
@@ -34,8 +30,7 @@ export const getRightIcon = (
   value: string,
 ) => {
   if (type === InputType.PASSWORD) {
-    if (isHidden) return EyeSlashIcon;
-    else return EyeIcon;
+    return isHidden ? EyeSlashIcon : EyeIcon;
   } else {
     if (state === InputState.SUCCESS) return CheckCircleIcon;
     else if (state === InputState.ERROR) return ExclamationCircleIcon;
