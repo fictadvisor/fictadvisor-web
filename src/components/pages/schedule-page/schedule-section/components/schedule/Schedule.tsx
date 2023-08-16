@@ -8,15 +8,18 @@ import { useSchedule } from '@/store/useSchedule';
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {
-  const events = useSchedule(state => state.eventsBody);
+  const { events, week } = useSchedule(state => ({
+    events: state.eventsBody,
+    week: state.week,
+  }));
 
   return (
     <Box sx={styles.layout}>
       <ScheduleTime />
       <Box sx={styles.schedule}>
-        {events && (
+        {events[week - 1] && (
           <Box sx={styles.columns}>
-            {transformEvents(events).days.map((day, index) => (
+            {transformEvents(events[week - 1]).days.map((day, index) => (
               <ScheduleColumn key={index} events={day.events} />
             ))}
           </Box>
