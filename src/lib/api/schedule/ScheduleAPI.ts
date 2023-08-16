@@ -3,14 +3,17 @@ import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 class ScheduleAPI {
-  async getEvents(groupId: string, week: number) {
+  async getEvents(
+    groupId: string,
+    week: number,
+    addLecture: boolean,
+    addLaboratory: boolean,
+    addPractice: boolean,
+  ) {
     const { data } = await client.get<GetEventBody>(
       `schedule/groups/${groupId}/general`,
-      {
-        params: { week },
-      },
+      { params: { week, addLecture, addLaboratory, addPractice } },
     );
-
     return data;
   }
 

@@ -15,8 +15,13 @@ export const ScheduleSection = ({}) => {
   const eventsBody = useSchedule(state => state.eventsBody);
   useEffect(() => {
     const getEvents = async () => {
-      const res = await scheduleService.getEvents(groupId, week);
-      console.log(res);
+      const res = await scheduleService.getEvents(
+        groupId,
+        week,
+        true,
+        true,
+        true,
+      );
       setEventsBody(res);
     };
 
