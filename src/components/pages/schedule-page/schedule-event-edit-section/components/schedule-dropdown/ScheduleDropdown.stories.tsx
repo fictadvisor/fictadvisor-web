@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
+import { LockClosed } from '@/components/common/icons/LockClosed';
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 
 import ScheduleDropdown, { ScheduleDropdownProps } from './ScheduleDropdown';
@@ -25,6 +26,25 @@ const options: DropDownOption[] = [
 ];
 
 type Story = StoryObj<typeof meta>;
+
+export const Icon: Story = (args: ScheduleDropdownProps) => {
+  const [value, setValue] = useState<string>('');
+
+  const handleChange = (newValue: string) => {
+    setValue(newValue);
+    args.onChange && args.onChange(newValue);
+  };
+
+  return <ScheduleDropdown {...args} onChange={handleChange} value={value} />;
+};
+
+Icon.args = {
+  options: options,
+  placeholder: 'Select an option',
+  icon: <LockClosed />,
+  value: '',
+  width: '200px',
+};
 
 export const Base: Story = (args: ScheduleDropdownProps) => {
   const [value, setValue] = useState<string>('');
