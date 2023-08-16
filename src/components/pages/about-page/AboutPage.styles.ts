@@ -22,6 +22,7 @@ export const fictCard: SxProps<Theme> = {
   width: '524px',
   height: '344px',
   marginLeft: '80px',
+  position: 'absolute',
   marginTop: '216px',
   gap: { desktop: '12px', mobile: '4px' },
   padding: '40px',

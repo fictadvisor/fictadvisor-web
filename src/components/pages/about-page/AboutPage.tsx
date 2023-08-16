@@ -6,19 +6,25 @@ import * as styles from './AboutPage.styles';
 const AboutPage = () => {
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.section}>
+      <Box
+        sx={{
+          display: 'flex',
+          height: '777px',
+          position: 'relative',
+        }}
+      >
         <Box
           sx={{
             borderRadius: '100%',
-            background: 'rgba(80, 16, 91, 0.35)',
-            width: '312px',
-            height: '310px',
-            top: '15%',
-            left: '30%',
+            background: 'rgba(135, 48, 48, 0.70)',
+            transform: 'rotate(15deg)',
+            width: '421px',
+            height: '347px',
+            top: '40%',
+            left: '-8%',
             filter: 'blur(60px)',
             position: 'absolute',
             flexShrink: 0,
-            zIndex: -1,
           }}
         />
         <Box sx={styles.fictCard}>
@@ -32,6 +38,16 @@ const AboutPage = () => {
           </Typography>
         </Box>
       </Box>
+      <Box>
+        <img
+          src="/images/about-page/vitrazh.jpg"
+          style={{
+            height: '775px',
+            zIndex: 0,
+          }}
+        />
+      </Box>
+
       <Box
         sx={{
           width: '100%',
@@ -309,16 +325,155 @@ const AboutPage = () => {
           </Box>
         </Box>
       </Box>
+      <Typography variant="h4Bold" mt="140px">
+        Студентська активність
+      </Typography>
+      <Box display="flex" width="100%" alignItems="center">
+        <Box display="flex" flexDirection="column">
+          <Box
+            height="260px"
+            width="100%"
+            display="flex"
+            marginTop="16px"
+            gap="16px"
+          >
+            <Box
+              sx={{
+                width: '500px',
+                height: '260px',
+                overflow: 'hidden',
+                borderRadius: '12px',
+                // marginTop: '16px',
+              }}
+            >
+              <img
+                src="/images/about-page/events.jpg"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                borderRadius: '12px',
+                background: '#151515',
+                alignItems: 'flex-start',
+                padding: '20px',
+                maxWidth: '520px',
+                height: '260px',
+                width: 'fit-content',
+              }}
+            >
+              <Typography variant="h4Bold">Студрада</Typography>
+              <Typography>
+                Студентська рада ФІОТу одна з найбільш активних в університеті.
+                Її члени проводять різноманітні тематичні заходи як для
+                студентів, так і для вступників, ведуть новинні канали, а також
+                розробляють власний вебсайт.
+                <br /> За певний напрям роботи відповідає окремий відділ. Кожен
+                студент може долучитися до роботи та допомогти в розвитку
+                факультету.
+              </Typography>
+            </Box>
+          </Box>
 
-      <Box sx={styles.section} flexDirection="column">
-        <Typography variant="h4Bold" mt="140px">
-          Студентська активність
-        </Typography>
-        <Box sx={{ height: '345px', overflow: 'hidden' }}>
-          <img
-            src="/images/about-page/events.jpg"
-            style={{ height: '345px', borderRadius: '12px' }}
-          />
+          <Box
+            height="460px"
+            width="100%"
+            display="flex"
+            marginTop="16px"
+            gap="16px"
+          >
+            <Box
+              sx={{
+                width: '470px',
+                height: '400px',
+                overflow: 'hidden',
+                borderRadius: '12px',
+              }}
+            >
+              <img
+                src="/images/about-page/dayF.jpg"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  transform: 'scale(1.2)',
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                borderRadius: '12px',
+                background: '#151515',
+                alignItems: 'flex-start',
+                padding: '20px',
+                maxWidth: '300px',
+                height: 'fit-content',
+                width: 'fit-content',
+              }}
+            >
+              <Typography variant="h4Bold">Заходи</Typography>
+              <Typography>
+                Щорічно Студрада організовує День факультету, Абітфест, гітарні
+                та літературні вечори, а також освітні лекції від спонсорів.
+                <br /> Музичні заходи проводяться у клубі «Барви». Зробивши
+                благодійний внесок для ЗСУ, студенти мають змогу послухати
+                авторські пісні андеграунд гуртів.
+                <br />
+                Для освітніх ініціатив існує Хаб ФІОТ — унікальний проєкт
+                співпраці з провідними ІТ-компаніями, де проводять безплатні
+                лекції, літні школи та навчальні курси.
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                height: '320px',
+                width: '230px',
+                overflow: 'hidden',
+                borderRadius: '12px',
+              }}
+            >
+              <img
+                src="/images/about-page/military-cerf.jpg"
+                style={{
+                  height: '100%',
+                }}
+              />
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            borderRadius: '12px',
+            background: '#151515',
+            alignItems: 'flex-start',
+            padding: '20px',
+            maxWidth: '300px',
+            height: 'fit-content',
+            width: 'fit-content',
+            marginLeft: '16px',
+          }}
+        >
+          <Typography variant="h4Bold">Благодійність</Typography>
+          <Typography>
+            З початку повномасштабного вторгнення студентство факультету
+            регулярно проводить збори на зброю та обладнання для наших
+            захисників.
+            <br />
+            Завдяки небайдужим, на фронт відправилися нові автомобілі, термінали
+            зв’язку, прилади нічного бачення, аптечки, бронежилети та інші речі,
+            які необхідні нашим студентам та випускникам на фронті.
+          </Typography>
         </Box>
       </Box>
       <Box sx={styles.section}></Box>
