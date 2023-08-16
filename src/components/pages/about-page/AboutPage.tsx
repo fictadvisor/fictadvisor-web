@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 
 import * as styles from './AboutPage.styles';
+import { specialtyTextCard, studentTextCard } from './AboutPage.styles';
 
 const AboutPage = () => {
   return (
@@ -9,22 +10,33 @@ const AboutPage = () => {
       <Box
         sx={{
           display: 'flex',
-          height: '777px',
-          position: 'relative',
+          height: '775px',
         }}
       >
         <Box
           sx={{
+            width: '40%',
+            left: '0%',
+            top: '0%',
+            position: 'absolute',
+            background: 'rgba(30, 30, 30, 0.99)',
+            boxShadow: '50px 0px 50px 0px #1e1e1e',
+            height: '100%',
+            backdropFilter: 'blur(1px)',
+            zIndex: 1,
+          }}
+        />
+        <Box
+          sx={{
             borderRadius: '100%',
             background: 'rgba(135, 48, 48, 0.70)',
-            transform: 'rotate(15deg)',
-            width: '421px',
-            height: '347px',
+            width: '420px',
+            height: '350px',
             top: '40%',
-            left: '-8%',
+            left: '-5%',
             filter: 'blur(60px)',
             position: 'absolute',
-            flexShrink: 0,
+            zIndex: 1,
           }}
         />
         <Box sx={styles.fictCard}>
@@ -38,16 +50,16 @@ const AboutPage = () => {
           </Typography>
         </Box>
       </Box>
-      <Box>
-        <img
-          src="/images/about-page/vitrazh.jpg"
-          style={{
-            height: '775px',
-            zIndex: 0,
-          }}
-        />
-      </Box>
-
+      <img
+        src="/images/about-page/vitrazh.png"
+        style={{
+          right: 0,
+          top: 0,
+          position: 'absolute',
+          borderRadius: '0 0 0 12px',
+          zIndex: 0,
+        }}
+      />
       <Box
         sx={{
           width: '100%',
@@ -67,7 +79,7 @@ const AboutPage = () => {
           }}
         >
           <Typography variant="h4Bold">Із чого все починалось?</Typography>
-          <Typography>
+          <Typography variant="body2">
             <p>
               У 1918 році в КПІ заснували електротехнічний факультет, з якого
               беруть початок сучасні катедри ФІОТу.
@@ -87,12 +99,23 @@ const AboutPage = () => {
             </p>
           </Typography>
         </Box>
-        <Box>
-          <img
-            src="/images/about-page/basic.jpg"
-            style={{ height: '360px', borderRadius: '12px' }}
-          />
-        </Box>
+        <img
+          src="/images/about-page/basic.png"
+          style={{ borderRadius: '12px', height: '360px', zIndex: 1 }}
+          alt="Basic"
+        />
+        <Box
+          sx={{
+            borderRadius: '100%',
+            background: 'rgba(22, 24, 75, 0.36)',
+            width: '421px',
+            right: 0,
+            height: '425px',
+            filter: 'blur(60px)',
+            position: 'absolute',
+            zIndex: 0,
+          }}
+        />
       </Box>
 
       <Box
@@ -187,7 +210,6 @@ const AboutPage = () => {
                 filter: 'blur(70px)',
                 position: 'absolute',
                 top: '70%',
-                flexShrink: 0,
                 zIndex: -1,
               }}
             />
@@ -250,24 +272,15 @@ const AboutPage = () => {
             <Typography variant="h4Bold" width="370px">
               Спеціальності факультету
             </Typography>
-            <Typography width="340px" marginTop="16px">
+            <Typography width="340px" marginTop="16px" variant="body2">
               Факультет надає можливість обрати власну спеціалізацію та стати
               фахівцем у галузі ІТ-технологій. Наразі катедри пропонують освітні
               програми для трьох спеціальностей:
             </Typography>
           </Box>
-          <Box
-            sx={{
-              gap: '20px',
-              borderRadius: '12px',
-              background: '#1E1E1E',
-              alignItems: 'flex-start',
-              padding: '30px 20px',
-              maxWidth: '562px',
-            }}
-          >
+          <Box sx={styles.specialtyTextCard}>
             <Typography variant="h4Bold">121</Typography>
-            <Typography>
+            <Typography variant="body2">
               Спеціальність «121 Інженерія програмного забезпечення» готує
               програмістів у класичному розумінні. Протягом навчання можна
               поглиблено опанувати розробку програмного забезпечення для різних
@@ -280,18 +293,9 @@ const AboutPage = () => {
           </Box>
         </Box>
         <Box display="flex" flexDirection="column" gap="20px">
-          <Box
-            sx={{
-              gap: '20px',
-              borderRadius: '12px',
-              background: '#1E1E1E',
-              alignItems: 'flex-start',
-              padding: '30px 20px',
-              maxWidth: '740px',
-            }}
-          >
+          <Box sx={styles.specialtyTextCard}>
             <Typography variant="h4Bold">123</Typography>
-            <Typography>
+            <Typography variant="body2">
               Спеціальність «123 Комп`ютерна інженерія» зосереджена на
               низькорівневому програмуванні та фізичних аспектах комп`ютерів.
               Випускники мають глибокі знання в галузі проєктування процесорів,
@@ -302,18 +306,9 @@ const AboutPage = () => {
               кількості необхідного обладнання на факультеті.
             </Typography>
           </Box>
-          <Box
-            sx={{
-              gap: '20px',
-              borderRadius: '12px',
-              background: '#1E1E1E',
-              alignItems: 'flex-start',
-              padding: '30px 20px',
-              maxWidth: '740px',
-            }}
-          >
+          <Box sx={styles.specialtyTextCard}>
             <Typography variant="h4Bold">126</Typography>
-            <Typography>
+            <Typography variant="body2">
               Спеціальність «126 Інформаційні системи та технології» виникла в
               Україні саме за ініціативи ФІОТу в 2017 році. Студентам надають
               знання з усіх можливих галузей: бекенд, створення серверних
@@ -325,102 +320,47 @@ const AboutPage = () => {
           </Box>
         </Box>
       </Box>
-      <Typography variant="h4Bold" mt="140px">
-        Студентська активність
-      </Typography>
-      <Box display="flex" width="100%" alignItems="center">
+
+      <Box
+        display="flex"
+        width="100%"
+        alignItems="center"
+        mt="140px"
+        justifyContent="center"
+      >
         <Box display="flex" flexDirection="column">
-          <Box
-            height="260px"
-            width="100%"
-            display="flex"
-            marginTop="16px"
-            gap="16px"
-          >
-            <Box
-              sx={{
-                width: '500px',
-                height: '260px',
-                overflow: 'hidden',
-                borderRadius: '12px',
-                // marginTop: '16px',
-              }}
-            >
+          <Typography variant="h4Bold">Студентська активність</Typography>
+          <Box width="100%" display="flex" marginTop="16px" gap="16px">
+            <Box>
               <img
-                src="/images/about-page/events.jpg"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                }}
+                src="/images/about-page/events.png"
+                style={{ borderRadius: '12px' }}
               />
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px',
-                borderRadius: '12px',
-                background: '#151515',
-                alignItems: 'flex-start',
-                padding: '20px',
-                maxWidth: '520px',
-                height: '260px',
-                width: 'fit-content',
-              }}
-            >
+
+            <Box sx={styles.studentTextCard}>
               <Typography variant="h4Bold">Студрада</Typography>
-              <Typography>
+              <Typography variant="body2">
                 Студентська рада ФІОТу одна з найбільш активних в університеті.
                 Її члени проводять різноманітні тематичні заходи як для
                 студентів, так і для вступників, ведуть новинні канали, а також
-                розробляють власний вебсайт.
-                <br /> За певний напрям роботи відповідає окремий відділ. Кожен
-                студент може долучитися до роботи та допомогти в розвитку
-                факультету.
+                розробляють власний вебсайт. <br />
+                За певний напрям роботи відповідає окремий відділ. Кожен студент
+                може долучитися до роботи та допомогти в розвитку факультету.
               </Typography>
             </Box>
           </Box>
 
-          <Box
-            height="460px"
-            width="100%"
-            display="flex"
-            marginTop="16px"
-            gap="16px"
-          >
-            <Box
-              sx={{
-                width: '470px',
-                height: '400px',
-                overflow: 'hidden',
-                borderRadius: '12px',
-              }}
-            >
+          <Box display="flex" marginTop="16px" gap="16px">
+            <Box>
               <img
-                src="/images/about-page/dayF.jpg"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  transform: 'scale(1.2)',
-                }}
+                src="/images/about-page/dayF.png"
+                style={{ borderRadius: '12px' }}
               />
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px',
-                borderRadius: '12px',
-                background: '#151515',
-                alignItems: 'flex-start',
-                padding: '20px',
-                maxWidth: '300px',
-                height: 'fit-content',
-                width: 'fit-content',
-              }}
-            >
+            <Box sx={styles.studentTextCard}>
               <Typography variant="h4Bold">Заходи</Typography>
-              <Typography>
+              <Typography variant="body2">
                 Щорічно Студрада організовує День факультету, Абітфест, гітарні
                 та літературні вечори, а також освітні лекції від спонсорів.
                 <br /> Музичні заходи проводяться у клубі «Барви». Зробивши
@@ -432,40 +372,11 @@ const AboutPage = () => {
                 лекції, літні школи та навчальні курси.
               </Typography>
             </Box>
-            <Box
-              sx={{
-                height: '320px',
-                width: '230px',
-                overflow: 'hidden',
-                borderRadius: '12px',
-              }}
-            >
-              <img
-                src="/images/about-page/military-cerf.jpg"
-                style={{
-                  height: '100%',
-                }}
-              />
-            </Box>
           </Box>
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-            borderRadius: '12px',
-            background: '#151515',
-            alignItems: 'flex-start',
-            padding: '20px',
-            maxWidth: '300px',
-            height: 'fit-content',
-            width: 'fit-content',
-            marginLeft: '16px',
-          }}
-        >
+        <Box sx={styles.studentTextCard} ml="16px">
           <Typography variant="h4Bold">Благодійність</Typography>
-          <Typography>
+          <Typography variant="body2">
             З початку повномасштабного вторгнення студентство факультету
             регулярно проводить збори на зброю та обладнання для наших
             захисників.
@@ -476,7 +387,85 @@ const AboutPage = () => {
           </Typography>
         </Box>
       </Box>
-      <Box sx={styles.section}></Box>
+      <Box
+        sx={{ display: 'flex', width: '100%', height: '395px' }}
+        justifyContent="space-between"
+        mt="145px"
+      >
+        <Box
+          sx={{
+            borderRadius: '100%',
+            background: 'rgba(135, 48, 48, 0.70)',
+            width: '583px',
+            height: '595px',
+            left: '10%',
+            filter: 'blur(60px)',
+            position: 'absolute',
+            zIndex: 1,
+          }}
+        />
+        <img
+          src="/images/about-page/wallFICE.png"
+          style={{
+            left: 0,
+            position: 'absolute',
+          }}
+          alt="FICE composition"
+        />
+        <Box
+          sx={{
+            borderRadius: '100%',
+            background: 'rgba(128, 48, 135, 0.70)',
+            width: '630px',
+            height: '630px',
+            filter: 'blur(60px)',
+            position: 'absolute',
+            right: '5%',
+            zIndex: 1,
+          }}
+        />
+        <img
+          src="/images/about-page/wallFICE.png"
+          style={{
+            right: 0,
+            position: 'absolute',
+          }}
+          alt="FICE composition"
+        />
+        <Box
+          sx={{
+            borderRadius: '16px',
+            width: '50%',
+            border: '1px solid #A3A3A3',
+            textAlign: 'center',
+            mt: '4%',
+            left: '25%',
+            position: 'absolute',
+            background: 'rgba(30, 30, 30, 0.35)',
+            backdropFilter: 'blur(10px)',
+            padding: '60px',
+            zIndex: 1,
+          }}
+        >
+          <Typography variant="h4Bold">
+            Факультет інформатики та обчислювальної техніки — це не просто
+            красивий корпус, а простір, де кожен може отримати знання та знайти
+            себе.
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: '45%',
+            left: '27.5%',
+            position: 'absolute',
+            background: 'rgba(30, 30, 30, 1)',
+            mt: '-20px',
+            boxShadow: '40px 0px 20px 0px #1e1e1e, -30px 0 10px -4px #1e1e1e',
+            height: '450px',
+            zIndex: 0,
+          }}
+        />
+      </Box>
     </Box>
   );
 };

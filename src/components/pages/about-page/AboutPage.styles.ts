@@ -45,3 +45,23 @@ export const cathedraCard: SxProps<Theme> = {
   overflow: 'hidden',
   borderRadius: '16px',
 };
+
+export const specialtyTextCard: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  borderRadius: '12px',
+  background: '#1E1E1E',
+  alignItems: 'flex-start',
+  padding: '30px',
+};
+
+export const studentTextCard: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+  borderRadius: '12px',
+  background: '#151515',
+  alignItems: 'flex-start',
+  padding: '20px',
+};
