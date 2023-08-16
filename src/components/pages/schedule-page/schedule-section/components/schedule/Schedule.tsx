@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
@@ -11,17 +11,18 @@ import { useSchedule } from '@/store/useSchedule';
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {
-  const groupId = 'b49dd1d3-5111-4c74-a10c-768f958a19da';
+  const groupId = '55b537e3-6786-454c-b934-3b92c7242095';
   const week = useSchedule(state => state.week).toString();
   const [data, setData] = useState<GetEventTransformedBody | null>(null);
 
-  const getEvents = async () => {
-    const res = await scheduleService.getEvents(groupId, +week);
-    res.startTime = '2023-02-06T00:00:00.000Z';
-    setData(transformEvents(res));
-  };
+  useEffect(() => {
+    const getEvents = async () => {
+      const res = await scheduleService.getEvents(groupId, +week);
+      setData(transformEvents(res));
+    };
 
-  getEvents();
+    getEvents();
+  }, []);
 
   return (
     <Box sx={styles.layout}>
