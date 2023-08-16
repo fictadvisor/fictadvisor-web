@@ -24,7 +24,7 @@ const ContactItem: FC<ContactProps> = ({
 
   return (
     <div className={styles['contact-item']}>
-      <Input name={name} value={displayName} label={name} />
+      <Input readOnly={true} name={name} value={displayName} label={name} />
       <TrashBucketButton onClick={handleDeleteClick} />
     </div>
   );
