@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { Event, TDiscipline } from '@/types/schedule';
 
 //TODO:ADD INITIAL STATE TO LOAD FROM LOCAL STORAGE
@@ -8,7 +9,7 @@ type State = {
   disciplineType?: TDiscipline[];
   week: number;
   groupId: string;
-  events: Event[];
+  eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
   currentTime: Date;
   chosenDay: Date;
@@ -18,7 +19,7 @@ type Action = {
   setWeek: (week: number) => void;
   setDiscipline: (discipline: TDiscipline[]) => void;
   setGroupId: (id: string) => void;
-  setEvents: (events: Event[]) => void;
+  addEventBody: (_eventsBody: GetEventBody) => void;
   setIsNewEventAdded: (isAdded: boolean) => void;
   deleteEvent: (eventId: string) => void;
   setDate: (newDate: Date) => void;
@@ -31,16 +32,26 @@ export const useSchedule = create<State & Action>((set, get) => ({
   disciplineType: undefined,
   week: 1,
   groupId: '',
-  events: [],
+  eventsBody: [],
   chosenDay: new Date(),
-  setEvents(_events: Event[]) {
+
+  addEventBody(_eventsBody: GetEventBody) {
     set(_ => ({
-      events: _events,
+      eventsBody: [...(get().eventsBody as GetEventBody[]), _eventsBody],
     }));
   },
+  /*
+   * This method is error prone
+   * */
   deleteEvent(eventId: string) {
+    const allEventBodies = [...get().eventsBody];
+    const currentEventBody = allEventBodies[get().week - 1];
+    currentEventBody.events = currentEventBody.events.filter(
+      _event => _event.id !== eventId,
+    );
+
     set(_ => ({
-      events: get().events.filter(event => event.id !== eventId),
+      eventsBody: allEventBodies,
     }));
   },
   setDiscipline(disciplines: TDiscipline[]) {
