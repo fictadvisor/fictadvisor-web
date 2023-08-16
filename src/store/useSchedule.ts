@@ -2,6 +2,8 @@ import { create } from 'zustand';
 
 import { Event, TDiscipline } from '@/types/schedule';
 
+//TODO:ADD INITIAL STATE TO LOAD FROM LOCAL STORAGE
+
 type State = {
   disciplineType?: TDiscipline[];
   week: number;
@@ -9,6 +11,7 @@ type State = {
   events: Event[];
   isNewEventAdded: boolean;
   currentTime: Date;
+  chosenDay: Date;
 };
 
 type Action = {
@@ -19,6 +22,7 @@ type Action = {
   setIsNewEventAdded: (isAdded: boolean) => void;
   deleteEvent: (eventId: string) => void;
   setDate: (newDate: Date) => void;
+  setChosenDay: (newDate: Date) => void;
 };
 
 export const useSchedule = create<State & Action>((set, get) => ({
@@ -28,6 +32,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
   week: 1,
   groupId: '',
   events: [],
+  chosenDay: new Date(),
   setEvents(_events: Event[]) {
     set(_ => ({
       events: _events,
@@ -59,6 +64,11 @@ export const useSchedule = create<State & Action>((set, get) => ({
     }));
   },
   setDate(newDate: Date) {
+    set(_ => ({
+      currentTime: newDate,
+    }));
+  },
+  setChosenDay(newDate: Date) {
     set(_ => ({
       currentTime: newDate,
     }));
