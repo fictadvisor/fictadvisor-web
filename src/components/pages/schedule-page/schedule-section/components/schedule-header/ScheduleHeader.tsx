@@ -41,6 +41,7 @@ const ScheduleHeader = () => {
   const [isCurDay, setIsCurDay] = useState(false);
 
   useEffect(() => {
+    if (!eventsBody[week - 1]) return;
     const days = transformEvents(eventsBody[week - 1] as GetEventBody).days;
     for (const { day } of days) {
       if (
@@ -62,7 +63,9 @@ const ScheduleHeader = () => {
     week === 1 ? setPrevButton(true) : setPrevButton(false);
     week === 20 ? setNextButton(true) : setNextButton(false);
   }, [week]);
+
   if (!eventsBody[week - 1]) return null;
+
   const monthNumber = transformEvents(
     eventsBody[week - 1] as GetEventBody,
   ).days[0].day.getMonth();

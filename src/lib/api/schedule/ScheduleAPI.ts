@@ -6,9 +6,9 @@ class ScheduleAPI {
   async getEvents(
     groupId: string,
     week: number,
-    addLecture: boolean,
-    addLaboratory: boolean,
-    addPractice: boolean,
+    addLecture = true,
+    addLaboratory = true,
+    addPractice = true,
   ) {
     const { data } = await client.get<GetEventBody>(
       `schedule/groups/${groupId}/general`,
