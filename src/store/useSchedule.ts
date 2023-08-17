@@ -33,7 +33,7 @@ type State = {
   eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
   currentTime: Date;
-  chosenDay: Date;
+  chosenDay: Date | null;
   isLoading: boolean;
   error: null | AxiosError;
 };
@@ -66,7 +66,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
   week: 1,
   groupId: '',
   eventsBody: new Array(WEEKS_ARRAY_SIZE),
-  chosenDay: new Date(),
+  chosenDay: null,
   handleGroupChange: async () => {
     await get().handleWeekChange();
   },
@@ -177,7 +177,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
   },
   setChosenDay(newDate: Date) {
     set(_ => ({
-      currentTime: newDate,
+      chosenDay: newDate,
     }));
   },
   setIsSelective(_isSelective: boolean) {

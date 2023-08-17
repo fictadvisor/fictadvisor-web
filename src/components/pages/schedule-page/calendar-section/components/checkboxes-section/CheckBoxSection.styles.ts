@@ -6,5 +6,5 @@ export const checkboxes: SxProps<Theme> = {
   alignItems: 'flex-start',
   alignSelf: 'flex-start',
   pl: '16px',
-  gap: '8px',
+  gap: '16px',
 };

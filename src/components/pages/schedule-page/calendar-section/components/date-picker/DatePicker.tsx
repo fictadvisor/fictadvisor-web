@@ -1,81 +1,40 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { FC, useEffect, useState } from 'react';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import dayjs, { Dayjs } from 'dayjs';
-import isBetweenPlugin from 'dayjs/plugin/isBetween';
+
+import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
+import { useSchedule } from '@/store/useSchedule';
 
 import * as styles from './DatePicker.style';
-
-dayjs.extend(isBetweenPlugin);
-
-interface CustomPickerDayProps extends PickersDayProps<Dayjs> {
-  dayIsBetween: boolean;
-  isFirstDay: boolean;
-  isLastDay: boolean;
+export interface DatePickerProps {
+  semester: GetCurrentSemester | null;
 }
 
-const CustomPickersDay = styled(PickersDay, {
-  shouldForwardProp: prop =>
-    prop !== 'dayIsBetween' && prop !== 'isFirstDay' && prop !== 'isLastDay',
-})<CustomPickerDayProps>(props => ({
-  ...(props.dayIsBetween && {
-    borderRadius: 0,
-    backgroundColor: props.theme.palette.grey['100'],
-    color: '',
-  }),
-  ...(props.isFirstDay && {
-    borderTopLeftRadius: '10px',
-    borderBottomLeftRadius: '10px',
-  }),
-  ...(props.isLastDay && {
-    borderTopRightRadius: '10px',
-    borderBottomRightRadius: '10px',
-  }),
-})) as React.ComponentType<CustomPickerDayProps>;
+export const DatePicker: FC<DatePickerProps> = ({ semester }) => {
+  const { chosenDay, setChosenDay } = useSchedule(state => ({
+    chosenDay: state.chosenDay,
+    setChosenDay: state.setChosenDay,
+  }));
 
-function Day(props: PickersDayProps<Dayjs> & { selectedDay?: Dayjs | null }) {
-  const { day, selectedDay, ...other } = props;
-
-  if (selectedDay == null) {
-    return <PickersDay day={day} {...other} />;
-  }
-
-  const start = selectedDay.startOf('week');
-  const end = selectedDay.endOf('week');
-
-  const dayIsBetween = day.isBetween(start, end, null, '[]');
-  const isFirstDay = day.isSame(start, 'day');
-  const isLastDay = day.isSame(end, 'day');
-
-  return (
-    <CustomPickersDay
-      {...other}
-      day={day}
-      sx={dayIsBetween ? { px: 2.5, mx: 0 } : {}}
-      dayIsBetween={dayIsBetween}
-      isFirstDay={isFirstDay}
-      isLastDay={isLastDay}
-    />
-  );
-}
-
-export function DatePicker() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  console.log(chosenDay);
+  if (!chosenDay) return <></>;
+  console.log(chosenDay);
 
   return (
     <DateCalendar
-      value={value}
-      onChange={newValue => setValue(newValue)}
-      slots={{ day: Day }}
-      sx={styles.picker}
-      views={['month', 'day']}
-      slotProps={{
-        day: {
-          selectedDay: value,
-        } as unknown as Dayjs,
+      value={dayjs(chosenDay)}
+      onChange={newValue => {
+        console.log(newValue);
+        if (newValue) setChosenDay(newValue.toDate());
       }}
+      sx={styles.picker}
+      views={['day']}
       showDaysOutsideCurrentMonth={true}
+      dayOfWeekFormatter={day => {
+        return day.charAt(0).toUpperCase() + day.slice(1);
+      }}
+      minDate={dayjs(semester?.startDate)}
+      maxDate={dayjs(semester?.endDate)}
     />
   );
-}
+};

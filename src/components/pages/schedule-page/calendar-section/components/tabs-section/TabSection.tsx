@@ -47,30 +47,33 @@ export const TabSection = () => {
         </TabList>
         <TabPanel value={CalendarPageTabs.STUDENT}>
           <Dropdown
+            value={''}
+            onChange={() => {}}
             width={'calc(280px - 16px)'}
             placeholder="NO LABEL MFCKRS"
-            options={[{ label: 'l1', value: 'id1' }]}
-            name="teacherId1"
+            options={[{ label: 'l1', id: 'id1' }]}
             label="Група"
             showRemark={false}
           />
         </TabPanel>
         <TabPanel value={CalendarPageTabs.SESSION}>
           <Dropdown
+            value={''}
+            onChange={() => {}}
             width={'calc(280px - 16px)'}
             placeholder="NO LABEL MFCKRS"
-            options={[{ label: 'l1', value: 'id1' }]}
-            name="teacherId1"
+            options={[{ label: 'l1', id: 'id1' }]}
             label="Група"
             showRemark={false}
           />
         </TabPanel>
         <TabPanel value={CalendarPageTabs.EDUCATOR}>
           <Dropdown
+            value={''}
+            onChange={() => {}}
             width={'calc(280px - 16px)'}
             placeholder="NO LABEL MFCKRS"
-            options={[{ label: 'l1', value: 'id1' }]}
-            name="teacherId1"
+            options={[{ label: 'l1', id: 'id1' }]}
             label="Викладач"
             showRemark={false}
           />
