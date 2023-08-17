@@ -1,7 +1,12 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+import {
+  EclipseSize,
+  EclipseType,
+} from '@/components/pages/about-page/AboutPage';
+
 export const container: SxProps<Theme> = {
-  dislpay: 'flex',
+  display: 'flex',
   width: '100%',
   flexDirection: 'column',
   padding: { desktop: '0 80px 0', mobile: '0 16px 0' },
@@ -11,13 +16,9 @@ export const container: SxProps<Theme> = {
 export const fictCard: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: '524px',
-  width: '100%',
+  maxWidth: { desktop: '524px', mobile: '330px' },
   height: { desktop: '344px', mobile: 'fit-content' },
-  justifyContent: 'center',
-  marginLeft: { desktop: '80px', mobile: '0' },
-  position: { desktop: 'absolute', mobile: 'relative' },
-  marginTop: { desktop: '216px', mobile: '400px' },
+  marginTop: { desktop: '160px', mobile: '400px' },
   gap: { desktop: '12px', mobile: '4px' },
   padding: { desktop: '40px', mobile: '16px' },
   background: 'rgba(30, 30, 30, 0.35)',
@@ -57,3 +58,34 @@ export const studentTextCard: SxProps<Theme> = {
   alignItems: 'flex-start',
   padding: '20px',
 };
+export const eclipse = (
+  size: EclipseSize,
+  type: EclipseType,
+  opacity: number,
+): SxProps<Theme> => ({
+  position: 'absolute',
+  borderRadius: '100%',
+  filter: 'blur(60px)',
+  ...(size === EclipseSize.SMALL && {
+    width: '250px',
+    height: '250px',
+  }),
+  ...(size === EclipseSize.MEDIUM && {
+    width: '420px',
+    height: '420px',
+  }),
+  ...(size === EclipseSize.LARGE && {
+    width: '600px',
+    height: '600px',
+  }),
+
+  ...(type === EclipseType.RED && {
+    background: `rgba(222, 49, 49, ${opacity})`,
+  }),
+  ...(type === EclipseType.BLUE && {
+    background: `rgba(48, 51, 135, ${opacity})`,
+  }),
+  ...(type === EclipseType.VIOLET && {
+    background: `rgba(128, 48, 135, ${opacity})`,
+  }),
+});

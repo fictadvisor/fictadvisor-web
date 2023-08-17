@@ -4,7 +4,19 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import theme from '@/styles/theme';
 
 import * as styles from './AboutPage.styles';
-import { specialtyTextCard, studentTextCard } from './AboutPage.styles';
+import { eclipse } from './AboutPage.styles';
+
+export enum EclipseSize {
+  LARGE = 'LARGE',
+  MEDIUM = 'MEDIUM',
+  SMALL = 'SMALL',
+}
+
+export enum EclipseType {
+  RED = 'RED',
+  BLUE = 'BLUE',
+  VIOLET = 'VIOLET',
+}
 
 const AboutPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
@@ -35,30 +47,38 @@ const AboutPage = () => {
           sx={{
             borderRadius: '100%',
             background: 'rgba(135, 48, 48, 0.70)',
+            filter: 'blur(60px)',
             width: '420px',
             height: '350px',
             top: '40%',
             left: '-5%',
-            filter: 'blur(60px)',
             position: 'absolute',
             zIndex: 1,
           }}
         />
-        <Box sx={styles.fictCard}>
-          <Typography variant={isMobile ? 'h4Bold' : 'h2Bold'}>ФІОТ</Typography>
-          <Typography variant={isMobile ? 'body1' : 'h6'}>
-            <b>Факультет інформатики та обчислювальної техніки</b> — це не
-            просто гучна назва, а ціла спільнота з{' '}
-            <b>понад 3 тисяч студентів</b>, які розподілені на багатьох освітніх
-            програмах та разом рухають галузь комп`ютерної науки нашої країни
-            вперед.
-          </Typography>
+        <Box
+          width="100%"
+          display="flex"
+          justifyContent={isMobile ? ' center' : 'flex-start'}
+        >
+          <Box sx={styles.fictCard}>
+            <Typography variant={isMobile ? 'h4Bold' : 'h2Bold'}>
+              ФІОТ
+            </Typography>
+            <Typography variant={isMobile ? 'body1' : 'h6'}>
+              <b>Факультет інформатики та обчислювальної техніки</b> — це не
+              просто гучна назва, а ціла спільнота з{' '}
+              <b>понад 3 тисяч студентів</b>, які розподілені на багатьох
+              освітніх програмах та разом рухають галузь комп`ютерної науки
+              нашої країни вперед.
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <img
         src="/images/about-page/vitrazh.png"
         style={{
-          right: 0,
+          right: isMobile ? 'unset' : 0,
           top: 0,
           position: 'absolute',
           borderRadius: '0 0 0 12px',
@@ -82,6 +102,8 @@ const AboutPage = () => {
           sx={{
             maxWidth: '400px',
             gap: { desktop: '18px', mobile: '6px' },
+            zIndex: 1,
+            marginTop: { desktop: 0, mobile: '16px' },
           }}
         >
           <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
@@ -91,29 +113,25 @@ const AboutPage = () => {
             variant={isMobile ? 'body1' : 'body2'}
             mt={isMobile ? '6px' : '18px'}
           >
-            <p>
-              У 1918 році в КПІ заснували електротехнічний факультет, з якого
-              беруть початок сучасні катедри ФІОТу.
-            </p>
+            У 1918 році в КПІ заснували електротехнічний факультет, з якого
+            беруть початок сучасні катедри ФІОТу.
             <br />
-            <p>
-              Протягом століття він зазнав багатьох оновлень та реорганізацій, і
-              у 1985 році світ побачив факультет інформатики та обчислювальної
-              техніки, який очолила докторка технічних наук{' '}
-              <b>Краснопрошіна Аїда Андріївна</b>.
-            </p>
             <br />
-            <p>
-              На цьому зміни не завершилися, і з моменту заснування ФІОТ
-              постійно оновлюється, щоб відповідати стрімкому розвитку
-              технологій.
-            </p>
+            Протягом століття він зазнав багатьох оновлень та реорганізацій, і у
+            1985 році світ побачив факультет інформатики та обчислювальної
+            техніки, який очолила докторка технічних наук{' '}
+            <b>Краснопрошіна Аїда Андріївна</b>.
+            <br />
+            <br />
+            На цьому зміни не завершилися, і з моменту заснування ФІОТ постійно
+            оновлюється, щоб відповідати стрімкому розвитку технологій.
           </Typography>
         </Box>
         <Box
           sx={{
             height: { desktop: '360px', mobile: '200px' },
             width: { desktop: '520px', mobile: '310px' },
+            zIndex: 1,
           }}
         >
           <img
@@ -126,18 +144,10 @@ const AboutPage = () => {
             alt="Basic"
           />
         </Box>
-
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(22, 24, 75, 0.36)',
-            width: '421px',
-            right: 0,
-            height: '425px',
-            filter: 'blur(60px)',
-            position: 'absolute',
-            zIndex: 0,
-          }}
+          sx={styles.eclipse(EclipseSize.MEDIUM, EclipseType.BLUE, 0.3)}
+          right={0}
+          zIndex={0}
         />
       </Box>
 
@@ -179,19 +189,10 @@ const AboutPage = () => {
           <Box sx={styles.cathedraCard}>
             <Typography variant="h4Bold">ОТ</Typography>
             <Box
-              sx={{
-                borderRadius: '100%',
-                background: 'rgba(135, 48, 48, 0.70)',
-                transform: 'rotate(15deg)',
-                width: '100%',
-                height: '249px',
-                filter: 'blur(70px)',
-                position: 'absolute',
-                top: '60%',
-                right: '45%',
-                flexShrink: 0,
-                zIndex: -1,
-              }}
+              sx={styles.eclipse(EclipseSize.SMALL, EclipseType.RED, 0.35)}
+              top="60%"
+              right="65%"
+              zIndex={-1}
             />
             <Typography variant="body2Medium" marginTop="52px" flexGrow={1}>
               Катедра <b>обчислювальної техніки</b> найстаріша на факультеті,
@@ -206,18 +207,10 @@ const AboutPage = () => {
           <Box sx={styles.cathedraCard}>
             <Typography variant="h4Bold">ІПІ</Typography>
             <Box
-              sx={{
-                borderRadius: '100%',
-                background: 'rgba(48, 51, 135, 0.70)',
-                width: '100%',
-                height: '249px',
-                filter: 'blur(70px)',
-                position: 'absolute',
-                bottom: '60%',
-                left: '45%',
-                flexShrink: 0,
-                zIndex: -1,
-              }}
+              sx={styles.eclipse(EclipseSize.SMALL, EclipseType.BLUE, 0.7)}
+              bottom="60%"
+              left="70%"
+              zIndex={-1}
             />
             <Typography variant="body2Medium" marginTop="52px" flexGrow={1}>
               Катедра <b>інформатики та програмної інженерії</b> доволі молода
@@ -241,17 +234,12 @@ const AboutPage = () => {
             <Typography variant="body1" marginTop="36px" flexGrow={1}>
               Надає освітні програми для 126 спеціальності.
             </Typography>
+
             <Box
-              sx={{
-                borderRadius: '100%',
-                background: 'rgba(128, 48, 135, 0.70)',
-                width: '100%',
-                height: '340px',
-                filter: 'blur(70px)',
-                position: 'absolute',
-                top: '70%',
-                zIndex: -1,
-              }}
+              sx={styles.eclipse(EclipseSize.LARGE, EclipseType.VIOLET, 0.7)}
+              top="70%"
+              left="-8%"
+              zIndex={-1}
             />
           </Box>
         </Box>
@@ -273,50 +261,26 @@ const AboutPage = () => {
         justifyContent="space-around"
       >
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(222, 49, 49, 0.35)',
-            width: '296px',
-            height: '287px',
-            filter: 'blur(60px)',
-            top: '18%',
-            left: '-8%',
-            position: 'absolute',
-            flexShrink: 0,
-            zIndex: -1,
-          }}
+          sx={styles.eclipse(EclipseSize.SMALL, EclipseType.RED, 0.35)}
+          top="18%"
+          left="-8%"
+          zIndex={-1}
         />
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(80, 16, 91, 0.35)',
-            width: '312px',
-            height: '310px',
-            top: '15%',
-            left: '30%',
-            filter: 'blur(60px)',
-            position: 'absolute',
-            flexShrink: 0,
-            zIndex: -1,
-          }}
+          sx={styles.eclipse(EclipseSize.SMALL, EclipseType.VIOLET, 0.35)}
+          top="15%"
+          left="30%"
+          zIndex={-1}
         />
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(128, 48, 135, 0.70)',
-            width: '431px',
-            height: '416px',
-            filter: 'blur(60px)',
-            position: 'absolute',
-            bottom: '15%',
-            left: '70%',
-            flexShrink: 0,
-            zIndex: -1,
-          }}
+          sx={styles.eclipse(EclipseSize.MEDIUM, EclipseType.VIOLET, 0.7)}
+          bottom="15%"
+          left="70%"
+          zIndex={-1}
         />
         <Box display="flex" flexDirection="column" gap="26px">
           <Box marginTop="30px">
-            <Typography variant="h4Bold" width="370px">
+            <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'} width="370px">
               Спеціальності факультету
             </Typography>
             <Typography
@@ -450,16 +414,9 @@ const AboutPage = () => {
         mt="145px"
       >
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(135, 48, 48, 0.70)',
-            width: '583px',
-            height: '595px',
-            left: '10%',
-            filter: 'blur(60px)',
-            position: 'absolute',
-            zIndex: 1,
-          }}
+          sx={styles.eclipse(EclipseSize.LARGE, EclipseType.RED, 0.7)}
+          left="10%"
+          zIndex={1}
         />
         <img
           src="/images/about-page/wallFICE.png"
@@ -470,16 +427,9 @@ const AboutPage = () => {
           alt="FICE composition"
         />
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(128, 48, 135, 0.70)',
-            width: '630px',
-            height: '630px',
-            filter: 'blur(60px)',
-            position: 'absolute',
-            right: '5%',
-            zIndex: 1,
-          }}
+          sx={styles.eclipse(EclipseSize.LARGE, EclipseType.VIOLET, 0.7)}
+          right="5%"
+          zIndex={1}
         />
         <img
           src="/images/about-page/wallFICE.png"
