@@ -24,7 +24,7 @@ export const Base: Story = {
     <Formik
       initialValues={{ t5: '' }}
       validationSchema={yup.object().shape({
-        t5: yup.string().required('Cannot be empty!'),
+        t5: yup.string().required(args.error),
       })}
       onSubmit={(data, { setSubmitting }) => {
         setSubmitting(false);
@@ -39,8 +39,6 @@ export const Base: Story = {
     </Formik>
   ),
   args: {
-    disabled: false,
-    readOnly: false,
     name: 't5',
   },
 };
