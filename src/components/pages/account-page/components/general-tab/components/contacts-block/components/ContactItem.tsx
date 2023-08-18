@@ -13,6 +13,7 @@ interface ContactProps extends Contact {
 }
 const ContactItem: FC<ContactProps> = ({
   refetchContacts,
+  link,
   name,
   displayName,
 }) => {
@@ -24,7 +25,7 @@ const ContactItem: FC<ContactProps> = ({
 
   return (
     <div className={styles['contact-item']}>
-      <Input readOnly={true} name={name} value={displayName} label={name} />
+      <Input href={link} name={name} value={displayName} label={name} />
       <TrashBucketButton onClick={handleDeleteClick} />
     </div>
   );
