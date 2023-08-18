@@ -72,11 +72,7 @@ export const remark = (state: InputState): SxProps<Theme> => ({
   minHeight: '20px',
 });
 
-export const input = (
-  state: InputState,
-  size: InputSize,
-  href: string | undefined,
-): SxProps<Theme> => ({
+export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   transition: 'all 0.2s ease-in-out',
   width: '100%',
   display: 'flex',
@@ -148,9 +144,7 @@ export const input = (
     flexShrink: '0',
     p: 0,
   },
-  ...(href && {
-    cursor: 'pointer',
-  }),
+
   input: {
     '&.Mui-disabled': {
       WebkitTextFillColor: theme.palette.grey[200],
@@ -159,9 +153,7 @@ export const input = (
       },
     },
     padding: 0,
-    ...(href && {
-      cursor: 'pointer',
-    }),
+
     '::placeholder': {
       color: theme.palette.grey[500],
     },
