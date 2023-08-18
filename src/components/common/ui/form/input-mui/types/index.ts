@@ -34,5 +34,4 @@ export interface InputProps
   error?: string;
   value?: string;
   handleRightIconClick?: () => void;
-  href?: string;
 }
