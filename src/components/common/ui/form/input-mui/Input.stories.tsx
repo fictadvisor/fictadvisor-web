@@ -22,12 +22,11 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
   render: args => (
     <Formik
-      initialValues={{ t1: '', t2: '', t3: '', t4: '', t5: '', t6: '' }}
+      initialValues={{ t5: '' }}
       validationSchema={yup.object().shape({
         t5: yup.string().required('Cannot be empty!'),
       })}
       onSubmit={(data, { setSubmitting }) => {
-        console.log(data);
         setSubmitting(false);
       }}
     >
@@ -42,6 +41,7 @@ export const Base: Story = {
   args: {
     disabled: false,
     readOnly: false,
+    href: '',
     name: 't5',
   },
 };
