@@ -6,7 +6,6 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material';
-import Link from 'next/link';
 
 import { MAX_LENGTH } from '@/components/common/ui/form/input-mui/constants';
 import {
@@ -37,7 +36,6 @@ const Input: React.FC<InputProps> = ({
   value = '',
   error = '',
   touched = false,
-  href,
   handleRightIconClick = undefined,
   ...rest
 }) => {
@@ -57,33 +55,22 @@ const Input: React.FC<InputProps> = ({
     return () => clearTimeout(curTimer);
   }, [value, onDeterredChange]);
 
-  const inputComponent =
-    href && !disabled ? (
-      <Link href={href}>
-        <OutlinedInput
-          {...rest}
-          value={value}
-          sx={styles.input(state, size, href)}
-          inputProps={{ maxLength: MAX_LENGTH }}
-          color="warning"
-          type={isHidden ? 'password' : 'text'}
-          placeholder={placeholder}
-          startAdornment={type === InputType.SEARCH && <MagnifyingGlassIcon />}
-          endAdornment={
-            RightIcon && (
-              <RightIcon
-                onClick={handleRightIconClickInternal}
-                style={styles.rightIcon(type, state)}
-              />
-            )
-          }
-        />
-      </Link>
-    ) : (
+  return (
+    <FormControl
+      sx={mergeSx(styles.wrapper, sx)}
+      margin="none"
+      disabled={disabled}
+    >
+      {label && (
+        <InputLabel sx={styles.label(state)} size="normal">
+          {label}
+        </InputLabel>
+      )}
+
       <OutlinedInput
         {...rest}
         value={value}
-        sx={styles.input(state, size, href)}
+        sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
         type={isHidden ? 'password' : 'text'}
@@ -98,21 +85,6 @@ const Input: React.FC<InputProps> = ({
           )
         }
       />
-    );
-
-  return (
-    <FormControl
-      sx={mergeSx(styles.wrapper, sx)}
-      margin="none"
-      disabled={disabled}
-    >
-      {label && (
-        <InputLabel sx={styles.label(state)} size="normal">
-          {label}
-        </InputLabel>
-      )}
-
-      {inputComponent}
 
       {showRemark && (
         <FormHelperText sx={styles.remark(state)}>

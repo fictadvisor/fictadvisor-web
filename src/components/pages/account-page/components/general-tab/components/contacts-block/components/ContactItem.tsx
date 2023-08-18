@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { QueryObserverBaseResult } from 'react-query';
+import Link from 'next/link';
 
 import Input from '@/components/common/ui/form/input-mui';
 import { TrashBucketButton } from '@/components/common/ui/icon-button-mui/variants';
@@ -25,7 +26,9 @@ const ContactItem: FC<ContactProps> = ({
 
   return (
     <div className={styles['contact-item']}>
-      <Input href={link} name={name} value={displayName} label={name} />
+      <Link href={link}>
+        <Input name={name} value={displayName} label={name} />
+      </Link>
       <TrashBucketButton onClick={handleDeleteClick} />
     </div>
   );
