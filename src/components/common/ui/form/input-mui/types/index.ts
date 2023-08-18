@@ -30,9 +30,9 @@ export interface InputProps
   showRemark?: boolean;
   sx?: SxProps<Theme>;
   onDeterredChange?: () => void;
-  isImmutable?: boolean;
   touched?: boolean;
   error?: string;
   value?: string;
   handleRightIconClick?: () => void;
+  href?: string;
 }
