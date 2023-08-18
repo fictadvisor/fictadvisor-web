@@ -22,8 +22,6 @@ import useAuthentication from '@/hooks/use-authentication';
 
 import * as stylesMui from './AccountPage.styles';
 
-import styles from './AccountPage.module.scss';
-
 enum AccountPageTab {
   GENERAL = 'general',
   SECURITY = 'security',
@@ -78,7 +76,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <div className={styles['breadcrumb']}>
+      <Box sx={stylesMui.breadcrumb}>
         <Breadcrumbs
           items={[
             {
@@ -91,7 +89,7 @@ const AccountPage = () => {
             },
           ]}
         />
-      </div>
+      </Box>
       <Box sx={stylesMui.tabContext}>
         <TabContext value={index}>
           <TabList onChange={handleChange} sx={stylesMui.tabList}>

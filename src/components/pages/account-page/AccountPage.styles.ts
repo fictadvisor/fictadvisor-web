@@ -1,5 +1,15 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+export const breadcrumb: SxProps<Theme> = {
+  width: '95%',
+  height: '36px',
+  marginBottom: '32px',
+  padding: {
+    mobile: '16px 16px 16px 0px',
+    desktopSemiMedium: '16px',
+  },
+};
+
 export const tabContext: SxProps<Theme> = {
   display: 'flex',
   padding: {
