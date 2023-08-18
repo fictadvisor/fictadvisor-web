@@ -41,7 +41,6 @@ export const Base: Story = {
   args: {
     disabled: false,
     readOnly: false,
-    href: '',
     name: 't5',
   },
 };
