@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
+import { Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { TelegramForAccount } from '@/components/common/icons/TelegramForAccount';
-import Button from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button-mui';
 import {
   ButtonSize,
   ButtonVariant,
@@ -11,10 +12,10 @@ import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import ContactsBlock from '@/components/pages/account-page/components/general-tab/components/contacts-block/ContactsBlock';
 import PersonalInfoBlock from '@/components/pages/account-page/components/general-tab/components/personal-info';
+import * as stylesMui from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth';
-
-import styles from './GeneralTab.module.scss';
+import theme from '@/styles/theme';
 
 const GeneralTab: FC = () => {
   const { user } = useAuthentication();
@@ -27,10 +28,11 @@ const GeneralTab: FC = () => {
   const handleConnectTelegram = () => {
     void AuthService.redirectToRegisterBot(router);
   };
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
 
   return (
-    <div className={styles['container']}>
-      <div className={styles['personal-info']}>
+    <Box sx={stylesMui.container}>
+      <Box sx={stylesMui.personalInfo}>
         <PersonalInfoBlock />
         <Divider
           sx={{ paddingBottom: '20px' }}
@@ -38,31 +40,22 @@ const GeneralTab: FC = () => {
           text="Посилання на соц. мережі"
         />
         <ContactsBlock />
-      </div>
-      <div className={styles['avatar-and-telegram-info']}>
-        <div className={styles['avatar']}>
+      </Box>
+      <Box sx={stylesMui.avatarAndTelegramInfo}>
+        <Box sx={stylesMui.avatar}>
           <img src={user.avatar} alt="avatar" />
-        </div>
+        </Box>
         <Button
-          className={styles['telegram-button']}
+          sx={stylesMui.telegramButton}
           text={buttonText}
           disabled={!!user.telegramId}
-          size={ButtonSize.MEDIUM}
+          size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
           startIcon={<TelegramForAccount />}
           variant={ButtonVariant.OUTLINE}
           onClick={handleConnectTelegram}
         />
-        <Button
-          className={styles['telegram-button-mobile']}
-          text={buttonText}
-          disabled={!!user.telegramId}
-          size={ButtonSize.SMALL}
-          startIcon={<TelegramForAccount />}
-          variant={ButtonVariant.OUTLINE}
-          onClick={handleConnectTelegram}
-        />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
