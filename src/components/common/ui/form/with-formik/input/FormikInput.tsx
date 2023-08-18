@@ -7,7 +7,7 @@ import {
   InputType,
 } from '@/components/common/ui/form/input-mui/types';
 
-interface FormikInputProps extends Omit<InputProps, 'value'> {
+interface FormikInputProps extends InputProps {
   type?: InputType;
   name: string;
 }
@@ -18,8 +18,8 @@ const FormikInput: FC<FormikInputProps> = ({
   type,
   ...props
 }) => {
-  const [{ value }, { touched, error }, { setValue, setTouched }] =
-    useField(name);
+  const [field, { touched, error }, { setValue, setTouched }] = useField(name);
+
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
 
   handleRightIconClick = () => {
@@ -35,9 +35,11 @@ const FormikInput: FC<FormikInputProps> = ({
   return (
     <Input
       {...props}
-      value={value}
+      {...field}
+      name={name}
       touched={touched}
       error={error}
+      type={type}
       handleRightIconClick={handleRightIconClick}
     />
   );

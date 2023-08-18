@@ -44,14 +44,10 @@ const Input: React.FC<InputProps> = ({
 
   const RightIcon = getRightIcon(type, isHidden, state, value);
 
-  if (!handleRightIconClick) {
-    handleRightIconClick = () => {
-      if (type === InputType.PASSWORD) {
-        setIsHidden(!isHidden);
-      }
-    };
-  }
-
+  const handleRightIconClickInternal = () => {
+    type === InputType.PASSWORD ? setIsHidden(!isHidden) : null;
+    handleRightIconClick ? handleRightIconClick() : null;
+  };
   useEffect(() => {
     const curTimer = setTimeout(() => {
       if (onDeterredChange) onDeterredChange();
@@ -73,6 +69,7 @@ const Input: React.FC<InputProps> = ({
 
       <OutlinedInput
         {...rest}
+        value={value}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
@@ -82,7 +79,7 @@ const Input: React.FC<InputProps> = ({
         endAdornment={
           RightIcon && (
             <RightIcon
-              onClick={handleRightIconClick}
+              onClick={handleRightIconClickInternal}
               style={styles.rightIcon(type, state)}
             />
           )
