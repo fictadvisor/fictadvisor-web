@@ -1,22 +1,22 @@
 import {
   createContext,
   Dispatch,
+  FC,
   SetStateAction,
   useEffect,
   useState,
 } from 'react';
-import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
+import { NextRouter, useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import PersonalTeacherCard from '@/components/common/ui/cards/personal-teacher-card';
 import Progress from '@/components/common/ui/progress-mui';
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
-import useAuthentication from '@/hooks/use-authentication';
 import useTabState from '@/hooks/use-tab-state';
 import useToast from '@/hooks/use-toast';
-import TeacherService from '@/lib/services/teacher';
+import { TeacherPageInfo } from '@/lib/services/teacher/types';
 import { Teacher } from '@/types/teacher';
 
 // TODO: move context to separate folder, move types to separate folder
@@ -38,19 +38,25 @@ export enum TeachersPageTabs {
   COMMENTS = 'reviews',
 }
 
-const PersonalTeacherPage = () => {
-  const router = useRouter();
-  const { query, push } = router;
-  const teacherId = query.teacherId as string;
-  const { user } = useAuthentication();
-  const { isLoading, isError, data } = useQuery(
-    ['teacher', teacherId],
-    () => TeacherService.getTeacherPageInfo(teacherId, user?.id),
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  );
+interface PersonalTeacherPageProps {
+  isLoading: boolean;
+  isError: boolean;
+  data: TeacherPageInfo | undefined;
+  query: NextParsedUrlQuery;
+  teacherId: string;
+  router: NextRouter;
+}
+
+const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
+  isLoading,
+  isError,
+  data,
+  query,
+  teacherId,
+  router,
+}) => {
+  const router2 = useRouter();
+  const { push } = router2;
   const toast = useToast();
   const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
@@ -71,7 +77,6 @@ const PersonalTeacherPage = () => {
   if (!data) return null;
 
   const teacher = data?.info;
-
   return (
     <teacherContext.Provider
       value={{ floatingCardShowed, setFloatingCardShowed, teacher }}
