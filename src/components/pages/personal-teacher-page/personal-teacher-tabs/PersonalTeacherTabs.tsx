@@ -7,7 +7,7 @@ import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list';
 import TabPanel from '@/components/common/ui/tab-mui/tab-panel';
-import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
+import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/utils';
 import { TeacherPageInfo } from '@/lib/services/teacher/types';
 
 import * as stylesMUI from './PersonalTeacherTabs.styles';

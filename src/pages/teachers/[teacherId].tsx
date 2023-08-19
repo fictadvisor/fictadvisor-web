@@ -31,7 +31,7 @@ const PersonalTeacher: FC = () => {
         ' ' +
         data?.info?.middleName
       }
-      description={data?.info?.description}
+      description={data?.info?.description || 'Викладач'}
     >
       <PersonalTeacherPage
         isLoading={isLoading}
