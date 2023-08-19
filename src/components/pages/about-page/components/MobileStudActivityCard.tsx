@@ -24,7 +24,6 @@ const MobileStudActivityCard: FC<MobileStudActivityCardProps> = ({
         src={imgSrc}
         style={{
           borderRadius: '12px',
-          margin: '0 16px',
           position: 'absolute',
         }}
       />
@@ -36,7 +35,8 @@ const MobileStudActivityCard: FC<MobileStudActivityCardProps> = ({
           borderRadius: '12px',
           background: '#151515',
           alignItems: 'flex-start',
-          padding: imgSrc ? '120px 20px 20px 20px' : '16px',
+          mt: imgSrc ? '45px' : '0',
+          padding: imgSrc ? '70px 20px 20px 20px' : '16px',
         }}
       >
         <Typography variant="body2Bold">{title}</Typography>

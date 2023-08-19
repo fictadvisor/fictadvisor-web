@@ -27,7 +27,11 @@ const AboutPage = () => {
   );
   return (
     <Box sx={styles.container}>
-      <Box display="flex" width="100%" height={isTablet ? '460px' : '775px'}>
+      <Box
+        display="flex"
+        width="100%"
+        height={isMobileMedium ? '460px' : '775px'}
+      >
         {!isTablet && (
           <Box
             sx={{
@@ -59,23 +63,22 @@ const AboutPage = () => {
               ФІОТ
             </Typography>
             <Typography variant={isTablet ? 'body1' : 'h6'}>
-              <b>Факультет інформатики та обчислювальної техніки</b> — це не
-              просто гучна назва, а ціла спільнота з{' '}
-              <b>понад 3 тисяч студентів</b>, які розподілені на багатьох
-              освітніх програмах та разом рухають галузь комп`ютерної науки
-              нашої країни вперед.
+              <b>Факультет інформатики та обчислювальної техніки</b> — це ціла
+              спільнота з <b>понад 3 тисяч студентів</b>, які розподілені на
+              багатьох освітніх програмах та разом рухають галузь комп`ютерної
+              науки нашої країни вперед.
             </Typography>
           </Box>
         </Box>
-        {isTablet ? (
+        {isMobileMedium ? (
           <img
             src="/images/about-page/vitrazh-mobile.png"
             style={{
               position: 'absolute',
               width: '100%',
-              borderRadius: isTablet ? '0' : '0 0 0 12px',
+              borderRadius: isMobileMedium ? '0' : '0 0 0 12px',
               left: 0,
-              height: isTablet ? '460px' : '775px',
+              height: isMobileMedium ? '460px' : '775px',
             }}
             alt="Вітраж"
           />
@@ -357,7 +360,7 @@ const AboutPage = () => {
           <Box
             display="flex"
             width="100%"
-            alignItems="flex-start"
+            alignItems="baseline"
             flexWrap="wrap"
             mt="16px"
             height="fit-content"
@@ -572,7 +575,7 @@ const AboutPage = () => {
             mb="48px"
           >
             Факультет інформатики та обчислювальної техніки — це не просто
-            красивий корпус, а простір, де кожен може отримати знання та знайти
+            красива назва, а простір, де кожен може отримати знання та знайти
             себе.
           </Typography>
         ) : (
@@ -593,8 +596,8 @@ const AboutPage = () => {
           >
             <Typography variant="h4Bold">
               Факультет інформатики та обчислювальної техніки — це не просто
-              красивий корпус, а простір, де кожен може отримати знання та
-              знайти себе.
+              красива назва, а простір, де кожен може отримати знання та знайти
+              себе.
             </Typography>
           </Box>
         )}
