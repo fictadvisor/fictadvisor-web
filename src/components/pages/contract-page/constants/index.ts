@@ -1,5 +1,8 @@
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
-import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
+import {
+  ExtendedContractBody,
+  PassportType,
+} from '@/lib/api/contract/types/ContractBody';
 export const kyiv = 'м. Київ';
 
 export const REGIONS: DropDownOption[] = [
@@ -64,6 +67,22 @@ export const initialValues: ExtendedContractBody = {
     email: '',
     index: '',
   },
+  customer: {
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    passportSeries: '',
+    passportNumber: '',
+    passportInstitute: '',
+    passportDate: '',
+    address: '',
+    settlement: '',
+    idCode: '',
+    region: '',
+    phoneNumber: '',
+    email: '',
+    index: '',
+  },
   meta: {
     studyType: '',
     studyForm: '',
@@ -73,19 +92,22 @@ export const initialValues: ExtendedContractBody = {
     isForcePushed: false,
   },
   helper: {
-    entrantHasForeignPassport: false,
-    entrantHasOldPassport: false,
+    entrantPassportType: PassportType.ID,
     entrantHasNoCode: false,
     entrantHasNoMiddleName: false,
 
+    representativePassportType: PassportType.ID,
+    representativeHasNoCode: false,
+    representativeHasNoMiddleName: false,
+
+    customerPassportType: PassportType.ID,
+    customerHasNoCode: false,
+    customerHasNoMiddleName: false,
+
+    hasCustomer: false,
     isAdult: false,
 
     secretNumber: '',
     forcePushedNumber: '',
-
-    representativeHasForeignPassport: false,
-    representativeHasOldPassport: false,
-    representativeHasNoCode: false,
-    representativeHasNoMiddleName: false,
   },
 };

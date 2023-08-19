@@ -25,9 +25,13 @@ interface MetaContract {
   isForcePushed: boolean;
 }
 
+export enum PassportType {
+  ID = 'id_card',
+  FOREIGN = 'foreign',
+  OLD = 'old',
+}
 export interface HelperData {
-  entrantHasForeignPassport: boolean;
-  entrantHasOldPassport: boolean;
+  entrantPassportType: PassportType;
   entrantHasNoCode: boolean;
   entrantHasNoMiddleName: boolean;
 
@@ -35,16 +39,22 @@ export interface HelperData {
   secretNumber: string;
   forcePushedNumber: string;
 
-  representativeHasForeignPassport: boolean;
-  representativeHasOldPassport: boolean;
+  representativePassportType: PassportType;
   representativeHasNoCode: boolean;
   representativeHasNoMiddleName: boolean;
+
+  customerPassportType: PassportType;
+  customerHasNoCode: boolean;
+  customerHasNoMiddleName: boolean;
+
+  hasCustomer: boolean;
 }
 
 //kostili ebani
 export interface ExtendedContractBody {
   entrant: PersonalData;
   representative: PartialBy<PersonalData, 'email'>;
+  customer: PartialBy<PersonalData, 'email'>;
   meta: MetaContract;
   helper: HelperData;
 }

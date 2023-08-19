@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, SetStateAction, useState } from 'react';
 import { Box } from '@mui/material';
 import { AxiosError } from 'axios';
 
@@ -12,27 +12,38 @@ import { prepareData } from '../../utils/prepareData';
 import { PassFormAgain } from '../PassFormAgain';
 
 import { FirstStep } from './../steps/FirstStep';
+import { FourthStep } from './../steps/FourthStep';
 import { SecondStep } from './../steps/SecondStep';
 import { ThirdStep } from './../steps/ThirdStep';
 import { formWrapper } from './PersonalForm.styles';
-
-export const PersonalForm: FC = () => {
+export const PersonalForm: FC<{
+  setIsLoading: React.Dispatch<SetStateAction<boolean>>;
+}> = ({ setIsLoading }) => {
+  const localStorageValues = getLocalStorage();
   const toast = useToast();
-  const [data, setData] = useState(getLocalStorage() || initialValues);
+  const [data, setData] = useState(localStorageValues || initialValues);
   const [step, setStep] = useState(0);
   const [isForcePushed, setIsForcePushed] = useState(
-    !!getLocalStorage()?.meta.isForcePushed,
+    !!localStorageValues?.meta.isForcePushed,
   );
   const [submitted, setSubmitted] = useState(false);
+  const [isAdult, setIsAdult] = useState(!!localStorageValues?.helper.isAdult);
+  const [hasCustomer, setHasCustomer] = useState(
+    !!localStorageValues?.helper.hasCustomer,
+  );
 
   const handleNextStep = async (data: ExtendedContractBody, final = false) => {
+    console.log(step);
+
     if (!final) setData(prevState => ({ ...prevState, ...data }));
 
     if (final) {
+      setIsLoading(true);
       try {
         await ContractAPI.createContract(
           prepareData(JSON.parse(JSON.stringify(data))),
         );
+
         setData(prevState => ({ ...prevState, ...data }));
         setSubmitted(true);
 
@@ -55,8 +66,10 @@ export const PersonalForm: FC = () => {
           (error as AxiosError).message,
         );
       }
+      setIsLoading(false);
       return;
     }
+
     setStep(pr => pr + 1);
   };
 
@@ -66,12 +79,13 @@ export const PersonalForm: FC = () => {
   };
 
   //TODO:
-  // [] кнопка червона на початку, коли не заповнено нічо
   // [] make middleName required, when "I don't have a middle name" checkbox is checked
   // [] make password series required, when one of either checkboxes is checked
 
   const steps = [
     <FirstStep
+      setHasCustomer={setHasCustomer}
+      setIsAdult={setIsAdult}
       onNextStep={handleNextStep}
       data={data}
       setIsForcePushed={setIsForcePushed}
@@ -84,14 +98,28 @@ export const PersonalForm: FC = () => {
       isForcePushed={isForcePushed}
       key={2}
     />,
-    <ThirdStep
-      onNextStep={handleNextStep}
-      onPrevStep={handlePrevStep}
-      data={data}
-      isForcePushed={isForcePushed}
-      key={3}
-    />,
   ];
+
+  if (!isAdult)
+    steps.push(
+      <ThirdStep
+        onNextStep={handleNextStep}
+        onPrevStep={handlePrevStep}
+        data={data}
+        isForcePushed={isForcePushed}
+        key={3}
+      />,
+    );
+
+  if (hasCustomer)
+    steps.push(
+      <FourthStep
+        data={data}
+        isForcePushed={isForcePushed}
+        onNextStep={handleNextStep}
+        onPrevStep={handlePrevStep}
+      />,
+    );
 
   return (
     <Box sx={formWrapper}>{!submitted ? steps[step] : <PassFormAgain />}</Box>

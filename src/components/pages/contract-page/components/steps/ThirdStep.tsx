@@ -7,6 +7,7 @@ import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
+import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import { Actions } from '@/components/pages/contract-page/components/Actions';
 import { kyiv } from '@/components/pages/contract-page/constants';
 import { REGIONS } from '@/components/pages/contract-page/constants';
@@ -15,9 +16,12 @@ import { saveLocalStorage } from '@/components/pages/contract-page/utils/localSt
 import {
   representativeOptionalValidation,
   representativeValidation,
-} from '@/components/pages/contract-page/validation';
+} from '@/components/pages/contract-page/validation/representative';
 import useTabClose from '@/hooks/use-tab-close';
-import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
+import {
+  ExtendedContractBody,
+  PassportType,
+} from '@/lib/api/contract/types/ContractBody';
 
 import { CheckBox } from '../../components/CheckBox';
 export interface ThirdStepProps {
@@ -33,7 +37,7 @@ export const ThirdStep: FC<ThirdStepProps> = ({
   isForcePushed,
 }) => {
   const handleSubmit = (values: ExtendedContractBody) => {
-    onNextStep(values, true);
+    onNextStep(values, !values?.helper?.isAdult && !values.helper.hasCustomer);
   };
 
   const form = useRef<FormikProps<ExtendedContractBody>>(null);
@@ -46,16 +50,18 @@ export const ThirdStep: FC<ThirdStepProps> = ({
 
   return (
     <Formik
+      onSubmit={values => {
+        handleSubmit(values);
+      }}
       innerRef={form}
       initialValues={data}
-      onSubmit={handleSubmit}
       validationSchema={
         isForcePushed
           ? representativeOptionalValidation
           : representativeValidation
       }
     >
-      {({ values, setValues }) => (
+      {({ values }) => (
         <Form>
           <Typography variant="h4Bold">Інформація про представника</Typography>
           <Box sx={stylesMui.item}>
@@ -120,48 +126,34 @@ export const ThirdStep: FC<ThirdStepProps> = ({
               sx={stylesMui.divider}
             />
 
-            <CheckBox
-              name="helper.representativeHasOldPassport"
-              label="Паспорт старого зразка"
-              onClick={() =>
-                setValues({
-                  ...values,
-                  helper: {
-                    ...values.helper,
-                    representativeHasForeignPassport: false,
-                  },
-                })
-              }
+            <FormikRadioGroup
+              name="helper.representativePassportType"
+              options={[
+                {
+                  value: PassportType.ID,
+                  label: 'ID картка',
+                },
+                {
+                  value: PassportType.OLD,
+                  label: 'Паспорт старого зразка',
+                },
+                {
+                  value: PassportType.FOREIGN,
+                  label: 'Закордонний пасорт',
+                },
+              ]}
             />
 
-            <CheckBox
-              name="helper.representativeHasForeignPassport"
-              label="Закордонний паспорт"
-              onClick={() =>
-                setValues({
-                  ...values,
-                  helper: {
-                    ...values.helper,
-                    representativeHasOldPassport: false,
-                  },
-                })
-              }
-            />
-
-            {values?.helper?.representativeHasForeignPassport ||
-            values?.helper?.representativeHasOldPassport ? (
-              <Input
-                name="representative.passportSeries"
-                label="Серія паспорту"
-              />
-            ) : (
-              <Input
-                name="representative.passportSeries"
-                label="Серія паспорту"
-                disabled
-                resetOnDisabled
-              />
-            )}
+            <Box sx={{ gap: '24px' }}>
+              {values?.helper?.representativePassportType !==
+                PassportType.ID && (
+                <Input
+                  clearOnUnmount
+                  name="representative.passportSeries"
+                  label="Серія паспорту"
+                />
+              )}
+            </Box>
 
             <Input
               name="representative.passportNumber"
@@ -238,7 +230,8 @@ export const ThirdStep: FC<ThirdStepProps> = ({
               placeholder="12345"
             />
           </Box>
-          {values.meta.isToAdmission && (
+
+          {values.meta.isToAdmission && !values.helper.hasCustomer && (
             <Box sx={stylesMui.item}>
               <Divider
                 textAlign={DividerTextAlign.LEFT}
@@ -254,22 +247,23 @@ export const ThirdStep: FC<ThirdStepProps> = ({
             </Box>
           )}
 
-          {values?.meta?.isForcePushed && (
-            <Box sx={stylesMui.item}>
-              <Input
-                name="helper.forcePushedNumber"
-                label="Код форс пушу"
-                placeholder="0000"
-              />
-            </Box>
-          )}
+          {values?.meta?.isForcePushed &&
+            !values.helper.isAdult &&
+            !values.helper.hasCustomer && (
+              <Box sx={stylesMui.item}>
+                <Input
+                  name="helper.forcePushedNumber"
+                  label="Код форс пушу"
+                  placeholder="0000"
+                />
+              </Box>
+            )}
 
           <Actions
             onPrevStep={() => {
               if (form.current) onPrevStep(form.current.values);
             }}
-            last={!values?.helper?.isAdult}
-            // isFormValid={touched && isValid}
+            last={!values?.helper?.isAdult && !values.helper.hasCustomer}
           />
         </Form>
       )}

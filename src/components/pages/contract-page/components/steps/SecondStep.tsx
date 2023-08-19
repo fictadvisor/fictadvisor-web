@@ -7,6 +7,7 @@ import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import { Input } from '@/components/common/ui/form';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
+import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import { Actions } from '@/components/pages/contract-page/components/Actions';
 import { CheckBox } from '@/components/pages/contract-page/components/CheckBox';
 import { REGIONS } from '@/components/pages/contract-page/constants';
@@ -16,9 +17,12 @@ import { saveLocalStorage } from '@/components/pages/contract-page/utils/localSt
 import {
   entrantOptionalValidationSchema,
   entrantValidationSchema,
-} from '@/components/pages/contract-page/validation';
+} from '@/components/pages/contract-page/validation/entrant';
 import useTabClose from '@/hooks/use-tab-close';
-import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
+import {
+  ExtendedContractBody,
+  PassportType,
+} from '@/lib/api/contract/types/ContractBody';
 export interface SecondStepProps {
   onNextStep: (data: ExtendedContractBody, final?: boolean) => void;
   onPrevStep: (data: ExtendedContractBody) => void;
@@ -34,7 +38,7 @@ export const SecondStep: FC<SecondStepProps> = ({
 }) => {
   const form = useRef<FormikProps<ExtendedContractBody>>(null);
   const handleSubmit = (values: ExtendedContractBody) => {
-    onNextStep(values, data?.helper?.isAdult);
+    onNextStep(values, data?.helper?.isAdult && !data?.helper?.hasCustomer);
   };
 
   useTabClose(() => {
@@ -54,7 +58,7 @@ export const SecondStep: FC<SecondStepProps> = ({
       }
       innerRef={form}
     >
-      {({ values, setValues }) => (
+      {({ values }) => (
         <Form>
           <Typography variant="h4Bold">Інформація про вступника</Typography>
           <Box sx={stylesMui.item}>
@@ -119,49 +123,37 @@ export const SecondStep: FC<SecondStepProps> = ({
               sx={stylesMui.divider}
             />
 
-            <CheckBox
-              name="helper.entrantHasOldPassport"
-              label="Паспорт старого зразка"
-              onClick={() =>
-                setValues({
-                  ...values,
-                  helper: {
-                    ...values.helper,
-                    entrantHasForeignPassport: false,
-                  },
-                })
-              }
-            />
-
-            <CheckBox
-              name="helper.entrantHasForeignPassport"
-              label="Закордонний паспорт"
-              onClick={() =>
-                setValues({
-                  ...values,
-                  helper: {
-                    ...values.helper,
-                    entrantHasOldPassport: false,
-                  },
-                })
-              }
+            <FormikRadioGroup
+              name="helper.entrantPassportType"
+              options={[
+                {
+                  value: PassportType.ID,
+                  label: 'ID картка',
+                },
+                {
+                  value: PassportType.OLD,
+                  label: 'Паспорт старого зразка',
+                },
+                {
+                  value: PassportType.FOREIGN,
+                  label: 'Закордонний пасорт',
+                },
+              ]}
             />
 
             <Box sx={{ gap: '24px' }}>
-              {values?.helper?.entrantHasForeignPassport ||
-              values?.helper?.entrantHasOldPassport ? (
-                <Input name="entrant.passportSeries" label="Серія паспорту" />
-              ) : (
+              {values?.helper?.entrantPassportType !== PassportType.ID && (
                 <Input
+                  clearOnUnmount
                   name="entrant.passportSeries"
                   label="Серія паспорту"
-                  disabled
-                  resetOnDisabled
                 />
               )}
-              <Input name="entrant.passportNumber" label={`Номер паспорту`} />
             </Box>
+
+            <Input name="entrant.passportNumber" label="Номер паспорту" />
           </Box>
+
           <Box sx={stylesMui.item}>
             <Input
               name="entrant.passportDate"
@@ -233,38 +225,43 @@ export const SecondStep: FC<SecondStepProps> = ({
             />
           </Box>
 
-          {values.meta.isToAdmission && values?.helper?.isAdult && (
-            <Box sx={stylesMui.item}>
-              <Divider
-                textAlign={DividerTextAlign.LEFT}
-                text="Підтвердження даних"
-                sx={stylesMui.divider}
-              />
-              <Typography variant="h6Bold">Зверніться до оператора</Typography>
-              <Input
-                name="helper.secretNumber"
-                label="Секретний код"
-                placeholder="0000"
-              />
-            </Box>
-          )}
+          {values.meta.isToAdmission &&
+            values?.helper?.isAdult &&
+            !values?.helper.hasCustomer && (
+              <Box sx={stylesMui.item}>
+                <Divider
+                  textAlign={DividerTextAlign.LEFT}
+                  text="Підтвердження даних"
+                  sx={stylesMui.divider}
+                />
+                <Typography variant="h6Bold">
+                  Зверніться до оператора
+                </Typography>
+                <Input
+                  name="helper.secretNumber"
+                  label="Секретний код"
+                  placeholder="0000"
+                />
+              </Box>
+            )}
 
-          {values?.helper?.isAdult && values?.meta?.isForcePushed && (
-            <Box sx={stylesMui.item}>
-              <Input
-                name="helper.forcePushedNumber"
-                label="Код форс пушу"
-                placeholder="0000"
-              />
-            </Box>
-          )}
+          {values?.helper?.isAdult &&
+            !values?.helper?.hasCustomer &&
+            values?.meta?.isForcePushed && (
+              <Box sx={stylesMui.item}>
+                <Input
+                  name="helper.forcePushedNumber"
+                  label="Код форс пушу"
+                  placeholder="0000"
+                />
+              </Box>
+            )}
 
           <Actions
             onPrevStep={() => {
               if (form.current) onPrevStep(form.current.values);
             }}
-            // isFormValid={touched && isValid}
-            last={values?.helper?.isAdult}
+            last={values?.helper?.isAdult && !values.helper.hasCustomer}
           />
         </Form>
       )}

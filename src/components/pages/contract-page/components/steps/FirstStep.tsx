@@ -5,8 +5,9 @@ import { Form, Formik, FormikProps } from 'formik';
 
 import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import { CheckBox } from '@/components/pages/contract-page/components/CheckBox';
+import { CustomerCheckBox } from '@/components/pages/contract-page/components/CustomerCheckBox';
 import * as stylesMui from '@/components/pages/contract-page/ContractPage.styles';
-import { metaValidationSchema } from '@/components/pages/contract-page/validation';
+import { metaValidationSchema } from '@/components/pages/contract-page/validation/meta';
 import useTabClose from '@/hooks/use-tab-close';
 import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
 import {
@@ -21,11 +22,15 @@ export interface FirstStepProps {
   onNextStep: (data: ExtendedContractBody) => void;
   data: ExtendedContractBody;
   setIsForcePushed: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAdult: React.Dispatch<React.SetStateAction<boolean>>;
+  setHasCustomer: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const FirstStep: FC<FirstStepProps> = ({
   onNextStep,
   data,
   setIsForcePushed,
+  setIsAdult,
+  setHasCustomer,
 }) => {
   const handleSubmit = (values: ExtendedContractBody) => {
     onNextStep(values);
@@ -50,7 +55,7 @@ export const FirstStep: FC<FirstStepProps> = ({
       onSubmit={handleSubmit}
       validationSchema={metaValidationSchema}
     >
-      {({ values }) => (
+      {({ values, setValues }) => (
         <Form>
           <Stack gap={'40px'}>
             <Box sx={stylesMui.item}>
@@ -65,27 +70,39 @@ export const FirstStep: FC<FirstStepProps> = ({
                 ]}
               />
             </Box>
-            {/*{values.meta.studyType === StudyTypeParam.CONTRACT && (*/}
-            {/*  <Box sx={stylesMui.item}>*/}
-            {/*    <Typography variant="h6Bold">*/}
-            {/*      Оплата(Щосеместрово/Щоквартально)*/}
-            {/*    </Typography>*/}
-            {/*    <FormikRadioGroup*/}
-            {/*      name="meta.paymentType"*/}
-            {/*      options={[*/}
-            {/*        {*/}
-            {/*          value: PaymentTypeParam.EVERY_SEMESTER,*/}
-            {/*          label: 'Щосеместрово',*/}
-            {/*        },*/}
-            {/*        {*/}
-            {/*          value: PaymentTypeParam.EVERY_YEAR,*/}
-            {/*          label: 'Щорічно',*/}
-            {/*        },*/}
-            {/*      ]}*/}
-            {/*      clearValueOnUnmount*/}
-            {/*    />*/}
-            {/*  </Box>*/}
-            {/*)}*/}
+            {values.meta.studyType === StudyTypeParam.CONTRACT && (
+              <Box sx={stylesMui.item}>
+                <Typography variant="h6Bold">
+                  Оплата(Щосеместрово/Щоквартально)
+                </Typography>
+                <FormikRadioGroup
+                  name="meta.paymentType"
+                  options={[
+                    {
+                      value: PaymentTypeParam.EVERY_MONTH,
+                      label: 'Щомісяця',
+                    },
+                    {
+                      value: PaymentTypeParam.EVERY_SEMESTER,
+                      label: 'Щосеместрово',
+                    },
+                    {
+                      value: PaymentTypeParam.EVERY_YEAR,
+                      label: 'Щороку',
+                    },
+                  ]}
+                  clearValueOnUnmount
+                  onChange={(event, value) => {
+                    if (value === PaymentTypeParam.EVERY_MONTH) {
+                      setValues({
+                        ...values,
+                        meta: { ...values.meta, isToAdmission: true },
+                      });
+                    }
+                  }}
+                />
+              </Box>
+            )}
             <Box sx={stylesMui.item}>
               <Typography variant="h6Bold">
                 Форма навчання (денна/заочна)
@@ -121,11 +138,15 @@ export const FirstStep: FC<FirstStepProps> = ({
               <Box sx={stylesMui.item}>
                 <CheckBox
                   name="meta.isToAdmission"
-                  label="Формую договір в корпусі"
+                  label="Формую договір в корпусі (*)"
                 />
               </Box>
               <Box sx={stylesMui.item}>
-                <CheckBox name="helper.isAdult" label="Є 18 років" />
+                <CheckBox
+                  name="helper.isAdult"
+                  label="Є 18 років"
+                  onClick={() => setIsAdult(!values.helper.isAdult)}
+                />
               </Box>
               <Box sx={stylesMui.item}>
                 <CheckBox
@@ -134,6 +155,30 @@ export const FirstStep: FC<FirstStepProps> = ({
                   onClick={handleCheck}
                 />
               </Box>
+              {values.meta.studyType === StudyTypeParam.CONTRACT && (
+                <Box sx={stylesMui.item}>
+                  <CustomerCheckBox
+                    setHasCustomer={setHasCustomer}
+                    prevCheckBoxState={values.helper.hasCustomer}
+                  />
+                </Box>
+              )}
+            </Box>
+
+            <Box sx={stylesMui.item}>
+              <Typography fontSize={'11px'}>
+                *На момент формування пріоритетки/договору ви перебуваєте в
+                корпусі, щоб заповнення даних зміг перевірити один з
+                представників відбіркової комісії
+              </Typography>
+              {values.meta.studyType === StudyTypeParam.CONTRACT && (
+                <Typography fontSize={'11px'}>
+                  **Замовник - особа, яка оплачує контракт. За замовчуванням
+                  замовник вважається вступником, якщо вступник неповнолітній -
+                  замовником вважають законного представника. За бажанням, можна
+                  змінити замовника
+                </Typography>
+              )}
             </Box>
 
             <Actions first />

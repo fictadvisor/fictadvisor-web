@@ -5,13 +5,32 @@ import { EntrantFuIlResponse } from '@/lib/api/contract/types/EntrantFullRespons
 import { PriorityDataBody } from '@/lib/api/contract/types/PriorityDataBody';
 import { client } from '@/lib/api/instance';
 import { getAuthorizationHeader } from '@/lib/api/utils';
-import { Fullname } from '@/types/contract';
+import { EntrantBody, Fullname } from '@/types/contract';
 
 import { AdminContractBody } from './types/AdminContractBody';
 
 class ContractAPI {
   async createContract(body: ContractBody) {
     const { data } = await client.post('/documents/contract', body);
+    return data;
+  }
+
+  async createContractById(entrantId: string) {
+    const { data } = await client.get(`/documents/contract/${entrantId}`);
+    return data;
+  }
+
+  async sendPriorityOnEmail(entrantId: string) {
+    const { data } = await client.get(`/documents/priority/${entrantId}`);
+    return data;
+  }
+
+  async approveContract(body: Fullname) {
+    const { data } = await client.post(
+      '/documents/generateContract',
+      body,
+      getAuthorizationHeader(),
+    );
     return data;
   }
 
@@ -40,6 +59,14 @@ class ContractAPI {
     );
   }
 
+  async approvePriorityById(entrantId: string) {
+    await client.patch(
+      `/entrants/priority/approve/${entrantId}`,
+      {},
+      getAuthorizationHeader(),
+    );
+  }
+
   async createPriority(body: PriorityDataBody) {
     const { data } = await client.post('/documents/priority', body);
     return data;
@@ -62,7 +89,7 @@ class ContractAPI {
     return data;
   }
 
-  async getEntrantInfo(body: Fullname) {
+  async getEntrantInfo(body: EntrantBody) {
     const { data } = await client.get<EntrantFuIlResponse>('/entrants', {
       params: body,
       ...getAuthorizationHeader(),
