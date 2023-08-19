@@ -1,16 +1,25 @@
 import { FC } from 'react';
 import { isIOS, isSafari } from 'react-device-detect';
+import { Box, Typography } from '@mui/material';
 import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
+import Divider from '@/components/common/ui/divider';
 import TokenPopup from '@/components/pages/main-page/components/token-popup';
+import * as stylesMUI from '@/components/pages/main-page/MainPage.styles';
+import {
+  buildImage,
+  mainPageContent,
+  titlePar,
+} from '@/components/pages/main-page/MainPage.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
 
@@ -37,20 +46,22 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
       набори в активне ком’юніті та багато інших цікавих інструментів."
       className={styles['main-page']}
     >
-      <div className={styles['main-page-content']}>
+      <Box sx={stylesMUI.mainPageContent}>
         {token && isReady && <TokenPopup token={token} />}
-        <div className={styles['header']}>
-          <div className={styles['header-info']}>
-            <div className={styles['header-info-content']}>
-              <h1 className={styles['title']}>Твій студентський портал</h1>
-              <p>
+        <Box sx={stylesMUI.header}>
+          <Box sx={stylesMUI.headerInfo}>
+            <Box className={styles['header-info-content']}>
+              <Typography variant={'h1'} sx={stylesMUI.title}>
+                Твій студентський портал
+              </Typography>
+              <Typography paragraph sx={stylesMUI.titlePar}>
                 Зустрічай FICT Advisor — офіційний сайт Студради ФІОТ.
                 Опитування про викладачів, багатофункціональний розклад,
                 керування групою, набори в наше активне ком’юніті, розіграш шар
                 та інші інструменти — шукай саме тут!
-              </p>
-              <div className={styles['buttons']}>
-                <div className={styles['buttons-desk']}>
+              </Typography>
+              <Box sx={stylesMUI.buttons}>
+                <Box sx={stylesMUI.buttonDesk}>
                   {!isLoggedIn && (
                     <>
                       <Link href={'/contract'}>
@@ -62,7 +73,8 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                           size={ButtonSize.LARGE}
                         />
                       </Link>
-                      <hr className={styles['button-divider']} />
+                      <Divider />
+                      {/*<hr className={styles['button-divider']} />*/}
                     </>
                   )}
                   <Link href={'/priority'}>
@@ -73,8 +85,8 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                       size={ButtonSize.LARGE}
                     />
                   </Link>
-                </div>
-                <div className={styles['buttons-tabl']}>
+                </Box>
+                <Box sx={stylesMUI.buttonTab}>
                   {!isLoggedIn && (
                     <>
                       <Link href={'/contract'}>
@@ -86,7 +98,8 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                           size={ButtonSize.MEDIUM}
                         />
                       </Link>
-                      <hr className={styles['button-divider']} />
+                      <Divider />
+                      {/*<hr className={styles['button-divider']} />*/}
                     </>
                   )}
                   <Link href={'/priority'}>
@@ -97,8 +110,8 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                       size={ButtonSize.MEDIUM}
                     />
                   </Link>
-                </div>
-                <div className={styles['buttons-mob']}>
+                </Box>
+                <Box sx={stylesMUI.buttonMob}>
                   {!isLoggedIn && (
                     <>
                       <Link href={'/contract'}>
@@ -120,31 +133,27 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                       size={ButtonSize.SMALL}
                     />
                   </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className={cn(styles['build-image'], {
-              [styles['animate']]: !isIOS && !isSafari,
-            })}
-          >
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+          <Box sx={stylesMUI.buildImage}>
             <BannerImage />
-          </div>
-        </div>
-        <div className={styles['resources']}>
-          <h3>Студентські ресурси</h3>
-          <div className={styles['resource-card-container']}>
-            <div className={styles['resources-cards']}>
+          </Box>
+        </Box>
+        <Box className={styles['resources']}>
+          <Typography variant={'h3'}>Студентські ресурси</Typography>
+          <Box className={styles['resource-card-container']}>
+            <Box className={styles['resources-cards']}>
               {data?.studentResources.map(({ name, id, icon, link }) => (
-                <div className={styles['card-holder']} key={id}>
+                <Box className={styles['card-holder']} key={id}>
                   <ResourceCard text={name} image={icon} href={link} />
-                </div>
+                </Box>
               ))}
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </PageLayout>
   );
 };
