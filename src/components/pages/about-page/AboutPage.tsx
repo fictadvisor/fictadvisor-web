@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 
+import MobileStudActivityCard from '@/components/pages/about-page/components/MobileStudActivityCard';
 import theme from '@/styles/theme';
 
 import * as styles from './AboutPage.styles';
-import { eclipse } from './AboutPage.styles';
 
 export enum EclipseSize {
   LARGE = 'LARGE',
@@ -20,52 +20,45 @@ export enum EclipseType {
 
 const AboutPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobileMedium = useMediaQuery(theme.breakpoints.down('mobileMedium'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('tablet'));
+  const isSemiMediumDesktop = useMediaQuery(
+    theme.breakpoints.down('desktopSemiMedium'),
+  );
   return (
     <Box sx={styles.container}>
-      <Box
-        sx={{
-          display: 'flex',
-          height: '775px',
-        }}
-      >
-        {!isMobile && (
+      <Box display="flex" width="100%" height={isTablet ? '460px' : '775px'}>
+        {!isTablet && (
           <Box
             sx={{
               width: '40%',
               left: '0%',
-              top: '0%',
               position: 'absolute',
               background: 'rgba(30, 30, 30, 0.99)',
               boxShadow: '50px 0px 50px 0px #1e1e1e',
-              height: '100%',
-              backdropFilter: 'blur(1px)',
+              height: '775px',
+              backdropFilter: 'blur(10px)',
               zIndex: 1,
             }}
           />
         )}
         <Box
-          sx={{
-            borderRadius: '100%',
-            background: 'rgba(135, 48, 48, 0.70)',
-            filter: 'blur(60px)',
-            width: '420px',
-            height: '350px',
-            top: '40%',
-            left: '-5%',
-            position: 'absolute',
-            zIndex: 1,
-          }}
+          sx={styles.eclipse(EclipseSize.MEDIUM, EclipseType.RED, 0.35)}
+          left="-5%"
+          top="5%"
+          zIndex={1}
         />
+
         <Box
           width="100%"
           display="flex"
-          justifyContent={isMobile ? ' center' : 'flex-start'}
+          justifyContent={isTablet ? ' center' : 'flex-start'}
         >
           <Box sx={styles.fictCard}>
-            <Typography variant={isMobile ? 'h4Bold' : 'h2Bold'}>
+            <Typography variant={isTablet ? 'h4Bold' : 'h2Bold'}>
               ФІОТ
             </Typography>
-            <Typography variant={isMobile ? 'body1' : 'h6'}>
+            <Typography variant={isTablet ? 'body1' : 'h6'}>
               <b>Факультет інформатики та обчислювальної техніки</b> — це не
               просто гучна назва, а ціла спільнота з{' '}
               <b>понад 3 тисяч студентів</b>, які розподілені на багатьох
@@ -74,18 +67,30 @@ const AboutPage = () => {
             </Typography>
           </Box>
         </Box>
+        {isTablet ? (
+          <img
+            src="/images/about-page/vitrazh-mobile.png"
+            style={{
+              position: 'absolute',
+              width: '100%',
+              borderRadius: isTablet ? '0' : '0 0 0 12px',
+              left: 0,
+              height: isTablet ? '460px' : '775px',
+            }}
+            alt="Вітраж"
+          />
+        ) : (
+          <img
+            src="/images/about-page/vitrazh.png"
+            style={{
+              right: 0,
+              position: 'absolute',
+              borderRadius: '0 0 0 12px',
+            }}
+            alt="Вітраж"
+          />
+        )}
       </Box>
-      <img
-        src="/images/about-page/vitrazh.png"
-        style={{
-          right: isMobile ? 'unset' : 0,
-          top: 0,
-          position: 'absolute',
-          borderRadius: '0 0 0 12px',
-          zIndex: 0,
-        }}
-        alt="Вітраж"
-      />
 
       <Box
         sx={{
@@ -95,7 +100,7 @@ const AboutPage = () => {
           justifyContent: 'center',
           alignItems: 'center',
           gap: '5%',
-          marginTop: '140px',
+          marginTop: isMobile ? '230px' : '140px',
         }}
       >
         <Box
@@ -130,7 +135,6 @@ const AboutPage = () => {
         <Box
           sx={{
             height: { desktop: '360px', mobile: '200px' },
-            width: { desktop: '520px', mobile: '310px' },
             zIndex: 1,
           }}
         >
@@ -280,11 +284,14 @@ const AboutPage = () => {
         />
         <Box display="flex" flexDirection="column" gap="26px">
           <Box marginTop="30px">
-            <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'} width="370px">
+            <Typography
+              variant={isMobile ? 'h6Bold' : 'h4Bold'}
+              maxWidth="370px"
+            >
               Спеціальності факультету
             </Typography>
             <Typography
-              width="340px"
+              maxWidth={isMobile ? 'unset' : '340px'}
               marginTop="16px"
               variant={isMobile ? 'body1' : 'body2'}
             >
@@ -342,136 +349,270 @@ const AboutPage = () => {
         </Box>
       </Box>
 
-      <Box
-        display="flex"
-        width="100%"
-        alignItems="center"
-        mt="140px"
-        justifyContent="center"
-      >
-        <Box display="flex" flexDirection="column">
-          <Typography variant="h4Bold">Студентська активність</Typography>
-          <Box width="100%" display="flex" marginTop="16px" gap="16px">
-            <Box>
-              <img
-                src="/images/about-page/events.png"
-                style={{ borderRadius: '12px' }}
-              />
-            </Box>
-
-            <Box sx={styles.studentTextCard}>
-              <Typography variant="h4Bold">Студрада</Typography>
-              <Typography variant="body2">
-                Студентська рада ФІОТу одна з найбільш активних в університеті.
-                Її члени проводять різноманітні тематичні заходи як для
-                студентів, так і для вступників, ведуть новинні канали, а також
-                розробляють власний вебсайт. <br />
-                За певний напрям роботи відповідає окремий відділ. Кожен студент
-                може долучитися до роботи та допомогти в розвитку факультету.
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box display="flex" marginTop="16px" gap="16px">
-            <Box>
-              <img
-                src="/images/about-page/dayF.png"
-                style={{ borderRadius: '12px' }}
-              />
-            </Box>
-            <Box sx={styles.studentTextCard}>
-              <Typography variant="h4Bold">Заходи</Typography>
-              <Typography variant="body2">
-                Щорічно Студрада організовує День факультету, Абітфест, гітарні
-                та літературні вечори, а також освітні лекції від спонсорів.
-                <br /> Музичні заходи проводяться у клубі «Барви». Зробивши
-                благодійний внесок для ЗСУ, студенти мають змогу послухати
-                авторські пісні андеграунд гуртів.
-                <br />
-                Для освітніх ініціатив існує Хаб ФІОТ — унікальний проєкт
-                співпраці з провідними ІТ-компаніями, де проводять безплатні
-                лекції, літні школи та навчальні курси.
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-        <Box sx={styles.studentTextCard} ml="16px">
-          <Typography variant="h4Bold">Благодійність</Typography>
-          <Typography variant="body2">
-            З початку повномасштабного вторгнення студентство факультету
-            регулярно проводить збори на зброю та обладнання для наших
-            захисників.
-            <br />
-            Завдяки небайдужим, на фронт відправилися нові автомобілі, термінали
-            зв’язку, прилади нічного бачення, аптечки, бронежилети та інші речі,
-            які необхідні нашим студентам та випускникам на фронті.
+      {isSemiMediumDesktop ? (
+        <>
+          <Typography variant="h6Bold" mt="84px">
+            Студентська активність
           </Typography>
+          <Box
+            display="flex"
+            width="100%"
+            alignItems="flex-start"
+            flexWrap="wrap"
+            mt="16px"
+            height="fit-content"
+            gap={isMobileMedium ? '32px' : '16px'}
+            justifyContent="center"
+          >
+            <MobileStudActivityCard
+              title="Студрада"
+              description={
+                <Typography variant="body2">
+                  Студентська рада ФІОТу одна з найбільш активних в
+                  університеті. Її члени проводять різноманітні тематичні заходи
+                  як для студентів, так і для вступників, ведуть новинні канали,
+                  а також розробляють власний вебсайт.
+                  <br />
+                  За певний напрям роботи відповідає окремий відділ. Кожен
+                  студент може долучитися до роботи та допомогти в розвитку
+                  факультету.
+                </Typography>
+              }
+              imgSrc="/images/about-page/dayF-mobile.png"
+            />
+            <MobileStudActivityCard
+              title="Заходи"
+              description={
+                <Typography variant="body2">
+                  Щорічно Студрада організовує День факультету, Абітфест,
+                  гітарні та літературні вечори, а також освітні лекції від
+                  спонсорів.
+                  <br />
+                  Музичні заходи проводяться у клубі «Барви». Зробивши
+                  благодійний внесок для ЗСУ, студенти мають змогу послухати
+                  авторські пісні андеграунд гуртів.
+                  <br /> Для освітніх ініціатив існує Хаб ФІОТ — унікальний
+                  проєкт співпраці з провідними ІТ-компаніями, де проводять
+                  безплатні лекції, літні школи та навчальні курси.
+                </Typography>
+              }
+              imgSrc="/images/about-page/events-mobile.png"
+            />
+            <MobileStudActivityCard
+              title="Благодійність"
+              description={
+                <Typography variant="body2">
+                  З початку повномасштабного вторгнення студентство факультету
+                  регулярно проводить збори на зброю та обладнання для наших
+                  захисників.
+                  <br /> Завдяки небайдужим, на фронт відправилися нові
+                  автомобілі, термінали зв’язку, прилади нічного бачення,
+                  аптечки, бронежилети та інші речі, які необхідні нашим
+                  студентам та випускникам на фронті.
+                </Typography>
+              }
+            />
+          </Box>
+        </>
+      ) : (
+        <Box
+          display="flex"
+          width="100%"
+          alignItems="center"
+          mt="140px"
+          justifyContent="center"
+        >
+          <Box display="flex" flexDirection="column">
+            <Typography variant="h4Bold">Студентська активність</Typography>
+            <Box width="100%" display="flex" marginTop="16px" gap="16px">
+              <Box>
+                <img
+                  src="/images/about-page/events.png"
+                  style={{ borderRadius: '12px' }}
+                />
+              </Box>
+
+              <Box sx={styles.studentTextCard}>
+                <Typography variant="h4Bold">Студрада</Typography>
+                <Typography variant="body2">
+                  Студентська рада ФІОТу одна з найбільш активних в
+                  університеті. Її члени проводять різноманітні тематичні заходи
+                  як для студентів, так і для вступників, ведуть новинні канали,
+                  а також розробляють власний вебсайт. <br />
+                  За певний напрям роботи відповідає окремий відділ. Кожен
+                  студент може долучитися до роботи та допомогти в розвитку
+                  факультету.
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box display="flex" marginTop="16px" gap="16px">
+              <Box>
+                <img
+                  src="/images/about-page/dayF.png"
+                  style={{ borderRadius: '12px' }}
+                />
+              </Box>
+              <Box sx={styles.studentTextCard}>
+                <Typography variant="h4Bold">Заходи</Typography>
+                <Typography variant="body2">
+                  Щорічно Студрада організовує День факультету, Абітфест,
+                  гітарні та літературні вечори, а також освітні лекції від
+                  спонсорів.
+                  <br /> Музичні заходи проводяться у клубі «Барви». Зробивши
+                  благодійний внесок для ЗСУ, студенти мають змогу послухати
+                  авторські пісні андеграунд гуртів.
+                  <br />
+                  Для освітніх ініціатив існує Хаб ФІОТ — унікальний проєкт
+                  співпраці з провідними ІТ-компаніями, де проводять безплатні
+                  лекції, літні школи та навчальні курси.
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box sx={styles.studentTextCard} maxWidth="300px" ml="16px">
+            <Typography variant="h4Bold">Благодійність</Typography>
+            <Typography variant="body2">
+              З початку повномасштабного вторгнення студентство факультету
+              регулярно проводить збори на зброю та обладнання для наших
+              захисників.
+              <br />
+              Завдяки небайдужим, на фронт відправилися нові автомобілі,
+              термінали зв’язку, прилади нічного бачення, аптечки, бронежилети
+              та інші речі, які необхідні нашим студентам та випускникам на
+              фронті.
+            </Typography>
+          </Box>
         </Box>
+      )}
+
+      <Box
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+        mb="48px"
+        mt="80px"
+      >
+        {isMobile && (
+          <Box justifyContent="center" alignItems="center" textAlign="center">
+            <Typography variant="body2Bold">
+              Факультет інформатики та обчислювальної техніки — це не просто
+              красивий корпус, а простір, де кожен може отримати знання та
+              знайти себе.
+            </Typography>
+          </Box>
+        )}
       </Box>
       <Box
-        sx={{ display: 'flex', width: '100%', height: '395px' }}
-        justifyContent="space-between"
-        mt="145px"
+        sx={{
+          display: 'flex',
+          height: isMobileMedium ? '193px' : '395px',
+        }}
+        justifyContent={isMobile ? 'center' : 'space-between'}
+        mt={isMobile ? '0px' : '145px'}
       >
-        <Box
-          sx={styles.eclipse(EclipseSize.LARGE, EclipseType.RED, 0.7)}
-          left="10%"
-          zIndex={1}
-        />
-        <img
-          src="/images/about-page/wallFICE.png"
-          style={{
-            left: 0,
-            position: 'absolute',
-          }}
-          alt="FICE composition"
-        />
-        <Box
-          sx={styles.eclipse(EclipseSize.LARGE, EclipseType.VIOLET, 0.7)}
-          right="5%"
-          zIndex={1}
-        />
-        <img
-          src="/images/about-page/wallFICE.png"
-          style={{
-            right: 0,
-            position: 'absolute',
-          }}
-          alt="FICE composition"
-        />
-        <Box
-          sx={{
-            borderRadius: '16px',
-            width: '50%',
-            border: '1px solid #A3A3A3',
-            textAlign: 'center',
-            mt: '4%',
-            left: '25%',
-            position: 'absolute',
-            background: 'rgba(30, 30, 30, 0.35)',
-            backdropFilter: 'blur(10px)',
-            padding: '60px',
-            zIndex: 1,
-          }}
-        >
-          <Typography variant="h4Bold">
+        {isMobile ? (
+          <>
+            <Box
+              sx={styles.eclipse(EclipseSize.LARGE, EclipseType.RED, 0.7)}
+              zIndex={isMobile ? 0 : 1}
+            />
+            <img
+              src="/images/about-page/wallFICE.png"
+              style={{
+                display: 'flex',
+                position: 'absolute',
+                height: isMobileMedium ? '193px' : '395px',
+                width: '100%',
+              }}
+              alt="FICE composition"
+            />
+          </>
+        ) : (
+          <>
+            <Box
+              sx={styles.eclipse(EclipseSize.LARGE, EclipseType.RED, 0.35)}
+              left="5%"
+              zIndex={isMobile ? 0 : 1}
+            />
+            <img
+              src="/images/about-page/wallFICE.png"
+              style={{
+                left: 0,
+                position: 'absolute',
+              }}
+              alt="FICE composition"
+            />
+          </>
+        )}
+
+        {!isMobile && (
+          <>
+            <Box
+              sx={styles.eclipse(EclipseSize.LARGE, EclipseType.VIOLET, 0.7)}
+              right="5%"
+              zIndex={1}
+            />
+            <img
+              src="/images/about-page/wallFICE.png"
+              style={{
+                right: 0,
+                position: 'absolute',
+              }}
+              alt="FICE composition"
+            />
+          </>
+        )}
+
+        {isMobile ? (
+          <Typography
+            variant="body2Bold"
+            textAlign="center"
+            maxWidth="328px"
+            mb="48px"
+          >
             Факультет інформатики та обчислювальної техніки — це не просто
             красивий корпус, а простір, де кожен може отримати знання та знайти
             себе.
           </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: '45%',
-            left: '27.5%',
-            position: 'absolute',
-            background: 'rgba(30, 30, 30, 1)',
-            mt: '-20px',
-            boxShadow: '40px 0px 20px 0px #1e1e1e, -30px 0 10px -4px #1e1e1e',
-            height: '450px',
-            zIndex: 0,
-          }}
-        />
+        ) : (
+          <Box
+            sx={{
+              borderRadius: '16px',
+              width: '50%',
+              border: '1px solid #A3A3A3',
+              mt: '4%',
+              left: '25%',
+              position: 'absolute',
+              textAlign: 'center',
+              background: 'rgba(30, 30, 30, 0.35)',
+              backdropFilter: 'blur(10px)',
+              padding: '60px',
+              zIndex: 1,
+            }}
+          >
+            <Typography variant="h4Bold">
+              Факультет інформатики та обчислювальної техніки — це не просто
+              красивий корпус, а простір, де кожен може отримати знання та
+              знайти себе.
+            </Typography>
+          </Box>
+        )}
+
+        {!isMobile && (
+          <Box
+            sx={{
+              width: '45%',
+              left: '27.5%',
+              position: 'absolute',
+              background: 'rgba(30, 30, 30, 1)',
+              mt: '-20px',
+              boxShadow: '40px 0px 20px 0px #1e1e1e, -30px 0 10px -4px #1e1e1e',
+              height: '450px',
+              zIndex: 0,
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
