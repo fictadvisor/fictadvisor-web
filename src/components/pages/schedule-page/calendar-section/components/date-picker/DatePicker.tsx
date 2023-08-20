@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/useSchedule';
 
-import * as styles from './DatePicker.style';
-export interface DatePickerProps {
+import * as styles from './DatePicker.styles';
+interface DatePickerProps {
   semester: GetCurrentSemester | null;
 }
 

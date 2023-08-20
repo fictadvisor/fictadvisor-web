@@ -35,7 +35,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     }, 1000 * 60);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   useEffect(() => {
     if (!router.isReady || !semester) return;

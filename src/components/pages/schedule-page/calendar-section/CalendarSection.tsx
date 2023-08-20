@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Box, Stack } from '@mui/material';
 import { Form, Formik } from 'formik';
@@ -12,7 +12,6 @@ import {
 import Dropdown from '@/components/common/ui/form/dropdown/Dropdown';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
-import groupAPI from '@/lib/api/group/GroupAPI';
 import { useSchedule } from '@/store/useSchedule';
 import { Group } from '@/types/group';
 import { UserGroupRole } from '@/types/user';
@@ -20,6 +19,7 @@ import { UserGroupRole } from '@/types/user';
 import { CheckBoxSection } from './components/checkboxes-section/CheckBoxSection';
 import { DatePicker } from './components/date-picker/DatePicker';
 import * as styles from './CalendarSection.styles';
+
 export interface CalendarSectionProps {
   semester: GetCurrentSemester | null;
   groups: Group[];
@@ -36,6 +36,12 @@ export const CalendarSection: FC<CalendarSectionProps> = ({
 
   return (
     <Box sx={styles.mainWrapper}>
+      <Button
+        text="Додати подію"
+        variant={ButtonVariant.OUTLINE}
+        sx={{ borderRadius: '8px' }}
+        startIcon={<PlusIcon />}
+      />
       <Formik
         validateOnMount
         validateOnChange

@@ -1,14 +1,13 @@
-import React from 'react';
+import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
+import { Dropdown } from '@/components/common/ui/form';
 import Tab from '@/components/common/ui/tab-mui/tab';
 import TabContext from '@/components/common/ui/tab-mui/tab-context';
 import TabList from '@/components/common/ui/tab-mui/tab-list/TabList';
 import useTabState from '@/hooks/use-tab-state';
-
-import Dropdown from '../../../../../common/ui/form/dropdown';
 
 import * as styles from './TabSection.styles';
 
@@ -23,7 +22,7 @@ export const TabSection = () => {
   const { query } = router;
   const { tab } = query;
 
-  const [index, setIndex] = React.useState(CalendarPageTabs.STUDENT);
+  const [index, setIndex] = useState(CalendarPageTabs.STUDENT);
   const handleChange = useTabState(
     tab,
     router,
