@@ -1,11 +1,8 @@
 import { FC, memo } from 'react';
 import { Box, Slide, Snackbar } from '@mui/material';
 
-import Alert from '@/components/common/ui/alert-mui';
-import {
-  AlertType,
-  AlertVariant,
-} from '@/components/common/ui/alert-mui/types';
+import Alert from '@/components/common/ui/alert';
+import { AlertType, AlertVariant } from '@/components/common/ui/alert/types';
 
 import * as styles from './Toast.styles';
 

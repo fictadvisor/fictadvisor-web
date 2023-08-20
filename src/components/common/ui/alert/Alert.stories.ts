@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Alert from '@/components/common/ui/alert-mui/Alert';
+import Alert from '@/components/common/ui/alert/Alert';
 
 const meta = {
   title: 'Ui Kit/Components/Alert',

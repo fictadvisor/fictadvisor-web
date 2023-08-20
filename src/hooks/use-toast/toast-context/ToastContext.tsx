@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import { AlertType } from '@/components/common/ui/alert-mui/types';
+import { AlertType } from '@/components/common/ui/alert/types';
 import Toast from '@/components/common/ui/toast';
 
 import { ToastActionProps, ToastContext, ToastState } from '../types';
