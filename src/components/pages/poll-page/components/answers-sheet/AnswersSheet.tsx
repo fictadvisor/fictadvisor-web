@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Button from '@/components/common/ui/button/Button';
 import { TextArea } from '@/components/common/ui/form';
 import RadioGroup from '@/components/common/ui/form/radio/RadioGroup';
+import FormikSlider from '@/components/common/ui/form/with-formik/slider';
 import Progress from '@/components/common/ui/progress';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
