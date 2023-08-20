@@ -15,6 +15,7 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
   '& .Mui-focused': {
     svg: {
       opacity: 0.3,
+      transition: 'opacity 0.1s ease',
     },
     '& .MuiOutlinedInput-input': {
       '&::placeholder': {
@@ -31,6 +32,7 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
     '& > fieldset': {
       border: 'none',
     },
+    paddingRight: '12px !important',
     '& .MuiOutlinedInput-input': {
       ...(!hasIcon && {
         padding: '0 !important',
@@ -42,6 +44,7 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
     width: '18px',
     height: '18px',
     opacity: 1,
+    transition: 'opacity 0.1s ease',
     color: 'grey.600',
   },
 
@@ -57,6 +60,7 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
       svg: {
         color: 'white.main',
         opacity: 1,
+        transition: 'opacity 0.1s ease',
       },
       '& .MuiOutlinedInput-input': {
         '&::placeholder': {

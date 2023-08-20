@@ -1,5 +1,4 @@
 import React, { FC, ReactNode, useState } from 'react';
-import { SxProps, Theme } from '@mui/material/styles';
 
 import { Dropdown } from '@/components/common/ui/form';
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
@@ -12,7 +11,6 @@ export interface ScheduleDropdownProps {
   isDisabled?: boolean;
   icon?: ReactNode;
   noOptionsText?: string;
-  sx?: SxProps<Theme>;
   onChange: (value: string) => void;
   value: string;
   width?: string;
