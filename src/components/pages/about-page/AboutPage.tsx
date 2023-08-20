@@ -1,22 +1,11 @@
 import React from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 
-import MobileStudActivityCard from '@/components/pages/about-page/components/MobileStudActivityCard';
+import MobileStudActivityCard from '@/components/pages/about-page/components';
 import theme from '@/styles/theme';
 
 import * as styles from './AboutPage.styles';
-
-export enum EclipseSize {
-  LARGE = 'LARGE',
-  MEDIUM = 'MEDIUM',
-  SMALL = 'SMALL',
-}
-
-export enum EclipseType {
-  RED = 'RED',
-  BLUE = 'BLUE',
-  VIOLET = 'VIOLET',
-}
+import { EclipseSize, EclipseType } from './types';
 
 const AboutPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
@@ -32,20 +21,7 @@ const AboutPage = () => {
         width="100%"
         height={isMobileMedium ? '460px' : '775px'}
       >
-        {!isTablet && (
-          <Box
-            sx={{
-              width: '40%',
-              left: '0%',
-              position: 'absolute',
-              background: 'rgba(30, 30, 30, 0.99)',
-              boxShadow: '50px 0px 50px 0px #1e1e1e',
-              height: '775px',
-              backdropFilter: 'blur(10px)',
-              zIndex: 1,
-            }}
-          />
-        )}
+        {!isTablet && <Box sx={styles.vitrazhShadow} />}
         <Box
           sx={styles.eclipse(EclipseSize.MEDIUM, EclipseType.RED, 0.35)}
           left="-5%"
@@ -95,25 +71,8 @@ const AboutPage = () => {
         )}
       </Box>
 
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: { desktop: 'row', mobile: 'column-reverse' },
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '5%',
-          marginTop: isMobile ? '230px' : '140px',
-        }}
-      >
-        <Box
-          sx={{
-            maxWidth: '400px',
-            gap: { desktop: '18px', mobile: '6px' },
-            zIndex: 1,
-            marginTop: { desktop: 0, mobile: '16px' },
-          }}
-        >
+      <Box sx={styles.history}>
+        <Box sx={styles.historyText}>
           <Typography variant={isMobile ? 'h6Bold' : 'h4Bold'}>
             Із чого все починалось?
           </Typography>
@@ -252,21 +211,7 @@ const AboutPage = () => {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: {
-            desktop: 'row',
-            mobile: 'column',
-          },
-          marginTop: '140px',
-          gap: '16px',
-          zIndex: 0,
-        }}
-        position="relative"
-        justifyContent="space-around"
-      >
+      <Box sx={styles.specialtyContainer}>
         <Box
           sx={styles.eclipse(EclipseSize.SMALL, EclipseType.RED, 0.35)}
           top="18%"
@@ -357,16 +302,7 @@ const AboutPage = () => {
           <Typography variant="h6Bold" mt="84px">
             Студентська активність
           </Typography>
-          <Box
-            display="flex"
-            width="100%"
-            alignItems="baseline"
-            flexWrap="wrap"
-            mt="16px"
-            height="fit-content"
-            gap={isMobileMedium ? '32px' : '16px'}
-            justifyContent="center"
-          >
+          <Box sx={styles.studActivityContainerMobile}>
             <MobileStudActivityCard
               title="Студрада"
               description={
@@ -432,6 +368,7 @@ const AboutPage = () => {
                 <img
                   src="/images/about-page/events.png"
                   style={{ borderRadius: '12px' }}
+                  alt="Івенти"
                 />
               </Box>
 
@@ -454,6 +391,7 @@ const AboutPage = () => {
                 <img
                   src="/images/about-page/dayF.png"
                   style={{ borderRadius: '12px' }}
+                  alt="День Ф"
                 />
               </Box>
               <Box sx={styles.studentTextCard}>
@@ -497,7 +435,7 @@ const AboutPage = () => {
         mt="80px"
       >
         {isMobile && (
-          <Box justifyContent="center" alignItems="center" textAlign="center">
+          <Box textAlign="center">
             <Typography variant="body2Bold">
               Факультет інформатики та обчислювальної техніки — це не просто
               красивий корпус, а простір, де кожен може отримати знання та
@@ -506,14 +444,7 @@ const AboutPage = () => {
           </Box>
         )}
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          height: isMobileMedium ? '193px' : '395px',
-        }}
-        justifyContent={isMobile ? 'center' : 'space-between'}
-        mt={isMobile ? '0px' : '145px'}
-      >
+      <Box sx={styles.ficeWallContainer}>
         {isMobile ? (
           <>
             <Box
@@ -572,28 +503,14 @@ const AboutPage = () => {
             variant="body2Bold"
             textAlign="center"
             maxWidth="328px"
-            mb="48px"
+            marginBottom="48px"
           >
             Факультет інформатики та обчислювальної техніки — це не просто
             красива назва, а простір, де кожен може отримати знання та знайти
             себе.
           </Typography>
         ) : (
-          <Box
-            sx={{
-              borderRadius: '16px',
-              width: '50%',
-              border: '1px solid #A3A3A3',
-              mt: '4%',
-              left: '25%',
-              position: 'absolute',
-              textAlign: 'center',
-              background: 'rgba(30, 30, 30, 0.35)',
-              backdropFilter: 'blur(10px)',
-              padding: '60px',
-              zIndex: 1,
-            }}
-          >
+          <Box sx={styles.ficeWallCard}>
             <Typography variant="h4Bold">
               Факультет інформатики та обчислювальної техніки — це не просто
               красива назва, а простір, де кожен може отримати знання та знайти
@@ -602,20 +519,7 @@ const AboutPage = () => {
           </Box>
         )}
 
-        {!isMobile && (
-          <Box
-            sx={{
-              width: '45%',
-              left: '27.5%',
-              position: 'absolute',
-              background: 'rgba(30, 30, 30, 1)',
-              mt: '-20px',
-              boxShadow: '40px 0px 20px 0px #1e1e1e, -30px 0 10px -4px #1e1e1e',
-              height: '450px',
-              zIndex: 0,
-            }}
-          />
-        )}
+        {!isMobile && <Box sx={styles.ficeWallShadow} />}
       </Box>
     </Box>
   );
