@@ -2,7 +2,10 @@ import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import { getCurrentWeek } from '@/components/pages/schedule-page/utils/getCurrentWeek';
+import {
+  getCurrentWeek,
+  getLastDayOfAWeek,
+} from '@/components/pages/schedule-page/utils/getCurrentWeek';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/useSchedule';
 import { Group } from '@/types/group';
@@ -32,7 +35,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     }, 1000 * 60);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   useEffect(() => {
     if (!router.isReady || !semester) return;
@@ -56,19 +59,21 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
       setChosenDay(new Date());
       setWeek(week);
+
       return;
     }
 
     if (group && !Array.isArray(group) && week) {
       setGroupId(group);
       setWeek(+week);
+      setChosenDay(getLastDayOfAWeek(semester, +(week as string)));
     }
   }, [router.isReady]);
 
   return (
     <PageLayout title={'Розклад'}>
       <div className={styles['schedule-layout']}>
-        <CalendarSection />
+        <CalendarSection groups={groups} semester={semester && semester} />
         <ScheduleSection />
       </div>
     </PageLayout>
