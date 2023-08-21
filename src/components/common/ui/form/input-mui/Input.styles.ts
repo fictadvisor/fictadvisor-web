@@ -13,9 +13,9 @@ export const wrapper: SxProps<Theme> = {
 };
 
 export const label = (state: InputState): SxProps<Theme> => ({
-  overflow: 'unset',
+  overflow: 'hidden',
   padding: '2px 8px',
-  maxWidth: '100%',
+  maxWidth: '78%',
   //it is a bug fix and if someone can fix it would be great
   // Makes only lower half of the label to have background (designers asked to do this)
   background: `linear-gradient(180deg, rgba(30, 30, 30, 0) 50%, ${theme.palette.backgroundDark[50]} 49.95%)`,
@@ -48,6 +48,9 @@ export const label = (state: InputState): SxProps<Theme> => ({
 
 export const remark = (state: InputState): SxProps<Theme> => ({
   margin: '2px 8px 0 16px',
+  '&.MuiFormHelperText-root': {
+    textTransform: 'lowercase',
+  },
 
   ...(state === InputState.ERROR && {
     color: 'error.500',
