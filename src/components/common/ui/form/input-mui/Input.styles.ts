@@ -153,7 +153,6 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
       },
     },
     padding: 0,
-
     '::placeholder': {
       color: theme.palette.grey[500],
     },
