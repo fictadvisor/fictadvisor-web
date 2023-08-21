@@ -1,7 +1,5 @@
 import { FC } from 'react';
-import { isIOS, isSafari } from 'react-device-detect';
 import { Box, Typography } from '@mui/material';
-import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -15,11 +13,7 @@ import {
 import Divider from '@/components/common/ui/divider';
 import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import * as stylesMUI from '@/components/pages/main-page/MainPage.styles';
-import {
-  buildImage,
-  mainPageContent,
-  titlePar,
-} from '@/components/pages/main-page/MainPage.styles';
+import { resourcesCards } from '@/components/pages/main-page/MainPage.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
 
@@ -73,7 +67,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                           size={ButtonSize.LARGE}
                         />
                       </Link>
-                      <Divider />
+                      <Divider sx={stylesMUI.buttonDivider} />
                       {/*<hr className={styles['button-divider']} />*/}
                     </>
                   )}
@@ -98,7 +92,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                           size={ButtonSize.MEDIUM}
                         />
                       </Link>
-                      <Divider />
+                      <Divider sx={stylesMUI.buttonDivider} />
                       {/*<hr className={styles['button-divider']} />*/}
                     </>
                   )}
@@ -141,10 +135,10 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
             <BannerImage />
           </Box>
         </Box>
-        <Box className={styles['resources']}>
+        <Box sx={stylesMUI.resources}>
           <Typography variant={'h3'}>Студентські ресурси</Typography>
           <Box className={styles['resource-card-container']}>
-            <Box className={styles['resources-cards']}>
+            <Box sx={stylesMUI.resourcesCards}>
               {data?.studentResources.map(({ name, id, icon, link }) => (
                 <Box className={styles['card-holder']} key={id}>
                   <ResourceCard text={name} image={icon} href={link} />
