@@ -7,7 +7,7 @@ export const mainPage: SxProps<Theme> = {
   background: "url('/images/main-page/main-background.png')",
   display: 'block',
   backgroundSize: {
-    desktop: '100% 100%',
+    desktopLarge: '100% 100%',
     desktopMedium: '1440px 100%',
   },
 };
@@ -54,11 +54,24 @@ export const buildImage: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'flex-end',
   position: 'relative',
-  right: '-15px',
+  width: {
+    desktopSemiMedium: '75%',
+  },
+  right: {
+    desktopLarge: 0,
+    desktop: '-15px',
+    tablet: '-50px',
+  },
   svg: {
+    height: {
+      desktopSemiMedium: 'auto',
+    },
     color: theme.palette.grey['300'],
-    clipPath:
-      'polygon(58% -10%, 100% 30%, 100% 96%, 88% 96%, 75% 100%, 0% 90%, 2% 75%, 4% 72%, 4% 50%)',
+    clipPath: {
+      desktopLarge:
+        'polygon(58% -10%, 100% 30%, 100% 96%, 88% 96%, 75% 100%, 0% 90%, 2% 75%, 4% 72%, 4% 50%)',
+      tablet: 'none',
+    },
     transition: 'color 225ms cubic-bezier(0.37, 0, 0.63, 1)',
     ...((!isSafari || !isIOS) && {
       '&:hover': {
@@ -78,7 +91,7 @@ export const buttons: SxProps<Theme> = {
 
 export const buttonDesk: SxProps<Theme> = {
   display: {
-    desktop: 'flex',
+    desktopLarge: 'flex',
     tablet: 'none',
     mobileMedium: 'none',
   },
@@ -86,7 +99,7 @@ export const buttonDesk: SxProps<Theme> = {
 
 export const buttonTab: SxProps<Theme> = {
   display: {
-    desktop: 'none',
+    desktopLarge: 'none',
     tablet: 'flex',
     mobileMedium: 'none',
   },
@@ -97,12 +110,29 @@ export const buttonMob: SxProps<Theme> = {
   gap: '14px',
   width: '100%',
   display: {
-    desktop: 'none',
+    desktopLarge: 'none',
     tablet: 'none',
     mobileMedium: 'flex',
   },
 };
 
+export const resources: SxProps<Theme> = {
+  resources: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    margin: '97px 0 127px',
+    h3: {
+      fontWeight: 700,
+    },
+  },
+};
+
+export const buttonDivider: SxProps<Theme> = {
+  border: '1px solid',
+  borderColor: theme.palette.backgroundDark[400],
+};
 // .buttons {
 //   display: flex;
 //   width: fit-content;
@@ -122,55 +152,21 @@ export const buttonMob: SxProps<Theme> = {
 //   border: 1px solid $button-divider-color;
 // }
 //
-// .resources {
-// @include flex-center;
-//   flex-direction: column;
-//   margin: 97px 0 127px;
-//
-//   h3 {
-//     font-weight: $font-weight-bold;
-//   }
-// }
-//
-// .resources-cards {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   gap: 16px;
-//   padding-top: 64px;
-//   max-width: 1064px;
-// }
-//
-// @media only screen and (max-width: $breakpoint-desktop-semi-medium) {
-// .build-image {
-//     width: 75%;
-//     right: -50px;
-//
-//     svg {
-//       height: auto;
-//     }
-//   }
-// }
-//
-// @media only screen and (max-width: $breakpoint-desktop) {
-// .build-image {
-//     right: -15px;
-//   }
-// }
-//
-// @media only screen and (max-width: $breakpoint-tablet) {
-// .build-image {
-//     right: -50px;
-//
-//     svg {
-//       clip-path: none;
-//     }
-//   }
-//
-// .resources-cards {
-//     gap: 0.5rem;
-//   }
-// }
+
+export const resourcesCards: SxProps<Theme> = {
+  resourcesCards: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: {
+      desktopLarge: '16px',
+      tablet: '0.5rem',
+    },
+    paddingTop: '64px',
+    maxWidth: '1064px',
+  },
+};
+
 //
 // @media only screen and (max-width: $breakpoint-mobile-medium) {
 // .header {
