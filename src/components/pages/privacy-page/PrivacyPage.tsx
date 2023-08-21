@@ -2,18 +2,15 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
-import * as stylesMUI from '@/components/pages/privacy-page/PrivacyPage.style';
-import theme from '@/styles/theme';
+import * as stylesMUI from '@/components/pages/privacy-page/PrivacyPage.styles';
 
 const PrivacyPage = () => {
   return (
     <Box sx={stylesMUI.privacyContent}>
-      <Typography variant={'h1'} sx={stylesMUI.h1Content}>
-        Політика конфіденційності
-      </Typography>
+      <Typography variant="h4Bold">Політика конфіденційності</Typography>
       <Box sx={stylesMUI.privacyList}>
         <Box>
-          <Typography paragraph sx={{ typography: theme.typography.body1 }}>
+          <Typography paragraph sx={stylesMUI.paragraph}>
             FICT Advisor – це інформаційна система Студради ФІОТ для студентів
             Факультету інформатики та обчислювальної техніки Національного
             технічного університету України “Київський політехнічний інститут
@@ -24,10 +21,8 @@ const PrivacyPage = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography sx={stylesMUI.h6Content}>
-            Які дані ми збираємо?
-          </Typography>
-          <Typography paragraph sx={{ typography: theme.typography.body1 }}>
+          <Typography variant="h6Bold">Які дані ми збираємо?</Typography>
+          <Typography paragraph sx={stylesMUI.paragraph}>
             Згідно з законом України “Про захист персональних прав”,
             персональними даними вважаються такі дані, за допомогою яких можна
             однозначно ідентифікувати особу. Система збирає такі дані: прізвище,
@@ -37,10 +32,8 @@ const PrivacyPage = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography sx={stylesMUI.h6Content}>
-            Як ми ці дані оброблюємо?
-          </Typography>
-          <Typography paragraph sx={{ typography: theme.typography.body1 }}>
+          <Typography variant="h6Bold">Як ми ці дані оброблюємо?</Typography>
+          <Typography paragraph sx={stylesMUI.paragraph}>
             Система є Open-Source проєктом, тому весь код знаходиться у
             публічному просторі за посиланням{' '}
             <Link href={'https://github.com/fictadvisor/'}>
@@ -54,10 +47,10 @@ const PrivacyPage = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography sx={stylesMUI.h6Content}>
+          <Typography variant="h6Bold">
             Коли ми видаляємо персональні дані?
           </Typography>
-          <Typography paragraph sx={{ typography: theme.typography.body1 }}>
+          <Typography paragraph sx={stylesMUI.paragraph}>
             Персональні дані користувача видаляються: після відрахування
             користувача з Факультету; за власним запитом користувача; після
             деактивації системи. Адміністрація Системи залишає за собою право

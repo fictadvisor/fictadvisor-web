@@ -1,4 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
+
+import theme from '@/styles/theme';
 export const privacyContent: SxProps<Theme> = {
   padding: {
     desktopLarge: '3% 20% 4% 13%',
@@ -6,20 +8,12 @@ export const privacyContent: SxProps<Theme> = {
   },
 };
 
-export const h1Content: SxProps<Theme> = {
-  fontWeight: 700,
-  fontSize: '28px',
-  marginBottom: '3%',
-};
-
-export const h6Content: SxProps<Theme> = {
-  fontWeight: 700,
-  fontSize: '20px',
-  marginBottom: '1%',
-};
-
 export const privacyList: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   gap: '36px',
+};
+
+export const paragraph: SxProps<Theme> = {
+  typography: theme.typography.body1,
 };
