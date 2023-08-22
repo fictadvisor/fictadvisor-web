@@ -6,7 +6,7 @@ import { Form, Formik } from 'formik';
 import Alert from '@/components/common/ui/alert-mui';
 import { AlertType } from '@/components/common/ui/alert-mui/types';
 import Button, { ButtonSize } from '@/components/common/ui/button';
-import { Checkbox } from '@/components/common/ui/form';
+import Checkbox from '@/components/common/ui/form/with-formik/checkbox';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import Progress from '@/components/common/ui/progress-mui';
 import { transformGroups } from '@/components/pages/account-page/components/group-tab/components/no-group-block/utils';

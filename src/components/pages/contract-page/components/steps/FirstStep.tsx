@@ -3,9 +3,8 @@ import { Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { Form, Formik, FormikProps } from 'formik';
 
+import Checkbox from '@/components/common/ui/form/with-formik/checkbox';
 import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
-import { CheckBox } from '@/components/pages/contract-page/components/CheckBox';
-import { CustomerCheckBox } from '@/components/pages/contract-page/components/CustomerCheckBox';
 import * as stylesMui from '@/components/pages/contract-page/ContractPage.styles';
 import { metaValidationSchema } from '@/components/pages/contract-page/validation/meta';
 import useTabClose from '@/hooks/use-tab-close';
@@ -136,30 +135,31 @@ export const FirstStep: FC<FirstStepProps> = ({
 
             <Box>
               <Box sx={stylesMui.item}>
-                <CheckBox
+                <Checkbox
                   name="meta.isToAdmission"
                   label="Формую договір в корпусі (*)"
                 />
               </Box>
               <Box sx={stylesMui.item}>
-                <CheckBox
+                <Checkbox
                   name="helper.isAdult"
                   label="Є 18 років"
-                  onClick={() => setIsAdult(!values.helper.isAdult)}
+                  onChange={(_, checked) => setIsAdult(checked)}
                 />
               </Box>
               <Box sx={stylesMui.item}>
-                <CheckBox
+                <Checkbox
                   name="meta.isForcePushed"
                   label="Надіслати примусово (НЕ НАТИСКАТИ)"
-                  onClick={handleCheck}
+                  onChange={(_, checked) => setIsForcePushed(checked)}
                 />
               </Box>
               {values.meta.studyType === StudyTypeParam.CONTRACT && (
                 <Box sx={stylesMui.item}>
-                  <CustomerCheckBox
-                    setHasCustomer={setHasCustomer}
-                    prevCheckBoxState={values.helper.hasCustomer}
+                  <Checkbox
+                    name="helper.hasCustomer"
+                    label={'Обрати іншого замовника (**)'}
+                    onChange={(_, checked) => setHasCustomer(checked)}
                   />
                 </Box>
               )}
