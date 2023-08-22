@@ -15,7 +15,6 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import { PendingStudent } from '@/types/student';
 import { User, UserGroupRole, UserGroupState } from '@/types/user';
 
-import styles from './GroupTab.module.scss';
 
 const getStudents = async (user: User) => {
   const { students } = await GroupAPI.getGroupStudents(
