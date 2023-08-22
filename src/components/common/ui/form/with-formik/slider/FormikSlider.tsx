@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useField } from 'formik';
 
-import Slider, { SliderProps } from '../../slider/Slider';
+import Slider from '@/components/common/ui/form/slider/Slider';
+import { SliderProps } from '@/components/common/ui/form/slider/types';
 
 interface FormikSliderProps extends Omit<SliderProps, 'value'> {
   name: string;

@@ -1,21 +1,22 @@
+import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Slider from './Slider';
+import Slider from '@/components/common/ui/form/slider/Slider';
 
 const meta = {
   title: 'Ui Kit/Components/Form/Slider',
   component: Slider,
   decorators: [
     Story => (
-      <div
-        style={{
+      <Box
+        sx={{
           display: 'flex',
           justifyContent: 'center',
           padding: '0 50px',
         }}
       >
         <Story />
-      </div>
+      </Box>
     ),
   ],
   tags: ['autodocs'],

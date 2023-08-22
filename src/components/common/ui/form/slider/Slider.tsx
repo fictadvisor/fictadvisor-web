@@ -1,23 +1,17 @@
 import { FC } from 'react';
 import { Slider as SliderMUI } from '@mui/material';
-import { SxProps, Theme } from '@mui/material/styles';
 
 import { marks } from '@/components/common/ui/form/slider/const/marks';
+import { slider } from '@/components/common/ui/form/slider/Slider.styles';
+import {
+  SliderProps,
+  SliderSize,
+} from '@/components/common/ui/form/slider/types';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
-
-import { slider } from './Slider.styles';
-
-export interface SliderProps {
-  defaultValue?: number;
-  size?: 'small' | 'medium';
-  sx?: SxProps<Theme>;
-  onChange?: (event: Event, value: number | number[]) => void;
-  value?: number;
-}
 
 const Slider: FC<SliderProps> = ({
   defaultValue = 1,
-  size = 'medium',
+  size = SliderSize.MEDIUM,
   sx = {},
   onChange,
   value,

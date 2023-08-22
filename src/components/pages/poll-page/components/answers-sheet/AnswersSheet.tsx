@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Button from '@/components/common/ui/button/Button';
 import { TextArea } from '@/components/common/ui/form';
 import RadioGroup from '@/components/common/ui/form/radio/RadioGroup';
+import { SliderSize } from '@/components/common/ui/form/slider/types';
 import FormikSlider from '@/components/common/ui/form/with-formik/slider';
 import Progress from '@/components/common/ui/progress';
 import useToast from '@/hooks/use-toast';
@@ -189,7 +190,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         </p>
                       )}
                       {question.type === 'SCALE' ? (
-                        <FormikSlider name={question.id} />
+                        <FormikSlider
+                          name={question.id}
+                          size={isMobile ? SliderSize.SMALL : SliderSize.MEDIUM}
+                        />
                       ) : question.type === 'TOGGLE' ? (
                         <RadioGroup
                           options={[
