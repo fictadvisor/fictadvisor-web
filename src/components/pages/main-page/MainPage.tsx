@@ -13,7 +13,6 @@ import {
 import Divider from '@/components/common/ui/divider';
 import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import * as stylesMUI from '@/components/pages/main-page/MainPage.styles';
-import { resourcesCards } from '@/components/pages/main-page/MainPage.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
 
@@ -140,9 +139,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
           <Box className={styles['resource-card-container']}>
             <Box sx={stylesMUI.resourcesCards}>
               {data?.studentResources.map(({ name, id, icon, link }) => (
-                <Box className={styles['card-holder']} key={id}>
-                  <ResourceCard text={name} image={icon} href={link} />
-                </Box>
+                <ResourceCard key={id} text={name} image={icon} href={link} />
               ))}
             </Box>
           </Box>
