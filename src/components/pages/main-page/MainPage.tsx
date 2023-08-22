@@ -44,7 +44,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
         <Box sx={stylesMUI.header}>
           <Box sx={stylesMUI.headerInfo}>
             <Box className={styles['header-info-content']}>
-              <Typography variant={'h1'} sx={stylesMUI.title}>
+              <Typography variant={'h2Bold'} sx={stylesMUI.title}>
                 Твій студентський портал
               </Typography>
               <Typography paragraph sx={stylesMUI.titlePar}>
@@ -53,80 +53,78 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                 керування групою, набори в наше активне ком’юніті, розіграш шар
                 та інші інструменти — шукай саме тут!
               </Typography>
-              <Box sx={stylesMUI.buttons}>
-                <Box sx={stylesMUI.buttonDesk}>
-                  {!isLoggedIn && (
-                    <>
-                      <Link href={'/contract'}>
-                        <Button
-                          text="Договір про навчання"
-                          disabled={false}
-                          color={ButtonColor.PRIMARY}
-                          variant={ButtonVariant.FILLED}
-                          size={ButtonSize.LARGE}
-                        />
-                      </Link>
-                      <Divider sx={stylesMUI.buttonDivider} />
-                      {/*<hr className={styles['button-divider']} />*/}
-                    </>
-                  )}
-                  <Link href={'/priority'}>
-                    <Button
-                      text={'Обрати пріоритет'}
-                      disabled={false}
-                      variant={ButtonVariant.OUTLINE}
-                      size={ButtonSize.LARGE}
-                    />
-                  </Link>
-                </Box>
-                <Box sx={stylesMUI.buttonTab}>
-                  {!isLoggedIn && (
-                    <>
-                      <Link href={'/contract'}>
-                        <Button
-                          text="Договір про навчання"
-                          disabled={false}
-                          color={ButtonColor.PRIMARY}
-                          variant={ButtonVariant.FILLED}
-                          size={ButtonSize.MEDIUM}
-                        />
-                      </Link>
-                      <Divider sx={stylesMUI.buttonDivider} />
-                      {/*<hr className={styles['button-divider']} />*/}
-                    </>
-                  )}
-                  <Link href={'/priority'}>
-                    <Button
-                      text={'Обрати пріоритет'}
-                      disabled={false}
-                      variant={ButtonVariant.OUTLINE}
-                      size={ButtonSize.MEDIUM}
-                    />
-                  </Link>
-                </Box>
-                <Box sx={stylesMUI.buttonMob}>
-                  {!isLoggedIn && (
-                    <>
-                      <Link href={'/contract'}>
-                        <Button
-                          text="Договір про навчання"
-                          disabled={false}
-                          color={ButtonColor.PRIMARY}
-                          variant={ButtonVariant.FILLED}
-                          size={ButtonSize.SMALL}
-                        />
-                      </Link>
-                    </>
-                  )}
-                  <Link href={'/priority'}>
-                    <Button
-                      text={'Обрати пріоритет'}
-                      disabled={false}
-                      variant={ButtonVariant.OUTLINE}
-                      size={ButtonSize.SMALL}
-                    />
-                  </Link>
-                </Box>
+              <Box sx={stylesMUI.buttonDesk}>
+                {!isLoggedIn && (
+                  <>
+                    <Link href={'/contract'}>
+                      <Button
+                        text="Договір про навчання"
+                        disabled={false}
+                        color={ButtonColor.PRIMARY}
+                        variant={ButtonVariant.FILLED}
+                        size={ButtonSize.LARGE}
+                      />
+                    </Link>
+                    <Divider sx={stylesMUI.buttonDivider} />
+                    {/*<hr className={styles['button-divider']} />*/}
+                  </>
+                )}
+                <Link href={'/priority'}>
+                  <Button
+                    text={'Обрати пріоритет'}
+                    disabled={false}
+                    variant={ButtonVariant.OUTLINE}
+                    size={ButtonSize.LARGE}
+                  />
+                </Link>
+              </Box>
+              <Box sx={stylesMUI.buttonTab}>
+                {!isLoggedIn && (
+                  <>
+                    <Link href={'/contract'}>
+                      <Button
+                        text="Договір про навчання"
+                        disabled={false}
+                        color={ButtonColor.PRIMARY}
+                        variant={ButtonVariant.FILLED}
+                        size={ButtonSize.MEDIUM}
+                      />
+                    </Link>
+                    <Divider sx={stylesMUI.buttonDivider} />
+                    {/*<hr className={styles['button-divider']} />*/}
+                  </>
+                )}
+                <Link href={'/priority'}>
+                  <Button
+                    text={'Обрати пріоритет'}
+                    disabled={false}
+                    variant={ButtonVariant.OUTLINE}
+                    size={ButtonSize.MEDIUM}
+                  />
+                </Link>
+              </Box>
+              <Box sx={stylesMUI.buttonMob}>
+                {!isLoggedIn && (
+                  <>
+                    <Link href={'/contract'}>
+                      <Button
+                        text="Договір про навчання"
+                        disabled={false}
+                        color={ButtonColor.PRIMARY}
+                        variant={ButtonVariant.FILLED}
+                        size={ButtonSize.SMALL}
+                      />
+                    </Link>
+                  </>
+                )}
+                <Link href={'/priority'}>
+                  <Button
+                    text={'Обрати пріоритет'}
+                    disabled={false}
+                    variant={ButtonVariant.OUTLINE}
+                    size={ButtonSize.SMALL}
+                  />
+                </Link>
               </Box>
             </Box>
           </Box>
@@ -135,7 +133,9 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
           </Box>
         </Box>
         <Box sx={stylesMUI.resources}>
-          <Typography variant={'h3'}>Студентські ресурси</Typography>
+          <Typography variant={'h3'} sx={stylesMUI.resourcesH3}>
+            Студентські ресурси
+          </Typography>
           <Box className={styles['resource-card-container']}>
             <Box sx={stylesMUI.resourcesCards}>
               {data?.studentResources.map(({ name, id, icon, link }) => (

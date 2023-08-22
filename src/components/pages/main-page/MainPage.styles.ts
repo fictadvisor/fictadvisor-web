@@ -28,10 +28,13 @@ export const headerInfo: SxProps<Theme> = {
 };
 
 export const title: SxProps<Theme> = {
-  typography: theme.typography.h2Bold,
+  display: 'block',
   position: 'relative',
   zIndex: 100,
-  width: 'max-content',
+  width: {
+    desktopLarge: 'max-content',
+    desktop: 'max-content',
+  },
 };
 
 export const titlePar: SxProps<Theme> = {
@@ -49,9 +52,11 @@ export const buildImage: SxProps<Theme> = {
     desktopSemiMedium: '75%',
   },
   right: {
-    desktopLarge: 0,
+    desktopLarge: '13px',
+    desktopMedium: '-15px',
     desktop: '-15px',
     tablet: '-50px',
+    mobile: '-30px',
   },
   svg: {
     height: {
@@ -73,24 +78,28 @@ export const buildImage: SxProps<Theme> = {
   },
 };
 
-export const buttons: SxProps<Theme> = {
-  typography: theme.typography.buttonBold,
-  display: 'flex',
-  width: 'fit-content',
-  gap: '20px',
-};
+// export const buttons: SxProps<Theme> = {
+//   width: 'max-content',
+// };
 
 export const buttonDesk: SxProps<Theme> = {
+  button: {
+    borderRadius: '8px',
+  },
+  width: 'max-content',
   display: {
     desktopLarge: 'flex',
+    desktop: 'flex',
     tablet: 'none',
     mobileMedium: 'none',
   },
+  gap: '20px',
 };
 
 export const buttonTab: SxProps<Theme> = {
   display: {
     desktopLarge: 'none',
+    desktop: 'none',
     tablet: 'flex',
     mobileMedium: 'none',
   },
@@ -107,14 +116,25 @@ export const buttonMob: SxProps<Theme> = {
   },
 };
 
+export const buttonDivider: SxProps<Theme> = {
+  border: '1px solid',
+  borderColor: theme.palette.backgroundDark[400],
+};
+
 export const resources: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
   margin: '97px 0 127px',
-  h3: {
-    fontWeight: 700,
+  mobileMedium: {
+    marginBottom: '40px',
+  },
+};
+
+export const resourcesH3: SxProps<Theme> = {
+  mobileMedium: {
+    typography: theme.typography.h6Medium,
   },
 };
 
