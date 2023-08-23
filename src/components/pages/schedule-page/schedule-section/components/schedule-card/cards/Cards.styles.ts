@@ -148,7 +148,7 @@ export const wrapper: SxProps<Theme> = {
   cursor: 'pointer',
 };
 
-export const sectionWrapper = (height: number | string): SxProps<Theme> => ({
+export const sectionWrapper = (height: number): SxProps<Theme> => ({
   height: height + 3,
   width: '132px',
   position: 'absolute',

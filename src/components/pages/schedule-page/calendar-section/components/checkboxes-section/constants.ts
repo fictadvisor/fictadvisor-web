@@ -1,4 +1,4 @@
-import { Checkboxes } from '@/store/useSchedule';
+import { Checkboxes } from '@/store/schedule/useSchedule';
 
 export const initialValues: Checkboxes = {
   addLecture: false,

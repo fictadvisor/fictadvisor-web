@@ -1,16 +1,15 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
 const WEEKS_ARRAY_SIZE = 24;
+import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
+import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import { TDiscipline } from '@/types/schedule';
 
+import { findFirstOf5 } from './utils/findFirstOf5';
+import { setUrlParams } from './utils/setUrlParams';
 //TODO:ADD INITIAL STATE TO LOAD FROM LOCAL STORAGE
-
-const findFirstOf5 = (week: number) => {
-  const rem = week % 5 === 0 ? 5 : week % 5;
-  return week - rem + 1;
-};
 
 export interface Checkboxes {
   addLecture: boolean;
@@ -32,6 +31,7 @@ const CheckboxesMapper: Record<string, TDiscipline[]> = {
 };
 
 type State = {
+  semester?: GetCurrentSemester;
   isSelective: boolean;
   disciplineTypes?: TDiscipline[];
   week: number;
@@ -60,6 +60,7 @@ type Action = {
   setIsLoading: (_: boolean) => void;
   setError: (_: AxiosError | null) => void;
   setIsSelective: (_: boolean) => void;
+  setSemester: (_: GetCurrentSemester) => void;
 };
 
 export const useSchedule = create<State & Action>((set, get) => ({
@@ -73,6 +74,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
   groupId: '',
   eventsBody: new Array(WEEKS_ARRAY_SIZE),
   chosenDay: null,
+  semester: undefined,
   handleGroupChange: async () => {
     await get().handleWeekChange();
   },
@@ -191,6 +193,10 @@ export const useSchedule = create<State & Action>((set, get) => ({
     set(_ => ({
       week: _week,
     }));
+    setUrlParams('week', _week.toString());
+    get().setChosenDay(
+      getLastDayOfAWeek(get().semester as GetCurrentSemester, _week),
+    );
     get().handleWeekChange();
   },
   setIsLoading(loading: boolean) {
@@ -208,6 +214,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
       groupId: id,
       eventsBody: [],
     }));
+    setUrlParams('group', id);
     get().handleGroupChange();
   },
   setIsNewEventAdded(isAdded: boolean) {
@@ -231,5 +238,10 @@ export const useSchedule = create<State & Action>((set, get) => ({
       eventsBody: new Array(WEEKS_ARRAY_SIZE),
     }));
     if (_isSelective !== get().isSelective) get().handleWeekChange();
+  },
+  setSemester(_semester: GetCurrentSemester) {
+    set(_ => ({
+      semester: _semester,
+    }));
   },
 }));

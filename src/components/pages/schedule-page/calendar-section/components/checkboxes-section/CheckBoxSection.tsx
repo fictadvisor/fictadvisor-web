@@ -6,7 +6,7 @@ import { CheckboxColor } from '@/components/common/ui/form/checkbox/types';
 import Checkbox from '@/components/common/ui/form/with-formik/checkbox';
 import { initialValues } from '@/components/pages/schedule-page/calendar-section/components/checkboxes-section/constants';
 import useAuthentication from '@/hooks/use-authentication';
-import { Checkboxes, useSchedule } from '@/store/useSchedule';
+import { Checkboxes, useSchedule } from '@/store/schedule/useSchedule';
 
 import * as styles from './CheckBoxSection.styles';
 

@@ -3,8 +3,7 @@ import { useEffect } from 'react';
 import Progress from '@/components/common/ui/progress-mui';
 import Schedule from '@/components/pages/schedule-page/schedule-section/components/schedule';
 import ScheduleHeader from '@/components/pages/schedule-page/schedule-section/components/schedule-header';
-import scheduleService from '@/lib/api/schedule/ScheduleAPI';
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 
 import styles from './schedule-section.module.scss';
 

@@ -1,10 +1,8 @@
 import { FC } from 'react';
 import { Button, Typography } from '@mui/material';
 
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';
-
-import { getCurrentTime } from '../utils/getCurrentTime';
 
 import * as styles from './Cards.styles';
 

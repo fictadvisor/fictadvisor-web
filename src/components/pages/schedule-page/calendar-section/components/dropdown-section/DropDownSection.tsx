@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 import { Group } from '@/types/group';
 
 import Dropdown from '../../../../../common/ui/form/dropdown';
@@ -27,6 +27,7 @@ export const DropDownSection: FC<DropDownSectionProps> = ({ groups }) => {
       showRemark={false}
       onChange={id => setGroupId(id)}
       value={groupId}
+      disableClearable
     />
   );
 };

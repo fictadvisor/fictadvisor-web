@@ -2,13 +2,11 @@ import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import {
-  getCurrentWeek,
-  getLastDayOfAWeek,
-} from '@/components/pages/schedule-page/utils/getCurrentWeek';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
+import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
+import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import { Group } from '@/types/group';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
@@ -25,12 +23,14 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const router = useRouter();
   const { user } = useAuthentication();
 
-  const { setGroupId, setWeek, setDate, setChosenDay } = useSchedule(state => ({
-    setGroupId: state.setGroupId,
-    setWeek: state.setWeek,
-    setDate: state.setDate,
-    setChosenDay: state.setChosenDay,
-  }));
+  const { setGroupId, setWeek, setDate, setChosenDay, setSemester } =
+    useSchedule(state => ({
+      setGroupId: state.setGroupId,
+      setWeek: state.setWeek,
+      setDate: state.setDate,
+      setChosenDay: state.setChosenDay,
+      setSemester: state.setSemester,
+    }));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,6 +42,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
   useEffect(() => {
     if (!router.isReady || !semester) return;
+    setSemester(semester);
     const { group, week } = router.query;
 
     const isWrongUrl =

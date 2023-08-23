@@ -10,7 +10,7 @@ import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 
 import * as styles from './ScheduleHeader.styles';
 

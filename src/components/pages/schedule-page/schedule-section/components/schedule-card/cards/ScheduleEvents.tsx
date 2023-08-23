@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';
 
 import * as styles from './Cards.styles';
@@ -77,7 +77,7 @@ const events = [
 
 interface ScheduleEventsProps {
   event?: Event[];
-  height: string | number;
+  height: number;
   start: string;
   end: string;
   onClick: () => void;

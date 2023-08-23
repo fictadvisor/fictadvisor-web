@@ -4,7 +4,7 @@ import Progress from '@/components/common/ui/progress-mui';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
-import { useSchedule } from '@/store/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 
 import * as styles from './Schedule.styles';
 
