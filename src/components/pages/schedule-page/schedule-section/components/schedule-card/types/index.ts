@@ -6,3 +6,5 @@ export enum DisciplineType {
   WORKOUT = 'WORKOUT',
   EXAM = 'EXAM',
 }
+
+export interface Event {}

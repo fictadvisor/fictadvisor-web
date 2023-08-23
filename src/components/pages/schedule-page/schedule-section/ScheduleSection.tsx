@@ -9,7 +9,7 @@ import { useSchedule } from '@/store/useSchedule';
 import styles from './schedule-section.module.scss';
 
 export const ScheduleSection = ({}) => {
-  const groupId = '55b537e3-6786-454c-b934-3b92c7242095';
+  const groupId = '1de10b0f-bc47-492b-8b90-8bdaaf35f9cb';
 
   const { eventsBody, setGroupId } = useSchedule(state => ({
     eventsBody: state.eventsBody,

@@ -1,50 +1,59 @@
-import React, { FC } from 'react';
-import { Button, Typography } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 
-import calculateHeight from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateHeight';
-import { calctulateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateTop';
 import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
-import { useSchedule } from '@/store/useSchedule';
+import { Event } from '@/types/schedule';
 
+import ScheduleEvent from './cards/ScheduleEvent';
+import ScheduleEvents from './cards/ScheduleEvents';
+import calculateHeight from './utils/calculateHeight';
+import { calctulateTop } from './utils/calculateTop';
 import * as styles from './ScheduleCard.styles';
 
 interface ScheduleCardProps {
-  name: string;
-  startTime: string;
-  endTime: string;
-  disciplineType: string;
+  event: Event | Event[];
   onClick: () => void;
 }
 
-const ScheduleCard: FC<ScheduleCardProps> = ({
-  name,
-  startTime,
-  endTime,
-  disciplineType,
-  onClick,
-}) => {
-  const height = calculateHeight(startTime, endTime);
-  const top = calctulateTop(startTime);
+const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
+  const [top, setTop] = useState('');
+  const [height, setHeight] = useState<string | number>('');
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
 
-  const start = getCurrentTime(startTime);
-  const end = getCurrentTime(endTime);
-
-  const currentTime = useSchedule(state => state.currentTime).getTime();
+  useEffect(() => {
+    if (Array.isArray(event)) {
+      setTop(calctulateTop(event[0].startTime));
+      setHeight(calculateHeight(event[0].startTime, event[0].endTime));
+      setStart(getCurrentTime(event[0].startTime));
+      setEnd(getCurrentTime(event[0].endTime));
+    } else {
+      setTop(calctulateTop(event.startTime));
+      setHeight(calculateHeight(event.startTime, event.endTime));
+      setStart(getCurrentTime(event.startTime));
+      setEnd(getCurrentTime(event.endTime));
+    }
+  }, [top, height, start, end]);
 
   return (
-    <Button
-      sx={styles.card(disciplineType, height, top)}
-      disableRipple
-      disabled={currentTime > new Date(endTime).getTime()}
-      onClick={onClick}
-    >
-      <Typography variant="body1">{name}</Typography>
-      {startTime && endTime && (
-        <Typography variant="body2">
-          {start} - {end}
-        </Typography>
+    <Box sx={styles.wrapper(top, height)}>
+      {Array.isArray(event) ? (
+        <ScheduleEvents
+          height={height}
+          start={start}
+          end={end}
+          onClick={onClick}
+        />
+      ) : (
+        <ScheduleEvent
+          event={event}
+          height={height}
+          start={start}
+          end={end}
+          onClick={onClick}
+        />
       )}
-    </Button>
+    </Box>
   );
 };
 

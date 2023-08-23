@@ -10,25 +10,19 @@ interface ScheduleColumnProps {
   events: (Event | Event[])[];
 }
 
-const ScheduleColumn: FC<ScheduleColumnProps> = ({ events }) => {
+const ScheduleColumn: FC<ScheduleColumnProps> = ({ events: events }) => {
   const handleClick = () => {
     console.log('card');
   };
   return (
     <Box sx={styles.column}>
-      {events.map(
-        event =>
-          !Array.isArray(event) && (
-            <ScheduleCard
-              key={event.id}
-              name={event.name}
-              startTime={event.startTime}
-              endTime={event.endTime}
-              disciplineType={event.disciplineType.name}
-              onClick={handleClick}
-            />
-          ),
-      )}
+      {events.map(event => (
+        <ScheduleCard
+          key={new Date().getDate()}
+          event={event}
+          onClick={handleClick}
+        />
+      ))}
     </Box>
   );
 };
