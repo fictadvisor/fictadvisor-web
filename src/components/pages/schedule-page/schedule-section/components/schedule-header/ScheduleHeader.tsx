@@ -17,15 +17,15 @@ import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import * as styles from './ScheduleHeader.styles';
 
 const ScheduleHeader = () => {
-  const { week, setWeek, eventsBody, setChosenDay, semester } = useSchedule(
-    state => ({
+  const { week, setWeek, eventsBody, setChosenDay, semester, chosenDay } =
+    useSchedule(state => ({
       week: state.week,
       setWeek: state.setWeek,
       setChosenDay: state.setChosenDay,
       eventsBody: state.eventsBody,
       semester: state.semester,
-    }),
-  );
+      chosenDay: state.chosenDay,
+    }));
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
   const dayMapper = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
@@ -51,21 +51,6 @@ const ScheduleHeader = () => {
     setWeek(newWeek);
     setChosenDay(getLastDayOfAWeek(semester as GetCurrentSemester, newWeek));
   };
-
-  useEffect(() => {
-    if (!eventsBody[week - 1]) return;
-    const days = transformEvents(eventsBody[week - 1] as GetEventBody).days;
-    for (const { day } of days) {
-      if (
-        day.getDate() === new Date().getDate() &&
-        day.getMonth() === new Date().getMonth()
-      ) {
-        setIsCurDay(true);
-      } else {
-        setIsCurDay(false);
-      }
-    }
-  }, [eventsBody]);
 
   useEffect(() => {
     week === 1 ? setPrevButton(true) : setPrevButton(false);
@@ -108,10 +93,18 @@ const ScheduleHeader = () => {
         {eventsBody[week - 1] &&
           transformEvents(eventsBody[week - 1]).days.map(({ day }, index) => (
             <Box sx={styles.column} key={index}>
-              <Typography sx={styles.dayName(isCurDay)}>
+              <Typography
+                sx={styles.dayName(
+                  day.toDateString() === chosenDay?.toDateString(),
+                )}
+              >
                 {dayMapper[day.getDay()]}
               </Typography>
-              <Typography sx={styles.dayNumber(isCurDay)}>
+              <Typography
+                sx={styles.dayNumber(
+                  day.toDateString() === chosenDay?.toDateString(),
+                )}
+              >
                 {day.getDate()}
               </Typography>
             </Box>
