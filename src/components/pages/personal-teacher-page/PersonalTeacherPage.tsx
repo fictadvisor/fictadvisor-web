@@ -38,6 +38,7 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
   isLoading,
   isError,
   data,
+  teacher,
   query,
   teacherId,
 }) => {
@@ -61,11 +62,13 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
   }, [isError, push, toast]);
 
   if (!data) return null;
-
-  const teacher = data?.info;
   return (
     <teacherContext.Provider
-      value={{ floatingCardShowed, setFloatingCardShowed, teacher }}
+      value={{
+        floatingCardShowed,
+        setFloatingCardShowed,
+        teacher,
+      }}
     >
       <div className={styles['personal-teacher-page']}>
         {isLoading ? (
@@ -92,13 +95,14 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
                 ]}
               />
               <div className={styles['card-wrapper']}>
-                <PersonalTeacherCard {...data.info} />
+                <PersonalTeacherCard {...teacher} />
               </div>
               <div className={styles['tabs']}>
                 <PersonalTeacherTabs
                   data={data}
                   tabIndex={index}
                   handleChange={handleChange}
+                  teacher={teacher}
                 />
               </div>
             </div>
