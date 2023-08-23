@@ -17,7 +17,7 @@ interface ScheduleCardProps {
 
 const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
   const [top, setTop] = useState('');
-  const [height, setHeight] = useState<string | number>('');
+  const [height, setHeight] = useState<number>(0);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
 

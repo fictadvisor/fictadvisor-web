@@ -1,14 +1,16 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
-const WEEKS_ARRAY_SIZE = 24;
+
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
-import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import { TDiscipline } from '@/types/schedule';
 
 import { findFirstOf5 } from './utils/findFirstOf5';
 import { setUrlParams } from './utils/setUrlParams';
+
+const WEEKS_ARRAY_SIZE = 24;
+
 //TODO:ADD INITIAL STATE TO LOAD FROM LOCAL STORAGE
 
 export interface Checkboxes {
@@ -33,7 +35,7 @@ const CheckboxesMapper: Record<string, TDiscipline[]> = {
 type State = {
   semester?: GetCurrentSemester;
   isSelective: boolean;
-  disciplineTypes?: TDiscipline[];
+  disciplineTypes: TDiscipline[];
   week: number;
   groupId: string;
   eventsBody: GetEventBody[];
@@ -69,7 +71,11 @@ export const useSchedule = create<State & Action>((set, get) => ({
   isLoading: false,
   currentTime: new Date(),
   isNewEventAdded: false,
-  disciplineType: undefined,
+  disciplineTypes: [
+    TDiscipline.LECTURE,
+    TDiscipline.PRACTICE,
+    TDiscipline.LABORATORY,
+  ],
   week: 1,
   groupId: '',
   eventsBody: new Array(WEEKS_ARRAY_SIZE),

@@ -1,26 +1,41 @@
+import { useMemo } from 'react';
 import { Box } from '@mui/material';
 
 import Progress from '@/components/common/ui/progress-mui';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
+import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
 
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {
-  const { events, week } = useSchedule(state => ({
+  const { events, week, disciplines } = useSchedule(state => ({
     events: state.eventsBody,
     week: state.week,
+    disciplines: state.disciplineTypes,
   }));
+
+  const eventsPerWeek = useMemo(() => {
+    if (!events[week - 1]) return null;
+    const _eventsWeek: GetEventBody = JSON.parse(
+      JSON.stringify(events[week - 1]),
+    );
+    _eventsWeek.events = _eventsWeek.events.filter(event =>
+      disciplines.some(discipline => discipline === event.disciplineType.name),
+    );
+    console.log(_eventsWeek);
+    return _eventsWeek;
+  }, [disciplines.length, events, week]);
 
   return (
     <Box sx={styles.layout}>
       <ScheduleTime />
       <Box sx={styles.schedule}>
-        {events[week - 1] ? (
+        {eventsPerWeek ? (
           <Box sx={styles.columns}>
-            {transformEvents(events[week - 1]).days.map((day, index) => (
+            {transformEvents(eventsPerWeek).days.map((day, index) => (
               <ScheduleColumn key={index} events={day.events} />
             ))}
           </Box>
