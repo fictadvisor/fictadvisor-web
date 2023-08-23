@@ -5,9 +5,7 @@ export const getCurrentWeek = (semester: GetCurrentSemester) => {
 
   const weekFloating = (nowDateMs - startDateMs) / (1000 * 60 * 60 * 24 * 7);
 
-  const currentWeek = Math.ceil(weekFloating);
-
-  return currentWeek;
+  return Math.ceil(weekFloating);
 };
 
 export const getLastDayOfAWeek = (
@@ -23,4 +21,13 @@ export const getLastDayOfAWeek = (
   lastDayOfWeek.setDate(startWeekDate.getDate() + (week - 1) * 7 + 6);
 
   return lastDayOfWeek;
+};
+
+export const getWeekByDate = (
+  semester: GetCurrentSemester,
+  date: Date,
+): number => {
+  const delta = date.getTime() - new Date(semester.startDate).getTime();
+  const week = Math.ceil(delta / (1000 * 60 * 60 * 24 * 7));
+  return week === 0 ? 1 : week;
 };

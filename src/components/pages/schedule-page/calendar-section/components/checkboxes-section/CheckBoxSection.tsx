@@ -1,38 +1,76 @@
+import { FormEvent, useRef } from 'react';
 import { Stack } from '@mui/system';
+import { Form, Formik, FormikProps } from 'formik';
 
-import Checkbox from '@/components/common/ui/form/checkbox/Checkbox';
 import { CheckboxColor } from '@/components/common/ui/form/checkbox/types';
+import Checkbox from '@/components/common/ui/form/with-formik/checkbox';
+import { initialValues } from '@/components/pages/schedule-page/calendar-section/components/checkboxes-section/constants';
+import useAuthentication from '@/hooks/use-authentication';
+import { Checkboxes, useSchedule } from '@/store/useSchedule';
 
 import * as styles from './CheckBoxSection.styles';
 
 export const CheckBoxSection = () => {
+  const [setIsSelective, updateDisciplineTypes, groupId] = useSchedule(
+    state => [state.setIsSelective, state.updateDisciplineTypes, state.groupId],
+  );
+
+  const handleValuesChange = (event: FormEvent<HTMLFormElement>) => {
+    const name = (event.target as HTMLInputElement).name as keyof Checkboxes;
+    const values = form?.current?.values as Checkboxes;
+
+    if (name === 'isSelective') {
+      setIsSelective(!!values?.isSelective);
+      return;
+    }
+
+    const vals = { ...values };
+    delete vals.isSelective;
+
+    updateDisciplineTypes(vals);
+  };
+  const { user } = useAuthentication();
+
+  const form = useRef<FormikProps<Checkboxes>>(null);
+
   return (
-    <Stack sx={styles.checkboxes}>
-      <Checkbox
-        label={'Мої вибіркові'}
-        name={'selective'}
-        color={CheckboxColor.PRIMARY}
-      />
-      <Checkbox
-        label={'Лекція'}
-        name={'lection'}
-        color={CheckboxColor.LECTURE}
-      />
-      <Checkbox
-        label={'Практика'}
-        name={'practice'}
-        color={CheckboxColor.PRACTICE}
-      />
-      <Checkbox
-        label={'Лабораторна'}
-        name={'laboratory'}
-        color={CheckboxColor.LAB}
-      />
-      <Checkbox
-        label={'Інша подія'}
-        name={'other'}
-        color={CheckboxColor.EVENT}
-      />
-    </Stack>
+    <Formik initialValues={initialValues} onSubmit={() => {}} innerRef={form}>
+      <Form
+        onChange={event => setTimeout(() => handleValuesChange(event), 0)}
+        style={{ alignSelf: 'flex-start' }}
+      >
+        <Stack sx={styles.checkboxes}>
+          {user && user.group?.id === groupId && (
+            <Checkbox
+              label={'Мої вибіркові'}
+              color={CheckboxColor.PRIMARY}
+              name={'isSelective'}
+            />
+          )}
+          <Checkbox
+            label={'Лекція'}
+            name={'addLecture'}
+            color={CheckboxColor.LECTURE}
+          />
+          <Checkbox
+            label={'Практика'}
+            name={'addPractice'}
+            color={CheckboxColor.PRACTICE}
+          />
+          <Checkbox
+            label={'Лабораторна'}
+            name={'addLaboratory'}
+            color={CheckboxColor.LAB}
+          />
+          {user && (
+            <Checkbox
+              label={'Інша подія'}
+              name={'otherEvents'}
+              color={CheckboxColor.EVENT}
+            />
+          )}
+        </Stack>
+      </Form>
+    </Formik>
   );
 };

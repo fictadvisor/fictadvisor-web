@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 
+import { getWeekByDate } from '@/components/pages/schedule-page/utils/getCurrentWeek';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/useSchedule';
 
@@ -11,21 +12,22 @@ interface DatePickerProps {
 }
 
 export const DatePicker: FC<DatePickerProps> = ({ semester }) => {
-  const { chosenDay, setChosenDay } = useSchedule(state => ({
+  const { chosenDay, setChosenDay, setWeek } = useSchedule(state => ({
     chosenDay: state.chosenDay,
     setChosenDay: state.setChosenDay,
+    setWeek: state.setWeek,
   }));
 
-  console.log(chosenDay);
   if (!chosenDay) return <></>;
-  console.log(chosenDay);
 
   return (
     <DateCalendar
       value={dayjs(chosenDay)}
       onChange={newValue => {
-        console.log(newValue);
-        if (newValue) setChosenDay(newValue.toDate());
+        if (newValue && semester) {
+          setChosenDay(newValue.toDate());
+          setWeek(getWeekByDate(semester, newValue.toDate()));
+        }
       }}
       sx={styles.picker}
       views={['day']}

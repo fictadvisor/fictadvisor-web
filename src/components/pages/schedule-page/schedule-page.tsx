@@ -6,6 +6,7 @@ import {
   getCurrentWeek,
   getLastDayOfAWeek,
 } from '@/components/pages/schedule-page/utils/getCurrentWeek';
+import useAuthentication from '@/hooks/use-authentication';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/useSchedule';
 import { Group } from '@/types/group';
@@ -22,6 +23,8 @@ export interface SchedulePageProps {
 
 const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const router = useRouter();
+  const { user } = useAuthentication();
+
   const { setGroupId, setWeek, setDate, setChosenDay } = useSchedule(state => ({
     setGroupId: state.setGroupId,
     setWeek: state.setWeek,
@@ -41,24 +44,26 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     if (!router.isReady || !semester) return;
     const { group, week } = router.query;
 
-    if (
+    const isWrongUrl =
       groups.every(_group => _group.id !== group) ||
       (week && +week < 1) ||
-      (week && +week > MAX_WEEK_NUMBER)
-    ) {
+      (week && +week > MAX_WEEK_NUMBER);
+
+    if (isWrongUrl) {
       router.push('/schedule');
 
       const currentWeek = getCurrentWeek(semester);
 
       let week = currentWeek;
+      let day = new Date();
 
       if (currentWeek > MAX_WEEK_NUMBER) {
         week = MAX_WEEK_NUMBER;
-        setChosenDay(new Date(semester.endDate));
+        day = new Date(semester.endDate);
       }
 
-      setChosenDay(new Date());
       setWeek(week);
+      setChosenDay(day);
 
       return;
     }
