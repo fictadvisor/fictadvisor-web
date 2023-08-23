@@ -8,18 +8,24 @@ import {
 } from '@/components/common/ui/icon-button';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
+import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
+import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 
 import * as styles from './ScheduleHeader.styles';
 
 const ScheduleHeader = () => {
-  const { week, setWeek, eventsBody } = useSchedule(state => ({
-    week: state.week,
-    setWeek: state.setWeek,
-    eventsBody: state.eventsBody,
-  }));
+  const { week, setWeek, eventsBody, setChosenDay, semester } = useSchedule(
+    state => ({
+      week: state.week,
+      setWeek: state.setWeek,
+      setChosenDay: state.setChosenDay,
+      eventsBody: state.eventsBody,
+      semester: state.semester,
+    }),
+  );
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
   const dayMapper = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
@@ -40,6 +46,12 @@ const ScheduleHeader = () => {
 
   const [isCurDay, setIsCurDay] = useState(false);
 
+  const updateWeek = (amount: number) => {
+    const newWeek = week + amount;
+    setWeek(newWeek);
+    setChosenDay(getLastDayOfAWeek(semester as GetCurrentSemester, newWeek));
+  };
+
   useEffect(() => {
     if (!eventsBody[week - 1]) return;
     const days = transformEvents(eventsBody[week - 1] as GetEventBody).days;
@@ -54,10 +66,6 @@ const ScheduleHeader = () => {
       }
     }
   }, [eventsBody]);
-
-  const nextWeek = () => setWeek(week + 1);
-
-  const prevWeek = () => setWeek(week - 1);
 
   useEffect(() => {
     week === 1 ? setPrevButton(true) : setPrevButton(false);
@@ -82,7 +90,7 @@ const ScheduleHeader = () => {
             shape={IconButtonShape.SQUARE}
             color={IconButtonColor.TRANSPARENT}
             icon={<ChevronLeftIcon />}
-            onClick={prevWeek}
+            onClick={() => updateWeek(-1)}
           />
           <Typography sx={styles.week}>{week} тиждень</Typography>
           <IconButton
@@ -92,7 +100,7 @@ const ScheduleHeader = () => {
             shape={IconButtonShape.SQUARE}
             color={IconButtonColor.TRANSPARENT}
             icon={<ChevronRightIcon />}
-            onClick={nextWeek}
+            onClick={() => updateWeek(1)}
           />
         </Box>
       </Box>

@@ -194,9 +194,9 @@ export const useSchedule = create<State & Action>((set, get) => ({
       week: _week,
     }));
     setUrlParams('week', _week.toString());
-    get().setChosenDay(
-      getLastDayOfAWeek(get().semester as GetCurrentSemester, _week),
-    );
+    // get().setChosenDay(
+    //   getLastDayOfAWeek(get().semester as GetCurrentSemester, _week),
+    // );
     get().handleWeekChange();
   },
   setIsLoading(loading: boolean) {

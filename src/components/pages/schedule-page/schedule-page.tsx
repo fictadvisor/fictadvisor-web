@@ -72,7 +72,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     if (group && !Array.isArray(group) && week) {
       setGroupId(group);
       setWeek(+week);
-      setChosenDay(getLastDayOfAWeek(semester, +(week as string)));
+      setChosenDay(getLastDayOfAWeek(semester, +week));
     }
   }, [router.isReady]);
 
