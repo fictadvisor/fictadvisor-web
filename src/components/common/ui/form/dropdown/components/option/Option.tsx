@@ -7,12 +7,13 @@ interface OptionProps extends HTMLProps<HTMLLIElement> {
 }
 
 import Tag from '@/components/common/ui/tag-mui';
+import { TagSize } from '@/components/common/ui/tag-mui/types';
 
 const Option: FC<OptionProps> = ({ option, ...props }) => {
   if ('text' in option) {
     return (
       <span {...props}>
-        <Tag {...option} />
+        <Tag {...option} size={TagSize.SMALL} />
       </span>
     );
   } else {
