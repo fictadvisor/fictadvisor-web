@@ -1,6 +1,18 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
+import { FieldSize } from '@/components/common/ui/form/common/types';
+
+const inputHeight = {
+  [FieldSize.SMALL]: 40,
+  [FieldSize.MEDIUM]: 46,
+  [FieldSize.LARGE]: 52,
+};
+
+export const input = (
+  hasInput: boolean,
+  hasIcon: boolean,
+  size: FieldSize,
+): SxProps<Theme> => ({
   width: '100%',
   backgroundColor: 'backgroundDark.200',
   borderRadius: '8px',
@@ -51,7 +63,7 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
   '.MuiInputBase-root': {
     paddingY: '10px',
     paddingX: '12px',
-    height: '40px',
+    height: inputHeight[size],
     display: 'flex',
     alignContent: 'center',
   },
@@ -71,7 +83,10 @@ export const input = (hasInput: boolean, hasIcon: boolean): SxProps<Theme> => ({
   }),
 });
 
-export const dropdown: SxProps<Theme> = {
+export const dropdown = (
+  hasTags: boolean,
+  size: FieldSize,
+): SxProps<Theme> => ({
   minWidth: '100px',
   width: '100%',
   p: '4px',
@@ -114,7 +129,15 @@ export const dropdown: SxProps<Theme> = {
         '&[aria-selected="true"],&.Mui-focused, &:hover': {
           backgroundColor: 'grey.300',
         },
+        ...(hasTags &&
+          size === FieldSize.LARGE && {
+            minHeight: '38px',
+          }),
+        ...(hasTags &&
+          size === FieldSize.SMALL && {
+            minHeight: '32px',
+          }),
       },
     },
   },
-};
+});

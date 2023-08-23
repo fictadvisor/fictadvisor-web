@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { LockClosed } from '@/components/common/icons/LockClosed';
-import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
+import { FieldSize } from '@/components/common/ui/form/common/types';
+import {
+  DropDownOption,
+  DropdownProps,
+} from '@/components/common/ui/form/dropdown/types';
 
 import ScheduleDropdown, { ScheduleDropdownProps } from './ScheduleDropdown';
 
@@ -23,6 +27,14 @@ const options: DropDownOption[] = [
   { id: '3', label: 'Option 3' },
   { id: '4', label: 'Option 4' },
   { id: '5', label: 'Option 5' },
+];
+
+const tagOptions: DropDownOption[] = [
+  { id: '1', text: 'Option 1' },
+  { id: '2', text: 'Option 2' },
+  { id: '3', text: 'Option 3' },
+  { id: '4', text: 'Option 4' },
+  { id: '5', text: 'Option 5' },
 ];
 
 type Story = StoryObj<typeof meta>;
@@ -62,4 +74,23 @@ Base.args = {
   placeholder: 'Select an option',
   value: '',
   width: '400px',
+};
+
+export const Tags: Story = (args: DropdownProps) => {
+  const [value, setValue] = useState<string>('');
+
+  const handleChange = (newValue: string) => {
+    setValue(newValue);
+    args.onChange && args.onChange(newValue);
+  };
+
+  return <ScheduleDropdown {...args} onChange={handleChange} value={value} />;
+};
+
+Tags.args = {
+  options: tagOptions,
+  placeholder: 'Select an option',
+  value: '',
+  width: '400px',
+  size: FieldSize.LARGE,
 };
