@@ -26,12 +26,6 @@ export const DatePicker: FC<DatePickerProps> = ({ semester }) => {
       onChange={newValue => {
         if (newValue && semester) {
           setChosenDay(newValue.toDate());
-          setWeek(
-            getWeekByDate(
-              useSchedule.getState().semester as GetCurrentSemester,
-              newValue.toDate(),
-            ),
-          );
         }
       }}
       sx={styles.picker}

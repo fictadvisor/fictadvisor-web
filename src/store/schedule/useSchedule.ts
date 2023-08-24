@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
+import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { TDiscipline } from '@/types/schedule';
 
 import { findFirstOf5 } from './utils/findFirstOf5';
@@ -238,7 +239,9 @@ export const useSchedule = create<State & Action>((set, get) => ({
   setChosenDay(newDate: Date) {
     set(_ => ({
       chosenDay: newDate,
+      week: getWeekByDate(get().semester as GetCurrentSemester, newDate),
     }));
+    get().handleWeekChange();
   },
   setIsSelective(_isSelective: boolean) {
     const isUpdating = _isSelective !== get().isSelective;

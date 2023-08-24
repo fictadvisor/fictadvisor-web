@@ -3,6 +3,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
+import Button from '@/components/common/ui/button-mui';
+import {
+  ButtonColor,
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
 import {
   IconButtonColor,
   IconButtonShape,
@@ -14,6 +20,9 @@ import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
+
+import * as styles from './ScheduleHeader.styles';
+
 const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
 const monthMapper = [
   'Січень',
@@ -30,17 +39,24 @@ const monthMapper = [
   'Грудень',
 ];
 
-import * as styles from './ScheduleHeader.styles';
 const ScheduleHeader = () => {
-  const { week, setWeek, eventsBody, setChosenDay, semester, chosenDay } =
-    useSchedule(state => ({
-      week: state.week,
-      setWeek: state.setWeek,
-      setChosenDay: state.setChosenDay,
-      eventsBody: state.eventsBody,
-      semester: state.semester,
-      chosenDay: state.chosenDay,
-    }));
+  const {
+    week,
+    setWeek,
+    eventsBody,
+    setChosenDay,
+    semester,
+    chosenDay,
+    currentTime,
+  } = useSchedule(state => ({
+    week: state.week,
+    setWeek: state.setWeek,
+    setChosenDay: state.setChosenDay,
+    eventsBody: state.eventsBody,
+    semester: state.semester,
+    chosenDay: state.chosenDay,
+    currentTime: state.currentTime,
+  }));
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
 
@@ -66,6 +82,12 @@ const ScheduleHeader = () => {
     if (!eventsBody[week - 1]) return [];
     return transformEvents(eventsBody[week - 1] as GetEventBody).days;
   }, [eventsBody, week]);
+
+  const handleClick = () => {
+    if (new Date(semester?.endDate as string).getTime() > currentTime.getTime())
+      setChosenDay(currentTime);
+    else setChosenDay(new Date(semester?.endDate as string));
+  };
 
   return (
     <Box sx={styles.wrapper}>
@@ -102,6 +124,14 @@ const ScheduleHeader = () => {
             color={IconButtonColor.TRANSPARENT}
             icon={<ChevronRightIcon />}
             onClick={() => updateWeek(1)}
+          />
+          <Button
+            text={'Сьогодні'}
+            sx={{ width: 'min-content' }}
+            variant={ButtonVariant.OUTLINE}
+            color={ButtonColor.SECONDARY}
+            size={ButtonSize.SMALL}
+            onClick={handleClick}
           />
         </Box>
       </Box>
