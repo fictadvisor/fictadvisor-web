@@ -69,7 +69,6 @@ const Input: React.FC<InputProps> = ({
 
       <OutlinedInput
         {...rest}
-        value={value}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
