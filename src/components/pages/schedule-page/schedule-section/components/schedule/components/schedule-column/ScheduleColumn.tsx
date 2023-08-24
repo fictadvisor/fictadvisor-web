@@ -16,12 +16,8 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ events: events }) => {
   };
   return (
     <Box sx={styles.column}>
-      {events.map(event => (
-        <ScheduleCard
-          key={new Date().getDate()}
-          event={event}
-          onClick={handleClick}
-        />
+      {events.map((event, i) => (
+        <ScheduleCard key={i} event={event} onClick={handleClick} />
       ))}
     </Box>
   );

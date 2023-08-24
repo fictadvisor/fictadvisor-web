@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
-import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';
 
 import * as styles from './Cards.styles';
@@ -21,15 +20,14 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
   end,
   onClick,
 }) => {
-  console.log(JSON.stringify(event));
-  const currentTime =
-    useSchedule(state => state.currentTime).getTime() >
-    new Date(events[0].endTime).getTime();
+  // const currentTime =
+  //   useSchedule(state => state.currentTime).getTime() >
+  //   new Date(events[0].endTime).getTime();
 
   const trimmedEvents = events.slice(0, 5);
 
   return (
-    <Box sx={styles.wrapper}>
+    <Box sx={styles.wrapper} onClick={onClick}>
       {trimmedEvents.map((section, index) => {
         const curHeight =
           index === trimmedEvents.length - 1 ? 0 : height - index * 14;
@@ -47,7 +45,6 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
           )}
           disableRipple
           disabled={false}
-          onClick={onClick}
         >
           <Typography variant="body1">
             {events.length} {events.length < 5 ? 'події' : 'подій'}

@@ -62,6 +62,5 @@ export function transformEvents({
     resultedData.days[dateIndex].events.push(_event);
   }
 
-  console.log(resultedData);
   return resultedData;
 }

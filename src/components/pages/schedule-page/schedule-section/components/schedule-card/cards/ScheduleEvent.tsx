@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Button, Typography } from '@mui/material';
 
-import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';
 
 import * as styles from './Cards.styles';
@@ -21,10 +20,6 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
   end,
   onClick,
 }) => {
-  const currentTime =
-    useSchedule(state => state.currentTime).getTime() >
-    new Date(event.endTime).getTime();
-
   return (
     <Button
       sx={styles.card(event.disciplineType.name, height)}

@@ -8,5 +8,5 @@ export const ControlsColorMap: Record<CheckboxColor, string> = {
   [CheckboxColor.LECTURE]: theme.palette.indigo[700],
   [CheckboxColor.PRACTICE]: theme.palette.orange[600],
   [CheckboxColor.LAB]: theme.palette.mint[600],
-  [CheckboxColor.EVENT]: theme.palette.indigo[800],
+  [CheckboxColor.EVENT]: theme.palette.violet[700],
 };

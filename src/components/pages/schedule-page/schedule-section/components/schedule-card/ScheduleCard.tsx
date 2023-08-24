@@ -6,6 +6,7 @@ import { Event } from '@/types/schedule';
 
 import ScheduleEvent from './cards/ScheduleEvent';
 import ScheduleEvents from './cards/ScheduleEvents';
+import { ScheduleEventsExpanded } from './cards/ScheduleEventsExpanded';
 import calculateHeight from './utils/calculateHeight';
 import { calctulateTop } from './utils/calculateTop';
 import * as styles from './ScheduleCard.styles';
@@ -20,31 +21,33 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
   const [height, setHeight] = useState<number>(0);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+  const [areEventsOpen, setEventsOpen] = useState(false);
 
   useEffect(() => {
-    if (Array.isArray(event)) {
-      setTop(calctulateTop(event[0].startTime));
-      setHeight(calculateHeight(event[0].startTime, event[0].endTime));
-      setStart(getCurrentTime(event[0].startTime));
-      setEnd(getCurrentTime(event[0].endTime));
-    } else {
-      setTop(calctulateTop(event.startTime));
-      setHeight(calculateHeight(event.startTime, event.endTime));
-      setStart(getCurrentTime(event.startTime));
-      setEnd(getCurrentTime(event.endTime));
-    }
+    const _event = Array.isArray(event) ? event[0] : event;
+    setTop(calctulateTop(_event.startTime));
+    setHeight(calculateHeight(_event.startTime, _event.endTime));
+    setStart(getCurrentTime(_event.startTime));
+    setEnd(getCurrentTime(_event.endTime));
   }, [top, height, start, end]);
 
   return (
     <Box sx={styles.wrapper(top, height)}>
       {Array.isArray(event) ? (
-        <ScheduleEvents
-          events={event}
-          height={height}
-          start={start}
-          end={end}
-          onClick={onClick}
-        />
+        areEventsOpen ? (
+          <ScheduleEventsExpanded
+            onOutsideClick={() => setEventsOpen(false)}
+            events={event}
+          />
+        ) : (
+          <ScheduleEvents
+            events={event}
+            height={height}
+            start={start}
+            end={end}
+            onClick={() => setEventsOpen(true)}
+          />
+        )
       ) : (
         <ScheduleEvent
           event={event}

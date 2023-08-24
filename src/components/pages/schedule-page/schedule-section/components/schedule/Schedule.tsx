@@ -19,14 +19,21 @@ const Schedule = () => {
   }));
 
   const eventsPerWeek = useMemo(() => {
+    console.log(events[week - 1]);
+
     if (!events[week - 1]) return null;
     const _eventsWeek: GetEventBody = JSON.parse(
       JSON.stringify(events[week - 1]),
     );
-    _eventsWeek.events = _eventsWeek.events.filter(event =>
-      disciplines.some(discipline => discipline === event.disciplineType.name),
-    );
-    console.log(_eventsWeek);
+    console.log('before', events[week - 1]);
+    console.log('types', disciplines);
+    _eventsWeek.events = _eventsWeek.events.filter(event => {
+      if (!event.disciplineType) return false;
+      return disciplines.some(
+        discipline => discipline === event.disciplineType.name,
+      );
+    });
+    console.log('after', _eventsWeek);
     return _eventsWeek;
   }, [disciplines.length, events, week]);
 

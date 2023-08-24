@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, Fragment, useRef } from 'react';
 import { Stack } from '@mui/system';
 import { Form, Formik, FormikProps } from 'formik';
 
@@ -41,11 +41,18 @@ export const CheckBoxSection = () => {
       >
         <Stack sx={styles.checkboxes}>
           {user && user.group?.id === groupId && (
-            <Checkbox
-              label={'Мої вибіркові'}
-              color={CheckboxColor.PRIMARY}
-              name={'isSelective'}
-            />
+            <Fragment>
+              <Checkbox
+                label={'Інша подія'}
+                name={'otherEvents'}
+                color={CheckboxColor.EVENT}
+              />
+              <Checkbox
+                label={'Мої вибіркові'}
+                color={CheckboxColor.PRIMARY}
+                name={'isSelective'}
+              />
+            </Fragment>
           )}
           <Checkbox
             label={'Лекція'}
@@ -62,13 +69,6 @@ export const CheckBoxSection = () => {
             name={'addLaboratory'}
             color={CheckboxColor.LAB}
           />
-          {user && (
-            <Checkbox
-              label={'Інша подія'}
-              name={'otherEvents'}
-              color={CheckboxColor.EVENT}
-            />
-          )}
         </Stack>
       </Form>
     </Formik>
