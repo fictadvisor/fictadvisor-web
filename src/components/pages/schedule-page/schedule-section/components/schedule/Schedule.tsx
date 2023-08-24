@@ -11,10 +11,11 @@ import { useSchedule } from '@/store/schedule/useSchedule';
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {
-  const { events, week, disciplines } = useSchedule(state => ({
+  const { events, week, disciplines, loading } = useSchedule(state => ({
     events: state.eventsBody,
     week: state.week,
     disciplines: state.disciplineTypes,
+    loading: state.isLoading,
   }));
 
   const eventsPerWeek = useMemo(() => {
@@ -33,7 +34,7 @@ const Schedule = () => {
     <Box sx={styles.layout}>
       <ScheduleTime />
       <Box sx={styles.schedule}>
-        {eventsPerWeek ? (
+        {eventsPerWeek && !loading ? (
           <Box sx={styles.columns}>
             {transformEvents(eventsPerWeek).days.map((day, index) => (
               <ScheduleColumn key={index} events={day.events} />

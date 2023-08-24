@@ -39,6 +39,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
     <Box sx={styles.wrapper(top, height)}>
       {Array.isArray(event) ? (
         <ScheduleEvents
+          events={event}
           height={height}
           start={start}
           end={end}

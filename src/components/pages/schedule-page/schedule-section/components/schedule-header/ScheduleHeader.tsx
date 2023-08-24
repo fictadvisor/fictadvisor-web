@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
 import {
   IconButtonColor,
@@ -13,9 +14,23 @@ import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
+const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+const monthMapper = [
+  'Січень',
+  'Лютий',
+  'Березень',
+  'Квітень',
+  'Травень',
+  'Червень',
+  'Липень',
+  'Серпень',
+  'Вересень',
+  'Жовтень',
+  'Листопад',
+  'Грудень',
+];
 
 import * as styles from './ScheduleHeader.styles';
-
 const ScheduleHeader = () => {
   const { week, setWeek, eventsBody, setChosenDay, semester, chosenDay } =
     useSchedule(state => ({
@@ -28,23 +43,6 @@ const ScheduleHeader = () => {
     }));
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
-  const dayMapper = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-  const monthMapper = [
-    'Січень',
-    'Лютий',
-    'Березень',
-    'Квітень',
-    'Травень',
-    'Червень',
-    'Липень',
-    'Серпень',
-    'Вересень',
-    'Жовтень',
-    'Листопад',
-    'Грудень',
-  ];
-
-  const [isCurDay, setIsCurDay] = useState(false);
 
   const updateWeek = (amount: number) => {
     const newWeek = week + amount;
@@ -57,16 +55,32 @@ const ScheduleHeader = () => {
     week === 20 ? setNextButton(true) : setNextButton(false);
   }, [week]);
 
-  if (!eventsBody[week - 1]) return null;
+  const monthNumber = useMemo(() => {
+    if (!eventsBody[week - 1]) return null;
+    return transformEvents(
+      eventsBody[week - 1] as GetEventBody,
+    ).days[0].day.getMonth();
+  }, [eventsBody, week]);
 
-  const monthNumber = transformEvents(
-    eventsBody[week - 1] as GetEventBody,
-  ).days[0].day.getMonth();
+  const days = useMemo(() => {
+    if (!eventsBody[week - 1]) return [];
+    return transformEvents(eventsBody[week - 1] as GetEventBody).days;
+  }, [eventsBody, week]);
 
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
-        <Typography sx={styles.month}>{monthMapper[monthNumber]}</Typography>
+        {monthNumber ? (
+          <Typography sx={styles.month}>{monthMapper[monthNumber]}</Typography>
+        ) : (
+          <Skeleton
+            width={140}
+            height={35}
+            variant={'rounded'}
+            sx={{ bgcolor: 'grey.200' }}
+            animation="wave"
+          />
+        )}
         <Box sx={styles.weekWrapper}>
           <IconButton
             disabled={prevButton}
@@ -77,7 +91,9 @@ const ScheduleHeader = () => {
             icon={<ChevronLeftIcon />}
             onClick={() => updateWeek(-1)}
           />
+
           <Typography sx={styles.week}>{week} тиждень</Typography>
+
           <IconButton
             disabled={nextButton}
             sx={styles.button}
@@ -90,25 +106,38 @@ const ScheduleHeader = () => {
         </Box>
       </Box>
       <Box sx={styles.columns}>
-        {eventsBody[week - 1] &&
-          transformEvents(eventsBody[week - 1]).days.map(({ day }, index) => (
-            <Box sx={styles.column} key={index}>
-              <Typography
-                sx={styles.dayName(
-                  day.toDateString() === chosenDay?.toDateString(),
-                )}
-              >
-                {dayMapper[day.getDay()]}
-              </Typography>
+        {dayMapper.map((dayName, i) => (
+          <Box sx={styles.column} key={i}>
+            <Typography
+              sx={styles.dayName(
+                days[i]
+                  ? days[i].day.toDateString() === chosenDay?.toDateString()
+                  : false,
+              )}
+            >
+              {dayName}
+            </Typography>
+            {days[i] ? (
               <Typography
                 sx={styles.dayNumber(
-                  day.toDateString() === chosenDay?.toDateString(),
+                  days[i]
+                    ? days[i].day.toDateString() === chosenDay?.toDateString()
+                    : false,
                 )}
               >
-                {day.getDate()}
+                {days[i].day.getDate()}
               </Typography>
-            </Box>
-          ))}
+            ) : (
+              <Skeleton
+                width={20}
+                height={25}
+                variant={'rounded'}
+                sx={{ bgcolor: 'grey.200' }}
+                animation="wave"
+              />
+            )}
+          </Box>
+        ))}
       </Box>
     </Box>
   );
