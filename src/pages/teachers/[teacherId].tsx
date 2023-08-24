@@ -14,24 +14,20 @@ export interface PersonalTeacherProps {
   info: Teacher | undefined;
 }
 export const getStaticPaths = async () => {
-  const { data } = await client.get(`/teachers`);
-  const { teachers } = data;
-  const paths = teachers.map((teacher: { id: string }) => ({
+  const { data } = await client.get('/teachers');
+  const paths = data.teachers.map((teacher: { id: string }) => ({
     params: { teacherId: teacher.id },
   }));
 
   return { paths, fallback: false };
 };
-
 export const getStaticProps: GetStaticProps<
-  PersonalTeacherProps,
-  { teacherId: string }
+  PersonalTeacherProps
 > = async context => {
-  let teacherId;
-  if (context?.params && 'teacherId' in context?.params)
-    teacherId = context?.params.teacherId;
+  const teacherId = context.params?.teacherId as string;
+
   try {
-    const info = await TeacherAPI.get(teacherId as string);
+    const info = await TeacherAPI.get(teacherId);
     return {
       props: {
         info,
@@ -56,8 +52,10 @@ const PersonalTeacher: FC<PersonalTeacherProps> = ({ info }) => {
       retry: false,
     },
   );
+
   if (!info) {
     router.push('/teachers');
+    return null;
   }
 
   return (
