@@ -20,7 +20,6 @@ export const wrapper = (
   position: 'absolute',
   transform: `translateY(calc(${top} - 5px))`,
   transition: 'linear .1s all',
-  top: `0`,
-  zIndex: '0',
+  left: 2,
   backgroundColor: '#1E1E1E',
 });

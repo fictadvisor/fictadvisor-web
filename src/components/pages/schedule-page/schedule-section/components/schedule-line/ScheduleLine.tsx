@@ -12,14 +12,12 @@ import { ScheduleLineVariant } from './types';
 
 interface ScheduleLineProps {
   variant: ScheduleLineVariant;
-  label?: string;
   dashed?: boolean;
   sx?: SxProps<Theme>;
 }
 
 const ScheduleLine: FC<ScheduleLineProps> = ({
   variant = ScheduleLineVariant.LONG,
-  label,
   dashed = false,
   sx = {},
 }) => {

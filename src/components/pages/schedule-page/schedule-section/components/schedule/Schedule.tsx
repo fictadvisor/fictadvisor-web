@@ -34,7 +34,7 @@ const Schedule = () => {
     });
     // console.log('after', transformEvents(_eventsWeek));
     return _eventsWeek;
-  }, [disciplines.length, events, week]);
+  }, [disciplines, events, week]);
 
   return (
     <Box sx={styles.layout}>
@@ -47,11 +47,7 @@ const Schedule = () => {
               .map((day, index) => {
                 return <ScheduleColumn key={index} events={day.events} />;
               })}
-            <ScheduleLine
-              variant={ScheduleLineVariant.SHORT}
-              label={'13:11'}
-              dashed={true}
-            />
+            <ScheduleLine variant={ScheduleLineVariant.SHORT} dashed={true} />
           </Box>
         ) : (
           <Progress sx={styles.progress} />

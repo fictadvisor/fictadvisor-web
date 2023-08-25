@@ -175,5 +175,6 @@ export const card = (
   textAlign: 'start',
   textTransform: 'none',
   gap: '4px',
+  left: -2,
   ...subjectColors(disciplineType),
 });
