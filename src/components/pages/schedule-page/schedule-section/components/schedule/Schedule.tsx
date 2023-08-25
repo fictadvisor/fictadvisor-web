@@ -4,6 +4,8 @@ import { Box } from '@mui/material';
 import Progress from '@/components/common/ui/progress-mui';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
+import ScheduleLine from '@/components/pages/schedule-page/schedule-section/components/schedule-line';
+import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule-line/types';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -45,6 +47,11 @@ const Schedule = () => {
               .map((day, index) => {
                 return <ScheduleColumn key={index} events={day.events} />;
               })}
+            <ScheduleLine
+              variant={ScheduleLineVariant.SHORT}
+              label={'13:11'}
+              dashed={true}
+            />
           </Box>
         ) : (
           <Progress sx={styles.progress} />
