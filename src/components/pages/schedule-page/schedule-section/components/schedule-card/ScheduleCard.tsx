@@ -4,9 +4,10 @@ import { Box } from '@mui/material';
 import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
 import { Event } from '@/types/schedule';
 
+import { ScheduleEventsSection } from '../schedule-events-section/ScheduleEventsSection';
+
 import ScheduleEvent from './cards/ScheduleEvent';
 import ScheduleEvents from './cards/ScheduleEvents';
-import { ScheduleEventsExpanded } from './cards/ScheduleEventsExpanded';
 import calculateHeight from './utils/calculateHeight';
 import { calctulateTop } from './utils/calculateTop';
 import * as styles from './ScheduleCard.styles';
@@ -18,7 +19,7 @@ interface ScheduleCardProps {
 
 const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
   const [top, setTop] = useState('');
-  const [height, setHeight] = useState<number>(0);
+  const [height, setHeight] = useState<number | string>(0);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [areEventsOpen, setEventsOpen] = useState(false);
@@ -35,7 +36,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
     <Box sx={styles.wrapper(top, height)}>
       {Array.isArray(event) ? (
         areEventsOpen ? (
-          <ScheduleEventsExpanded
+          <ScheduleEventsSection
             onOutsideClick={() => setEventsOpen(false)}
             events={event}
           />

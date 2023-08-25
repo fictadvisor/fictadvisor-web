@@ -1,15 +1,16 @@
 import { FC } from 'react';
 import { ClickAwayListener } from '@mui/base';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
+import ScheduleEvent from '@/components/pages/schedule-page/schedule-section/components/schedule-card/cards/ScheduleEvent';
 import { Event } from '@/types/schedule';
 
-import * as styles from './Cards.styles';
+import * as styles from './ScheduleEventsSection.styles';
 interface ScheduleEventsExpandedProps {
   onOutsideClick: () => void;
   events: Event[];
 }
-export const ScheduleEventsExpanded: FC<ScheduleEventsExpandedProps> = ({
+export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
   events,
   onOutsideClick,
 }) => {
@@ -43,6 +44,8 @@ export const ScheduleEventsExpanded: FC<ScheduleEventsExpandedProps> = ({
   const eventDay = new Date(events[0].startTime).getDate();
   const eventMonth = monthMapper[new Date(events[0].startTime).getMonth()];
 
+  const height = '100%';
+
   return (
     <ClickAwayListener onClickAway={onOutsideClick}>
       <Box sx={styles.eventsContainer}>
@@ -55,14 +58,15 @@ export const ScheduleEventsExpanded: FC<ScheduleEventsExpandedProps> = ({
           )}
         </Box>
         <Box sx={styles.eventsContainerGrid}>
-          {events.map(event => (
-            <Button
-              key={event.id}
-              sx={styles.card(event.disciplineType.name, '100px')}
-              disableRipple
-            >
-              <Typography variant="body1">{event.name}</Typography>
-            </Button>
+          {events.map((event, index) => (
+            <ScheduleEvent
+              event={event}
+              height={height}
+              key={index}
+              start={''}
+              end={''}
+              onClick={() => console.log('hui')}
+            />
           ))}
         </Box>
       </Box>

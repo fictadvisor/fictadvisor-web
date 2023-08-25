@@ -7,7 +7,7 @@ import * as styles from './Cards.styles';
 
 interface ScheduleEventProps {
   event: Event;
-  height: string | number;
+  height: number | string;
   start: string;
   end: string;
   onClick: () => void;
@@ -29,9 +29,11 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
     >
       <Typography variant="body1">{event.name}</Typography>
 
-      <Typography variant="body2">
-        {start} - {end}
-      </Typography>
+      {start && end && (
+        <Typography variant="body2">
+          {start} - {end}
+        </Typography>
+      )}
     </Button>
   );
 };
