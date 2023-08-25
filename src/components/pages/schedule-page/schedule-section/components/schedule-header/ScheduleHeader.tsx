@@ -125,14 +125,16 @@ const ScheduleHeader = () => {
             icon={<ChevronRightIcon />}
             onClick={() => updateWeek(1)}
           />
-          <Button
-            text={'Сьогодні'}
-            sx={{ width: 'min-content' }}
-            variant={ButtonVariant.OUTLINE}
-            color={ButtonColor.SECONDARY}
-            size={ButtonSize.SMALL}
-            onClick={handleClick}
-          />
+          {currentTime.toDateString() !== chosenDay?.toDateString() && (
+            <Button
+              text={'Сьогодні'}
+              sx={{ width: 'min-content' }}
+              variant={ButtonVariant.OUTLINE}
+              color={ButtonColor.SECONDARY}
+              size={ButtonSize.SMALL}
+              onClick={handleClick}
+            />
+          )}
         </Box>
       </Box>
       <Box sx={styles.columns}>

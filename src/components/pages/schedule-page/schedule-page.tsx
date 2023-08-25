@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
@@ -11,8 +12,7 @@ import { Group } from '@/types/group';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
 import { ScheduleSection } from './schedule-section/ScheduleSection';
-
-import styles from './schedule-page.module.scss';
+import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
 export interface SchedulePageProps {
   groups: Group[];
@@ -78,10 +78,10 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
   return (
     <PageLayout title={'Розклад'}>
-      <div className={styles['schedule-layout']}>
+      <Box sx={styles.schedulePage}>
         <CalendarSection groups={groups} semester={semester && semester} />
         <ScheduleSection />
-      </div>
+      </Box>
     </PageLayout>
   );
 };
