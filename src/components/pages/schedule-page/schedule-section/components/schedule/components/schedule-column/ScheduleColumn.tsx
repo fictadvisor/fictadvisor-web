@@ -14,6 +14,8 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ events: events }) => {
   const handleClick = () => {
     console.log('card');
   };
+
+  console.log('column', events);
   return (
     <Box sx={styles.column}>
       {events.map((event, i) => (

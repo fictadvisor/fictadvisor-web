@@ -19,21 +19,18 @@ const Schedule = () => {
   }));
 
   const eventsPerWeek = useMemo(() => {
-    console.log(events[week - 1]);
-
     if (!events[week - 1]) return null;
     const _eventsWeek: GetEventBody = JSON.parse(
       JSON.stringify(events[week - 1]),
     );
-    console.log('before', events[week - 1]);
-    console.log('types', disciplines);
+    // console.log('before', transformEvents(events[week - 1]));
     _eventsWeek.events = _eventsWeek.events.filter(event => {
       if (!event.disciplineType) return false;
       return disciplines.some(
         discipline => discipline === event.disciplineType.name,
       );
     });
-    console.log('after', _eventsWeek);
+    // console.log('after', transformEvents(_eventsWeek));
     return _eventsWeek;
   }, [disciplines.length, events, week]);
 
@@ -43,9 +40,9 @@ const Schedule = () => {
       <Box sx={styles.schedule}>
         {eventsPerWeek && !loading ? (
           <Box sx={styles.columns}>
-            {transformEvents(eventsPerWeek).days.map((day, index) => (
-              <ScheduleColumn key={index} events={day.events} />
-            ))}
+            {transformEvents(eventsPerWeek).days.map((day, index) => {
+              return <ScheduleColumn key={index} events={day.events} />;
+            })}
           </Box>
         ) : (
           <Progress sx={styles.progress} />

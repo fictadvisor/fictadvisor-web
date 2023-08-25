@@ -15,7 +15,7 @@ export const wrapper = (
     mobileMedium: `calc(${height}px + 4px)`,
     mobile: height,
   },
-  left: -1,
+
   borderRadius: '6px',
   top: `calc(${top} - 5px)`,
   backgroundColor: '#1E1E1E',

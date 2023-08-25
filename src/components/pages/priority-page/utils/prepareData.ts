@@ -25,8 +25,6 @@ export const prepareData = (
 
   const data = trimObject(replaceApostrophes(intialData));
 
-  console.log(data);
-
   return data;
 };
 

@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
+import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import { Event } from '@/types/schedule';
 
 import * as styles from './Cards.styles';
@@ -20,42 +21,38 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
   end,
   onClick,
 }) => {
-  // const currentTime =
-  //   useSchedule(state => state.currentTime).getTime() >
-  //   new Date(events[0].endTime).getTime();
-
   const trimmedEvents = events.slice(0, 5);
 
   return (
     <Box sx={styles.wrapper} onClick={onClick}>
-      {trimmedEvents.map((section, index) => {
-        const curHeight =
-          index === trimmedEvents.length - 1 ? 0 : height - index * 14;
+      {trimmedEvents.map((event, index) => {
+        const eventHeight = height - 14 * index;
+        const top = 14 * index;
+
         return (
-          <Box key={section.id} sx={styles.sectionWrapper(curHeight)}>
-            <Box sx={styles.section(section.disciplineType.name)}></Box>
-          </Box>
+          <Button
+            key={event.id}
+            sx={mergeSx(
+              styles.card(event.disciplineType.name, eventHeight),
+              styles.packedCard(top),
+            )}
+            disableRipple
+            disabled={false}
+          >
+            {index === trimmedEvents.length - 1 && (
+              <Fragment>
+                <Typography variant="body1">
+                  {events.length} {events.length < 5 ? 'події' : 'подій'}
+                </Typography>
+
+                <Typography variant="body2">
+                  {start} - {end}
+                </Typography>
+              </Fragment>
+            )}
+          </Button>
         );
       })}
-      <Box sx={styles.sectionWrapper(height - 14 * (trimmedEvents.length - 1))}>
-        <Button
-          sx={styles.card(
-            events[events.length - 1].disciplineType.name,
-            height - 14 * (trimmedEvents.length - 1),
-          )}
-          disableRipple
-          disabled={false}
-        >
-          <Typography variant="body1">
-            {events.length} {events.length < 5 ? 'події' : 'подій'}
-          </Typography>
-          {events[0].startTime && events[0].endTime && (
-            <Typography variant="body2">
-              {start} - {end}
-            </Typography>
-          )}
-        </Button>
-      </Box>
     </Box>
   );
 };

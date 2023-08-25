@@ -44,9 +44,6 @@ export const ScheduleEventsExpanded: FC<ScheduleEventsExpandedProps> = ({
               disableRipple
             >
               <Typography variant="body1">{event.name}</Typography>
-              {event.startTime && event.endTime && (
-                <Typography variant="body2">loooll</Typography>
-              )}
             </Button>
           ))}
         </Box>

@@ -29,7 +29,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
     setHeight(calculateHeight(_event.startTime, _event.endTime));
     setStart(getCurrentTime(_event.startTime));
     setEnd(getCurrentTime(_event.endTime));
-  }, [top, height, start, end]);
+  }, [event]);
 
   return (
     <Box sx={styles.wrapper(top, height)}>

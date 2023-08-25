@@ -141,33 +141,17 @@ const subjectColors = (disciplineType: string): SxProps<Theme> => ({
 export const wrapper: SxProps<Theme> = {
   height: '137px',
   width: '128px',
-  borderRadius: '6%',
+
   position: 'relative',
-  display: 'flex',
-  alignItems: 'flex-end',
   cursor: 'pointer',
 };
 
-export const sectionWrapper = (height: number): SxProps<Theme> => ({
-  height: height + 3,
-  width: '132px',
+export const packedCard = (top: number): SxProps<Theme> => ({
   position: 'absolute',
-  borderRadius: '6%',
-  border: '2px solid',
-  borderColor: 'backgroundDark.100',
-  left: -2.5,
-  display: 'flex',
-  alignItems: 'flex-end',
+  top,
+  outline: '2px solid',
+  outlineColor: '#1E1E1E', //It is backgroundDark.100, but MUI doesn\'t support theme colors for outlineColor
 });
-
-export const section = (disciplineType: string): SxProps<Theme> => ({
-  width: '100%',
-  height: '100%',
-  borderRadius: '5%',
-  borderLeft: '8px solid',
-  ...subjectColors(disciplineType),
-});
-
 export const card = (
   disciplineType: string,
   height: string | number,

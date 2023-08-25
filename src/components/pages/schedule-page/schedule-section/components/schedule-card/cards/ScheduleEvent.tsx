@@ -28,11 +28,10 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
       onClick={onClick}
     >
       <Typography variant="body1">{event.name}</Typography>
-      {event.startTime && event.endTime && (
-        <Typography variant="body2">
-          {start} - {end}
-        </Typography>
-      )}
+
+      <Typography variant="body2">
+        {start} - {end}
+      </Typography>
     </Button>
   );
 };

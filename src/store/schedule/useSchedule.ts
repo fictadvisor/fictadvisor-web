@@ -86,7 +86,6 @@ export const useSchedule = create<State & Action>((set, get) => ({
     await get().handleWeekChange();
   },
   handleWeekChange: async () => {
-    console.log('changing a weeek');
     get().setError(null);
     const isSelective = get().isSelective;
     const week = get().week;
@@ -102,7 +101,6 @@ export const useSchedule = create<State & Action>((set, get) => ({
   loadNext5Auth: async (week: number) => {
     get().setIsLoading(true);
     //WE FILTER PRACTICE LECTURE ETC ON FRONT-END SO DONT ADD FILTERS
-    console.log('heereeeee loading');
     try {
       const [r1, r2, r3, r4, r5] = await Promise.all([
         ScheduleAPI.getEventsAuthorized(get().groupId, week, get().isSelective),

@@ -10,6 +10,7 @@ export const layout: SxProps<Theme> = {
 };
 
 export const schedule: SxProps<Theme> = {
+  position: 'relative',
   width: '1049px',
   height: '1344px',
   backgroundImage: 'url("/icons/schedule-page/grid-pattern.svg")',
