@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useField } from 'formik';
 
 import Input from '@/components/common/ui/form/input-mui';
@@ -12,35 +12,30 @@ interface FormikInputProps extends InputProps {
   name: string;
 }
 
-const FormikInput: FC<FormikInputProps> = ({
-  name,
-  handleRightIconClick,
-  type,
-  ...props
-}) => {
-  const [field, { touched, error }, { setValue, setTouched }] = useField(name);
+const FormikInput: FC<FormikInputProps> = ({ name, type, ...props }) => {
+  const [field, { touched, error }] = useField(name);
 
-  const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
-
-  handleRightIconClick = () => {
-    if (type === InputType.PASSWORD) {
-      setIsHidden(!isHidden);
-    }
-    if (type === InputType.SEARCH) {
-      setTouched(false);
-      setValue('');
-    }
-  };
+  // const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
+  // //
+  // handleRightIconClick = () => {
+  //   if (type === InputType.PASSWORD) {
+  //     setIsHidden(!isHidden);
+  //   }
+  //   if (type === InputType.SEARCH) {
+  //     setTouched(false);
+  //     setValue('');
+  //   }
+  // };
 
   return (
     <Input
       {...props}
-      {...field}
+      onChange={field.onChange}
+      value={field.value}
       name={name}
       touched={touched}
       error={error}
       type={type}
-      handleRightIconClick={handleRightIconClick}
     />
   );
 };

@@ -70,7 +70,6 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-
   gap: '8px',
   backgroundColor: 'backgroundDark.50',
   borderRadius: '8px',
@@ -108,6 +107,7 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
 
   '&.Mui-disabled': {
     borderColor: 'grey.400',
+    color: 'grey.400',
   },
 
   svg: {
@@ -128,9 +128,9 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   input: {
     '&.Mui-disabled': {
       cursor: 'not-allowed',
+      WebkitTextFillColor: theme.palette.grey[400],
     },
     padding: 0,
-
     '::placeholder': {
       color: 'grey.500',
     },
@@ -145,6 +145,10 @@ export const rightIcon = (type: InputType, state: InputState) => ({
   ...((type === InputType.SEARCH || type === InputType.PASSWORD) && {
     cursor: 'pointer',
   }),
+  ...(type === InputType.SEARCH &&
+    state === InputState.DISABLED && {
+      cursor: 'not-allowed',
+    }),
   ...(state === InputState.ERROR &&
     type !== InputType.PASSWORD && {
       color: theme.palette.error[500],

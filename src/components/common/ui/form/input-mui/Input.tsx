@@ -25,6 +25,7 @@ import * as styles from './Input.styles';
 const Input: React.FC<InputProps> = ({
   label,
   placeholder,
+  name,
   size = InputSize.LARGE,
   type = InputType.DEFAULT,
   isSuccessOnDefault = false,
@@ -36,18 +37,23 @@ const Input: React.FC<InputProps> = ({
   value = '',
   error = '',
   touched = false,
-  handleRightIconClick = undefined,
-  ...rest
+  onChange,
 }) => {
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
   const state = getState(disabled, touched, error, isSuccessOnDefault);
-
   const RightIcon = getRightIcon(type, isHidden, state, value);
+  const glassIcon =
+    type === InputType.SEARCH && state === InputState.DISABLED
+      ? { color: '#4A4A4A' }
+      : undefined;
 
   const handleRightIconClickInternal = () => {
-    type === InputType.PASSWORD ? setIsHidden(!isHidden) : null;
-    handleRightIconClick ? handleRightIconClick() : null;
+    if (type === InputType.PASSWORD) setIsHidden(!isHidden);
+    else onChange('');
   };
+
+  console.log(value);
+
   useEffect(() => {
     const curTimer = setTimeout(() => {
       if (onDeterredChange) onDeterredChange();
@@ -68,13 +74,16 @@ const Input: React.FC<InputProps> = ({
       )}
 
       <OutlinedInput
-        {...rest}
+        onChange={onChange}
+        value={value}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
         type={isHidden ? 'password' : 'text'}
         placeholder={placeholder}
-        startAdornment={type === InputType.SEARCH && <MagnifyingGlassIcon />}
+        startAdornment={
+          type === InputType.SEARCH && <MagnifyingGlassIcon style={glassIcon} />
+        }
         endAdornment={
           RightIcon && (
             <RightIcon

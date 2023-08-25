@@ -19,10 +19,10 @@ export enum InputType {
   SEARCH = 'search',
 }
 
-export interface InputProps
-  extends Omit<React.ComponentPropsWithoutRef<'input'>, 'size'> {
+export interface InputProps {
   label?: string;
   placeholder?: string;
+  name?: string;
   size?: InputSize;
   type?: InputType;
   isSuccessOnDefault?: boolean;
@@ -30,8 +30,9 @@ export interface InputProps
   showRemark?: boolean;
   sx?: SxProps<Theme>;
   onDeterredChange?: () => void;
+  onChange: (value: string) => void;
   touched?: boolean;
+  disabled?: boolean;
   error?: string;
   value?: string;
-  handleRightIconClick?: () => void;
 }
