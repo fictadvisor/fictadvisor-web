@@ -15,11 +15,10 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ events: events }) => {
     console.log('card');
   };
 
-  console.log('column', events);
   return (
     <Box sx={styles.column}>
       {events.map((event, i) => (
-        <ScheduleCard key={i} event={event} onClick={handleClick} />
+        <ScheduleCard event={event} onClick={handleClick} key={i} />
       ))}
     </Box>
   );

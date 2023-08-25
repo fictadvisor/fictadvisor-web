@@ -18,7 +18,7 @@ export const schedule: SxProps<Theme> = {
 
 export const columns: SxProps<Theme> = {
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'row-reverse',
 };
 
 export const progress: SxProps<Theme> = {

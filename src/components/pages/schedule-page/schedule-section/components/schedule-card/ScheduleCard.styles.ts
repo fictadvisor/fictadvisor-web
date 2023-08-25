@@ -6,7 +6,7 @@ export const wrapper = (
 ): SxProps<Theme> => ({
   border: '2px solid',
   borderColor: 'backgroundDark.100',
-  position: 'absolute',
+
   width: {
     mobileMedium: '132px',
     mobile: '252px',
@@ -17,6 +17,10 @@ export const wrapper = (
   },
 
   borderRadius: '6px',
-  top: `calc(${top} - 5px)`,
+  position: 'absolute',
+  transform: `translateY(calc(${top} - 5px))`,
+  transition: 'linear .1s all',
+  top: `0`,
+  zIndex: '0',
   backgroundColor: '#1E1E1E',
 });

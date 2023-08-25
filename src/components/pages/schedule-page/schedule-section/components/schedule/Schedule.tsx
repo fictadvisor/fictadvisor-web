@@ -40,9 +40,11 @@ const Schedule = () => {
       <Box sx={styles.schedule}>
         {eventsPerWeek && !loading ? (
           <Box sx={styles.columns}>
-            {transformEvents(eventsPerWeek).days.map((day, index) => {
-              return <ScheduleColumn key={index} events={day.events} />;
-            })}
+            {transformEvents(eventsPerWeek)
+              .days.reverse()
+              .map((day, index) => {
+                return <ScheduleColumn key={index} events={day.events} />;
+              })}
           </Box>
         ) : (
           <Progress sx={styles.progress} />
