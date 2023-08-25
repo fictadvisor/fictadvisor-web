@@ -25,6 +25,24 @@ export const ScheduleEventsExpanded: FC<ScheduleEventsExpandedProps> = ({
     minute: '2-digit',
   });
 
+  const monthMapper = [
+    'Січ',
+    'Лют',
+    'Бер',
+    'Кві',
+    'Тра',
+    'Чер',
+    'Лип',
+    'Сер',
+    'Вер',
+    'Жов',
+    'Лис',
+    'Гру',
+  ];
+
+  const eventDay = new Date(events[0].startTime).getDate();
+  const eventMonth = monthMapper[new Date(events[0].startTime).getMonth()];
+
   return (
     <ClickAwayListener onClickAway={onOutsideClick}>
       <Box sx={styles.eventsContainer}>
@@ -32,7 +50,7 @@ export const ScheduleEventsExpanded: FC<ScheduleEventsExpandedProps> = ({
           <Typography variant="h6">{events.length} Події</Typography>
           {startTime && endTime && (
             <Typography variant="body2">
-              {start} - {end}
+              {eventDay} {eventMonth} {start} - {end}
             </Typography>
           )}
         </Box>
