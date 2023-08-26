@@ -139,7 +139,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
           <Typography variant={'h3Bold'} sx={stylesMUI.resourcesH3}>
             Студентські ресурси
           </Typography>
-          <Box className={styles['resource-card-container']}>
+          <Box>
             <Box sx={stylesMUI.resourcesCards}>
               {data?.studentResources.map(({ name, id, icon, link }) => (
                 <ResourceCard key={id} text={name} image={icon} href={link} />
