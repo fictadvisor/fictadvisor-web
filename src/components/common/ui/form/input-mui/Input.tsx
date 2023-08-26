@@ -28,31 +28,29 @@ const Input: React.FC<InputProps> = ({
   name,
   size = InputSize.LARGE,
   type = InputType.DEFAULT,
-  isSuccessOnDefault = false,
+  isSuccessOnDefault,
   defaultRemark,
   showRemark = true,
   sx = {},
   onDeterredChange,
   disabled = false,
-  value = '',
-  error = '',
-  touched = false,
+  value,
   onChange,
+  error,
+  touched,
 }) => {
   const [isHidden, setIsHidden] = useState(type === InputType.PASSWORD);
-  const state = getState(disabled, touched, error, isSuccessOnDefault);
+  const state = getState(disabled, touched, !!error, isSuccessOnDefault);
   const RightIcon = getRightIcon(type, isHidden, state, value);
   const glassIcon =
     type === InputType.SEARCH && state === InputState.DISABLED
       ? { color: '#4A4A4A' }
       : undefined;
 
-  const handleRightIconClickInternal = () => {
+  const handleRightIconClick = () => {
     if (type === InputType.PASSWORD) setIsHidden(!isHidden);
-    else onChange('');
+    else if (type === InputType.SEARCH) onChange('');
   };
-
-  console.log(value);
 
   useEffect(() => {
     const curTimer = setTimeout(() => {
@@ -74,8 +72,9 @@ const Input: React.FC<InputProps> = ({
       )}
 
       <OutlinedInput
-        onChange={onChange}
+        onChange={event => onChange(event.target.value)}
         value={value}
+        name={name}
         sx={styles.input(state, size)}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
@@ -87,7 +86,7 @@ const Input: React.FC<InputProps> = ({
         endAdornment={
           RightIcon && (
             <RightIcon
-              onClick={handleRightIconClickInternal}
+              onClick={handleRightIconClick}
               style={styles.rightIcon(type, state)}
             />
           )

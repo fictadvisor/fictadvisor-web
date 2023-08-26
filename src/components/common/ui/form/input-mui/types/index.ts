@@ -1,6 +1,4 @@
-import React from 'react';
 import { SxProps, Theme } from '@mui/material/styles';
-
 export enum InputState {
   DISABLED = 'disabled',
   DEFAULT = 'default',
@@ -24,15 +22,15 @@ export interface InputProps {
   placeholder?: string;
   name?: string;
   size?: InputSize;
+  onChange: (value: string) => void;
+  value: string;
   type?: InputType;
   isSuccessOnDefault?: boolean;
   defaultRemark?: string;
   showRemark?: boolean;
   sx?: SxProps<Theme>;
   onDeterredChange?: () => void;
-  onChange: (value: string) => void;
   touched?: boolean;
   disabled?: boolean;
   error?: string;
-  value?: string;
 }

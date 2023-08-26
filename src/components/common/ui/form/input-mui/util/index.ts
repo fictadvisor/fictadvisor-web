@@ -12,13 +12,13 @@ import {
 } from '@/components/common/ui/form/input-mui/types';
 
 export const getState = (
-  disabled: boolean,
-  isTouched: boolean,
-  error: string,
-  isSuccessOnDefault: boolean,
+  disabled?: boolean,
+  isTouched?: boolean,
+  isError?: boolean,
+  isSuccessOnDefault?: boolean,
 ): InputState => {
   if (disabled) return InputState.DISABLED;
-  else if (isTouched && error) return InputState.ERROR;
+  else if (isTouched && isError) return InputState.ERROR;
   else if (isTouched && isSuccessOnDefault) return InputState.SUCCESS;
   else return InputState.DEFAULT;
 };
