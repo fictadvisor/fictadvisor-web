@@ -1,3 +1,4 @@
+import { ScheduleEventFormFields } from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-form/types';
 import { client } from '@/lib/api/instance';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
@@ -48,7 +49,7 @@ class ScheduleAPI {
     return data;
   }
 
-  async addEvent(body: DetailedEventBody): Promise<DetailedEventBody> {
+  async addEvent(body: ScheduleEventFormFields): Promise<DetailedEventBody> {
     const { data } = await client.post<DetailedEventBody>(
       `schedule/events`,
       body,
