@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
@@ -8,9 +9,11 @@ import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
 import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
+import theme from '@/styles/theme';
 import { Group } from '@/types/group';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
+import { CalendarSectionMobile } from './calendar-section/CalendarSectionMobile';
 import { ScheduleSection } from './schedule-section/ScheduleSection';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
@@ -83,10 +86,18 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     }
   }, [router.isReady]);
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
+
+  console.log('mobile?', isMobile);
+
   return (
     <PageLayout title={'Розклад'}>
       <Box sx={styles.schedulePage}>
-        <CalendarSection groups={groups} semester={semester && semester} />
+        {isMobile ? (
+          <CalendarSectionMobile groups={groups} />
+        ) : (
+          <CalendarSection groups={groups} />
+        )}
         <ScheduleSection />
       </Box>
     </PageLayout>

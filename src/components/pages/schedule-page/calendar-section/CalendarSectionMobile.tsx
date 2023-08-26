@@ -14,13 +14,14 @@ import { Group } from '@/types/group';
 import { UserGroupRole } from '@/types/user';
 
 import { CheckBoxSection } from './components/checkboxes-section/CheckBoxSection';
-import { DatePicker } from './components/date-picker/DatePicker';
 import * as styles from './CalendarSection.styles';
 
-export interface CalendarSectionProps {
+export interface CalendarSectionMobileProps {
   groups: Group[];
 }
-export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
+export const CalendarSectionMobile: FC<CalendarSectionMobileProps> = ({
+  groups,
+}) => {
   const { user } = useAuthentication();
 
   return (
@@ -37,7 +38,6 @@ export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
             />
           )}
           <DropDownSection groups={groups} />
-          <DatePicker />
           <CheckBoxSection />
         </Stack>
       </Box>

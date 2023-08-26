@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Autocomplete } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 
 import { FieldSize } from '@/components/common/ui/form/common/types';

@@ -7,15 +7,13 @@ import { useSchedule } from '@/store/schedule/useSchedule';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 
 import * as styles from './DatePicker.styles';
-interface DatePickerProps {
-  semester: GetCurrentSemester | null;
-}
 
-export const DatePicker: FC<DatePickerProps> = ({ semester }) => {
-  const { chosenDay, setChosenDay, setWeek } = useSchedule(state => ({
+export const DatePicker = () => {
+  const { chosenDay, setChosenDay, setWeek, semester } = useSchedule(state => ({
     chosenDay: state.chosenDay,
     setChosenDay: state.setChosenDay,
     setWeek: state.setWeek,
+    semester: state.semester,
   }));
 
   if (!chosenDay) return <></>;
