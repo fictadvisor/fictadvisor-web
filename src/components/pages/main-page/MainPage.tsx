@@ -58,6 +58,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                   <>
                     <Link href={'/contract'}>
                       <Button
+                        sx={stylesMUI.buttons}
                         text="Договір про навчання"
                         disabled={false}
                         color={ButtonColor.PRIMARY}
@@ -66,11 +67,11 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                       />
                     </Link>
                     <Divider sx={stylesMUI.buttonDivider} />
-                    {/*<hr className={styles['button-divider']} />*/}
                   </>
                 )}
                 <Link href={'/priority'}>
                   <Button
+                    sx={stylesMUI.buttons}
                     text={'Обрати пріоритет'}
                     disabled={false}
                     variant={ButtonVariant.OUTLINE}
@@ -83,6 +84,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                   <>
                     <Link href={'/contract'}>
                       <Button
+                        sx={stylesMUI.buttons}
                         text="Договір про навчання"
                         disabled={false}
                         color={ButtonColor.PRIMARY}
@@ -90,12 +92,11 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                         size={ButtonSize.MEDIUM}
                       />
                     </Link>
-                    <Divider sx={stylesMUI.buttonDivider} />
-                    {/*<hr className={styles['button-divider']} />*/}
                   </>
                 )}
                 <Link href={'/priority'}>
                   <Button
+                    sx={stylesMUI.buttons}
                     text={'Обрати пріоритет'}
                     disabled={false}
                     variant={ButtonVariant.OUTLINE}
@@ -108,6 +109,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                   <>
                     <Link href={'/contract'}>
                       <Button
+                        sx={stylesMUI.buttons}
                         text="Договір про навчання"
                         disabled={false}
                         color={ButtonColor.PRIMARY}
@@ -119,6 +121,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
                 )}
                 <Link href={'/priority'}>
                   <Button
+                    sx={stylesMUI.buttons}
                     text={'Обрати пріоритет'}
                     disabled={false}
                     variant={ButtonVariant.OUTLINE}
@@ -133,7 +136,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
           </Box>
         </Box>
         <Box sx={stylesMUI.resources}>
-          <Typography variant={'h3'} sx={stylesMUI.resourcesH3}>
+          <Typography variant={'h3SemiBold'} sx={stylesMUI.resourcesH3}>
             Студентські ресурси
           </Typography>
           <Box className={styles['resource-card-container']}>
