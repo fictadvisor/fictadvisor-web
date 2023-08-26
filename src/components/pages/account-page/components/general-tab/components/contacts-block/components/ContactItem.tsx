@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { QueryObserverBaseResult } from 'react-query';
 import Link from 'next/link';
 
@@ -27,7 +27,13 @@ const ContactItem: FC<ContactProps> = ({
   return (
     <div className={styles['contact-item']}>
       <Link href={link}>
-        <Input name={name} value={displayName} label={name} />
+        <Input
+          readOnly
+          onChange={() => {}}
+          name={name}
+          value={displayName}
+          label={name}
+        />
       </Link>
       <TrashBucketButton onClick={handleDeleteClick} />
     </div>
