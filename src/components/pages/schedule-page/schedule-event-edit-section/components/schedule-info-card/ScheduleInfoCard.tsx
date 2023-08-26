@@ -4,10 +4,10 @@ import { Box, Tab, Tabs, Theme, Typography } from '@mui/material';
 import { SxProps } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 
+import Link from '@/components/common/ui/custom-link/CustomLink';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
-import Link from '@/components/common/ui/link-mui';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagColor } from '@/components/common/ui/tag-mui/types';
 import toast from '@/components/common/ui/toast-mui';
