@@ -11,6 +11,7 @@ interface ScheduleEventProps {
   start: string;
   end: string;
   onClick: () => void;
+  minHeight?: string;
 }
 
 const ScheduleEvent: FC<ScheduleEventProps> = ({
@@ -19,10 +20,11 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
   start,
   end,
   onClick,
+  minHeight = 'unset',
 }) => {
   return (
     <Button
-      sx={styles.card(event.disciplineType.name, height)}
+      sx={styles.card(event.disciplineType.name, height, minHeight)}
       disableRipple
       disabled={false}
       onClick={onClick}

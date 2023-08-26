@@ -155,6 +155,7 @@ export const packedCard = (top: number): SxProps<Theme> => ({
 export const card = (
   disciplineType: string,
   height: string | number,
+  minHeight = 'unset',
 ): SxProps<Theme> => ({
   width: {
     mobileMedium: '129px',
@@ -164,6 +165,7 @@ export const card = (
     mobileMedium: height,
     mobile: '80px',
   },
+  minHeight: minHeight,
   padding: '8px 8px 12px 8px',
   borderLeft: '8px solid',
   borderRadius: '6px',
