@@ -3,6 +3,11 @@ import { SxProps, Theme } from '@mui/material/styles';
 export const wrapper: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
+  position: 'sticky',
+  top: '-1px',
+  backgroundColor: 'backgroundDark.100',
+  zIndex: '1',
+  width: '1140px',
 };
 
 export const date: SxProps<Theme> = {
@@ -37,6 +42,7 @@ export const columns: SxProps<Theme> = {
   marginBottom: '6px',
   display: 'flex',
   flexDirection: 'row',
+  width: '1049px',
 };
 
 export const column: SxProps<Theme> = {

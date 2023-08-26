@@ -33,6 +33,8 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
 
   return (
     <Box sx={mergeSx(styles.container(top), sx)}>
+      {dashed && <Divider sx={styles.dashed} />}
+
       <Tooltip
         title={getCurrentTime(time.toISOString())}
         arrow={true}
@@ -44,8 +46,6 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
           <Divider sx={styles.horizontalDivider(variant)} />
         </Box>
       </Tooltip>
-
-      {dashed && <Divider sx={styles.dashed} />}
     </Box>
   );
 };

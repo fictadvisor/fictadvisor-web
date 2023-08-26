@@ -68,7 +68,7 @@ export const line = (
     height: '4px',
     backgroundColor: 'primary.600',
     borderRadius: '2px',
-    zIndex: 1,
+    zIndex: 0,
     transform: `translateX(${indent}px)`,
   }),
 });

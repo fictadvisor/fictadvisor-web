@@ -19,6 +19,13 @@ export interface SchedulePageProps {
   semester: GetCurrentSemester | null;
 }
 
+/*
+ * TODO:
+ * [x] Make schedule responsive for tablet users
+ * [] Make red button show current time, but not chosen day
+ * [] Merge all prs into schedule to work on 1 repo
+ * [] Start developing side panel
+ * */
 const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const router = useRouter();
   const { user } = useAuthentication();

@@ -7,6 +7,7 @@ export const layout: SxProps<Theme> = {
   width: '1082px',
   height: '1354px',
   marginLeft: '27px',
+  // overflow: 'hidden',
 };
 
 export const schedule: SxProps<Theme> = {
@@ -27,3 +28,9 @@ export const progress: SxProps<Theme> = {
   left: '50%',
   transform: 'translateY(-50%) translateX(-50%)',
 };
+
+// export const container: SxProps<Theme> = {
+//   height: '80vh',
+//   width: '100%',
+//   overflow: 'scroll',
+// };

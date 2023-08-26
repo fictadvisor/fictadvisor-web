@@ -1,13 +1,15 @@
+import { Box } from '@mui/material';
+
 import Schedule from '@/components/pages/schedule-page/schedule-section/components/schedule';
 import ScheduleHeader from '@/components/pages/schedule-page/schedule-section/components/schedule-header';
 
-import styles from './schedule-section.module.scss';
+import * as styles from './schedule-section.styles';
 
 export const ScheduleSection = ({}) => {
   return (
-    <section className={styles['schedule-section']}>
+    <Box sx={styles.scheduleSection}>
       <ScheduleHeader />
       <Schedule />
-    </section>
+    </Box>
   );
 };
