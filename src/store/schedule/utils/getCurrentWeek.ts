@@ -5,7 +5,5 @@ export const getCurrentWeek = (semester: GetCurrentSemester) => {
 
   const weekFloating = (nowDateMs - startDateMs) / (1000 * 60 * 60 * 24 * 7);
 
-  const currentWeek = Math.ceil(weekFloating);
-
-  return currentWeek;
+  return Math.ceil(weekFloating);
 };

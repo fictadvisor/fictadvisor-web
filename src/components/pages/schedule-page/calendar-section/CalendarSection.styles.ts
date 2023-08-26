@@ -3,7 +3,7 @@ import { Theme } from '@mui/system';
 
 export const mainWrapper: SxProps<Theme> = {
   width: '325px',
-  height: 'min(125vh)',
+  height: 'min(80vh)',
   display: 'flex',
   flexFlow: 'column nowrap',
   alignItems: 'center',
