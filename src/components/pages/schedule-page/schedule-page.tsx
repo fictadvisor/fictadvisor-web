@@ -28,6 +28,8 @@ export interface SchedulePageProps {
  * [x] Make red button show current time, but not chosen day
  * [] Merge all prs into schedule to work on 1 repo
  * [] Start developing side panel
+ * [] Optimise components for mobile and for desktop using dynamic imports
+ * [] Add global state for maximum week number
  * */
 const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const router = useRouter();

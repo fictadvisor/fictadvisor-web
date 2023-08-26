@@ -13,13 +13,14 @@ export const wrapper: SxProps<Theme> = {
 export const date: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
   width: '100%',
   gap: '12px',
   paddingLeft: '71px',
 };
 
 export const month: SxProps<Theme> = {
-  typography: 'h4Medium',
+  typography: 'body1Bold',
 };
 
 export const week: SxProps<Theme> = {

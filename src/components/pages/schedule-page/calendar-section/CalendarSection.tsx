@@ -7,9 +7,8 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
-import { DropDownSection } from '@/components/pages/schedule-page/calendar-section/components/dropdown-section/DropDownSection';
+import { GroupsDropDown } from '@/components/pages/schedule-page/calendar-section/components/groups-dropdown/GroupsDropDown';
 import useAuthentication from '@/hooks/use-authentication';
-import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { Group } from '@/types/group';
 import { UserGroupRole } from '@/types/user';
 
@@ -36,7 +35,7 @@ export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
               size={ButtonSize.MEDIUM}
             />
           )}
-          <DropDownSection groups={groups} />
+          <GroupsDropDown groups={groups} />
           <DatePicker />
           <CheckBoxSection />
         </Stack>

@@ -7,14 +7,13 @@ import Dropdown from '../../../../../common/ui/form/dropdown';
 export interface DropDownSectionProps {
   groups: Group[];
 }
-export const DropDownSection: FC<DropDownSectionProps> = ({ groups }) => {
+export const GroupsDropDown: FC<DropDownSectionProps> = ({ groups }) => {
   const { setGroupId, groupId } = useSchedule(state => ({
     setGroupId: state.setGroupId,
     groupId: state.groupId,
   }));
   return (
     <Dropdown
-      width={'calc(280px - 16px)'}
       options={
         groups
           ? groups?.map(group => ({
@@ -24,6 +23,7 @@ export const DropDownSection: FC<DropDownSectionProps> = ({ groups }) => {
           : []
       }
       label="Група"
+      placeholder="Оберіть групу"
       showRemark={false}
       onChange={id => setGroupId(id)}
       value={groupId}

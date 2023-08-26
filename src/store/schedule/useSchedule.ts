@@ -14,13 +14,21 @@ const WEEKS_ARRAY_SIZE = 24;
 
 //TODO:ADD INITIAL STATE TO LOAD FROM LOCAL STORAGE
 
-export interface Checkboxes {
+export interface Checkboxes extends Record<string, boolean | undefined> {
   addLecture: boolean;
   addLaboratory: boolean;
   addPractice: boolean;
   otherEvents: boolean;
   isSelective?: boolean;
 }
+
+const checkboxesInitialValues: Checkboxes = {
+  addLecture: true,
+  addLaboratory: true,
+  addPractice: true,
+  otherEvents: true,
+  isSelective: true,
+};
 
 const CheckboxesMapper: Record<string, TDiscipline[]> = {
   addLecture: [TDiscipline.LECTURE],
@@ -34,6 +42,7 @@ const CheckboxesMapper: Record<string, TDiscipline[]> = {
 };
 
 type State = {
+  checkboxes: Checkboxes;
   semester?: GetCurrentSemester;
   isSelective: boolean;
   disciplineTypes: TDiscipline[];
@@ -67,6 +76,7 @@ type Action = {
 };
 
 export const useSchedule = create<State & Action>((set, get) => ({
+  checkboxes: checkboxesInitialValues,
   isSelective: false,
   error: null,
   isLoading: false,
@@ -187,7 +197,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
     const _disciplineTypes: TDiscipline[] = [];
 
     for (const [key, value] of Object.entries(disciplines)) {
-      if (value) {
+      if (value && key !== 'isSelective') {
         _disciplineTypes.push(...CheckboxesMapper[key]);
       }
     }
