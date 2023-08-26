@@ -143,7 +143,7 @@ const ScheduleHeader = () => {
             <Typography
               sx={styles.dayName(
                 days[i]
-                  ? days[i].day.toDateString() === chosenDay?.toDateString()
+                  ? days[i].day.toDateString() === currentTime?.toDateString()
                   : false,
               )}
             >
@@ -153,7 +153,7 @@ const ScheduleHeader = () => {
               <Typography
                 sx={styles.dayNumber(
                   days[i]
-                    ? days[i].day.toDateString() === chosenDay?.toDateString()
+                    ? days[i].day.toDateString() === currentTime?.toDateString()
                     : false,
                 )}
               >
