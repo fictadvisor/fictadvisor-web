@@ -43,11 +43,11 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
         {token && isReady && <TokenPopup token={token} />}
         <Box sx={stylesMUI.header}>
           <Box sx={stylesMUI.headerInfo}>
-            <Box className={styles['header-info-content']}>
+            <Box>
               <Typography variant={'h2Bold'} sx={stylesMUI.title}>
                 Твій студентський портал
               </Typography>
-              <Typography paragraph sx={stylesMUI.titlePar}>
+              <Typography variant={'body2'} paragraph sx={stylesMUI.titlePar}>
                 Зустрічай FICT Advisor — офіційний сайт Студради ФІОТ.
                 Опитування про викладачів, багатофункціональний розклад,
                 керування групою, набори в наше активне ком’юніті, розіграш шар
@@ -136,7 +136,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
           </Box>
         </Box>
         <Box sx={stylesMUI.resources}>
-          <Typography variant={'h3SemiBold'} sx={stylesMUI.resourcesH3}>
+          <Typography variant={'h3Bold'} sx={stylesMUI.resourcesH3}>
             Студентські ресурси
           </Typography>
           <Box className={styles['resource-card-container']}>

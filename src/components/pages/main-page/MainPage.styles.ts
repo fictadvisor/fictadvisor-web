@@ -15,12 +15,14 @@ export const header: SxProps<Theme> = {
   position: 'relative',
   overflow: 'hidden',
   flexDirection: {
-    desktop: 'row',
+    mobile: 'column-reverse',
     tablet: 'column-reverse',
+    desktop: 'row',
   },
   alignItems: {
-    desktop: 'flex-start',
+    mobile: 'flex-end',
     tablet: 'flex-end',
+    desktop: 'flex-start',
   },
 };
 
@@ -29,44 +31,62 @@ export const headerInfo: SxProps<Theme> = {
   flexDirection: 'column',
   justifyContent: 'center',
   width: {
-    desktop: '30%',
     tablet: '100%',
+    desktop: '30%',
   },
   height: {
+    tablet: 'fit-content',
     desktop: 'fit-content',
-    tablet: 'auto',
   },
   position: 'relative',
   zIndex: 1,
   padding: {
-    desktop: '202px 0 0 80px',
+    mobile: '0 10px 0 17px',
+    mobileMedium: '0 40px 0 50px',
     tablet: '0 40px 0 50px',
+    desktop: '202px 0 0 80px',
   },
 };
 
 export const title: SxProps<Theme> = {
+  typography: {
+    mobile: theme.typography.h4Bold,
+    tablet: theme.typography.h2Bold,
+  },
   display: 'block',
   position: 'relative',
   zIndex: 100,
   width: {
-    desktopLarge: 'max-content',
-    desktopSemiMedium: 'max-content',
-    desktop: '100%',
+    mobileMedium: '80%',
     tablet: '100%',
+    desktop: '100%',
+    desktopSemiMedium: 'max-content',
+    desktopLarge: 'max-content',
   },
-  margin: {
-    desktop: 'none',
-    tablet: '0 0 50px',
+  top: {
+    mobileSemiMedium: '-24px',
+    mobileMedium: '-50px',
+    tablet: '-50px',
+    desktop: 0,
   },
 };
 
 export const titlePar: SxProps<Theme> = {
-  margin: {
-    desktop: '50px 0 45px 0',
-    tablet: '0 0 44px',
+  padding: {
+    mobileSemiMedium: '0 17px 0 0',
+    mobileMedium: '0 17px 0 0',
+    tablet: 0,
   },
-  fontSize: '16px',
-  lineHeight: '150%',
+  margin: {
+    mobileSemiMedium: '0 0 36px',
+    mobileMedium: '0 0 44px',
+    tablet: '0 0 44px',
+    desktop: '50px 0 45px 0',
+  },
+  typography: {
+    mobile: theme.typography.body1,
+    tablet: theme.typography.body2,
+  },
   width: {
     tablet: '100%',
     desktop: '170%',
@@ -75,10 +95,6 @@ export const titlePar: SxProps<Theme> = {
 
 export const buildImage: SxProps<Theme> = {
   display: 'flex',
-  flexDirection: {
-    tablet: 'column',
-    desktop: 'row',
-  },
   justifyContent: 'flex-end',
   position: 'relative',
   width: {
@@ -87,10 +103,13 @@ export const buildImage: SxProps<Theme> = {
     desktopMedium: '100%',
     desktopSemiMedium: '75%',
   },
-  height: {
-    desktop: '100%',
+  padding: {
+    desktop: '89px 0 0',
+    desktopSemiMedium: 0,
   },
   right: {
+    mobileSemiMedium: '-30px',
+    mobileMedium: '-50px',
     tablet: '-50px',
     desktop: '-15px',
     desktopSemiMedium: '-50px',
@@ -98,18 +117,27 @@ export const buildImage: SxProps<Theme> = {
     desktopLarge: '13px',
   },
   svg: {
-    // width: {
-    //   tablet: '80%',
-    // },
+    width: {
+      mobileSemiMedium: '100%',
+      mobileMedium: '80%',
+      tablet: '80%',
+      desktop: 'auto',
+    },
     height: {
+      mobileSemiMedium: 'auto',
+      mobileMedium: 'auto',
+      tablet: '100%',
+      desktop: 'auto',
       desktopSemiMedium: 'auto',
     },
     color: theme.palette.grey['300'],
-    clipPath: {
-      tablet: 'none',
-      desktopLarge:
-        'polygon(58% -10%, 100% 30%, 100% 96%, 88% 96%, 75% 100%, 0% 90%, 2% 75%, 4% 72%, 4% 50%)',
-    },
+    clipPath:
+      'polygon(58% -10%, 100% 30%, 100% 96%, 88% 96%, 75% 100%, 0% 90%, 2% 75%, 4% 72%, 4% 50%)',
+    // clipPath: {
+    //   tablet: 'none',
+    //   desktopLarge:
+    //     'polygon(58% -10%, 100% 30%, 100% 96%, 88% 96%, 75% 100%, 0% 90%, 2% 75%, 4% 72%, 4% 50%)',
+    // },
     transition: 'color 225ms cubic-bezier(0.37, 0, 0.63, 1)',
     ...((!isSafari || !isIOS) && {
       '&:hover': {
@@ -121,52 +149,63 @@ export const buildImage: SxProps<Theme> = {
 };
 
 export const buttons: SxProps<Theme> = {
-  typography: theme.typography.buttonBold,
-  borderRadius: '8px',
+  width: {
+    mobileSemiMedium: 'auto',
+  },
+  typography: {
+    mobile: theme.typography.body1Bold,
+    tablet: theme.typography.buttonBold,
+  },
+  borderRadius: {
+    mobile: '6px',
+    tablet: '8px',
+    desktopLarge: '8px',
+  },
   padding: {
+    mobileSemiMedium: '8px 16px',
+    mobileMedium: '8px 16px',
+    tablet: '12px 24px',
     desktopSemiMedium: '16px 32px',
     desktop: '12px 24px',
   },
 };
 export const buttonDesk: SxProps<Theme> = {
-  button: {
-    typography: theme.typography.buttonBold,
-    borderRadius: '8px',
-    padding: {
-      desktopSemiMedium: '16px 32px',
-      desktop: '12px 24px',
-    },
-  },
   width: 'max-content',
   display: {
-    desktopLarge: 'flex',
-    desktop: 'flex',
-    tablet: 'none',
+    mobile: 'none',
     mobileMedium: 'none',
+    tablet: 'none',
+    desktop: 'flex',
+    desktopLarge: 'flex',
   },
   gap: '20px',
 };
 
 export const buttonTab: SxProps<Theme> = {
   display: {
-    desktopLarge: 'none',
-    desktop: 'none',
-    tablet: 'flex',
+    mobile: 'none',
     mobileMedium: 'none',
+    tablet: 'flex',
+    desktop: 'none',
   },
   a: {
-    margin: '0 10px 0 0',
+    margin: '0 20px 0 0',
   },
 };
 
 export const buttonMob: SxProps<Theme> = {
-  flexWrap: 'wrap',
+  typography: theme.typography.body1Bold,
+  // flexWrap: 'wrap',
   gap: '14px',
   width: '100%',
   display: {
-    desktopLarge: 'none',
-    tablet: 'none',
+    mobileSemiMedium: 'flex',
     mobileMedium: 'flex',
+    tablet: 'none',
+  },
+  flexDirection: {
+    mobileSemiMedium: 'column',
+    mobileMedium: 'row',
   },
 };
 
@@ -180,7 +219,12 @@ export const resources: SxProps<Theme> = {
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
-  margin: '97px 0 127px',
+  margin: {
+    mobileSemiMedium: '97px 0 40px',
+    mobileMedium: '97px 0 40px',
+    tablet: '97px 0 127px',
+    desktopLarge: '97px 0 127px',
+  },
   mobileMedium: {
     marginBottom: '40px',
   },
@@ -188,19 +232,27 @@ export const resources: SxProps<Theme> = {
 
 export const resourcesH3: SxProps<Theme> = {
   fontWeight: '700',
-  mobileMedium: {
-    typography: theme.typography.h6Medium,
+  typography: {
+    mobileSemiMedium: theme.typography.h6Medium,
+    mobileMedium: theme.typography.h6Medium,
+    tablet: theme.typography.h3Bold,
   },
 };
 
 export const resourcesCards: SxProps<Theme> = {
+  padding: {
+    mobile: '32px 17px',
+    tablet: '64px 0 0 0',
+  },
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'center',
   gap: {
+    mobileSemiMedium: '0.5rem',
+    mobileMedium: '0.5rem',
+    desktop: '1rem',
     desktopLarge: '16px',
-    tablet: '1rem',
   },
-  paddingTop: '64px',
+  // paddingTop:
   maxWidth: '1064px',
 };
