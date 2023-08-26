@@ -1,20 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react';
 
 import Input from '@/components/common/ui/form/input-mui';
 
-const meta = {
+const meta: Meta = {
   title: 'Ui Kit/Components/Form/Input',
   component: Input,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} as Meta<typeof Input>;
+};
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
-export const Base: Story = {
-  args: {},
+const InputTemplate: Story = args => {
+  const [value, setValue] = useState('');
+  return <Input {...args} onChange={setValue} value={value} />;
 };
+
+export const Base = InputTemplate.bind({});
+Base.args = { readOnly: false, disabled: false };

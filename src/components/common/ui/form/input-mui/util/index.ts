@@ -16,8 +16,10 @@ export const getState = (
   isTouched?: boolean,
   isError?: boolean,
   isSuccessOnDefault?: boolean,
+  readOnly?: boolean,
 ): InputState => {
   if (disabled) return InputState.DISABLED;
+  if (readOnly) return InputState.READONLY;
   else if (isTouched && isError) return InputState.ERROR;
   else if (isTouched && isSuccessOnDefault) return InputState.SUCCESS;
   else return InputState.DEFAULT;

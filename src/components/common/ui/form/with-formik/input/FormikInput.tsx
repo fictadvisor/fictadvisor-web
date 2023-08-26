@@ -17,7 +17,7 @@ const FormikInput: FC<FormikInputProps> = ({ name, ...rest }) => {
   };
 
   return (
-    <Input //
+    <Input
       {...rest}
       {...field}
       onChange={handleChange}

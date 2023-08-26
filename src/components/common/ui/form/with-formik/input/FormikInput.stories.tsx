@@ -40,6 +40,7 @@ export const Base: Story = {
   ),
   args: {
     disabled: false,
+    readOnly: false,
     name: 't5',
   },
 };

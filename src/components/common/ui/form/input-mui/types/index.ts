@@ -4,6 +4,7 @@ export enum InputState {
   DEFAULT = 'default',
   SUCCESS = 'success',
   ERROR = 'error',
+  READONLY = 'readonly',
 }
 
 export enum InputSize {
@@ -33,4 +34,5 @@ export interface InputProps {
   touched?: boolean;
   disabled?: boolean;
   error?: string;
+  readOnly?: boolean;
 }
