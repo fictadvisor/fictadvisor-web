@@ -39,8 +39,13 @@ const SecurityTab = () => {
         <div className={styles['button']}></div>
       </div>
       <div className={styles['user-information']}>
-        <Input readOnly={true} label="Юзернейм" value={user.username} />
-        <Input readOnly={true} label="Пошта" value={user.email} />
+        <Input
+          readOnly
+          onChange={() => {}}
+          label="Юзернейм"
+          value={user.username}
+        />
+        <Input readOnly onChange={() => {}} label="Пошта" value={user.email} />
       </div>
       <div className={styles['division']}>
         <div className={styles['white']}></div>
