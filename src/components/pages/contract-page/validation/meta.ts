@@ -1,10 +1,18 @@
 import * as yup from 'yup';
 
-import { PaymentTypeParam } from '@/types/contract';
+import { PaymentTypeParam, StudyDegree } from '@/types/contract';
 
 export const metaValidationSchema = yup.object().shape({
   meta: yup.object().shape({
-    speciality: yup.string().required(`Обов'язкове поле`),
+    degree: yup.string().required(`Обов'язкове поле`),
+    programType: yup.string().required(`Обов'язкове поле`),
+    educationalProgram: yup.string().required(`Обов'язкове поле`),
+
+    speciality: yup.string().when('degree', {
+      is: StudyDegree.MASTER,
+      then: schema => schema.optional(),
+      otherwise: schema => schema.required(`Обов'язкове поле`),
+    }),
     studyType: yup.string().required(`Обов'язкове поле`),
     studyForm: yup.string().required(`Обов'язкове поле`),
     paymentType: yup.string().when('studyType', {

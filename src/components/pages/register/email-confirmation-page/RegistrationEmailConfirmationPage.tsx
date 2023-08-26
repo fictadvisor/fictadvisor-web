@@ -4,16 +4,14 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 
 import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
-import Alert from '@/components/common/ui/alert-mui';
+import Alert from '@/components/common/ui/alert';
+import { AlertType, AlertVariant } from '@/components/common/ui/alert/types';
+import Button from '@/components/common/ui/button';
 import {
-  AlertType,
-  AlertVariant,
-} from '@/components/common/ui/alert-mui/types';
-import Button, {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
 import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 

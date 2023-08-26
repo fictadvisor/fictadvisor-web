@@ -1,11 +1,12 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
 import Popup from '@/components/common/ui/pop-ups-mui/Popup';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
@@ -36,7 +37,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
         else await router.push('/register');
       }
     },
-    [toast, isLoggedIn, router],
+    [isLoggedIn, router],
   );
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
     } finally {
       setIsOpen(false);
     }
-  }, [toast, isLoggedIn, router, update, user.id]);
+  }, [isLoggedIn, router, update]);
 
   if (!isOpen) return null;
 
