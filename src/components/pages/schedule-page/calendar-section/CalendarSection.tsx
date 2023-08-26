@@ -1,8 +1,45 @@
 import type { FC } from 'react';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { Box, Stack } from '@mui/material';
 
-import styles from './calendar-section.module.scss';
-export const CalendarSection = ({}) => {
+import Button from '@/components/common/ui/button-mui/Button';
+import {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
+import { GroupsDropDown } from '@/components/pages/schedule-page/calendar-section/components/groups-dropdown/GroupsDropDown';
+import useAuthentication from '@/hooks/use-authentication';
+import { Group } from '@/types/group';
+import { UserGroupRole } from '@/types/user';
+
+import { CheckBoxSection } from './components/checkboxes-section/CheckBoxSection';
+import { DatePicker } from './components/date-picker/DatePicker';
+import * as styles from './CalendarSection.styles';
+
+export interface CalendarSectionProps {
+  groups: Group[];
+}
+export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
+  const { user } = useAuthentication();
+
   return (
-    <section className={styles['calendar-section']}>I AM CALENDAR</section>
+    <Box sx={styles.mainWrapper}>
+      <Box sx={styles.sticky}>
+        <Stack sx={styles.wrapper}>
+          {user && user.group?.role === UserGroupRole.CAPTAIN && (
+            <Button
+              text="Додати подію"
+              variant={ButtonVariant.OUTLINE}
+              sx={{ borderRadius: '8px' }}
+              startIcon={<PlusIcon />}
+              size={ButtonSize.MEDIUM}
+            />
+          )}
+          <GroupsDropDown groups={groups} />
+          <DatePicker />
+          <CheckBoxSection />
+        </Stack>
+      </Box>
+    </Box>
   );
 };

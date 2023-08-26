@@ -1,42 +1,64 @@
-import React, { FC } from 'react';
-import { Button, Typography } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 
-import calculateHeight from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateHeight';
+import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
+import { Event } from '@/types/schedule';
 
+import { ScheduleEventsSection } from '../schedule-events-section/ScheduleEventsSection';
+
+import ScheduleEvent from './cards/ScheduleEvent';
+import ScheduleEvents from './cards/ScheduleEvents';
+import calculateHeight from './utils/calculateHeight';
+import { calctulateTop } from './utils/calculateTop';
 import * as styles from './ScheduleCard.styles';
 
 interface ScheduleCardProps {
-  name: string;
-  startTime: string;
-  endTime: string;
-  disciplineType: string;
-  disabled: boolean;
+  event: Event | Event[];
   onClick: () => void;
 }
 
-const ScheduleCard: FC<ScheduleCardProps> = ({
-  name,
-  startTime,
-  endTime,
-  disciplineType,
-  disabled,
-  onClick,
-}) => {
-  const height = calculateHeight(startTime, endTime);
+const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
+  const [top, setTop] = useState('');
+  const [height, setHeight] = useState<number>(0);
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
+  const [areEventsOpen, setEventsOpen] = useState(false);
+
+  useEffect(() => {
+    const _event = Array.isArray(event) ? event[0] : event;
+    setTop(calctulateTop(_event.startTime));
+    setHeight(calculateHeight(_event.startTime, _event.endTime));
+    setStart(getCurrentTime(_event.startTime));
+    setEnd(getCurrentTime(_event.endTime));
+  }, [event]);
+
   return (
-    <Button
-      sx={styles.card(disciplineType, height)}
-      disableRipple
-      disabled={disabled}
-      onClick={onClick}
-    >
-      <Typography variant="body1">{name}</Typography>
-      {startTime && endTime && (
-        <Typography variant="body2">
-          {startTime} - {endTime}
-        </Typography>
+    <Box sx={styles.wrapper(top, height)}>
+      {Array.isArray(event) ? (
+        areEventsOpen ? (
+          <ScheduleEventsSection
+            onOutsideClick={() => setEventsOpen(false)}
+            events={event}
+          />
+        ) : (
+          <ScheduleEvents
+            events={event}
+            height={height}
+            start={start}
+            end={end}
+            onClick={() => setEventsOpen(true)}
+          />
+        )
+      ) : (
+        <ScheduleEvent
+          event={event}
+          height={height}
+          start={start}
+          end={end}
+          onClick={onClick}
+        />
       )}
-    </Button>
+    </Box>
   );
 };
 

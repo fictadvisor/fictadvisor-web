@@ -1,9 +1,10 @@
 export enum TDiscipline {
-  PRACRIVE = 'practive',
-  LECTION = 'lection',
-  SELECTIVE = 'selective',
-  LABRATORY = 'labratory',
-  OTHER = 'other',
+  LECTURE = 'LECTURE',
+  PRACTICE = 'PRACTICE',
+  LABORATORY = 'LABORATORY',
+  CONSULTATION = 'CONSULTATION',
+  WORKOUT = 'WORKOUT',
+  EXAM = 'EXAM',
 }
 
 export interface Event {
@@ -11,5 +12,9 @@ export interface Event {
   name: string;
   startTime: string;
   endTime: string;
-  disciplineType: TDiscipline;
+  disciplineType: {
+    Id: string;
+    disciplineId: string;
+    name: TDiscipline;
+  };
 }

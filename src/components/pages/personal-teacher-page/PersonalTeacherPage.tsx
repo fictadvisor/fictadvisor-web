@@ -9,8 +9,8 @@ import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
+import PersonalTeacherCard from '@/components/common/ui/cards/personal-teacher-card';
 import Progress from '@/components/common/ui/progress-mui';
-import PersonalTeacherCard from '@/components/pages/personal-teacher-page/personal-teacher-card';
 import PersonalTeacherTabs from '@/components/pages/personal-teacher-page/personal-teacher-tabs';
 import styles from '@/components/pages/personal-teacher-page/PersonalTeacherPage.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
@@ -55,11 +55,18 @@ const PersonalTeacherPage = () => {
   const [floatingCardShowed, setFloatingCardShowed] = useState(false);
 
   const { tab } = query;
+
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
+  const handleChange = useTabState(
+    tab,
+    router,
+    setIndex,
+    TeachersPageTabs,
+    TeachersPageTabs.GENERAL,
+  );
 
   useEffect(() => {
     if (isError) {
