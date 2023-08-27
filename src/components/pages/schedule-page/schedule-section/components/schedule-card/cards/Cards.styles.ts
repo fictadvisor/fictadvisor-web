@@ -140,7 +140,10 @@ const subjectColors = (disciplineType: string): SxProps<Theme> => ({
 
 export const wrapper: SxProps<Theme> = {
   height: '137px',
-  width: '128px',
+  width: {
+    tablet: '129px',
+    mobile: '252px',
+  },
 
   position: 'relative',
   cursor: 'pointer',
@@ -158,11 +161,11 @@ export const card = (
   minHeight = 'unset',
 ): SxProps<Theme> => ({
   width: {
-    mobileMedium: '129px',
+    tablet: '129px',
     mobile: '252px',
   },
   height: {
-    mobileMedium: height,
+    tablet: height,
     mobile: '80px',
   },
   minHeight: minHeight,

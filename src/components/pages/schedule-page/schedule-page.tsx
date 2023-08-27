@@ -16,6 +16,7 @@ import { CalendarSection } from './calendar-section/CalendarSection';
 import { ButtonIcons } from './calendar-section/components/mobile/buttonIcons/ButtonIcons';
 import { CalendarSectionMobile } from './calendar-section/components/mobile/CalendarSectionMobile';
 import { ScheduleSection } from './schedule-section/ScheduleSection';
+import ScheduleSectionMobile from './schedule-section/ScheduleSectionMobile';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
 export interface SchedulePageProps {
@@ -102,7 +103,8 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
           <CalendarSection groups={groups} />
         )}
         {isMobile && <ButtonIcons />}
-        <ScheduleSection />
+
+        {isMobile ? <ScheduleSectionMobile /> : <ScheduleSection />}
       </Box>
     </PageLayout>
   );

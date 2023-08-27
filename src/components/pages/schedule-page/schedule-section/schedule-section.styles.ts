@@ -10,3 +10,14 @@ export const scheduleSection: SxProps<Theme> = {
   height: `calc(100vh - ${100}px)`,
   position: 'relative',
 };
+
+export const events: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '28px',
+};
+
+export const event: SxProps<Theme> = {
+  display: 'flex',
+};
+export const day: SxProps<Theme> = {};

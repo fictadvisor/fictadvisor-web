@@ -2,6 +2,9 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 export const column: SxProps<Theme> = {
   position: 'relative',
-  width: '148px',
-  height: '1344px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+  width: { mobile: '100%', tablet: '148px' },
+  height: { mobile: '100%', tablet: '1344px' },
 };
