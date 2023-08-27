@@ -2,13 +2,6 @@
 @import "src/styles/partials/breakpoints";
 @import "src/styles/partials/typography-mixins";
 
-
-.right-block{
-  width: 480px;
-  @include flex-center;
-  flex-direction: column;
-}
-
 .telegram-button{
   margin: 32px 0;
 }
@@ -20,20 +13,12 @@
   white-space: normal;
 }
 
-
 .form{
   margin-top: 16px;
   width: 100%;
   display: flex;
   flex-direction: column;
   @include flex-center;
-}
-
-.register-header{
-  text-align: center;
-  font-size: 36px;
-  line-height: 128%;
-  font-weight: 700;
 }
 
 .mobile-login-logo{
@@ -43,13 +28,6 @@
   display: none;
   margin: 8vh 4vh;
   position:relative;
-}
-
-.mobile-text{
-  @include body-secondary--medium;
-  display: none;
-  margin: 28px 0 14px 0;
-  color: #D4D4D4;
 }
 
 .register-mobile-button{
@@ -64,16 +42,7 @@
 
 
 @media screen and (max-width: $breakpoint-desktop-semi-medium) {
-  .left-block {
-    display: none;
-  }
   .mobile-login-logo {
-    display: flex;
-  }
-  .register-header{
-    display: none;
-  }
-  .mobile-text{
     display: flex;
   }
   .register-mobile-button{

@@ -1,19 +1,20 @@
+import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/common/ui/button';
 
-import styles from './LeftBlock.module.scss';
+import * as styles from './LogoRegisterBlock.styles';
 
-const LeftBlock = () => {
+const LogoRegisterBlock = () => {
   const { push } = useRouter();
 
   return (
-    <div className={styles['left-block']}>
+    <Box sx={styles.logoRegisterBlock}>
       <Link href="/">
         <Image
-          className={styles['login-logo']}
+          style={{ margin: 0, padding: '8px' }}
           src="/images/login-page/new-logo.png"
           alt="fict advisor logo"
           priority
@@ -21,16 +22,18 @@ const LeftBlock = () => {
           height={54}
         />
       </Link>
-      <h3 className={styles['register-text']}>Ти ще не з нами? Приєднуйся!</h3>
+      <Typography variant="h3" sx={styles.registerText}>
+        Ти ще не з нами? Приєднуйся!
+      </Typography>
       <Button
-        className={styles['register-button']}
+        style={{ maxWidth: '300px' }}
         text="Зареєструватися"
         onClick={() => {
           void push('/register');
         }}
       />
-    </div>
+    </Box>
   );
 };
 
-export default LeftBlock;
+export default LogoRegisterBlock;
