@@ -89,6 +89,7 @@ export const CheckboxesDropdown = () => {
         })}
       >
         <Autocomplete
+          disableCloseOnSelect
           onChange={(event, value, reason, details) => {
             const selectedCheckboxes = Object.fromEntries(
               value.map(option => [option.value, true]),

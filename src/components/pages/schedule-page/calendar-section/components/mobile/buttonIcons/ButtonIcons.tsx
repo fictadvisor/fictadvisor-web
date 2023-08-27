@@ -4,8 +4,10 @@ import { Box } from '@mui/material';
 import ButtonIcon from '@/components/common/ui/icon-button-mui/IconButton';
 import useAuthentication from '@/hooks/use-authentication';
 import { useSchedule } from '@/store/schedule/useSchedule';
+import { UserGroupRole } from '@/types/user';
 
 import * as styles from './buttonIcons.styles';
+
 export const ButtonIcons = () => {
   const { user } = useAuthentication();
   const { groupId } = useSchedule(state => ({ groupId: state.groupId }));
@@ -14,7 +16,9 @@ export const ButtonIcons = () => {
 
   return (
     <Box sx={styles.buttonIcons}>
-      {user && user.group?.id === groupId && <ButtonIcon icon={<PlusIcon />} />}
+      {user && user.group?.role === UserGroupRole.CAPTAIN && (
+        <ButtonIcon icon={<PlusIcon />} />
+      )}
 
       <ButtonIcon
         icon={<ArrowUpIcon />}
