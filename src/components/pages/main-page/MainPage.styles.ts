@@ -253,6 +253,5 @@ export const resourcesCards: SxProps<Theme> = {
     desktop: '1rem',
     desktopLarge: '16px',
   },
-  // paddingTop:
   maxWidth: '1064px',
 };
