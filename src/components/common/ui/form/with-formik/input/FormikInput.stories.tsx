@@ -39,8 +39,6 @@ export const Base: Story = {
     </Formik>
   ),
   args: {
-    disabled: false,
-    readOnly: false,
     name: 't5',
   },
 };
