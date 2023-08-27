@@ -24,10 +24,3 @@
     display: flex;
   }
 }
-
-@media screen and (max-width: $breakpoint-mobile-medium) {
-  .login-button{
-    padding: 12px 24px;
-  }
-}
-
