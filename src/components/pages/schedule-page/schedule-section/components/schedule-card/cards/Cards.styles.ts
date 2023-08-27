@@ -142,7 +142,7 @@ export const wrapper: SxProps<Theme> = {
   height: '137px',
   width: {
     tablet: '129px',
-    mobile: '252px',
+    mobile: '100%',
   },
 
   position: 'relative',
@@ -162,7 +162,7 @@ export const card = (
 ): SxProps<Theme> => ({
   width: {
     tablet: '129px',
-    mobile: '252px',
+    mobile: '100%',
   },
   height: {
     tablet: height,

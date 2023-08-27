@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 import { Box, Typography } from '@mui/material';
+import { current } from 'immer';
 
 import Progress from '@/components/common/ui/progress-mui';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
-import ScheduleLine from '@/components/pages/schedule-page/schedule-section/components/schedule-line';
-import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule-line/types';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -12,13 +11,18 @@ import { useSchedule } from '@/store/schedule/useSchedule';
 import * as styles from './schedule-section.styles';
 
 const ScheduleSectionMobile = () => {
-  const { events, week, disciplines, loading } = useSchedule(state => ({
-    events: state.eventsBody,
-    week: state.week,
-    disciplines: state.disciplineTypes,
-    loading: state.isLoading,
-  }));
+  const { events, week, disciplines, loading, currentTime } = useSchedule(
+    state => ({
+      events: state.eventsBody,
+      week: state.week,
+      disciplines: state.disciplineTypes,
+      loading: state.isLoading,
+      currentTime: state.currentTime,
+    }),
+  );
   const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+
+  console.log(currentTime);
 
   const eventsPerWeek = useMemo(() => {
     if (!events[week - 1]) return null;
@@ -38,14 +42,18 @@ const ScheduleSectionMobile = () => {
 
   return (
     <Box>
-      <Box>
+      <Box sx={styles.scheduleSectionMobile}>
         {eventsPerWeek && !loading ? (
           <Box sx={styles.events}>
             {transformEvents(eventsPerWeek).days.map((day, index) => (
               <Box sx={styles.event} key={index}>
-                <Box sx={styles.day}>
-                  <Typography>{dayMapper[day.day.getDay() - 1]}</Typography>
-                  <Typography>{day.day.getDate()}</Typography>
+                <Box sx={styles.eventDate}>
+                  <Typography sx={styles.day}>
+                    {dayMapper[day.day.getDay() - 1]}
+                  </Typography>
+                  <Typography sx={styles.date(false)}>
+                    {day.day.getDate()}
+                  </Typography>
                 </Box>
                 {day.events.length === 0 ? (
                   <Typography>В цей день немає подій</Typography>
@@ -54,7 +62,6 @@ const ScheduleSectionMobile = () => {
                 )}
               </Box>
             ))}
-            <ScheduleLine variant={ScheduleLineVariant.LONG} dashed={false} />
           </Box>
         ) : (
           <Progress />

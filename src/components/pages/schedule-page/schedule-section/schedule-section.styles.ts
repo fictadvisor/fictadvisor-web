@@ -11,6 +11,10 @@ export const scheduleSection: SxProps<Theme> = {
   position: 'relative',
 };
 
+export const scheduleSectionMobile: SxProps<Theme> = {
+  marginTop: '20px',
+};
+
 export const events: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
@@ -20,4 +24,28 @@ export const events: SxProps<Theme> = {
 export const event: SxProps<Theme> = {
   display: 'flex',
 };
-export const day: SxProps<Theme> = {};
+
+export const eventDate: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'column',
+  marginRight: '16px',
+};
+
+export const day: SxProps<Theme> = {
+  fontSize: '14px',
+  textTransform: 'lowercase',
+  color: 'grey.500',
+  textAlign: 'center',
+};
+
+export const date = (isCurDay: boolean): SxProps<Theme> => ({
+  typography: 'h6',
+  width: '36px',
+  height: '36px',
+  ...(isCurDay && {
+    backgroundColor: 'primary.400',
+    borderRadius: '50%',
+  }),
+  textAlign: 'center',
+  lineHeight: '175%',
+});

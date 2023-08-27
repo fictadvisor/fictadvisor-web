@@ -16,5 +16,5 @@ export const eventsContainer: SxProps<Theme> = {
 export const eventsContainerGrid: SxProps<Theme> = {
   gap: '12px',
   display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
+  gridTemplateColumns: { mobile: '1fr', tablet: '1fr 1fr' },
 };

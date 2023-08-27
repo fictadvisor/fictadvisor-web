@@ -3,7 +3,7 @@ import { Theme } from '@mui/system';
 
 export const schedulePage: SxProps<Theme> = {
   display: 'flex',
-  flexDirection: { mobile: 'row', tablet: 'row' },
+  flexDirection: { mobile: 'column', tablet: 'row' },
   alignItems: { mobile: 'stretch', tablet: 'center' },
   pl: { mobile: '10%', tablet: 'unset' },
   pr: { mobile: '10%', tablet: 'unset' },

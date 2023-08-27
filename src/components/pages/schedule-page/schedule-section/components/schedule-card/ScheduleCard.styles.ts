@@ -9,7 +9,7 @@ export const wrapper = (
 
   width: {
     tablet: '132px',
-    mobile: '252px',
+    mobile: '100%',
   },
   height: {
     tablet: `calc(${height}px + 4px)`,
