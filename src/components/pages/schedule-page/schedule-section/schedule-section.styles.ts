@@ -49,3 +49,8 @@ export const date = (isCurDay: boolean): SxProps<Theme> => ({
   textAlign: 'center',
   lineHeight: '175%',
 });
+
+export const noEvents: SxProps<Theme> = {
+  typography: 'body1',
+  lineHeight: '400%',
+};

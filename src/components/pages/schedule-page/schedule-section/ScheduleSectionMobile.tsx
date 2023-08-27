@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { Box, Typography } from '@mui/material';
-import { current } from 'immer';
 
 import Progress from '@/components/common/ui/progress-mui';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
@@ -21,8 +20,6 @@ const ScheduleSectionMobile = () => {
     }),
   );
   const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-
-  console.log(currentTime);
 
   const eventsPerWeek = useMemo(() => {
     if (!events[week - 1]) return null;
@@ -51,12 +48,19 @@ const ScheduleSectionMobile = () => {
                   <Typography sx={styles.day}>
                     {dayMapper[day.day.getDay() - 1]}
                   </Typography>
-                  <Typography sx={styles.date(false)}>
+                  <Typography
+                    sx={styles.date(
+                      currentTime.getDate() === day.day.getDate() &&
+                        currentTime.getMonth() === day.day.getMonth(),
+                    )}
+                  >
                     {day.day.getDate()}
                   </Typography>
                 </Box>
                 {day.events.length === 0 ? (
-                  <Typography>В цей день немає подій</Typography>
+                  <Typography sx={styles.noEvents}>
+                    В цей день немає подій
+                  </Typography>
                 ) : (
                   <ScheduleColumn events={day.events} />
                 )}

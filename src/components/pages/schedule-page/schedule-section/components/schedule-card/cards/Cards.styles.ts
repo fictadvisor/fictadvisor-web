@@ -181,5 +181,6 @@ export const card = (
   textTransform: 'none',
   gap: '4px',
   left: -2,
+  wordBreak: 'break-all',
   ...subjectColors(disciplineType),
 });
