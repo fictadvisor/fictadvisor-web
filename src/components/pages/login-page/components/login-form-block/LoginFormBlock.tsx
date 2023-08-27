@@ -80,7 +80,7 @@ const LoginFormBlock = () => {
         sx={sxStyles.comebackButton}
         text="Повернутись на головну"
         startIcon={
-          <ChevronLeftIcon style={{ width: '18px', height: '18px'}} />
+          <ChevronLeftIcon style={{ width: '18px', height: '18px' }} />
         }
         variant={ButtonVariant.TEXT}
         size={ButtonSize.SMALL}
