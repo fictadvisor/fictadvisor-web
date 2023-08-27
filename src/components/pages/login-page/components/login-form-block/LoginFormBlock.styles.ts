@@ -43,4 +43,3 @@ export const mobileText: SxProps<Theme> = {
     display: 'flex',
   },
 };
-
