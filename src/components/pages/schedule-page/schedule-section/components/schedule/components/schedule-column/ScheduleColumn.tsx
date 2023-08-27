@@ -63,7 +63,7 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
 
   return (
     <Box sx={styles.column}>
-      {day.events.reverse().map((event, i) => (
+      {day.events.map((event, i) => (
         <ScheduleCard
           event={event}
           onClick={handleClick}

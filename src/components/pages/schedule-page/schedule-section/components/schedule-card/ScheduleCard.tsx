@@ -19,7 +19,7 @@ interface ScheduleCardProps {
 }
 
 const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
-  const [top, setTop] = useState('');
+  const [top, setTop] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
@@ -34,41 +34,35 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
   }, [event]);
 
   return (
-    <Fragment>
+    <Box sx={styles.wrapper(top, height, areEventsOpen ? 1 : 0)}>
       {Array.isArray(event) ? (
         areEventsOpen ? (
-          <Box sx={styles.wrapper(top, height)}>
-            <ScheduleEventsSection
-              onClick={onClick}
-              onOutsideClick={() => setEventsOpen(false)}
-              events={event}
-              week={week}
-            />
-          </Box>
+          <ScheduleEventsSection
+            week={week}
+            onClick={onClick}
+            onOutsideClick={() => setEventsOpen(false)}
+            events={event}
+          />
         ) : (
-          <Box sx={styles.wrapper(top, height)}>
-            <ScheduleEvents
-              events={event}
-              height={height}
-              start={start}
-              end={end}
-              onClick={() => setEventsOpen(true)}
-            />
-          </Box>
-        )
-      ) : (
-        <Box sx={styles.wrapper(top, height)}>
-          <ScheduleEvent
-            event={event}
+          <ScheduleEvents
+            events={event}
             height={height}
             start={start}
             end={end}
-            onClick={onClick}
-            week={week}
+            onClick={() => setEventsOpen(true)}
           />
-        </Box>
+        )
+      ) : (
+        <ScheduleEvent
+          event={event}
+          height={height}
+          start={start}
+          end={end}
+          onClick={onClick}
+          week={week}
+        />
       )}
-    </Fragment>
+    </Box>
   );
 };
 
