@@ -92,8 +92,6 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
-  console.log('mobile?', isMobile);
-
   return (
     <PageLayout title={'Розклад'}>
       <Box sx={styles.schedulePage}>

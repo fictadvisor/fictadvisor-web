@@ -3,6 +3,7 @@ import { create } from 'zustand';
 
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
+import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { TDiscipline } from '@/types/schedule';
@@ -50,6 +51,7 @@ type State = {
   groupId: string;
   eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
+  openedEvent?: DetailedEventBody;
   currentTime: Date;
   chosenDay: Date | null;
   isLoading: boolean;
@@ -76,6 +78,7 @@ type Action = {
 };
 
 export const useSchedule = create<State & Action>((set, get) => ({
+  openedEvent: undefined,
   checkboxes: checkboxesInitialValues,
   isSelective: false,
   error: null,

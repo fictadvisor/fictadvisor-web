@@ -45,7 +45,7 @@ const Schedule = () => {
             {transformEvents(eventsPerWeek)
               .days.reverse()
               .map((day, index) => {
-                return <ScheduleColumn key={index} events={day.events} />;
+                return <ScheduleColumn key={index} day={day} />;
               })}
             <ScheduleLine variant={ScheduleLineVariant.SHORT} dashed={true} />
           </Box>

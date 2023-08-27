@@ -13,7 +13,7 @@ export interface Event {
   startTime: string;
   endTime: string;
   disciplineType: {
-    Id: string;
+    id: string;
     disciplineId: string;
     name: TDiscipline;
   };

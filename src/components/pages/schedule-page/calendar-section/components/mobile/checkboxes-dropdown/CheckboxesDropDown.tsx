@@ -75,8 +75,6 @@ export const CheckboxesDropdown = () => {
     [groupId, checkboxes],
   );
 
-  console.log(options.filter(opt => opt.checked));
-
   return (
     <Box
       sx={{

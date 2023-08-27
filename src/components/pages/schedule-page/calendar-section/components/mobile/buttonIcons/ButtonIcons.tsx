@@ -12,13 +12,11 @@ export const ButtonIcons = () => {
   const { user } = useAuthentication();
   const { groupId } = useSchedule(state => ({ groupId: state.groupId }));
 
-  console.log(window.scrollY);
-
   return (
     <Box sx={styles.buttonIcons}>
-      {user && user.group?.role === UserGroupRole.CAPTAIN && (
-        <ButtonIcon icon={<PlusIcon />} />
-      )}
+      {user &&
+        user.group?.role === UserGroupRole.CAPTAIN &&
+        user.group?.code === groupId && <ButtonIcon icon={<PlusIcon />} />}
 
       <ButtonIcon
         icon={<ArrowUpIcon />}

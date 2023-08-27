@@ -62,7 +62,7 @@ const ScheduleSectionMobile = () => {
                     В цей день немає подій
                   </Typography>
                 ) : (
-                  <ScheduleColumn events={day.events} />
+                  <ScheduleColumn day={day} />
                 )}
               </Box>
             ))}

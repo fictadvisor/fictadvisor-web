@@ -44,11 +44,15 @@ class ScheduleAPI {
     return data;
   }
 
-  async getEventInfo(eventId: string): Promise<DetailedEventBody> {
+  async getEventInfo(
+    eventId: string,
+    week: number | string,
+  ): Promise<DetailedEventBody> {
     const { data } = await client.get<DetailedEventBody>(
       `schedule/events/${eventId}`,
       {
         ...getAuthorizationHeader(),
+        params: { week },
       },
     );
 

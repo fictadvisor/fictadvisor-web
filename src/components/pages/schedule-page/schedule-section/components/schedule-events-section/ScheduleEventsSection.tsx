@@ -8,11 +8,15 @@ import { Event } from '@/types/schedule';
 import * as styles from './ScheduleEventsSection.styles';
 interface ScheduleEventsExpandedProps {
   onOutsideClick: () => void;
+  onClick: (event: Event, week: string) => void;
   events: Event[];
+  week: string;
 }
 export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
   events,
   onOutsideClick,
+  onClick,
+  week,
 }) => {
   const { startTime, endTime } = events[0];
   const start = new Date(startTime).toLocaleTimeString('ua-UK', {
@@ -66,7 +70,8 @@ export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
               key={index}
               start={''}
               end={''}
-              onClick={() => console.log('hui')}
+              onClick={onClick}
+              week={week}
             />
           ))}
         </Box>

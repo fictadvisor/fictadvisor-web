@@ -27,6 +27,7 @@ export function transformEvents({
     resultedData.days.push({
       events: [],
       day: date,
+      week,
     });
     helperMs += MS_IN_DAY;
   }

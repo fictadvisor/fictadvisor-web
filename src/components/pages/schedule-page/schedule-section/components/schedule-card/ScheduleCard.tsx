@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
@@ -14,10 +14,11 @@ import * as styles from './ScheduleCard.styles';
 
 interface ScheduleCardProps {
   event: Event | Event[];
-  onClick: () => void;
+  onClick: (event: Event, week: string) => void;
+  week: string;
 }
 
-const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
+const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
   const [top, setTop] = useState('');
   const [height, setHeight] = useState<number>(0);
   const [start, setStart] = useState('');
@@ -33,32 +34,41 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick }) => {
   }, [event]);
 
   return (
-    <Box sx={styles.wrapper(top, height)}>
+    <Fragment>
       {Array.isArray(event) ? (
         areEventsOpen ? (
-          <ScheduleEventsSection
-            onOutsideClick={() => setEventsOpen(false)}
-            events={event}
-          />
+          <Box sx={styles.wrapper(top, height)}>
+            <ScheduleEventsSection
+              onClick={onClick}
+              onOutsideClick={() => setEventsOpen(false)}
+              events={event}
+              week={week}
+            />
+          </Box>
         ) : (
-          <ScheduleEvents
-            events={event}
+          <Box sx={styles.wrapper(top, height)}>
+            <ScheduleEvents
+              events={event}
+              height={height}
+              start={start}
+              end={end}
+              onClick={() => setEventsOpen(true)}
+            />
+          </Box>
+        )
+      ) : (
+        <Box sx={styles.wrapper(top, height)}>
+          <ScheduleEvent
+            event={event}
             height={height}
             start={start}
             end={end}
-            onClick={() => setEventsOpen(true)}
+            onClick={onClick}
+            week={week}
           />
-        )
-      ) : (
-        <ScheduleEvent
-          event={event}
-          height={height}
-          start={start}
-          end={end}
-          onClick={onClick}
-        />
+        </Box>
       )}
-    </Box>
+    </Fragment>
   );
 };
 
