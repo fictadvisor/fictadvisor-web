@@ -53,6 +53,15 @@ export function transformEvents({
   }
 
   allEvents.push(...groupedEvents);
+  allEvents.sort((_event1, _event2) => {
+    const event1: Event = Array.isArray(_event1) ? _event1[0] : _event1;
+    const event2: Event = Array.isArray(_event2) ? _event2[0] : _event2;
+
+    return (
+      new Date(event1.startTime).getTime() -
+      new Date(event2.startTime).getTime()
+    );
+  });
 
   for (const _event of allEvents) {
     const event: Event = Array.isArray(_event) ? _event[0] : _event;
