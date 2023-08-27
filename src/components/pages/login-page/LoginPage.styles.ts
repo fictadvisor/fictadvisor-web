@@ -17,10 +17,9 @@ export const loginPage: SxProps<Theme> = {
   },
 };
 
-export const loginPage__content: SxProps<Theme> = {
+export const loginPageContent: SxProps<Theme> = {
   zIndex: 1,
   display: 'flex',
-  flexDirection: 'row',
   width: '100%',
   minHeight: '635px',
   maxWidth: '1200px',
@@ -36,7 +35,7 @@ export const loginPage__content: SxProps<Theme> = {
 export const divider: SxProps<Theme> = {
   height: 'inherit',
   width: '2px',
-  borderColor: '#FAFAFA',
+  borderColor: theme.palette.grey[800],
 
   [theme.breakpoints.down('desktopSemiMedium')]: {
     display: 'none',

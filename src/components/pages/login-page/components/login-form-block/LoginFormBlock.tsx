@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import CustomTelegram from '@/components/common/icons/CustomTelegram';
-import Button from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button-mui';
 import {
   ButtonColor,
   ButtonSize,
@@ -44,7 +44,7 @@ const LoginFormBlock = () => {
           fill
         />
       </Link>
-      <Typography variant="h3" sx={sxStyles.loginHeader}>
+      <Typography variant="h3SemiBold" sx={sxStyles.loginHeader}>
         З поверненням!
       </Typography>
       <Button
@@ -53,7 +53,7 @@ const LoginFormBlock = () => {
         size={ButtonSize.SMALL}
         type="button"
         onClick={handleClick}
-        className={styles['mobile-telegram-button']}
+        sx={sxStyles.mobileTelegramButton}
       />
       <Button
         startIcon={<CustomTelegram />}
@@ -61,25 +61,27 @@ const LoginFormBlock = () => {
         size={ButtonSize.LARGE}
         type="button"
         onClick={handleClick}
-        className={styles['telegram-button']}
+        sx={sxStyles.telegramButton}
       />
       <Divider textAlign="center" sx={sxStyles.divider}>
         або
       </Divider>
       <LoginForm />
-      <Typography sx={sxStyles.mobileText}>Ти ще не з нами? </Typography>
+      <Typography sx={sxStyles.narrowScreenText}>Ти ще не з нами? </Typography>
       <Button
         text="Приєднатись!"
         size={ButtonSize.SMALL}
         color={ButtonColor.SECONDARY}
         variant={ButtonVariant.OUTLINE}
-        className={styles['register-mobile-button']}
+        sx={sxStyles.registerMobileButton}
         onClick={() => router.push('/register')}
       />
       <Button
-        className={styles['comeback-button']}
+        sx={sxStyles.comebackButton}
         text="Повернутись на головну"
-        startIcon={<ChevronLeftIcon className="icon" />}
+        startIcon={
+          <ChevronLeftIcon style={{ width: '18px', height: '18px'}} />
+        }
         variant={ButtonVariant.TEXT}
         size={ButtonSize.SMALL}
         onClick={() => router.push('/ ')}

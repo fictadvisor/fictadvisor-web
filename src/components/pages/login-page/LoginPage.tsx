@@ -16,7 +16,7 @@ const LoginPage = () => {
         priority
         alt="дуже гарна картинка"
       />
-      <Box sx={styles.loginPage__content}>
+      <Box sx={styles.loginPageContent}>
         <LogoRegisterBlock />
         <Divider orientation="vertical" sx={styles.divider} />
         <LoginFormBlock />

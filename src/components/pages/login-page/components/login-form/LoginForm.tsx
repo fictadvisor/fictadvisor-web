@@ -76,6 +76,7 @@ const LoginForm: FC = () => {
             size={ButtonSize.LARGE}
             type="submit"
             disabled={!isValid}
+            className={styles['login-button']}
           />
         </Form>
       )}

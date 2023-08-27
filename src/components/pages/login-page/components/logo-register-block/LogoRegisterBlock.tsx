@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Button from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button-mui';
+import { ButtonVariant } from '@/components/common/ui/button-mui/types';
 
 import * as styles from './LogoRegisterBlock.styles';
 
@@ -22,11 +23,11 @@ const LogoRegisterBlock = () => {
           height={54}
         />
       </Link>
-      <Typography variant="h3" sx={styles.registerText}>
+      <Typography variant="h3SemiBold" sx={styles.registerText}>
         Ти ще не з нами? Приєднуйся!
       </Typography>
       <Button
-        style={{ maxWidth: '300px' }}
+        sx={styles.registerButton}
         text="Зареєструватися"
         onClick={() => {
           void push('/register');

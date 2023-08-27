@@ -17,7 +17,9 @@ export const logoRegisterBlock: SxProps<Theme> = {
 
 export const registerText: SxProps<Theme> = {
   textAlign: 'center',
-  fontWeight: 600,
-  fontSize: '36px',
-  lineHeight: '128%',
+};
+
+export const registerButton: SxProps<Theme> = {
+  maxWidth: '300px',
+  borderRadius: '8px',
 };
