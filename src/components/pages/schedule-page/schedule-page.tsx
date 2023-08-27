@@ -13,7 +13,8 @@ import theme from '@/styles/theme';
 import { Group } from '@/types/group';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
-import { CalendarSectionMobile } from './calendar-section/CalendarSectionMobile';
+import { ButtonIcons } from './calendar-section/components/mobile/buttonIcons/ButtonIcons';
+import { CalendarSectionMobile } from './calendar-section/components/mobile/CalendarSectionMobile';
 import { ScheduleSection } from './schedule-section/ScheduleSection';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
@@ -100,6 +101,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
         ) : (
           <CalendarSection groups={groups} />
         )}
+        {isMobile && <ButtonIcons />}
         <ScheduleSection />
       </Box>
     </PageLayout>
