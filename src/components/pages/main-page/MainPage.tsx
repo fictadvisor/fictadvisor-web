@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -15,6 +15,7 @@ import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import * as stylesMUI from '@/components/pages/main-page/MainPage.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
+import theme from '@/styles/theme';
 
 import BannerImage from '../../common/icons/BannerImage';
 
@@ -30,7 +31,10 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
   const { query, isReady } = useRouter();
   const token = query.token as string;
   const { isLoggedIn } = useAuthentication();
-
+  const isDesktop = useMediaQuery(theme.breakpoints.up('desktop'));
+  const isTablet = useMediaQuery(
+    theme.breakpoints.between('tablet', 'desktop'),
+  );
   return (
     <PageLayout
       description="FICT Advisor - офіційний сайт Студради ФІОТ.
@@ -41,106 +45,74 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
     >
       <Box sx={stylesMUI.mainPageContent}>
         {token && isReady && <TokenPopup token={token} />}
-        <Box sx={stylesMUI.header}>
-          <Box sx={stylesMUI.headerInfo}>
+        <Box sx={stylesMUI.infoSection}>
+          <Box sx={stylesMUI.infoSectionContent}>
             <Box>
-              <Typography variant={'h2Bold'} sx={stylesMUI.title}>
+              <Typography sx={stylesMUI.infoSectionTitle}>
                 Твій студентський портал
               </Typography>
-              <Typography variant={'body2'} paragraph sx={stylesMUI.titlePar}>
+              <Typography paragraph sx={stylesMUI.infoSectionParagraph}>
                 Зустрічай FICT Advisor — офіційний сайт Студради ФІОТ.
                 Опитування про викладачів, багатофункціональний розклад,
                 керування групою, набори в наше активне ком’юніті, розіграш шар
                 та інші інструменти — шукай саме тут!
               </Typography>
-              <Box sx={stylesMUI.buttonDesk}>
+              <Box
+                sx={
+                  isDesktop
+                    ? stylesMUI.buttonDesk
+                    : isTablet
+                    ? stylesMUI.buttonTab
+                    : stylesMUI.buttonMob
+                }
+              >
                 {!isLoggedIn && (
                   <>
                     <Link href={'/contract'}>
                       <Button
                         sx={stylesMUI.buttons}
                         text="Договір про навчання"
-                        disabled={false}
                         color={ButtonColor.PRIMARY}
                         variant={ButtonVariant.FILLED}
-                        size={ButtonSize.LARGE}
+                        size={
+                          isDesktop
+                            ? ButtonSize.LARGE
+                            : isTablet
+                            ? ButtonSize.MEDIUM
+                            : ButtonSize.SMALL
+                        }
                       />
                     </Link>
-                    <Divider sx={stylesMUI.buttonDivider} />
+                    {isDesktop && <Divider sx={stylesMUI.buttonDivider} />}
                   </>
                 )}
                 <Link href={'/priority'}>
                   <Button
                     sx={stylesMUI.buttons}
                     text={'Обрати пріоритет'}
-                    disabled={false}
                     variant={ButtonVariant.OUTLINE}
-                    size={ButtonSize.LARGE}
-                  />
-                </Link>
-              </Box>
-              <Box sx={stylesMUI.buttonTab}>
-                {!isLoggedIn && (
-                  <>
-                    <Link href={'/contract'}>
-                      <Button
-                        sx={stylesMUI.buttons}
-                        text="Договір про навчання"
-                        disabled={false}
-                        color={ButtonColor.PRIMARY}
-                        variant={ButtonVariant.FILLED}
-                        size={ButtonSize.MEDIUM}
-                      />
-                    </Link>
-                  </>
-                )}
-                <Link href={'/priority'}>
-                  <Button
-                    sx={stylesMUI.buttons}
-                    text={'Обрати пріоритет'}
-                    disabled={false}
-                    variant={ButtonVariant.OUTLINE}
-                    size={ButtonSize.MEDIUM}
-                  />
-                </Link>
-              </Box>
-              <Box sx={stylesMUI.buttonMob}>
-                {!isLoggedIn && (
-                  <>
-                    <Link href={'/contract'}>
-                      <Button
-                        sx={stylesMUI.buttons}
-                        text="Договір про навчання"
-                        disabled={false}
-                        color={ButtonColor.PRIMARY}
-                        variant={ButtonVariant.FILLED}
-                        size={ButtonSize.SMALL}
-                      />
-                    </Link>
-                  </>
-                )}
-                <Link href={'/priority'}>
-                  <Button
-                    sx={stylesMUI.buttons}
-                    text={'Обрати пріоритет'}
-                    disabled={false}
-                    variant={ButtonVariant.OUTLINE}
-                    size={ButtonSize.SMALL}
+                    size={
+                      isDesktop
+                        ? ButtonSize.LARGE
+                        : isTablet
+                        ? ButtonSize.MEDIUM
+                        : ButtonSize.SMALL
+                    }
                   />
                 </Link>
               </Box>
             </Box>
           </Box>
-          <Box sx={stylesMUI.buildImage}>
+          <Box sx={stylesMUI.infoSectionImage}>
             <BannerImage />
           </Box>
         </Box>
-        <Box sx={stylesMUI.resources}>
-          <Typography variant={'h3Bold'} sx={stylesMUI.resourcesH3}>
+        <Box sx={stylesMUI.resourcesSection}>
+          <Typography sx={stylesMUI.resourcesSectionTitle}>
             Студентські ресурси
           </Typography>
           <Box>
-            <Box sx={stylesMUI.resourcesCards}>
+            <Box sx={stylesMUI.resourcesSectionCards}>
               {data?.studentResources.map(({ name, id, icon, link }) => (
                 <ResourceCard key={id} text={name} image={icon} href={link} />
               ))}
