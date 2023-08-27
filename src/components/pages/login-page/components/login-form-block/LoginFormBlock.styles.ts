@@ -61,10 +61,7 @@ export const comebackButton: SxProps<Theme> = {
 
 export const divider: SxProps<Theme> = {
   width: '100%',
-  '&::before': {
-    borderColor: theme.palette.grey[800],
-  },
-  '&::after': {
+  '&::before, &::after': {
     borderColor: theme.palette.grey[800],
   },
 };

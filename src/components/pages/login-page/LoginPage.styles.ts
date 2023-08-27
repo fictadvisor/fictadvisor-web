@@ -11,10 +11,6 @@ export const loginPage: SxProps<Theme> = {
   alignItems: 'center',
   backgroundSize: '100% 100%',
   padding: '0 30px',
-
-  [theme.breakpoints.down('desktopSemiMedium')]: {
-    backgroundSize: '100% 100%',
-  },
 };
 
 export const loginPageContent: SxProps<Theme> = {
@@ -27,7 +23,6 @@ export const loginPageContent: SxProps<Theme> = {
 
   [theme.breakpoints.down('desktopSemiMedium')]: {
     maxWidth: '480px',
-    width: '100%',
     alignItems: 'flex-start',
   },
 };
