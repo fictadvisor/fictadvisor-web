@@ -20,4 +20,4 @@ const InputTemplate: Story = args => {
 };
 
 export const Base = InputTemplate.bind({});
-Base.args = { readOnly: false, disabled: false };
+Base.args = {};

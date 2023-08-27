@@ -66,7 +66,6 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   transition: 'all 0.2s ease-in-out',
   width: '100%',
   display: 'flex',
-  flexDirection: 'row',
   alignItems: 'center',
   gap: '8px',
   backgroundColor: 'backgroundDark.50',
@@ -85,7 +84,7 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
     typography: 'body1',
   }),
 
-  ...(state === 'default' && {
+  ...(state === InputState.DEFAULT && {
     borderColor: theme.palette.grey[500],
     '&:hover': {
       borderColor: theme.palette.grey[700],
@@ -95,11 +94,11 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
     },
   }),
 
-  ...(state === 'error' && {
+  ...(state === InputState.ERROR && {
     borderColor: theme.palette.error[500],
   }),
 
-  ...(state === 'success' && {
+  ...(state === InputState.SUCCESS && {
     borderColor: theme.palette.success[600],
   }),
 
@@ -159,6 +158,6 @@ export const rightIcon = (type: InputType, state: InputState) => ({
 export const glassIcon = (type: InputType, state: InputState) => ({
   ...(type === InputType.SEARCH &&
     state === InputState.DISABLED && {
-      color: '#4A4A4A',
+      color: theme.palette.success[200],
     }),
 });
