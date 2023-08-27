@@ -53,9 +53,10 @@ const CheckBoxColorMapper: Record<string, CheckboxColor> = {
 export const CheckboxesDropdown = () => {
   const { user } = useAuthentication();
 
-  const { checkboxes, updateDisciplineTypes } = useSchedule(state => ({
+  const { checkboxes, updateDisciplineTypes, groupId } = useSchedule(state => ({
     checkboxes: state.checkboxes,
     updateDisciplineTypes: state.updateDisciplineTypes,
+    groupId: state.groupId,
   }));
 
   const options = useMemo(
@@ -67,12 +68,14 @@ export const CheckboxesDropdown = () => {
           checked: value,
         }))
         .filter(({ value }) => {
-          return !user
+          return !user || user.group?.id !== groupId
             ? value !== 'isSelective' && value !== 'otherEvents'
             : true;
         }),
-    [],
+    [groupId, checkboxes],
   );
+
+  console.log(options.filter(opt => opt.checked));
 
   return (
     <Box
@@ -94,11 +97,12 @@ export const CheckboxesDropdown = () => {
               ...NegativeCheckboxes,
               ...selectedCheckboxes,
             } as Checkboxes;
+            console.log(newValues);
             useSchedule.setState({ checkboxes: newValues });
             updateDisciplineTypes(newValues);
           }}
           options={options}
-          defaultValue={options.filter(opt => opt.checked)}
+          value={options.filter(opt => opt.checked)}
           isOptionEqualToValue={(option, value) => {
             return option.value === value.value;
           }}
