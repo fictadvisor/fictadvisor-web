@@ -3,8 +3,8 @@ import {
   ContractBody,
   ExtendedContractBody,
 } from '@/lib/api/contract/types/ContractBody';
-import { PartialBy } from '@/lib/api/contract/types/utils';
 import { PaymentTypeParam, StudyTypeParam } from '@/types/contract';
+import { PartialBy } from '@/types/utils/PartialBy';
 export const prepareData = (
   initialData: ExtendedContractBody,
 ): ContractBody => {

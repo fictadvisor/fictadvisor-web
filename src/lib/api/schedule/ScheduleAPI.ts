@@ -1,7 +1,8 @@
-import { ScheduleEventFormFields } from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-form/types';
 import { client } from '@/lib/api/instance';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
+import { PatchEventBody } from '@/lib/api/schedule/types/PatchEventBody';
+import { PostEventBody } from '@/lib/api/schedule/types/PostEventBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 class ScheduleAPI {
   async getEvents(
@@ -67,7 +68,16 @@ class ScheduleAPI {
     return data;
   }
 
-  async addEvent(body: ScheduleEventFormFields): Promise<DetailedEventBody> {
+  async addEvent(body: PostEventBody): Promise<DetailedEventBody> {
+    const { data } = await client.post<DetailedEventBody>(
+      `schedule/events`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async editEvent(body: PatchEventBody): Promise<DetailedEventBody> {
     const { data } = await client.post<DetailedEventBody>(
       `schedule/events`,
       body,

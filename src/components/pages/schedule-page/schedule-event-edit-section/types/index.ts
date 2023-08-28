@@ -1,4 +1,4 @@
-export enum ScheduleEventEditDevice {
-  DESKTOP = 'desktop',
-  MOBILE = 'mobile',
+export enum InfoCardTabs {
+  DISCIPLINE = 'discipline',
+  EVENT = 'event',
 }

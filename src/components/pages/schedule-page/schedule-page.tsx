@@ -13,6 +13,7 @@ import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
 import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import theme from '@/styles/theme';
 import { Group } from '@/types/group';
+import type { Teacher } from '@/types/teacher';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
 import { ButtonIcons } from './calendar-section/components/mobile/buttonIcons/ButtonIcons';
@@ -40,23 +41,15 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const { user } = useAuthentication();
   const toast = useToast();
 
-  const {
-    setGroupId,
-    setWeek,
-    setDate,
-    setChosenDay,
-    setSemester,
-    openedEvent,
-    groupId,
-  } = useSchedule(state => ({
-    setGroupId: state.setGroupId,
-    setWeek: state.setWeek,
-    setDate: state.setDate,
-    setChosenDay: state.setChosenDay,
-    setSemester: state.setSemester,
-    openedEvent: state.openedEvent,
-    groupId: state.groupId,
-  }));
+  const { setGroupId, setWeek, setDate, setChosenDay, openedEvent, groupId } =
+    useSchedule(state => ({
+      setGroupId: state.setGroupId,
+      setWeek: state.setWeek,
+      setDate: state.setDate,
+      setChosenDay: state.setChosenDay,
+      openedEvent: state.openedEvent,
+      groupId: state.groupId,
+    }));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,7 +61,8 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
   useEffect(() => {
     if (!router.isReady || !semester) return;
-    setSemester(semester);
+    useSchedule.setState(state => ({ semester: semester }));
+
     const { group, week } = router.query;
 
     const isWrongUrl =

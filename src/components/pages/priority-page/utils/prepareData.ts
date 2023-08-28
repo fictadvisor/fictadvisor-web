@@ -2,7 +2,7 @@ import {
   ExtendedPriorityDataBody,
   PriorityDataBody,
 } from '@/lib/api/contract/types/PriorityDataBody';
-import { PartialBy } from '@/lib/api/contract/types/utils';
+import { PartialBy } from '@/types/utils/PartialBy';
 
 export const prepareData = (
   intialData: ExtendedPriorityDataBody,

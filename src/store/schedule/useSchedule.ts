@@ -8,6 +8,7 @@ import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { TDiscipline } from '@/types/schedule';
 import { Event } from '@/types/schedule';
+import { Teacher } from '@/types/teacher';
 
 import { findFirstOf5 } from './utils/findFirstOf5';
 import { setUrlParams } from './utils/setUrlParams';
@@ -44,6 +45,7 @@ const CheckboxesMapper: Record<string, TDiscipline[]> = {
 };
 
 type State = {
+  teachers: Teacher[];
   checkboxes: Checkboxes;
   semester?: GetCurrentSemester;
   isSelective: boolean;
@@ -75,10 +77,10 @@ type Action = {
   setIsLoading: (_: boolean) => void;
   setError: (_: AxiosError | null) => void;
   setIsSelective: (_: boolean) => void;
-  setSemester: (_: GetCurrentSemester) => void;
 };
 
 export const useSchedule = create<State & Action>((set, get) => ({
+  teachers: [],
   openedEvent: undefined,
   checkboxes: checkboxesInitialValues,
   isSelective: false,
@@ -262,10 +264,5 @@ export const useSchedule = create<State & Action>((set, get) => ({
       eventsBody: new Array<GetEventBody>(WEEKS_ARRAY_SIZE),
     }));
     if (isUpdating) get().handleWeekChange();
-  },
-  setSemester(_semester: GetCurrentSemester) {
-    set(_ => ({
-      semester: _semester,
-    }));
   },
 }));

@@ -18,3 +18,9 @@ export interface Event {
     name: TDiscipline;
   };
 }
+
+export enum TEventPeriod {
+  NO_PERIOD = 'NO_PERIOD',
+  EVERY_WEEK = 'EVERY_WEEK',
+  EVERY_FORTNIGHT = 'EVERY_FORTNIGHT',
+}

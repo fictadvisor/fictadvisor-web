@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
-import { ClickAwayListener } from '@mui/base';
 import { Box, Typography } from '@mui/material';
-import Skeleton, { SkeletonProps } from '@mui/material/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
 
 import Link from '@/components/common/ui/custom-link/CustomLink';
 import IconButton from '@/components/common/ui/icon-button-mui';
@@ -16,6 +15,7 @@ import {
 import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagColor } from '@/components/common/ui/tag-mui/types';
+import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -24,7 +24,7 @@ import { TDiscipline } from '@/types/schedule';
 import { EditIcon } from './components/Edit';
 import * as styles from './ScheduleInfoCard.styles';
 
-const TagLabelMapper: Record<TDiscipline, string> = {
+const TagLabelMapper: Record<string, string> = {
   [TDiscipline.LECTURE]: 'Лекція',
   [TDiscipline.EXAM]: 'Екзмаен',
   [TDiscipline.LABORATORY]: 'Лабораторна',
@@ -33,7 +33,7 @@ const TagLabelMapper: Record<TDiscipline, string> = {
   [TDiscipline.WORKOUT]: 'Тренування',
 };
 
-const TagColorMapper: Record<TDiscipline, TagColor> = {
+const TagColorMapper: Record<string, TagColor> = {
   [TDiscipline.LECTURE]: TagColor.INDIGO,
   [TDiscipline.EXAM]: TagColor.VIOLET,
   [TDiscipline.LABORATORY]: TagColor.MINT,
@@ -42,24 +42,13 @@ const TagColorMapper: Record<TDiscipline, TagColor> = {
   [TDiscipline.WORKOUT]: TagColor.VIOLET,
 };
 
-enum InfoCardTabs {
-  DISCIPLINE = 'discipline',
-  EVENT = 'event',
-}
-
 interface ScheduleInfoCardProps {
   onEventEditButtonClick: () => void;
   onCloseButtonClick: () => void;
   loading: boolean;
   event?: DetailedEventBody;
 }
-
-const skeletonProps: SkeletonProps = {
-  sx: { bgcolor: 'grey.200' },
-  variant: 'rounded',
-  animation: 'wave',
-};
-
+import { skeletonProps } from '../../utils/skeletonProps';
 const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
   onEventEditButtonClick,
   onCloseButtonClick,
@@ -131,8 +120,10 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
         <Typography variant="body1Medium">Конференція</Typography>
         {loading ? (
           <Skeleton {...skeletonProps} width={250} height={20} />
-        ) : (
+        ) : event?.url ? (
           <Link href={event?.url as string} text={event?.url} />
+        ) : (
+          <Typography>Посилання відсутнє</Typography>
         )}
       </Box>
 
