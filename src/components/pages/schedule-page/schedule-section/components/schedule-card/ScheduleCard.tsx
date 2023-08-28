@@ -1,7 +1,7 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
-import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
+import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import { Event } from '@/types/schedule';
 
 import { ScheduleEventsSection } from '../schedule-events-section/ScheduleEventsSection';
@@ -29,8 +29,8 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
     const _event = Array.isArray(event) ? event[0] : event;
     setTop(calctulateTop(_event.startTime));
     setHeight(calculateHeight(_event.startTime, _event.endTime));
-    setStart(getCurrentTime(_event.startTime));
-    setEnd(getCurrentTime(_event.endTime));
+    setStart(getStringTime(_event.startTime));
+    setEnd(getStringTime(_event.endTime));
   }, [event]);
 
   return (

@@ -6,7 +6,7 @@ export const wrapper: SxProps<Theme> = {
   position: 'sticky',
   top: '-1px',
   backgroundColor: 'backgroundDark.100',
-  zIndex: '1',
+  zIndex: '2',
   width: '1140px',
 };
 

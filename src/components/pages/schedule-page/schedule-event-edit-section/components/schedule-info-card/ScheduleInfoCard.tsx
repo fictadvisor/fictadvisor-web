@@ -1,132 +1,149 @@
-import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { Box, Tab, Tabs, Theme, Typography } from '@mui/material';
-import { SxProps } from '@mui/material/styles';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { ClickAwayListener } from '@mui/base';
+import { Box, Typography } from '@mui/material';
 
 import Link from '@/components/common/ui/custom-link/CustomLink';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
+import {
+  Tab,
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@/components/common/ui/tab-mui';
+import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 import Tag from '@/components/common/ui/tag-mui';
 import { TagColor } from '@/components/common/ui/tag-mui/types';
-import toast from '@/components/common/ui/toast-mui';
-import { ScheduleEventEditDevice } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
-import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
-import mergeSx from '@/lib/utils/MergeSxStylesUtil';
+import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
+import { useSchedule } from '@/store/schedule/useSchedule';
+import { TDiscipline } from '@/types/schedule';
 
 import { EditIcon } from './components/Edit';
 import * as styles from './ScheduleInfoCard.styles';
 
-interface ScheduleInfoCardProps {
-  device?: ScheduleEventEditDevice;
-  sx?: SxProps<Theme>;
-  week: string;
+const TagLabelMapper: Record<TDiscipline, string> = {
+  [TDiscipline.LECTURE]: 'Лекція',
+  [TDiscipline.EXAM]: 'Екзмаен',
+  [TDiscipline.LABORATORY]: 'Лабораторна',
+  [TDiscipline.CONSULTATION]: 'Консультація',
+  [TDiscipline.PRACTICE]: 'Практика',
+  [TDiscipline.WORKOUT]: 'Тренування',
+};
+
+const TagColorMapper: Record<TDiscipline, TagColor> = {
+  [TDiscipline.LECTURE]: TagColor.INDIGO,
+  [TDiscipline.EXAM]: TagColor.VIOLET,
+  [TDiscipline.LABORATORY]: TagColor.MINT,
+  [TDiscipline.CONSULTATION]: TagColor.VIOLET,
+  [TDiscipline.PRACTICE]: TagColor.ORANGE,
+  [TDiscipline.WORKOUT]: TagColor.VIOLET,
+};
+
+enum InfoCardTabs {
+  DISCIPLINE = 'discipline',
+  EVENT = 'event',
 }
 
-const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
-  device = ScheduleEventEditDevice.DESKTOP,
-  week,
-  sx = {},
-}) => {
-  const [tabValue, setTabValue] = useState('event');
-  const router = useRouter();
-  const { query, push } = router;
-  const eventId = query.eventId as string;
+const ScheduleInfoCard = () => {
+  const { week, openedEvent } = useSchedule(state => ({
+    week: state.week,
+    openedEvent: state.openedEvent,
+  }));
 
-  const {
-    isLoading,
-    isError,
-    data: scheduleEventResponse,
-  } = useQuery(
-    ['event', eventId, week],
-    () => ScheduleAPI.getEventInfo(eventId),
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  );
+  const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
 
-  useEffect(() => {
-    // if (isError) {
-    //   void push('/events');
-    // }
-  }, [isError, push, toast]);
+  const closeCard = () => useSchedule.setState({ openedEvent: undefined });
 
-  if (isLoading || isError || !scheduleEventResponse) return null;
-
-  const handleChange = (event: SyntheticEvent, newValue: string) => {
-    setTabValue(newValue);
-  };
   const handleEdit = () => {
-    router.push(`/test/schedule-edit/`, eventId);
+    console.log('eeediting');
   };
 
-  const data = scheduleEventResponse;
+  if (!openedEvent) return null;
 
   return (
-    <Box sx={mergeSx(styles.container(device), sx)}>
-      <Box sx={styles.titleContainer()}>
-        <Typography variant="h5">{data.name}</Typography>
-        <Box>
-          <IconButton
-            color={IconButtonColor.TRANSPARENT}
-            icon={<EditIcon />}
-            onClick={handleEdit}
+    <ClickAwayListener onClickAway={closeCard}>
+      <Box sx={styles.container}>
+        <Box sx={styles.titleContainer}>
+          <Typography variant="h5">{openedEvent?.name}</Typography>
+          <Box sx={{ display: 'flex' }}>
+            <IconButton
+              color={IconButtonColor.TRANSPARENT}
+              icon={<EditIcon />}
+              onClick={handleEdit}
+            />
+            <CloseButton onClick={closeCard} />
+          </Box>
+        </Box>
+        <Box sx={styles.row}>
+          <Typography variant="body1Medium">Тип</Typography>
+          <Tag
+            text={TagLabelMapper[openedEvent.disciplineType]}
+            color={TagColorMapper[openedEvent.disciplineType]}
           />
-          <CloseButton />
         </Box>
-      </Box>
-      <Box>
-        <Typography variant="body1Medium">Тип</Typography>
-        {/*{data.disciplineType === 'Лекція' && (*/}
-        {/*  <Tag color={TagColor.INFO} text={data.disciplineType} />*/}
-        {/*)}*/}
-        {/*{data.disciplineType === 'Практика' && (*/}
-        {/*  <Tag color={TagColor.ORANGE} text={data.disciplineType} />*/}
-        {/*)}*/}
-        {/*{data.disciplineType === 'Лабораторна' && (*/}
-        {/*  <Tag color={TagColor.INDIGO} text={data.disciplineType} />*/}
-        {/*)}*/}
-        {/*{data.disciplineType === 'Інша подія' && (*/}
-        {/*  <Tag color={TagColor.SECONDARY} text={data.disciplineType} />*/}
-        {/*)}*/}
-      </Box>
-      <Box sx={styles.teachersContainer(device)}>
-        <Typography variant="body1Medium">Викладач</Typography>
-        <Box>
-          {data.teachers.map(teacher => {
-            return (
-              <Link
-                key={teacher.id}
-                href={teacher.id}
-                text={`${teacher.firstName} ${teacher.middleName} ${teacher.lastName}`}
+        <Box sx={styles.row}>
+          <Typography variant="body1Medium">Викладач</Typography>
+          <Box sx={styles.teachersContainer}>
+            {openedEvent.teachers.length === 0 ? (
+              <Typography variant="body1Medium">
+                Інформація про викладачів відстуня
+              </Typography>
+            ) : (
+              openedEvent?.teachers.map(teacher => (
+                <Link
+                  key={teacher.id}
+                  href={`/teachers/${teacher.id}`}
+                  text={`${teacher.firstName} ${teacher.middleName} ${teacher.lastName}`}
+                />
+              ))
+            )}
+          </Box>
+        </Box>
+        <Box sx={styles.row}>
+          <Typography variant="body1Medium">Час</Typography>
+          <Typography>
+            {`${getStringTime(openedEvent?.startTime)} -  
+            ${getStringTime(openedEvent?.endTime)}`}
+          </Typography>
+        </Box>
+        <Box sx={styles.row}>
+          <Typography variant="body1Medium">Конференція</Typography>
+          <Link href={openedEvent?.url as string} text={openedEvent?.url} />
+        </Box>
+
+        <Box sx={styles.infoContainer}>
+          <TabContext value={tabValue}>
+            <TabList onChange={(_, value) => setTabValue(value)}>
+              <Tab
+                disableRipple
+                label="Про подію"
+                textPosition={TabTextPosition.CENTER}
+                value={InfoCardTabs.EVENT}
               />
-            );
-          })}
+              <Tab
+                disableRipple
+                label="Про дисципліну"
+                textPosition={TabTextPosition.CENTER}
+                value={InfoCardTabs.DISCIPLINE}
+              />
+            </TabList>
+
+            <TabPanel value={InfoCardTabs.EVENT}>
+              <Typography>
+                {openedEvent?.eventInfo ?? 'Інформація про подію відстуня'}
+              </Typography>
+            </TabPanel>
+            <TabPanel value={InfoCardTabs.DISCIPLINE}>
+              <Typography>
+                {openedEvent?.disciplineInfo ??
+                  'Інформація про дисципліну відстуня'}
+              </Typography>
+            </TabPanel>
+          </TabContext>
         </Box>
       </Box>
-      <Box>
-        <Typography variant="body1Medium">Дата</Typography>
-        <Typography>
-          {data.startTime} - {data.endTime}
-        </Typography>
-      </Box>
-      <Box>
-        <Typography variant="body1Medium">Конференція</Typography>
-        <Link href={data.url} text={data.url} />
-      </Box>
-      <Box sx={styles.infoContainer()}>
-        <Tabs sx={styles.tab()} value={tabValue} onChange={handleChange}>
-          <Tab value="event" label="Про подію" />
-          <Tab value="discipline" label="Про дисципліну" />
-        </Tabs>
-        {tabValue === 'event' && <Typography>{data.eventInfo}</Typography>}
-        {tabValue === 'discipline' && (
-          <Typography>{data.disciplineInfo}</Typography>
-        )}
-      </Box>
-    </Box>
+    </ClickAwayListener>
   );
 };
 

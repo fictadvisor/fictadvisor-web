@@ -3,7 +3,7 @@ import { Box, Divider, SxProps, Theme } from '@mui/material';
 
 import Tooltip from '@/components/common/ui/tooltip-mui';
 import { calctulateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateTop';
-import { getCurrentTime } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/getCurrentTime';
+import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import { useSchedule } from '@/store/schedule/useSchedule';
 
@@ -36,7 +36,7 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
       {dashed && <Divider sx={styles.dashed} />}
 
       <Tooltip
-        title={getCurrentTime(time.toISOString())}
+        title={getStringTime(time.toISOString())}
         arrow={true}
         placement={'left'}
         sx={styles.tooltip}

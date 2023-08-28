@@ -1,60 +1,48 @@
 import { SxProps, Theme } from '@mui/material';
 
-import { ScheduleEventEditDevice } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
-import theme from '@/styles/theme';
-
-export const container = (device: ScheduleEventEditDevice): SxProps<Theme> => ({
-  width: '528px',
+export const container = {
+  width: { mobile: '100%', tablet: '528px' },
   padding: '36px 36px 36px 28px',
   boxShadow: '0px 4px 50px 10px rgba(0, 0, 0, 0.25)',
+  position: 'fixed',
+  zIndex: 3,
+  backgroundColor: 'backgroundDark.100',
+  top: '64px',
+  right: '0',
+  display: 'flex',
+  flexFlow: 'column nowrap',
+};
 
-  div: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: '8px',
+export const row: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'row',
+  marginBottom: '8px',
+  '&>*:nth-child(1)': {
+    minWidth: '96px',
+    pr: '8px',
   },
+};
 
-  span: {
-    width: '92px',
-    marginRight: '12px',
-  },
-
-  ...(device === ScheduleEventEditDevice.MOBILE && {
-    width: '100%',
-  }),
-});
-
-export const titleContainer = (): SxProps<Theme> => ({
+export const titleContainer: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   marginBottom: '20px!important',
-});
+};
 
-export const teachersContainer = (
-  device: ScheduleEventEditDevice,
-): SxProps<Theme> => ({
-  div: {
-    flexDirection: 'column!important',
-  },
-});
+export const teachersContainer: SxProps<Theme> = {
+  display: 'flex',
+  flexFlow: 'column nowrap',
+};
 
-export const infoContainer = (): SxProps<Theme> => ({
-  flexDirection: 'column!important',
-});
+export const infoContainer: SxProps<Theme> = {
+  '& .MuiTabs-flexContainer': {
+    gap: '8px',
+  },
 
-export const tab = (): SxProps<Theme> => ({
-  button: {
-    marginTop: '20px',
-    marginBottom: '16px',
-    padding: '8px 16px 8px 16px',
-    textTransform: 'none',
-    color: theme.palette.white.main,
-    '&.Mui-selected': {
-      color: theme.palette.white.main,
-      padding: '8px 16px 8px 16px',
-      backgroundColor: theme.palette.backgroundDark[200],
-      borderRadius: '4px',
-    },
+  '& button': {
+    p: '8px 16px',
+    width: 'fit-content',
+    height: 'fit-content',
   },
-  span: {
-    display: 'none!important',
-  },
-});
+};

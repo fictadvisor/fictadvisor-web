@@ -4,6 +4,8 @@ import { useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
+import ScheduleEventEdit from '@/components/pages/schedule-page/schedule-event-edit-section';
+import ScheduleInfoCard from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-info-card';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -37,14 +39,21 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const router = useRouter();
   const { user } = useAuthentication();
 
-  const { setGroupId, setWeek, setDate, setChosenDay, setSemester } =
-    useSchedule(state => ({
-      setGroupId: state.setGroupId,
-      setWeek: state.setWeek,
-      setDate: state.setDate,
-      setChosenDay: state.setChosenDay,
-      setSemester: state.setSemester,
-    }));
+  const {
+    setGroupId,
+    setWeek,
+    setDate,
+    setChosenDay,
+    setSemester,
+    openedEvent,
+  } = useSchedule(state => ({
+    setGroupId: state.setGroupId,
+    setWeek: state.setWeek,
+    setDate: state.setDate,
+    setChosenDay: state.setChosenDay,
+    setSemester: state.setSemester,
+    openedEvent: state.openedEvent,
+  }));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -104,6 +113,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
         {isMobile ? <ScheduleSectionMobile /> : <ScheduleSection />}
       </Box>
+      {openedEvent && <ScheduleInfoCard />}
     </PageLayout>
   );
 };

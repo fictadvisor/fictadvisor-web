@@ -4,7 +4,7 @@ import theme from '@/styles/theme';
 
 import { ScheduleLineVariant } from './types';
 
-export const container = (top: string): SxProps<Theme> => ({
+export const container = (top: number): SxProps<Theme> => ({
   display: 'flex',
   alignItems: 'center',
   position: 'absolute',
