@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import ScheduleEventEdit from '@/components/pages/schedule-page/schedule-event-edit-section/ScheduleEventEdit';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
@@ -37,6 +38,7 @@ export interface SchedulePageProps {
 const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const router = useRouter();
   const { user } = useAuthentication();
+  const toast = useToast();
 
   const {
     setGroupId,
@@ -45,6 +47,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     setChosenDay,
     setSemester,
     openedEvent,
+    groupId,
   } = useSchedule(state => ({
     setGroupId: state.setGroupId,
     setWeek: state.setWeek,
@@ -52,6 +55,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     setChosenDay: state.setChosenDay,
     setSemester: state.setSemester,
     openedEvent: state.openedEvent,
+    groupId: state.groupId,
   }));
 
   useEffect(() => {
@@ -99,6 +103,10 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   }, [router.isReady]);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
+
+  useEffect(() => {
+    if (!groupId) toast.info('Введіть свою групу', '', 4000);
+  }, [groupId]);
 
   return (
     <PageLayout title={'Розклад'}>

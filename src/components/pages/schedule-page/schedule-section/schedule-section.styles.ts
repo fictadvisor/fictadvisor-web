@@ -53,3 +53,10 @@ export const noEvents: SxProps<Theme> = {
   typography: 'body1',
   lineHeight: '400%',
 };
+
+export const skeleton: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '19px',
+  marginBottom: '10px',
+};

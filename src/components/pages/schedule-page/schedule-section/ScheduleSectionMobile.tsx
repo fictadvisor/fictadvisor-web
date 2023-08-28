@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Box, Typography } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
-import Progress from '@/components/common/ui/progress-mui';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
@@ -68,7 +68,26 @@ const ScheduleSectionMobile = () => {
             ))}
           </Box>
         ) : (
-          <Progress />
+          <>
+            {dayMapper.map((_, i) => (
+              <Box key={i} sx={styles.skeleton}>
+                <Skeleton
+                  width={38}
+                  height={38}
+                  variant={'rounded'}
+                  sx={{ bgcolor: 'grey.200' }}
+                  animation="wave"
+                />
+                <Skeleton
+                  width={'100%'}
+                  height={80}
+                  variant={'rounded'}
+                  sx={{ bgcolor: 'grey.200' }}
+                  animation="wave"
+                />
+              </Box>
+            ))}
+          </>
         )}
       </Box>
     </Box>
