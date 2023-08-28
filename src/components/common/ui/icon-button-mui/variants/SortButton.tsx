@@ -17,6 +17,7 @@ const SortButton: React.FC<OrderedIconButtonProps> = ({
   order = IconButtonOrder.ASCENDING,
   color = IconButtonColor.SECONDARY,
   disabled,
+  ...rest
 }) => {
   const SortIcon =
     order === IconButtonOrder.ASCENDING ? SortAscending : SortDescending;
@@ -28,6 +29,7 @@ const SortButton: React.FC<OrderedIconButtonProps> = ({
       shape={shape}
       color={color}
       disabled={disabled}
+      {...rest}
     />
   );
 };
