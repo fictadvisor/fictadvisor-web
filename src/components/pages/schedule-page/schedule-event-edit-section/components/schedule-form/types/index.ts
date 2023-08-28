@@ -3,7 +3,7 @@ export interface ScheduleEventFormFields {
   name: string;
   disciplineId: string;
   disciplineType: string;
-  //teachers:  [string] - cringe, it is a tuple with 1 string element; string[] - based, array of stringsS;
+  teachers: string[];
   startTime: string;
   endTime: string;
   period: string;

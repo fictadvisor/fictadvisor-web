@@ -5,7 +5,7 @@ export const initialValues: ScheduleEventFormFields = {
   name: '',
   disciplineId: '',
   disciplineType: '',
-  teachers: [''],
+  teachers: [],
   startTime: '',
   endTime: '',
   period: '',
