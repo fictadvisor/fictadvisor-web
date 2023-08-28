@@ -19,7 +19,7 @@ const ScheduleSectionMobile = () => {
       currentTime: state.currentTime,
     }),
   );
-  const dayMapper = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+  const dayMapper = ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 
   const eventsPerWeek = useMemo(() => {
     if (!events[week - 1]) return null;
@@ -46,7 +46,7 @@ const ScheduleSectionMobile = () => {
               <Box sx={styles.event} key={index}>
                 <Box sx={styles.eventDate}>
                   <Typography sx={styles.day}>
-                    {dayMapper[day.day.getDay() - 1]}
+                    {dayMapper[day.day.getDay()]}
                   </Typography>
                   <Typography
                     sx={styles.date(

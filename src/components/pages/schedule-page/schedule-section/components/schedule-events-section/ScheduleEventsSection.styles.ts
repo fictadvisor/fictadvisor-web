@@ -8,7 +8,7 @@ export const eventsContainer: SxProps<Theme> = {
   p: '16px',
   borderRadius: '6px',
   boxShadow: '0px 4px 10px 10px rgba(0, 0, 0, 0.10)',
-  width: 'fit-content',
+  width: { mobile: '100%', tablet: 'fit-content' },
   position: 'relative',
   zIndex: 2,
 };

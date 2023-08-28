@@ -33,7 +33,6 @@ export const eventDate: SxProps<Theme> = {
 
 export const day: SxProps<Theme> = {
   fontSize: '14px',
-  textTransform: 'lowercase',
   color: 'grey.500',
   textAlign: 'center',
 };
