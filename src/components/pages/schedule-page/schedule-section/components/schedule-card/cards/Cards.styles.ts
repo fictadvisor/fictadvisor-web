@@ -139,7 +139,10 @@ const subjectColors = (disciplineType: string): SxProps<Theme> => ({
 });
 
 export const wrapper: SxProps<Theme> = {
-  height: '137px',
+  height: {
+    tablet: '137px',
+    mobile: '80px',
+  },
   width: {
     tablet: '129px',
     mobile: '100%',
@@ -149,12 +152,22 @@ export const wrapper: SxProps<Theme> = {
   cursor: 'pointer',
 };
 
-export const packedCard = (top: number): SxProps<Theme> => ({
+export const packedCard = (
+  top: number,
+  width: number,
+  left: number,
+): SxProps<Theme> => ({
   position: 'absolute',
-  top,
+  top: { mobile: 0, tablet: top },
+  left: { mobile: left, tablet: 0 },
+  width: {
+    tablet: '129px',
+    mobile: `calc(100% - ${width}px)`,
+  },
   outline: '2px solid',
-  outlineColor: '#1E1E1E', //It is backgroundDark.100, but MUI doesn\'t support theme colors for outlineColor
+  outlineColor: { mobile: 'transparent', tablet: '#1E1E1E' }, //It is backgroundDark.100, but MUI doesn\'t support theme colors for outlineColor
 });
+
 export const card = (
   disciplineType: string,
   height: string | number,

@@ -27,14 +27,16 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
     <Box sx={styles.wrapper} onClick={onClick}>
       {trimmedEvents.map((event, index) => {
         const eventHeight = height - 14 * index;
+        const width = index * 10;
         const top = 14 * index;
+        const left = 10 * index - 2;
 
         return (
           <Button
             key={event.id}
             sx={mergeSx(
               styles.card(event.disciplineType.name, eventHeight),
-              styles.packedCard(top),
+              styles.packedCard(top, width, left),
             )}
             disableRipple
             disabled={false}
