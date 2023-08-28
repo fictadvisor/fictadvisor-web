@@ -159,7 +159,7 @@ export const packedCard = (
 ): SxProps<Theme> => ({
   position: 'absolute',
   top: { mobile: 0, tablet: top },
-  left: { mobile: left, tablet: 0 },
+  left: { mobile: left, tablet: -2 },
   width: {
     tablet: '129px',
     mobile: `calc(100% - ${width}px)`,
