@@ -4,8 +4,7 @@ import { useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import ScheduleEventEdit from '@/components/pages/schedule-page/schedule-event-edit-section';
-import ScheduleInfoCard from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-info-card';
+import ScheduleEventEdit from '@/components/pages/schedule-page/schedule-event-edit-section/ScheduleEventEdit';
 import useAuthentication from '@/hooks/use-authentication';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -113,7 +112,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
         {isMobile ? <ScheduleSectionMobile /> : <ScheduleSection />}
       </Box>
-      {openedEvent && <ScheduleInfoCard />}
+      {openedEvent && <ScheduleEventEdit />}
     </PageLayout>
   );
 };

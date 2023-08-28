@@ -33,13 +33,6 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
   const { user } = useAuthentication();
 
   const handleClick = async (_event: Event, week: string | number) => {
-    if (
-      openedEvent &&
-      openedEvent.id === _event.id &&
-      openedEvent.startTime === _event.startTime
-    )
-      return;
-
     if (!user) {
       toast.info(
         'Увійдіть в акаунт для перегляду детальної інофрмації про подію',
@@ -49,16 +42,7 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
       return;
     }
 
-    try {
-      const event = await ScheduleAPI.getEventInfo(_event.id, week);
-      useSchedule.setState(state => ({ openedEvent: event }));
-      console.log(event);
-    } catch (e) {
-      const error = (
-        e as { response: { data: { error: keyof typeof errorMapper } } }
-      ).response.data.error;
-      toast.error(errorMapper[error]);
-    }
+    useSchedule.setState(state => ({ openedEvent: _event }));
   };
 
   return (

@@ -7,6 +7,7 @@ import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { TDiscipline } from '@/types/schedule';
+import { Event } from '@/types/schedule';
 
 import { findFirstOf5 } from './utils/findFirstOf5';
 import { setUrlParams } from './utils/setUrlParams';
@@ -51,7 +52,7 @@ type State = {
   groupId: string;
   eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
-  openedEvent?: DetailedEventBody;
+  openedEvent?: Event;
   currentTime: Date;
   chosenDay: Date | null;
   isLoading: boolean;

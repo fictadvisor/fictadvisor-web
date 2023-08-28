@@ -1,26 +1,42 @@
-import { FC } from 'react';
-import { Box, SxProps, Theme } from '@mui/material';
-import ScheduleEventForm from 'src/components/pages/schedule-page/schedule-event-edit-section/components/schedule-form';
+import { FC, Fragment, useState } from 'react';
+import { useQuery } from 'react-query';
 
-import { ScheduleEventEditDevice } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
-import mergeSx from '@/lib/utils/MergeSxStylesUtil';
+import ScheduleInfoCard from '@/components/pages/schedule-page/schedule-event-edit-section/components/schedule-info-card';
+import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
+import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
+import { useSchedule } from '@/store/schedule/useSchedule';
+import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
+export const ScheduleEventEdit = () => {
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const closeWindow = () => {
+    useSchedule.setState({ openedEvent: undefined });
+  };
 
-import * as styles from './ScheduleEventEdit.styles';
+  const { openedEvent, semester } = useSchedule(state => ({
+    openedEvent: state.openedEvent,
+    semester: state.semester,
+  }));
 
-interface ScheduleEventEditProps {
-  device?: ScheduleEventEditDevice;
-  sx?: SxProps<Theme>;
-}
+  const week = getWeekByDate(
+    semester as GetCurrentSemester,
+    new Date(openedEvent?.startTime as string),
+  );
 
-export const ScheduleEventEdit: FC<ScheduleEventEditProps> = ({
-  device = ScheduleEventEditDevice.DESKTOP,
-  sx = {},
-}) => {
+  const { data, isLoading } = useQuery(['event', openedEvent?.id, week], () =>
+    ScheduleAPI.getEventInfo(openedEvent?.id as string, week),
+  );
+
   return (
-    <Box sx={mergeSx(styles.container(device), sx)}>
-      <ScheduleEventForm />
-      {/*<ScheduleEventForm device={ScheduleEventEditDevice.MOBILE} />*/}
-    </Box>
+    <Fragment>
+      {!isEditOpen && (
+        <ScheduleInfoCard
+          onCloseButtonClick={closeWindow}
+          onEventEditButtonClick={() => setIsEditOpen(true)}
+          loading={isLoading}
+          event={data}
+        />
+      )}
+    </Fragment>
   );
 };
 
