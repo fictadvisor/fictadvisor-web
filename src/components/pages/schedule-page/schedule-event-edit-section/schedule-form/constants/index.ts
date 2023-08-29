@@ -1,5 +1,5 @@
 import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
-import { TagColor } from '@/components/common/ui/tag-mui/types';
+import { TagColor } from '@/components/common/ui/tag/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { TDiscipline, TEventPeriod } from '@/types/schedule';
 

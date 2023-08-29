@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Box } from '@mui/material';
 
-import Progress from '@/components/common/ui/progress-mui';
+import Progress from '@/components/common/ui/progress';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
 import ScheduleLine from '@/components/pages/schedule-page/schedule-section/components/schedule-line';

@@ -53,13 +53,7 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState(
-    tab,
-    router,
-    setIndex,
-    TeachersPageTabs,
-    TeachersPageTabs.GENERAL,
-  );
+  const handleChange = useTabState({ tab, router, setIndex });
 
   useEffect(() => {
     if (isError) {

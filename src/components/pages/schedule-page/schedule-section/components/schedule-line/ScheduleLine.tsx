@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, Divider, SxProps, Theme } from '@mui/material';
 
-import Tooltip from '@/components/common/ui/tooltip-mui';
+import Tooltip from '@/components/common/ui/tooltip';
 import { calctulateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateTop';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';

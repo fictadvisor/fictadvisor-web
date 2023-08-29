@@ -5,7 +5,7 @@ export const container: SxProps<Theme> = {
   padding: '36px 36px 36px 28px',
   boxShadow: '0px 4px 50px 10px rgba(0, 0, 0, 0.25)',
   position: 'fixed',
-  zIndex: 3,
+  zIndex: 11,
   backgroundColor: 'backgroundDark.100',
   top: '64px',
   right: '0',

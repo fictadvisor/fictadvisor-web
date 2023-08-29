@@ -6,15 +6,10 @@ import Link from '@/components/common/ui/custom-link/CustomLink';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
-import {
-  Tab,
-  TabContext,
-  TabList,
-  TabPanel,
-} from '@/components/common/ui/tab-mui';
-import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
-import Tag from '@/components/common/ui/tag-mui';
-import { TagColor } from '@/components/common/ui/tag-mui/types';
+import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
+import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
+import Tag from '@/components/common/ui/tag';
+import { TagColor } from '@/components/common/ui/tag/types';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';

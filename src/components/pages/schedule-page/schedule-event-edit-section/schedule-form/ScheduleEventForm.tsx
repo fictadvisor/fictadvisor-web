@@ -10,13 +10,8 @@ import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { Form, Formik, FormikConfig, FormikProps } from 'formik';
 
-import {
-  Tab,
-  TabContext,
-  TabList,
-  TabPanel,
-} from '@/components/common/ui/tab-mui';
-import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
+import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
+import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
 import { ScheduleInputSize } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/schedule-input/ScheduleInput';
 import { getOptionsFromDate } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/utils/getOptionsFromDate';
@@ -33,7 +28,6 @@ import Input from './components/schedule-input';
 import TextArea from './components/text-area';
 import { eventTypeList, periodOptions } from './constants';
 import * as styles from './ScheduleEventForm.styles';
-import { scrollable } from './ScheduleEventForm.styles';
 import { validationSchema } from './validation';
 
 interface ScheduleEventFormProps {

@@ -4,9 +4,9 @@ import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { Dropdown } from '@/components/common/ui/form';
-import Tab from '@/components/common/ui/tab-mui/tab';
-import TabContext from '@/components/common/ui/tab-mui/tab-context';
-import TabList from '@/components/common/ui/tab-mui/tab-list/TabList';
+import Tab from '@/components/common/ui/tab/tab';
+import TabContext from '@/components/common/ui/tab/tab-context';
+import TabList from '@/components/common/ui/tab/tab-list/TabList';
 import useTabState from '@/hooks/use-tab-state';
 
 import * as styles from './TabSection.styles';
@@ -23,13 +23,11 @@ export const TabSection = () => {
   const { tab } = query;
 
   const [index, setIndex] = useState(CalendarPageTabs.STUDENT);
-  const handleChange = useTabState(
+  const handleChange = useTabState({
     tab,
     router,
     setIndex,
-    CalendarPageTabs,
-    CalendarPageTabs.STUDENT,
-  );
+  });
 
   return (
     <Box sx={styles.tabBox}>
