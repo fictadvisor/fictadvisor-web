@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/material';
 
-export const container: SxProps<Theme> = {
+export const container = {
   width: { mobile: '100%', tablet: '528px' },
   padding: '36px 36px 36px 28px',
   boxShadow: '0px 4px 50px 10px rgba(0, 0, 0, 0.25)',
@@ -9,54 +9,115 @@ export const container: SxProps<Theme> = {
   backgroundColor: 'backgroundDark.100',
   top: '64px',
   right: '0',
+
+  display: 'grid',
+  gridTemplateColumns: '96px auto',
+  alignItems: 'center',
+  gap: '8px',
+};
+
+export const row: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'row',
+
+  marginBottom: '8px',
+  '&>*:nth-child(1)': {
+    minWidth: '96px',
+    pr: '8px',
+    display: 'inline-flex',
+    alignItems: 'center',
+  },
+};
+
+export const grid: SxProps<Theme> = {
+  display: 'grid',
+  gridTemplateColumns: '90px auto',
+  '&>*:nth-child(1)': {
+    alignSelf: 'self-start',
+  },
+};
+
+export const titleContainer: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '20px!important',
+};
+
+export const teachersContainer: SxProps<Theme> = {
   display: 'flex',
   flexFlow: 'column nowrap',
-
-  // display: 'flex',
-  // flexDirection: 'column',
-  // gap: '8px',
-  // p: {
-  //   color: 'grey.400',
-  // },
-  // input: {
-  //   width: '100%',
-  //   borderRadius: '8px',
-  //   border: 'transparent',
-  //   height: '40px',
-  //   backgroundColor: 'backgroundDark.200',
-  //   '&:hover': {
-  //     border: 'transparent',
-  //   },
-  //   '&:focus': {
-  //     border: 'transparent',
-  //   },
-  //   '&::placeholder': {
-  //     color: 'grey.600',
-  //     fontSize: 14,
-  //     fontWeight: 400,
-  //   },
-  // },
-  // ...(device === ScheduleEventEditDevice.DESKTOP && {
-  //   '&>div': {
-  //     display: 'flex',
-  //     flexDirection: 'row',
-  //     '&>span': {
-  //       width: '92px',
-  //       flex: 1,
-  //     },
-  //     '&>div': {
-  //       flex: 3,
-  //     },
-  //   },
-  // }),
-  // ...(device === ScheduleEventEditDevice.MOBILE && {
-  //   '&>div': {
-  //     display: 'flex',
-  //     flexDirection: 'column',
-  //     gap: '2px',
-  //   },
-  // }),
 };
+
+export const infoContainer: SxProps<Theme> = {
+  '& .MuiTabs-flexContainer': {
+    gap: '8px',
+  },
+
+  '& button': {
+    p: '8px 16px',
+    width: 'fit-content',
+    height: 'fit-content',
+  },
+};
+
+// export const container: SxProps<Theme> = {
+//   width: { mobile: '100%', tablet: '528px' },
+//   padding: '36px 36px 36px 28px',
+//   boxShadow: '0px 4px 50px 10px rgba(0, 0, 0, 0.25)',
+//   position: 'fixed',
+//   zIndex: 3,
+//   backgroundColor: 'backgroundDark.100',
+//   top: '64px',
+//   right: '0',
+//   display: 'flex',
+//   flexFlow: 'column nowrap',
+
+// display: 'flex',
+// flexDirection: 'column',
+// gap: '8px',
+// p: {
+//   color: 'grey.400',
+// },
+// input: {
+//   width: '100%',
+//   borderRadius: '8px',
+//   border: 'transparent',
+//   height: '40px',
+//   backgroundColor: 'backgroundDark.200',
+//   '&:hover': {
+//     border: 'transparent',
+//   },
+//   '&:focus': {
+//     border: 'transparent',
+//   },
+//   '&::placeholder': {
+//     color: 'grey.600',
+//     fontSize: 14,
+//     fontWeight: 400,
+//   },
+// },
+// ...(device === ScheduleEventEditDevice.DESKTOP && {
+//   '&>div': {
+//     display: 'flex',
+//     flexDirection: 'row',
+//     '&>span': {
+//       width: '92px',
+//       flex: 1,
+//     },
+//     '&>div': {
+//       flex: 3,
+//     },
+//   },
+// }),
+// ...(device === ScheduleEventEditDevice.MOBILE && {
+//   '&>div': {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: '2px',
+//   },
+// }),
+// };
 //
 // export const titleContainer = (): SxProps<Theme> => ({
 //   flexDirection: 'row!important',

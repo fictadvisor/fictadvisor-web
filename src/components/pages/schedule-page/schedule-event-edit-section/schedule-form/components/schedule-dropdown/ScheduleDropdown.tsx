@@ -16,6 +16,7 @@ export const ScheduleFormikDropdown: FC<FormikDropdownProps> = props => {
       placeholder={'Оберіть викладача'}
       dropdownSx={styles.dropdown}
       inputSx={styles.input()}
+      showRemark={false}
     />
   );
 };
@@ -25,9 +26,9 @@ export const ScheduleDropdown: FC<DropdownProps> = props => {
     <Dropdown
       {...props}
       label={''}
-      placeholder={'Оберіть викладача'}
       dropdownSx={styles.dropdown}
       inputSx={styles.input()}
+      showRemark={false}
     />
   );
 };

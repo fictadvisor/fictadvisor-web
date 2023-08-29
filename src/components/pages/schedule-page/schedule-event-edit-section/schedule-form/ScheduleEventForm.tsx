@@ -16,6 +16,7 @@ import { Input } from '@/components/common/ui/form';
 import { FieldSize } from '@/components/common/ui/form/common/types';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
+import Tag from '@/components/common/ui/tag-mui';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
 import {
   eventTypeList,
@@ -36,9 +37,9 @@ import { Teacher } from '@/types/teacher';
 
 import { skeletonProps } from '../utils/skeletonProps';
 
+import { ScheduleFormikDropdown } from './components/schedule-dropdown/ScheduleDropdown';
 import * as styles from './ScheduleEventForm.styles';
 import { validationSchema } from './validation';
-
 interface ScheduleEventFormProps {
   onSubmit: FormikConfig<SharedEventBody>['onSubmit'];
   initialValues: SharedEventBody;
@@ -93,20 +94,29 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   // };
 
   return (
-    <Box sx={styles.container}>
-      <Formik
-        innerRef={form}
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        {({ values }) => (
-          <Form>
+    <Formik
+      innerRef={form}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ values }) => (
+        <Form>
+          <Box sx={styles.container}>
+            <Typography variant="body1Medium">Тип</Typography>
+            <ScheduleFormikDropdown
+              name={'disciplineType'}
+              options={eventTypeList}
+            />
+            <Typography variant="body1Medium" alignSelf="start">
+              Викладач
+            </Typography>
             {isLoading ? (
-              <Skeleton {...skeletonProps} width={300} height={100} />
+              <Skeleton {...skeletonProps} width={300} height={50} />
             ) : (
               <AddDeleteTeachers name={'teachers'} />
             )}
+
             {/*<Box sx={styles.titleContainer()}>*/}
             {/*  <Input*/}
             {/*    placeholder="Введи назву події"*/}
@@ -149,23 +159,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
             {/*        ))}*/}
             {/*      </Box>*/}
             {/*    </Box>*/}
-            {/*    <Box>*/}
-            {/*      <Button*/}
-            {/*        text="Додати"*/}
-            {/*        onClick={handleAddTeacher}*/}
-            {/*        variant={ButtonVariant.TEXT}*/}
-            {/*        startIcon={<Add />}*/}
-            {/*        size={ButtonSize.SMALL}*/}
-            {/*      />*/}
-            {/*      <Button*/}
-            {/*        text="Видалити"*/}
-            {/*        onClick={handleDeleteTeacher}*/}
-            {/*        variant={ButtonVariant.TEXT}*/}
-            {/*        startIcon={<Delete />}*/}
-            {/*        color={ButtonColor.PRIMARY}*/}
-            {/*        size={ButtonSize.SMALL}*/}
-            {/*      />*/}
-            {/*    </Box>*/}
+
             {/*  </Box>*/}
             {/*)}*/}
 
@@ -252,10 +246,10 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
             {/*    />*/}
             {/*  </Box>*/}
             {/*</Box>*/}
-          </Form>
-        )}
-      </Formik>
-    </Box>
+          </Box>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

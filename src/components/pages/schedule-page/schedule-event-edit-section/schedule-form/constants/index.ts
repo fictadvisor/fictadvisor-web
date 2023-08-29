@@ -1,5 +1,8 @@
+import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
+import { TagColor } from '@/components/common/ui/tag-mui/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { TDiscipline, TEventPeriod } from '@/types/schedule';
+
 export const initialValues: SharedEventBody = {
   name: '',
   disciplineId: '',
@@ -13,30 +16,36 @@ export const initialValues: SharedEventBody = {
   eventInfo: '',
 };
 
-export const eventTypeList = [
+export const eventTypeList: DropDownOption[] = [
   {
     id: TDiscipline.LABORATORY,
     text: 'Лабораторна',
+    color: TagColor.MINT,
   },
   {
     id: TDiscipline.EXAM,
     text: 'Екзамен',
+    color: TagColor.VIOLET,
   },
   {
     id: TDiscipline.WORKOUT,
     text: 'Тренування',
+    color: TagColor.PRIMARY,
   },
   {
     id: TDiscipline.PRACTICE,
     text: 'Практика',
+    color: TagColor.ORANGE,
   },
   {
     id: TDiscipline.LECTURE,
     text: 'Лекція',
+    color: TagColor.INDIGO,
   },
   {
     id: TDiscipline.CONSULTATION,
     text: 'Консультація',
+    color: TagColor.SUCCESS,
   },
 ];
 
