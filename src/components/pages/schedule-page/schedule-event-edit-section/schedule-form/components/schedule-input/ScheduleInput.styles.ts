@@ -38,8 +38,7 @@ export const input = (size: ScheduleInputSize): SxProps<Theme> => ({
   },
 
   svg: {
-    width: '18px',
-    height: '18px',
+    color: 'grey.800',
   },
 
   ...(size === ScheduleInputSize.NORMAL && {

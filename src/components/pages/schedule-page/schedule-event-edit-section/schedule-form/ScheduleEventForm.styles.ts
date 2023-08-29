@@ -9,33 +9,8 @@ export const container: SxProps<Theme> = {
   backgroundColor: 'backgroundDark.100',
   top: '64px',
   right: '0',
-};
-
-export const content: SxProps<Theme> = {
-  display: 'grid',
-  gridTemplateColumns: '96px auto',
-  alignItems: 'center',
-  gap: '8px',
-};
-export const row: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'row',
-
-  marginBottom: '8px',
-  '&>*:nth-child(1)': {
-    minWidth: '96px',
-    pr: '8px',
-    display: 'inline-flex',
-    alignItems: 'center',
-  },
-};
-
-export const grid: SxProps<Theme> = {
-  display: 'grid',
-  gridTemplateColumns: '90px auto',
-  '&>*:nth-child(1)': {
-    alignSelf: 'self-start',
-  },
+  maxHeight: 'calc(100% - 64px)',
+  overflowY: 'scroll',
 };
 
 export const titleContainer: SxProps<Theme> = {
@@ -43,17 +18,25 @@ export const titleContainer: SxProps<Theme> = {
   gap: '16px',
   justifyContent: 'space-between',
   alignItems: 'center',
-  mb: '20px',
 };
-
-export const teachersContainer: SxProps<Theme> = {
-  display: 'flex',
-  flexFlow: 'column nowrap',
+export const scrollable: SxProps<Theme> = {
+  overflowY: 'scroll',
+};
+export const content: SxProps<Theme> = {
+  display: 'grid',
+  gridTemplateColumns: '96px auto',
+  alignItems: 'center',
+  gap: '8px',
+  mt: '16px',
 };
 
 export const infoContainer: SxProps<Theme> = {
+  mt: '20px',
   '& .MuiTabs-flexContainer': {
     gap: '8px',
+  },
+  '& .MuiTabs-root': {
+    minHeight: 'unset',
   },
 
   '& button': {

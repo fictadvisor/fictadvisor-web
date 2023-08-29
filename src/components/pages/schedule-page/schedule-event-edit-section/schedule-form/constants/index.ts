@@ -49,7 +49,7 @@ export const eventTypeList: DropDownOption[] = [
   },
 ];
 
-export const periodList = [
+export const periodOptions: DropDownOption[] = [
   {
     id: TEventPeriod.NO_PERIOD,
     label: 'Одиночна подія',

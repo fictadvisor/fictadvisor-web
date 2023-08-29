@@ -1,33 +1,25 @@
 import { FC } from 'react';
-import { SxProps } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import { Theme } from '@mui/system';
-
-import mergeSx from '@/lib/utils/MergeSxStylesUtil';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { useField } from 'formik';
 
 import * as styles from './TextArea.styles';
-import { TextAreaSize } from './types';
 
-interface TextAreaProps {
-  placeholder: string;
-  size: TextAreaSize;
-  sx?: SxProps<Theme>;
+interface ScheduleTextAreaProps extends TextFieldProps<'standard'> {
+  name: string;
 }
+const TextArea: FC<ScheduleTextAreaProps> = ({ name, ...props }) => {
+  const [formikProps, { touched, error }, { setValue, setTouched }] =
+    useField(name);
 
-const TextArea: FC<TextAreaProps> = ({
-  size = TextAreaSize.NORMAL,
-  sx = {},
-  placeholder = 'Text Area',
-}) => {
   return (
     <TextField
+      {...props}
+      {...formikProps}
       variant="standard"
       margin="normal"
-      sx={mergeSx(styles.textArea(size), sx)}
-      placeholder={placeholder}
+      sx={styles.textArea}
       multiline
-      rows={5}
-      maxRows={5}
+      maxRows={3}
       InputProps={{
         disableUnderline: true,
       }}

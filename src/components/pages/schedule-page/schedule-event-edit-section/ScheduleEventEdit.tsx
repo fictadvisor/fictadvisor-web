@@ -36,9 +36,15 @@ export const ScheduleEventEdit = () => {
     if (user.group?.role !== UserGroupRole.STUDENT) setIsEditOpen(true);
   };
 
-  const { data, isLoading } = useQuery(['event', openedEvent?.id, week], () =>
-    ScheduleAPI.getEventInfo(openedEvent?.id as string, week),
+  const { data, isLoading } = useQuery(
+    ['event', openedEvent?.id, week],
+    () => ScheduleAPI.getEventInfo(openedEvent?.id as string, week),
+    {},
   );
+
+  useEffect(() => {
+    setIsEditOpen(false);
+  }, [openedEvent?.id, week]);
 
   return (
     <Fragment>

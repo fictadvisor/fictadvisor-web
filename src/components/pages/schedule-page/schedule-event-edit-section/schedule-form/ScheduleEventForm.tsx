@@ -1,17 +1,24 @@
 import React, { FC, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import {
+  ArrowPathIcon,
   ArrowRightIcon,
   ClockIcon,
-  XMarkIcon,
+  LinkIcon,
 } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { Form, Formik, FormikConfig, FormikProps } from 'formik';
 
+import {
+  Tab,
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@/components/common/ui/tab-mui';
+import { TabTextPosition } from '@/components/common/ui/tab-mui/tab/types';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
 import { ScheduleInputSize } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/schedule-input/ScheduleInput';
-import { eventTypeList } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/constants';
 import { getOptionsFromDate } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/utils/getOptionsFromDate';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
@@ -23,7 +30,10 @@ import { skeletonProps } from '../utils/skeletonProps';
 
 import { ScheduleFormikDropdown } from './components/schedule-dropdown/ScheduleDropdown';
 import Input from './components/schedule-input';
+import TextArea from './components/text-area';
+import { eventTypeList, periodOptions } from './constants';
 import * as styles from './ScheduleEventForm.styles';
+import { scrollable } from './ScheduleEventForm.styles';
 import { validationSchema } from './validation';
 
 interface ScheduleEventFormProps {
@@ -41,6 +51,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
     !initialValues.startTime ? undefined : new Date(initialValues.startTime),
   );
   const teachers = useSchedule(state => state.teachers);
+  const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
 
   const { isLoading } = useQuery('AllTeachers', () => TeacherAPI.getAll(), {
     onSuccess: data => {
@@ -48,8 +59,6 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         useSchedule.setState(state => ({ teachers: data.teachers }));
     },
   });
-
-  const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
 
   const form = useRef<FormikProps<SharedEventBody>>(null);
 
@@ -71,7 +80,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         // validationSchema={{}}
       >
         {({ values }) => (
-          <Form>
+          <Form style={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={styles.titleContainer}>
               <Input
                 placeholder="Введи назву події"
@@ -106,103 +115,31 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                     name={'startTime'}
                     options={getOptionsFromDate(date)}
                     placeholder={'Оберіть час'}
-                    icon={<ClockIcon width={24} height={24} />}
+                    icon={<ClockIcon width={22} height={22} />}
                   />
                   <ScheduleFormikDropdown
                     name={'endTime'}
                     options={getOptionsFromDate(date)}
                     placeholder={'Оберіть час'}
-                    icon={<ArrowRightIcon width={24} height={24} />}
+                    icon={<ArrowRightIcon width={22} height={22} />}
                   />
                 </Box>
               )}
+              <Typography variant="body1Medium">Повторення</Typography>
+              <ScheduleFormikDropdown
+                name={'period'}
+                options={periodOptions}
+                placeholder={'Оберіть період'}
+                icon={<ArrowPathIcon width={22} height={22} />}
+              />
+              <Typography variant="body1Medium">Конференція</Typography>
+              <Input
+                placeholder="Введи посилання"
+                name="url"
+                size={ScheduleInputSize.NORMAL}
+                icon={<LinkIcon width={22} height={22} />}
+              />
 
-              {/*{['1', '2', '3'].includes(values.disciplineType) && (*/}
-              {/*  <Box sx={styles.teacherContainer(device)}>*/}
-              {/*    <Box>*/}
-              {/*      <Typography variant="body1Medium">Викладач</Typography>*/}
-              {/*      <Box>*/}
-              {/*        {teacherInputList.map((teacher, index) => (*/}
-              {/*          <FormikDropdown*/}
-              {/*            key={index}*/}
-              {/*            size={FieldSize.LARGE}*/}
-              {/*            options={teachersList.map(teacher => ({*/}
-              {/*              id: teacher.id,*/}
-              {/*              value: teacher.id,*/}
-              {/*              label: `${teacher.firstName} ${teacher.middleName} ${teacher.lastName}`,*/}
-              {/*            }))}*/}
-              {/*            name="teachers"*/}
-              {/*            label=""*/}
-              {/*            placeholder="Введи викладача"*/}
-              {/*            showRemark={false}*/}
-              {/*          />*/}
-              {/*        ))}*/}
-              {/*      </Box>*/}
-              {/*    </Box>*/}
-
-              {/*  </Box>*/}
-              {/*)}*/}
-
-              {/*<Box sx={styles.timeContainer()}>*/}
-              {/*  <Typography variant="body1Medium">Час</Typography>*/}
-              {/*  <Box>*/}
-              {/*    <Input*/}
-              {/*      placeholder="Початок"*/}
-              {/*      // icon={<Start />}*/}
-              {/*      name="startTime"*/}
-              {/*      showRemark={false}*/}
-              {/*    />*/}
-              {/*    <Input*/}
-              {/*      placeholder="Кінець"*/}
-              {/*      // icon={<End />}*/}
-              {/*      name="endTime"*/}
-              {/*      showRemark={false}*/}
-              {/*    />*/}
-              {/*  </Box>*/}
-              {/*</Box>*/}
-              {/*<Box>*/}
-              {/*  <Typography variant="body1Medium">Дата</Typography>*/}
-              {/*  <Input showRemark={false} placeholder="Дата події" name="data" />*/}
-              {/*</Box>*/}
-              {/*<Box>*/}
-              {/*  <Typography variant="body1Medium">Повторення</Typography>*/}
-              {/*  <FormikDropdown*/}
-              {/*    size={FieldSize.LARGE}*/}
-              {/*    options={periodList}*/}
-              {/*    label=""*/}
-              {/*    name="period"*/}
-              {/*    placeholder="вибери зі списку"*/}
-              {/*    showRemark={false}*/}
-              {/*  />*/}
-              {/*</Box>*/}
-              {/*<Box>*/}
-              {/*  <Typography variant="body1Medium">Конференція</Typography>*/}
-              {/*  <Input*/}
-              {/*    showRemark={false}*/}
-              {/*    placeholder="Додай посилання"*/}
-              {/*    name="url"*/}
-              {/*  />*/}
-              {/*</Box>*/}
-              {/*<Box sx={styles.infoContainer()}>*/}
-              {/*  <Tabs sx={styles.tab()} value={tabValue} onChange={handleChange}>*/}
-              {/*    <Tab value="event" label="Про подію" />*/}
-              {/*    <Tab value="discipline" label="Про дисципліну" />*/}
-              {/*  </Tabs>*/}
-              {/*  {tabValue === 'event' && (*/}
-              {/*    <TextField*/}
-              {/*      placeholder="Напиши опис до події"*/}
-              {/*      // size={TextAreaSize.NORMAL}*/}
-              {/*      name="eventInfo"*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*  {tabValue === 'discipline' && (*/}
-              {/*    <TextField*/}
-              {/*      placeholder="Напиши опис до дисципліни"*/}
-              {/*      // size={TextAreaSize.NORMAL}*/}
-              {/*      name="disciplineInfo"*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*</Box>*/}
               {/*<Box sx={styles.buttonContainer()}>*/}
               {/*  <Button*/}
               {/*    text="Видалити"*/}
@@ -226,6 +163,31 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               {/*    />*/}
               {/*  </Box>*/}
               {/*</Box>*/}
+            </Box>
+            <Box sx={styles.infoContainer}>
+              <TabContext value={tabValue}>
+                <TabList onChange={(_, value) => setTabValue(value)}>
+                  <Tab
+                    disableRipple
+                    label="Про подію"
+                    textPosition={TabTextPosition.CENTER}
+                    value={InfoCardTabs.EVENT}
+                  />
+                  <Tab
+                    disableRipple
+                    label="Про дисципліну"
+                    textPosition={TabTextPosition.CENTER}
+                    value={InfoCardTabs.DISCIPLINE}
+                  />
+                </TabList>
+
+                <TabPanel value={InfoCardTabs.EVENT}>
+                  <TextArea name={'eventInfo'} />
+                </TabPanel>
+                <TabPanel value={InfoCardTabs.DISCIPLINE}>
+                  <TextArea name={'disciplineInfo'} />
+                </TabPanel>
+              </TabContext>
             </Box>
           </Form>
         )}
