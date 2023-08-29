@@ -80,7 +80,7 @@ export const infoSectionParagraph: SxProps<Theme> = {
   },
   width: {
     tablet: '100%',
-    desktop: '170%',
+    desktop: '157.5%',
   },
 };
 
@@ -108,12 +108,12 @@ export const infoSectionImage: SxProps<Theme> = {
   },
   svg: {
     width: {
-      mobileSemiMedium: '100%',
+      mobile: '100%',
       mobileMedium: '80%',
       desktop: 'auto',
     },
     height: {
-      mobileSemiMedium: 'auto',
+      mobile: 'auto',
       tablet: '100%',
       desktop: 'auto',
     },
