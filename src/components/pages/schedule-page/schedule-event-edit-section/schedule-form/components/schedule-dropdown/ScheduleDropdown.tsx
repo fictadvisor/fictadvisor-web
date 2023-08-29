@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useField } from 'formik';
 
 import Dropdown from '@/components/common/ui/form/dropdown';
 import { DropdownProps } from '@/components/common/ui/form/dropdown/types';
@@ -8,15 +9,30 @@ import FormikDropdown, {
 
 import * as styles from './ScheduleDropdown.styles';
 
-export const ScheduleFormikDropdown: FC<FormikDropdownProps> = props => {
+export const ScheduleFormikDropdown: FC<FormikDropdownProps> = ({
+  clearOnUnmount,
+  name,
+  ...props
+}) => {
+  const [{ value }, { touched, error }, { setValue, setTouched }] =
+    useField(name);
+
+  const onChange = (option: string) => {
+    setTouched(true);
+    setValue(option);
+  };
+
   return (
-    <FormikDropdown
+    <Dropdown
       {...props}
-      label={''}
-      placeholder={'Оберіть викладача'}
+      value={value}
+      touched={touched}
+      error={error}
+      showRemark={!!error}
       dropdownSx={styles.dropdown}
       inputSx={styles.input()}
-      showRemark={false}
+      onChange={onChange}
+      label={''}
     />
   );
 };

@@ -3,6 +3,7 @@ import { Theme } from '@mui/system';
 
 import { FieldState } from '@/components/common/ui/form/common/types';
 import * as styles from '@/components/common/ui/form/dropdown/Dropdown.styles';
+import { inputHeight } from '@/components/common/ui/form/dropdown/Dropdown.styles';
 
 export const input = () => {
   return {
@@ -11,7 +12,12 @@ export const input = () => {
       paddingRight: '0px',
       borderColor: 'backgroundDark.200',
     },
-
+    '& .MuiInputBase-root': {
+      height: inputHeight['small'],
+      display: 'flex',
+      alignContent: 'center',
+      paddingRight: '30px',
+    },
     '& .MuiOutlinedInput-root': {
       backgroundColor: 'backgroundDark.200',
       color: 'grey.600',

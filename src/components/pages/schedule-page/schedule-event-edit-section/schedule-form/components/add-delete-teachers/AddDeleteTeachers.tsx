@@ -44,14 +44,13 @@ export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
 
   const handleDeleteTeacher = () => {
     const newTeachers = teachers.slice(0, teachers.length - 1);
-    console.log(newTeachers);
     setValue(newTeachers);
   };
 
   return (
     <Box sx={styles.container}>
       {teachers.length === 0 && (
-        <Typography typography={'body2Medium'} pl={'12px'}>
+        <Typography typography={'body3Medium'} pl={'12px'}>
           Викладачів не додано
         </Typography>
       )}

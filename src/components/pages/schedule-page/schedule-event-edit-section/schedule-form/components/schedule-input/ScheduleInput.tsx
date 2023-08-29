@@ -1,8 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { InputAdornment, TextField } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
-
-import mergeSx from '@/lib/utils/MergeSxStylesUtil';
+import { useField } from 'formik';
 
 import * as styles from './ScheduleInput.styles';
 
@@ -16,21 +15,23 @@ export interface ScheduleInputProps {
   isDisabled?: boolean;
   size?: ScheduleInputSize;
   icon?: ReactNode;
-  sx?: SxProps<Theme>;
+  name: string;
 }
 const ScheduleInput: FC<ScheduleInputProps> = ({
   placeholder,
   isDisabled = false,
   size = ScheduleInputSize.NORMAL,
   icon,
-  sx,
+  name,
 }) => {
+  const [props, { touched, error }, { setValue, setTouched }] = useField(name);
+
   return (
     <TextField
+      {...props}
       placeholder={placeholder}
       disabled={isDisabled}
-      multiline={size === ScheduleInputSize.LARGE}
-      sx={sx ? mergeSx(styles.input(size), sx) : mergeSx(styles.input(size))}
+      sx={styles.input(size)}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">{icon}</InputAdornment>

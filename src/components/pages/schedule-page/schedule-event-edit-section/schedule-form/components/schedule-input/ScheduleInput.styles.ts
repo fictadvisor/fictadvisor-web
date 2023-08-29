@@ -55,7 +55,7 @@ export const input = (size: ScheduleInputSize): SxProps<Theme> => ({
   ...(size === ScheduleInputSize.LARGE && {
     '.MuiInputBase-root': {
       padding: '12px',
-      minHeight: '50px',
+      height: '50px',
       fontSize: '20px',
     },
   }),

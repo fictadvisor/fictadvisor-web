@@ -21,6 +21,7 @@ export const ScheduleEventEdit = () => {
   }));
   const { user } = useAuthentication();
   const closeWindow = () => {
+    setIsEditOpen(false);
     useSchedule.setState({ openedEvent: undefined });
   };
 
@@ -51,6 +52,7 @@ export const ScheduleEventEdit = () => {
       )}
       {isEditOpen && data && (
         <ScheduleEventForm
+          onCloseButtonClick={closeWindow}
           onSubmit={handleEventEdited}
           initialValues={transformDetailedEvent(data)}
         />

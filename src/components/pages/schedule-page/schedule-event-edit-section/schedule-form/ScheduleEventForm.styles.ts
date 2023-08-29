@@ -1,6 +1,6 @@
 import { SxProps, Theme } from '@mui/material';
 
-export const container = {
+export const container: SxProps<Theme> = {
   width: { mobile: '100%', tablet: '528px' },
   padding: '36px 36px 36px 28px',
   boxShadow: '0px 4px 50px 10px rgba(0, 0, 0, 0.25)',
@@ -9,13 +9,14 @@ export const container = {
   backgroundColor: 'backgroundDark.100',
   top: '64px',
   right: '0',
+};
 
+export const content: SxProps<Theme> = {
   display: 'grid',
   gridTemplateColumns: '96px auto',
   alignItems: 'center',
   gap: '8px',
 };
-
 export const row: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'row',
@@ -39,9 +40,10 @@ export const grid: SxProps<Theme> = {
 
 export const titleContainer: SxProps<Theme> = {
   display: 'flex',
+  gap: '16px',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '20px!important',
+  mb: '20px',
 };
 
 export const teachersContainer: SxProps<Theme> = {
