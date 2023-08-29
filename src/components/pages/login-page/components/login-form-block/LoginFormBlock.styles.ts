@@ -24,22 +24,24 @@ export const telegramButton: SxProps<Theme> = {
   gap: '10px',
 
   [theme.breakpoints.down('mobileMedium')]: {
-    display: 'none',
+    typography: theme.typography.body2Bold,
+    padding: '16px 8px',
   },
 };
 
-export const mobileTelegramButton: SxProps<Theme> = {
-  display: 'none',
-  margin: '0 0 16px 0',
-  typography: theme.typography.body2Bold,
-  whiteSpace: 'normal',
-  borderRadius: '8px',
-  gap: '10px',
-
-  [theme.breakpoints.down('mobileMedium')]: {
-    display: 'flex',
-  },
-};
+// export const mobileTelegramButton: SxProps<Theme> = {
+//   display: 'none',
+//   margin: '0 0 16px 0',
+//   padding: '10px 12px',
+//   typography: theme.typography.body2Bold,
+//   whiteSpace: 'normal',
+//   borderRadius: '8px',
+//   gap: '10px',
+//
+//   [theme.breakpoints.down('mobileMedium')]: {
+//     display: 'flex',
+//   },
+// };
 
 export const registerMobileButton: SxProps<Theme> = {
   width: 'fit-content',
@@ -53,10 +55,14 @@ export const registerMobileButton: SxProps<Theme> = {
 };
 
 export const comebackButton: SxProps<Theme> = {
-  marginTop: '24px',
+  marginTop: '26px',
   marginBottom: '40px',
-  typography: theme.typography.body1,
+  typography: theme.typography.body1Bold,
   gap: '10px',
+
+  [theme.breakpoints.down('mobileMedium')]: {
+    marginTop: '16px',
+  },
 };
 
 export const divider: SxProps<Theme> = {
@@ -68,7 +74,7 @@ export const divider: SxProps<Theme> = {
 
 export const narrowScreenText: SxProps<Theme> = {
   display: 'none',
-  margin: '28px 0 14px 0',
+  margin: '22px 0 14px 0',
   typography: theme.typography.body2Medium,
   color: theme.palette.grey[600],
 

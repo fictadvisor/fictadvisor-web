@@ -11,16 +11,22 @@
 }
 
 .mobile-login-logo{
-  width: calc(100% - 40px);
+  width: calc(100% - 150px);
   min-width: 200px;
   aspect-ratio: 7.1/1;
   display: none;
-  margin: 8vh 4vh;
+  margin: 6vh 4vh;
   position:relative;
 }
 
 @media screen and (max-width: $breakpoint-desktop-semi-medium) {
   .mobile-login-logo {
     display: flex;
+  }
+}
+
+@media screen and (max-width: $breakpoint-mobile-medium){
+  .mobile-login-logo {
+    margin: 2vh 4vh;
   }
 }

@@ -6,11 +6,12 @@ export const loginPage: SxProps<Theme> = {
   position: 'relative',
   width: '100%',
   minHeight: '100vh',
+  minWidth: '335px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   backgroundSize: '100% 100%',
-  padding: '0 30px',
+  padding: '0 15px',
 };
 
 export const loginPageContent: SxProps<Theme> = {

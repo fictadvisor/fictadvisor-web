@@ -48,14 +48,6 @@ const LoginFormBlock = () => {
         З поверненням!
       </Typography>
       <Button
-        endIcon={<CustomTelegram />}
-        text="Увійти за допомогою"
-        size={ButtonSize.SMALL}
-        type="button"
-        onClick={handleClick}
-        sx={sxStyles.mobileTelegramButton}
-      />
-      <Button
         startIcon={<CustomTelegram />}
         text="Увійти за допомогою Telegram"
         size={ButtonSize.LARGE}

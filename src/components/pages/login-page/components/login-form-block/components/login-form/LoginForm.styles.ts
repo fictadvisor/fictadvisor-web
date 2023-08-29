@@ -3,8 +3,12 @@ import { SxProps, Theme } from '@mui/material/styles';
 import theme from '@/styles/theme';
 
 export const passwordLink: SxProps<Theme> = {
-  marginBottom: '36px',
+  marginBottom: '30px',
   alignSelf: 'flex-start',
+
+  [theme.breakpoints.down('mobileMedium')]: {
+    marginBottom: '26px',
+  },
 };
 
 export const loginButton: SxProps<Theme> = {
