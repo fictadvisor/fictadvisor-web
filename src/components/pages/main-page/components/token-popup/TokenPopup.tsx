@@ -1,17 +1,19 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import Button, {
+import Button from '@/components/common/ui/button-mui';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
-import Popup from '@/components/common/ui/pop-ups-mui/Popup';
+} from '@/components/common/ui/button-mui/types';
+import Popup from '@/components/common/ui/pop-ups/Popup';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import UserAPI from '@/lib/api/user/UserAPI';
 import AuthService from '@/lib/services/auth';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
 interface TokenPopupProps {
@@ -36,7 +38,7 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
         else await router.push('/register');
       }
     },
-    [toast, isLoggedIn, router],
+    [isLoggedIn, router],
   );
 
   useEffect(() => {
@@ -59,12 +61,19 @@ const TokenPopup: FC<TokenPopupProps> = ({ token }) => {
         toast.success('Telegram успішно приєднано, дозаповни усі поля!');
         await router.push('/register');
       }
-    } catch (e) {
-      toast.error('Не вдалось підключити Telegram, спробуй ще раз');
+    } catch (error) {
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(
+            'Не вдалось підключити Telegram, спробуй ще раз',
+            message,
+            3000,
+          )
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     } finally {
       setIsOpen(false);
     }
-  }, [toast, isLoggedIn, router, update, user.id]);
+  }, [isLoggedIn, router, update]);
 
   if (!isOpen) return null;
 

@@ -1,33 +1,44 @@
 import { Dispatch, SetStateAction, SyntheticEvent, useEffect } from 'react';
 import { NextRouter } from 'next/router';
 
-const useTabState = <T extends string, EnumValue extends string>(
-  tab: EnumValue | string | string[] | undefined,
-  router: NextRouter,
-  setIndex: Dispatch<SetStateAction<EnumValue>>,
-  tabsEnum: { [key in T]: EnumValue },
-  defaultTab: EnumValue,
-) => {
+import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/utils';
+
+// TODO: refactor this hook
+export interface UseTabStateProps<T> {
+  tab?: string | string[];
+  router: NextRouter;
+  setIndex: Dispatch<SetStateAction<T>>;
+}
+
+const useTabState = <T extends string>({
+  tab,
+  router,
+  setIndex,
+}: UseTabStateProps<T>) => {
   const { replace, query, isReady } = router;
   useEffect(() => {
     if (!isReady) {
       return;
     }
 
-    if (Object.values(tabsEnum).includes(tab)) {
-      setIndex(tab as EnumValue);
+    if (Object.values(TeachersPageTabs).includes(tab as TeachersPageTabs)) {
+      setIndex(tab as T);
     } else {
-      void replace({ query: { ...query, tab: defaultTab } }, undefined, {
-        shallow: true,
-      });
+      void replace(
+        { query: { ...query, tab: TeachersPageTabs.GENERAL } },
+        undefined,
+        {
+          shallow: true,
+        },
+      );
     }
-  }, [tab, isReady, replace, query, defaultTab, setIndex, tabsEnum]);
+  }, [tab, isReady, replace, query]);
 
-  return async (event: SyntheticEvent, value: EnumValue) => {
+  return async (event: SyntheticEvent, value: T) => {
     await replace({ query: { ...query, tab: value } }, undefined, {
       shallow: true,
     });
-    setIndex(value);
+    setIndex(value as T);
   };
 };
 

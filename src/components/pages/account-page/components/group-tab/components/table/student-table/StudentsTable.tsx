@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/solid';
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
-import { AxiosError } from 'axios';
 
 import { Captain } from '@/components/common/icons/Captain';
 import { Moderator } from '@/components/common/icons/Moderator';
 import Button from '@/components/common/ui/button-mui';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
-import {
-  IconButton,
-  IconButtonShape,
-} from '@/components/common/ui/icon-button';
-import Tag from '@/components/common/ui/tag-mui';
-import { TagSize, TagVariant } from '@/components/common/ui/tag-mui/types';
+import IconButton from '@/components/common/ui/icon-button-mui';
+import { IconButtonShape } from '@/components/common/ui/icon-button-mui/types';
+import Tag from '@/components/common/ui/tag';
+import { TagSize, TagVariant } from '@/components/common/ui/tag/types';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import EditingColumn from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/EditingColumn';
 import { TextAreaPopup } from '@/components/pages/account-page/components/group-tab/components/text-area-popup';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 import theme from '@/styles/theme';
 import { UserGroupRole } from '@/types/user';
 
@@ -50,18 +48,10 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
 
       await refetch();
     } catch (error) {
-      let name;
-      if (error instanceof AxiosError) name = error.response?.data.error;
-
-      if (name === 'AlreadyRegisteredException') {
-        toast.error(
-          'Один або декілька користувачів з такою поштою вже зареєстровані!',
-          '',
-          3000,
-        );
-      } else {
-        toast.error('Здається, ти ввів неправильні значення!', '', 3000);
-      }
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message, '', 3000)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
   return (

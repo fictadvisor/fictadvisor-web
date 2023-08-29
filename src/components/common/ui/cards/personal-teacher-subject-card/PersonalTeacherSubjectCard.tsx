@@ -2,14 +2,15 @@ import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 
-import Button, { ButtonVariant } from '@/components/common/ui/button';
-import Rating from '@/components/common/ui/rating-mui';
-import Tag from '@/components/common/ui/tag-mui';
-import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
+import Button from '@/components/common/ui/button';
+import Rating from '@/components/common/ui/rating';
+import Tag from '@/components/common/ui/tag';
+import { TagColor, TagSize } from '@/components/common/ui/tag/types';
 import { teacherSubjectContext } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
 import { TeacherRole, TeacherWithSubject } from '@/types/teacher';
 
 import Contact from '../../../../pages/personal-teacher-subject-page/contacts/Contact';
+import { ButtonVariant } from '../../button-mui/types';
 
 import * as styles from './PersonalTeacherSubjectCard.styles';
 

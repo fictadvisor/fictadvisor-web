@@ -6,14 +6,13 @@ interface OptionProps extends HTMLProps<HTMLLIElement> {
   option: DropDownOption;
 }
 
-import Tag from '@/components/common/ui/tag-mui';
-import { TagSize } from '@/components/common/ui/tag-mui/types';
+import Tag from '@/components/common/ui/tag';
 
 const Option: FC<OptionProps> = ({ option, ...props }) => {
   if ('text' in option) {
     return (
       <span {...props}>
-        <Tag {...option} size={TagSize.SMALL} />
+        <Tag {...option} />
       </span>
     );
   } else {

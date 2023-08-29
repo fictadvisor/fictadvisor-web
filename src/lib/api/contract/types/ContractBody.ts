@@ -16,6 +16,9 @@ export interface PersonalData extends Fullname {
 }
 
 interface MetaContract {
+  degree: string;
+  programType: string;
+  educationalProgram: string;
   speciality: string;
   studyType: string;
   studyForm: string;
@@ -29,6 +32,7 @@ export enum PassportType {
   FOREIGN = 'foreign',
   OLD = 'old',
 }
+
 export interface HelperData {
   entrantPassportType: PassportType;
   entrantHasNoCode: boolean;

@@ -5,11 +5,8 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 
 import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
-import Alert from '@/components/common/ui/alert-mui';
-import {
-  AlertType,
-  AlertVariant,
-} from '@/components/common/ui/alert-mui/types';
+import Alert from '@/components/common/ui/alert';
+import { AlertType, AlertVariant } from '@/components/common/ui/alert/types';
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonColor,
@@ -20,6 +17,7 @@ import * as styles from '@/components/pages/password-recovery/email-confirmation
 import chooseMessageError from '@/components/pages/password-recovery/email-confirmation-page/utils/chooseMessageError';
 import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 
 const PasswordResetEmailConfirmationPage = () => {
   const router = useRouter();
@@ -37,9 +35,13 @@ const PasswordResetEmailConfirmationPage = () => {
     try {
       await AuthAPI.forgotPassword({ email });
     } catch (error) {
-      const errorName =
-        (error as AxiosError<{ error: string }>).response?.data.error || '';
-      toast.error(chooseMessageError(errorName, tries));
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
+      // const errorName =
+      //   (error as AxiosError<{ error: string }>).response?.data.error || '';
+      // toast.error(chooseMessageError(errorName, tries));
     }
   };
 

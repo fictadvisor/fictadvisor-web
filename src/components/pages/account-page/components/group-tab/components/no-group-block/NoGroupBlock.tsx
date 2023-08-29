@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { useQuery } from 'react-query';
-import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 
-import Alert from '@/components/common/ui/alert-mui';
-import { AlertType } from '@/components/common/ui/alert-mui/types';
-import Button, { ButtonSize } from '@/components/common/ui/button';
-import Checkbox from '@/components/common/ui/form/with-formik/checkbox';
+import Alert from '@/components/common/ui/alert';
+import { AlertType } from '@/components/common/ui/alert/types';
+import Button from '@/components/common/ui/button';
+import { ButtonSize } from '@/components/common/ui/button-mui/types';
+import { Checkbox } from '@/components/common/ui/form';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
-import Progress from '@/components/common/ui/progress-mui';
+import Progress from '@/components/common/ui/progress';
 import { transformGroups } from '@/components/pages/account-page/components/group-tab/components/no-group-block/utils';
 import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/no-group-block/validation';
 import useAuthentication from '@/hooks/use-authentication';
@@ -16,6 +16,7 @@ import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { RequestNewGroupBody } from '@/lib/api/user/types/RequestNewGroupBody';
 import UserAPI from '@/lib/api/user/UserAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { UserGroupState } from '@/types/user';
 
 import styles from './NoGroupBlock.module.scss';
@@ -32,14 +33,10 @@ const NoGroupBlock: FC = () => {
       await UserAPI.requestNewGroup(data, user.id);
       await update();
     } catch (error) {
-      // TODO: refactor this shit
-      const errorName = (error as AxiosError<{ error: string }>).response?.data
-        .error;
-      if (errorName === 'AlreadyRegisteredException') {
-        toast.error('В групі вже є староста');
-      } else {
-        toast.error('Як ти це зробив? :/');
-      }
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 

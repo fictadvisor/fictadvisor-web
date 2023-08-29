@@ -3,16 +3,17 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Link from 'next/link';
 
-import Button, {
+import Button from '@/components/common/ui/button';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
 import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import styles from '@/components/common/ui/cards/poll-teacher-card/PollTeacherCard.module.scss';
 import { DivProps } from '@/components/common/ui/cards/types';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import Tooltip from '@/components/common/ui/tooltip-mui';
+import Tooltip from '@/components/common/ui/tooltip';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { TeacherRole } from '@/types/teacher';
 
