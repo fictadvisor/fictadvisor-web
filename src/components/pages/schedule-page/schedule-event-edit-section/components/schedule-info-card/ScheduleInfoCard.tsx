@@ -69,7 +69,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
           <CloseButton onClick={onCloseButtonClick} />
         </Box>
       </Box>
-      <Box sx={styles.row}>
+      <Box sx={styles.content}>
         <Typography variant="body1Medium">Тип</Typography>
         {loading ? (
           <Skeleton {...skeletonProps} width={100} height={25} />
@@ -79,8 +79,6 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             color={TagColorMapper[event!.disciplineType]}
           />
         )}
-      </Box>
-      <Box sx={styles.row}>
         <Typography variant="body1Medium">Викладач</Typography>
         <Box sx={styles.teachersContainer}>
           {loading ? (
@@ -99,8 +97,6 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             ))
           )}
         </Box>
-      </Box>
-      <Box sx={styles.row}>
         <Typography variant="body1Medium">Час</Typography>
         {loading ? (
           <Skeleton {...skeletonProps} width={50} height={25} />
@@ -110,8 +106,6 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             ${getStringTime(event!.endTime)}`}
           </Typography>
         )}
-      </Box>
-      <Box sx={styles.row}>
         <Typography variant="body1Medium">Конференція</Typography>
         {loading ? (
           <Skeleton {...skeletonProps} width={250} height={20} />

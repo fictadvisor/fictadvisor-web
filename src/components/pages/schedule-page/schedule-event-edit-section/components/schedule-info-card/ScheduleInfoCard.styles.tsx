@@ -11,25 +11,21 @@ export const container = {
   right: '0',
   display: 'flex',
   flexFlow: 'column nowrap',
-};
-
-export const row: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'row',
-  marginBottom: '8px',
-  '&>*:nth-child(1)': {
-    minWidth: '96px',
-    pr: '8px',
-  },
+  gap: '16px',
 };
 
 export const titleContainer: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '20px!important',
 };
 
+export const content: SxProps<Theme> = {
+  display: 'grid',
+  gridTemplateColumns: '96px auto',
+  alignItems: 'center',
+  gap: '8px',
+};
 export const teachersContainer: SxProps<Theme> = {
   display: 'flex',
   flexFlow: 'column nowrap',

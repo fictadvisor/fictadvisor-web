@@ -5,11 +5,17 @@ import {
   ArrowRightIcon,
   ClockIcon,
   LinkIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { Form, Formik, FormikConfig, FormikProps } from 'formik';
 
+import Button from '@/components/common/ui/button-mui';
+import {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
 import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
@@ -28,18 +34,21 @@ import Input from './components/schedule-input';
 import TextArea from './components/text-area';
 import { eventTypeList, periodOptions } from './constants';
 import * as styles from './ScheduleEventForm.styles';
-import { validationSchema } from './validation';
 
 interface ScheduleEventFormProps {
   onSubmit: FormikConfig<SharedEventBody>['onSubmit'];
   initialValues: SharedEventBody;
   onCloseButtonClick: () => void;
+  onCancelButtonClick?: () => void;
+  onDeleteButtonClick: () => void;
 }
 
 export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   onSubmit,
   initialValues,
   onCloseButtonClick,
+  onDeleteButtonClick,
+  onCancelButtonClick,
 }) => {
   const [date, setDate] = useState<Date | undefined>(
     !initialValues.startTime ? undefined : new Date(initialValues.startTime),
@@ -104,7 +113,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               </Typography>
               <Typography variant="body1Medium">Час</Typography>
               {date && (
-                <Box sx={{ display: 'flex', gap: '8px' }}>
+                <Box sx={styles.timeInputs}>
                   <ScheduleFormikDropdown
                     name={'startTime'}
                     options={getOptionsFromDate(date)}
@@ -133,30 +142,6 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 size={ScheduleInputSize.NORMAL}
                 icon={<LinkIcon width={22} height={22} />}
               />
-
-              {/*<Box sx={styles.buttonContainer()}>*/}
-              {/*  <Button*/}
-              {/*    text="Видалити"*/}
-              {/*    endIcon={<DeleteAll />}*/}
-              {/*    variant={ButtonVariant.OUTLINE}*/}
-              {/*    size={ButtonSize.SMALL}*/}
-              {/*    onClick={handleClearAllFields}*/}
-              {/*  />*/}
-              {/*  <Box>*/}
-              {/*    <Button*/}
-              {/*      text="Скасувати"*/}
-              {/*      variant={ButtonVariant.OUTLINE}*/}
-              {/*      size={ButtonSize.SMALL}*/}
-              {/*      onClick={handleCancel}*/}
-              {/*    />*/}
-              {/*    <Button*/}
-              {/*      onClick={() => handleSubmit(values)}*/}
-              {/*      text="Зберегти"*/}
-              {/*      size={ButtonSize.SMALL}*/}
-              {/*      type="submit"*/}
-              {/*    />*/}
-              {/*  </Box>*/}
-              {/*</Box>*/}
             </Box>
             <Box sx={styles.infoContainer}>
               <TabContext value={tabValue}>
@@ -182,6 +167,32 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                   <TextArea name={'disciplineInfo'} />
                 </TabPanel>
               </TabContext>
+            </Box>
+
+            <Box sx={styles.buttonContainer(!!onCancelButtonClick)}>
+              <Button
+                sx={styles.btn}
+                text="Видалити"
+                endIcon={<TrashIcon width={22} height={22} />}
+                variant={ButtonVariant.OUTLINE}
+                size={ButtonSize.SMALL}
+                onClick={onDeleteButtonClick}
+              />
+              <Box sx={{ display: 'flex', gap: '8px' }}>
+                <Button
+                  sx={styles.btn}
+                  text="Скасувати"
+                  variant={ButtonVariant.OUTLINE}
+                  size={ButtonSize.SMALL}
+                  onClick={onCancelButtonClick}
+                />
+                <Button
+                  sx={styles.btn}
+                  text="Зберегти"
+                  size={ButtonSize.SMALL}
+                  type="submit"
+                />
+              </Box>
             </Box>
           </Form>
         )}

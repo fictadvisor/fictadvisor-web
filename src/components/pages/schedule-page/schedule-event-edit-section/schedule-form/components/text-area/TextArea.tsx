@@ -19,7 +19,7 @@ const TextArea: FC<ScheduleTextAreaProps> = ({ name, ...props }) => {
       margin="normal"
       sx={styles.textArea}
       multiline
-      maxRows={3}
+      rows={3}
       InputProps={{
         disableUnderline: true,
       }}

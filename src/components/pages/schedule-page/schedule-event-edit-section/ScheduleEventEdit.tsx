@@ -58,6 +58,8 @@ export const ScheduleEventEdit = () => {
       )}
       {isEditOpen && data && (
         <ScheduleEventForm
+          onDeleteButtonClick={() => console.log('deleting')}
+          onCancelButtonClick={() => setIsEditOpen(false)}
           onCloseButtonClick={closeWindow}
           onSubmit={handleEventEdited}
           initialValues={transformDetailedEvent(data)}
