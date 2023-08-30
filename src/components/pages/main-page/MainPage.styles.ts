@@ -53,12 +53,12 @@ export const infoSectionTitle: SxProps<Theme> = {
   position: 'relative',
   zIndex: 2,
   width: {
-    mobileMedium: '80%',
+    mobile: '80%',
     tablet: '100%',
     desktopSemiMedium: 'max-content',
   },
   top: {
-    mobileSemiMedium: '-24px',
+    mobile: '-24px',
     mobileMedium: '-50px',
     desktop: 0,
   },
@@ -66,11 +66,11 @@ export const infoSectionTitle: SxProps<Theme> = {
 
 export const infoSectionParagraph: SxProps<Theme> = {
   padding: {
-    mobileSemiMedium: '0 17px 0 0',
+    mobile: '0 17px 0 0',
     tablet: 0,
   },
   margin: {
-    mobileSemiMedium: '0 0 36px',
+    mobile: '0 0 36px',
     mobileMedium: '0 0 44px',
     desktop: '50px 0 45px 0',
   },
@@ -99,7 +99,7 @@ export const infoSectionImage: SxProps<Theme> = {
     desktopSemiMedium: 0,
   },
   right: {
-    mobileSemiMedium: '-30px',
+    mobile: '-30px',
     mobileMedium: '-50px',
     desktop: '-15px',
     desktopSemiMedium: '-50px',
@@ -143,7 +143,7 @@ export const buttons: SxProps<Theme> = {
     tablet: '8px',
   },
   padding: {
-    mobileSemiMedium: '8px 16px',
+    mobile: '8px 16px',
     tablet: '12px 24px',
     desktopSemiMedium: '16px 32px',
     desktop: '12px 24px',
@@ -174,11 +174,11 @@ export const buttonMob: SxProps<Theme> = {
   gap: '14px',
   width: '100%',
   display: {
-    mobileSemiMedium: 'flex',
+    mobile: 'flex',
     tablet: 'none',
   },
   flexDirection: {
-    mobileSemiMedium: 'column',
+    mobile: 'column',
     mobileMedium: 'row',
   },
 };
@@ -194,7 +194,7 @@ export const resourcesSection: SxProps<Theme> = {
   justifyContent: 'center',
   flexDirection: 'column',
   margin: {
-    mobileSemiMedium: '97px 0 40px',
+    mobile: '97px 0 40px',
     tablet: '97px 0 127px',
   },
   mobileMedium: {
@@ -204,7 +204,7 @@ export const resourcesSection: SxProps<Theme> = {
 
 export const resourcesSectionTitle: SxProps<Theme> = {
   typography: {
-    mobileSemiMedium: theme.typography.h6Medium,
+    mobile: theme.typography.h6Medium,
     tablet: theme.typography.h3Bold,
   },
 };
@@ -218,7 +218,7 @@ export const resourcesSectionCards: SxProps<Theme> = {
   flexWrap: 'wrap',
   justifyContent: 'center',
   gap: {
-    mobileSemiMedium: '0.5rem',
+    mobile: '0.5rem',
     desktop: '1rem',
     desktopLarge: '16px',
   },
