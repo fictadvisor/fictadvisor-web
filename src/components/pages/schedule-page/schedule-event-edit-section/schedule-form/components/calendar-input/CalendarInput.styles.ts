@@ -1,6 +1,15 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const input = (size: 'small' | 'medium'): SxProps<Theme> => ({
+export const wrapper: SxProps<Theme> = {};
+
+export const datePicker: SxProps<Theme> = {
+  '.MuiInputBase-root': {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
+};
+
+export const input: SxProps<Theme> = {
   width: '100%',
   backgroundColor: 'backgroundDark.200',
   borderRadius: '8px',
@@ -39,21 +48,16 @@ export const input = (size: 'small' | 'medium'): SxProps<Theme> => ({
     color: 'grey.800',
   },
 
-  ...(size === 'small' && {
-    '.MuiInputBase-root': {
-      paddingY: '10px',
-      paddingX: '12px',
-      height: '40px',
-    },
-    '.MuiInputBase-input': {
-      padding: 0,
-    },
-  }),
-  ...(size === 'medium' && {
-    '.MuiInputBase-root': {
-      padding: '12px',
-      height: '50px',
-      fontSize: '20px',
-    },
-  }),
-});
+  '.MuiInputBase-root': {
+    paddingY: '10px',
+    height: '40px',
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    gap: '16px',
+  },
+  '.MuiInputBase-input': {
+    padding: 0,
+  },
+};
+
+export const calendar: SxProps<Theme> = {};

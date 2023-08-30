@@ -1,26 +1,20 @@
 import React, { FC, ReactNode } from 'react';
 import { InputAdornment, TextField } from '@mui/material';
-import { SxProps, Theme } from '@mui/material/styles';
+import { TextFieldProps } from '@mui/material/TextField';
 import { useField } from 'formik';
 
 import * as styles from './ScheduleInput.styles';
 
-export enum ScheduleInputSize {
-  NORMAL = 'normal',
-  LARGE = 'large',
-}
-
-export interface ScheduleInputProps {
+export interface ScheduleInputProps extends TextFieldProps<'standard'> {
   placeholder?: string;
   isDisabled?: boolean;
-  size?: ScheduleInputSize;
   icon?: ReactNode;
   name: string;
 }
 const ScheduleInput: FC<ScheduleInputProps> = ({
   placeholder,
   isDisabled = false,
-  size = ScheduleInputSize.NORMAL,
+  size = 'small',
   icon,
   name,
 }) => {

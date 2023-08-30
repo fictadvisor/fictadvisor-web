@@ -25,7 +25,7 @@ import {
 import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
-import { ScheduleInputSize } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/schedule-input/ScheduleInput';
+import CalendarInput from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/calendar-input';
 import { getOptionsFromDate } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/utils/getOptionsFromDate';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
@@ -89,7 +89,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               <Input
                 placeholder="Введи назву події"
                 name="name"
-                size={ScheduleInputSize.LARGE}
+                size={'medium'}
               />
               <CloseButton onClick={onCloseButtonClick} />
             </Box>
@@ -99,7 +99,6 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 name={'disciplineType'}
                 options={eventTypeList}
                 placeholder={'Оберіть тип події'}
-                disableClearable
               />
               <Typography variant="body1Medium" alignSelf="start">
                 Викладач
@@ -113,27 +112,22 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               <Typography variant="body1Medium">
                 Тут мав бути компонент Ігоря
               </Typography>
-
+              <Typography variant="body1Medium">Час</Typography>
               {date && (
-                <Fragment>
-                  <Typography variant="body1Medium">Час</Typography>
-                  <Box sx={styles.timeInputs}>
-                    <ScheduleFormikDropdown
-                      name={'startTime'}
-                      options={getOptionsFromDate(date)}
-                      placeholder={'Оберіть час'}
-                      icon={<ClockIcon width={22} height={22} />}
-                      disableClearable
-                    />
-                    <ScheduleFormikDropdown
-                      name={'endTime'}
-                      options={getOptionsFromDate(date)}
-                      placeholder={'Оберіть час'}
-                      icon={<ArrowRightIcon width={22} height={22} />}
-                      disableClearable
-                    />
-                  </Box>
-                </Fragment>
+                <Box sx={styles.timeInputs}>
+                  <ScheduleFormikDropdown
+                    name={'startTime'}
+                    options={getOptionsFromDate(date)}
+                    placeholder={'Оберіть час'}
+                    icon={<ClockIcon width={22} height={22} />}
+                  />
+                  <ScheduleFormikDropdown
+                    name={'endTime'}
+                    options={getOptionsFromDate(date)}
+                    placeholder={'Оберіть час'}
+                    icon={<ArrowRightIcon width={22} height={22} />}
+                  />
+                </Box>
               )}
               <Typography variant="body1Medium">Повторення</Typography>
               <ScheduleFormikDropdown
@@ -141,13 +135,12 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 options={periodOptions}
                 placeholder={'Оберіть період'}
                 icon={<ArrowPathIcon width={22} height={22} />}
-                disableClearable
               />
               <Typography variant="body1Medium">Конференція</Typography>
               <Input
                 placeholder="Введи посилання"
                 name="url"
-                size={ScheduleInputSize.NORMAL}
+                size={'medium'}
                 icon={<LinkIcon width={22} height={22} />}
               />
             </Box>
@@ -177,24 +170,15 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               </TabContext>
             </Box>
 
-            <Box sx={styles.buttonContainer(!isNewEvent)}>
-              {isMobile && !isNewEvent ? (
-                <IconButton
-                  onClick={onDeleteButtonClick}
-                  icon={<TrashIcon />}
-                  shape={IconButtonShape.CIRCLE}
-                  color={IconButtonColor.ERROR}
-                />
-              ) : !isNewEvent ? (
-                <Button
-                  sx={styles.btn}
-                  text="Видалити"
-                  endIcon={<TrashIcon width={22} height={22} />}
-                  variant={ButtonVariant.OUTLINE}
-                  size={ButtonSize.SMALL}
-                  onClick={onDeleteButtonClick}
-                />
-              ) : null}
+            <Box sx={styles.buttonContainer(!!onCancelButtonClick)}>
+              <Button
+                sx={styles.btn}
+                text="Видалити"
+                endIcon={<TrashIcon width={22} height={22} />}
+                variant={ButtonVariant.OUTLINE}
+                size={ButtonSize.SMALL}
+                onClick={onDeleteButtonClick}
+              />
               <Box sx={{ display: 'flex', gap: '8px' }}>
                 <Button
                   sx={styles.btn}
@@ -205,7 +189,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 />
                 <Button
                   sx={styles.btn}
-                  text={isNewEvent ? 'Створити' : 'Зберегти'}
+                  text="Зберегти"
                   size={ButtonSize.SMALL}
                   type="submit"
                 />
