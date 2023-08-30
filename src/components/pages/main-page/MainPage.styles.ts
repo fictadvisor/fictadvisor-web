@@ -51,7 +51,7 @@ export const infoSectionTitle: SxProps<Theme> = {
   },
   display: 'block',
   position: 'relative',
-  zIndex: 3,
+  zIndex: 2,
   width: {
     mobile: '80%',
     tablet: '100%',
