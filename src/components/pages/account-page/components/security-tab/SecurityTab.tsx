@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/common/ui/button-mui';
@@ -14,7 +14,6 @@ import Input from '@/components/common/ui/form/input-mui';
 import ChangePasswordForm from '@/components/pages/account-page/components/security-tab/components/change-password-form';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth';
-import theme from '@/styles/theme';
 
 import * as styles from './SecurityTab.styles';
 
@@ -27,48 +26,35 @@ const SecurityTab = () => {
     reload();
     await replace('/login');
   };
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
-
   return (
-    <Box>
+    <Box sx={styles.wrapper}>
       <Box>
-        <Box>
-          <Divider
-            text={'Зміна паролю'}
-            textAlign={DividerTextAlign.LEFT}
-          ></Divider>
-
-          <ChangePasswordForm />
-        </Box>
-        <Divider
-          text={'Юзернейм і пошта'}
-          textAlign={DividerTextAlign.LEFT}
-        ></Divider>
-
-        <Box sx={styles.userInformation}>
-          <Input
-            readOnly
-            onChange={() => {}}
-            label="Юзернейм"
-            value={user.username}
-          />
-          <Input
-            readOnly
-            onChange={() => {}}
-            label="Пошта"
-            value={user.email}
-          />
-        </Box>
-        <Divider></Divider>
-
-        <Button
-          text={'Вийти з акаунту'}
-          variant={ButtonVariant.FILLED}
-          color={ButtonColor.SECONDARY}
-          size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
-          onClick={handleLogout}
-        />
+        <Divider text={'Зміна паролю'} textAlign={DividerTextAlign.LEFT} />
+        <ChangePasswordForm />
       </Box>
+      <Divider
+        sx={styles.divider}
+        text={'Юзернейм і пошта'}
+        textAlign={DividerTextAlign.LEFT}
+      />
+      <Box sx={styles.userInformation}>
+        <Input
+          readOnly
+          onChange={() => {}}
+          label="Юзернейм"
+          value={user.username}
+        />
+        <Input readOnly onChange={() => {}} label="Пошта" value={user.email} />
+      </Box>
+      <Divider sx={styles.divider} />
+      <Button
+        sx={styles.exitButton}
+        text={'Вийти з акаунту'}
+        variant={ButtonVariant.FILLED}
+        color={ButtonColor.SECONDARY}
+        size={ButtonSize.MEDIUM}
+        onClick={handleLogout}
+      />
     </Box>
   );
 };
