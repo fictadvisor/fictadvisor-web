@@ -239,8 +239,11 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         setIsSendingStatus(SendingStatus.LOADING);
                         try {
                           for (let i = 0; i < answers.length; i++) {
-                            answers[i].value = answers[i].value.trim();
-
+                            if (i == answers.length - 1) {
+                              answers[i].value = answers[i].value
+                                .toString()
+                                .trim();
+                            }
                             if (answers[i].value.length === 0) {
                               answers = answers.filter(
                                 item => item !== answers[i],
