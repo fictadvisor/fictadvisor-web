@@ -1,10 +1,16 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import { AxiosError } from 'axios';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
-import Button, { ButtonSize } from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button-mui';
+import {
+  ButtonColor,
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
 import CustomLink from '@/components/common/ui/custom-link';
 import { CustomLinkType } from '@/components/common/ui/custom-link/types';
 import { Input, InputType } from '@/components/common/ui/form';
@@ -12,11 +18,11 @@ import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
 
+import * as styles from '../../SecurityTab.styles';
+
 import { initialValues } from './constants';
 import { ChangePasswordFormFields } from './types';
 import { validationSchema } from './validation';
-
-import styles from '../../SecurityTab.module.scss';
 
 const ChangePasswordForm = () => {
   const router = useRouter();
@@ -63,7 +69,6 @@ const ChangePasswordForm = () => {
       {({ isValid, errors }) => (
         <Form>
           <Input
-            className={styles['input']}
             label="Поточний пароль"
             placeholder="введи свій пароль"
             type={InputType.PASSWORD}
@@ -81,7 +86,6 @@ const ChangePasswordForm = () => {
             </p>
           )}
           <Input
-            className={styles['input']}
             label="Новий пароль"
             placeholder="придумай новий пароль"
             type={InputType.PASSWORD}
@@ -90,7 +94,6 @@ const ChangePasswordForm = () => {
             isSuccessOnDefault={true}
           />
           <Input
-            className={styles['input']}
             label="Підтвердження паролю"
             placeholder="підтверди новий пароль"
             type={InputType.PASSWORD}
@@ -98,26 +101,16 @@ const ChangePasswordForm = () => {
             disabled={!!errors.oldPassword || !!errors.newPassword}
             isSuccessOnDefault={true}
           />
-          <div className={styles['confirm-button']}>
+          <Box sx={styles.confirmButton}>
             <Button
               text="Оновити пароль"
               startIcon={<CustomCheck />}
               size={ButtonSize.MEDIUM}
               type="submit"
               disabled={!isValid}
-              className={styles['change-password-button']}
+              sx={styles.changePasswordButton}
             />
-          </div>
-          <div className={styles['confirm-button-mobile']}>
-            <Button
-              text="Оновити пароль"
-              startIcon={<CustomCheck />}
-              size={ButtonSize.SMALL}
-              type="submit"
-              disabled={!isValid}
-              className={styles['change-password-button']}
-            />
-          </div>
+          </Box>
         </Form>
       )}
     </Formik>
