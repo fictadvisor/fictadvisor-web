@@ -13,7 +13,6 @@ import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
 import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import theme from '@/styles/theme';
 import { Group } from '@/types/group';
-import type { Teacher } from '@/types/teacher';
 
 import { CalendarSection } from './calendar-section/CalendarSection';
 import { ButtonIcons } from './calendar-section/components/mobile/buttonIcons/ButtonIcons';
@@ -99,7 +98,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   useEffect(() => {
-    if (!groupId) toast.info('Введіть свою групу', '', 4000);
+    if (!groupId) toast.info('Оберіть свою групу', '', 4000);
   }, [groupId]);
 
   return (

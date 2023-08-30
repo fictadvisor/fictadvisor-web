@@ -5,7 +5,10 @@ import theme from '@/styles/theme';
 import { ScheduleLineVariant } from './types';
 
 export const container = (top: number): SxProps<Theme> => ({
-  display: 'flex',
+  display: 'none',
+  ...(top < 1344 && {
+    display: 'flex',
+  }),
   alignItems: 'center',
   position: 'absolute',
   width: '100%',
