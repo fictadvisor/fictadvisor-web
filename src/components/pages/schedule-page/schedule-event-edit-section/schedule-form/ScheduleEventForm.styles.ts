@@ -24,7 +24,7 @@ export const scrollable: SxProps<Theme> = {
 };
 export const content: SxProps<Theme> = {
   display: 'grid',
-  gridTemplateColumns: '96px auto',
+  gridTemplateColumns: '94px auto',
   alignItems: 'center',
   gap: '8px',
   mt: '16px',
@@ -55,7 +55,7 @@ export const buttonContainer = (withCancelButton: boolean): SxProps<Theme> => ({
 export const timeInputs: SxProps<Theme> = {
   display: 'flex',
   gap: '8px',
-  flexWrap: { mobile: 'wrap', tablet: 'nowrap' },
+  flexWrap: { mobile: 'wrap', mobileMedium: 'nowrap' },
 };
 
 export const btn: SxProps<Theme> = {

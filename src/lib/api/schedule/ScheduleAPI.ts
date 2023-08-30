@@ -60,9 +60,12 @@ class ScheduleAPI {
     return data;
   }
 
-  async deleteEventById(eventId: string): Promise<DetailedEventBody> {
+  async deleteEventById(
+    groupId: string,
+    eventId: string,
+  ): Promise<DetailedEventBody> {
     const { data } = await client.delete<DetailedEventBody>(
-      `schedule/events/${eventId}`,
+      `schedule/groups/${groupId}/events/${eventId}`,
       getAuthorizationHeader(),
     );
     return data;
@@ -77,9 +80,13 @@ class ScheduleAPI {
     return data;
   }
 
-  async editEvent(body: PatchEventBody): Promise<DetailedEventBody> {
-    const { data } = await client.post<DetailedEventBody>(
-      `schedule/events`,
+  async editEvent(
+    body: PatchEventBody,
+    groupId: string,
+    eventId: string,
+  ): Promise<DetailedEventBody> {
+    const { data } = await client.patch<DetailedEventBody>(
+      `schedule/groups/${groupId}/events/${eventId}`,
       body,
       getAuthorizationHeader(),
     );

@@ -1,10 +1,14 @@
 import React, { FC, useState } from 'react';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
 import Link from '@/components/common/ui/custom-link/CustomLink';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
+import {
+  IconButtonColor,
+  IconButtonSize,
+} from '@/components/common/ui/icon-button-mui/types';
 import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
 import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
@@ -13,10 +17,10 @@ import { TagColor } from '@/components/common/ui/tag/types';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
-import { useSchedule } from '@/store/schedule/useSchedule';
 import { TDiscipline } from '@/types/schedule';
 
-import { EditIcon } from './components/Edit';
+import { skeletonProps } from '../utils/skeletonProps';
+
 import * as styles from './ScheduleInfoCard.styles';
 
 const TagLabelMapper: Record<string, string> = {
@@ -43,7 +47,7 @@ interface ScheduleInfoCardProps {
   loading: boolean;
   event?: DetailedEventBody;
 }
-import { skeletonProps } from '../../utils/skeletonProps';
+
 const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
   onEventEditButtonClick,
   onCloseButtonClick,
@@ -63,7 +67,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
         <Box sx={{ display: 'flex' }}>
           <IconButton
             color={IconButtonColor.TRANSPARENT}
-            icon={<EditIcon />}
+            icon={<PencilSquareIcon width={36} height={36} />}
             onClick={loading ? () => {} : onEventEditButtonClick}
           />
           <CloseButton onClick={onCloseButtonClick} />

@@ -17,12 +17,16 @@ import { ScheduleDropdown } from '../schedule-dropdown/ScheduleDropdown';
 import * as styles from './AddDeleteTeachers.styles';
 
 const MAX_TEACHERS_SIZE = 5;
+
 interface AddDeleteTeachersProps {
   name: string;
 }
 export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
-  const [{ value: teachers }, { touched, error }, { setValue, setTouched }] =
-    useField<SharedEventBody['teachers']>(name);
+  const [
+    { value: teachers },
+    { touched, error },
+    { setValue, setTouched, setError },
+  ] = useField<SharedEventBody['teachers']>(name);
 
   const dropdownTeachers = useSchedule(state => state.teachers);
 
@@ -33,6 +37,7 @@ export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
   ) => {
     const newTeachers = [...teachers];
     newTeachers[index] = newTeacherId;
+    setTouched(true);
     setValue(newTeachers);
   };
 
@@ -66,7 +71,9 @@ export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
           placeholder={'Оберіть викладача'}
         />
       ))}
-
+      {touched && error && (
+        <Typography sx={styles.errorRemark}>{error}</Typography>
+      )}
       <Box sx={styles.actions}>
         <Button
           text="Додати"
@@ -87,9 +94,6 @@ export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
           size={ButtonSize.SMALL}
           disabled={teachers.length === 0}
         />
-        {touched && error && (
-          <Typography sx={styles.errorRemark}>{error}</Typography>
-        )}
       </Box>
     </Box>
   );

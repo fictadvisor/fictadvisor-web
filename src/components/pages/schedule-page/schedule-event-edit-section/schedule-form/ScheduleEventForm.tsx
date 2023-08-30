@@ -8,6 +8,7 @@ import {
   TrashIcon,
 } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { Form, Formik, FormikConfig, FormikProps } from 'formik';
 
@@ -16,6 +17,11 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
+import IconButton from '@/components/common/ui/icon-button-mui';
+import {
+  IconButtonColor,
+  IconButtonShape,
+} from '@/components/common/ui/icon-button-mui/types';
 import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
@@ -25,6 +31,7 @@ import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-ed
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { useSchedule } from '@/store/schedule/useSchedule';
+import theme from '@/styles/theme';
 
 import CloseButton from '../../../../common/ui/icon-button-mui/variants/CloseButton/CloseButton';
 import { skeletonProps } from '../utils/skeletonProps';
@@ -41,6 +48,7 @@ interface ScheduleEventFormProps {
   onCloseButtonClick: () => void;
   onCancelButtonClick?: () => void;
   onDeleteButtonClick: () => void;
+  validationSchema: FormikConfig<SharedEventBody>['validationSchema'];
 }
 
 export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
@@ -49,6 +57,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   onCloseButtonClick,
   onDeleteButtonClick,
   onCancelButtonClick,
+  validationSchema,
 }) => {
   const [date, setDate] = useState<Date | undefined>(
     !initialValues.startTime ? undefined : new Date(initialValues.startTime),
@@ -63,24 +72,14 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
     },
   });
 
-  const form = useRef<FormikProps<SharedEventBody>>(null);
-
-  // const handleCancel = () => {
-  //   console.log('cancel');
-  // };
-  //
-  // const handleClearAllFields = () => {
-  //   form.current?.resetForm();
-  //   setTeacherInputList([{}]);
-  // };
+  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   return (
     <Box sx={styles.container}>
       <Formik
-        innerRef={form}
         initialValues={initialValues}
         onSubmit={onSubmit}
-        // validationSchema={{}}
+        validationSchema={validationSchema}
       >
         {({ values }) => (
           <Form style={{ display: 'flex', flexDirection: 'column' }}>
@@ -98,6 +97,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 name={'disciplineType'}
                 options={eventTypeList}
                 placeholder={'Оберіть тип події'}
+                disableClearable
               />
               <Typography variant="body1Medium" alignSelf="start">
                 Викладач
@@ -119,12 +119,14 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                     options={getOptionsFromDate(date)}
                     placeholder={'Оберіть час'}
                     icon={<ClockIcon width={22} height={22} />}
+                    disableClearable
                   />
                   <ScheduleFormikDropdown
                     name={'endTime'}
                     options={getOptionsFromDate(date)}
                     placeholder={'Оберіть час'}
                     icon={<ArrowRightIcon width={22} height={22} />}
+                    disableClearable
                   />
                 </Box>
               )}
@@ -134,6 +136,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 options={periodOptions}
                 placeholder={'Оберіть період'}
                 icon={<ArrowPathIcon width={22} height={22} />}
+                disableClearable
               />
               <Typography variant="body1Medium">Конференція</Typography>
               <Input
@@ -170,14 +173,23 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
             </Box>
 
             <Box sx={styles.buttonContainer(!!onCancelButtonClick)}>
-              <Button
-                sx={styles.btn}
-                text="Видалити"
-                endIcon={<TrashIcon width={22} height={22} />}
-                variant={ButtonVariant.OUTLINE}
-                size={ButtonSize.SMALL}
-                onClick={onDeleteButtonClick}
-              />
+              {isMobile ? (
+                <IconButton
+                  onClick={onDeleteButtonClick}
+                  icon={<TrashIcon />}
+                  shape={IconButtonShape.CIRCLE}
+                  color={IconButtonColor.ERROR}
+                />
+              ) : (
+                <Button
+                  sx={styles.btn}
+                  text="Видалити"
+                  endIcon={<TrashIcon width={22} height={22} />}
+                  variant={ButtonVariant.OUTLINE}
+                  size={ButtonSize.SMALL}
+                  onClick={onDeleteButtonClick}
+                />
+              )}
               <Box sx={{ display: 'flex', gap: '8px' }}>
                 <Button
                   sx={styles.btn}

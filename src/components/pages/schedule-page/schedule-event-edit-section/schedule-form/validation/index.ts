@@ -1,36 +1,37 @@
 import * as yup from 'yup';
+import { TestConfig } from 'yup';
 
-export const validationSchema = yup.object().shape({
+import { areValuesUnique } from '../../../utils/areValuesUnique';
+
+const timeTest: TestConfig = {
+  name: 'startTimeGreaterThanEndTime',
+  test: (value, context) => {
+    const startTimeMs = new Date(context.parent.startTime).getTime();
+    const endTimeMs = new Date(context.parent.endTime).getTime();
+
+    return endTimeMs > startTimeMs;
+  },
+  message: 'Подія не може починатися піщніше ніж закінчується',
+};
+
+const uniqueTeachersTest: TestConfig = {
+  name: 'uniqueTeachersTest',
+  test: (value, context) => {
+    return areValuesUnique(context.parent.teachers);
+  },
+  message: 'Вчителі не можуть повторюватися',
+};
+export const editFormValidationSchema = yup.object().shape({
   name: yup
     .string()
     .required('Обовʼязкове поле')
     .min(2, 'Не коротше 2 символів')
     .max(100, 'Не довше 100 символів'),
-  type: yup.string().required(`Обов'язкове поле`),
-  teacher: yup.string().required(`Обов'язкове поле`),
-  startTime: yup
-    .string()
-    .required('Обовʼязкове поле')
-    .matches(
-      /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-      'Неправильний формат часу',
-    ),
-  endTime: yup
-    .string()
-    .required('Обовʼязкове поле')
-    .matches(
-      /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-      'Неправильний формат часу',
-    ),
-  date: yup
-    .string()
-    .required('Обовʼязкове поле')
-    .matches(
-      /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/,
-      'Неправильний формат дати',
-    ),
+  startTime: yup.string().required('Обовʼязкове поле').test(timeTest),
+  endTime: yup.string().required('Обовʼязкове поле').test(timeTest),
+  teachers: yup.array().test(uniqueTeachersTest),
   period: yup.string(),
-  url: yup.string().required(`Обов'язкове поле`),
-  eventInfo: yup.string().max(2000, 'Не довше 2000 символів'),
-  disciplineInfo: yup.string().max(2000, 'Не довше 2000 символів'),
+  url: yup.string(),
+  //eventInfo: yup.string().max(2000, 'Не довше 2000 символів'),
+  //disciplineInfo: yup.string().max(2000, 'Не довше 2000 символів'),
 });
