@@ -106,7 +106,7 @@ export const useSchedule = create<State & Action>((set, get) => ({
     const isSelective = get().isSelective;
     const week = get().week;
     const eventBodies = get().eventsBody;
-
+    console.log('isSelective', isSelective);
     const startWeek = findFirstOf5(week);
 
     if (!eventBodies[startWeek])

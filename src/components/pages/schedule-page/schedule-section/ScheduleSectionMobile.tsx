@@ -22,6 +22,7 @@ const ScheduleSectionMobile = () => {
   const dayMapper = ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 
   const eventsPerWeek = useMemo(() => {
+    console.log('eventsPerWeek', events);
     if (!events[week - 1]) return null;
     const _eventsWeek: GetEventBody = JSON.parse(
       JSON.stringify(events[week - 1]),

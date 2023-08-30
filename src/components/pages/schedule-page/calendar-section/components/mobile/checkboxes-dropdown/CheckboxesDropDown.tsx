@@ -97,7 +97,10 @@ export const CheckboxesDropdown = () => {
               ...selectedCheckboxes,
             } as Checkboxes;
             console.log(newValues);
-            useSchedule.setState({ checkboxes: newValues });
+            useSchedule.setState({
+              checkboxes: newValues,
+              isSelective: newValues.isSelective,
+            });
             updateDisciplineTypes(newValues);
           }}
           options={options}

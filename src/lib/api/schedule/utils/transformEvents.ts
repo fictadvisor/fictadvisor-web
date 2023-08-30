@@ -13,6 +13,14 @@ export function transformEvents({
 }: GetEventBody): GetEventTransformedBody {
   const firstDayDate = new Date(startTime);
   const firstDayDateMs = firstDayDate.getTime();
+
+  if (
+    events.some(event => new Date(event.startTime).getTime() < firstDayDateMs)
+  )
+    throw new Error(
+      'An event cannot occur before start of the week, wrong information from backend',
+    );
+
   let helperMs = firstDayDateMs;
 
   const allEvents: (Event[] | Event)[] = [];

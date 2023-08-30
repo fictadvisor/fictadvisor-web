@@ -9,5 +9,5 @@ export const buttonIcons: SxProps<Theme> = {
   flexDirection: 'column',
   height: 'fit-content',
   gap: '10px',
-  zIndex: 2,
+  zIndex: 11,
 };

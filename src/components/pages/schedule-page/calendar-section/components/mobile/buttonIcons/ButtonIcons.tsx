@@ -15,8 +15,18 @@ export const ButtonIcons = () => {
   return (
     <Box sx={styles.buttonIcons}>
       {user &&
-        user.group?.role === UserGroupRole.CAPTAIN &&
-        user.group?.code === groupId && <ButtonIcon icon={<PlusIcon />} />}
+        user.group?.role !== UserGroupRole.STUDENT &&
+        user.group?.id === groupId && (
+          <ButtonIcon
+            icon={<PlusIcon />}
+            onClick={() =>
+              useSchedule.setState(state => ({
+                isNewEventAdded: true,
+                openedEvent: undefined,
+              }))
+            }
+          />
+        )}
 
       <ButtonIcon
         icon={<ArrowUpIcon />}

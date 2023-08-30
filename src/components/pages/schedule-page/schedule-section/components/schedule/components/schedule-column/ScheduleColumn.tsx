@@ -42,7 +42,10 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
       return;
     }
 
-    useSchedule.setState(state => ({ openedEvent: _event }));
+    useSchedule.setState(state => ({
+      openedEvent: _event,
+      isNewEventAdded: false,
+    }));
   };
 
   return (

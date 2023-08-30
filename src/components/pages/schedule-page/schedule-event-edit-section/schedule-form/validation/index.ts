@@ -35,3 +35,18 @@ export const editFormValidationSchema = yup.object().shape({
   //eventInfo: yup.string().max(2000, 'Не довше 2000 символів'),
   //disciplineInfo: yup.string().max(2000, 'Не довше 2000 символів'),
 });
+
+export const addEventFormValidationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required('Обовʼязкове поле')
+    .min(2, 'Не коротше 2 символів')
+    .max(100, 'Не довше 100 символів'),
+  startTime: yup.string().required('Обовʼязкове поле').test(timeTest),
+  endTime: yup.string().required('Обовʼязкове поле').test(timeTest),
+  teachers: yup.array().test(uniqueTeachersTest),
+  period: yup.string(),
+  url: yup.string(),
+  //eventInfo: yup.string().max(2000, 'Не довше 2000 символів'),
+  //disciplineInfo: yup.string().max(2000, 'Не довше 2000 символів'),
+});

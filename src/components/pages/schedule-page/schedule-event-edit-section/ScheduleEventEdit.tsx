@@ -56,12 +56,11 @@ export const ScheduleEventEdit = () => {
   };
 
   const handleEventEdited = async (values: SharedEventBody) => {
-    prepareData(
+    const body = prepareData(
       values,
       transformDetailedEvent(detailedEvent as DetailedEventBody),
+      week,
     );
-
-    const body: PatchEventBody = { ...values, week: `${week}` };
 
     try {
       const data = await ScheduleAPI.editEvent(

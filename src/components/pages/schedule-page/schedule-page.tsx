@@ -21,6 +21,11 @@ import { ScheduleSection } from './schedule-section/ScheduleSection';
 import ScheduleSectionMobile from './schedule-section/ScheduleSectionMobile';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
+import { SharedEventBody } from '@/lib/api/schedule/types/shared';
+
+import { initialValues } from './schedule-event-edit-section/schedule-form/constants';
+import { ScheduleEventForm } from './schedule-event-edit-section/schedule-form/ScheduleEventForm';
+import { addEventFormValidationSchema } from './schedule-event-edit-section/schedule-form/validation';
 export interface SchedulePageProps {
   groups: Group[];
   semester: GetCurrentSemester | null;
@@ -40,15 +45,23 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const { user } = useAuthentication();
   const toast = useToast();
 
-  const { setGroupId, setWeek, setDate, setChosenDay, openedEvent, groupId } =
-    useSchedule(state => ({
-      setGroupId: state.setGroupId,
-      setWeek: state.setWeek,
-      setDate: state.setDate,
-      setChosenDay: state.setChosenDay,
-      openedEvent: state.openedEvent,
-      groupId: state.groupId,
-    }));
+  const {
+    setGroupId,
+    setWeek,
+    setDate,
+    setChosenDay,
+    openedEvent,
+    groupId,
+    isNewEventAdded,
+  } = useSchedule(state => ({
+    setGroupId: state.setGroupId,
+    setWeek: state.setWeek,
+    setDate: state.setDate,
+    setChosenDay: state.setChosenDay,
+    openedEvent: state.openedEvent,
+    groupId: state.groupId,
+    isNewEventAdded: state.isNewEventAdded,
+  }));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -95,11 +108,19 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     }
   }, [router.isReady]);
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
-
   useEffect(() => {
     if (!groupId) toast.info('Оберіть свою групу', '', 4000);
   }, [groupId]);
+
+  const closeForm = () => {
+    useSchedule.setState({ isNewEventAdded: false });
+  };
+
+  const handleFormSubmit = async (values: SharedEventBody) => {
+    console.log(values);
+  };
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   return (
     <PageLayout title={'Розклад'}>
@@ -114,6 +135,16 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
         {isMobile ? <ScheduleSectionMobile /> : <ScheduleSection />}
       </Box>
       {openedEvent && <ScheduleEventEdit />}
+      {isNewEventAdded && (
+        <ScheduleEventForm
+          onCloseButtonClick={closeForm}
+          onCancelButtonClick={closeForm}
+          initialValues={initialValues}
+          validationSchema={addEventFormValidationSchema}
+          onSubmit={handleFormSubmit}
+          isNewEvent
+        />
+      )}
     </PageLayout>
   );
 };

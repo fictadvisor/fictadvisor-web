@@ -17,6 +17,6 @@ export const sticky: SxProps<Theme> = {
 };
 
 export const wrapper: SxProps<Theme> = {
-  gap: '16px',
+  gap: '8px',
   alignItems: 'center',
 };

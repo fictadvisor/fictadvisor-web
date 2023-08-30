@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, Fragment, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import {
   ArrowPathIcon,
@@ -46,9 +46,10 @@ interface ScheduleEventFormProps {
   onSubmit: FormikConfig<SharedEventBody>['onSubmit'];
   initialValues: SharedEventBody;
   onCloseButtonClick: () => void;
-  onCancelButtonClick?: () => void;
-  onDeleteButtonClick: () => void;
+  onCancelButtonClick: () => void;
+  onDeleteButtonClick?: () => void;
   validationSchema: FormikConfig<SharedEventBody>['validationSchema'];
+  isNewEvent?: boolean;
 }
 
 export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
@@ -58,6 +59,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   onDeleteButtonClick,
   onCancelButtonClick,
   validationSchema,
+  isNewEvent = false,
 }) => {
   const [date, setDate] = useState<Date | undefined>(
     !initialValues.startTime ? undefined : new Date(initialValues.startTime),
@@ -81,7 +83,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({ values }) => (
+        {({}) => (
           <Form style={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={styles.titleContainer}>
               <Input
@@ -111,24 +113,27 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               <Typography variant="body1Medium">
                 Тут мав бути компонент Ігоря
               </Typography>
-              <Typography variant="body1Medium">Час</Typography>
+
               {date && (
-                <Box sx={styles.timeInputs}>
-                  <ScheduleFormikDropdown
-                    name={'startTime'}
-                    options={getOptionsFromDate(date)}
-                    placeholder={'Оберіть час'}
-                    icon={<ClockIcon width={22} height={22} />}
-                    disableClearable
-                  />
-                  <ScheduleFormikDropdown
-                    name={'endTime'}
-                    options={getOptionsFromDate(date)}
-                    placeholder={'Оберіть час'}
-                    icon={<ArrowRightIcon width={22} height={22} />}
-                    disableClearable
-                  />
-                </Box>
+                <Fragment>
+                  <Typography variant="body1Medium">Час</Typography>
+                  <Box sx={styles.timeInputs}>
+                    <ScheduleFormikDropdown
+                      name={'startTime'}
+                      options={getOptionsFromDate(date)}
+                      placeholder={'Оберіть час'}
+                      icon={<ClockIcon width={22} height={22} />}
+                      disableClearable
+                    />
+                    <ScheduleFormikDropdown
+                      name={'endTime'}
+                      options={getOptionsFromDate(date)}
+                      placeholder={'Оберіть час'}
+                      icon={<ArrowRightIcon width={22} height={22} />}
+                      disableClearable
+                    />
+                  </Box>
+                </Fragment>
               )}
               <Typography variant="body1Medium">Повторення</Typography>
               <ScheduleFormikDropdown
@@ -172,15 +177,15 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               </TabContext>
             </Box>
 
-            <Box sx={styles.buttonContainer(!!onCancelButtonClick)}>
-              {isMobile ? (
+            <Box sx={styles.buttonContainer(!isNewEvent)}>
+              {isMobile && !isNewEvent ? (
                 <IconButton
                   onClick={onDeleteButtonClick}
                   icon={<TrashIcon />}
                   shape={IconButtonShape.CIRCLE}
                   color={IconButtonColor.ERROR}
                 />
-              ) : (
+              ) : !isNewEvent ? (
                 <Button
                   sx={styles.btn}
                   text="Видалити"
@@ -189,7 +194,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                   size={ButtonSize.SMALL}
                   onClick={onDeleteButtonClick}
                 />
-              )}
+              ) : null}
               <Box sx={{ display: 'flex', gap: '8px' }}>
                 <Button
                   sx={styles.btn}
@@ -200,7 +205,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 />
                 <Button
                   sx={styles.btn}
-                  text="Зберегти"
+                  text={isNewEvent ? 'Створити' : 'Зберегти'}
                   size={ButtonSize.SMALL}
                   type="submit"
                 />

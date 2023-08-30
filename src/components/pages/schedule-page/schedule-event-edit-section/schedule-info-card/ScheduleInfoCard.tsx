@@ -141,7 +141,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             {loading ? (
               <Skeleton {...skeletonProps} width={400} height={25} />
             ) : (
-              <Typography>
+              <Typography sx={{ whiteSpace: 'pre-line' }}>
                 {event?.eventInfo ?? 'Інформація про подію відстуня'}
               </Typography>
             )}
@@ -150,7 +150,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             {loading ? (
               <Skeleton {...skeletonProps} width={400} height={25} />
             ) : (
-              <Typography>
+              <Typography sx={{ whiteSpace: 'pre-line' }}>
                 {event?.disciplineInfo ?? 'Інформація про дисципліну відстуня'}
               </Typography>
             )}
