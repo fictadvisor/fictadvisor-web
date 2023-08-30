@@ -238,8 +238,11 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         setIsSendingStatus(SendingStatus.LOADING);
                         try {
                           for (let i = 0; i < answers.length; i++) {
-                            answers[i].value = answers[i].value.trim();
-
+                            if (i == answers.length - 1) {
+                              answers[i].value = answers[i].value
+                                .toString()
+                                .trim();
+                            }
                             if (answers[i].value.length === 0) {
                               answers = answers.filter(
                                 item => item !== answers[i],
@@ -275,7 +278,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                           } else if (errorName === 'NoPermissionException') {
                             toast.error('Помилка', 'Недостатньо прав!');
                           } else {
-                            toast.error('Помилка', 'Помилка на сервері :(');
+                            toast.error(
+                              'Помилка',
+                              'Помилка на сервері (у всьому винен бек) :(',
+                            );
                           }
                           setIsSendingStatus(SendingStatus.ERROR);
                         }
