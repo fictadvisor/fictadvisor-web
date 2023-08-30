@@ -71,9 +71,12 @@ class ScheduleAPI {
     return data;
   }
 
-  async addEvent(body: PostEventBody): Promise<DetailedEventBody> {
+  async addEvent(
+    body: PostEventBody,
+    groupId: string,
+  ): Promise<DetailedEventBody> {
     const { data } = await client.post<DetailedEventBody>(
-      `schedule/events`,
+      `schedule/groups/${groupId}/events`,
       body,
       getAuthorizationHeader(),
     );

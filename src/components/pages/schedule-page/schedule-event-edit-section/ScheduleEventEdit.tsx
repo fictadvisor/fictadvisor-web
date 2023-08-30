@@ -35,6 +35,7 @@ export const ScheduleEventEdit = () => {
     [openedEvent],
   );
 
+  //TODO:handle 403 error
   const { isLoading, data } = useQuery(
     ['event', openedEvent?.id, week],
     () => ScheduleAPI.getEventInfo(openedEvent?.id as string, week),

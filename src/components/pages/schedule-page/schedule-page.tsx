@@ -21,6 +21,8 @@ import { ScheduleSection } from './schedule-section/ScheduleSection';
 import ScheduleSectionMobile from './schedule-section/ScheduleSectionMobile';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
+import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
+import { PostEventBody } from '@/lib/api/schedule/types/PostEventBody';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 
 import { initialValues } from './schedule-event-edit-section/schedule-form/constants';
@@ -118,6 +120,13 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
   const handleFormSubmit = async (values: SharedEventBody) => {
     console.log(values);
+    const finalValues: PostEventBody = JSON.parse(JSON.stringify(values));
+    finalValues.groupId = groupId;
+    try {
+      await ScheduleAPI.addEvent(finalValues, groupId);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));

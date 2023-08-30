@@ -61,8 +61,8 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   validationSchema,
   isNewEvent = false,
 }) => {
-  const [date, setDate] = useState<Date | undefined>(
-    !initialValues.startTime ? undefined : new Date(initialValues.startTime),
+  const [date, setDate] = useState<Date | null>(
+    !initialValues.startTime ? null : new Date(initialValues.startTime),
   );
   const teachers = useSchedule(state => state.teachers);
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
@@ -109,25 +109,25 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 <AddDeleteTeachers name={'teachers'} />
               )}
               <Typography variant="body1Medium">Дата початку</Typography>
-              <Typography variant="body1Medium">
-                Тут мав бути компонент Ігоря
-              </Typography>
-              <Typography variant="body1Medium">Час</Typography>
+              <CalendarInput date={date} setDate={setDate} />
               {date && (
-                <Box sx={styles.timeInputs}>
-                  <ScheduleFormikDropdown
-                    name={'startTime'}
-                    options={getOptionsFromDate(date)}
-                    placeholder={'Оберіть час'}
-                    icon={<ClockIcon width={22} height={22} />}
-                  />
-                  <ScheduleFormikDropdown
-                    name={'endTime'}
-                    options={getOptionsFromDate(date)}
-                    placeholder={'Оберіть час'}
-                    icon={<ArrowRightIcon width={22} height={22} />}
-                  />
-                </Box>
+                <Fragment>
+                  <Typography variant="body1Medium">Час</Typography>
+                  <Box sx={styles.timeInputs}>
+                    <ScheduleFormikDropdown
+                      name={'startTime'}
+                      options={getOptionsFromDate(date)}
+                      placeholder={'Оберіть час'}
+                      icon={<ClockIcon width={22} height={22} />}
+                    />
+                    <ScheduleFormikDropdown
+                      name={'endTime'}
+                      options={getOptionsFromDate(date)}
+                      placeholder={'Оберіть час'}
+                      icon={<ArrowRightIcon width={22} height={22} />}
+                    />
+                  </Box>
+                </Fragment>
               )}
               <Typography variant="body1Medium">Повторення</Typography>
               <ScheduleFormikDropdown
@@ -140,7 +140,6 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               <Input
                 placeholder="Введи посилання"
                 name="url"
-                size={'medium'}
                 icon={<LinkIcon width={22} height={22} />}
               />
             </Box>
