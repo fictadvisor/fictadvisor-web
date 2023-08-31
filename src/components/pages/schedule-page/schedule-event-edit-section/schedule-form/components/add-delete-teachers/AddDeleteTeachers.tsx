@@ -9,6 +9,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
+import { DropDownOption } from '@/components/common/ui/form/dropdown/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { useSchedule } from '@/store/schedule/useSchedule';
 
@@ -17,18 +18,17 @@ import { ScheduleDropdown } from '../schedule-dropdown/ScheduleDropdown';
 import * as styles from './AddDeleteTeachers.styles';
 
 const MAX_TEACHERS_SIZE = 5;
-
 interface AddDeleteTeachersProps {
   name: string;
+  teacherOptions: DropDownOption[];
 }
-export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
-  const [
-    { value: teachers },
-    { touched, error },
-    { setValue, setTouched, setError },
-  ] = useField<SharedEventBody['teachers']>(name);
 
-  const dropdownTeachers = useSchedule(state => state.teachers);
+export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({
+  name,
+  teacherOptions,
+}) => {
+  const [{ value: teachers }, { touched, error }, { setValue, setTouched }] =
+    useField<SharedEventBody['teachers']>(name);
 
   const handleValueChange = (
     newTeacherId: string,
@@ -64,10 +64,7 @@ export const AddDeleteTeachers: FC<AddDeleteTeachersProps> = ({ name }) => {
           key={i}
           onChange={newValue => handleValueChange(newValue, teacherId, i)}
           value={teacherId}
-          options={dropdownTeachers.map(teacher => ({
-            id: teacher.id,
-            label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
-          }))}
+          options={teacherOptions}
           placeholder={'Оберіть викладача'}
         />
       ))}

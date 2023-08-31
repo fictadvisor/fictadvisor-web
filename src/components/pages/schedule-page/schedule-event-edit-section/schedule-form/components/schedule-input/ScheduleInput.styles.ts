@@ -10,13 +10,13 @@ export const input = (size: 'small' | 'medium'): SxProps<Theme> => ({
       color: 'grey.600',
     },
     '&.Mui-disabled': {
-      '-webkit-text-fill-color': 'unset',
+      WebkitTextFillColor: 'unset',
       opacity: 0.3,
     },
   },
   '& .Mui-disabled': {
     svg: {
-      '-webkit-text-fill-color': 'unset',
+      WebkitTextFillColor: 'unset',
       opacity: 0.3,
     },
   },

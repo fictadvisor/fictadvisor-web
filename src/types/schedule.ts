@@ -16,7 +16,7 @@ export interface Event {
     id: string;
     disciplineId: string;
     name: TDiscipline;
-  };
+  } | null;
 }
 
 export enum TEventPeriod {

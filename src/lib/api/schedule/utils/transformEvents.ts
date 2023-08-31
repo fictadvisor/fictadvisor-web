@@ -14,12 +14,15 @@ export function transformEvents({
   const firstDayDate = new Date(startTime);
   const firstDayDateMs = firstDayDate.getTime();
 
-  if (
-    events.some(event => new Date(event.startTime).getTime() < firstDayDateMs)
-  )
-    throw new Error(
-      'An event cannot occur before start of the week, wrong information from backend',
-    );
+  for (const event of events) {
+    if (new Date(event.startTime).getTime() < firstDayDateMs) {
+      console.error(event);
+
+      throw new Error(
+        `An event cannot occur before start of the week, wrong information from backend`,
+      );
+    }
+  }
 
   let helperMs = firstDayDateMs;
 

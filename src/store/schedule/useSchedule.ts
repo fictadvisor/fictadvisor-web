@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
+import { getDisciplinesAndTeachers } from '@/lib/api/schedule/types/getDisciplinesAndTeachers';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { TDiscipline } from '@/types/schedule';
@@ -33,7 +34,7 @@ const checkboxesInitialValues: Checkboxes = {
   isSelective: true,
 };
 
-const CheckboxesMapper: Record<string, TDiscipline[]> = {
+const CheckboxesMapper: Record<string, (TDiscipline | null)[]> = {
   addLecture: [TDiscipline.LECTURE],
   addLaboratory: [TDiscipline.LABORATORY],
   addPractice: [TDiscipline.PRACTICE],
@@ -41,15 +42,15 @@ const CheckboxesMapper: Record<string, TDiscipline[]> = {
     TDiscipline.CONSULTATION,
     TDiscipline.EXAM,
     TDiscipline.WORKOUT,
+    null,
   ],
 };
 
 type State = {
-  teachers: Teacher[];
   checkboxes: Checkboxes;
   semester?: GetCurrentSemester;
   isSelective: boolean;
-  disciplineTypes: TDiscipline[];
+  disciplineTypes: (TDiscipline | null)[];
   week: number;
   groupId: string;
   eventsBody: GetEventBody[];
@@ -80,7 +81,6 @@ type Action = {
 
 export const useSchedule = create<State & Action>((set, get) => {
   return {
-    teachers: [],
     openedEvent: undefined,
     checkboxes: checkboxesInitialValues,
     isSelective: false,
@@ -172,7 +172,7 @@ export const useSchedule = create<State & Action>((set, get) => {
     },
 
     updateDisciplineTypes(disciplines) {
-      const _disciplineTypes: TDiscipline[] = [];
+      const _disciplineTypes: (TDiscipline | null)[] = [];
 
       for (const [key, value] of Object.entries(disciplines)) {
         if (value && key !== 'isSelective') {

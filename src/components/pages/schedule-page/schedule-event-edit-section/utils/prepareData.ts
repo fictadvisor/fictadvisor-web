@@ -11,7 +11,10 @@ export const prepareData = (
     const key = _key as keyof SharedEventBody;
     if (
       JSON.stringify(dataFromForm[key]) === JSON.stringify(initialData[key]) &&
-      key != 'teachers'
+      key !== 'teachers'
+      //   &&
+      // key !== 'startTime' &&
+      // key !== 'endTime'
     ) {
       finalData[key] = undefined;
     }

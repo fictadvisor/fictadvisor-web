@@ -1,5 +1,8 @@
+import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
+import GroupAPI from '@/lib/api/group/GroupAPI';
 import { client } from '@/lib/api/instance';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
+import { getDisciplinesAndTeachers } from '@/lib/api/schedule/types/getDisciplinesAndTeachers';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { PatchEventBody } from '@/lib/api/schedule/types/PatchEventBody';
 import { PostEventBody } from '@/lib/api/schedule/types/PostEventBody';
@@ -94,6 +97,20 @@ class ScheduleAPI {
       getAuthorizationHeader(),
     );
     return data;
+  }
+
+  async getDisciplinesAndTeachers(
+    groupId: string,
+    semester: GetCurrentSemester,
+  ): Promise<getDisciplinesAndTeachers> {
+    const [teachers, disciplines] = await Promise.all([
+      GroupAPI.getDisciplineTeachers(groupId),
+      GroupAPI.getDisciplines(groupId, semester.semester, semester.year),
+    ]);
+    return {
+      teachers,
+      disciplines,
+    };
   }
 }
 export default new ScheduleAPI();

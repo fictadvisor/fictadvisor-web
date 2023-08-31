@@ -29,7 +29,8 @@ const Schedule = () => {
     _eventsWeek.events = _eventsWeek.events.filter(event => {
       return disciplines.some(
         discipline =>
-          !event.disciplineType || discipline === event.disciplineType.name,
+          discipline === event.disciplineType ||
+          discipline === event?.disciplineType?.name,
       );
     });
     // console.log('after', transformEvents(_eventsWeek));

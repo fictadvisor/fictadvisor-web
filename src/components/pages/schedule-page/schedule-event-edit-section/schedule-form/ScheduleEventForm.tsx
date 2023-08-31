@@ -26,6 +26,7 @@ import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
 import CalendarInput from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/calendar-input';
+import { DisciplineRelatedFields } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/discipline-related-fields/DisciplineRelatedFields';
 import { getOptionsFromDate } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/utils/getOptionsFromDate';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
@@ -64,15 +65,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   const [date, setDate] = useState<Date | null>(
     !initialValues.startTime ? null : new Date(initialValues.startTime),
   );
-  const teachers = useSchedule(state => state.teachers);
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
-
-  const { isLoading } = useQuery('AllTeachers', () => TeacherAPI.getAll(), {
-    onSuccess: data => {
-      if (teachers.length === 0)
-        useSchedule.setState(state => ({ teachers: data.teachers }));
-    },
-  });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
@@ -83,7 +76,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({}) => (
+        {({ values }) => (
           <Form style={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={styles.titleContainer}>
               <Input
@@ -100,13 +93,8 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 options={eventTypeList}
                 placeholder={'Оберіть тип події'}
               />
-              <Typography variant="body1Medium" alignSelf="start">
-                Викладач
-              </Typography>
-              {isLoading ? (
-                <Skeleton {...skeletonProps} width={300} height={50} />
-              ) : (
-                <AddDeleteTeachers name={'teachers'} />
+              {values.disciplineType && (
+                <DisciplineRelatedFields values={values} />
               )}
               <Typography variant="body1Medium">Дата початку</Typography>
               <CalendarInput date={date} setDate={setDate} />
