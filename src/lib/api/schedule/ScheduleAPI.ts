@@ -76,7 +76,7 @@ class ScheduleAPI {
     groupId: string,
   ): Promise<DetailedEventBody> {
     const { data } = await client.post<DetailedEventBody>(
-      `schedule/groups/${groupId}/events`,
+      `schedule/events`,
       body,
       getAuthorizationHeader(),
     );

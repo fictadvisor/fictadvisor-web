@@ -53,6 +53,12 @@ export const eventTypeList: DropDownOption[] = [
     color: TagColor.SUCCESS,
     size: TagSize.SMALL,
   },
+  {
+    id: '',
+    text: 'Інша подія',
+    color: TagColor.SECONDARY,
+    size: TagSize.SMALL,
+  },
 ];
 
 export const periodOptions: DropDownOption[] = [

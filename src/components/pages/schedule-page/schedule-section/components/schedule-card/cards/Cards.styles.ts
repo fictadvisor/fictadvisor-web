@@ -1,5 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+import { TDiscipline } from '@/types/schedule';
+
 const otherSubjects: SxProps<Theme> = {
   backgroundColor: 'violet.100',
   borderColor: 'violet.700',
@@ -30,7 +32,7 @@ const otherSubjects: SxProps<Theme> = {
   },
 };
 
-const subjectColors = (disciplineType: string): SxProps<Theme> => ({
+const subjectColors = (disciplineType: TDiscipline | null): SxProps<Theme> => ({
   '& .MuiTypography-body1': {
     color: 'grey.600',
     typography: 'body1Medium',
@@ -127,15 +129,11 @@ const subjectColors = (disciplineType: string): SxProps<Theme> => ({
       },
     },
   }),
-  ...(disciplineType === 'CONSULTATION' && {
-    ...otherSubjects,
-  }),
-  ...(disciplineType === 'WORKOUT' && {
-    ...otherSubjects,
-  }),
-  ...(disciplineType === 'EXAM' && {
-    ...otherSubjects,
-  }),
+  ...(disciplineType !== 'LABORATORY' &&
+    disciplineType !== 'PRACTICE' &&
+    disciplineType !== 'LECTURE' && {
+      ...otherSubjects,
+    }),
 });
 
 export const wrapper: SxProps<Theme> = {
@@ -169,7 +167,7 @@ export const packedCard = (
 });
 
 export const card = (
-  disciplineType: string,
+  disciplineType: TDiscipline | null,
   height: string | number,
   minHeight = 'unset',
 ): SxProps<Theme> => ({

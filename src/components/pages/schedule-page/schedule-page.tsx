@@ -28,6 +28,7 @@ import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { initialValues } from './schedule-event-edit-section/schedule-form/constants';
 import { ScheduleEventForm } from './schedule-event-edit-section/schedule-form/ScheduleEventForm';
 import { addEventFormValidationSchema } from './schedule-event-edit-section/schedule-form/validation';
+import { makeNegativeValuesUndefined } from './utils/undefineNegativeValues';
 export interface SchedulePageProps {
   groups: Group[];
   semester: GetCurrentSemester | null;
@@ -55,6 +56,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     openedEvent,
     groupId,
     isNewEventAdded,
+    handleWeekChange,
   } = useSchedule(state => ({
     setGroupId: state.setGroupId,
     setWeek: state.setWeek,
@@ -63,6 +65,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     openedEvent: state.openedEvent,
     groupId: state.groupId,
     isNewEventAdded: state.isNewEventAdded,
+    handleWeekChange: state.handleWeekChange,
   }));
 
   useEffect(() => {
@@ -111,8 +114,9 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   }, [router.isReady]);
 
   useEffect(() => {
-    if (!groupId) toast.info('Оберіть свою групу', '', 4000);
-  }, [groupId]);
+    const isUsingSelective = user && user.group?.id === groupId;
+    useSchedule.setState(state => ({ isUsingSelective }));
+  }, [groupId, user]);
 
   const closeForm = () => {
     useSchedule.setState({ isNewEventAdded: false });
@@ -120,10 +124,12 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
 
   const handleFormSubmit = async (values: SharedEventBody) => {
     console.log(values);
-    const finalValues: PostEventBody = JSON.parse(JSON.stringify(values));
+    const finalValues: PostEventBody = makeNegativeValuesUndefined(values);
     finalValues.groupId = groupId;
     try {
       await ScheduleAPI.addEvent(finalValues, groupId);
+      useSchedule.setState(state => ({ eventsBody: [] }));
+      await handleWeekChange();
     } catch (e) {
       console.log(e);
     }

@@ -30,6 +30,7 @@ const TagLabelMapper: Record<string, string> = {
   [TDiscipline.CONSULTATION]: 'Консультація',
   [TDiscipline.PRACTICE]: 'Практика',
   [TDiscipline.WORKOUT]: 'Тренування',
+  ['null']: 'Інша подія',
 };
 
 const TagColorMapper: Record<string, TagColor> = {
@@ -39,6 +40,7 @@ const TagColorMapper: Record<string, TagColor> = {
   [TDiscipline.CONSULTATION]: TagColor.VIOLET,
   [TDiscipline.PRACTICE]: TagColor.ORANGE,
   [TDiscipline.WORKOUT]: TagColor.VIOLET,
+  ['null']: TagColor.VIOLET,
 };
 
 interface ScheduleInfoCardProps {
@@ -87,7 +89,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
         <Box sx={styles.teachersContainer}>
           {loading ? (
             <Skeleton {...skeletonProps} width={200} height={45} />
-          ) : event!.teachers.length === 0 ? (
+          ) : !event!.teachers || event!.teachers.length === 0 ? (
             <Typography variant="body1Medium">
               Інформація про викладачів відстуня
             </Typography>

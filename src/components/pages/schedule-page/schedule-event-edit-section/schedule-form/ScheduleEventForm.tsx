@@ -115,12 +115,14 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                   <Typography variant="body1Medium">Час</Typography>
                   <Box sx={styles.timeInputs}>
                     <ScheduleFormikDropdown
+                      disableClearable
                       name={'startTime'}
                       options={getOptionsFromDate(date)}
                       placeholder={'Оберіть час'}
                       icon={<ClockIcon width={22} height={22} />}
                     />
                     <ScheduleFormikDropdown
+                      disableClearable
                       name={'endTime'}
                       options={getOptionsFromDate(date)}
                       placeholder={'Оберіть час'}
