@@ -7,6 +7,7 @@ import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-eve
 import { ScheduleFormikDropdown } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/schedule-dropdown/ScheduleDropdown';
 import { skeletonProps } from '@/components/pages/schedule-page/schedule-event-edit-section/utils/skeletonProps';
 import useAuthentication from '@/hooks/use-authentication';
+import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
@@ -28,7 +29,10 @@ export const DisciplineRelatedFields: FC<DisciplineRelatedFieldsProps> = ({
   const semester = useSchedule(state => state.semester);
 
   const { isLoading, data } = useQuery('dataAboutGroup', () =>
-    ScheduleAPI.getDisciplinesAndTeachers(user.group?.id as string, semester),
+    ScheduleAPI.getDisciplinesAndTeachers(
+      user.group?.id as string,
+      semester as GetCurrentSemester,
+    ),
   );
 
   return (
