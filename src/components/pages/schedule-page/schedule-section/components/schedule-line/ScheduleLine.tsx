@@ -37,7 +37,7 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
 
       <Tooltip
         title={getStringTime(time.toISOString())}
-        arrow={true}
+        arrow
         placement={'left'}
         sx={styles.tooltip}
       >

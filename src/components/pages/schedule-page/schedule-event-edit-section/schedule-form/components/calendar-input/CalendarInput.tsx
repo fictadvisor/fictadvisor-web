@@ -32,6 +32,8 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
         onChange={value => setDate(value ? value.toDate() : null)}
         minDate={dayjs(semester?.startDate)}
         maxDate={dayjs(semester?.endDate)}
+        closeOnSelect
+        desktopModeMediaQuery="@media (min-width: 0px)"
       />
     </Box>
   );

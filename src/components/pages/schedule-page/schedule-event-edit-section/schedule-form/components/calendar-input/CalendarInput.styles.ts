@@ -60,4 +60,44 @@ export const input: SxProps<Theme> = {
   },
 };
 
-export const calendar: SxProps<Theme> = {};
+export const calendar: SxProps<Theme> = {
+  color: 'white.main',
+  '& .MuiPickersLayout-contentWrapper': {
+    backgroundColor: 'backgroundDark.100',
+    border: '2px solid',
+    borderColor: 'backgroundDark.100',
+  },
+  '& .MuiDateCalendar-root': {
+    backgroundColor: 'backgroundDark.100',
+  },
+  '& .MuiPickersDay-root': {
+    color: 'white.main',
+  },
+  '& .MuiButtonBase-root': {
+    color: 'white.main',
+    '&.Mui-disabled': {
+      color: 'grey.400',
+    },
+  },
+  '& .MuiPickersCalendarHeader-label': {
+    color: 'white.main',
+  },
+  '& .MuiTypography-root': {
+    color: 'grey.400',
+  },
+  '& .MuiPickersDay-dayWithMargin': {
+    borderRadius: '6px',
+    m: '4px 6px',
+    width: '28px',
+    height: '28px',
+    '&:not(.Mui-selected):hover': {
+      backgroundColor: 'grey.100',
+    },
+  },
+  '& .MuiDayCalendar-weekContainer': {
+    '&:has(.Mui-selected)': {
+      backgroundColor: 'grey.100',
+      borderRadius: '6px',
+    },
+  },
+};
