@@ -20,7 +20,7 @@ export const date: SxProps<Theme> = {
 };
 
 export const month: SxProps<Theme> = {
-  typography: 'body1Bold',
+  typography: { mobile: 'h6Bold', tablet: 'h4Medium' },
 };
 
 export const week: SxProps<Theme> = {

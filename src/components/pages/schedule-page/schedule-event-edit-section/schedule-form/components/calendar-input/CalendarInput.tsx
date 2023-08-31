@@ -1,12 +1,19 @@
 import { Dispatch, FC } from 'react';
 import { CalendarIcon as CalendarIconMUI } from '@heroicons/react/24/outline';
 import { Box } from '@mui/material';
+import { ukUA } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 import { useSchedule } from '@/store/schedule/useSchedule';
 
 import * as styles from './CalendarInput.styles';
+
+const ukrainianLocale =
+  ukUA.components.MuiLocalizationProvider.defaultProps.localeText;
+
+ukrainianLocale.fieldDayPlaceholder = () => 'ДД';
+ukrainianLocale.fieldYearPlaceholder = params => 'Р'.repeat(params.digitAmount);
 
 interface CalendarInputProps {
   date: Date | null;
@@ -18,12 +25,11 @@ const CalendarIcon = () => {
 
 const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
   const semester = useSchedule(state => state.semester);
-
   return (
     <Box sx={styles.wrapper}>
       <DatePicker
         slotProps={{
-          textField: { sx: styles.input },
+          textField: { sx: styles.input, placeholder: 'ДД.ММ.РРРР' },
           popper: { sx: styles.calendar },
         }}
         slots={{ openPickerIcon: CalendarIcon }}
@@ -32,8 +38,10 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
         onChange={value => setDate(value ? value.toDate() : null)}
         minDate={dayjs(semester?.startDate)}
         maxDate={dayjs(semester?.endDate)}
+        localeText={ukrainianLocale}
         closeOnSelect
         desktopModeMediaQuery="@media (min-width: 0px)"
+        format="LL"
       />
     </Box>
   );

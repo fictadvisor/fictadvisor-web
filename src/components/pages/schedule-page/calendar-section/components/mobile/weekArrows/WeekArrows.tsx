@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
@@ -63,7 +63,7 @@ export const WeekArrows = () => {
       }}
     >
       {monthNumber ? (
-        <Typography variant={'h6Medium'}>{monthMapper[monthNumber]}</Typography>
+        <Typography variant={'h6Bold'}>{monthMapper[monthNumber]}</Typography>
       ) : (
         <Skeleton
           width={140}

@@ -72,7 +72,6 @@ const ScheduleHeader = () => {
   }, [week]);
 
   const monthNumber = useMemo(() => {
-    console.log('lol', eventsBody[week - 1]);
     if (!eventsBody[week - 1]) return null;
     return transformEvents(
       eventsBody[week - 1] as GetEventBody,
