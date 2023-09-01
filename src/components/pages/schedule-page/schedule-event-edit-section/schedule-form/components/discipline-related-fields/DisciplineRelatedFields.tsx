@@ -26,13 +26,13 @@ export interface DisciplineRelatedFieldsProps {
 export const DisciplineRelatedFields: FC<DisciplineRelatedFieldsProps> = ({
   values,
 }) => {
+  const groupId = useSchedule(state => state.groupId);
   //TODO:add errors handling
-  const { user } = useAuthentication();
   const semester = useSchedule(state => state.semester);
 
   const { isLoading, data } = useQuery('dataAboutGroup', () =>
     ScheduleAPI.getDisciplinesAndTeachers(
-      user.group?.id as string,
+      groupId,
       semester as GetCurrentSemester,
     ),
   );

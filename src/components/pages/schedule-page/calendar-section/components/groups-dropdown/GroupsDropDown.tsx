@@ -25,7 +25,10 @@ export const GroupsDropDown: FC<DropDownSectionProps> = ({ groups }) => {
       label="Група"
       placeholder="Оберіть групу"
       showRemark={false}
-      onChange={id => setGroupId(id)}
+      onChange={id => {
+        useSchedule.setState(state => ({ isNewEventAdded: false }));
+        setGroupId(id);
+      }}
       value={groupId}
       disableClearable
     />

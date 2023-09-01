@@ -38,7 +38,6 @@ const subjectColors = (disciplineType: TDiscipline | null): SxProps<Theme> => ({
     typography: 'body1Medium',
     display: '-webkit-box !important',
     WebkitLineClamp: 4,
-    WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -194,6 +193,9 @@ export const card = (
   wordBreak: 'break-all',
   outline: '2px solid',
   outlineColor: '#1E1E1E',
+  '& .Mui-disabled': {
+    pointerEvents: 'unset',
+  },
   ...subjectColors(disciplineType),
 });
 
