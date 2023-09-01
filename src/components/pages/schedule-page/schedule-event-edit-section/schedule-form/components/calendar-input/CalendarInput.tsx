@@ -39,6 +39,9 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
         minDate={dayjs(semester?.startDate)}
         maxDate={dayjs(semester?.endDate)}
         localeText={ukrainianLocale}
+        dayOfWeekFormatter={day => {
+          return day.charAt(0).toUpperCase() + day.slice(1);
+        }}
         closeOnSelect
         desktopModeMediaQuery="@media (min-width: 0px)"
         format="LL"
