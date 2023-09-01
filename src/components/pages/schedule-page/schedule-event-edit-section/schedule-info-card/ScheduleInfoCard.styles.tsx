@@ -32,6 +32,7 @@ export const teachersContainer: SxProps<Theme> = {
 };
 
 export const infoContainer: SxProps<Theme> = {
+  marginTop: '12px',
   '& .MuiTabs-flexContainer': {
     gap: '8px',
   },

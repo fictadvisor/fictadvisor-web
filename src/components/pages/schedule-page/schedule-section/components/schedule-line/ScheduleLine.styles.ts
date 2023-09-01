@@ -76,4 +76,8 @@ export const line = (
   }),
 });
 
-export const tooltip: SxProps<Theme> = {};
+export const tooltip: SxProps<Theme> = {
+  '& .MuiTooltip-tooltip': {
+    backgroundColor: 'primary.100',
+  },
+};

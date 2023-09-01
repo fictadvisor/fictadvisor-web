@@ -82,7 +82,7 @@ export const dropdown: SxProps<Theme> = {
       },
 
       '& .MuiAutocomplete-option': {
-        color: 'grey.600',
+        color: 'white.main',
         minHeight: '36px',
         pt: '0px',
         pb: '0px',
