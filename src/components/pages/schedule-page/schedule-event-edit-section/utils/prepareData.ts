@@ -24,10 +24,6 @@ export const prepareData = (
     new Date(initialData.startTime as string).toDateString() !==
     new Date(dataFromForm.startTime as string).toDateString();
 
-  finalData.changeEndDate =
-    new Date(initialData.endTime as string).toDateString() !==
-    new Date(dataFromForm.endTime as string).toDateString();
-
   finalData.week = week.toString();
 
   return finalData;
