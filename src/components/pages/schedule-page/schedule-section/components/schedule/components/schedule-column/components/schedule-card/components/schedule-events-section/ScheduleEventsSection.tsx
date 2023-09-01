@@ -2,8 +2,9 @@ import { FC } from 'react';
 import { ClickAwayListener } from '@mui/base';
 import { Box, Typography } from '@mui/material';
 
-import ScheduleEvent from '@/components/pages/schedule-page/schedule-section/components/schedule-card/cards/ScheduleEvent';
 import { Event } from '@/types/schedule';
+
+import ScheduleEvent from '../../cards/ScheduleEvent';
 
 import * as styles from './ScheduleEventsSection.styles';
 interface ScheduleEventsExpandedProps {

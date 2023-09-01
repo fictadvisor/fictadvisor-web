@@ -3,13 +3,13 @@ import { Box } from '@mui/material';
 
 import Progress from '@/components/common/ui/progress';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
+import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-line/types';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
-import ScheduleLine from '@/components/pages/schedule-page/schedule-section/components/schedule-line';
-import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule-line/types';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
 
+import ScheduleLine from './components/schedule-line/ScheduleLine';
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {

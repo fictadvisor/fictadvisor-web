@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
-import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
 
+import ScheduleColumn from './components/schedule/components/schedule-column';
 import * as styles from './schedule-section.styles';
 
 const ScheduleSectionMobile = () => {

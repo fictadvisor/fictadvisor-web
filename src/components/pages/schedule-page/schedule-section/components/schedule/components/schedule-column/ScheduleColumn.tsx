@@ -1,11 +1,9 @@
 import { FC } from 'react';
 import { Box } from '@mui/material';
-import { AxiosError } from 'axios';
 
-import ScheduleCard from '@/components/pages/schedule-page/schedule-section/components/schedule-card';
+import ScheduleCard from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/components/schedule-card';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
-import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { EventDay } from '@/lib/api/schedule/types/GetEventBody';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';

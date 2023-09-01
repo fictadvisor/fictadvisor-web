@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { Box, Divider, SxProps, Theme } from '@mui/material';
 
 import Tooltip from '@/components/common/ui/tooltip';
-import { calctulateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule-card/utils/calculateTop';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import { useSchedule } from '@/store/schedule/useSchedule';
+
+import { calctulateTop } from '../schedule-column/components/schedule-card/utils/calculateTop';
 
 import * as styles from './ScheduleLine.styles';
 import { ScheduleLineVariant } from './types';

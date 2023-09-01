@@ -5,10 +5,9 @@ import { getStringTime } from '@/components/pages/schedule-page/utils/getStringT
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';
 
-import { ScheduleEventsSection } from '../schedule-events-section/ScheduleEventsSection';
-
 import ScheduleEvent from './cards/ScheduleEvent';
 import ScheduleEvents from './cards/ScheduleEvents';
+import { ScheduleEventsSection } from './components/schedule-events-section/ScheduleEventsSection';
 import calculateHeight from './utils/calculateHeight';
 import { calctulateTop } from './utils/calculateTop';
 import * as styles from './ScheduleCard.styles';
