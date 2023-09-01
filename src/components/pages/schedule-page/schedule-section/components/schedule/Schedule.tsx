@@ -25,7 +25,6 @@ const Schedule = () => {
     const _eventsWeek: GetEventBody = JSON.parse(
       JSON.stringify(events[week - 1]),
     );
-    // console.log('before', transformEvents(events[week - 1]));
     _eventsWeek.events = _eventsWeek.events.filter(event => {
       return disciplines.some(
         discipline =>
@@ -33,7 +32,6 @@ const Schedule = () => {
           discipline === event?.disciplineType?.name,
       );
     });
-    // console.log('after', transformEvents(_eventsWeek));
     return _eventsWeek;
   }, [disciplines, events, week]);
 

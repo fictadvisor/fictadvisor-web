@@ -1,7 +1,6 @@
 import { GetGroupDisciplines } from '@/lib/api/group/types/GetGroupDisciplines';
-import { GetDisciplinesWithTeachers } from '@/lib/api/group/types/GetGroupTeachers';
-
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 export interface getDisciplinesAndTeachers {
   disciplines: GetGroupDisciplines;
-  teachers: GetDisciplinesWithTeachers;
+  teachers: GetTeachersResponse;
 }

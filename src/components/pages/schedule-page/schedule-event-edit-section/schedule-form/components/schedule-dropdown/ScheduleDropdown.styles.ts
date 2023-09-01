@@ -17,6 +17,9 @@ export const input = () => {
       display: 'flex',
       alignContent: 'center',
       paddingRight: '30px',
+      '& .MuiInputAdornment-root:not(:has(svg))': {
+        display: 'none',
+      },
     },
     '& .MuiOutlinedInput-root': {
       backgroundColor: 'backgroundDark.200',

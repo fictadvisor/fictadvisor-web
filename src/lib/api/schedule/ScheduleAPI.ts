@@ -6,6 +6,8 @@ import { getDisciplinesAndTeachers } from '@/lib/api/schedule/types/getDisciplin
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { PatchEventBody } from '@/lib/api/schedule/types/PatchEventBody';
 import { PostEventBody } from '@/lib/api/schedule/types/PostEventBody';
+import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
+import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 class ScheduleAPI {
   async getEvents(
@@ -104,7 +106,7 @@ class ScheduleAPI {
     semester: GetCurrentSemester,
   ): Promise<getDisciplinesAndTeachers> {
     const [teachers, disciplines] = await Promise.all([
-      GroupAPI.getDisciplineTeachers(groupId),
+      TeacherAPI.getAll(),
       GroupAPI.getDisciplines(groupId, semester.semester, semester.year),
     ]);
     return {

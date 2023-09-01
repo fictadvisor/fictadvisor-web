@@ -1,5 +1,6 @@
 import React, { FC, Fragment } from 'react';
 import { useQuery } from 'react-query';
+import { BriefcaseIcon } from '@heroicons/react/24/outline';
 import { Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
@@ -17,6 +18,7 @@ import {
   getDisciplineOptions,
   getTeacherOptions,
 } from '../add-delete-teachers/utils';
+
 export interface DisciplineRelatedFieldsProps {
   values: SharedEventBody;
 }
@@ -56,6 +58,7 @@ export const DisciplineRelatedFields: FC<DisciplineRelatedFieldsProps> = ({
           name={'disciplineId'}
           options={getDisciplineOptions(data.disciplines)}
           placeholder={'Оберіть дисципліну'}
+          icon={<BriefcaseIcon width={24} height={24} />}
         />
       )}
     </Fragment>
