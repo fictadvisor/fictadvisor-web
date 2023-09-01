@@ -5,9 +5,6 @@ export const wrapper = (
   height: string | number,
   zIndex = 0,
 ): SxProps<Theme> => ({
-  border: '2px solid',
-  borderColor: 'backgroundDark.100',
-
   width: {
     tablet: '132px',
     mobile: '100%',
@@ -21,6 +18,4 @@ export const wrapper = (
   position: { tablet: 'absolute' },
   transform: { tablet: `translateY(calc(${top}px - 5px))` },
   transition: 'linear .1s all',
-  left: 2,
-  backgroundColor: '#1E1E1E',
 });

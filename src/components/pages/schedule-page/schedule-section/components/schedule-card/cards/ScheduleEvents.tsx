@@ -11,6 +11,7 @@ interface ScheduleEventsProps {
   height: number;
   start: string;
   end: string;
+  isPastEvent: boolean;
   onClick: () => void;
 }
 
@@ -19,6 +20,7 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
   height,
   start,
   end,
+  isPastEvent,
   onClick,
 }) => {
   const trimmedEvents = events.slice(0, 5);
@@ -42,17 +44,18 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
               styles.packedCard(top, width, left),
             )}
             disableRipple
-            disabled={false}
+            disabled={isPastEvent}
           >
             {index === trimmedEvents.length - 1 && (
               <Fragment>
                 <Typography variant="body1">
                   {events.length} {events.length < 5 ? 'події' : 'подій'}
                 </Typography>
-
-                <Typography variant="body2">
-                  {start} - {end}
-                </Typography>
+                {eventHeight > 42 && (
+                  <Typography sx={styles.time} variant="body2">
+                    {start} - {end}
+                  </Typography>
+                )}
               </Fragment>
             )}
           </Button>

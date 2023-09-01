@@ -1,7 +1,8 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
+import { useSchedule } from '@/store/schedule/useSchedule';
 import { Event } from '@/types/schedule';
 
 import { ScheduleEventsSection } from '../schedule-events-section/ScheduleEventsSection';
@@ -19,11 +20,13 @@ interface ScheduleCardProps {
 }
 
 const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
+  const currentTime = useSchedule(state => state.currentTime);
   const [top, setTop] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [areEventsOpen, setEventsOpen] = useState(false);
+  const [isPastEvent, setIsPastEvent] = useState(false);
 
   useEffect(() => {
     const _event = Array.isArray(event) ? event[0] : event;
@@ -31,6 +34,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
     setHeight(calculateHeight(_event.startTime, _event.endTime));
     setStart(getStringTime(_event.startTime));
     setEnd(getStringTime(_event.endTime));
+    setIsPastEvent(currentTime >= new Date(_event.endTime));
   }, [event]);
 
   return (
@@ -42,6 +46,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
             onClick={onClick}
             onOutsideClick={() => setEventsOpen(false)}
             events={event}
+            isPastEvent={isPastEvent}
           />
         ) : (
           <ScheduleEvents
@@ -49,6 +54,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
             height={height}
             start={start}
             end={end}
+            isPastEvent={isPastEvent}
             onClick={() => setEventsOpen(true)}
           />
         )
@@ -60,6 +66,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
           end={end}
           onClick={onClick}
           week={week}
+          isPastEvent={isPastEvent}
         />
       )}
     </Box>

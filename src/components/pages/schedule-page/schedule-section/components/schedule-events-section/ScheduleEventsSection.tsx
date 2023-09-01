@@ -11,12 +11,14 @@ interface ScheduleEventsExpandedProps {
   onClick: (event: Event, week: string) => void;
   events: Event[];
   week: string;
+  isPastEvent: boolean;
 }
 export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
   events,
   onOutsideClick,
   onClick,
   week,
+  isPastEvent,
 }) => {
   const { startTime, endTime } = events[0];
   const start = new Date(startTime).toLocaleTimeString('ua-UK', {
@@ -72,6 +74,7 @@ export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
               end={''}
               onClick={onClick}
               week={week}
+              isPastEvent={isPastEvent}
             />
           ))}
         </Box>

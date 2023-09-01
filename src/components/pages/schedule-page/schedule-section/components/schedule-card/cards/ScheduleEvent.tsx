@@ -13,6 +13,7 @@ interface ScheduleEventProps {
   onClick: (event: Event, week: string) => void;
   minHeight?: string;
   week: string;
+  isPastEvent: boolean;
 }
 
 const ScheduleEvent: FC<ScheduleEventProps> = ({
@@ -23,6 +24,7 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
   onClick,
   minHeight = 'unset',
   week,
+  isPastEvent,
 }) => {
   return (
     <Button
@@ -32,7 +34,7 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
         minHeight,
       )}
       disableRipple
-      disabled={false}
+      disabled={isPastEvent}
       onClick={() => onClick(event, week)}
     >
       <Typography variant="body1">{event.name}</Typography>

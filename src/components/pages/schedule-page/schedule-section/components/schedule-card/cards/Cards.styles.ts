@@ -191,7 +191,14 @@ export const card = (
   textAlign: 'start',
   textTransform: 'none',
   gap: '4px',
-  left: -2,
   wordBreak: 'break-all',
+  outline: '2px solid',
+  outlineColor: '#1E1E1E',
   ...subjectColors(disciplineType),
 });
+
+export const time: SxProps<Theme> = {
+  width: '100%',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+};
