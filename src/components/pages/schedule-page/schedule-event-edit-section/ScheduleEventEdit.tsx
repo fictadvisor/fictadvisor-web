@@ -85,9 +85,11 @@ export const ScheduleEventEdit = () => {
         openedEvent?.id as string,
       );
       setIsEditOpen(false);
-      useSchedule.setState(state => ({ eventsBody: [] }));
+      useSchedule.setState(state => ({
+        eventsBody: [],
+        openedEvent: undefined,
+      }));
       await handleWeekChange();
-      console.log('deletiing', data);
     } catch (error) {
       console.log(error);
     }

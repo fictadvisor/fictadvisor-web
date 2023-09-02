@@ -71,7 +71,10 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
     finalValues.groupId = groupId;
     try {
       await ScheduleAPI.addEvent(finalValues, groupId);
-      useSchedule.setState(state => ({ eventsBody: [] }));
+      useSchedule.setState(state => ({
+        eventsBody: [],
+        isNewEventAdded: false,
+      }));
       await handleWeekChange();
     } catch (e) {
       console.log(e);

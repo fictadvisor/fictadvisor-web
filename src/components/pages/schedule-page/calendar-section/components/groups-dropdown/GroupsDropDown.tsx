@@ -8,10 +8,13 @@ export interface DropDownSectionProps {
   groups: Group[];
 }
 export const GroupsDropDown: FC<DropDownSectionProps> = ({ groups }) => {
-  const { setGroupId, groupId } = useSchedule(state => ({
-    setGroupId: state.setGroupId,
+  const { useSetGroupId, groupId } = useSchedule(state => ({
+    useSetGroupId: state.useSetGroupId,
     groupId: state.groupId,
   }));
+
+  const setGroupId = useSetGroupId();
+
   return (
     <Dropdown
       options={

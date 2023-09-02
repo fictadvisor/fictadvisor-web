@@ -71,9 +71,9 @@ type Action = {
   loadNext5Auth: (week: number) => Promise<void>;
   setWeek: (week: number) => void;
   updateDisciplineTypes: (discipline: Checkboxes) => void;
-  setGroupId: (id: string) => void;
+  useSetGroupId: () => (id: string) => void;
   handleWeekChange: () => Promise<void>;
-  handleGroupChange: () => Promise<void>;
+
   setIsNewEventAdded: (isAdded: boolean) => void;
   setDate: (newDate: Date) => void;
   setChosenDay: (newDate: Date) => void;
@@ -104,9 +104,7 @@ export const useSchedule = create<State & Action>((set, get) => {
     chosenDay: null,
     semester: undefined,
     isUsingSelective: false,
-    handleGroupChange: async () => {
-      await get().handleWeekChange();
-    },
+
     handleWeekChange: async () => {
       get().setError(null);
 
@@ -209,13 +207,20 @@ export const useSchedule = create<State & Action>((set, get) => {
         error: _error,
       }));
     },
-    setGroupId(id: string) {
-      set(_ => ({
-        groupId: id,
-        eventsBody: [],
-      }));
-      setUrlParams('group', id);
-      get().handleGroupChange();
+    useSetGroupId() {
+      const { user } = useAuthentication();
+      return function useSetGroupId(id: string) {
+        set(_ => ({
+          groupId: id,
+          eventsBody: [],
+        }));
+
+        const isUsingSelective = user && user.group?.id === id;
+        set(state => ({ isUsingSelective }));
+        setUrlParams('group', id);
+
+        get().handleWeekChange();
+      };
     },
     setIsNewEventAdded(isAdded: boolean) {
       set(_ => ({
