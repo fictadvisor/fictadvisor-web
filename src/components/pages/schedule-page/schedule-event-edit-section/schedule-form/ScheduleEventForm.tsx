@@ -47,7 +47,7 @@ interface ScheduleEventFormProps {
   onSubmit: FormikConfig<SharedEventBody>['onSubmit'];
   initialValues: SharedEventBody;
   onCloseButtonClick: () => void;
-  onCancelButtonClick: () => void;
+  onCancelButtonClick?: () => void;
   onDeleteButtonClick?: () => void;
   validationSchema: FormikConfig<SharedEventBody>['validationSchema'];
   isNewEvent?: boolean;
@@ -160,15 +160,17 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
               </TabContext>
             </Box>
 
-            <Box sx={styles.buttonContainer(!!onCancelButtonClick)}>
-              <Button
-                sx={styles.btn}
-                text="Видалити"
-                endIcon={<TrashIcon width={22} height={22} />}
-                variant={ButtonVariant.OUTLINE}
-                size={ButtonSize.SMALL}
-                onClick={onDeleteButtonClick}
-              />
+            <Box sx={styles.buttonContainer(isNewEvent)}>
+              {!isNewEvent && (
+                <Button
+                  sx={styles.btn}
+                  text="Видалити"
+                  endIcon={<TrashIcon width={22} height={22} />}
+                  variant={ButtonVariant.OUTLINE}
+                  size={ButtonSize.SMALL}
+                  onClick={onDeleteButtonClick}
+                />
+              )}
               <Box sx={{ display: 'flex', gap: '8px' }}>
                 <Button
                   sx={styles.btn}
@@ -179,7 +181,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                 />
                 <Button
                   sx={styles.btn}
-                  text="Зберегти"
+                  text={isNewEvent ? 'Створити' : 'Зберегти'}
                   size={ButtonSize.SMALL}
                   type="submit"
                 />

@@ -1,21 +1,25 @@
+import { useEffect } from 'react';
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 import { create } from 'zustand';
 
+import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
-import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
-import { getDisciplinesAndTeachers } from '@/lib/api/schedule/types/getDisciplinesAndTeachers';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
+import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
+import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
+import { Group } from '@/types/group';
 import { TDiscipline } from '@/types/schedule';
 import { Event } from '@/types/schedule';
-import { Teacher } from '@/types/teacher';
 
 import { findFirstOf5 } from './utils/findFirstOf5';
 import { setUrlParams } from './utils/setUrlParams';
 
 const WEEKS_ARRAY_SIZE = 24;
-
+const MAX_WEEK_NUMBER = 20;
 //TODO:ADD INITIAL STATE TO LOAD FROM LOCAL STORAGE
 
 export interface Checkboxes extends Record<string, boolean | undefined> {
@@ -77,6 +81,7 @@ type Action = {
   setIsLoading: (_: boolean) => void;
   setError: (_: AxiosError | null) => void;
   setIsSelective: (_: boolean) => void;
+  useInitialise: (semester: GetCurrentSemester | null, groups: Group[]) => void;
 };
 
 export const useSchedule = create<State & Action>((set, get) => {
@@ -225,9 +230,10 @@ export const useSchedule = create<State & Action>((set, get) => {
     setChosenDay(newDate: Date) {
       set(_ => ({
         chosenDay: newDate,
-        week: getWeekByDate(get().semester as GetCurrentSemester, newDate),
       }));
-      get().handleWeekChange();
+      get().setWeek(
+        getWeekByDate(get().semester as GetCurrentSemester, newDate),
+      );
     },
     setIsSelective(_isSelective: boolean) {
       const isUpdating = _isSelective !== get().isSelective;
@@ -236,6 +242,50 @@ export const useSchedule = create<State & Action>((set, get) => {
         eventsBody: new Array<GetEventBody>(WEEKS_ARRAY_SIZE),
       }));
       if (isUpdating) get().handleWeekChange();
+    },
+    useInitialise(semester, groups) {
+      const { user } = useAuthentication();
+      const router = useRouter();
+      const toast = useToast();
+
+      useEffect(() => {
+        const interval = setInterval(() => {
+          get().setDate(new Date());
+        }, 1000 * 60);
+
+        return () => clearInterval(interval);
+      });
+
+      useEffect(() => {
+        if (!router.isReady || !semester) return;
+        useSchedule.setState(state => ({ semester: semester }));
+
+        const { group: urlGroup, week: urlWeek } = router.query;
+        const isGroupValid = groups.some(_group => _group.id === urlGroup);
+        const isWeekValid =
+          urlWeek && +urlWeek > 0 && +urlWeek < MAX_WEEK_NUMBER;
+
+        const week = isWeekValid
+          ? +urlWeek
+          : Math.min(getCurrentWeek(semester), MAX_WEEK_NUMBER);
+
+        if (!isGroupValid) {
+          router.push('/schedule');
+          const storageGroup = localStorage.getItem('scheduleChosenGroupId');
+          if (storageGroup) set(state => ({ groupId: storageGroup }));
+          else toast.info('Оберіть групу');
+        } else set(state => ({ groupId: urlGroup as string }));
+
+        const isUsingSelective = user && user.group?.id === get().groupId;
+        set(state => ({ isUsingSelective }));
+
+        if (isUsingSelective)
+          get().updateDisciplineTypes(checkboxesInitialValues);
+
+        get().setChosenDay(
+          getLastDayOfAWeek(get().semester as GetCurrentSemester, week),
+        );
+      }, [router.isReady]);
     },
   };
 });

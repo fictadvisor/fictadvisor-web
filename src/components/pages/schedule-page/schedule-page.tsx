@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
-import { useRouter } from 'next/router';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import ScheduleEventEdit from '@/components/pages/schedule-page/schedule-event-edit-section/ScheduleEventEdit';
@@ -21,6 +20,8 @@ import { ScheduleSection } from './schedule-section/ScheduleSection';
 import ScheduleSectionMobile from './schedule-section/ScheduleSectionMobile';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
+import { useRouter } from 'next/router';
+
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { PostEventBody } from '@/lib/api/schedule/types/PostEventBody';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
@@ -44,79 +45,21 @@ export interface SchedulePageProps {
  * [] Add global state for maximum week number
  * */
 const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
-  const router = useRouter();
-  const { user } = useAuthentication();
-  const toast = useToast();
-
-  const {
-    setGroupId,
-    setWeek,
-    setDate,
-    setChosenDay,
-    openedEvent,
-    groupId,
-    isNewEventAdded,
+  const [
+    useInitialise,
     handleWeekChange,
-  } = useSchedule(state => ({
-    setGroupId: state.setGroupId,
-    setWeek: state.setWeek,
-    setDate: state.setDate,
-    setChosenDay: state.setChosenDay,
-    openedEvent: state.openedEvent,
-    groupId: state.groupId,
-    isNewEventAdded: state.isNewEventAdded,
-    handleWeekChange: state.handleWeekChange,
-  }));
+    groupId,
+    openedEvent,
+    isNewEventAdded,
+  ] = useSchedule(state => [
+    state.useInitialise,
+    state.handleWeekChange,
+    state.groupId,
+    state.openedEvent,
+    state.isNewEventAdded,
+  ]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDate(new Date());
-    }, 1000 * 60);
-
-    return () => clearInterval(interval);
-  });
-
-  useEffect(() => {
-    if (!router.isReady || !semester) return;
-    useSchedule.setState(state => ({ semester: semester }));
-
-    const { group, week } = router.query;
-
-    const isWrongUrl =
-      groups.every(_group => _group.id !== group) ||
-      (week && +week < 1) ||
-      (week && +week > MAX_WEEK_NUMBER);
-
-    if (isWrongUrl) {
-      router.push('/schedule');
-
-      const currentWeek = getCurrentWeek(semester);
-
-      let week = currentWeek;
-      let day = new Date();
-
-      if (currentWeek > MAX_WEEK_NUMBER) {
-        week = MAX_WEEK_NUMBER;
-        day = new Date(semester.endDate);
-      }
-
-      setWeek(week);
-      setChosenDay(day);
-
-      return;
-    }
-
-    if (group && !Array.isArray(group) && week) {
-      setGroupId(group);
-      setWeek(+week);
-      setChosenDay(getLastDayOfAWeek(semester, +week));
-    }
-  }, [router.isReady]);
-
-  useEffect(() => {
-    const isUsingSelective = user && user.group?.id === groupId;
-    useSchedule.setState(state => ({ isUsingSelective }));
-  }, [groupId, user]);
+  useInitialise(semester, groups);
 
   const closeForm = () => {
     useSchedule.setState({ isNewEventAdded: false });

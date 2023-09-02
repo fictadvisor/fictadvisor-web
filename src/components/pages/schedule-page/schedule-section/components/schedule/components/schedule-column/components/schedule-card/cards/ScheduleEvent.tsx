@@ -34,7 +34,6 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
         minHeight,
       )}
       disableRipple
-      disabled={isPastEvent}
       onClick={() => onClick(event, week)}
     >
       <Typography variant="body1">{event.name}</Typography>

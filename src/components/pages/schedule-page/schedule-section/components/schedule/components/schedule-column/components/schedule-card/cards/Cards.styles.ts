@@ -193,9 +193,7 @@ export const card = (
   wordBreak: 'break-all',
   outline: '2px solid',
   outlineColor: '#1E1E1E',
-  '& .Mui-disabled': {
-    pointerEvents: 'unset',
-  },
+
   ...subjectColors(disciplineType),
 });
 

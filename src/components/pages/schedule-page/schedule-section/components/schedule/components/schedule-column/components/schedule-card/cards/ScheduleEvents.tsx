@@ -44,7 +44,6 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
               styles.packedCard(top, width, left),
             )}
             disableRipple
-            disabled={isPastEvent}
           >
             {index === trimmedEvents.length - 1 && (
               <Fragment>

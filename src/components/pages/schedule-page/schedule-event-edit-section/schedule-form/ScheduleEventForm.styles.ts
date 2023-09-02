@@ -46,10 +46,10 @@ export const infoContainer: SxProps<Theme> = {
   },
 };
 
-export const buttonContainer = (withCancelButton: boolean): SxProps<Theme> => ({
+export const buttonContainer = (isNewEvent: boolean): SxProps<Theme> => ({
   mt: '16px',
   display: 'flex',
-  justifyContent: withCancelButton ? 'space-between' : 'flex-end',
+  justifyContent: isNewEvent ? 'flex-end' : 'space-between',
 });
 
 export const timeInputs: SxProps<Theme> = {
