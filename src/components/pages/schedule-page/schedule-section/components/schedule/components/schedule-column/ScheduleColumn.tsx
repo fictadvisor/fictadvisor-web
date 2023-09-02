@@ -22,8 +22,8 @@ const errorMapper = {
 };
 
 const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
-  const { openedEvent } = useSchedule(state => ({
-    openedEvent: state.openedEvent,
+  const { groupId } = useSchedule(state => ({
+    groupId: state.groupId,
   }));
 
   const toast = useToast();
@@ -33,13 +33,20 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
   const handleClick = async (_event: Event, week: string | number) => {
     if (!user) {
       toast.info(
-        'Увійдіть в акаунт для перегляду детальної інофрмації про подію',
-        '',
+        'Неавторизован(ий/а) 🐸',
+        'Увійди в акаунт для перегляду детальної інофрмації про подію',
         3000,
       );
       return;
     }
-
+    if (user.group?.id !== groupId) {
+      toast.info(
+        'Недостатньо прав 🐸',
+        'Ти не можеш переглянути детальну інформацію про події іншої групи',
+        3000,
+      );
+      return;
+    }
     useSchedule.setState(state => ({
       openedEvent: _event,
       isNewEventAdded: false,
