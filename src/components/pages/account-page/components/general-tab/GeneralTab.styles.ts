@@ -1,29 +1,10 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const division: SxProps<Theme> = {
-  display: 'flex',
-  margin: '20px 0 30px 0',
-  width: '100%',
-  alignItems: 'center',
-  '& .white': {
-    flexGrow: 1,
-    backgroundColor: 'white',
-    height: '1px',
-  },
-  '& .division-text': {
-    textAlign: 'center',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '14px',
-    lineHeight: '140%',
-    marginRight: '12px',
-  },
-};
 export const container: SxProps<Theme> = {
   display: 'flex',
   width: '100%',
   gap: '8%',
-  flexDirection: { mobile: 'column-reverse', desktopSemiMedium: '' },
+  flexDirection: { mobile: 'column-reverse', desktopSemiMedium: 'row' },
 };
 
 export const personalInfo: SxProps<Theme> = {
