@@ -1,7 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { useMediaQuery } from '@mui/material';
-import { AxiosError } from 'axios';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -81,6 +80,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
 }) => {
   const toast = useToast();
   // TODO: refactor this shit
+  // TODO: use useMemo for initial values
   const [initialValues, setInitialValues] = useState<Record<string, string>>(
     {},
   );
@@ -90,6 +90,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const numberRowsTextArea = isMobile ? 8 : 4;
 
+  // TODO: remove this shit
   useEffect(() => {
     for (const question of category.questions) {
       if (question.type === QuestionType.SCALE) {
@@ -98,6 +99,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     }
   }, [category]);
 
+  // TODO: refactor this
   const answer = (values: FormikValues) => {
     const resultAnswers = collectAnswers(answers, values);
     setAnswers(resultAnswers);
@@ -109,7 +111,33 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (value: Record<string, string>) => {
+    answer(value);
+    if (!isTheLast) {
+      setCurrent(prev => ++prev);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    setIsSendingStatus(SendingStatus.LOADING);
+    try {
+      const formattedAnswers = answers
+        .map(answer => ({ ...answer, value: answer.value.trim() }))
+        .filter(answer => !!answer.value);
+
+      await PollAPI.createTeacherGrade(
+        { answers: formattedAnswers },
+        disciplineTeacherId,
+      );
+      setIsSendingStatus(SendingStatus.SUCCESS);
+    } catch (error) {
+      const message = getErrorMessage(error);
+      message
+        ? toast.error('Помилка!', message)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
+      setIsSendingStatus(SendingStatus.ERROR);
+    }
+  };
 
   return (
     <div
@@ -230,39 +258,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                     }
                     type="submit"
                     disabled={isTheLast && !isValid}
-                    onClick={async () => {
-                      answer(values);
-                      if (!isTheLast) {
-                        setCurrent(prev => ++prev);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      } else {
-                        setIsSendingStatus(SendingStatus.LOADING);
-                        try {
-                          for (let i = 0; i < answers.length; i++) {
-                            answers[i].value = answers[i].value.trim();
-
-                            if (answers[i].value.length === 0) {
-                              answers = answers.filter(
-                                item => item !== answers[i],
-                              );
-                            }
-                          }
-                          await PollAPI.createTeacherGrade(
-                            { answers },
-                            disciplineTeacherId,
-                          );
-                          setIsSendingStatus(SendingStatus.SUCCESS);
-                        } catch (error) {
-                          const message = getErrorMessage(error);
-                          message
-                            ? toast.error('Помилка!', message)
-                            : toast.error(
-                                'Щось пішло не так, спробуй пізніше!',
-                              );
-                          setIsSendingStatus(SendingStatus.ERROR);
-                        }
-                      }
-                    }}
                   />
                 </Form>
               )}
