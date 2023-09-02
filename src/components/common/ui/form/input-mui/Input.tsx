@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
   type = InputType.DEFAULT,
   isSuccessOnDefault,
   defaultRemark,
-  showRemark = true,
+  showRemark = false,
   readOnly = false,
   sx = {},
   onDeterredChange,

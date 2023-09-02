@@ -16,12 +16,22 @@ export const label = (state: InputState): SxProps<Theme> => ({
   overflow: 'hidden',
   padding: '2px 8px',
   maxWidth: '78%',
-  background: `linear-gradient(180deg, rgba(30, 30, 30, 0) 50%, ${theme.palette.backgroundDark[50]} 49.95%)`,
+  background: `linear-gradient(180deg, rgba(30, 30, 30, 0) 50%, ${theme.palette.backgroundDark[100]} 49.95%)`,
 
   ...(state === InputState.ERROR && {
     color: theme.palette.error[500],
     '&.Mui-focused': {
       color: theme.palette.error[500],
+    },
+  }),
+
+  ...(state === InputState.READONLY && {
+    color: theme.palette.grey[800],
+    '&.Mui-focused': {
+      color: theme.palette.grey[800],
+    },
+    '&:hover': {
+      cursor: 'pointer',
     },
   }),
 
@@ -40,7 +50,7 @@ export const label = (state: InputState): SxProps<Theme> => ({
   }),
 
   '&.Mui-disabled': {
-    color: theme.palette.grey[400],
+    color: theme.palette.grey[200],
   },
 });
 
@@ -68,7 +78,7 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
-  backgroundColor: 'backgroundDark.50',
+  backgroundColor: theme.palette.backgroundDark[100],
   borderRadius: '8px',
   resize: 'none',
   border: '2px solid',
@@ -82,6 +92,19 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   ...(size === InputSize.MEDIUM && {
     padding: '13px 12px',
     typography: 'body1',
+  }),
+
+  ...(state === InputState.READONLY && {
+    borderColor: theme.palette.grey[500],
+    '&:hover': {
+      cursor: 'pointer',
+      borderColor: theme.palette.grey[700],
+    },
+    '&.MuiOutlinedInput-root': {
+      input: {
+        cursor: 'pointer',
+      },
+    },
   }),
 
   ...(state === InputState.DEFAULT && {
@@ -103,8 +126,8 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
   }),
 
   '&.Mui-disabled': {
-    borderColor: theme.palette.grey[400],
-    color: theme.palette.grey[400],
+    borderColor: theme.palette.grey[200],
+    color: theme.palette.grey[200],
   },
 
   svg: {
@@ -124,7 +147,10 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
 
   input: {
     '&.Mui-disabled': {
-      WebkitTextFillColor: theme.palette.grey[400],
+      WebkitTextFillColor: theme.palette.grey[200],
+      '&:hover': {
+        cursor: 'not-allowed',
+      },
     },
     padding: 0,
     '::placeholder': {
@@ -158,6 +184,6 @@ export const rightIcon = (type: InputType, state: InputState) => ({
 export const glassIcon = (type: InputType, state: InputState) => ({
   ...(type === InputType.SEARCH &&
     state === InputState.DISABLED && {
-      color: theme.palette.success[200],
+      color: theme.palette.grey[200],
     }),
 });
