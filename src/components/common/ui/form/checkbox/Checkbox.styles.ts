@@ -13,8 +13,4 @@ export const label = (disabled: boolean, label?: string): SxProps<Theme> => ({
   color: disabled ? 'grey.400' : 'grey.800',
   marginLeft: label && '8px',
   minWidth: '75px',
-  whiteSpace: {
-    mobileSemiMedium: 'normal',
-    mobileMedium: 'nowrap',
-  },
 });
