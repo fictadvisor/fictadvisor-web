@@ -1,25 +1,25 @@
-import React, { FormEvent, useEffect, useMemo } from 'react';
+import React, { FormEvent, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
-import * as yup from 'yup';
-import { AnyObject, StringSchema } from 'yup';
 
 import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
+import { createValidationSchema } from '@/components/pages/poll-page/components/answers-sheet/validation';
 import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import SingleQuestion from '@/components/pages/poll-page/components/single-question/SingleQuestion';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { usePollStore } from '@/store/poll-page/usePollStore';
-import { Answer, Category, Question, QuestionType } from '@/types/poll';
+import { Answer, Question, QuestionType } from '@/types/poll';
 
 import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
+
 interface AnswersSheetProps {
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   isTheLast: boolean;
@@ -44,7 +44,7 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 
   for (const [valueId, value] of Object.entries(values)) {
     const existingAnswer = resultAnswersMap.get(valueId);
-    if (existingAnswer !== undefined) {
+    if (existingAnswer) {
       existingAnswer.value = value;
     } else {
       resultAnswersMap.set(valueId, { value, questionId: valueId });
@@ -55,9 +55,9 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 };
 
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-  setProgress,
-  isTheLast,
-}) => {
+                                                     setProgress,
+                                                     isTheLast,
+                                                   }) => {
   const {
     setCurrentCategory,
     currentCategory,
@@ -83,44 +83,21 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
-  // Load initialValues from localStorage or set defaults
   const initialValues: Record<string, string> = useMemo(() => {
-    const localStorageAnswers = localStorage.getItem('formikPoll');
-    return localStorageAnswers
-      ? JSON.parse(localStorageAnswers)
-      : currentQuestions?.questions
-          .filter(question => question.type === QuestionType.SCALE)
-          .reduce((initialVals, question) => {
-            initialVals[question.id] = '1';
-            return initialVals;
-          }, {} as Record<string, string>);
+    return currentQuestions?.questions
+      .filter(question => question.type === QuestionType.SCALE)
+      .reduce((initialVals, question) => {
+        initialVals[question.id] = '1';
+        return initialVals;
+      }, {} as Record<string, string>);
   }, []);
 
-  const createValidationSchema = (currentQuestions: Category) => {
-    const validationSchemaObject: Record<
-      string,
-      yup.StringSchema<string | undefined, AnyObject, undefined, ''>
-    > = {};
-
-    currentQuestions?.questions.forEach((question: Question) => {
-      validationSchemaObject[question.id] = yup
-        .string()
-        .min(4, 'Текст повинен містити не менше 4 символів');
-    });
-
-    return yup.object().shape(validationSchemaObject);
-  };
   const handleFormEvent = (
     event: FormEvent<HTMLFormElement>,
     values: Record<string, string>,
   ) => {
     const name = (event.target as HTMLFormElement).name;
     const value = (event.target as HTMLFormElement).value;
-    localStorage.setItem(
-      'formikPoll',
-      JSON.stringify({ ...values, [name]: value }),
-    );
-
     if (name && value) {
       updateAnswer({ ...values, [name]: value });
     }
@@ -200,18 +177,19 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                 setQuestionsListOpened(true);
               }}
             >
-              <ChevronLeftIcon style={{ height: '20px' }} />
+              <Box sx={sxStyles.chevronIcon}>
+                <ChevronLeftIcon height="20px" />
+              </Box>
               <Typography sx={sxStyles.questionName}>
                 {currentCategory + 1} . {currentQuestions?.name}
               </Typography>
             </Box>
             <Box sx={sxStyles.answersWrapper}>
               <Formik
-                validationSchema={createValidationSchema}
+                validationSchema={createValidationSchema(currentQuestions)}
                 validateOnMount
                 validateOnChange
                 initialValues={initialValues}
-                enableReinitialize
                 onSubmit={handleSubmit}
               >
                 {({ values }) => (
@@ -226,7 +204,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   >
                     {currentQuestions?.questions.map((question, key) => (
                       <SingleQuestion
-                        key={key}
+                        key={question.id}
                         question={question}
                         id={key}
                         count={currentQuestions.count}
