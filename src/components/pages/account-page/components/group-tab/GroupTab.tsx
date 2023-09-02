@@ -15,7 +15,6 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import { PendingStudent } from '@/types/student';
 import { User, UserGroupRole, UserGroupState } from '@/types/user';
 
-
 const getStudents = async (user: User) => {
   const { students } = await GroupAPI.getGroupStudents(
     user.group?.id as string,
@@ -74,8 +73,8 @@ const GroupTab: FC = () => {
     data?.requests?.length !== 0 && user?.group?.role !== UserGroupRole.STUDENT;
 
   return (
-    <div className={styles['content']}>
-      <div className={styles['text-content']}>
+    <div>
+      <div>
         <h4>Список групи {user.group.code}</h4>
       </div>
       {showRequests && (

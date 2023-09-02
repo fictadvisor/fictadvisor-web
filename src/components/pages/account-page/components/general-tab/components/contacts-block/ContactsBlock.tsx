@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useQuery } from 'react-query';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { useMediaQuery } from '@mui/material';
 
 import Button from '@/components/common/ui/button';
 import {
@@ -11,6 +12,7 @@ import ContactForm from '@/components/pages/account-page/components/general-tab/
 import ContactItem from '@/components/pages/account-page/components/general-tab/components/contacts-block/components/ContactItem';
 import useAuthentication from '@/hooks/use-authentication';
 import UserAPI from '@/lib/api/user/UserAPI';
+import theme from '@/styles/theme';
 
 import styles from '../../GeneralTab.module.scss';
 
@@ -25,6 +27,7 @@ const ContactsBlock: FC = () => {
   const contacts = data?.contacts || [];
 
   const handleClick = () => setIsOpened(!isOpened);
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
 
   return (
     <>
@@ -37,24 +40,14 @@ const ContactsBlock: FC = () => {
         <Button
           text="Додати посилання"
           startIcon={<PlusIcon className={'icon'} />}
-          size={ButtonSize.MEDIUM}
+          size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
           variant={ButtonVariant.OUTLINE}
           type="submit"
           className={styles['change-password-button']}
           onClick={handleClick}
         />
       </div>
-      <div className={styles['confirm-button-mobile']}>
-        <Button
-          text="Додати посилання"
-          startIcon={<PlusIcon className={'icon'} />}
-          size={ButtonSize.SMALL}
-          variant={ButtonVariant.OUTLINE}
-          type="submit"
-          className={styles['change-password-button']}
-          onClick={handleClick}
-        />
-      </div>
+
       {isOpened && (
         <ContactForm
           refetchContacts={async () => {
