@@ -11,6 +11,9 @@ export const picker: SxProps<Theme> = {
     '&.MuiPickersDay-dayOutsideMonth': {
       color: 'grey.400',
     },
+    '& .MuiPickersDay-dayWithMargin': {
+      color: 'grey.400',
+    },
     '&.Mui-disabled': {
       color: 'grey.200',
     },
