@@ -40,7 +40,10 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
         title={getStringTime(time.toISOString())}
         arrow
         placement={'left'}
-        sx={styles.tooltip}
+        slotProps={{
+          tooltip: { sx: styles.tooltip },
+          arrow: { sx: styles.arrow },
+        }}
       >
         <Box sx={styles.line(variant, indent)}>
           <Box sx={styles.verticalDivider(variant)}></Box>
