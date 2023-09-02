@@ -24,6 +24,7 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
   onClick,
 }) => {
   const trimmedEvents = events.slice(0, 5);
+  console.log(trimmedEvents);
 
   return (
     <Box sx={styles.wrapper} onClick={onClick}>
@@ -32,7 +33,6 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
         const width = index * 10;
         const top = 14 * index;
         const left = 10 * index - 2;
-
         return (
           <Button
             key={event.id}
@@ -40,6 +40,8 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
               styles.card(
                 event.disciplineType ? event.disciplineType.name : null,
                 eventHeight,
+                'unset',
+                isPastEvent,
               ),
               styles.packedCard(top, width, left),
             )}
@@ -51,7 +53,7 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
                   {events.length} {events.length < 5 ? 'події' : 'подій'}
                 </Typography>
                 {eventHeight > 42 && (
-                  <Typography sx={styles.time} variant="body2">
+                  <Typography variant="body2" sx={styles.time}>
                     {start} - {end}
                   </Typography>
                 )}

@@ -2,7 +2,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 import { TDiscipline } from '@/types/schedule';
 
-const otherSubjects: SxProps<Theme> = {
+const otherSubjects = (isPastEvent: boolean): SxProps<Theme> => ({
   backgroundColor: 'violet.100',
   borderColor: 'violet.700',
   '& .MuiTypography-body2': {
@@ -18,7 +18,7 @@ const otherSubjects: SxProps<Theme> = {
     backgroundColor: 'violet.300',
     borderColor: 'violet.900',
   },
-  '&:disabled': {
+  ...(isPastEvent && {
     backgroundColor: 'violet.50',
     borderColor: 'violet.300',
     '& .MuiTypography-body1': {
@@ -29,10 +29,27 @@ const otherSubjects: SxProps<Theme> = {
       color: 'grey.600',
       opacity: 0.5,
     },
-  },
-};
+    '&:hover, &:active': {
+      backgroundColor: 'violet.50',
+      borderColor: 'violet.300',
+      '& .MuiTypography-body1': {
+        color: 'grey.600',
+        opacity: 0.7,
+        transition: 'linear all .2s',
+      },
+      '& .MuiTypography-body2': {
+        color: 'grey.600',
+        opacity: 0.7,
+        transition: 'linear all .2s',
+      },
+    },
+  }),
+});
 
-const subjectColors = (disciplineType: TDiscipline | null): SxProps<Theme> => ({
+const subjectColors = (
+  disciplineType: TDiscipline | null,
+  isPastEvent: boolean,
+): SxProps<Theme> => ({
   '& .MuiTypography-body1': {
     color: 'grey.600',
     typography: 'body1Medium',
@@ -57,18 +74,32 @@ const subjectColors = (disciplineType: TDiscipline | null): SxProps<Theme> => ({
       backgroundColor: 'indigo.300',
       borderColor: 'indigo.900',
     },
-    '&:disabled': {
+    ...(isPastEvent && {
       backgroundColor: 'indigo.100',
       borderColor: 'indigo.300',
       '& .MuiTypography-body1': {
         color: 'grey.800',
         opacity: 0.5,
+        transition: 'linear all .2s',
       },
       '& .MuiTypography-body2': {
         color: 'grey.800',
         opacity: 0.5,
+        transition: 'linear all .2s',
       },
-    },
+      '&:hover, &:active': {
+        backgroundColor: 'indigo.100',
+        borderColor: 'indigo.300',
+        '& .MuiTypography-body1': {
+          color: 'grey.600',
+          opacity: 0.7,
+        },
+        '& .MuiTypography-body2': {
+          color: 'grey.600',
+          opacity: 0.7,
+        },
+      },
+    }),
   }),
   ...(disciplineType === 'PRACTICE' && {
     backgroundColor: 'orange.100',
@@ -86,18 +117,32 @@ const subjectColors = (disciplineType: TDiscipline | null): SxProps<Theme> => ({
       backgroundColor: 'orange.300',
       borderColor: 'orange.700',
     },
-    '&:disabled': {
+    ...(isPastEvent && {
       backgroundColor: 'orange.200',
       borderColor: 'orange.400',
       '& .MuiTypography-body1': {
         color: 'grey.800',
         opacity: 0.5,
+        transition: 'linear all .2s',
       },
       '& .MuiTypography-body2': {
         color: 'grey.600',
         opacity: 0.5,
+        transition: 'linear all .2s',
       },
-    },
+      '&:hover, &:active': {
+        backgroundColor: 'orange.200',
+        borderColor: 'orange.400',
+        '& .MuiTypography-body1': {
+          color: 'grey.600',
+          opacity: 0.7,
+        },
+        '& .MuiTypography-body2': {
+          color: 'grey.600',
+          opacity: 0.7,
+        },
+      },
+    }),
   }),
   ...(disciplineType === 'LABORATORY' && {
     backgroundColor: 'mint.100',
@@ -115,23 +160,37 @@ const subjectColors = (disciplineType: TDiscipline | null): SxProps<Theme> => ({
       backgroundColor: 'mint.300',
       borderColor: 'mint.900',
     },
-    '&:disabled': {
+    ...(isPastEvent && {
       backgroundColor: 'mint.50',
       borderColor: 'mint.200',
       '& .MuiTypography-body1': {
         color: 'grey.800',
         opacity: 0.5,
+        transition: 'linear all .2s',
       },
       '& .MuiTypography-body2': {
         color: 'grey.600',
         opacity: 0.5,
+        transition: 'linear all .2s',
       },
-    },
+      '&:hover, &:active': {
+        backgroundColor: 'mint.50',
+        borderColor: 'mint.200',
+        '& .MuiTypography-body1': {
+          color: 'grey.600',
+          opacity: 0.7,
+        },
+        '& .MuiTypography-body2': {
+          color: 'grey.600',
+          opacity: 0.7,
+        },
+      },
+    }),
   }),
   ...(disciplineType !== 'LABORATORY' &&
     disciplineType !== 'PRACTICE' &&
     disciplineType !== 'LECTURE' && {
-      ...otherSubjects,
+      ...otherSubjects(isPastEvent),
     }),
 });
 
@@ -149,26 +208,11 @@ export const wrapper: SxProps<Theme> = {
   cursor: 'pointer',
 };
 
-export const packedCard = (
-  top: number,
-  width: number,
-  left: number,
-): SxProps<Theme> => ({
-  position: 'absolute',
-  top: { mobile: 0, tablet: top },
-  left: { mobile: left, tablet: -2 },
-  width: {
-    tablet: '129px',
-    mobile: `calc(100% - ${width}px)`,
-  },
-  outline: '2px solid',
-  outlineColor: { mobile: 'transparent', tablet: '#1E1E1E' }, //It is backgroundDark.100, but MUI doesn\'t support theme colors for outlineColor
-});
-
 export const card = (
   disciplineType: TDiscipline | null,
   height: string | number,
   minHeight = 'unset',
+  isPastEvent: boolean,
 ): SxProps<Theme> => ({
   width: {
     tablet: '129px',
@@ -192,13 +236,28 @@ export const card = (
   gap: '4px',
   wordBreak: 'break-all',
   outline: '2px solid',
-  outlineColor: '#1E1E1E',
+  outlineColor: { mobile: 'transparent', tablet: '#1E1E1E' },
 
-  ...subjectColors(disciplineType),
+  ...subjectColors(disciplineType, isPastEvent),
+});
+
+export const packedCard = (
+  top: number,
+  width: number,
+  left: number,
+): SxProps<Theme> => ({
+  position: 'absolute',
+  top: { mobile: 0, tablet: top },
+  left: { mobile: left, tablet: 0 },
+  width: {
+    tablet: '129px',
+    mobile: `calc(100% - ${width}px)`,
+  },
+  outline: '2px solid',
+  outlineColor: { mobile: 'transparent', tablet: '#1E1E1E' }, //It is backgroundDark.100, but MUI doesn\'t support theme colors for outlineColor
 });
 
 export const time: SxProps<Theme> = {
+  typography: 'body1',
   width: '100%',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
 };

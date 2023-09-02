@@ -14,6 +14,22 @@ interface ScheduleEventsExpandedProps {
   week: string;
   isPastEvent: boolean;
 }
+
+const monthMapper = [
+  'Січ',
+  'Лют',
+  'Бер',
+  'Кві',
+  'Тра',
+  'Чер',
+  'Лип',
+  'Сер',
+  'Вер',
+  'Жов',
+  'Лис',
+  'Гру',
+];
+
 export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
   events,
   onOutsideClick,
@@ -32,21 +48,6 @@ export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
     hour: '2-digit',
     minute: '2-digit',
   });
-
-  const monthMapper = [
-    'Січ',
-    'Лют',
-    'Бер',
-    'Кві',
-    'Тра',
-    'Чер',
-    'Лип',
-    'Сер',
-    'Вер',
-    'Жов',
-    'Лис',
-    'Гру',
-  ];
 
   const eventDay = new Date(events[0].startTime).getDate();
   const eventMonth = monthMapper[new Date(events[0].startTime).getMonth()];

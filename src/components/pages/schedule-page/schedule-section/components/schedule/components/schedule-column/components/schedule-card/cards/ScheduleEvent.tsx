@@ -32,6 +32,7 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
         event.disciplineType ? event.disciplineType.name : null,
         height,
         minHeight,
+        isPastEvent,
       )}
       disableRipple
       onClick={() => onClick(event, week)}
@@ -39,7 +40,7 @@ const ScheduleEvent: FC<ScheduleEventProps> = ({
       <Typography variant="body1">{event.name}</Typography>
 
       {start && end && (
-        <Typography variant="body2">
+        <Typography variant="body2" sx={styles.time}>
           {start} - {end}
         </Typography>
       )}
