@@ -99,6 +99,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
                 key={teacher.id}
                 href={`/teachers/${teacher.id}`}
                 text={`${teacher.firstName} ${teacher.middleName} ${teacher.lastName}`}
+                target={'_blank'}
               />
             ))
           )}
@@ -116,7 +117,11 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
         {loading ? (
           <Skeleton {...skeletonProps} width={250} height={20} />
         ) : event?.url ? (
-          <Link href={event?.url as string} text={event?.url} />
+          <Link
+            href={event?.url as string}
+            text={event?.url}
+            target={'_blank'}
+          />
         ) : (
           <Typography>Посилання відсутнє</Typography>
         )}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ArrowUpIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { Box } from '@mui/material';
 
@@ -9,8 +10,24 @@ import { UserGroupRole } from '@/types/user';
 import * as styles from './buttonIcons.styles';
 
 export const ButtonIcons = () => {
+  const [displayScrollBtn, setDisplayScrollBtn] = useState(true);
   const { user } = useAuthentication();
   const { groupId } = useSchedule(state => ({ groupId: state.groupId }));
+
+  useEffect(() => {
+    const scrollEventListener = () => {
+      if (
+        document.documentElement.scrollTop >
+        document.documentElement.clientHeight - 300
+      )
+        setDisplayScrollBtn(true);
+      else setDisplayScrollBtn(false);
+    };
+
+    window.addEventListener('scroll', scrollEventListener);
+
+    return () => window.removeEventListener('scroll', scrollEventListener);
+  }, []);
 
   return (
     <Box sx={styles.buttonIcons}>
@@ -28,16 +45,18 @@ export const ButtonIcons = () => {
           />
         )}
 
-      <ButtonIcon
-        icon={<ArrowUpIcon />}
-        onClick={() => {
-          window.scroll({
-            top: 0,
-            left: 0,
-            behavior: 'smooth',
-          });
-        }}
-      />
+      {displayScrollBtn && (
+        <ButtonIcon
+          icon={<ArrowUpIcon />}
+          onClick={() => {
+            window.scroll({
+              top: 0,
+              left: 0,
+              behavior: 'smooth',
+            });
+          }}
+        />
+      )}
     </Box>
   );
 };

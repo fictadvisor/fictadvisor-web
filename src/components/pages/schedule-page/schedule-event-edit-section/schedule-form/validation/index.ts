@@ -6,12 +6,13 @@ import { areValuesUnique } from '../../../utils/areValuesUnique';
 const timeTest: TestConfig = {
   name: 'startTimeGreaterThanEndTime',
   test: (value, context) => {
-    const startTimeMs = new Date(context.parent.startTime).getTime();
-    const endTimeMs = new Date(context.parent.endTime).getTime();
+    const { startTime, endTime } = context.parent;
+    const startTimeMs = new Date(startTime).getTime();
+    const endTimeMs = new Date(endTime).getTime();
 
     return endTimeMs > startTimeMs;
   },
-  message: 'Подія не може починатися піщніше ніж закінчується',
+  message: 'Подія не може починатися пізніше ніж закінчується',
 };
 
 const uniqueTeachersTest: TestConfig = {
@@ -28,7 +29,7 @@ export const editFormValidationSchema = yup.object().shape({
     .min(2, 'Не коротше 2 символів')
     .max(100, 'Не довше 100 символів'),
   startTime: yup.string().required('Обовʼязкове поле').test(timeTest),
-  endTime: yup.string().required('Обовʼязкове поле').test(timeTest),
+  endTime: yup.string().required('Обовʼязкове поле'),
   teachers: yup.array().test(uniqueTeachersTest),
   period: yup.string(),
   url: yup.string(),
