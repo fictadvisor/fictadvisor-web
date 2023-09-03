@@ -3,13 +3,15 @@ import { shallowEqual } from 'react-redux';
 import { Form, Formik } from 'formik';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
-import Button, { ButtonSize } from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button';
+import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import { Input } from '@/components/common/ui/form';
 import { PersonalInfoForm } from '@/components/pages/account-page/components/general-tab/components/personal-info/types';
 import { validationSchema } from '@/components/pages/account-page/components/general-tab/components/personal-info/validation';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import UserAPI from '@/lib/api/user/UserAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 
 import styles from '../../GeneralTab.module.scss';
 
@@ -36,8 +38,11 @@ const PersonalInfoBlock: FC = () => {
     try {
       await UserAPI.changeInfo(user.id, data);
       await update();
-    } catch (e) {
-      toast.error('Щось пішло не так, спробуй пізніше!');
+    } catch (error) {
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 
