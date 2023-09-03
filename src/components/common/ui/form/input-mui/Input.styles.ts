@@ -68,7 +68,7 @@ export const remark = (state: InputState): SxProps<Theme> => ({
     color: theme.palette.success[600],
   }),
 
-  typography: 'overline',
+  typography: theme.typography.overline,
   minHeight: '20px',
 });
 
@@ -86,12 +86,12 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
 
   ...(size === InputSize.LARGE && {
     padding: '14px 16px',
-    typography: 'body2',
+    typography: theme.typography.body2,
   }),
 
   ...(size === InputSize.MEDIUM && {
     padding: '13px 12px',
-    typography: 'body1',
+    typography: theme.typography.body1,
   }),
 
   ...(state === InputState.READONLY && {
