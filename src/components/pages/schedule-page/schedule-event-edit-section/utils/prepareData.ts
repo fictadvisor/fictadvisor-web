@@ -24,7 +24,7 @@ export const prepareData = (
     new Date(initialData.startTime as string).toDateString() !==
     new Date(dataFromForm.startTime as string).toDateString();
 
-  finalData.week = week.toString();
+  finalData.week = week;
 
   return finalData;
 };

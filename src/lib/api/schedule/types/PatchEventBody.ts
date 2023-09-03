@@ -1,7 +1,7 @@
 import { SharedEventBody } from './shared';
 
 export interface PatchEventBody extends Partial<SharedEventBody> {
-  week: string;
+  week: number;
   changeStartDate: boolean;
   changeEndDate: boolean;
 }
