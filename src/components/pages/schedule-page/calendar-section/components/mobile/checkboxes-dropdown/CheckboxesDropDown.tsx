@@ -53,9 +53,9 @@ const CheckBoxColorMapper: Record<string, CheckboxColor> = {
 export const CheckboxesDropdown = () => {
   const { user } = useAuthentication();
 
-  const { checkboxes, updateDisciplineTypes, groupId } = useSchedule(state => ({
+  const { checkboxes, updateCheckboxes, groupId } = useSchedule(state => ({
     checkboxes: state.checkboxes,
-    updateDisciplineTypes: state.updateDisciplineTypes,
+    updateCheckboxes: state.updateCheckboxes,
     groupId: state.groupId,
   }));
 
@@ -88,7 +88,7 @@ export const CheckboxesDropdown = () => {
       >
         <Autocomplete
           disableCloseOnSelect
-          onChange={(event, value, reason, details) => {
+          onChange={async (event, value, reason, details) => {
             const selectedCheckboxes = Object.fromEntries(
               value.map(option => [option.value, true]),
             );
@@ -96,12 +96,8 @@ export const CheckboxesDropdown = () => {
               ...NegativeCheckboxes,
               ...selectedCheckboxes,
             } as Checkboxes;
-            console.log(newValues);
-            useSchedule.setState({
-              checkboxes: newValues,
-              isSelective: newValues.isSelective,
-            });
-            updateDisciplineTypes(newValues);
+
+            updateCheckboxes(newValues);
           }}
           options={options}
           value={options.filter(opt => opt.checked)}

@@ -1,15 +1,11 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Box } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import ScheduleEventEdit from '@/components/pages/schedule-page/schedule-event-edit-section/ScheduleEventEdit';
-import useAuthentication from '@/hooks/use-authentication';
-import useToast from '@/hooks/use-toast';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { useSchedule } from '@/store/schedule/useSchedule';
-import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
-import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 import theme from '@/styles/theme';
 import { Group } from '@/types/group';
 
@@ -20,8 +16,7 @@ import { ScheduleSection } from './schedule-section/ScheduleSection';
 import ScheduleSectionMobile from './schedule-section/ScheduleSectionMobile';
 import * as styles from './schedule-page.styles';
 const MAX_WEEK_NUMBER = 20;
-import { useRouter } from 'next/router';
-
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { PostEventBody } from '@/lib/api/schedule/types/PostEventBody';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
@@ -39,8 +34,8 @@ export interface SchedulePageProps {
  * TODO:
  * [x] Make schedule responsive for tablet users
  * [x] Make red button show current time, but not chosen day
- * [] Merge all prs into schedule to work on 1 repo
- * [] Start developing side panel
+ * [x] Merge all prs into schedule to work on 1 repo
+ * [x] Start developing side panel
  * [] Optimise components for mobile and for desktop using dynamic imports
  * [] Add global state for maximum week number
  * */
@@ -60,7 +55,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   ]);
 
   useInitialise(semester, groups);
-
+  const { displayError } = useToastError();
   const closeForm = () => {
     useSchedule.setState({ isNewEventAdded: false });
   };
@@ -77,7 +72,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
       }));
       await handleWeekChange();
     } catch (e) {
-      console.log(e);
+      displayError(e);
     }
   };
 

@@ -6,10 +6,10 @@ import ScheduleInfoCard from '@/components/pages/schedule-page/schedule-event-ed
 import { prepareData } from '@/components/pages/schedule-page/schedule-event-edit-section/utils/prepareData';
 import { transformDetailedEvent } from '@/components/pages/schedule-page/schedule-event-edit-section/utils/transformDetailedEvent';
 import useAuthentication from '@/hooks/use-authentication';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
-import { PatchEventBody } from '@/lib/api/schedule/types/PatchEventBody';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
@@ -25,6 +25,7 @@ export const ScheduleEventEdit = () => {
     semester: state.semester,
     handleWeekChange: state.handleWeekChange,
   }));
+  const { displayError } = useToastError();
 
   const week = useMemo(
     () =>
@@ -35,7 +36,6 @@ export const ScheduleEventEdit = () => {
     [openedEvent],
   );
 
-  //TODO:handle 403 error
   const { isLoading, data } = useQuery(
     ['event', openedEvent?.id, week],
     () => ScheduleAPI.getEventInfo(openedEvent?.id as string, week),
@@ -43,12 +43,18 @@ export const ScheduleEventEdit = () => {
       onSuccess: data => {
         setDetailedEvent(data);
       },
+      onError: err => {
+        displayError(err);
+        useSchedule.setState(state => ({ openedEvent: undefined }));
+      },
+      retry: false,
     },
   );
 
   const [detailedEvent, setDetailedEvent] = useState<
     undefined | DetailedEventBody
   >(data);
+
   const { user } = useAuthentication();
 
   const closeWindow = () => {
@@ -74,7 +80,7 @@ export const ScheduleEventEdit = () => {
       useSchedule.setState(state => ({ eventsBody: [] }));
       await handleWeekChange();
     } catch (error) {
-      console.log(error);
+      displayError(error);
     }
   };
 
@@ -91,7 +97,7 @@ export const ScheduleEventEdit = () => {
       }));
       await handleWeekChange();
     } catch (error) {
-      console.log(error);
+      displayError(error);
     }
   };
 

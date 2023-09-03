@@ -7,9 +7,8 @@ import Skeleton from '@mui/material/Skeleton';
 import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
 import { ScheduleFormikDropdown } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/schedule-dropdown/ScheduleDropdown';
 import { skeletonProps } from '@/components/pages/schedule-page/schedule-event-edit-section/utils/skeletonProps';
-import useAuthentication from '@/hooks/use-authentication';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
-import GroupAPI from '@/lib/api/group/GroupAPI';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -27,14 +26,19 @@ export const DisciplineRelatedFields: FC<DisciplineRelatedFieldsProps> = ({
   values,
 }) => {
   const groupId = useSchedule(state => state.groupId);
-  //TODO:add errors handling
   const semester = useSchedule(state => state.semester);
+  const { displayError } = useToastError();
 
-  const { isLoading, data } = useQuery('dataAboutGroup', () =>
-    ScheduleAPI.getDisciplinesAndTeachers(
-      groupId,
-      semester as GetCurrentSemester,
-    ),
+  const { isLoading, data } = useQuery(
+    'dataAboutGroup',
+    () =>
+      ScheduleAPI.getDisciplinesAndTeachers(
+        groupId,
+        semester as GetCurrentSemester,
+      ),
+    {
+      onError: err => displayError(err),
+    },
   );
 
   return (

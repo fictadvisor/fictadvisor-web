@@ -14,18 +14,7 @@ interface ScheduleColumnProps {
   day: EventDay;
 }
 
-const errorMapper = {
-  InvalidEntityIdException: 'Такої події не існує',
-  InvalidWeekException: 'Неправильний тиждень',
-  UnauthorizedException: 'Користувач не авторизований',
-  NoPermissionException: 'Немає дозволу на цю дію',
-};
-
 const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
-  const { groupId } = useSchedule(state => ({
-    groupId: state.groupId,
-  }));
-
   const toast = useToast();
 
   const { user } = useAuthentication();
@@ -39,14 +28,7 @@ const ScheduleColumn: FC<ScheduleColumnProps> = ({ day }) => {
       );
       return;
     }
-    if (user.group?.id !== groupId) {
-      toast.info(
-        'Недостатньо прав 🐸',
-        'Ти не можеш переглянути детальну інформацію про події іншої групи',
-        3000,
-      );
-      return;
-    }
+
     useSchedule.setState(state => ({
       openedEvent: _event,
       isNewEventAdded: false,

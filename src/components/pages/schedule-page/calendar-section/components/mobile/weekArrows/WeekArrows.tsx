@@ -30,15 +30,15 @@ import { useSchedule } from '@/store/schedule/useSchedule';
 import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
 
 export const WeekArrows = () => {
-  const { week, setWeek, eventsBody, setChosenDay, semester } = useSchedule(
-    state => ({
+  const { week, setWeek, eventsBody, setChosenDay, semester, loading } =
+    useSchedule(state => ({
       week: state.week,
       setWeek: state.setWeek,
       eventsBody: state.eventsBody,
       semester: state.semester,
       setChosenDay: state.setChosenDay,
-    }),
-  );
+      loading: state.isLoading,
+    }));
 
   const updateWeek = (amount: number) => {
     const newWeek = week + amount;
@@ -62,9 +62,11 @@ export const WeekArrows = () => {
         width: '100%',
       }}
     >
-      {monthNumber ? (
+      {monthNumber && (
         <Typography variant={'h6Bold'}>{monthMapper[monthNumber]}</Typography>
-      ) : (
+      )}
+
+      {loading && (
         <Skeleton
           width={140}
           height={35}
@@ -73,6 +75,7 @@ export const WeekArrows = () => {
           animation="wave"
         />
       )}
+
       <Box
         sx={{
           display: 'flex',

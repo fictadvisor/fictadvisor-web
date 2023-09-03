@@ -22,26 +22,25 @@ const ScheduleSectionMobile = () => {
   const dayMapper = ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 
   const eventsPerWeek = useMemo(() => {
-    console.log('eventsPerWeek', events);
     if (!events[week - 1]) return null;
     const _eventsWeek: GetEventBody = JSON.parse(
       JSON.stringify(events[week - 1]),
     );
-    // console.log('before', transformEvents(events[week - 1]));
+    console.log(disciplines);
     _eventsWeek.events = _eventsWeek.events.filter(event => {
       return disciplines.some(
         discipline =>
-          !event.disciplineType || discipline === event.disciplineType.name,
+          discipline === event.disciplineType ||
+          discipline === event?.disciplineType?.name,
       );
     });
-    // console.log('after', transformEvents(_eventsWeek));
     return _eventsWeek;
   }, [disciplines, events, week]);
 
   return (
     <Box>
       <Box sx={styles.scheduleSectionMobile}>
-        {eventsPerWeek && !loading ? (
+        {eventsPerWeek && (
           <Box sx={styles.events}>
             {transformEvents(eventsPerWeek).days.map((day, index) => (
               <Box sx={styles.event} key={index}>
@@ -68,7 +67,9 @@ const ScheduleSectionMobile = () => {
               </Box>
             ))}
           </Box>
-        ) : (
+        )}
+
+        {loading && (
           <>
             {dayMapper.map((_, i) => (
               <Box key={i} sx={styles.skeleton}>

@@ -1,4 +1,4 @@
-import { FormEvent, Fragment, useEffect, useRef } from 'react';
+import { FormEvent, Fragment, useRef } from 'react';
 import { Stack } from '@mui/system';
 import { Form, Formik, FormikProps } from 'formik';
 
@@ -10,44 +10,17 @@ import { Checkboxes, useSchedule } from '@/store/schedule/useSchedule';
 import * as styles from './CheckBoxSection.styles';
 
 export const CheckBoxSection = () => {
-  const [setIsSelective, updateDisciplineTypes, groupId, checkboxes] =
-    useSchedule(state => [
-      state.setIsSelective,
-      state.updateDisciplineTypes,
-      state.groupId,
-      state.checkboxes,
-    ]);
+  const [groupId, checkboxes, updateCheckboxes] = useSchedule(state => [
+    state.groupId,
+    state.checkboxes,
+    state.updateCheckboxes,
+  ]);
 
   const { user } = useAuthentication();
 
-  useEffect(() => {
-    if (!user || user.group?.id !== groupId)
-      useSchedule.setState(state => ({
-        checkboxes: {
-          ...state.checkboxes,
-          isSelective: false,
-          otherEvents: false,
-        },
-      }));
-  }, [groupId]);
-
   const handleValuesChange = (event: FormEvent<HTMLFormElement>) => {
-    const name = (event.target as HTMLInputElement).name as keyof Checkboxes;
     const values = form?.current?.values as Checkboxes;
-
-    useSchedule.setState(state => ({
-      checkboxes: values,
-    }));
-
-    if (name === 'isSelective') {
-      setIsSelective(!!values?.isSelective);
-      return;
-    }
-
-    const vals = { ...values };
-    delete vals.isSelective;
-
-    updateDisciplineTypes(vals);
+    updateCheckboxes(values);
   };
 
   const form = useRef<FormikProps<Checkboxes>>(null);

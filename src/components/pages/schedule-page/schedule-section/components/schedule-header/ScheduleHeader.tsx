@@ -42,20 +42,20 @@ const monthMapper = [
 const ScheduleHeader = () => {
   const {
     week,
-    setWeek,
     eventsBody,
     setChosenDay,
     semester,
     chosenDay,
     currentTime,
+    loading,
   } = useSchedule(state => ({
     week: state.week,
-    setWeek: state.setWeek,
     setChosenDay: state.setChosenDay,
     eventsBody: state.eventsBody,
     semester: state.semester,
     chosenDay: state.chosenDay,
     currentTime: state.currentTime,
+    loading: state.isLoading,
   }));
   const [prevButton, setPrevButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
@@ -92,9 +92,10 @@ const ScheduleHeader = () => {
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
-        {monthNumber ? (
+        {monthNumber && (
           <Typography sx={styles.month}>{monthMapper[monthNumber]}</Typography>
-        ) : (
+        )}
+        {loading && (
           <Skeleton
             width={140}
             height={35}
@@ -149,7 +150,7 @@ const ScheduleHeader = () => {
             >
               {dayName}
             </Typography>
-            {days[i] ? (
+            {days[i] && (
               <Typography
                 sx={styles.dayNumber(
                   days[i]
@@ -159,7 +160,8 @@ const ScheduleHeader = () => {
               >
                 {days[i].day.getDate()}
               </Typography>
-            ) : (
+            )}
+            {loading && (
               <Skeleton
                 width={20}
                 height={25}

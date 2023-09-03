@@ -1,5 +1,4 @@
 import React, { FC, Fragment, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
 import {
   ArrowPathIcon,
   ArrowRightIcon,
@@ -8,8 +7,6 @@ import {
   TrashIcon,
 } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
-import { useMediaQuery } from '@mui/material';
-import Skeleton from '@mui/material/Skeleton';
 import { Form, Formik, FormikConfig, FormikProps } from 'formik';
 
 import Button from '@/components/common/ui/button-mui';
@@ -17,25 +14,16 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
-import IconButton from '@/components/common/ui/icon-button-mui';
-import {
-  IconButtonColor,
-  IconButtonShape,
-} from '@/components/common/ui/icon-button-mui/types';
 import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
-import { AddDeleteTeachers } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/add-delete-teachers/AddDeleteTeachers';
 import CalendarInput from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/calendar-input';
 import { DisciplineRelatedFields } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/components/discipline-related-fields/DisciplineRelatedFields';
 import { getOptionsFromDate } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/utils/getOptionsFromDate';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
-import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { useSchedule } from '@/store/schedule/useSchedule';
-import theme from '@/styles/theme';
 
 import CloseButton from '../../../../common/ui/icon-button-mui/variants/CloseButton/CloseButton';
-import { skeletonProps } from '../utils/skeletonProps';
 
 import { ScheduleFormikDropdown } from './components/schedule-dropdown/ScheduleDropdown';
 import Input from './components/schedule-input';
@@ -67,8 +55,6 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
     !initialValues.startTime ? chosenDay : new Date(initialValues.startTime),
   );
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
-
-  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   return (
     <Box sx={styles.container}>
