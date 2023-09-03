@@ -13,6 +13,8 @@ export const subjectCard = (disabled: boolean): SxProps<Theme> => ({
   transition: 'all 0.2s ease-in-out',
   display: 'flex',
   flexDirection: 'column',
+  fontFeatureSettings: 'hyph 1',
+  WebkitHyphens: 'auto',
   hyphens: 'auto',
   wordWrap: 'break-word',
   gap: '8px',
