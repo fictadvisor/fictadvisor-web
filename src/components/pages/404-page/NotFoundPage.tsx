@@ -29,12 +29,7 @@ const NotFoundPage = () => (
             size={ButtonSize.LARGE}
             color={ButtonColor.SECONDARY}
             startIcon={<ChevronLeftIcon />}
-            sx={{
-              maxHeight: '56px',
-              whiteSpace: 'nowrap',
-              borderRadius: '8px',
-              maxWidth: '300px',
-            }}
+            sx={styles.button}
           />
         </Link>
         <Link href="https://t.me/fict_robot">
@@ -42,12 +37,7 @@ const NotFoundPage = () => (
             text="Зв'язатися з адміністратором"
             variant={ButtonVariant.FILLED}
             size={ButtonSize.LARGE}
-            sx={{
-              maxHeight: '56px',
-              whiteSpace: 'nowrap',
-              borderRadius: '8px',
-              maxWidth: '300px',
-            }}
+            sx={styles.button}
           />
         </Link>
       </Box>

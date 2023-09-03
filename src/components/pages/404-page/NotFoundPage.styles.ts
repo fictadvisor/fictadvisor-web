@@ -1,6 +1,8 @@
 import { SxProps } from '@mui/material/styles';
 import { Theme } from '@mui/system';
 
+import theme from '@/styles/theme';
+
 export const pageLayout: SxProps<Theme> = {
   width: '100%',
   display: 'flex',
@@ -19,9 +21,9 @@ export const notFoundText: SxProps<Theme> = {
   width: { desktop: '353px', mobile: '226px' },
   height: { desktop: '62px', mobile: '54px' },
   textAlign: 'center',
-  marginTop: { desktop: '64px', mobile: '63px' },
+  marginTop: '64px',
   marginBottom: { desktop: '57px', mobile: '44px' },
-  typography: { desktop: 'h5', mobile: 'body2' },
+  typography: { desktop: theme.typography.h5, mobile: theme.typography.body2 },
 };
 
 export const frogImage: SxProps<Theme> = {
@@ -52,4 +54,11 @@ export const buttons: SxProps<Theme> = {
   marginRight: { mobile: '30px', desktop: '0px' },
   marginLeft: { mobile: '30px', desktop: '0px' },
   paddingBottom: { desktop: '142px', mobile: '177px' },
+};
+
+export const button: SxProps<Theme> = {
+  maxHeight: '56px',
+  whiteSpace: 'nowrap',
+  borderRadius: '8px',
+  maxWidth: '300px',
 };
