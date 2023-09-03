@@ -1,11 +1,12 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import Button, {
+import Button from '@/components/common/ui/button';
+import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-} from '@/components/common/ui/button';
+} from '@/components/common/ui/button-mui/types';
 import Input from '@/components/common/ui/form/input-mui';
 import ChangePasswordForm from '@/components/pages/account-page/components/security-tab/components/change-password-form';
 import useAuthentication from '@/hooks/use-authentication';
