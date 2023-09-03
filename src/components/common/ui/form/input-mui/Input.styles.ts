@@ -107,19 +107,6 @@ export const input = (state: InputState, size: InputSize): SxProps<Theme> => ({
     },
   }),
 
-  ...(state === InputState.READONLY && {
-    borderColor: theme.palette.grey[500],
-    '&:hover': {
-      cursor: 'pointer',
-      borderColor: theme.palette.grey[700],
-    },
-    '&.MuiOutlinedInput-root': {
-      input: {
-        cursor: 'pointer',
-      },
-    },
-  }),
-
   ...(state === InputState.DEFAULT && {
     borderColor: theme.palette.grey[500],
     '&:hover': {
