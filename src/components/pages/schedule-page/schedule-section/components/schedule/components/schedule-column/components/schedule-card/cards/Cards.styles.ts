@@ -22,6 +22,7 @@ const otherSubjects = (isPastEvent: boolean): SxProps<Theme> => ({
     backgroundColor: 'violet.50',
     borderColor: 'violet.300',
     '& .MuiTypography-body1': {
+      ...trim4lines,
       color: 'grey.800',
       opacity: 0.5,
     },
@@ -46,6 +47,13 @@ const otherSubjects = (isPastEvent: boolean): SxProps<Theme> => ({
   }),
 });
 
+const trim4lines = {
+  display: '-webkit-box',
+  WebkitLineClamp: 4,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  lineHeight: 1.3,
+};
 const subjectColors = (
   disciplineType: TDiscipline | null,
   isPastEvent: boolean,
@@ -53,10 +61,7 @@ const subjectColors = (
   '& .MuiTypography-body1': {
     color: 'grey.600',
     typography: 'body1Medium',
-    display: '-webkit-box !important',
-    WebkitLineClamp: 4,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    ...trim4lines,
   },
   ...(disciplineType === 'LECTURE' && {
     backgroundColor: 'indigo.100',
@@ -77,7 +82,9 @@ const subjectColors = (
     ...(isPastEvent && {
       backgroundColor: 'indigo.100',
       borderColor: 'indigo.300',
+
       '& .MuiTypography-body1': {
+        ...trim4lines,
         color: 'grey.800',
         opacity: 0.5,
         transition: 'linear all .2s',
@@ -121,6 +128,7 @@ const subjectColors = (
       backgroundColor: 'orange.200',
       borderColor: 'orange.400',
       '& .MuiTypography-body1': {
+        ...trim4lines,
         color: 'grey.800',
         opacity: 0.5,
         transition: 'linear all .2s',
@@ -164,6 +172,7 @@ const subjectColors = (
       backgroundColor: 'mint.50',
       borderColor: 'mint.200',
       '& .MuiTypography-body1': {
+        ...trim4lines,
         color: 'grey.800',
         opacity: 0.5,
         transition: 'linear all .2s',
@@ -237,6 +246,7 @@ export const card = (
   wordBreak: 'break-all',
   outline: '2px solid',
   outlineColor: { mobile: 'transparent', tablet: '#1E1E1E' },
+  overflow: 'hidden',
 
   ...subjectColors(disciplineType, isPastEvent),
 });
