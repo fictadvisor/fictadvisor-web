@@ -13,8 +13,9 @@ export const subjectCard = (disabled: boolean): SxProps<Theme> => ({
   transition: 'all 0.2s ease-in-out',
   display: 'flex',
   flexDirection: 'column',
-  wordBreak: 'break-all',
-
+  wordBreak: 'break-word',
+  WebkitHyphens: 'auto',
+  hyphens: 'auto',
   gap: '8px',
   ...(!disabled && {
     cursor: 'pointer',
@@ -39,7 +40,4 @@ export const subjectCard = (disabled: boolean): SxProps<Theme> => ({
 
 export const subjectName: SxProps<Theme> = {
   typography: 'body2Bold',
-  WebkitHyphens: 'auto',
-  hyphens: 'auto',
-  wordWrap: 'break-word',
 };
