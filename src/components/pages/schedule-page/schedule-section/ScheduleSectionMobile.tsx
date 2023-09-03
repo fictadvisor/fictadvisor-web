@@ -26,7 +26,6 @@ const ScheduleSectionMobile = () => {
     const _eventsWeek: GetEventBody = JSON.parse(
       JSON.stringify(events[week - 1]),
     );
-    console.log(disciplines);
     _eventsWeek.events = _eventsWeek.events.filter(event => {
       return disciplines.some(
         discipline =>

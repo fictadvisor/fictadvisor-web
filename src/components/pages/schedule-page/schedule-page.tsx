@@ -61,7 +61,6 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   };
 
   const handleFormSubmit = async (values: SharedEventBody) => {
-    console.log(values);
     const finalValues: PostEventBody = makeNegativeValuesUndefined(values);
     finalValues.groupId = groupId;
     try {

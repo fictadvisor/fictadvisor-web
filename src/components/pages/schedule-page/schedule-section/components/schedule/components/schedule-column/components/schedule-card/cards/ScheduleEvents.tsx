@@ -24,7 +24,6 @@ const ScheduleEvent: FC<ScheduleEventsProps> = ({
   onClick,
 }) => {
   const trimmedEvents = events.slice(0, 5);
-  console.log(trimmedEvents);
 
   return (
     <Box sx={styles.wrapper} onClick={onClick}>
