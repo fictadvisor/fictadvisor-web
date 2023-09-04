@@ -44,7 +44,6 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
         }}
         closeOnSelect
         desktopModeMediaQuery="@media (min-width: 0px)"
-        format="dd D MMMM"
       />
     </Box>
   );

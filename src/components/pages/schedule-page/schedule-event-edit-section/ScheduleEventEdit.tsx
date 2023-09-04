@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { editFormValidationSchema } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/validation';
+import { formValidationSchema } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/validation';
 import ScheduleInfoCard from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-info-card';
 import { prepareData } from '@/components/pages/schedule-page/schedule-event-edit-section/utils/prepareData';
 import { transformDetailedEvent } from '@/components/pages/schedule-page/schedule-event-edit-section/utils/transformDetailedEvent';
@@ -121,7 +121,7 @@ export const ScheduleEventEdit = () => {
       )}
       {isEditOpen && detailedEvent && (
         <ScheduleEventForm
-          validationSchema={editFormValidationSchema}
+          validationSchema={formValidationSchema}
           onDeleteButtonClick={handleEventDelete}
           onCancelButtonClick={() => setIsEditOpen(false)}
           onCloseButtonClick={closeWindow}

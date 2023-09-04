@@ -59,7 +59,7 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
 }) => {
   const chosenDay = useSchedule(state => state.chosenDay);
   const [date, setDate] = useState<Date | null>(
-    !initialValues.startTime ? chosenDay : new Date(initialValues.startTime),
+    !initialValues.startTime ? null : new Date(initialValues.startTime),
   );
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));

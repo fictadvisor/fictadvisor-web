@@ -14,6 +14,15 @@ export const ButtonIcons = () => {
   const { user } = useAuthentication();
   const { groupId } = useSchedule(state => ({ groupId: state.groupId }));
 
+  console.log(user);
+
+  const validPrivilege =
+    user &&
+    (user.group?.role === UserGroupRole.CAPTAIN ||
+      user.group?.role === UserGroupRole.MODERATOR);
+
+  const showButton = validPrivilege && user.group?.id === groupId;
+
   useEffect(() => {
     const scrollEventListener = () => {
       if (
@@ -31,19 +40,17 @@ export const ButtonIcons = () => {
 
   return (
     <Box sx={styles.buttonIcons}>
-      {user &&
-        user.group?.role !== UserGroupRole.STUDENT &&
-        user.group?.id === groupId && (
-          <ButtonIcon
-            icon={<PlusIcon />}
-            onClick={() =>
-              useSchedule.setState(state => ({
-                isNewEventAdded: true,
-                openedEvent: undefined,
-              }))
-            }
-          />
-        )}
+      {showButton && (
+        <ButtonIcon
+          icon={<PlusIcon />}
+          onClick={() =>
+            useSchedule.setState(state => ({
+              isNewEventAdded: true,
+              openedEvent: undefined,
+            }))
+          }
+        />
+      )}
 
       {displayScrollBtn && (
         <ButtonIcon
