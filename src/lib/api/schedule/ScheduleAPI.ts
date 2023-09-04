@@ -48,7 +48,6 @@ class ScheduleAPI {
     );
     return data;
   }
-
   async getEventInfo(
     eventId: string,
     week: number | string,
