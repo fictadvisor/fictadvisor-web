@@ -35,7 +35,7 @@ export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
     <Box sx={styles.mainWrapper}>
       <Box sx={styles.sticky}>
         <Stack sx={styles.wrapper}>
-          {showButton && (
+          {true && (
             <Button
               text="Додати подію"
               variant={ButtonVariant.OUTLINE}
