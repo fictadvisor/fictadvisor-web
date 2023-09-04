@@ -60,6 +60,9 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
 }) => {
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
   const { user } = useAuthentication();
+
+  if (!event) return null;
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.titleContainer}>
@@ -85,8 +88,8 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
           <Skeleton {...skeletonProps} width={100} height={25} />
         ) : (
           <Tag
-            text={TagLabelMapper[event!.disciplineType]}
-            color={TagColorMapper[event!.disciplineType]}
+            text={TagLabelMapper[event.disciplineType]}
+            color={TagColorMapper[event.disciplineType]}
           />
         )}
         <Typography variant="body1Medium">Викладач</Typography>
