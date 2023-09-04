@@ -10,7 +10,7 @@ import { UserGroupRole } from '@/types/user';
 import * as styles from './buttonIcons.styles';
 
 export const ButtonIcons = () => {
-  const [displayScrollBtn, setDisplayScrollBtn] = useState(true);
+  const [displayScrollBtn, setDisplayScrollBtn] = useState(false);
   const { user } = useAuthentication();
   const { groupId } = useSchedule(state => ({ groupId: state.groupId }));
 

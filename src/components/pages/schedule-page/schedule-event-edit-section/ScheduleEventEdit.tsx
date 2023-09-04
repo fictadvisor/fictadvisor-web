@@ -102,7 +102,7 @@ export const ScheduleEventEdit = () => {
   };
 
   const handleEventEditClick = () => {
-    if (user.group?.role !== UserGroupRole.STUDENT) setIsEditOpen(true);
+    setIsEditOpen(true);
   };
 
   useEffect(() => {

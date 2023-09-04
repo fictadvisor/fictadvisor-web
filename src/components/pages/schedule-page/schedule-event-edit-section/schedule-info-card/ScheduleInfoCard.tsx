@@ -16,8 +16,10 @@ import Tag from '@/components/common/ui/tag';
 import { TagColor } from '@/components/common/ui/tag/types';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
+import useAuthentication from '@/hooks/use-authentication';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { TDiscipline } from '@/types/schedule';
+import { UserGroupRole } from '@/types/user';
 
 import { skeletonProps } from '../utils/skeletonProps';
 
@@ -57,7 +59,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
   loading,
 }) => {
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
-
+  const { user } = useAuthentication();
   return (
     <Box sx={styles.container}>
       <Box sx={styles.titleContainer}>
@@ -67,11 +69,13 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
           <Typography variant="h5">{event?.name}</Typography>
         )}
         <Box sx={{ display: 'flex' }}>
-          <IconButton
-            color={IconButtonColor.TRANSPARENT}
-            icon={<PencilSquareIcon width={36} height={36} />}
-            onClick={loading ? () => {} : onEventEditButtonClick}
-          />
+          {user.group?.role !== UserGroupRole.STUDENT && (
+            <IconButton
+              color={IconButtonColor.TRANSPARENT}
+              icon={<PencilSquareIcon width={36} height={36} />}
+              onClick={loading ? () => {} : onEventEditButtonClick}
+            />
+          )}
           <CloseButton onClick={onCloseButtonClick} />
         </Box>
       </Box>
@@ -91,7 +95,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             <Skeleton {...skeletonProps} width={200} height={45} />
           ) : !event!.teachers || event!.teachers.length === 0 ? (
             <Typography variant="body1Medium">
-              Інформація про викладачів відстуня
+              Інформація про викладачів відсутня
             </Typography>
           ) : (
             event?.teachers.map(teacher => (
@@ -149,7 +153,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
               <Skeleton {...skeletonProps} width={400} height={25} />
             ) : (
               <Typography sx={{ whiteSpace: 'pre-line' }}>
-                {event?.eventInfo ?? 'Інформація про подію відстуня'}
+                {event?.eventInfo ?? 'Інформація про подію відсутня'}
               </Typography>
             )}
           </TabPanel>
@@ -158,7 +162,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
               <Skeleton {...skeletonProps} width={400} height={25} />
             ) : (
               <Typography sx={{ whiteSpace: 'pre-line' }}>
-                {event?.disciplineInfo ?? 'Інформація про дисципліну відстуня'}
+                {event?.disciplineInfo ?? 'Інформація про дисципліну відсутня'}
               </Typography>
             )}
           </TabPanel>
