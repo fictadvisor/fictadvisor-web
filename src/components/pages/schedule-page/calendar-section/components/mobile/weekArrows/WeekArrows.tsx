@@ -46,11 +46,13 @@ export const WeekArrows = () => {
     setChosenDay(getLastDayOfAWeek(semester as GetCurrentSemester, newWeek));
   };
 
-  const monthNumber = useMemo(() => {
+  const month = useMemo(() => {
     if (!eventsBody[week - 1]) return null;
-    return transformEvents(
-      eventsBody[week - 1] as GetEventBody,
-    ).days[0].day.getMonth();
+    return monthMapper[
+      transformEvents(
+        eventsBody[week - 1] as GetEventBody,
+      ).days[0].day.getMonth()
+    ];
   }, [eventsBody, week]);
 
   return (
@@ -62,9 +64,7 @@ export const WeekArrows = () => {
         width: '100%',
       }}
     >
-      {monthNumber && (
-        <Typography variant={'h6Bold'}>{monthMapper[monthNumber]}</Typography>
-      )}
+      {month && <Typography variant={'h6Bold'}>{month}</Typography>}
 
       {loading && (
         <Skeleton
