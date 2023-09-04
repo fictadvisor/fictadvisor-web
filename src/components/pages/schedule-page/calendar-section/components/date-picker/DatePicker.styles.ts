@@ -5,7 +5,6 @@ export const picker: SxProps<Theme> = {
   '& .MuiMonthCalendar-root, &, & .MuiYearCalendar-root': {
     width: '280px',
   },
-  height: '290px',
   '& .MuiButtonBase-root': {
     color: 'white.main',
     '&.MuiPickersDay-dayOutsideMonth': {
@@ -17,6 +16,10 @@ export const picker: SxProps<Theme> = {
     '&.Mui-disabled': {
       color: 'grey.200',
     },
+  },
+  height: '290px',
+  '& .MuiButtonBase-root.Mui-disabled': {
+    color: 'grey.400',
   },
   '& .MuiTypography-root': {
     color: 'grey.400',
