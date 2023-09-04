@@ -5,6 +5,8 @@ export const getWeekByDate = (
   date: Date,
 ): number => {
   const delta = date.getTime() - new Date(semester.startDate).getTime();
-  const week = Math.ceil(delta / (1000 * 60 * 60 * 24 * 7));
-  return week === 0 ? 1 : week;
+  const decimalWeek = delta / (1000 * 60 * 60 * 24 * 7);
+  const week = Math.ceil(decimalWeek % 1 === 0 ? decimalWeek + 1 : decimalWeek);
+
+  return week;
 };

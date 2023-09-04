@@ -70,11 +70,13 @@ const ScheduleHeader = () => {
     week === 20 ? setNextButton(true) : setNextButton(false);
   }, [week]);
 
-  const monthNumber = useMemo(() => {
+  const month = useMemo(() => {
     if (!eventsBody[week - 1]) return null;
-    return transformEvents(
-      eventsBody[week - 1] as GetEventBody,
-    ).days[0].day.getMonth();
+    return monthMapper[
+      transformEvents(
+        eventsBody[week - 1] as GetEventBody,
+      ).days[0].day.getMonth()
+    ];
   }, [eventsBody, week]);
 
   const days = useMemo(() => {
@@ -88,12 +90,12 @@ const ScheduleHeader = () => {
     else setChosenDay(new Date(semester?.endDate as string));
   };
 
+  console.log(typeof month);
+
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
-        {monthNumber && (
-          <Typography sx={styles.month}>{monthMapper[monthNumber]}</Typography>
-        )}
+        {month && <Typography sx={styles.month}>{month}</Typography>}
         {loading && (
           <Skeleton
             width={140}

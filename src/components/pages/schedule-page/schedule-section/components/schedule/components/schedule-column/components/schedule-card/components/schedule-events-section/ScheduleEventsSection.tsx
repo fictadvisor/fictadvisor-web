@@ -68,7 +68,7 @@ export const ScheduleEventsSection: FC<ScheduleEventsExpandedProps> = ({
         <Box sx={styles.eventsContainerGrid}>
           {events.map((event, index) => (
             <ScheduleEvent
-              minHeight="90px"
+              minHeight="50px"
               event={event}
               height={height}
               key={index}
