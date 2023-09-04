@@ -90,8 +90,6 @@ const ScheduleHeader = () => {
     else setChosenDay(new Date(semester?.endDate as string));
   };
 
-  console.log(typeof month);
-
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
