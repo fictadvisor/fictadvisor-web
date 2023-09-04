@@ -40,10 +40,6 @@ export const picker: SxProps<Theme> = {
     color: 'grey.400',
   },
 
-  '& .MuiPickersArrowSwitcher-root button:disabled': {
-    color: 'grey.200',
-  },
-
   '& .MuiDayCalendar-weekContainer': {
     '&:has(.Mui-selected)': {
       backgroundColor: 'grey.100',
