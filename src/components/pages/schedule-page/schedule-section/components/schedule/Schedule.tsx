@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Box } from '@mui/material';
 
 import Progress from '@/components/common/ui/progress';
+import { calculateTop } from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/components/schedule-card/utils/calculateTop';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-line/types';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
@@ -45,6 +46,8 @@ const Schedule = () => {
     ? areDatesInSameWeek(eventsTime, currentTime)
     : false;
 
+  const top = calculateTop(currentTime);
+
   return (
     <Box sx={styles.layout}>
       <ScheduleTime />
@@ -57,7 +60,11 @@ const Schedule = () => {
                 return <ScheduleColumn key={index} day={day} />;
               })}
             {isCurWeek && (
-              <ScheduleLine variant={ScheduleLineVariant.SHORT} dashed={true} />
+              <ScheduleLine
+                variant={ScheduleLineVariant.SHORT}
+                dashed={true}
+                top={top}
+              />
             )}
           </Box>
         )}

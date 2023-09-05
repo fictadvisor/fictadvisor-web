@@ -12,7 +12,8 @@ export const container = (top: number): SxProps<Theme> => ({
   alignItems: 'center',
   position: 'absolute',
   width: '100%',
-  top: top - 4,
+  left: { mobile: -8, tablet: 0 },
+  top: { mobile: `calc(${top}% - 8px)`, tablet: top - 4 },
 });
 
 export const verticalDivider = (
@@ -64,10 +65,10 @@ export const line = (
   variant: ScheduleLineVariant,
   indent: number,
 ): SxProps<Theme> => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
   ...(variant === ScheduleLineVariant.SHORT && {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
     height: '4px',
     backgroundColor: 'primary.600',
     borderRadius: '2px',
