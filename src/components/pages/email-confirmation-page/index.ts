@@ -1,1 +1,1 @@
-export { default } from './PasswordResetEmailConfirmationPage';
+export { default } from 'src/components/pages/email-confirmation-page/EmailConfirmationPage';

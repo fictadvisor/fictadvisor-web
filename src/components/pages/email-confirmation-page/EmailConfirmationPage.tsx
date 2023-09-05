@@ -12,10 +12,11 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
-import * as styles from '@/components/pages/password-recovery/email-confirmation-page/PasswordResetEmailConfirmationPage.module';
 import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
+
+import * as styles from './EmailConfirmationPage.module';
 
 type EmailConfirmationPageProps = {
   apiMethodName: 'forgotPassword' | 'verifyEmail';
@@ -25,9 +26,9 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
   apiMethodName,
 }) => {
   const router = useRouter();
-  const email = (router.query.email as string).toLowerCase();
+  const email = String(router.query.email).toLowerCase();
   const emailText = email
-    ? 'Ми надіслали листа для зміни пароля на адресу '
+    ? `Ми надіслали листа для зміни пароля на адресу ${email}`
     : 'Ми надіслали листа для зміни пароля';
   const returnRegister = () => {
     void router.push('/register');
@@ -39,9 +40,7 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
       await AuthAPI[apiMethodName]({ email });
     } catch (error) {
       const message = getErrorMessage(error);
-      message
-        ? toast.error(message)
-        : toast.error('Щось пішло не так, спробуй пізніше!');
+      toast.error(message || 'Щось пішло не так, спробуй пізніше!');
     }
   };
 
@@ -58,7 +57,7 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
             {email}
           </Box>
         </Typography>
-        <Box sx={styles.flex}>
+        <Box sx={styles.info}>
           <Typography sx={styles.question}>Не отримав листа?</Typography>
           <Button
             text="Надіслати повторно"
