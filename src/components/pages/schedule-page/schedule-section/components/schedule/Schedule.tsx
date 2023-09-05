@@ -5,6 +5,7 @@ import Progress from '@/components/common/ui/progress';
 import ScheduleColumn from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-column/ScheduleColumn';
 import { ScheduleLineVariant } from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-line/types';
 import ScheduleTime from '@/components/pages/schedule-page/schedule-section/components/schedule/components/schedule-time';
+import { areDatesInSameWeek } from '@/components/pages/schedule-page/utils/areDatesInSameWeek';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
@@ -13,12 +14,15 @@ import ScheduleLine from './components/schedule-line/ScheduleLine';
 import * as styles from './Schedule.styles';
 
 const Schedule = () => {
-  const { events, week, disciplines, loading } = useSchedule(state => ({
-    events: state.eventsBody,
-    week: state.week,
-    disciplines: state.disciplineTypes,
-    loading: state.isLoading,
-  }));
+  const { events, week, disciplines, loading, currentTime } = useSchedule(
+    state => ({
+      events: state.eventsBody,
+      week: state.week,
+      disciplines: state.disciplineTypes,
+      loading: state.isLoading,
+      currentTime: state.currentTime.toISOString(),
+    }),
+  );
 
   const eventsPerWeek = useMemo(() => {
     if (!events[week - 1]) return null;
@@ -35,6 +39,12 @@ const Schedule = () => {
     return _eventsWeek;
   }, [disciplines, events, week]);
 
+  const eventsTime = eventsPerWeek?.startTime;
+
+  const isCurWeek = eventsTime
+    ? areDatesInSameWeek(eventsTime, currentTime)
+    : false;
+
   return (
     <Box sx={styles.layout}>
       <ScheduleTime />
@@ -46,7 +56,9 @@ const Schedule = () => {
               .map((day, index) => {
                 return <ScheduleColumn key={index} day={day} />;
               })}
-            <ScheduleLine variant={ScheduleLineVariant.SHORT} dashed={true} />
+            {isCurWeek && (
+              <ScheduleLine variant={ScheduleLineVariant.SHORT} dashed={true} />
+            )}
           </Box>
         )}
         {loading && <Progress sx={styles.progress} />}

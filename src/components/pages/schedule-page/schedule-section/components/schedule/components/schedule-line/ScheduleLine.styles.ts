@@ -12,7 +12,7 @@ export const container = (top: number): SxProps<Theme> => ({
   alignItems: 'center',
   position: 'absolute',
   width: '100%',
-  top: top,
+  top: top - 4,
 });
 
 export const verticalDivider = (
