@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
@@ -15,6 +15,7 @@ import {
 } from '@/components/common/ui/icon-button';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
+import { MAX_WEEK_NUMBER } from '@/components/pages/schedule-page/constants';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
@@ -57,18 +58,12 @@ const ScheduleHeader = () => {
     currentTime: state.currentTime,
     loading: state.isLoading,
   }));
-  const [prevButton, setPrevButton] = useState(false);
-  const [nextButton, setNextButton] = useState(false);
 
   const updateWeek = (amount: number) => {
     const newWeek = week + amount;
+    if (newWeek < 1 || newWeek > MAX_WEEK_NUMBER) return;
     setChosenDay(getLastDayOfAWeek(semester as GetCurrentSemester, newWeek));
   };
-
-  useEffect(() => {
-    week === 1 ? setPrevButton(true) : setPrevButton(false);
-    week === 20 ? setNextButton(true) : setNextButton(false);
-  }, [week]);
 
   const month = useMemo(() => {
     if (!eventsBody[week - 1]) return null;
@@ -105,7 +100,7 @@ const ScheduleHeader = () => {
         )}
         <Box sx={styles.weekWrapper}>
           <IconButton
-            disabled={prevButton}
+            disabled={week === 1}
             sx={styles.button}
             size={IconButtonSize.LARGE}
             shape={IconButtonShape.SQUARE}
@@ -117,7 +112,7 @@ const ScheduleHeader = () => {
           <Typography sx={styles.week}>{week} тиждень</Typography>
 
           <IconButton
-            disabled={nextButton}
+            disabled={week === MAX_WEEK_NUMBER}
             sx={styles.button}
             size={IconButtonSize.LARGE}
             shape={IconButtonShape.SQUARE}

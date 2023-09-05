@@ -3,7 +3,10 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { create } from 'zustand';
 
-import { LOCAL_STORAGE_SCHEDULE_KEY } from '@/components/pages/schedule-page/constants';
+import {
+  LOCAL_STORAGE_SCHEDULE_KEY,
+  MAX_WEEK_NUMBER,
+} from '@/components/pages/schedule-page/constants';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
@@ -19,7 +22,6 @@ import { findFirstOf5 } from './utils/findFirstOf5';
 import { setUrlParams } from './utils/setUrlParams';
 
 const WEEKS_ARRAY_SIZE = 24;
-const MAX_WEEK_NUMBER = 20;
 
 export interface Checkboxes extends Record<string, boolean | undefined> {
   addLecture: boolean;
