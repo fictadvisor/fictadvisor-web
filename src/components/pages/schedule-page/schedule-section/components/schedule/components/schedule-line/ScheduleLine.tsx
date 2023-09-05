@@ -28,10 +28,6 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
 
   const indent = (time.getDay() - 1) * 148;
 
-  const isCurWeek =
-    time.getDate() === new Date().getDate() &&
-    time.getMonth() === new Date().getMonth();
-
   return (
     <Box sx={mergeSx(styles.container(top), sx)}>
       {dashed && <Divider sx={styles.dashed} />}
