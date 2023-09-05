@@ -137,17 +137,20 @@ export const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
                     textPosition={TabTextPosition.CENTER}
                     value={InfoCardTabs.EVENT}
                   />
-                  <Tab
-                    disableRipple
-                    label="Про дисципліну"
-                    textPosition={TabTextPosition.CENTER}
-                    value={InfoCardTabs.DISCIPLINE}
-                  />
+                  {values.disciplineType && (
+                    <Tab
+                      disableRipple
+                      label="Про дисципліну"
+                      textPosition={TabTextPosition.CENTER}
+                      value={InfoCardTabs.DISCIPLINE}
+                    />
+                  )}
                 </TabList>
 
                 <TabPanel value={InfoCardTabs.EVENT}>
                   <TextArea name={'eventInfo'} />
                 </TabPanel>
+
                 <TabPanel value={InfoCardTabs.DISCIPLINE}>
                   <TextArea name={'disciplineInfo'} />
                 </TabPanel>
