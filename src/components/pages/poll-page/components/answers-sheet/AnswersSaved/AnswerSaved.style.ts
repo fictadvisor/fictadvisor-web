@@ -6,10 +6,19 @@ export const savedWrapper: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '12%',
   height: '100vh',
+  paddingTop: '184px',
+
+  [theme.breakpoints.down('desktopMedium')]: {
+    paddingTop: '160px',
+  },
+
+  [theme.breakpoints.down('desktopSemiMedium')]: {
+    paddingTop: '140px',
+  },
+
   [theme.breakpoints.down('desktop')]: {
-    padding: '16px',
+    padding: '120px 16px 16px',
   },
 };
 
@@ -30,13 +39,21 @@ export const content: SxProps<Theme> = {
 
 export const heading: SxProps<Theme> = {
   textAlign: 'center',
-  marginTop: '20px',
-  marginBottom: '12px',
+  paddingTop: '20px',
+  paddingBottom: '12px',
+  typography: 'h3SemiBold',
+  [theme.breakpoints.down('mobileMedium')]: {
+    typography: 'h4Bold',
+  },
 };
 
 export const paragraph: SxProps<Theme> = {
   textAlign: 'center',
-  marginBottom: '36px',
+  paddingBottom: '36px',
+  typography: 'h6Medium',
+  [theme.breakpoints.down('mobileMedium')]: {
+    typography: 'body1Medium',
+  },
 };
 
 export const buttons: SxProps<Theme> = {

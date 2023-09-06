@@ -17,16 +17,10 @@ const AnswersSaved = () => {
     <Box sx={styles.savedWrapper}>
       <Box sx={styles.content}>
         <Image src="/gifs/frogging.gif" alt="frog" width={90} height={90} />
-        <Typography
-          variant={isMobileMedium ? 'h4Bold' : 'h3SemiBold'}
-          sx={styles.heading}
-        >
+        <Typography variant="h1" sx={styles.heading}>
           Дякуємо за відповіді!
         </Typography>
-        <Typography
-          variant={isMobileMedium ? 'body1Medium' : 'h6Medium'}
-          sx={styles.paragraph}
-        >
+        <Typography sx={styles.paragraph}>
           Ваші відповіді допоможуть покращити якість навчання на нашому
           факультеті. Також Ви можете оцінити інших викладачів.
         </Typography>
