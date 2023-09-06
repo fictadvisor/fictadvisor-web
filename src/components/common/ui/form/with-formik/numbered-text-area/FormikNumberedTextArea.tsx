@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { useField } from 'formik';
 
-import NumberedTextArea from '../../numbered-text-area-mui/NumberedTextArea';
-import { NumberedTextAreaProps } from '../../numbered-text-area-mui/types';
+import NumberedTextArea from '../../numbered-text-area/NumberedTextArea';
+import { NumberedTextAreaProps } from '../../numbered-text-area/types';
 
-interface FormikNumberedTextAreaProps extends NumberedTextAreaProps {
+interface FormikNumberedTextAreaProps
+  extends Omit<NumberedTextAreaProps, 'value'> {
   name: string;
 }
 
@@ -12,13 +13,21 @@ const FormikNumberedTextArea: FC<FormikNumberedTextAreaProps> = ({
   name,
   ...props
 }) => {
-  const [field, { touched, error }] = useField(name);
+  const [{ value }, { touched, error }, { setValue, setTouched }] =
+    useField(name);
+
+  const onChange = (value: string) => {
+    setTouched(true);
+    setValue(value);
+  };
+
   return (
     <NumberedTextArea
       {...props}
       touched={touched}
       error={error}
-      field={field}
+      value={value}
+      onChange={onChange}
     />
   );
 };

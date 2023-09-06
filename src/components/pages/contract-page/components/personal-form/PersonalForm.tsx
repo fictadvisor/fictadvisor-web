@@ -7,6 +7,7 @@ import { getLocalStorage } from '@/components/pages/contract-page/utils/localSto
 import useToast from '@/hooks/use-toast';
 import ContractAPI from '@/lib/api/contract/ContractAPI';
 import { ExtendedContractBody } from '@/lib/api/contract/types/ContractBody';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 
 import { prepareData } from '../../utils/prepareData';
 import { PassFormAgain } from '../PassFormAgain';
@@ -33,7 +34,7 @@ export const PersonalForm: FC<{
   );
 
   const handleNextStep = async (data: ExtendedContractBody, final = false) => {
-    console.log(step);
+    console.log(data);
 
     if (!final) setData(prevState => ({ ...prevState, ...data }));
 
@@ -51,20 +52,12 @@ export const PersonalForm: FC<{
           `Ви успішно надіслали контракт, перевірте пошту ${data.entrant.email}`,
         );
       } catch (error) {
-        if (
-          (error as { response: AxiosError }).response.status === 500 ||
-          (error as { response: AxiosError }).response.status === 403
-        ) {
-          toast.error(
-            `Внутрішня помилка сервера`,
-            'Зверніться до оператора або в чат абітурієнтів',
-          );
-          return;
-        }
-        toast.error(
-          `Трапилась помилка, перевірте усі дані та спробуйте ще раз`,
-          (error as AxiosError).message,
-        );
+        const message = getErrorMessage(error);
+        message
+          ? toast.error(message)
+          : toast.error(
+              `Трапилась помилка, перевірте усі дані та спробуйте ще раз`,
+            );
       }
       setIsLoading(false);
       return;

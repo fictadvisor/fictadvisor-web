@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 
-import Rating from '@/components/common/ui/rating-mui';
-import Tag from '@/components/common/ui/tag-mui';
-import { TagColor, TagSize } from '@/components/common/ui/tag-mui/types';
+import { CardRoles } from '@/components/common/ui/cards/card-roles';
+import Rating from '@/components/common/ui/rating';
+import Tag from '@/components/common/ui/tag';
+import { TagColor, TagSize } from '@/components/common/ui/tag/types';
 import Contact from '@/components/pages/personal-teacher-page/contacts';
 import { Teacher, TeacherRole } from '@/types/teacher';
 
@@ -35,25 +36,7 @@ const FloatingCard: FC<FloatingCardProps> = ({
           >{`${lastName} ${firstName} ${middleName}`}</Typography>
           {rating !== 0 && <Rating sx={styles.rating} rating={rating / 20} />}
           <Box sx={styles.tags}>
-            {roles?.includes(TeacherRole.LECTURER) && (
-              <Tag color={TagColor.INDIGO} size={TagSize.SMALL} text="Лекції" />
-            )}
-
-            {roles?.includes(TeacherRole.PRACTICIAN) && (
-              <Tag
-                color={TagColor.ORANGE}
-                size={TagSize.SMALL}
-                text="Практики"
-              />
-            )}
-
-            {roles?.includes(TeacherRole.LABORANT) && (
-              <Tag
-                color={TagColor.MINT}
-                size={TagSize.SMALL}
-                text="Лабораторні"
-              />
-            )}
+            <CardRoles roles={roles} />
           </Box>
         </Box>
       </Box>

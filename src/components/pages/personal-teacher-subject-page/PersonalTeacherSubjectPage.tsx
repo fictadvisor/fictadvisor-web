@@ -9,10 +9,10 @@ import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
-import Progress from '@/components/common/ui/progress-mui';
-import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
+import PersonalTeacherSubjectCard from '@/components/common/ui/cards/personal-teacher-subject-card';
+import Progress from '@/components/common/ui/progress';
+import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/utils';
 import PersonalSubjectTeacherTabs from '@/components/pages/personal-teacher-subject-page/personal-subject-teacher-tabs';
-import PersonalTeacherSubjectCard from '@/components/pages/personal-teacher-subject-page/personal-teacher-subject-card';
 import styles from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
 import useTabState from '@/hooks/use-tab-state';
@@ -69,7 +69,11 @@ const PersonalTeacherSubjectPage = () => {
     TeachersPageTabs.GENERAL,
   );
 
-  const handleChange = useTabState<TeachersPageTabs>({ tab, router, setIndex });
+  const handleChange = useTabState({
+    tab,
+    router,
+    setIndex,
+  });
 
   if (!teacherInfo) return null;
 

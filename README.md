@@ -50,8 +50,9 @@ This application renders and serves frontend for the FICT Advisor. Some componen
 ### Built with
 
 * [Next.js](https://nextjs.org)
-* [SASS](https://github.com/sass/sass)
 * [Material UI](https://mui.com)
+* [SASS](https://github.com/sass/sass)
+* [Storybook](https://storybook.js.org)
 * [EsLint](https://eslint.org)
 
 ## Getting started
@@ -84,16 +85,6 @@ yarn dev
 ## Roadmap
 
 See the [open issues](https://github.com/fictadvisor/fictadvisor-web/issues) for a list of proposed features (and known issues).
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Added an amazing feature'`)
-4. Push the branch (`git push -u origin feature/amazing-feature`)
-5. Open a pull request
 
 ## License
 

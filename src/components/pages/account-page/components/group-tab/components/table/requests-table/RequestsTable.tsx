@@ -3,13 +3,14 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
-import AlertButton from '@/components/common/ui/alert-button-mui/AlertButton';
-import { AlertButtonVariant } from '@/components/common/ui/alert-button-mui/types';
+import AlertButton from '@/components/common/ui/alert-button/AlertButton';
+import { AlertButtonVariant } from '@/components/common/ui/alert-button/types';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import GroupAPI from '@/lib/api/group/GroupAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 import theme from '@/styles/theme';
 import { UserGroupState } from '@/types/user';
 
@@ -29,8 +30,11 @@ const RequestsTable: FC<RequestsTableProps> = ({ rows, refetch }) => {
           state: UserGroupState.APPROVED,
         });
       await refetch();
-    } catch (e) {
-      toast.error('Щось пішло не так, спробуй пізніше!', '', 3000);
+    } catch (error) {
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message, '', 3000)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 
@@ -41,8 +45,11 @@ const RequestsTable: FC<RequestsTableProps> = ({ rows, refetch }) => {
           state: UserGroupState.DECLINED,
         });
       await refetch();
-    } catch (e) {
-      toast.error('Щось пішло не так, спробуй пізніше!', '', 3000);
+    } catch (error) {
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message, '', 3000)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
 

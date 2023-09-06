@@ -6,11 +6,14 @@ import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/common/ui/button/Button';
-import { Slider, TextArea } from '@/components/common/ui/form';
+import { TextArea } from '@/components/common/ui/form';
 import RadioGroup from '@/components/common/ui/form/radio/RadioGroup';
-import Progress from '@/components/common/ui/progress-mui';
+import { SliderSize } from '@/components/common/ui/form/slider/types';
+import FormikSlider from '@/components/common/ui/form/with-formik/slider';
+import Progress from '@/components/common/ui/progress';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 import theme from '@/styles/theme';
 import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
@@ -188,9 +191,9 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         </p>
                       )}
                       {question.type === 'SCALE' ? (
-                        <Slider
-                          className={styles['slider']}
+                        <FormikSlider
                           name={question.id}
+                          size={isMobile ? SliderSize.SMALL : SliderSize.MEDIUM}
                         />
                       ) : question.type === 'TOGGLE' ? (
                         <RadioGroup
@@ -250,31 +253,12 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                           );
                           setIsSendingStatus(SendingStatus.SUCCESS);
                         } catch (error) {
-                          // TODO: refactor this shit
-                          const errorName = (
-                            error as AxiosError<{ error: string }>
-                          ).response?.data.error;
-                          if (errorName === 'InvalidEntityIdException') {
-                            toast.error(
-                              'Помилка',
-                              'Не знайдено опитування з таким Id!',
-                            );
-                          } else if (errorName === 'ExcessiveAnswerException') {
-                            toast.error('Помилка', 'Знайдено зайві відповіді!');
-                          } else if (
-                            errorName === 'NotEnoughAnswersException'
-                          ) {
-                            toast.error(
-                              'Помилка',
-                              "Ви відповіли не на всі обов'язкові запитання!",
-                            );
-                          } else if (errorName === 'AlreadyAnsweredException') {
-                            toast.error('Помилка', 'Ви вже відповіли!');
-                          } else if (errorName === 'NoPermissionException') {
-                            toast.error('Помилка', 'Недостатньо прав!');
-                          } else {
-                            toast.error('Помилка', 'Помилка на сервері :(');
-                          }
+                          const message = getErrorMessage(error);
+                          message
+                            ? toast.error('Помилка!', message)
+                            : toast.error(
+                                'Щось пішло не так, спробуй пізніше!',
+                              );
                           setIsSendingStatus(SendingStatus.ERROR);
                         }
                       }

@@ -3,7 +3,11 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
-import Button, { ButtonColor, ButtonSize } from '@/components/common/ui/button';
+import Button from '@/components/common/ui/button';
+import {
+  ButtonColor,
+  ButtonSize,
+} from '@/components/common/ui/button-mui/types';
 import { Input, InputSize } from '@/components/common/ui/form';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
 import styles from '@/components/pages/account-page/components/general-tab/GeneralTab.module.scss';
@@ -11,6 +15,7 @@ import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
 import UserAPI from '@/lib/api/user/UserAPI';
+import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { ContactType } from '@/types/contact';
 
 interface ContactFormProps {
@@ -30,8 +35,11 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
       try {
         await UserAPI.addContact(user.id, data);
         void refetchContacts();
-      } catch (e) {
-        toast.error('Здається ти ввів неправильні значення!');
+      } catch (error) {
+        const message = getErrorMessage(error);
+        message
+          ? toast.error('Здається ти ввів неправильні значення!', message)
+          : toast.error('Щось пішло не так, спробуй пізніше!');
       }
     },
     [refetchContacts, toast, user.id],

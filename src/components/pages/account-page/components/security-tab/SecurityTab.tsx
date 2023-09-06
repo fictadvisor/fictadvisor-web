@@ -1,13 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
+import Button from '@/components/common/ui/button';
+import {
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
+} from '@/components/common/ui/button-mui/types';
+import Input from '@/components/common/ui/form/input-mui';
 } from '@/components/common/ui/button-mui/types';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
@@ -23,23 +25,22 @@ import * as styles from './SecurityTab.styles';
 const SecurityTab = () => {
   const { replace, reload } = useRouter();
   const { user, update } = useAuthentication();
-  const dispatch = useDispatch();
   const handleLogout = async () => {
     await AuthService.logout();
     update();
     reload();
     await replace('/login');
-    dispatch(hideAlert());
   };
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
 
   return (
-    <Box sx={styles.container}>
-      <Divider
-        text={'Зміна паролю'}
-        textAlign={DividerTextAlign.LEFT}
-      ></Divider>
-      <Box sx={styles.inputForm}>
+    <div className={styles['container']}>
+      <div className={styles['division']}>
+        <h4 className={styles['division-text']}>Зміна паролю</h4>
+        <div className={styles['white']}></div>
+        <div className={styles['button']}></div>
+      </div>
+      <div className={styles['input-form']}>
         <ChangePasswordForm />
       </Box>
       <Divider
@@ -53,6 +54,26 @@ const SecurityTab = () => {
       </Box>
       <Divider></Divider>
       <Box sx={styles.buttonContainer}>
+      </div>
+      <div className={styles['division']}>
+        <h4 className={styles['division-text']}>Юзернейм і пошта</h4>
+        <div className={styles['white']}></div>
+        <div className={styles['button']}></div>
+      </div>
+      <div className={styles['user-information']}>
+        <Input
+          readOnly
+          onChange={() => {}}
+          label="Юзернейм"
+          value={user.username}
+        />
+        <Input readOnly onChange={() => {}} label="Пошта" value={user.email} />
+      </div>
+      <div className={styles['division']}>
+        <div className={styles['white']}></div>
+        <div className={styles['button']}></div>
+      </div>
+      <div className={styles['button-container']}>
         <Button
           text={'Вийти з акаунту'}
           variant={ButtonVariant.FILLED}

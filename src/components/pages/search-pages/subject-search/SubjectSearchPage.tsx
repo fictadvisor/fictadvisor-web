@@ -8,7 +8,7 @@ import {
   ButtonColor,
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
-import Progress from '@/components/common/ui/progress-mui';
+import Progress from '@/components/common/ui/progress';
 import { SearchFormProps } from '@/components/pages/search-pages/search-form/SearchForm';
 import { SearchFormFields } from '@/components/pages/search-pages/search-form/types';
 import {
@@ -26,6 +26,12 @@ import { SubjectSearchList } from './components/SubjectSearchList';
 import * as styles from './SubjectSearchPage.styles';
 
 const SubjectSearchPage = () => {
+  const initialValues = localStorage.getItem('subjectForm')
+    ? JSON.parse(localStorage.getItem('subjectForm') || '{}')
+    : SubjectInitialValues;
+
+  const localStorageName = 'subjectForm';
+
   const [queryObj, setQueryObj] =
     useState<SearchFormFields>(SubjectInitialValues);
   const [curPage, setCurPage] = useState(0);
@@ -57,7 +63,8 @@ const SubjectSearchPage = () => {
         searchPlaceholder="Оберіть предмет"
         filterDropDownOptions={filterOptions}
         onSubmit={submitHandler}
-        initialValues={SubjectInitialValues}
+        initialValues={initialValues}
+        localStorageName={localStorageName}
       />
       {data && <SubjectSearchList subjects={data.subjects} />}
       {isLoading ||
