@@ -1,12 +1,9 @@
 import React, { FC } from 'react';
-import { shallowEqual } from 'react-redux';
 import { Box, useMediaQuery } from '@mui/material';
 import { Form, Formik } from 'formik';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button-mui';
-import { ButtonSize } from '@/components/common/ui/button-mui/types';
-import Button from '@/components/common/ui/button';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import { Input } from '@/components/common/ui/form';
 import { PersonalInfoForm } from '@/components/pages/account-page/components/general-tab/components/personal-info/types';
@@ -16,7 +13,6 @@ import useToast from '@/hooks/use-toast';
 import UserAPI from '@/lib/api/user/UserAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 import theme from '@/styles/theme';
-import getErrorMessage from '@/lib/utils/getErrorMessage';
 
 import * as styles from '../../GeneralTab.styles';
 
@@ -80,26 +76,13 @@ const PersonalInfoBlock: FC = () => {
               name="middleName"
             />
             <Box sx={styles.confirmButton}>
-            <div className={styles['confirm-button']}>
-              <Button
-                text="Зберегти зміни"
-                startIcon={<CustomCheck />}
-                size={ButtonSize.MEDIUM}
-                type="submit"
-                disabled={!isValid || objectsEqual(initialValues, values)}
-                className={styles['change-password-button']}
-              />
-            </div>
-            <div className={styles['confirm-button-mobile']}>
               <Button
                 text="Зберегти зміни"
                 startIcon={<CustomCheck />}
                 size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                 type="submit"
-                disabled={!isValid || shallowEqual(initialValues, values)}
                 sx={isMobile ? { padding: '6px 12px' } : {}}
                 disabled={!isValid || objectsEqual(initialValues, values)}
-                className={styles['change-password-button']}
               />
             </Box>
           </Form>
