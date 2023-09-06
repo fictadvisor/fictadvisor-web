@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { shallowEqual } from 'react-redux';
 import { Box, useMediaQuery } from '@mui/material';
 import { Form, Formik } from 'formik';
 
@@ -76,8 +75,11 @@ const PersonalInfoBlock: FC = () => {
                 startIcon={<CustomCheck />}
                 size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                 type="submit"
-                disabled={!isValid || shallowEqual(initialValues, values)}
                 sx={isMobile ? { padding: '6px 12px' } : {}}
+<<<<<<< HEAD
+=======
+                disabled={!isValid || objectsEqual(initialValues, values)}
+>>>>>>> 61314c69 (fix: merge dev + minor fixes)
               />
             </Box>
           </Form>

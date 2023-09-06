@@ -1,6 +1,5 @@
 import React, { FC, useCallback } from 'react';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button';
@@ -10,6 +9,10 @@ import {
 } from '@/components/common/ui/button-mui/types';
 import { Input, InputSize } from '@/components/common/ui/form';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
+import {
+  initialValues,
+  validationSchema,
+} from '@/components/pages/account-page/components/general-tab/components/contacts-block/constants';
 import styles from '@/components/pages/account-page/components/general-tab/GeneralTab.module.scss';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
@@ -49,18 +52,8 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
     <div className={styles['add-social-links-container']}>
       <Formik
         enableReinitialize
-        // TODO: move to constants folder
-        validationSchema={yup.object().shape({
-          displayName: yup.string().required(`Обов'язкове поле`),
-          link: yup.string().required(`Обов'язкове поле`),
-          name: yup.string().required(`Обов'язкове поле`),
-        })}
-        // TODO: move to constants folder
-        initialValues={{
-          name: ContactType.TELEGRAM,
-          link: '',
-          displayName: '',
-        }}
+        validationSchema={validationSchema}
+        initialValues={initialValues}
         validateOnChange
         onSubmit={handleSubmit}
       >
