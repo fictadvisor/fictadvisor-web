@@ -11,7 +11,6 @@ import * as styles from './AnswerSaved.style';
 
 const AnswersSaved = () => {
   const router = useRouter();
-  const isMobileMedium = useMediaQuery(theme.breakpoints.down('mobileMedium'));
 
   return (
     <Box sx={styles.savedWrapper}>
