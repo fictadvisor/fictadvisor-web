@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/common/ui/button-mui/Button';
 import { ButtonVariant } from '@/components/common/ui/button-mui/types';
-import theme from '@/styles/theme';
 
 import * as styles from './AnswerSaved.style';
 
