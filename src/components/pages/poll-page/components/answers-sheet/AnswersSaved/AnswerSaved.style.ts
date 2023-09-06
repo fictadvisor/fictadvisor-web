@@ -20,11 +20,11 @@ export const content: SxProps<Theme> = {
   justifyContent: 'center',
   maxWidth: '900px',
   [theme.breakpoints.down('desktop')]: {
-    axWidth: '600px',
+    maxWidth: '600px',
   },
 
   [theme.breakpoints.down('tablet')]: {
-    axWidth: '400px',
+    maxWidth: '400px',
   },
 };
 
