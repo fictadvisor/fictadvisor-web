@@ -1,41 +1,52 @@
 import React from 'react';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import Button from '@/components/common/ui/button/Button';
+import Button from '@/components/common/ui/button-mui/Button';
 import { ButtonVariant } from '@/components/common/ui/button-mui/types';
+import theme from '@/styles/theme';
 
-import styles from './AnswersSaved.module.scss';
+import * as styles from './AnswerSaved.style';
 
 const AnswersSaved = () => {
   const router = useRouter();
+  const isMobileMedium = useMediaQuery(theme.breakpoints.down('mobileMedium'));
 
   return (
-    <div className={styles.savedWrapper}>
-      <div className={styles.content}>
+    <Box sx={styles.savedWrapper}>
+      <Box sx={styles.content}>
         <Image src="/gifs/frogging.gif" alt="frog" width={90} height={90} />
-        <h1>Дякуємо за відповіді!</h1>
-        <b>
+        <Typography
+          variant={isMobileMedium ? 'h4Bold' : 'h3SemiBold'}
+          sx={styles.heading}
+        >
+          Дякуємо за відповіді!
+        </Typography>
+        <Typography
+          variant={isMobileMedium ? 'body1Medium' : 'h6Medium'}
+          sx={styles.paragraph}
+        >
           Ваші відповіді допоможуть покращити якість навчання на нашому
           факультеті. Також Ви можете оцінити інших викладачів.
-        </b>
-        <div className={styles.buttons}>
+        </Typography>
+        <Box sx={styles.buttons}>
           <Button
-            className={styles.toOtherPolls}
+            sx={styles.toOtherPolls}
             text={'Пройти нове опитування'}
             type="submit"
             onClick={() => router.push('/poll')}
           />
           <Button
-            className={styles.toMain}
+            sx={styles.toMain}
             text={'Повернутись на головну'}
             type="submit"
             variant={ButtonVariant.OUTLINE}
             onClick={() => router.push('/')}
           />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
