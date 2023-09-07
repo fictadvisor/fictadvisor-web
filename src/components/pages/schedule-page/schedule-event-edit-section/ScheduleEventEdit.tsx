@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
+import dayjs from 'dayjs';
 
 import { formValidationSchema } from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-form/validation';
 import ScheduleInfoCard from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-info-card';
@@ -13,7 +14,6 @@ import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
-import { UserGroupRole } from '@/types/user';
 
 import { ScheduleEventForm } from './schedule-form/ScheduleEventForm';
 
@@ -31,7 +31,7 @@ export const ScheduleEventEdit = () => {
     () =>
       getWeekByDate(
         semester as GetCurrentSemester,
-        new Date(openedEvent?.startTime as string),
+        dayjs(openedEvent?.startTime as string).tz(),
       ),
     [openedEvent],
   );

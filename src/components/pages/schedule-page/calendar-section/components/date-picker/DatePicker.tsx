@@ -20,7 +20,7 @@ export const DatePicker = () => {
       onChange={newValue => {
         if (newValue && semester) {
           console.log(newValue.toDate());
-          setChosenDay(newValue.toDate());
+          setChosenDay(newValue);
         }
       }}
       sx={styles.picker}

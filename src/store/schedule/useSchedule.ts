@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { AxiosError } from 'axios';
+import dayjs, { Dayjs } from 'dayjs';
 import { useRouter } from 'next/router';
 import { create } from 'zustand';
 
@@ -68,8 +69,8 @@ type State = {
   eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
   openedEvent?: Event;
-  currentTime: Date;
-  chosenDay: Date | null;
+  currentTime: Dayjs;
+  chosenDay: Dayjs | null;
   isLoading: boolean;
   error: null | AxiosError;
   isUsingSelective: boolean;
@@ -82,8 +83,8 @@ type Action = {
   handleWeekChange: () => Promise<void>;
 
   setIsNewEventAdded: (isAdded: boolean) => void;
-  setDate: (newDate: Date) => void;
-  setChosenDay: (newDate: Date) => void;
+  setDate: (newDate: Dayjs) => void;
+  setChosenDay: (newDate: Dayjs) => void;
   loadNext5: (startWeek: number) => Promise<void>;
   setError: (_: AxiosError | null) => void;
   updateCheckboxes: (checkboxes: Checkboxes) => void;
@@ -96,7 +97,7 @@ export const useSchedule = create<State & Action>((set, get) => {
     checkboxes: checkboxesInitialValues,
     error: null,
     isLoading: false,
-    currentTime: new Date(),
+    currentTime: dayjs().tz(),
     isNewEventAdded: false,
     disciplineTypes: [
       TDiscipline.LECTURE,
@@ -239,12 +240,12 @@ export const useSchedule = create<State & Action>((set, get) => {
         isNewEventAdded: isAdded,
       }));
     },
-    setDate(newDate: Date) {
+    setDate(newDate: Dayjs) {
       set(_ => ({
         currentTime: newDate,
       }));
     },
-    setChosenDay(newDate: Date) {
+    setChosenDay(newDate: Dayjs) {
       set(_ => ({
         chosenDay: newDate,
       }));
@@ -259,7 +260,7 @@ export const useSchedule = create<State & Action>((set, get) => {
 
       useEffect(() => {
         const interval = setInterval(() => {
-          get().setDate(new Date());
+          get().setDate(dayjs().tz());
         }, 1000 * 60);
 
         return () => clearInterval(interval);

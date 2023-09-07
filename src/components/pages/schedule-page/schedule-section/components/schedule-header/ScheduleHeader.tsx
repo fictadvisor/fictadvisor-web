@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
+import dayjs from 'dayjs';
 
 import Button from '@/components/common/ui/button-mui';
 import {
@@ -61,7 +62,11 @@ const ScheduleHeader = () => {
 
   const updateWeek = (amount: number) => {
     const newWeek = week + amount;
+    console.log('newWeek', newWeek);
     if (newWeek < 1 || newWeek > MAX_WEEK_NUMBER) return;
+    console.log(
+      getLastDayOfAWeek(semester as GetCurrentSemester, newWeek).date(),
+    );
     setChosenDay(getLastDayOfAWeek(semester as GetCurrentSemester, newWeek));
   };
 
@@ -80,9 +85,13 @@ const ScheduleHeader = () => {
   }, [eventsBody, week]);
 
   const handleClick = () => {
-    if (new Date(semester?.endDate as string).getTime() > currentTime.getTime())
+    if (
+      dayjs(semester?.endDate as string)
+        .tz()
+        .valueOf() > currentTime.valueOf()
+    )
       setChosenDay(currentTime);
-    else setChosenDay(new Date(semester?.endDate as string));
+    else setChosenDay(dayjs(semester?.endDate as string).tz());
   };
 
   return (
@@ -120,7 +129,7 @@ const ScheduleHeader = () => {
             icon={<ChevronRightIcon />}
             onClick={() => updateWeek(1)}
           />
-          {currentTime.toDateString() !== chosenDay?.toDateString() && (
+          {currentTime.toString() !== chosenDay?.toString() && (
             <Button
               text={'Сьогодні'}
               sx={{ width: 'min-content' }}
@@ -138,7 +147,7 @@ const ScheduleHeader = () => {
             <Typography
               sx={styles.dayName(
                 days[i]
-                  ? days[i].day.toDateString() === currentTime?.toDateString()
+                  ? dayjs(days[i].day).date() === currentTime?.date()
                   : false,
               )}
             >
@@ -147,8 +156,8 @@ const ScheduleHeader = () => {
             {days[i] && (
               <Typography
                 sx={styles.dayNumber(
-                  days[i].day.toDateString() === currentTime?.toDateString(),
-                  days[i].day.toDateString() === chosenDay?.toDateString(),
+                  dayjs(days[i].day).tz().date() === currentTime?.date(),
+                  dayjs(days[i].day).tz().date() === chosenDay?.date(),
                 )}
               >
                 {days[i].day.getDate()}
