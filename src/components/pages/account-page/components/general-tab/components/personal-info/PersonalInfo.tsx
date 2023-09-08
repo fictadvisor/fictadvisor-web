@@ -18,6 +18,9 @@ import * as styles from '../../GeneralTab.styles';
 
 import stylesFUCK from '../../GeneralTab.module.scss';
 
+const objectsEqual = (obj1: object, obj2: object) => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+};
 const PersonalInfoBlock: FC = () => {
   const { user, update } = useAuthentication();
   const initialValues: PersonalInfoForm = {
@@ -38,8 +41,11 @@ const PersonalInfoBlock: FC = () => {
     try {
       await UserAPI.changeInfo(user.id, data);
       await update();
-    } catch (e) {
-      toast.error(getErrorMessage(e));
+    } catch (error) {
+      const message = getErrorMessage(error);
+      message
+        ? toast.error(message)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
@@ -76,10 +82,7 @@ const PersonalInfoBlock: FC = () => {
                 size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                 type="submit"
                 sx={isMobile ? { padding: '6px 12px' } : {}}
-<<<<<<< HEAD
-=======
                 disabled={!isValid || objectsEqual(initialValues, values)}
->>>>>>> 61314c69 (fix: merge dev + minor fixes)
               />
             </Box>
           </Form>
