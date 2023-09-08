@@ -23,7 +23,7 @@ const ScheduleLine: FC<ScheduleLineProps> = ({
   top,
 }) => {
   const time = useSchedule(state => state.currentTime);
-  const indent = (time.getDay() - 1) * 148;
+  const indent = (time.day() - 1) * 148;
 
   return (
     <Box sx={mergeSx(styles.container(top), sx)}>
