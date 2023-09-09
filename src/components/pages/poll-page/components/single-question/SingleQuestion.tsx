@@ -35,6 +35,7 @@ const QuestionScale: FC<QuestionProps> = ({ question, ...rest }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   return (
     <FormikSlider
+      sx={{ mt: '10px' }}
       name={question.id}
       size={isMobile ? SliderSize.SMALL : SliderSize.MEDIUM}
     />
@@ -50,7 +51,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
       : `Питання ${id + 1} / ${count}`;
 
   return (
-    // className={styles['question']
     <Box key={question.id}>
       <Typography component="p" sx={styles.questionNumber}>
         {questionNumber}
@@ -71,8 +71,8 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
       )}
       {question.type === QuestionType.TEXT && (
         <TextArea
+          showRemark
           rowsNumber={numberRowsTextArea}
-          // sx={styles.textArea}
           name={question.id}
         />
       )}
