@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 
+//TODO need formikTextArea
 import { TextArea } from '@/components/common/ui/form';
-import RadioGroup from '@/components/common/ui/form/radio';
 import { SliderSize } from '@/components/common/ui/form/slider/types';
+import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import FormikSlider from '@/components/common/ui/form/with-formik/slider';
 import theme from '@/styles/theme';
 import { Question, QuestionType } from '@/types/poll';
@@ -16,19 +17,16 @@ interface QuestionProps {
   question: Question;
 }
 
+const optionsRadioGroup = [
+  { value: '1', label: 'так' },
+  { value: '0', label: 'ні' },
+];
+
 const QuestionToggle: FC<QuestionProps> = ({ question, ...rest }) => {
   return (
-    <RadioGroup
-      //TODO move to constants somehow
-      options={[
-        { value: '1', label: 'так' },
-        { value: '0', label: 'ні' },
-      ]}
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        gap: '36px',
-      }} //TODO remove inline styles when refactor
+    <FormikRadioGroup
+      options={optionsRadioGroup}
+      sx={styles.radioGroup}
       name={question.id}
     />
   );
@@ -55,7 +53,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
   return (
     // className={styles['question']
     <Box key={question.id}>
-      {/*Question header block: number, title, description*/}
       <Typography component="p" sx={styles.questionNumber}>
         {questionNumber}
       </Typography>
@@ -67,7 +64,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
           {question.description}
         </Typography>
       )}
-      {/*Question itself*/}
       {question.type === QuestionType.SCALE && (
         <QuestionScale question={question} id={id} />
       )}
@@ -75,14 +71,13 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
         <QuestionToggle question={question} id={id} />
       )}
       {question.type === QuestionType.TEXT && (
-        //TODO add validation (4+ symbol, write Riia)
+        //TODO add validation (4+ symbol, write about this to Riia)
         <TextArea
           rowsNumber={numberRowsTextArea}
           // sx={styles.textArea}
           name={question.id}
         />
       )}
-      {/*Question bottom block with explanation */}
       {question.criteria && (
         <Typography component="p" sx={styles.questionCriteria}>
           {question.criteria}
