@@ -55,9 +55,9 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 };
 
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-                                                     setProgress,
-                                                     isTheLast,
-                                                   }) => {
+  setProgress,
+  isTheLast,
+}) => {
   const {
     setCurrentCategory,
     currentCategory,
@@ -89,11 +89,11 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     return localStorageAnswers
       ? JSON.parse(localStorageAnswers)
       : currentQuestions?.questions
-        .filter(question => question.type === QuestionType.SCALE)
-        .reduce((initialVals, question) => {
-          initialVals[question.id] = '1';
-          return initialVals;
-        }, {} as Record<string, string>);
+          .filter(question => question.type === QuestionType.SCALE)
+          .reduce((initialVals, question) => {
+            initialVals[question.id] = '1';
+            return initialVals;
+          }, {} as Record<string, string>);
   }, []);
 
   const createValidationSchema = (currentQuestions: Category) => {
