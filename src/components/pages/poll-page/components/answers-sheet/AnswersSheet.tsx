@@ -5,15 +5,11 @@ import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/common/ui/button/Button';
-import { TextArea } from '@/components/common/ui/form';
-import RadioGroup from '@/components/common/ui/form/radio/RadioGroup';
-import { SliderSize } from '@/components/common/ui/form/slider/types';
-import FormikSlider from '@/components/common/ui/form/with-formik/slider';
 import Progress from '@/components/common/ui/progress';
+import SingleQuestion from '@/components/pages/poll-page/components/single-question/SingleQuestion';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
-import theme from '@/styles/theme';
 import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
 import { SendingStatus } from '../poll-form/PollForm';
@@ -86,10 +82,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   );
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
-
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
-  const numberRowsTextArea = isMobile ? 8 : 4;
-
   // TODO: remove this shit
   useEffect(() => {
     for (const question of category.questions) {
@@ -97,7 +89,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
         setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
       }
     }
-  }, [category]);
+  }, []);
 
   // TODO: refactor this
   const answer = (values: FormikValues) => {
@@ -198,58 +190,13 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   }}
                   className={styles['form']}
                 >
-                  {category.questions.map((question, id) => (
-                    <div key={question.id} className={styles['question']}>
-                      {question.type === 'TEXT' ? (
-                        <p className={styles['question-number']}>
-                          Відкрите питання
-                        </p>
-                      ) : (
-                        <p className={styles['question-number']}>
-                          Питання {id + 1} / {category.count}
-                        </p>
-                      )}
-
-                      <p className={styles['question-title']}>
-                        {question.text}
-                      </p>
-                      {question.description && (
-                        <p className={styles['question-description']}>
-                          {question.description}
-                        </p>
-                      )}
-                      {question.type === 'SCALE' ? (
-                        <FormikSlider
-                          name={question.id}
-                          size={isMobile ? SliderSize.SMALL : SliderSize.MEDIUM}
-                        />
-                      ) : question.type === 'TOGGLE' ? (
-                        <RadioGroup
-                          options={[
-                            { value: '1', label: 'так' },
-                            { value: '0', label: 'ні' },
-                          ]}
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            gap: '36px',
-                          }} //TODO remove inline styles when refactor
-                          name={question.id}
-                        />
-                      ) : (
-                        <TextArea
-                          rowsNumber={numberRowsTextArea}
-                          sx={sxStyles.textArea}
-                          name={question.id}
-                        />
-                      )}
-
-                      {question.criteria && (
-                        <p className={styles['question-criteria']}>
-                          {question.criteria}
-                        </p>
-                      )}
-                    </div>
+                  {category.questions.map((question, key) => (
+                    <SingleQuestion
+                      key={key}
+                      question={question}
+                      id={key}
+                      count={category.count}
+                    />
                   ))}
                   <Button
                     className={styles['button']}

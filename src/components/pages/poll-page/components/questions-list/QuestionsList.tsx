@@ -17,6 +17,7 @@ interface QuestionListProps {
   setCurrent: React.Dispatch<React.SetStateAction<number>>;
   setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
+import { Box } from '@mui/material';
 
 const QuestionsList: React.FC<QuestionListProps> = ({
   categories,
@@ -28,7 +29,6 @@ const QuestionsList: React.FC<QuestionListProps> = ({
   setQuestionsListStatus,
 }) => {
   const { lastName, firstName, middleName, avatar } = teacher;
-
   return (
     <div className={styles.wrapper}>
       <TeacherHeaderCard
@@ -37,19 +37,21 @@ const QuestionsList: React.FC<QuestionListProps> = ({
         url={avatar || undefined}
       />
       {categories.map((category, id) => (
-        <PollCard
-          key={id}
-          numberOfQuestions={category.count}
-          isComment={category.questions[0].type === 'TEXT'}
-          questionNumber={1 + id}
-          question={category.name}
-          numberOfAnswered={progress[id]}
-          isActive={current === id}
-          onClick={() => {
-            if (current !== id) setCurrent(id);
-            setQuestionsListStatus(false);
-          }}
-        />
+        <Box key={id}>
+          <PollCard
+            key={id}
+            numberOfQuestions={category.count}
+            isComment={category.questions[0].type === 'TEXT'}
+            questionNumber={1 + id}
+            question={category.name}
+            numberOfAnswered={progress[id]}
+            isActive={current === id}
+            onClick={() => {
+              if (current !== id) setCurrent(id);
+              setQuestionsListStatus(false);
+            }}
+          />
+        </Box>
       ))}
     </div>
   );
