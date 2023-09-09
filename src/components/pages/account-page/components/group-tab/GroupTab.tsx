@@ -16,18 +16,12 @@ import { PendingStudent } from '@/types/student';
 import { User, UserGroupRole, UserGroupState } from '@/types/user';
 
 const getStudents = async (user: User) => {
-  const { students } = await GroupAPI.getGroupStudents(
-    user.group?.id as string,
-  );
-  let requests: PendingStudent[] = [];
-
-  if (user.group?.role !== UserGroupRole.STUDENT) {
-    const { students: pendingStudents } = await GroupAPI.getRequestStudents(
-      user.group?.id as string,
-    );
-
-    requests = pendingStudents;
-  }
+  const groupId = user.group?.id as string;
+  const isStudent = user.group?.role === UserGroupRole.STUDENT;
+  const { students } = await GroupAPI.getGroupStudents(groupId);
+  const requests: PendingStudent[] = isStudent
+    ? []
+    : (await GroupAPI.getRequestStudents(groupId)).students;
 
   return {
     students,
@@ -37,7 +31,6 @@ const getStudents = async (user: User) => {
 
 const GroupTab: FC = () => {
   const { user } = useAuthentication();
-
   const { data, isLoading, refetch } = useQuery(
     ['students'],
     () => getStudents(user),
@@ -46,6 +39,8 @@ const GroupTab: FC = () => {
       refetchOnWindowFocus: false,
     },
   );
+  const showRequests =
+    data?.requests?.length !== 0 && user?.group?.role !== UserGroupRole.STUDENT;
 
   if (isLoading)
     return (
@@ -68,10 +63,7 @@ const GroupTab: FC = () => {
     return <NoGroupBlock />;
 
   if (!data || !user?.group || !user?.group.role) return null;
-
-  const showRequests =
-    data?.requests?.length !== 0 && user?.group?.role !== UserGroupRole.STUDENT;
-
+  //TODO refactor this
   return (
     <div>
       <div>

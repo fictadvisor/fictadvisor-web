@@ -19,23 +19,23 @@ import theme from '@/styles/theme';
 
 const GeneralTab: FC = () => {
   const { user } = useAuthentication();
+  const router = useRouter();
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
+
   const buttonText = user.telegramId
     ? 'Telegram під’єднано'
     : "Під'єднати Telegram";
 
-  const router = useRouter();
-
   const handleConnectTelegram = () => {
     void AuthService.redirectToRegisterBot(router);
   };
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
 
   return (
     <Box sx={stylesMui.container}>
       <Box sx={stylesMui.personalInfo}>
         <PersonalInfoBlock />
         <Divider
-          sx={{ paddingBottom: '20px' }}
+          sx={stylesMui.divider}
           textAlign={DividerTextAlign.LEFT}
           text="Посилання на соц. мережі"
         />

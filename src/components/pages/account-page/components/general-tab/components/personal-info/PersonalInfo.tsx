@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button-mui';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
-import { Input } from '@/components/common/ui/form';
+import Input from '@/components/common/ui/form/with-formik/input';
 import { PersonalInfoForm } from '@/components/pages/account-page/components/general-tab/components/personal-info/types';
 import { validationSchema } from '@/components/pages/account-page/components/general-tab/components/personal-info/validation';
 import useAuthentication from '@/hooks/use-authentication';
@@ -16,20 +16,19 @@ import theme from '@/styles/theme';
 
 import * as styles from '../../GeneralTab.styles';
 
-import stylesFUCK from '../../GeneralTab.module.scss';
-
 const objectsEqual = (obj1: object, obj2: object) => {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 };
 const PersonalInfoBlock: FC = () => {
   const { user, update } = useAuthentication();
+  const toast = useToast();
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
+
   const initialValues: PersonalInfoForm = {
     lastName: user.lastName,
     firstName: user.firstName,
     middleName: user.middleName,
   };
-
-  const toast = useToast();
 
   const handleSubmit = async (data: PersonalInfoForm) => {
     data.firstName = data.firstName.trim().replace(/[`ʼ]/g, "'");
@@ -48,8 +47,6 @@ const PersonalInfoBlock: FC = () => {
         : toast.error('Щось пішло не так, спробуй пізніше!');
     }
   };
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
-
   return (
     <>
       <Formik
@@ -59,22 +56,10 @@ const PersonalInfoBlock: FC = () => {
         validationSchema={validationSchema}
       >
         {({ isValid, values }) => (
-          <Form className={stylesFUCK['form']}>
-            <Input
-              className={stylesFUCK['input']}
-              label="Прізвище"
-              name="lastName"
-            />
-            <Input
-              className={stylesFUCK['input']}
-              label="Ім'я"
-              name="firstName"
-            />
-            <Input
-              className={stylesFUCK['input']}
-              label="По батькові"
-              name="middleName"
-            />
+          <Form>
+            <Input sx={styles.input} label="Прізвище" name="lastName" />
+            <Input sx={styles.input} label="Ім'я" name="firstName" />
+            <Input sx={styles.input} label="По батькові" name="middleName" />
             <Box sx={styles.confirmButton}>
               <Button
                 text="Зберегти зміни"

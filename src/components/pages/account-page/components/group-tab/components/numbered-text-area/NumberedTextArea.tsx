@@ -16,7 +16,7 @@ interface NumberedTextAreaProps {
   isDisabled?: boolean;
   className?: string;
 }
-
+//TODO refactor this
 const NumberedTextArea: FC<NumberedTextAreaProps> = ({
   name,
   placeholder,

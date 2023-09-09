@@ -21,6 +21,7 @@ import { UserGroupState } from '@/types/user';
 
 import styles from './NoGroupBlock.module.scss';
 
+//TODO refactor this
 const NoGroupBlock: FC = () => {
   const { user, update } = useAuthentication();
   const { isLoading, data } = useQuery(['groups'], () => GroupAPI.getAll(), {

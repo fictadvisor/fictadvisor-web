@@ -38,7 +38,7 @@ export const confirmButton: SxProps<Theme> = {
 };
 
 export const input: SxProps<Theme> = {
-  marginTop: '1.5%',
+  marginBottom: '24px',
 };
 
 export const avatarAndTelegramInfo: SxProps<Theme> = {
@@ -50,6 +50,10 @@ export const avatarAndTelegramInfo: SxProps<Theme> = {
 
 export const telegramButton: SxProps<Theme> = {
   width: 'fit-content',
+};
+
+export const divider: SxProps<Theme> = {
+  paddingBottom: '20px',
 };
 
 export const contactItem: SxProps<Theme> = {

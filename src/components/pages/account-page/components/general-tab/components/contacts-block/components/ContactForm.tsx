@@ -48,6 +48,7 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
     [refetchContacts, toast, user.id],
   );
 
+  //TODO refactor this
   return (
     <div className={styles['add-social-links-container']}>
       <Formik
