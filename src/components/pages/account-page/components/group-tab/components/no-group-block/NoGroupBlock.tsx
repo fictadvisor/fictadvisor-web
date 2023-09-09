@@ -20,6 +20,7 @@ import { UserGroupState } from '@/types/user';
 
 import styles from './NoGroupBlock.module.scss';
 
+//TODO refactor this
 const NoGroupBlock: FC = () => {
   const { displayError } = useToastError();
   const { user, update } = useAuthentication();

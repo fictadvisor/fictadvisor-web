@@ -3,17 +3,11 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import { Form, Formik } from 'formik';
-
 import Button from '@/components/common/ui/button-mui/';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import { NumberedTextArea } from '@/components/common/ui/form';
 import { initialValues } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/constants';
 import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/validation';
-
-interface TextAreaPopup {
-  handleSubmit: (value: string) => void;
-  closeFunction: React.Dispatch<SetStateAction<boolean>>;
-}
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Typography } from '@mui/material';
 
@@ -21,6 +15,11 @@ import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 
 import * as styles from './TextAreaPopup.styles';
+interface TextAreaPopup {
+  handleSubmit: (value: string) => void;
+  closeFunction: React.Dispatch<SetStateAction<boolean>>;
+}
+
 export const TextAreaPopup: React.FC<TextAreaPopup> = ({
   closeFunction,
   handleSubmit,
