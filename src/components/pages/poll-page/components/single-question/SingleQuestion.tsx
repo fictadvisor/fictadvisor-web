@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 
+//TODO need formikTextArea
 import { TextArea } from '@/components/common/ui/form';
 import { SliderSize } from '@/components/common/ui/form/slider/types';
 import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
@@ -70,7 +71,7 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
         <QuestionToggle question={question} id={id} />
       )}
       {question.type === QuestionType.TEXT && (
-        //TODO add validation (4+ symbol, write Riia)
+        //TODO add validation (4+ symbol, write about this to Riia)
         <TextArea
           showRemark
           rowsNumber={numberRowsTextArea}
