@@ -1,6 +1,5 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
-import { useMediaQuery } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -14,7 +13,6 @@ import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
 import { SendingStatus } from '../poll-form/PollForm';
 
-import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
@@ -33,23 +31,7 @@ interface AnswersSheetProps {
   setIsSendingStatus: React.Dispatch<React.SetStateAction<SendingStatus>>;
 }
 
-const collectAnswers = (answers: Answer[], values: FormikValues) => {
-  let resultAnswers = [...answers];
-  for (const valueId of Object.keys(values)) {
-    const index = resultAnswers.findIndex(el => el.questionId === valueId);
-    if (index !== -1) {
-      resultAnswers[index].value = values[valueId];
-    } else {
-      resultAnswers = [
-        ...resultAnswers,
-        { value: values[valueId], questionId: valueId },
-      ];
-    }
-  }
-  return resultAnswers;
-};
-
-export const getProgress = (answers: Answer[], questions: Question[]) => {
+const getProgress = (answers: Answer[], questions: Question[]) => {
   let count = 0;
   const resultAnswers = [...answers];
   for (const question of questions) {
@@ -75,25 +57,42 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   setIsSendingStatus,
 }) => {
   const toast = useToast();
-  // TODO: refactor this shit
-  // TODO: use useMemo for initial values
-  const [initialValues, setInitialValues] = useState<Record<string, string>>(
-    {},
-  );
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
-  // TODO: remove this shit
-  useEffect(() => {
-    for (const question of category.questions) {
-      if (question.type === QuestionType.SCALE) {
-        setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
-      }
-    }
+
+  const initialValues: Record<string, string> = useMemo(() => {
+    return category.questions
+      .filter(question => question.type === QuestionType.SCALE)
+      .reduce((initialVals, question) => {
+        initialVals[question.id] = '1';
+        return initialVals;
+      }, {} as Record<string, string>);
   }, []);
 
-  // TODO: refactor this
-  const answer = (values: FormikValues) => {
-    const resultAnswers = collectAnswers(answers, values);
+  const handleFormEvent = (
+    event: FormEvent<HTMLFormElement>,
+    values: Record<string, string>,
+  ) => {
+    const name = (event.target as HTMLFormElement).name;
+    const value = (event.target as HTMLFormElement).value;
+    if (name && value) {
+      updateAnswer({ ...values, [name]: value });
+    }
+  };
+
+  const handleSubmit = (value: Record<string, string>) => {
+    updateAnswer(value);
+    if (!isTheLast) {
+      setCurrent(prev => ++prev);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    setIsSendingStatus(SendingStatus.LOADING);
+    sendData();
+  };
+
+  const updateAnswer = (values: FormikValues) => {
+    const resultAnswers = setCollectAnswers(answers, values);
     setAnswers(resultAnswers);
     const count = getProgress(resultAnswers, category.questions);
     setProgress(previousProgress => {
@@ -103,18 +102,30 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     });
   };
 
-  const handleSubmit = async (value: Record<string, string>) => {
-    answer(value);
-    if (!isTheLast) {
-      setCurrent(prev => ++prev);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
+  const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
+    const resultAnswersMap = new Map(
+      answers.map(answer => [answer.questionId, answer]),
+    );
+
+    for (const [valueId, value] of Object.entries(values)) {
+      const existingAnswer = resultAnswersMap.get(valueId);
+      if (existingAnswer !== undefined) {
+        existingAnswer.value = value;
+      } else {
+        resultAnswersMap.set(valueId, { value, questionId: valueId });
+      }
     }
 
-    setIsSendingStatus(SendingStatus.LOADING);
+    return Array.from(resultAnswersMap.values());
+  };
+
+  const sendData = async () => {
     try {
       const formattedAnswers = answers
-        .map(answer => ({ ...answer, value: answer.value.trim() }))
+        .map(answer => ({
+          ...answer,
+          value: answer.value.trim(),
+        }))
         .filter(answer => !!answer.value);
 
       await PollAPI.createTeacherGrade(
@@ -124,9 +135,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       setIsSendingStatus(SendingStatus.SUCCESS);
     } catch (error) {
       const message = getErrorMessage(error);
-      message
-        ? toast.error('Помилка!', message)
-        : toast.error('Щось пішло не так, спробуй пізніше!');
+      const errorMessage = message
+        ? message
+        : 'Щось пішло не так, спробуй пізніше!';
+      toast.error('Помилка!', errorMessage);
       setIsSendingStatus(SendingStatus.ERROR);
     }
   };
@@ -170,24 +182,12 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
             >
               {({ values }) => (
                 <Form
-                  onClick={(event: FormEvent<HTMLFormElement>) => {
-                    // TODO: refactor this shit
-                    const name = (event.target as HTMLFormElement).name;
-                    const value = (event.target as HTMLFormElement).value;
-                    if (name && value) {
-                      values[name] = String(value);
-                      answer(values);
-                    }
-                  }}
-                  onChange={(event: FormEvent<HTMLFormElement>) => {
-                    // TODO: refactor this shit
-                    const name = (event.target as HTMLFormElement).name;
-                    const value = (event.target as HTMLFormElement).value;
-                    if (name && value) {
-                      values[name] = String(value);
-                      answer(values);
-                    }
-                  }}
+                  onClick={(event: FormEvent<HTMLFormElement>) =>
+                    handleFormEvent(event, values)
+                  }
+                  onChange={(event: FormEvent<HTMLFormElement>) =>
+                    handleFormEvent(event, values)
+                  }
                   className={styles['form']}
                 >
                   {category.questions.map((question, key) => (
