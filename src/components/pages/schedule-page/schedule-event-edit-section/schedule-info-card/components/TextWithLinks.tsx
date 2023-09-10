@@ -19,7 +19,7 @@ const TextWithLinks: FC<EventDisciplineLinkProps> = ({
 
     return parts.map((part, index) => {
       if (part.match(linkRegex)) {
-        return <Link key={index} href={part} text={part} />;
+        return <Link key={index} href={part} text={part} target="_blank" />;
       } else {
         return part;
       }
