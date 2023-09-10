@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import Link from '@/components/common/ui/custom-link/CustomLink';
 import theme from '@/styles/theme';
@@ -27,9 +27,9 @@ const TextWithLinks: FC<EventDisciplineLinkProps> = ({
   };
 
   return (
-    <Box sx={{ typography: theme.typography.body1 }}>
+    <Typography sx={{ whiteSpace: 'pre-line' }}>
       {infoText ? linkifyText(infoText) : defaultText}
-    </Box>
+    </Typography>
   );
 };
 
