@@ -21,6 +21,7 @@ export const verticalDivider = (
 ): SxProps<Theme> => ({
   height: '18px',
   backgroundColor: theme.palette.primary[600],
+  position: 'absolute',
 
   ...(variant === ScheduleLineVariant.LONG && {
     width: '18px',
@@ -40,10 +41,12 @@ export const horizontalDivider = (
   marginRight: '8px',
   borderBottomRightRadius: '2px',
   borderTopRightRadius: '2px',
+  overflow: 'hidden',
 
   ...(variant === ScheduleLineVariant.LONG && {
-    border: `1px solid ${theme.palette.primary[600]}`,
-    width: '292px',
+    border: `2px solid ${theme.palette.primary[600]}`,
+    height: '2px',
+    width: '100%',
   }),
 
   ...(variant === ScheduleLineVariant.SHORT && {
@@ -68,6 +71,10 @@ export const line = (
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  ...(variant === ScheduleLineVariant.LONG && {
+    overflow: 'hidden',
+    width: '100%',
+  }),
   ...(variant === ScheduleLineVariant.SHORT && {
     height: '4px',
     backgroundColor: 'primary.600',
