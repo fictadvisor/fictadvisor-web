@@ -50,14 +50,16 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
     currentCategory,
     sendingStatus,
     setCurrentQuestions,
+    isQuestionsListOpened,
   } = usePollFormStore();
-  const { categories, teacher, subject } = data;
+  const { categories } = data;
+  //TODO use styles sx
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
-  const [isQuestionsListOpened, setQuestionsListOpened] = useState(false);
   const [questionsArray, setQuestionsArray] = useState<Question[]>([]);
   const [progress, setProgress] = useState<number[]>(
     Array(categories.length).fill(0),
   );
+
   useEffect(() => {
     setQuestionsArray(getAllQuestionsArray(categories));
   }, [categories]);
@@ -81,13 +83,7 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
         }}
       >
         {sendingStatus !== SendingStatus.SUCCESS && (
-          <QuestionsList
-            categories={categories}
-            teacher={teacher}
-            subject={subject}
-            progress={progress}
-            setQuestionsListStatus={setQuestionsListOpened}
-          />
+          <QuestionsList data={data} progress={progress} />
         )}
       </div>
       <div
@@ -98,7 +94,6 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
         <AnswersSheet
           setProgress={setProgress}
           isTheLast={currentCategory === categories.length - 1}
-          setQuestionsListStatus={setQuestionsListOpened}
         />
       </div>
     </div>
