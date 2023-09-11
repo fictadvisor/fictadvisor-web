@@ -70,6 +70,7 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
         <QuestionToggle question={question} id={id} />
       )}
       {question.type === QuestionType.TEXT && (
+        //TODO add validation (4+ symbol, write Riia)
         <TextArea
           showRemark
           rowsNumber={numberRowsTextArea}
