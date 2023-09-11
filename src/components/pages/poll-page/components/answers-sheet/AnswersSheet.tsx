@@ -11,6 +11,7 @@ import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
+import { usePollFormStore } from '../../store/index';
 import { SendingStatus } from '../poll-form/PollForm';
 
 import AnswersSaved from './AnswersSaved';
@@ -18,17 +19,9 @@ import AnswersSaved from './AnswersSaved';
 import styles from './AnswersSheet.module.scss';
 
 interface AnswersSheetProps {
-  category: Category;
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
-  setCurrent: React.Dispatch<React.SetStateAction<number>>;
   setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
   isTheLast: boolean;
-  isValid: boolean;
-  current: number;
-  answers: Answer[];
-  setAnswers: React.Dispatch<React.SetStateAction<Answer[]>>;
-  sendingStatus: SendingStatus;
-  setIsSendingStatus: React.Dispatch<React.SetStateAction<SendingStatus>>;
 }
 
 const getProgress = (answers: Answer[], questions: Question[]) => {
@@ -44,24 +37,27 @@ const getProgress = (answers: Answer[], questions: Question[]) => {
 };
 
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-  category,
-  isTheLast,
-  current,
-  answers,
-  setQuestionsListStatus,
-  setAnswers,
   setProgress,
-  isValid,
-  setCurrent,
-  sendingStatus,
-  setIsSendingStatus,
+  isTheLast,
+  setQuestionsListStatus,
 }) => {
+  const {
+    setCurrentCategory,
+    currentCategory,
+    answers,
+    setAnswers,
+    isValid,
+    sendingStatus,
+    setIsSendingStatus,
+    currentQuestions,
+  } = usePollFormStore();
+  // const { category } = data;
   const toast = useToast();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
   const initialValues: Record<string, string> = useMemo(() => {
-    return category.questions
+    return currentQuestions?.questions
       .filter(question => question.type === QuestionType.SCALE)
       .reduce((initialVals, question) => {
         initialVals[question.id] = '1';
@@ -83,7 +79,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const handleSubmit = (value: Record<string, string>) => {
     updateAnswer(value);
     if (!isTheLast) {
-      setCurrent(prev => ++prev);
+      setCurrentCategory(currentCategory + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -94,10 +90,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const updateAnswer = (values: FormikValues) => {
     const resultAnswers = setCollectAnswers(answers, values);
     setAnswers(resultAnswers);
-    const count = getProgress(resultAnswers, category.questions);
+    const count = getProgress(resultAnswers, currentQuestions?.questions);
     setProgress(previousProgress => {
       const temp = [...previousProgress];
-      temp[current] = count;
+      temp[currentCategory] = count;
       return temp;
     });
   };
@@ -169,7 +165,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           >
             <ChevronLeftIcon style={{ height: '20px' }} />
             <b>
-              {current + 1} . {category.name}
+              {currentCategory + 1} . {currentQuestions?.name}
             </b>
           </div>
           <div className={styles.answersWrapper}>
@@ -190,12 +186,12 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   }
                   className={styles['form']}
                 >
-                  {category.questions.map((question, key) => (
+                  {currentQuestions?.questions.map((question, key) => (
                     <SingleQuestion
                       key={key}
                       question={question}
                       id={key}
-                      count={category.count}
+                      count={currentQuestions.count}
                     />
                   ))}
                   <Button
