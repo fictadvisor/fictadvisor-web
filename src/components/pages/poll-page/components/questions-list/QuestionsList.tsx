@@ -1,7 +1,7 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
-import { Category, PollTeacher } from '@/types/poll';
-import { TeacherSubject } from '@/types/teacher';
+import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
 
 import { usePollFormStore } from '../../store/index';
 
@@ -11,23 +11,15 @@ import TeacherHeaderCard from './components/teacher-header-card';
 import styles from './QuestionsList.module.scss';
 
 interface QuestionListProps {
-  categories: Category[];
-  teacher: PollTeacher;
-  subject: TeacherSubject;
+  data: GetTeacherQuestionsResponse;
   progress: number[];
-  setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
-import { Box } from '@mui/material';
 
-const QuestionsList: React.FC<QuestionListProps> = ({
-  categories,
-  teacher,
-  subject,
-  progress,
-  setQuestionsListStatus,
-}) => {
+const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
+  const { subject, teacher, categories } = data;
   const { lastName, firstName, middleName, avatar } = teacher;
-  const { currentCategory, setCurrentCategory } = usePollFormStore();
+  const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
+    usePollFormStore();
   return (
     <div className={styles.wrapper}>
       <TeacherHeaderCard
@@ -47,7 +39,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({
             isActive={currentCategory === id}
             onClick={() => {
               if (currentCategory !== id) setCurrentCategory(id);
-              setQuestionsListStatus(false);
+              setQuestionsListOpened(false);
             }}
           />
         </Box>

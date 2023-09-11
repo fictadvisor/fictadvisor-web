@@ -9,7 +9,7 @@ import SingleQuestion from '@/components/pages/poll-page/components/single-quest
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
-import { Answer, Category, Question, QuestionType } from '@/types/poll';
+import { Answer, Question, QuestionType } from '@/types/poll';
 
 import { usePollFormStore } from '../../store/index';
 import { SendingStatus } from '../poll-form/PollForm';
@@ -20,7 +20,6 @@ import styles from './AnswersSheet.module.scss';
 
 interface AnswersSheetProps {
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
-  setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
   isTheLast: boolean;
 }
 
@@ -36,10 +35,26 @@ const getProgress = (answers: Answer[], questions: Question[]) => {
   return count;
 };
 
+const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
+  const resultAnswersMap = new Map(
+    answers.map(answer => [answer.questionId, answer]),
+  );
+
+  for (const [valueId, value] of Object.entries(values)) {
+    const existingAnswer = resultAnswersMap.get(valueId);
+    if (existingAnswer !== undefined) {
+      existingAnswer.value = value;
+    } else {
+      resultAnswersMap.set(valueId, { value, questionId: valueId });
+    }
+  }
+
+  return Array.from(resultAnswersMap.values());
+};
+
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
   setProgress,
   isTheLast,
-  setQuestionsListStatus,
 }) => {
   const {
     setCurrentCategory,
@@ -50,8 +65,8 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     sendingStatus,
     setIsSendingStatus,
     currentQuestions,
+    setQuestionsListOpened,
   } = usePollFormStore();
-  // const { category } = data;
   const toast = useToast();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
@@ -96,23 +111,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       temp[currentCategory] = count;
       return temp;
     });
-  };
-
-  const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
-    const resultAnswersMap = new Map(
-      answers.map(answer => [answer.questionId, answer]),
-    );
-
-    for (const [valueId, value] of Object.entries(values)) {
-      const existingAnswer = resultAnswersMap.get(valueId);
-      if (existingAnswer !== undefined) {
-        existingAnswer.value = value;
-      } else {
-        resultAnswersMap.set(valueId, { value, questionId: valueId });
-      }
-    }
-
-    return Array.from(resultAnswersMap.values());
   };
 
   const sendData = async () => {
@@ -160,7 +158,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           <div
             className={styles.toQuestionsList}
             onClick={() => {
-              setQuestionsListStatus(true);
+              setQuestionsListOpened(true);
             }}
           >
             <ChevronLeftIcon style={{ height: '20px' }} />
