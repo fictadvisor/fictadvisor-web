@@ -10,20 +10,11 @@ import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 
 import PollForm from './components/poll-form';
-import { usePollFormStore } from './store/index';
 
 import styles from './PollPage.module.scss';
 
 const PollPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  // const router = useRouter();
-  // const disciplineTeacherId = router.query.disciplineTeacherId as string;
-  // const toast = useToast();
-  // const { useInit } = usePollFormStore();
-  // useInit();
-  // const { error, isSuccessFetching, data, isQuestionsLoading } =
-  //   usePollFormStore();
-
   const { user, isLoggedIn } = useAuthentication();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
@@ -43,12 +34,7 @@ const PollPage = () => {
       keepPreviousData: false,
     },
   );
-  // useEffect(() => {
-  //   // ...
-  //   if (data && data.categories.length > 0) {
-  //     set({ currentQuestions: data.categories[0] });
-  //   }
-  // }, []);
+
   useEffect(() => {
     if (!isLoggedIn) {
       //TODO replace with error hook
