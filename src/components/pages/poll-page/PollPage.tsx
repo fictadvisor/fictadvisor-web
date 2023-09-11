@@ -10,15 +10,24 @@ import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 
 import PollForm from './components/poll-form';
+import { usePollFormStore } from './store/index';
 
 import styles from './PollPage.module.scss';
 
 const PollPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  // const router = useRouter();
+  // const disciplineTeacherId = router.query.disciplineTeacherId as string;
+  // const toast = useToast();
+  // const { useInit } = usePollFormStore();
+  // useInit();
+  // const { error, isSuccessFetching, data, isQuestionsLoading } =
+  //   usePollFormStore();
+
   const { user, isLoggedIn } = useAuthentication();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
-
+  const toast = useToast();
   const {
     error,
     isSuccess: isSuccessFetching,
@@ -34,24 +43,26 @@ const PollPage = () => {
       keepPreviousData: false,
     },
   );
-  const toast = useToast();
-
+  // useEffect(() => {
+  //   // ...
+  //   if (data && data.categories.length > 0) {
+  //     set({ currentQuestions: data.categories[0] });
+  //   }
+  // }, []);
   useEffect(() => {
     if (!isLoggedIn) {
+      //TODO replace with error hook
       toast.error('Для проходження опитування потрібно авторизуватися');
 
       void router.replace('login/?redirect=~poll');
     }
   }, [toast, isLoggedIn, router]);
 
-  useEffect(() => {
-    setIsLoading(isQuestionsLoading);
-  }, [isQuestionsLoading]);
-
   const status =
     error && (error as AxiosError<{ error: string }>).response?.data?.error;
 
   if (error && !isLoading) {
+    //TODO: replace with error hook
     toast.error(
       'Помилка!',
       status === 'InvalidEntityIdException'
@@ -66,6 +77,9 @@ const PollPage = () => {
     );
     void router.push('/poll');
   }
+  useEffect(() => {
+    setIsLoading(isQuestionsLoading);
+  }, [isQuestionsLoading]);
 
   return (
     <div className={styles['poll-page']}>

@@ -3,6 +3,8 @@ import React from 'react';
 import { Category, PollTeacher } from '@/types/poll';
 import { TeacherSubject } from '@/types/teacher';
 
+import { usePollFormStore } from '../../store/index';
+
 import PollCard from './components/poll-card';
 import TeacherHeaderCard from './components/teacher-header-card';
 
@@ -13,8 +15,6 @@ interface QuestionListProps {
   teacher: PollTeacher;
   subject: TeacherSubject;
   progress: number[];
-  current: number;
-  setCurrent: React.Dispatch<React.SetStateAction<number>>;
   setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 import { Box } from '@mui/material';
@@ -24,11 +24,10 @@ const QuestionsList: React.FC<QuestionListProps> = ({
   teacher,
   subject,
   progress,
-  current,
-  setCurrent,
   setQuestionsListStatus,
 }) => {
   const { lastName, firstName, middleName, avatar } = teacher;
+  const { currentCategory, setCurrentCategory } = usePollFormStore();
   return (
     <div className={styles.wrapper}>
       <TeacherHeaderCard
@@ -45,9 +44,9 @@ const QuestionsList: React.FC<QuestionListProps> = ({
             questionNumber={1 + id}
             question={category.name}
             numberOfAnswered={progress[id]}
-            isActive={current === id}
+            isActive={currentCategory === id}
             onClick={() => {
-              if (current !== id) setCurrent(id);
+              if (currentCategory !== id) setCurrentCategory(id);
               setQuestionsListStatus(false);
             }}
           />
