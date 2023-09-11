@@ -1,18 +1,18 @@
 import React, { MouseEvent, SetStateAction, useRef } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Typography } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import { Form, Formik } from 'formik';
+
 import Button from '@/components/common/ui/button-mui/';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import { NumberedTextArea } from '@/components/common/ui/form';
-import { initialValues } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/constants';
-import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/validation';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Typography } from '@mui/material';
-
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
+import { initialValues } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/constants';
+import { validationSchema } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/validation';
 
 import * as styles from './TextAreaPopup.styles';
 interface TextAreaPopup {
