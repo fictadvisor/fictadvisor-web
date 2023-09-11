@@ -1,14 +1,8 @@
 import { create } from 'zustand';
 
+import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import { Answer, QuestionDisplay, QuestionType } from '@/types/poll';
 import { Category } from '@/types/poll';
-export enum SendingStatus {
-  ANY = 'any',
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
-
 type Action = {
   setIsValid: (newValue: boolean) => void;
   setQuestionsListOpened: (newValue: boolean) => void;
@@ -16,6 +10,7 @@ type Action = {
   setAnswers: (newAnswers: Answer[]) => void;
   setCurrentCategory: (newCategory: number) => void;
   setIsSendingStatus: (newStatus: SendingStatus) => void;
+  reset: () => void;
 };
 
 type State = {
@@ -27,7 +22,7 @@ type State = {
   sendingStatus: SendingStatus;
 };
 
-export const usePollFormStore = create<State & Action>()(set => ({
+const initialValue: State = {
   isQuestionsListOpened: false,
   isValid: false,
   currentQuestions: {
@@ -49,6 +44,10 @@ export const usePollFormStore = create<State & Action>()(set => ({
   answers: [],
   currentCategory: 0,
   sendingStatus: SendingStatus.ANY,
+};
+
+export const usePollStore = create<State & Action>()(set => ({
+  ...initialValue,
 
   setQuestionsListOpened: (newValue: boolean) =>
     set({ isQuestionsListOpened: newValue }),
@@ -60,4 +59,7 @@ export const usePollFormStore = create<State & Action>()(set => ({
     set({ currentCategory: newCategory }),
   setIsSendingStatus: (newStatus: SendingStatus) =>
     set({ sendingStatus: newStatus }),
+  reset: () => {
+    set(initialValue);
+  },
 }));
