@@ -46,9 +46,9 @@ class UserAPI {
     return data;
   }
 
-  async deleteContact(userId: string, contactName: string) {
+  async deleteContact(userId: string, id: string) {
     const { data } = await client.delete(
-      `/users/${userId}/contacts/${contactName}`,
+      `/users/${userId}/contacts/${id}`,
       getAuthorizationHeader(),
     );
     return data;
