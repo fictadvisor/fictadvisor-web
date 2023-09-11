@@ -1,35 +1,64 @@
-import React from 'react';
-
-import PollCard from '@/components/common/ui/cards/poll-card';
-import TeacherHeaderCard from '@/components/common/ui/cards/teacher-header-card';
-import { Category, PollTeacher } from '@/types/poll';
-import { TeacherSubject } from '@/types/teacher';
-
-import styles from './QuestionsList.module.scss';
-
-interface QuestionListProps {
-  categories: Category[];
-  teacher: PollTeacher;
-  subject: TeacherSubject;
-  progress: number[];
-  current: number;
-  setCurrent: React.Dispatch<React.SetStateAction<number>>;
-  setQuestionsListStatus: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
-const QuestionsList: React.FC<QuestionListProps> = ({
-  categories,
-  teacher,
-  subject,
-  progress,
-  current,
-  setCurrent,
-  setQuestionsListStatus,
-}) => {
+import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
+import { usePollStore } from '@/store/poll-page/usePollStore';
+
+import PollCard from './components/poll-card';
+import TeacherHeaderCard from './components/teacher-header-card';
+import * as styles from './QuestionsList.styles';
+
+interface QuestionListProps {
+  data: GetTeacherQuestionsResponse;
+  progress: number[];
+}
+
+function checkIfAllZeros(arr: number[]) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function uniteArrs(arg1: number[], arg2: number[]): number[] {
+  const result: number[] = [];
+
+  for (let i = 0; i < arg1.length; i++) {
+    result.push(arg2[i] > 0 ? arg2[i] : arg1[i]);
+  }
+
+  return result;
+}
+
+const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
+  const { subject, teacher, categories } = data;
   const { lastName, firstName, middleName, avatar } = teacher;
+  const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
+    usePollStore();
+  const [filterProgress, setFilterProgress] = useState<number[]>(progress);
+
+  useEffect(() => {
+    const localStorageProgress = localStorage.getItem('progressPoll');
+    if (localStorageProgress) {
+      setFilterProgress(
+        uniteArrs(JSON.parse(localStorageProgress).progress, progress),
+      );
+    }
+
+    if (!checkIfAllZeros(progress)) {
+      const currentProgress = uniteArrs(filterProgress, progress);
+      setFilterProgress(currentProgress);
+      localStorage.setItem(
+        'progressPoll',
+        JSON.stringify({ progress: currentProgress }),
+      );
+    }
+  }, [progress]);
+
   return (
-    <div className={styles.wrapper}>
+    <Box sx={styles.wrapper}>
       <TeacherHeaderCard
         name={`${lastName} ${firstName} ${middleName}`}
         description={subject.name}
@@ -43,16 +72,16 @@ const QuestionsList: React.FC<QuestionListProps> = ({
             isComment={category.questions[0].type === 'TEXT'}
             questionNumber={1 + id}
             question={category.name}
-            numberOfAnswered={progress[id]}
-            isActive={current === id}
+            numberOfAnswered={filterProgress[id]}
+            isActive={currentCategory === id}
             onClick={() => {
-              if (current !== id) setCurrent(id);
-              setQuestionsListStatus(false);
+              if (currentCategory !== id) setCurrentCategory(id);
+              setQuestionsListOpened(false);
             }}
           />
         </Box>
       ))}
-    </div>
+    </Box>
   );
 };
 
