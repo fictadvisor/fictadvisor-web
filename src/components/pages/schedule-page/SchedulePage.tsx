@@ -14,7 +14,7 @@ import { ButtonIcons } from './calendar-section/components/mobile/buttonIcons/Bu
 import { CalendarSectionMobile } from './calendar-section/components/mobile/CalendarSectionMobile';
 import { ScheduleSection } from './schedule-section/ScheduleSection';
 import ScheduleSectionMobile from './schedule-section/ScheduleSectionMobile';
-import * as styles from './schedule-page.styles';
+import * as styles from './SchedulePage.styles';
 const MAX_WEEK_NUMBER = 20;
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
@@ -23,7 +23,7 @@ import { SharedEventBody } from '@/lib/api/schedule/types/shared';
 
 import { initialValues } from './schedule-event-edit-section/schedule-form/constants';
 import { ScheduleEventForm } from './schedule-event-edit-section/schedule-form/ScheduleEventForm';
-import { addEventFormValidationSchema } from './schedule-event-edit-section/schedule-form/validation';
+import { formValidationSchema } from './schedule-event-edit-section/schedule-form/validation';
 import { makeNegativeValuesUndefined } from './utils/undefineNegativeValues';
 export interface SchedulePageProps {
   groups: Group[];
@@ -95,7 +95,7 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
           onCloseButtonClick={closeForm}
           onCancelButtonClick={closeForm}
           initialValues={initialValues}
-          validationSchema={addEventFormValidationSchema}
+          validationSchema={formValidationSchema}
           onSubmit={handleFormSubmit}
           isNewEvent
         />

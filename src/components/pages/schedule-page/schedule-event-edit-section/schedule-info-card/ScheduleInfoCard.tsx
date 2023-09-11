@@ -5,19 +5,19 @@ import Skeleton from '@mui/material/Skeleton';
 
 import Link from '@/components/common/ui/custom-link/CustomLink';
 import IconButton from '@/components/common/ui/icon-button-mui';
-import {
-  IconButtonColor,
-  IconButtonSize,
-} from '@/components/common/ui/icon-button-mui/types';
+import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 import { CloseButton } from '@/components/common/ui/icon-button-mui/variants';
 import { Tab, TabContext, TabList, TabPanel } from '@/components/common/ui/tab';
 import { TabTextPosition } from '@/components/common/ui/tab/tab/types';
 import Tag from '@/components/common/ui/tag';
 import { TagColor } from '@/components/common/ui/tag/types';
+import TextWithLinks from '@/components/pages/schedule-page/schedule-event-edit-section/schedule-info-card/components/TextWithLinks';
 import { InfoCardTabs } from '@/components/pages/schedule-page/schedule-event-edit-section/types';
 import { getStringTime } from '@/components/pages/schedule-page/utils/getStringTime';
+import useAuthentication from '@/hooks/use-authentication';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import { TDiscipline } from '@/types/schedule';
+import { UserGroupRole } from '@/types/user';
 
 import { skeletonProps } from '../utils/skeletonProps';
 
@@ -29,7 +29,7 @@ const TagLabelMapper: Record<string, string> = {
   [TDiscipline.LABORATORY]: 'Лабораторна',
   [TDiscipline.CONSULTATION]: 'Консультація',
   [TDiscipline.PRACTICE]: 'Практика',
-  [TDiscipline.WORKOUT]: 'Тренування',
+  [TDiscipline.WORKOUT]: 'Відпрацювання',
   ['null']: 'Інша подія',
 };
 
@@ -57,6 +57,9 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
   loading,
 }) => {
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
+  const { user } = useAuthentication();
+
+  if (!event) return null;
 
   return (
     <Box sx={styles.container}>
@@ -64,14 +67,18 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
         {loading ? (
           <Skeleton {...skeletonProps} width={350} height={50} />
         ) : (
-          <Typography variant="h5">{event?.name}</Typography>
+          <Typography variant="h5" paragraph>
+            {event?.name}
+          </Typography>
         )}
         <Box sx={{ display: 'flex' }}>
-          <IconButton
-            color={IconButtonColor.TRANSPARENT}
-            icon={<PencilSquareIcon width={36} height={36} />}
-            onClick={loading ? () => {} : onEventEditButtonClick}
-          />
+          {user.group?.role !== UserGroupRole.STUDENT && (
+            <IconButton
+              color={IconButtonColor.TRANSPARENT}
+              icon={<PencilSquareIcon width={36} height={36} />}
+              onClick={loading ? () => {} : onEventEditButtonClick}
+            />
+          )}
           <CloseButton onClick={onCloseButtonClick} />
         </Box>
       </Box>
@@ -81,8 +88,8 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
           <Skeleton {...skeletonProps} width={100} height={25} />
         ) : (
           <Tag
-            text={TagLabelMapper[event!.disciplineType]}
-            color={TagColorMapper[event!.disciplineType]}
+            text={TagLabelMapper[event.disciplineType]}
+            color={TagColorMapper[event.disciplineType]}
           />
         )}
         <Typography variant="body1Medium">Викладач</Typography>
@@ -91,7 +98,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             <Skeleton {...skeletonProps} width={200} height={45} />
           ) : !event!.teachers || event!.teachers.length === 0 ? (
             <Typography variant="body1Medium">
-              Інформація про викладачів відстуня
+              Інформація про викладачів відсутня
             </Typography>
           ) : (
             event?.teachers.map(teacher => (
@@ -148,18 +155,20 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
             {loading ? (
               <Skeleton {...skeletonProps} width={400} height={25} />
             ) : (
-              <Typography sx={{ whiteSpace: 'pre-line' }}>
-                {event?.eventInfo ?? 'Інформація про подію відстуня'}
-              </Typography>
+              <TextWithLinks
+                infoText={event?.eventInfo}
+                defaultText="Інформація про подію відсутня"
+              />
             )}
           </TabPanel>
           <TabPanel value={InfoCardTabs.DISCIPLINE}>
             {loading ? (
               <Skeleton {...skeletonProps} width={400} height={25} />
             ) : (
-              <Typography sx={{ whiteSpace: 'pre-line' }}>
-                {event?.disciplineInfo ?? 'Інформація про дисципліну відстуня'}
-              </Typography>
+              <TextWithLinks
+                infoText={event?.disciplineInfo}
+                defaultText="Інформація про дисципліну відсутня"
+              />
             )}
           </TabPanel>
         </TabContext>

@@ -10,9 +10,16 @@ import { UserGroupRole } from '@/types/user';
 import * as styles from './buttonIcons.styles';
 
 export const ButtonIcons = () => {
-  const [displayScrollBtn, setDisplayScrollBtn] = useState(true);
+  const [displayScrollBtn, setDisplayScrollBtn] = useState(false);
   const { user } = useAuthentication();
   const { groupId } = useSchedule(state => ({ groupId: state.groupId }));
+
+  const validPrivilege =
+    user &&
+    (user.group?.role === UserGroupRole.CAPTAIN ||
+      user.group?.role === UserGroupRole.MODERATOR);
+
+  const showButton = validPrivilege && user.group?.id === groupId;
 
   useEffect(() => {
     const scrollEventListener = () => {
@@ -31,19 +38,17 @@ export const ButtonIcons = () => {
 
   return (
     <Box sx={styles.buttonIcons}>
-      {user &&
-        user.group?.role !== UserGroupRole.STUDENT &&
-        user.group?.id === groupId && (
-          <ButtonIcon
-            icon={<PlusIcon />}
-            onClick={() =>
-              useSchedule.setState(state => ({
-                isNewEventAdded: true,
-                openedEvent: undefined,
-              }))
-            }
-          />
-        )}
+      {showButton && (
+        <ButtonIcon
+          icon={<PlusIcon />}
+          onClick={() =>
+            useSchedule.setState(state => ({
+              isNewEventAdded: true,
+              openedEvent: undefined,
+            }))
+          }
+        />
+      )}
 
       {displayScrollBtn && (
         <ButtonIcon

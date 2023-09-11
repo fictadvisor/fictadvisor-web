@@ -1,7 +1,6 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { useMediaQuery } from '@mui/material';
-import { AxiosError } from 'axios';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -11,11 +10,10 @@ import RadioGroup from '@/components/common/ui/form/radio/RadioGroup';
 import { SliderSize } from '@/components/common/ui/form/slider/types';
 import FormikSlider from '@/components/common/ui/form/with-formik/slider';
 import Progress from '@/components/common/ui/progress';
-import useToast from '@/hooks/use-toast';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import PollAPI from '@/lib/api/poll/PollAPI';
-import getErrorMessage from '@/lib/utils/getErrorMessage';
 import theme from '@/styles/theme';
-import { Answer, Category, Question, QuestionType } from '@/types/poll';
+import { Answer, Category, Question } from '@/types/poll';
 
 import { SendingStatus } from '../poll-form/PollForm';
 
@@ -79,7 +77,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   sendingStatus,
   setIsSendingStatus,
 }) => {
-  const toast = useToast();
+  const { displayError } = useToastError();
   // TODO: refactor this shit
   const [initialValues, setInitialValues] = useState<Record<string, string>>(
     {},
@@ -90,13 +88,13 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const numberRowsTextArea = isMobile ? 8 : 4;
 
-  useEffect(() => {
-    for (const question of category.questions) {
-      if (question.type === QuestionType.SCALE) {
-        setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
-      }
-    }
-  }, [category]);
+  // useEffect(() => {
+  //   for (const question of category.questions) {
+  //     if (question.type === QuestionType.SCALE) {
+  //       setInitialValues(prev => ({ ...prev, [question.id]: '1' }));
+  //     }
+  //   }
+  // }, []);
 
   const answer = (values: FormikValues) => {
     const resultAnswers = collectAnswers(answers, values);
@@ -239,26 +237,26 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                         setIsSendingStatus(SendingStatus.LOADING);
                         try {
                           for (let i = 0; i < answers.length; i++) {
-                            answers[i].value = answers[i].value.trim();
-
+                            if (i == answers.length - 1) {
+                              answers[i].value = answers[i].value
+                                .toString()
+                                .trim();
+                            }
                             if (answers[i].value.length === 0) {
                               answers = answers.filter(
                                 item => item !== answers[i],
                               );
                             }
+                            answers[i].value = answers[i].value.toString();
                           }
+                          console.log(answers);
                           await PollAPI.createTeacherGrade(
                             { answers },
                             disciplineTeacherId,
                           );
                           setIsSendingStatus(SendingStatus.SUCCESS);
                         } catch (error) {
-                          const message = getErrorMessage(error);
-                          message
-                            ? toast.error('Помилка!', message)
-                            : toast.error(
-                                'Щось пішло не так, спробуй пізніше!',
-                              );
+                          displayError(error);
                           setIsSendingStatus(SendingStatus.ERROR);
                         }
                       }

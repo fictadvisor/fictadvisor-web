@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
 import { AxiosError } from 'axios';
+import dayjs, { Dayjs } from 'dayjs';
 import { useRouter } from 'next/router';
 import { create } from 'zustand';
 
-import { LOCAL_STORAGE_SCHEDULE_KEY } from '@/components/pages/schedule-page/constants';
+import {
+  LOCAL_STORAGE_SCHEDULE_KEY,
+  MAX_WEEK_NUMBER,
+} from '@/components/pages/schedule-page/constants';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
-import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
+import { getFirstDayOfAWeek } from '@/store/schedule/utils/getFirstDayOfAWeek';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { Group } from '@/types/group';
 import { Event, TDiscipline } from '@/types/schedule';
@@ -19,7 +23,6 @@ import { findFirstOf5 } from './utils/findFirstOf5';
 import { setUrlParams } from './utils/setUrlParams';
 
 const WEEKS_ARRAY_SIZE = 24;
-const MAX_WEEK_NUMBER = 20;
 
 export interface Checkboxes extends Record<string, boolean | undefined> {
   addLecture: boolean;
@@ -66,8 +69,8 @@ type State = {
   eventsBody: GetEventBody[];
   isNewEventAdded: boolean;
   openedEvent?: Event;
-  currentTime: Date;
-  chosenDay: Date | null;
+  currentTime: Dayjs;
+  chosenDay: Dayjs | null;
   isLoading: boolean;
   error: null | AxiosError;
   isUsingSelective: boolean;
@@ -80,8 +83,8 @@ type Action = {
   handleWeekChange: () => Promise<void>;
 
   setIsNewEventAdded: (isAdded: boolean) => void;
-  setDate: (newDate: Date) => void;
-  setChosenDay: (newDate: Date) => void;
+  setDate: (newDate: Dayjs) => void;
+  setChosenDay: (newDate: Dayjs) => void;
   loadNext5: (startWeek: number) => Promise<void>;
   setError: (_: AxiosError | null) => void;
   updateCheckboxes: (checkboxes: Checkboxes) => void;
@@ -94,7 +97,7 @@ export const useSchedule = create<State & Action>((set, get) => {
     checkboxes: checkboxesInitialValues,
     error: null,
     isLoading: false,
-    currentTime: new Date(),
+    currentTime: dayjs().tz(),
     isNewEventAdded: false,
     disciplineTypes: [
       TDiscipline.LECTURE,
@@ -207,9 +210,7 @@ export const useSchedule = create<State & Action>((set, get) => {
         week: _week,
       }));
       setUrlParams('week', _week.toString());
-      // get().setChosenDay(
-      //   getLastDayOfAWeek(get().semester as GetCurrentSemester, _week),
-      // );
+
       get().handleWeekChange();
     },
     setError: (_error: AxiosError | null) => {
@@ -237,12 +238,12 @@ export const useSchedule = create<State & Action>((set, get) => {
         isNewEventAdded: isAdded,
       }));
     },
-    setDate(newDate: Date) {
+    setDate(newDate: Dayjs) {
       set(_ => ({
         currentTime: newDate,
       }));
     },
-    setChosenDay(newDate: Date) {
+    setChosenDay(newDate: Dayjs) {
       set(_ => ({
         chosenDay: newDate,
       }));
@@ -257,7 +258,7 @@ export const useSchedule = create<State & Action>((set, get) => {
 
       useEffect(() => {
         const interval = setInterval(() => {
-          get().setDate(new Date());
+          get().setDate(dayjs().tz());
         }, 1000 * 60);
 
         return () => clearInterval(interval);
@@ -295,7 +296,7 @@ export const useSchedule = create<State & Action>((set, get) => {
         }));
 
         get().setChosenDay(
-          getLastDayOfAWeek(get().semester as GetCurrentSemester, week),
+            getFirstDayOfAWeek(get().semester as GetCurrentSemester, week),
         );
       }, [router.isReady]);
     },
