@@ -5,6 +5,7 @@ import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQues
 import theme from '@/styles/theme';
 import { Answer, Category, Question } from '@/types/poll';
 
+import { usePollFormStore } from '../../store/index';
 import AnswersSheet from '../answers-sheet/AnswersSheet';
 import QuestionsList from '../questions-list/QuestionsList';
 
@@ -43,20 +44,19 @@ const getAllQuestionsArray = (categories: Category[]): Question[] => {
 };
 
 const PollForm: FC<PollFormProps> = ({ data }) => {
-  const [isValid, setIsValid] = useState(false);
+  const {
+    setIsValid,
+    answers,
+    currentCategory,
+    sendingStatus,
+    setCurrentQuestions,
+  } = usePollFormStore();
   const { categories, teacher, subject } = data;
-  // TODO: fix naming
-  const [currentQuestions, setCurrentQuestions] = useState(categories[0]);
-  const [progress, setProgress] = useState<number[]>(
-    Array(categories.length).fill(0),
-  );
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isQuestionsListOpened, setQuestionsListOpened] = useState(false);
-  const [answers, setAnswers] = useState<Answer[]>([]);
-  const [currentCategory, setCurrentCategory] = useState(0);
   const [questionsArray, setQuestionsArray] = useState<Question[]>([]);
-  const [sendingStatus, setIsSendingStatus] = useState<SendingStatus>(
-    SendingStatus.ANY,
+  const [progress, setProgress] = useState<number[]>(
+    Array(categories.length).fill(0),
   );
   useEffect(() => {
     setQuestionsArray(getAllQuestionsArray(categories));
@@ -86,8 +86,6 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
             teacher={teacher}
             subject={subject}
             progress={progress}
-            current={currentCategory}
-            setCurrent={setCurrentCategory}
             setQuestionsListStatus={setQuestionsListOpened}
           />
         )}
@@ -98,17 +96,9 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
         }}
       >
         <AnswersSheet
-          category={currentQuestions}
           setProgress={setProgress}
-          setCurrent={setCurrentCategory}
           isTheLast={currentCategory === categories.length - 1}
-          current={currentCategory}
           setQuestionsListStatus={setQuestionsListOpened}
-          answers={answers}
-          setAnswers={setAnswers}
-          isValid={isValid}
-          sendingStatus={sendingStatus}
-          setIsSendingStatus={setIsSendingStatus}
         />
       </div>
     </div>
