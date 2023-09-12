@@ -6,8 +6,7 @@ import { usePollStore } from '@/store/poll-page/usePollStore';
 
 import PollCard from './components/poll-card';
 import TeacherHeaderCard from './components/teacher-header-card';
-
-import styles from './QuestionsList.module.scss';
+import * as styles from './QuestionsList.styles';
 
 interface QuestionListProps {
   data: GetTeacherQuestionsResponse;
@@ -20,7 +19,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
   const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
     usePollStore();
   return (
-    <div className={styles.wrapper}>
+    <Box sx={styles.wrapper}>
       <TeacherHeaderCard
         name={`${lastName} ${firstName} ${middleName}`}
         description={subject.name}
@@ -43,7 +42,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
           />
         </Box>
       ))}
-    </div>
+    </Box>
   );
 };
 
