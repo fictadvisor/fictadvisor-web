@@ -55,7 +55,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
   return (
     // className={styles['question']
     <Box key={question.id}>
-      {/*Question header block: number, title, description*/}
       <Typography component="p" sx={styles.questionNumber}>
         {questionNumber}
       </Typography>
@@ -67,7 +66,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
           {question.description}
         </Typography>
       )}
-      {/*Question itself*/}
       {question.type === QuestionType.SCALE && (
         <QuestionScale question={question} id={id} />
       )}
@@ -75,14 +73,13 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
         <QuestionToggle question={question} id={id} />
       )}
       {question.type === QuestionType.TEXT && (
-        //TODO add validation (4+ symbol, write Riia)
+        //TODO add validation (4+ symbol, write about this to Riia)
         <TextArea
           rowsNumber={numberRowsTextArea}
           // sx={styles.textArea}
           name={question.id}
         />
       )}
-      {/*Question bottom block with explanation */}
       {question.criteria && (
         <Typography component="p" sx={styles.questionCriteria}>
           {question.criteria}

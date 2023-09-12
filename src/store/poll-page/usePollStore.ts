@@ -27,7 +27,7 @@ type State = {
   sendingStatus: SendingStatus;
 };
 
-export const usePollFormStore = create<State & Action>()(set => ({
+export const usePollStore = create<State & Action>()(set => ({
   isQuestionsListOpened: false,
   isValid: false,
   currentQuestions: {

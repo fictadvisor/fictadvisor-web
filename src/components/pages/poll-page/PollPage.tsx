@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Progress from '@/components/common/ui/progress';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import PollAPI from '@/lib/api/poll/PollAPI';
 
 import PollForm from './components/poll-form';
 
 import styles from './PollPage.module.scss';
-
 const PollPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoggedIn } = useAuthentication();
+  const { displayError } = useToastError();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
   const toast = useToast();
@@ -37,32 +37,16 @@ const PollPage = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      //TODO replace with error hook
-      toast.error('Для проходження опитування потрібно авторизуватися');
-
+      displayError(error);
       void router.replace('login/?redirect=~poll');
     }
   }, [toast, isLoggedIn, router]);
 
-  const status =
-    error && (error as AxiosError<{ error: string }>).response?.data?.error;
-
   if (error && !isLoading) {
-    //TODO: replace with error hook
-    toast.error(
-      'Помилка!',
-      status === 'InvalidEntityIdException'
-        ? 'Не знайдено опитування з таким id'
-        : status === 'AnswerInDatabasePermissionException'
-        ? 'Ти вже пройшов опитування за цього викладача!'
-        : status === 'NoPermissionException'
-        ? 'У тебе недостатньо прав для цієї дії'
-        : status === 'WrongTimeException'
-        ? 'Час проходження опитування сплив або опитування ще не почалось'
-        : 'Помилка на сервері =(',
-    );
+    displayError(error);
     void router.push('/poll');
   }
+
   useEffect(() => {
     setIsLoading(isQuestionsLoading);
   }, [isQuestionsLoading]);

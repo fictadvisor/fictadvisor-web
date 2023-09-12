@@ -9,9 +9,9 @@ import SingleQuestion from '@/components/pages/poll-page/components/single-quest
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
+import { usePollStore } from '@/store/poll-page/usePollStore';
 import { Answer, Question, QuestionType } from '@/types/poll';
 
-import { usePollFormStore } from '../../store/index';
 import { SendingStatus } from '../poll-form/PollForm';
 
 import AnswersSaved from './AnswersSaved';
@@ -66,7 +66,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     setIsSendingStatus,
     currentQuestions,
     setQuestionsListOpened,
-  } = usePollFormStore();
+  } = usePollStore();
   const toast = useToast();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;

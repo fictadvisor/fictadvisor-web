@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 
 import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
+import { usePollStore } from '@/store/poll-page/usePollStore';
 import theme from '@/styles/theme';
 import { Answer, Category, Question } from '@/types/poll';
 
-import { usePollFormStore } from '../../store/index';
 import AnswersSheet from '../answers-sheet/AnswersSheet';
 import QuestionsList from '../questions-list/QuestionsList';
 
@@ -51,7 +51,7 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
     sendingStatus,
     setCurrentQuestions,
     isQuestionsListOpened,
-  } = usePollFormStore();
+  } = usePollStore();
   const { categories } = data;
   //TODO use styles sx
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));

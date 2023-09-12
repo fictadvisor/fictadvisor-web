@@ -2,8 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
-
-import { usePollFormStore } from '../../store/index';
+import { usePollStore } from '@/store/poll-page/usePollStore';
 
 import PollCard from './components/poll-card';
 import TeacherHeaderCard from './components/teacher-header-card';
@@ -19,7 +18,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
   const { subject, teacher, categories } = data;
   const { lastName, firstName, middleName, avatar } = teacher;
   const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
-    usePollFormStore();
+    usePollStore();
   return (
     <div className={styles.wrapper}>
       <TeacherHeaderCard
