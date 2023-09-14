@@ -7,7 +7,6 @@ export const wrapper: SxProps<Theme> = {
     width: '100%',
     animationName: 'appear',
     animationDuration: '0.3s',
-    marginBottom: '24px',
   },
 
   '@keyframe appear': {
