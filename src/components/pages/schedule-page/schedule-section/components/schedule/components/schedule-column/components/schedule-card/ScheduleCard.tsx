@@ -40,7 +40,7 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
     setHeight(calculateHeight(_event.startTime, _event.endTime));
     setStart(getStringTime(_event.startTime));
     setEnd(getStringTime(_event.endTime));
-    setIsPastEvent(currentTime >= dayjs(_event.endTime).tz());
+    setIsPastEvent(currentTime.valueOf() >= dayjs(_event.endTime).valueOf());
     setLineTop(
       calculateScheduleLineTop(
         _event.startTime,
@@ -49,8 +49,8 @@ const ScheduleCard: FC<ScheduleCardProps> = ({ event, onClick, week }) => {
       ),
     );
     setIsCurEvent(
-      currentTime >= dayjs(_event.startTime).tz() &&
-        currentTime <= dayjs(_event.endTime).tz(),
+      currentTime.valueOf() >= dayjs(_event.startTime).valueOf() &&
+        currentTime.valueOf() <= dayjs(_event.endTime).valueOf(),
     );
   }, [currentTime, event]);
 

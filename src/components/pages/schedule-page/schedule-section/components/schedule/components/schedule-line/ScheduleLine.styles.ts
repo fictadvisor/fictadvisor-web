@@ -13,7 +13,7 @@ export const container = (top: number): SxProps<Theme> => ({
   position: 'absolute',
   width: '100%',
   left: { mobile: -8, tablet: 0 },
-  top: { mobile: `calc(${top}% - 8px)`, tablet: top - 4 },
+  top: { mobile: `calc(${top}% - 4px)`, tablet: top - 4 },
 });
 
 export const verticalDivider = (
