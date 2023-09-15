@@ -14,7 +14,7 @@ import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import ScheduleAPI from '@/lib/api/schedule/ScheduleAPI';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { getCurrentWeek } from '@/store/schedule/utils/getCurrentWeek';
-import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
+import { getFirstDayOfAWeek } from '@/store/schedule/utils/getFirstDayOfAWeek';
 import { getWeekByDate } from '@/store/schedule/utils/getWeekByDate';
 import { Group } from '@/types/group';
 import { Event, TDiscipline } from '@/types/schedule';
@@ -210,9 +210,7 @@ export const useSchedule = create<State & Action>((set, get) => {
         week: _week,
       }));
       setUrlParams('week', _week.toString());
-      // get().setChosenDay(
-      //   getLastDayOfAWeek(get().semester as GetCurrentSemester, _week),
-      // );
+
       get().handleWeekChange();
     },
     setError: (_error: AxiosError | null) => {
@@ -231,7 +229,7 @@ export const useSchedule = create<State & Action>((set, get) => {
         const isUsingSelective = user && user.group?.id === id;
         set(state => ({ isUsingSelective }));
         setUrlParams('group', id);
-
+        localStorage.setItem(LOCAL_STORAGE_SCHEDULE_KEY, id);
         get().handleWeekChange();
       };
     },
@@ -298,7 +296,7 @@ export const useSchedule = create<State & Action>((set, get) => {
         }));
 
         get().setChosenDay(
-          getLastDayOfAWeek(get().semester as GetCurrentSemester, week),
+          getFirstDayOfAWeek(get().semester as GetCurrentSemester, week),
         );
       }, [router.isReady]);
     },
