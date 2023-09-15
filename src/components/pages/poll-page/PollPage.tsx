@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
@@ -10,8 +11,7 @@ import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import PollAPI from '@/lib/api/poll/PollAPI';
 
 import PollForm from './components/poll-form';
-
-import styles from './PollPage.module.scss';
+import * as styles from './PollPage.styles';
 const PollPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoggedIn } = useAuthentication();
@@ -52,14 +52,14 @@ const PollPage = () => {
   }, [isQuestionsLoading]);
 
   return (
-    <div className={styles['poll-page']}>
-      <div className={styles['poll-page__content']}>
+    <Box sx={styles.pollPage}>
+      <Box sx={styles.pollPageContent}>
         {isLoading ? (
           <Progress />
         ) : (
           isSuccessFetching && (
-            <div className={styles['poll-page__content-wrapper']}>
-              <div className={styles['breadcrumbs-wrapper']}>
+            <Box sx={styles.pollPageContentWrapper}>
+              <Box sx={styles.breadcrumbsWrapper}>
                 <Breadcrumbs
                   items={[
                     { label: 'Головна', href: '/' },
@@ -70,13 +70,13 @@ const PollPage = () => {
                     },
                   ]}
                 />
-              </div>
+              </Box>
               <PollForm data={data} />
-            </div>
+            </Box>
           )
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

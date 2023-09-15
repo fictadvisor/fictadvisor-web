@@ -1,9 +1,10 @@
 import React, { FormEvent, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
-import Button from '@/components/common/ui/button/Button';
+import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
 import SingleQuestion from '@/components/pages/poll-page/components/single-question/SingleQuestion';
 import useToast from '@/hooks/use-toast';
@@ -14,6 +15,7 @@ import { Answer, Question, QuestionType } from '@/types/poll';
 
 import { SendingStatus } from '../poll-form/PollForm';
 
+import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
@@ -138,75 +140,78 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   };
 
   return (
-    <div
-      className={
+    <Box
+      sx={
         sendingStatus === SendingStatus.SUCCESS
-          ? styles.successWrapper
-          : styles.wrapper
+          ? sxStyles.successWrapper
+          : sxStyles.wrapper
       }
     >
-      {sendingStatus === SendingStatus.LOADING ? (
-        <div className={styles.loaderWrapper}>
+      {sendingStatus === SendingStatus.LOADING && (
+        <Box sx={sxStyles.loaderWrapper}>
           <Progress />
-        </div>
-      ) : sendingStatus === SendingStatus.SUCCESS ? (
-        <div className={styles.wrapper}>
-          <AnswersSaved />
-        </div>
-      ) : (
-        <>
-          <div
-            className={styles.toQuestionsList}
-            onClick={() => {
-              setQuestionsListOpened(true);
-            }}
-          >
-            <ChevronLeftIcon style={{ height: '20px' }} />
-            <b>
-              {currentCategory + 1} . {currentQuestions?.name}
-            </b>
-          </div>
-          <div className={styles.answersWrapper}>
-            <Formik
-              validateOnMount
-              validateOnChange
-              initialValues={initialValues}
-              enableReinitialize
-              onSubmit={handleSubmit}
-            >
-              {({ values }) => (
-                <Form
-                  onClick={(event: FormEvent<HTMLFormElement>) =>
-                    handleFormEvent(event, values)
-                  }
-                  onChange={(event: FormEvent<HTMLFormElement>) =>
-                    handleFormEvent(event, values)
-                  }
-                  className={styles['form']}
-                >
-                  {currentQuestions?.questions.map((question, key) => (
-                    <SingleQuestion
-                      key={key}
-                      question={question}
-                      id={key}
-                      count={currentQuestions.count}
-                    />
-                  ))}
-                  <Button
-                    className={styles['button']}
-                    text={
-                      isTheLast ? 'Завершити опитування' : 'Наступні питання'
-                    }
-                    type="submit"
-                    disabled={isTheLast && !isValid}
-                  />
-                </Form>
-              )}
-            </Formik>
-          </div>
-        </>
+        </Box>
       )}
-    </div>
+      {sendingStatus === SendingStatus.SUCCESS && (
+        <Box sx={sxStyles.answersSavedWrapper}>
+          <AnswersSaved />
+        </Box>
+      )}
+      {sendingStatus != SendingStatus.LOADING &&
+        sendingStatus != SendingStatus.SUCCESS && (
+          <>
+            <Box
+              sx={sxStyles.toQuestionsList}
+              onClick={() => {
+                setQuestionsListOpened(true);
+              }}
+            >
+              <ChevronLeftIcon style={{ height: '20px' }} />
+              <Typography sx={sxStyles.questionName}>
+                {currentCategory + 1} . {currentQuestions?.name}
+              </Typography>
+            </Box>
+            <Box sx={sxStyles.answersWrapper}>
+              <Formik
+                validateOnMount
+                validateOnChange
+                initialValues={initialValues}
+                enableReinitialize
+                onSubmit={handleSubmit}
+              >
+                {({ values }) => (
+                  <Form
+                    onClick={(event: FormEvent<HTMLFormElement>) =>
+                      handleFormEvent(event, values)
+                    }
+                    onChange={(event: FormEvent<HTMLFormElement>) =>
+                      handleFormEvent(event, values)
+                    }
+                    className={styles['form']}
+                  >
+                    {currentQuestions?.questions.map((question, key) => (
+                      <SingleQuestion
+                        key={key}
+                        question={question}
+                        id={key}
+                        count={currentQuestions.count}
+                      />
+                    ))}
+                    <Button
+                      sx={sxStyles.button}
+                      text={
+                        isTheLast ? 'Завершити опитування' : 'Наступні питання'
+                      }
+                      type="submit"
+                      disabled={isTheLast && !isValid}
+                    />
+                  </Form>
+                )}
+              </Formik>
+            </Box>
+          </>
+        )}
+    </Box>
   );
 };
 
