@@ -35,6 +35,13 @@ const PollPage = () => {
   );
 
   useEffect(() => {
+    return () => {
+      localStorage.removeItem('progressPoll');
+      localStorage.removeItem('formikPoll');
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isLoggedIn) {
       displayError(error);
       void router.replace('login/?redirect=~poll');
