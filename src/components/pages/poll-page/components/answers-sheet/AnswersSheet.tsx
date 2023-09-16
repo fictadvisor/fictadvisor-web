@@ -3,8 +3,9 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
+import * as yup from 'yup';
+import { AnyObject, StringSchema } from 'yup';
 
-// import * as yup from 'yup';
 import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
 import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
@@ -13,7 +14,7 @@ import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { usePollStore } from '@/store/poll-page/usePollStore';
-import { Answer, Question, QuestionType } from '@/types/poll';
+import { Answer, Category, Question, QuestionType } from '@/types/poll';
 
 import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
@@ -81,10 +82,20 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       }, {} as Record<string, string>);
   }, []);
 
-  // const validationSchema = yup.object().shape({
-  //   textArea: yup.string().min(4, 'Текст повинен містити не менше 4 символів'),
-  // });
+  const createValidationSchema = (currentQuestions: Category) => {
+    const validationSchemaObject: Record<
+      string,
+      yup.StringSchema<string | undefined, AnyObject, undefined, ''>
+    > = {};
 
+    currentQuestions?.questions.forEach((question: Question) => {
+      validationSchemaObject[question.id] = yup
+        .string()
+        .min(4, 'Текст повинен містити не менше 4 символів');
+    });
+
+    return yup.object().shape(validationSchemaObject);
+  };
   const handleFormEvent = (
     event: FormEvent<HTMLFormElement>,
     values: Record<string, string>,
@@ -123,7 +134,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       const formattedAnswers = answers
         .map(answer => ({
           ...answer,
-          value: answer.value.trim(),
+          value: answer.value.toString().trim(),
         }))
         .filter(answer => !!answer.value);
 
@@ -134,9 +145,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       setIsSendingStatus(SendingStatus.SUCCESS);
     } catch (error) {
       const message = getErrorMessage(error);
-      const errorMessage = message
-        ? message
-        : 'Щось пішло не так, спробуй пізніше!';
+      const errorMessage =
+        message === 'Value is wrong'
+          ? 'Текст повинен містити не менше 4 символів'
+          : message || 'Щось пішло не так, спробуй пізніше!';
       toast.error('Помилка!', errorMessage);
       setIsSendingStatus(SendingStatus.ERROR);
     }
@@ -176,7 +188,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
             </Box>
             <Box sx={sxStyles.answersWrapper}>
               <Formik
-                // validationSchema={validationSchema}
+                validationSchema={createValidationSchema}
                 validateOnMount
                 validateOnChange
                 initialValues={initialValues}

@@ -43,6 +43,7 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
     answers,
     currentCategory,
     sendingStatus,
+    setIsSendingStatus,
     setCurrentQuestions,
     isQuestionsListOpened,
   } = usePollStore();
@@ -52,6 +53,10 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
   const [progress, setProgress] = useState<number[]>(
     Array(categories.length).fill(0),
   );
+
+  useEffect(() => {
+    setIsSendingStatus(SendingStatus.ANY);
+  }, []);
 
   useEffect(() => {
     setQuestionsArray(getAllQuestionsArray(categories));
