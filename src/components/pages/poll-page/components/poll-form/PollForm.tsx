@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 
+import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
 import { usePollStore } from '@/store/poll-page/usePollStore';
 import theme from '@/styles/theme';
@@ -9,17 +10,10 @@ import { Answer, Category, Question } from '@/types/poll';
 import AnswersSheet from '../answers-sheet/AnswersSheet';
 import QuestionsList from '../questions-list/QuestionsList';
 
-import styles from './PollForm.module.scss';
+import * as styles from './PollForm.styles';
 
 interface PollFormProps {
   data: GetTeacherQuestionsResponse;
-}
-
-export enum SendingStatus {
-  ANY = 'any',
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
 }
 
 const validateResults = (answers: Answer[], questions: Question[]) => {
@@ -53,7 +47,6 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
     isQuestionsListOpened,
   } = usePollStore();
   const { categories } = data;
-  //TODO use styles sx
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [questionsArray, setQuestionsArray] = useState<Question[]>([]);
   const [progress, setProgress] = useState<number[]>(
@@ -70,33 +63,25 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
   }, [currentCategory, categories, answers, questionsArray]);
 
   return (
-    <div
-      className={
+    <Box
+      sx={
         sendingStatus === SendingStatus.SUCCESS
           ? styles.successWrapper
           : styles.wrapper
       }
     >
-      <div
-        style={{
-          display: !isMobile || isQuestionsListOpened ? 'block' : 'none',
-        }}
-      >
+      <Box sx={styles.wrapperBox(isMobile, isQuestionsListOpened)}>
         {sendingStatus !== SendingStatus.SUCCESS && (
           <QuestionsList data={data} progress={progress} />
         )}
-      </div>
-      <div
-        style={{
-          display: !isMobile || !isQuestionsListOpened ? 'block' : 'none',
-        }}
-      >
+      </Box>
+      <Box sx={styles.wrapperBox(isMobile, isQuestionsListOpened)}>
         <AnswersSheet
           setProgress={setProgress}
           isTheLast={currentCategory === categories.length - 1}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

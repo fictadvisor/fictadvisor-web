@@ -1,14 +1,8 @@
 import { create } from 'zustand';
 
+import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import { Answer, QuestionDisplay, QuestionType } from '@/types/poll';
 import { Category } from '@/types/poll';
-export enum SendingStatus {
-  ANY = 'any',
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
-
 type Action = {
   setIsValid: (newValue: boolean) => void;
   setQuestionsListOpened: (newValue: boolean) => void;

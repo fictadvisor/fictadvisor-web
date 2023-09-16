@@ -4,8 +4,10 @@ import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
+// import * as yup from 'yup';
 import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
+import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import SingleQuestion from '@/components/pages/poll-page/components/single-question/SingleQuestion';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
@@ -13,13 +15,10 @@ import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { usePollStore } from '@/store/poll-page/usePollStore';
 import { Answer, Question, QuestionType } from '@/types/poll';
 
-import { SendingStatus } from '../poll-form/PollForm';
-
 import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
-
 interface AnswersSheetProps {
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   isTheLast: boolean;
@@ -81,6 +80,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
         return initialVals;
       }, {} as Record<string, string>);
   }, []);
+
+  // const validationSchema = yup.object().shape({
+  //   textArea: yup.string().min(4, 'Текст повинен містити не менше 4 символів'),
+  // });
 
   const handleFormEvent = (
     event: FormEvent<HTMLFormElement>,
@@ -173,6 +176,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
             </Box>
             <Box sx={sxStyles.answersWrapper}>
               <Formik
+                // validationSchema={validationSchema}
                 validateOnMount
                 validateOnChange
                 initialValues={initialValues}
@@ -214,5 +218,4 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     </Box>
   );
 };
-
 export default AnswersSheet;

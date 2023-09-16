@@ -23,7 +23,13 @@ export const questionDescription: SxProps<Theme> = {
 };
 export const questionCriteria: SxProps<Theme> = {
   fontSize: '14px',
-  color: '$grey-300', // Replace with the desired gray color
+  color: theme.palette.grey[300],
   fontWeight: '300',
   marginTop: '11px',
+};
+
+export const radioGroup: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'flex-start',
+  gap: '36px',
 };
