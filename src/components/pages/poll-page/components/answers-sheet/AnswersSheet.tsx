@@ -1,4 +1,4 @@
-import React, { FormEvent, useMemo } from 'react';
+import React, { FormEvent, useEffect, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
@@ -73,14 +73,22 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
+  // Load initialValues from localStorage or set defaults
   const initialValues: Record<string, string> = useMemo(() => {
-    return currentQuestions?.questions
-      .filter(question => question.type === QuestionType.SCALE)
-      .reduce((initialVals, question) => {
-        initialVals[question.id] = '1';
-        return initialVals;
-      }, {} as Record<string, string>);
+    const localStorageAnswers = localStorage.getItem('formikPoll');
+    return localStorageAnswers
+      ? JSON.parse(localStorageAnswers)
+      : currentQuestions?.questions
+          .filter(question => question.type === QuestionType.SCALE)
+          .reduce((initialVals, question) => {
+            initialVals[question.id] = '1';
+            return initialVals;
+          }, {} as Record<string, string>);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('formikPoll', JSON.stringify(answers));
+  }, [answers]);
 
   const createValidationSchema = (currentQuestions: Category) => {
     const validationSchemaObject: Record<
@@ -104,6 +112,10 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     const value = (event.target as HTMLFormElement).value;
     if (name && value) {
       updateAnswer({ ...values, [name]: value });
+      localStorage.setItem(
+        'formikPoll',
+        JSON.stringify({ ...values, [name]: value }),
+      );
     }
   };
 
