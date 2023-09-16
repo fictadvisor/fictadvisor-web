@@ -84,6 +84,7 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
         <AnswersSheet
           setProgress={setProgress}
           isTheLast={currentCategory === categories.length - 1}
+          progress={progress}
         />
       </Box>
     </Box>
