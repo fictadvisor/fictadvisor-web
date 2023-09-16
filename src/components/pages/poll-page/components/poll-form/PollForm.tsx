@@ -80,7 +80,7 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
           <QuestionsList data={data} progress={progress} />
         )}
       </Box>
-      <Box sx={styles.wrapperBox(isMobile, isQuestionsListOpened)}>
+      <Box>
         <AnswersSheet
           setProgress={setProgress}
           isTheLast={currentCategory === categories.length - 1}
