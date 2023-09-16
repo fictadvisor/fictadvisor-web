@@ -1,5 +1,5 @@
 import { isAxiosError } from 'axios';
-
+//TODO: extend it
 const getErrorMessage = (error: unknown) => {
   let message = '';
   if (isAxiosError(error)) {
