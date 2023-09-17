@@ -8,7 +8,11 @@ export const container: SxProps<Theme> = {
 };
 
 export const personalInfo: SxProps<Theme> = {
-  width: { mobile: '100%', desktopSemiMedium: '45%' },
+  width: {
+    mobile: '100%',
+    desktopSemiMedium: '60%',
+    desktopMedium: '45%',
+  },
 };
 
 export const form: SxProps<Theme> = {
@@ -20,29 +24,32 @@ export const avatar: SxProps<Theme> = {
   justifyContent: 'center',
   width: { mobile: '50%', desktopSemiMedium: '100%' },
   height: { mobile: '50%', desktopSemiMedium: '100%' },
-  marginBottom: { mobile: '18px', desktopSemiMedium: '0' },
+  marginBottom: { mobile: '16px', desktopSemiMedium: '16px' },
+  marginTop: { mobile: '6px', desktopSemiMedium: '0' },
 
   img: {
-    maxWidth: { mobile: '136px', desktopSemiMedium: '160px' },
-    maxHeight: { mobile: '136px', desktopSemiMedium: '160px' },
-    width: { mobile: '100%', desktopSemiMedium: '50%' },
-    height: { mobile: '100%', desktopSemiMedium: '50%' },
+    maxWidth: { mobile: '136px' },
+    maxHeight: { mobile: '136px' },
+    width: { mobile: '50%', desktopSemiMedium: 'auto' },
+    height: { mobile: '50%', desktopSemiMedium: '50%' },
     borderRadius: '100%',
   },
 };
 
 export const confirmButton: SxProps<Theme> = {
   width: { mobile: 'fit-content', desktopSemiMedium: '50%' },
-  margin: { mobile: '0', desktopSemiMedium: '5px 0 36px 0' },
-  display: { mobile: 'block', desktopSemiMedium: '' },
+  margin: { mobile: '0 0 36px 0', desktopSemiMedium: '5px 0 36px 0' },
+  display: { mobile: 'block', desktop: '' },
 };
 
 export const input: SxProps<Theme> = {
-  marginBottom: '24px',
+  marginBottom: { mobile: '22px', desktopSemiMedium: '24px' },
+  marginTop: '1.5%',
 };
 
 export const avatarAndTelegramInfo: SxProps<Theme> = {
   display: 'flex',
+  height: 'fit-content',
   flexDirection: 'column',
   alignItems: 'center',
   marginBottom: { mobile: '16px', desktopSemiMedium: '18px' },
@@ -64,13 +71,14 @@ export const contactItem: SxProps<Theme> = {
   a: {
     flexGrow: 1,
   },
-  button: {
-    marginTop: '20px',
+  '& button': {
+    marginTop: '10px',
   },
 };
 
 export const contactItemContainer: SxProps<Theme> = {
   width: '100%',
+  height: 'fit-content',
 };
 
 export const addSocialLinksContainer: SxProps<Theme> = {

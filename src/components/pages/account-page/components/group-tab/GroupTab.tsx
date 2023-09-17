@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useQuery } from 'react-query';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import Progress from '@/components/common/ui/progress';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
@@ -14,6 +14,8 @@ import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { PendingStudent } from '@/types/student';
 import { User, UserGroupRole, UserGroupState } from '@/types/user';
+
+import * as styles from './GroupTab.styles';
 
 const getStudents = async (user: User) => {
   const groupId = user.group?.id as string;
@@ -44,14 +46,7 @@ const GroupTab: FC = () => {
 
   if (isLoading)
     return (
-      <Box
-        sx={{
-          //TODO move inline styles when refactor
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <Box sx={styles.progress}>
         <Progress />
       </Box>
     );
@@ -63,12 +58,11 @@ const GroupTab: FC = () => {
     return <NoGroupBlock />;
 
   if (!data || !user?.group || !user?.group.role) return null;
-  //TODO refactor this
   return (
-    <div>
-      <div>
-        <h4>Список групи {user.group.code}</h4>
-      </div>
+    <Box>
+      <Box>
+        <Typography component="h4">Список групи {user.group.code}</Typography>
+      </Box>
       {showRequests && (
         <RequestsTable
           refetch={refetch}
@@ -82,7 +76,7 @@ const GroupTab: FC = () => {
           rows={transformStudentsData(data.students)}
         />
       }
-    </div>
+    </Box>
   );
 };
 
