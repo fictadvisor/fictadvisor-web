@@ -23,7 +23,6 @@ import styles from './AnswersSheet.module.scss';
 interface AnswersSheetProps {
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   isTheLast: boolean;
-  progress: number[];
 }
 
 const getProgress = (answers: Answer[], questions: Question[]) => {
@@ -58,7 +57,6 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
   setProgress,
   isTheLast,
-  progress,
 }) => {
   const {
     setCurrentCategory,
@@ -88,16 +86,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           }, {} as Record<string, string>);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(answers);
-  //   localStorage.setItem('formikPoll', JSON.stringify(answers));
-  // }, [answers]);
-
-  useEffect(() => {
-    console.log(answers);
-    // localStorage.setItem('formikPoll', JSON.stringify(answers));
-  }, []);
-
   const createValidationSchema = (currentQuestions: Category) => {
     const validationSchemaObject: Record<
       string,
@@ -122,7 +110,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       'formikPoll',
       JSON.stringify({ ...values, [name]: value }),
     );
-    localStorage.setItem('progressPoll', JSON.stringify({ progress }));
+
     if (name && value) {
       updateAnswer({ ...values, [name]: value });
     }

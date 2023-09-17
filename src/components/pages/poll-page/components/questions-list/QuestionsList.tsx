@@ -13,32 +13,49 @@ interface QuestionListProps {
   progress: number[];
 }
 
+function checkIfAllZeros(arr: number[]) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function uniteArrs(arg1: number[], arg2: number[]): number[] {
+  const result: number[] = [];
+
+  for (let i = 0; i < arg1.length; i++) {
+    result.push(arg2[i] > 0 ? arg2[i] : arg1[i]);
+  }
+
+  return result;
+}
+
 const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
   const { subject, teacher, categories } = data;
   const { lastName, firstName, middleName, avatar } = teacher;
   const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
     usePollStore();
   const [filterProgress, setFilterProgress] = useState<number[]>(progress);
+
   useEffect(() => {
     const localStorageProgress = localStorage.getItem('progressPoll');
     if (localStorageProgress) {
-      const parsedProgress = JSON.parse(localStorageProgress).progress;
-      setFilterProgress(parsedProgress);
+      setFilterProgress(
+        uniteArrs(JSON.parse(localStorageProgress).progress, progress),
+      );
     }
 
     if (!checkIfAllZeros(progress)) {
-      setFilterProgress(progress);
+      const currentProgress = uniteArrs(filterProgress, progress);
+      setFilterProgress(currentProgress);
+      localStorage.setItem(
+        'progressPoll',
+        JSON.stringify({ progress: currentProgress }),
+      );
     }
   }, [progress]);
-
-  function checkIfAllZeros(arr: number[]) {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] !== 0) {
-        return false;
-      }
-    }
-    return true;
-  }
 
   return (
     <Box sx={styles.wrapper}>

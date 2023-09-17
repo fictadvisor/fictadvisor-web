@@ -36,10 +36,8 @@ const PollPage = () => {
   );
 
   useEffect(() => {
-    return () => {
-      localStorage.removeItem('progressPoll');
-      localStorage.removeItem('formikPoll');
-    };
+    localStorage.removeItem('progressPoll');
+    localStorage.removeItem('formikPoll');
   }, []);
 
   useEffect(() => {
