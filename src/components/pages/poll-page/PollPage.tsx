@@ -6,19 +6,19 @@ import { useRouter } from 'next/router';
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Progress from '@/components/common/ui/progress';
 import useAuthentication from '@/hooks/use-authentication';
-import useToast from '@/hooks/use-toast';
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import PollAPI from '@/lib/api/poll/PollAPI';
+import { usePollStore } from '@/store/poll-page/usePollStore';
 
 import PollForm from './components/poll-form';
 import * as styles from './PollPage.styles';
 const PollPage = () => {
+  const { reset } = usePollStore(state => ({ reset: state.reset }));
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoggedIn } = useAuthentication();
   const { displayError } = useToastError();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
-  const toast = useToast();
   const {
     error,
     isSuccess: isSuccessFetching,
@@ -39,6 +39,7 @@ const PollPage = () => {
     return () => {
       localStorage.removeItem('progressPoll');
       localStorage.removeItem('formikPoll');
+      reset();
     };
   }, []);
 
@@ -47,7 +48,7 @@ const PollPage = () => {
       displayError(error);
       void router.replace('login/?redirect=~poll');
     }
-  }, [toast, isLoggedIn, router]);
+  }, [isLoggedIn, router]);
 
   if (error && !isLoading) {
     displayError(error);

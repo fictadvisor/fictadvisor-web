@@ -68,7 +68,17 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     setIsSendingStatus,
     currentQuestions,
     setQuestionsListOpened,
-  } = usePollStore();
+  } = usePollStore(state => ({
+    setCurrentCategory: state.setCurrentCategory,
+    currentCategory: state.currentCategory,
+    answers: state.answers,
+    setAnswers: state.setAnswers,
+    isValid: state.isValid,
+    sendingStatus: state.sendingStatus,
+    setIsSendingStatus: state.setIsSendingStatus,
+    currentQuestions: state.currentQuestions,
+    setQuestionsListOpened: state.setQuestionsListOpened,
+  }));
   const toast = useToast();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;

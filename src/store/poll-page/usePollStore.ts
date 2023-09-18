@@ -10,6 +10,7 @@ type Action = {
   setAnswers: (newAnswers: Answer[]) => void;
   setCurrentCategory: (newCategory: number) => void;
   setIsSendingStatus: (newStatus: SendingStatus) => void;
+  reset: () => void;
 };
 
 type State = {
@@ -21,7 +22,7 @@ type State = {
   sendingStatus: SendingStatus;
 };
 
-export const usePollStore = create<State & Action>()(set => ({
+const initialValue: State = {
   isQuestionsListOpened: false,
   isValid: false,
   currentQuestions: {
@@ -43,6 +44,10 @@ export const usePollStore = create<State & Action>()(set => ({
   answers: [],
   currentCategory: 0,
   sendingStatus: SendingStatus.ANY,
+};
+
+export const usePollStore = create<State & Action>()(set => ({
+  ...initialValue,
 
   setQuestionsListOpened: (newValue: boolean) =>
     set({ isQuestionsListOpened: newValue }),
@@ -54,4 +59,7 @@ export const usePollStore = create<State & Action>()(set => ({
     set({ currentCategory: newCategory }),
   setIsSendingStatus: (newStatus: SendingStatus) =>
     set({ sendingStatus: newStatus }),
+  reset: () => {
+    set(initialValue);
+  },
 }));

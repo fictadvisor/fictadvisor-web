@@ -36,7 +36,11 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
   const { subject, teacher, categories } = data;
   const { lastName, firstName, middleName, avatar } = teacher;
   const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
-    usePollStore();
+    usePollStore(state => ({
+      currentCategory: state.currentCategory,
+      setCurrentCategory: state.setCurrentCategory,
+      setQuestionsListOpened: state.setQuestionsListOpened,
+    }));
   const [filterProgress, setFilterProgress] = useState<number[]>(progress);
 
   useEffect(() => {
