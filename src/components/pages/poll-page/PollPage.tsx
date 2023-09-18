@@ -13,6 +13,7 @@ import { usePollStore } from '@/store/poll-page/usePollStore';
 import PollForm from './components/poll-form';
 import * as styles from './PollPage.styles';
 const PollPage = () => {
+  const { reset } = usePollStore(state => ({ reset: state.reset }));
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoggedIn } = useAuthentication();
   const { displayError } = useToastError();
@@ -38,6 +39,7 @@ const PollPage = () => {
     return () => {
       localStorage.removeItem('progressPoll');
       localStorage.removeItem('formikPoll');
+      reset();
     };
   }, []);
 
