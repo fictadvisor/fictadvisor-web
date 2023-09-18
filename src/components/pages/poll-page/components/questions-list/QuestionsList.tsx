@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
+import PollCard from '@/components/common/ui/cards/poll-card';
+import TeacherHeaderCard from '@/components/common/ui/cards/teacher-header-card';
 import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
 import { usePollStore } from '@/store/poll-page/usePollStore';
 
-import PollCard from './components/poll-card';
-import TeacherHeaderCard from './components/teacher-header-card';
 import * as styles from './QuestionsList.styles';
 
 interface QuestionListProps {
