@@ -33,7 +33,7 @@ export const card = (
     borderRadius: '8px',
     backgroundColor: 'primary.50',
     '& svg': {
-      display: 'none',
+      opacity: '0',
     },
   },
   ...(isActive && {
@@ -41,7 +41,7 @@ export const card = (
     backgroundColor: 'primary.200',
     borderRadius: '8px',
     '& svg': {
-      display: 'none',
+      opacity: '0',
     },
   }),
   ...(disabled && {
@@ -49,7 +49,7 @@ export const card = (
     color: 'grey.300',
     backgroundColor: 'backgroundDark.100',
     '& svg': {
-      display: 'none',
+      opacity: '0',
     },
   }),
 });
