@@ -32,11 +32,9 @@ const SecurityTab = () => {
       <Box>
         <Box>
           <Divider
-            sx={styles.divider}
             text={'Зміна паролю'}
             textAlign={DividerTextAlign.LEFT}
           ></Divider>
-
           <ChangePasswordForm />
         </Box>
         <Divider
@@ -60,7 +58,6 @@ const SecurityTab = () => {
           />
         </Box>
         <Divider sx={styles.divider}></Divider>
-
         <Button
           sx={styles.exitButton}
           text={'Вийти з акаунту'}

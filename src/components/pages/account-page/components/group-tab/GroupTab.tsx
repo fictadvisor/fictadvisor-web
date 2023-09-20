@@ -65,7 +65,7 @@ const GroupTab: FC = () => {
   return (
     <Box>
       <Box>
-        <Typography variant="h4Bold">Список групи {user.group.code}</Typography>
+        <Typography variant="h4">Список групи {user.group.code}</Typography>
         <Divider
           sx={stylesMui.groupDivider}
           textAlign={DividerTextAlign.LEFT}
