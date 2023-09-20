@@ -28,7 +28,6 @@ export const button: SxProps<Theme> = {
   },
 };
 export const formContainer: SxProps<Theme> = {
-  marginTop: '30px',
   width: '40%',
   minWidth: '400px',
   [theme.breakpoints.down('mobile')]: { width: '100%', minWidth: '0' },
