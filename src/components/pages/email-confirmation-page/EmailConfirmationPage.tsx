@@ -51,12 +51,7 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
           <CustomEnvelopeOpen />
         </Box>
         <Typography sx={styles.title}>Перевір свою пошту</Typography>
-        <Typography sx={styles.description}>
-          {emailText}
-          <Box component="span" sx={styles.email}>
-            {email}
-          </Box>
-        </Typography>
+        <Typography sx={styles.description}>{emailText}</Typography>
         <Box sx={styles.info}>
           <Typography sx={styles.question}>Не отримав листа?</Typography>
           <Button
