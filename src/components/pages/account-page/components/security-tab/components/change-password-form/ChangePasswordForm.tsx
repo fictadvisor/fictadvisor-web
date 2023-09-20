@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { AxiosError } from 'axios';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
@@ -17,6 +17,7 @@ import { Input, InputType } from '@/components/common/ui/form';
 import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
+import theme from '@/styles/theme';
 
 import * as styles from '../../SecurityTab.styles';
 
@@ -25,6 +26,7 @@ import { ChangePasswordFormFields } from './types';
 import { validationSchema } from './validation';
 
 const ChangePasswordForm = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const router = useRouter();
   const toast = useToast();
   const handleSubmit = async (
@@ -67,51 +69,53 @@ const ChangePasswordForm = () => {
       validateOnChange
     >
       {({ isValid, errors }) => (
-        <Form>
-          <Input
-            label="Поточний пароль"
-            placeholder="введи свій пароль"
-            type={InputType.PASSWORD}
-            name="oldPassword"
-            isSuccessOnDefault={true}
-          />
-          {errors.oldPassword === 'Введений пароль недійсний' && (
-            <p className="body-primary">
-              Забули пароль? Щоб відновити, перейдіть за{' '}
-              <CustomLink
-                href="/password-recovery"
-                type={CustomLinkType.BLUE}
-                text="посиланням"
-              />
-            </p>
-          )}
-          <Input
-            label="Новий пароль"
-            placeholder="придумай новий пароль"
-            type={InputType.PASSWORD}
-            name="newPassword"
-            disabled={!!errors.oldPassword}
-            isSuccessOnDefault={true}
-          />
-          <Input
-            label="Підтвердження паролю"
-            placeholder="підтверди новий пароль"
-            type={InputType.PASSWORD}
-            name="confirmationPassword"
-            disabled={!!errors.oldPassword || !!errors.newPassword}
-            isSuccessOnDefault={true}
-          />
-          <Box sx={styles.confirmButton}>
-            <Button
-              text="Оновити пароль"
-              startIcon={<CustomCheck />}
-              size={ButtonSize.MEDIUM}
-              type="submit"
-              disabled={!isValid}
-              sx={styles.changePasswordButton}
+        <Box sx={styles.formContainer}>
+          <Form>
+            <Input
+              label="Поточний пароль"
+              placeholder="введи свій пароль"
+              type={InputType.PASSWORD}
+              name="oldPassword"
+              isSuccessOnDefault={true}
             />
-          </Box>
-        </Form>
+            {errors.oldPassword === 'Введений пароль недійсний' && (
+              <Typography variant="body1">
+                Забули пароль? Щоб відновити, перейдіть за{' '}
+                <CustomLink
+                  href="/password-recovery"
+                  type={CustomLinkType.BLUE}
+                  text="посиланням"
+                />
+              </Typography>
+            )}
+            <Input
+              label="Новий пароль"
+              placeholder="придумай новий пароль"
+              type={InputType.PASSWORD}
+              name="newPassword"
+              disabled={!!errors.oldPassword}
+              isSuccessOnDefault={true}
+            />
+            <Input
+              label="Підтвердження паролю"
+              placeholder="підтверди новий пароль"
+              type={InputType.PASSWORD}
+              name="confirmationPassword"
+              disabled={!!errors.oldPassword || !!errors.newPassword}
+              isSuccessOnDefault={true}
+            />
+            <Box sx={styles.confirmButton}>
+              <Button
+                text="Оновити пароль"
+                startIcon={<CustomCheck />}
+                size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
+                type="submit"
+                disabled={!isValid}
+                sx={styles.changePasswordButton}
+              />
+            </Box>
+          </Form>
+        </Box>
       )}
     </Formik>
   );

@@ -1,4 +1,5 @@
 import React, { FC, useCallback } from 'react';
+import { Box, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
@@ -13,7 +14,7 @@ import {
   initialValues,
   validationSchema,
 } from '@/components/pages/account-page/components/general-tab/components/contacts-block/constants';
-import styles from '@/components/pages/account-page/components/general-tab/GeneralTab.module.scss';
+import * as styles from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
@@ -48,9 +49,8 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
     [refetchContacts, toast, user.id],
   );
 
-  //TODO refactor this
   return (
-    <div className={styles['add-social-links-container']}>
+    <Box sx={styles.addSocialLinksContainer}>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}
@@ -88,7 +88,7 @@ const ContactForm: FC<ContactFormProps> = ({ refetchContacts }) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </Box>
   );
 };
 
