@@ -1,8 +1,12 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useQuery } from 'react-query';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
+import Divider from '@/components/common/ui/divider';
+import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import Progress from '@/components/common/ui/progress';
+import * as stylesMui from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
+import { groupDivider } from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
 import RequestsTable from '@/components/pages/account-page/components/group-tab/components/table/requests-table';
 import StudentsTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';
@@ -14,6 +18,8 @@ import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { PendingStudent } from '@/types/student';
 import { User, UserGroupRole, UserGroupState } from '@/types/user';
+
+import * as styles from './GroupTab.styles';
 
 const getStudents = async (user: User) => {
   const groupId = user.group?.id as string;
@@ -44,14 +50,7 @@ const GroupTab: FC = () => {
 
   if (isLoading)
     return (
-      <Box
-        sx={{
-          //TODO move inline styles when refactor
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <Box sx={styles.progress}>
         <Progress />
       </Box>
     );
@@ -63,12 +62,16 @@ const GroupTab: FC = () => {
     return <NoGroupBlock />;
 
   if (!data || !user?.group || !user?.group.role) return null;
-  //TODO refactor this
   return (
-    <div>
-      <div>
-        <h4>Список групи {user.group.code}</h4>
-      </div>
+    <Box>
+      <Box>
+        <Typography variant="h4">Список групи {user.group.code}</Typography>
+        <Divider
+          sx={stylesMui.groupDivider}
+          textAlign={DividerTextAlign.LEFT}
+          text={`Студенти`}
+        />
+      </Box>
       {showRequests && (
         <RequestsTable
           refetch={refetch}
@@ -82,7 +85,7 @@ const GroupTab: FC = () => {
           rows={transformStudentsData(data.students)}
         />
       }
-    </div>
+    </Box>
   );
 };
 

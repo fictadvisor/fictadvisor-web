@@ -27,8 +27,6 @@ const SecurityTab = () => {
     reload();
     await replace('/login');
   };
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
-
   return (
     <Box>
       <Box>
@@ -37,10 +35,10 @@ const SecurityTab = () => {
             text={'Зміна паролю'}
             textAlign={DividerTextAlign.LEFT}
           ></Divider>
-
           <ChangePasswordForm />
         </Box>
         <Divider
+          sx={styles.divider}
           text={'Юзернейм і пошта'}
           textAlign={DividerTextAlign.LEFT}
         ></Divider>
@@ -59,13 +57,13 @@ const SecurityTab = () => {
             value={user.email}
           />
         </Box>
-        <Divider></Divider>
-
+        <Divider sx={styles.divider}></Divider>
         <Button
+          sx={styles.exitButton}
           text={'Вийти з акаунту'}
           variant={ButtonVariant.FILLED}
           color={ButtonColor.SECONDARY}
-          size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
+          size={ButtonSize.MEDIUM}
           onClick={handleLogout}
         />
       </Box>

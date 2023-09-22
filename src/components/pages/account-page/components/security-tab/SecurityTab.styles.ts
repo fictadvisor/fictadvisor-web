@@ -7,6 +7,10 @@ export const container: SxProps<Theme> = {
   width: '100%',
 };
 
+export const divider: SxProps<Theme> = {
+  paddingBottom: '20px',
+};
+
 export const buttonContainer: SxProps<Theme> = {
   width: '20%',
   marginBottom: '54px',
@@ -23,8 +27,7 @@ export const button: SxProps<Theme> = {
     padding: '8px 29px',
   },
 };
-export const inputForm: SxProps<Theme> = {
-  marginTop: '30px',
+export const formContainer: SxProps<Theme> = {
   width: '40%',
   minWidth: '400px',
   [theme.breakpoints.down('mobile')]: { width: '100%', minWidth: '0' },
@@ -33,10 +36,9 @@ export const input: SxProps<Theme> = {
   marginTop: '18px',
 };
 export const confirmButton: SxProps<Theme> = {
-  width: '60%',
-  margin: '16px 0 30px 0',
+  width: { mobile: '60%', desktop: 'fit-content' },
+  margin: '32px 0 34px 0',
   [theme.breakpoints.down('desktopSemiMedium')]: {
-    width: '50%',
     display: 'block',
   },
 };
@@ -47,11 +49,16 @@ export const changePasswordButton: SxProps<Theme> = {
   },
 };
 export const userInformation: SxProps<Theme> = {
-  marginTop: '30px',
-  width: '40%',
+  marginTop: '0px',
+  width: { mobile: '40%', desktop: 'fit-content' },
   minWidth: '400px',
   div: {
-    marginBottom: '30px',
+    marginBottom: '16px',
   },
   [theme.breakpoints.down('mobile')]: { width: '100%', minWidth: '0' },
+};
+
+export const exitButton: SxProps<Theme> = {
+  width: { mobile: '60%', desktop: 'fit-content' },
+  margin: '24px 0 38px 0',
 };
