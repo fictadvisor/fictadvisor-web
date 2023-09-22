@@ -28,8 +28,8 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
   const router = useRouter();
   const email = String(router.query.email).toLowerCase();
   const emailText = email
-    ? `Ми надіслали листа для зміни пароля на адресу ${email}`
-    : 'Ми надіслали листа для зміни пароля';
+    ? `Ми надіслали листа для підтвердження на адресу ${email}`
+    : `Ми надіслали листа для зміни пароля на адресу ${email}`;
   const returnRegister = () => {
     void router.push('/register');
   };
@@ -69,7 +69,11 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
           variant={AlertVariant.DARKER}
         />
         <Button
-          text="Повернутись до авторизації"
+          text={
+            apiMethodName === 'forgotPassword'
+              ? 'Повернутись до авторизації'
+              : 'Повернутись до введення даних'
+          }
           variant={ButtonVariant.TEXT}
           size={ButtonSize.SMALL}
           startIcon={<ChevronLeftIcon />}
