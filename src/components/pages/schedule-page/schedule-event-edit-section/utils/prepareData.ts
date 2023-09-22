@@ -11,14 +11,15 @@ export const prepareData = (
     const key = _key as keyof SharedEventBody;
     if (
       JSON.stringify(dataFromForm[key]) === JSON.stringify(initialData[key]) &&
-      key !== 'teachers'
-      //   &&
-      // key !== 'startTime' &&
-      // key !== 'endTime'
+      key !== 'teachers' &&
+      key !== 'startTime' &&
+      key !== 'endTime'
     ) {
-      finalData[key] = undefined;
+      delete finalData[key];
     }
   }
+
+  if (finalData.disciplineType?.length === 0) finalData.disciplineType = null;
 
   finalData.changeStartDate =
     new Date(initialData.startTime as string).toDateString() !==
