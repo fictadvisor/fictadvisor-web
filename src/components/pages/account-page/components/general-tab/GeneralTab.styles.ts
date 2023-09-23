@@ -22,7 +22,6 @@ export const form: SxProps<Theme> = {
 export const avatar: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
-  width: { mobile: '50%', desktopSemiMedium: '100%' },
   height: { mobile: '50%', desktopSemiMedium: '100%' },
   marginBottom: { mobile: '16px', desktopSemiMedium: '16px' },
   marginTop: { mobile: '6px', desktopSemiMedium: '0' },
@@ -30,9 +29,12 @@ export const avatar: SxProps<Theme> = {
   img: {
     maxWidth: { mobile: '136px' },
     maxHeight: { mobile: '136px' },
-    width: { mobile: '50%', desktopSemiMedium: 'auto' },
-    height: { mobile: '50%', desktopSemiMedium: '50%' },
     borderRadius: '100%',
+    cursor: 'pointer',
+  },
+
+  input: {
+    display: 'none',
   },
 };
 

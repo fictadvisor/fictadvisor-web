@@ -95,6 +95,14 @@ class UserAPI {
     );
     return data;
   }
+
+  async changeAvatar(userId: string, avatar: FormData) {
+    const { data } = await client.patch(`/users/${userId}/avatar`, {
+      ...getAuthorizationHeader(),
+      params: { avatar },
+    });
+    return data;
+  }
 }
 
 export default new UserAPI();
