@@ -8,7 +8,7 @@ import { Form, Formik } from 'formik';
 
 import Button from '@/components/common/ui/button-mui/';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
-import { NumberedTextArea } from '@/components/common/ui/form';
+import FormikNumberedTextArea from '@/components/common/ui/form/with-formik/numbered-text-area';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 import { initialValues } from '@/components/pages/account-page/components/group-tab/components/text-area-popup/constants';
@@ -32,7 +32,7 @@ export const TextAreaPopup: React.FC<TextAreaPopup> = ({
   return (
     <Backdrop
       open={true}
-      sx={{ zIndex: 11 }}
+      sx={styles.backDrop}
       ref={backDropRef}
       onClick={handleClick}
     >
@@ -57,7 +57,7 @@ export const TextAreaPopup: React.FC<TextAreaPopup> = ({
         >
           {({ isValid }) => (
             <Form>
-              <NumberedTextArea name="textArea" />
+              <FormikNumberedTextArea name="textArea" />
               <Button
                 sx={styles.button}
                 startIcon={<PlusIcon className="icon" />}
