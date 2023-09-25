@@ -62,7 +62,7 @@ const PersonalInfoBlock: FC = () => {
                 startIcon={<CustomCheck />}
                 size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                 type="submit"
-                sx={isMobile && styles.buttonPadding}
+                sx={isMobile ? styles.buttonPadding : {}}
                 disabled={!isValid || objectsEqual(initialValues, values)}
               />
             </Box>
