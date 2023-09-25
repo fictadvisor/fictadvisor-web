@@ -56,10 +56,9 @@ const NoGroupBlock: FC = () => {
             />
           </Box>
           <Box>
-            <Box sx={muiStyles.divisionWhite}></Box>
+            <Box sx={muiStyles.divisionWhite} />
             <Typography variant="h4">Або виберіть іншу групу</Typography>
-            <Box sx={muiStyles.divisionWhite}></Box>
-            <Box></Box>
+            <Box sx={muiStyles.divisionWhite} />
           </Box>
         </>
       ) : (

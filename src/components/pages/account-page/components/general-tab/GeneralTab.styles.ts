@@ -1,5 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
+import theme from '@/styles/theme';
+
 export const container: SxProps<Theme> = {
   display: 'flex',
   width: '100%',
@@ -70,7 +72,7 @@ export const contactItem: SxProps<Theme> = {
 };
 
 export const addSocialLinksContainer: SxProps<Theme> = {
-  border: '2px solid $background-dark-35',
+  border: `2px solid ${theme.palette.backgroundDark[300]}`,
   padding: '26px 25px',
   marginBottom: '55px',
   borderRadius: '6px',

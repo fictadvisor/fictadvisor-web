@@ -1,13 +1,13 @@
 export enum AccountPageTab {
-  GENERAL = 'general',
-  SECURITY = 'security',
-  GROUP = 'group',
-  SELECTIVE = 'selective',
+  GENERAL = 'GROUP',
+  SECURITY = 'SECURITY',
+  GROUP = 'GENERAL',
+  SELECTIVE = 'SELECTIVE',
 }
 
 export enum AccountPagesMapper {
-  group = 'Група',
-  security = 'Безпека',
-  general = 'Загальне',
-  selective = 'Мої вибіркові',
+  GROUP = 'Група',
+  SECURITY = 'Безпека',
+  GENERAL = 'Загальне',
+  SELECTIVE = 'Мої вибіркові',
 }

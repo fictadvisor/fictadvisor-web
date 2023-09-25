@@ -35,9 +35,6 @@ const OpenedSelective: FC<OpenedSelectiveProps> = ({
     { refetchOnWindowFocus: false },
   );
 
-  // TODO: refactor this shit
-
-  //what refactor???
   const handleSubmit = async (data: { [key: string]: boolean }) => {
     await UserAPI.postSelectiveDisciplines(user.id, transformData(data));
     onSubmit();
