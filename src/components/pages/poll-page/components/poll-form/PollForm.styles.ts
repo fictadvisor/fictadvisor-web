@@ -11,7 +11,7 @@ export const wrapper: SxProps<Theme> = {
   },
   padding: {
     mobile: '0',
-    desktop: '36px 188px 80px 60px',
+    desktop: '36px 25px 80px 60px',
   },
 };
 export const successWrapper: SxProps<Theme> = {

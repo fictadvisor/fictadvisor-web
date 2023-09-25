@@ -4,28 +4,13 @@ import theme from '@/styles/theme';
 
 export const wrapper: SxProps<Theme> = {
   width: '632px',
-  marginLeft: '124px',
+  paddingLeft: {
+    desktopSemiMedium: '124px',
+    desktop: '30px',
+  },
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-
-  '@media screen and (max-width: 1600px)': {
-    maxWidth: '800px',
-    width: '800px',
-  },
-
-  '@media screen and (max-width: 1500px)': {
-    maxWidth: '700px',
-    width: '700px',
-  },
-
-  '@media screen and (max-width: 1400px)': {
-    maxWidth: '500px',
-  },
-
-  '@media screen and (max-width: 1280px)': {
-    width: '360px',
-  },
 
   [theme.breakpoints.down('desktop')]: {
     maxWidth: '100vw',
@@ -130,6 +115,5 @@ export const button: SxProps<Theme> = {
 
 export const questionName: SxProps<Theme> = {
   width: 'fit-content',
-  fontSize: '14px',
-  fontWeight: 'bold',
+  typography: theme.typography.body1Bold,
 };

@@ -58,6 +58,7 @@ export const paragraph: SxProps<Theme> = {
 
 export const buttons: SxProps<Theme> = {
   display: 'flex',
+  gap: '30px',
   width: '100%',
   justifyContent: 'center',
   [theme.breakpoints.down('desktop')]: {
@@ -66,29 +67,7 @@ export const buttons: SxProps<Theme> = {
   },
 };
 
-export const toOtherPolls: SxProps<Theme> = {
-  display: 'flex',
-  justifyContent: 'center',
-  marginRight: '16px',
-  height: '48px',
-  borderRadius: '8px',
-  width: '308px',
-  [theme.breakpoints.down('desktop')]: {
-    width: '100%',
-    marginRight: 0,
-    marginBottom: '20px',
-  },
-
-  [theme.breakpoints.down('tablet')]: {
-    width: '328px',
-  },
-
-  [theme.breakpoints.down('mobileSemiMedium')]: {
-    width: '100%',
-  },
-};
-
-export const toMain: SxProps<Theme> = {
+export const button: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
   height: '48px',

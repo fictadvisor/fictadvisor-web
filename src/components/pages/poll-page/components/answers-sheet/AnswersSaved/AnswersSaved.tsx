@@ -24,13 +24,13 @@ const AnswersSaved = () => {
         </Typography>
         <Box sx={styles.buttons}>
           <Button
-            sx={styles.toOtherPolls}
+            sx={styles.button}
             text={'Пройти нове опитування'}
             type="submit"
             onClick={() => router.push('/poll')}
           />
           <Button
-            sx={styles.toMain}
+            sx={styles.button}
             text={'Повернутись на головну'}
             type="submit"
             variant={ButtonVariant.OUTLINE}

@@ -14,15 +14,10 @@ interface QuestionListProps {
 }
 
 function checkIfAllZeros(arr: number[]) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] !== 0) {
-      return false;
-    }
-  }
-  return true;
+  return arr.every(num => num === 0);
 }
 
-function uniteArrs(arg1: number[], arg2: number[]): number[] {
+function mergeArrays(arg1: number[], arg2: number[]): number[] {
   const result: number[] = [];
 
   for (let i = 0; i < arg1.length; i++) {
@@ -47,12 +42,12 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
     const localStorageProgress = localStorage.getItem('progressPoll');
     if (localStorageProgress) {
       setFilterProgress(
-        uniteArrs(JSON.parse(localStorageProgress).progress, progress),
+        mergeArrays(JSON.parse(localStorageProgress).progress, progress),
       );
     }
 
     if (!checkIfAllZeros(progress)) {
-      const currentProgress = uniteArrs(filterProgress, progress);
+      const currentProgress = mergeArrays(filterProgress, progress);
       setFilterProgress(currentProgress);
       localStorage.setItem(
         'progressPoll',
@@ -60,6 +55,11 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
       );
     }
   }, [progress]);
+
+  const handleClick = (id: number) => {
+    if (currentCategory !== id) setCurrentCategory(id);
+    setQuestionsListOpened(false);
+  };
 
   return (
     <Box sx={styles.wrapper}>
@@ -79,8 +79,7 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
             numberOfAnswered={filterProgress[id]}
             isActive={currentCategory === id}
             onClick={() => {
-              if (currentCategory !== id) setCurrentCategory(id);
-              setQuestionsListOpened(false);
+              handleClick(id);
             }}
           />
         </Box>

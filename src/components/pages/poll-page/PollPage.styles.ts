@@ -12,7 +12,6 @@ export const pollPage: SxProps<Theme> = {
 
 export const pollPageContent: SxProps<Theme> = {
   display: 'flex',
-  flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',

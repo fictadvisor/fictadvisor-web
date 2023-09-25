@@ -50,7 +50,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
       : `Питання ${id + 1} / ${count}`;
 
   return (
-    // className={styles['question']
     <Box key={question.id}>
       <Typography component="p" sx={styles.questionNumber}>
         {questionNumber}
@@ -70,11 +69,7 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
         <QuestionToggle question={question} id={id} />
       )}
       {question.type === QuestionType.TEXT && (
-        <TextArea
-          rowsNumber={numberRowsTextArea}
-          // sx={styles.textArea}
-          name={question.id}
-        />
+        <TextArea rowsNumber={numberRowsTextArea} name={question.id} />
       )}
       {question.criteria && (
         <Typography component="p" sx={styles.questionCriteria}>

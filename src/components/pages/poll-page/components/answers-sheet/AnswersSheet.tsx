@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useMemo } from 'react';
+import React, { FormEvent, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
@@ -44,7 +44,7 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 
   for (const [valueId, value] of Object.entries(values)) {
     const existingAnswer = resultAnswersMap.get(valueId);
-    if (existingAnswer !== undefined) {
+    if (existingAnswer) {
       existingAnswer.value = value;
     } else {
       resultAnswersMap.set(valueId, { value, questionId: valueId });
@@ -83,7 +83,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
-  // Load initialValues from localStorage or set defaults
   const initialValues: Record<string, string> = useMemo(() => {
     const localStorageAnswers = localStorage.getItem('formikPoll');
     return localStorageAnswers
@@ -200,7 +199,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                 setQuestionsListOpened(true);
               }}
             >
-              <ChevronLeftIcon style={{ height: '20px' }} />
+              <ChevronLeftIcon height="20px" />
               <Typography sx={sxStyles.questionName}>
                 {currentCategory + 1} . {currentQuestions?.name}
               </Typography>
@@ -211,7 +210,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                 validateOnMount
                 validateOnChange
                 initialValues={initialValues}
-                enableReinitialize
                 onSubmit={handleSubmit}
               >
                 {({ values }) => (
