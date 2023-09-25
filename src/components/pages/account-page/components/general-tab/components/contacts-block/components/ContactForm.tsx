@@ -1,6 +1,10 @@
 import React, { FC, useCallback } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { Form, Formik } from 'formik';
+import {
+  initialValues,
+  validationSchema,
+} from 'src/components/pages/account-page/components/general-tab/components/contacts-block/validation';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button';
@@ -10,10 +14,6 @@ import {
 } from '@/components/common/ui/button-mui/types';
 import { Input, InputSize } from '@/components/common/ui/form';
 import FormikDropdown from '@/components/common/ui/form/with-formik/dropdown';
-import {
-  initialValues,
-  validationSchema,
-} from '@/components/pages/account-page/components/general-tab/components/contacts-block/constants';
 import * as styles from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';

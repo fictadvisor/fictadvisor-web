@@ -27,46 +27,35 @@ const SecurityTab = () => {
     await replace('/login');
   };
   return (
-    <Box>
+    <>
       <Box>
-        <Box>
-          <Divider
-            text={'Зміна паролю'}
-            textAlign={DividerTextAlign.LEFT}
-          ></Divider>
-          <ChangePasswordForm />
-        </Box>
-        <Divider
-          sx={styles.divider}
-          text={'Юзернейм і пошта'}
-          textAlign={DividerTextAlign.LEFT}
-        ></Divider>
-
-        <Box sx={styles.userInformation}>
-          <Input
-            readOnly
-            onChange={() => {}}
-            label="Юзернейм"
-            value={user.username}
-          />
-          <Input
-            readOnly
-            onChange={() => {}}
-            label="Пошта"
-            value={user.email}
-          />
-        </Box>
-        <Divider sx={styles.divider}></Divider>
-        <Button
-          sx={styles.exitButton}
-          text={'Вийти з акаунту'}
-          variant={ButtonVariant.FILLED}
-          color={ButtonColor.SECONDARY}
-          size={ButtonSize.MEDIUM}
-          onClick={handleLogout}
-        />
+        <Divider text={'Зміна паролю'} textAlign={DividerTextAlign.LEFT} />
+        <ChangePasswordForm />
       </Box>
-    </Box>
+      <Divider
+        sx={styles.divider}
+        text={'Юзернейм і пошта'}
+        textAlign={DividerTextAlign.LEFT}
+      />
+      <Box sx={styles.userInformation}>
+        <Input
+          readOnly
+          onChange={() => {}}
+          label="Юзернейм"
+          value={user.username}
+        />
+        <Input readOnly onChange={() => {}} label="Пошта" value={user.email} />
+      </Box>
+      <Divider sx={styles.divider} />
+      <Button
+        sx={styles.exitButton}
+        text={'Вийти з акаунту'}
+        variant={ButtonVariant.FILLED}
+        color={ButtonColor.SECONDARY}
+        size={ButtonSize.MEDIUM}
+        onClick={handleLogout}
+      />
+    </>
   );
 };
 
