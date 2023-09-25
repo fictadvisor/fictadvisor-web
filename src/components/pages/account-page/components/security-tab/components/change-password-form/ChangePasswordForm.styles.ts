@@ -19,8 +19,8 @@ export const confirmButton: SxProps<Theme> = {
   },
 };
 export const changePasswordButton: SxProps<Theme> = {
-  fontSize: '16px',
+  typography: theme.typography.body2,
   [theme.breakpoints.down('desktopSemiMedium')]: {
-    fontSize: '14px',
+    typography: theme.typography.body1,
   },
 };

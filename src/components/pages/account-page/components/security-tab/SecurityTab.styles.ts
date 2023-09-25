@@ -12,7 +12,7 @@ export const divider: SxProps<Theme> = {
 };
 
 export const button: SxProps<Theme> = {
-  padding: '12px 44.5px',
+  padding: '12px 45px',
 
   [theme.breakpoints.down('desktopSemiMedium')]: {
     padding: '8px 29px',
