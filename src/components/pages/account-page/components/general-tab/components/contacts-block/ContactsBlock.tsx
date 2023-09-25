@@ -15,7 +15,7 @@ import useAuthentication from '@/hooks/use-authentication';
 import UserAPI from '@/lib/api/user/UserAPI';
 import theme from '@/styles/theme';
 
-import * as styles from '../../GeneralTab.styles';
+import * as styles from './ContactsBlock.styles';
 
 const ContactsBlock: FC = () => {
   const [isOpened, setIsOpened] = useState(false);
@@ -30,8 +30,6 @@ const ContactsBlock: FC = () => {
   const contacts = data?.contacts || [];
   const handleClick = () => setIsOpened(!isOpened);
 
-  //TODO refactor this
-  //TODO check if we haven`t contacts
   return (
     <>
       <Box sx={styles.contactItemContainer}>

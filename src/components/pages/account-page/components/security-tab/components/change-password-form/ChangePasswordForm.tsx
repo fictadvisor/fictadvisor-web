@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
-import { AxiosError } from 'axios';
-import { Form, Formik, FormikHelpers } from 'formik';
+import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
 import { CustomCheck } from '@/components/common/icons/CustomCheck';
@@ -12,12 +11,12 @@ import { CustomLinkType } from '@/components/common/ui/custom-link/types';
 import { InputType } from '@/components/common/ui/form/input-mui/types';
 import Input from '@/components/common/ui/form/with-formik/input';
 import useToast from '@/hooks/use-toast';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
 import theme from '@/styles/theme';
 
-import * as styles from '../../SecurityTab.styles';
-
+import * as styles from './ChangePasswordForm.styles';
 import { initialValues } from './constants';
 import { ChangePasswordFormFields } from './types';
 import { validationSchema } from './validation';
@@ -26,10 +25,8 @@ const ChangePasswordForm = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const router = useRouter();
   const toast = useToast();
-  const handleSubmit = async (
-    data: ChangePasswordFormFields,
-    { setErrors }: FormikHelpers<ChangePasswordFormFields>,
-  ) => {
+  const { displayError } = useToastError();
+  const handleSubmit = async (data: ChangePasswordFormFields) => {
     try {
       const { accessToken, refreshToken } = await AuthAPI.changePassword({
         oldPassword: data.oldPassword,
@@ -39,21 +36,7 @@ const ChangePasswordForm = () => {
       toast.success('Пароль успішно змінено');
       router.reload();
     } catch (error) {
-      // TODO: refactor this shit
-      const name = (error as AxiosError<{ error: string }>).response?.data
-        .error;
-      if (name === 'PasswordRepeatException') {
-        setErrors({
-          oldPassword: 'Не можна встановлювати пароль, ідентичний існуючому',
-          newPassword: 'Не можна встановлювати пароль, ідентичний існуючому',
-          confirmationPassword:
-            'Не можна встановлювати пароль, ідентичний існуючому',
-        });
-      } else if (name === 'Unauthorized') {
-        setErrors({
-          oldPassword: 'Введений пароль недійсний',
-        });
-      }
+      displayError(error);
     }
   };
 

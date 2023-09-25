@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/common/ui/button-mui';
@@ -14,7 +14,6 @@ import Input from '@/components/common/ui/form/input-mui';
 import ChangePasswordForm from '@/components/pages/account-page/components/security-tab/components/change-password-form';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth';
-import theme from '@/styles/theme';
 
 import * as styles from './SecurityTab.styles';
 

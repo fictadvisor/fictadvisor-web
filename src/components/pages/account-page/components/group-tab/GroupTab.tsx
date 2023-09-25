@@ -6,7 +6,6 @@ import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import Progress from '@/components/common/ui/progress';
 import * as stylesMui from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
-import { groupDivider } from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
 import RequestsTable from '@/components/pages/account-page/components/group-tab/components/table/requests-table';
 import StudentsTable from '@/components/pages/account-page/components/group-tab/components/table/student-table';

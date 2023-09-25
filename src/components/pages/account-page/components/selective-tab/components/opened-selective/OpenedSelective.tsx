@@ -36,6 +36,8 @@ const OpenedSelective: FC<OpenedSelectiveProps> = ({
   );
 
   // TODO: refactor this shit
+
+  //what refactor???
   const handleSubmit = async (data: { [key: string]: boolean }) => {
     await UserAPI.postSelectiveDisciplines(user.id, transformData(data));
     onSubmit();
@@ -52,7 +54,7 @@ const OpenedSelective: FC<OpenedSelectiveProps> = ({
       {data && (
         <Box sx={styles.wrapper}>
           <Typography
-            variant="h6Bold"
+            variant="h6"
             sx={styles.text}
           >{`${semesterMap[semester]} семестр ${year}`}</Typography>
           {data.remainingSelective ? (
