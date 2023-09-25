@@ -9,19 +9,18 @@ import Input from '@/components/common/ui/form/with-formik/input';
 import { PersonalInfoForm } from '@/components/pages/account-page/components/general-tab/components/personal-info/types';
 import { validationSchema } from '@/components/pages/account-page/components/general-tab/components/personal-info/validation';
 import useAuthentication from '@/hooks/use-authentication';
-import useToast from '@/hooks/use-toast';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import UserAPI from '@/lib/api/user/UserAPI';
-import getErrorMessage from '@/lib/utils/getErrorMessage';
 import theme from '@/styles/theme';
 
-import * as styles from '../../GeneralTab.styles';
+import * as styles from './PersonalInfo.styles';
 
 const objectsEqual = (obj1: object, obj2: object) => {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 };
 const PersonalInfoBlock: FC = () => {
   const { user, update } = useAuthentication();
-  const toast = useToast();
+  const { displayError } = useToastError();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
 
   const initialValues: PersonalInfoForm = {
@@ -41,10 +40,7 @@ const PersonalInfoBlock: FC = () => {
       await UserAPI.changeInfo(user.id, data);
       await update();
     } catch (error) {
-      const message = getErrorMessage(error);
-      message
-        ? toast.error(message)
-        : toast.error('Щось пішло не так, спробуй пізніше!');
+      displayError(error);
     }
   };
   return (
@@ -66,7 +62,7 @@ const PersonalInfoBlock: FC = () => {
                 startIcon={<CustomCheck />}
                 size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
                 type="submit"
-                sx={isMobile ? { padding: '6px 12px' } : {}}
+                sx={isMobile ? styles.buttonPadding : {}}
                 disabled={!isValid || objectsEqual(initialValues, values)}
               />
             </Box>
