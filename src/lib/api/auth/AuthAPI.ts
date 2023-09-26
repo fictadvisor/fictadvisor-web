@@ -8,6 +8,7 @@ import { ResetPasswordBody } from '@/lib/api/auth/types/ResetPasswordBody';
 import { ResetPasswordResponse } from '@/lib/api/auth/types/ResetPasswordResponse';
 import { VerifyEmailBody } from '@/lib/api/auth/types/VerifyEmailBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
+import StorageUtil from '@/lib/utils/StorageUtil';
 import { TelegramUser } from '@/types/telegram';
 import { Tokens } from '@/types/tokens';
 import { User } from '@/types/user';
@@ -28,12 +29,14 @@ class AuthAPI {
     return data;
   }
 
-  async refreshAccessToken(refreshToken: string) {
-    const { data } = await client.patch<RefreshAccessTokenResponse>(
+  async refreshAccessToken(accessToken: string) {
+    const { data } = await client.post<RefreshAccessTokenResponse>(
       '/auth/refresh',
-      null,
+      { accessToken },
       {
-        headers: { Authorization: `Bearer ${refreshToken}` },
+        headers: {
+          Authorization: `Bearer ${StorageUtil.getTokens()?.refreshToken}`,
+        },
       },
     );
     return data;

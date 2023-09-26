@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
+import dayjs from 'dayjs';
 
 import Button from '@/components/common/ui/button-mui';
 import {
@@ -15,11 +16,12 @@ import {
 } from '@/components/common/ui/icon-button';
 import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
+import { MAX_WEEK_NUMBER } from '@/components/pages/schedule-page/constants';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';
 import { GetEventBody } from '@/lib/api/schedule/types/GetEventBody';
 import { transformEvents } from '@/lib/api/schedule/utils/transformEvents';
 import { useSchedule } from '@/store/schedule/useSchedule';
-import { getLastDayOfAWeek } from '@/store/schedule/utils/getLastDayOfAWeek';
+import { getFirstDayOfAWeek } from '@/store/schedule/utils/getFirstDayOfAWeek';
 
 import * as styles from './ScheduleHeader.styles';
 
@@ -57,24 +59,21 @@ const ScheduleHeader = () => {
     currentTime: state.currentTime,
     loading: state.isLoading,
   }));
-  const [prevButton, setPrevButton] = useState(false);
-  const [nextButton, setNextButton] = useState(false);
 
   const updateWeek = (amount: number) => {
     const newWeek = week + amount;
-    setChosenDay(getLastDayOfAWeek(semester as GetCurrentSemester, newWeek));
+    if (newWeek < 1 || newWeek > MAX_WEEK_NUMBER) return;
+
+    setChosenDay(getFirstDayOfAWeek(semester as GetCurrentSemester, newWeek));
   };
 
-  useEffect(() => {
-    week === 1 ? setPrevButton(true) : setPrevButton(false);
-    week === 20 ? setNextButton(true) : setNextButton(false);
-  }, [week]);
-
-  const monthNumber = useMemo(() => {
+  const month = useMemo(() => {
     if (!eventsBody[week - 1]) return null;
-    return transformEvents(
-      eventsBody[week - 1] as GetEventBody,
-    ).days[0].day.getMonth();
+    return monthMapper[
+      transformEvents(
+        eventsBody[week - 1] as GetEventBody,
+      ).days[0].day.getMonth()
+    ];
   }, [eventsBody, week]);
 
   const days = useMemo(() => {
@@ -83,17 +82,19 @@ const ScheduleHeader = () => {
   }, [eventsBody, week]);
 
   const handleClick = () => {
-    if (new Date(semester?.endDate as string).getTime() > currentTime.getTime())
+    if (
+      dayjs(semester?.endDate as string)
+        .tz()
+        .valueOf() > currentTime.valueOf()
+    )
       setChosenDay(currentTime);
-    else setChosenDay(new Date(semester?.endDate as string));
+    else setChosenDay(dayjs(semester?.endDate as string).tz());
   };
 
   return (
     <Box sx={styles.wrapper}>
       <Box sx={styles.date}>
-        {monthNumber && (
-          <Typography sx={styles.month}>{monthMapper[monthNumber]}</Typography>
-        )}
+        {month && <Typography sx={styles.month}>{month}</Typography>}
         {loading && (
           <Skeleton
             width={140}
@@ -105,7 +106,7 @@ const ScheduleHeader = () => {
         )}
         <Box sx={styles.weekWrapper}>
           <IconButton
-            disabled={prevButton}
+            disabled={week === 1}
             sx={styles.button}
             size={IconButtonSize.LARGE}
             shape={IconButtonShape.SQUARE}
@@ -117,7 +118,7 @@ const ScheduleHeader = () => {
           <Typography sx={styles.week}>{week} тиждень</Typography>
 
           <IconButton
-            disabled={nextButton}
+            disabled={week === MAX_WEEK_NUMBER}
             sx={styles.button}
             size={IconButtonSize.LARGE}
             shape={IconButtonShape.SQUARE}
@@ -125,7 +126,7 @@ const ScheduleHeader = () => {
             icon={<ChevronRightIcon />}
             onClick={() => updateWeek(1)}
           />
-          {currentTime.toDateString() !== chosenDay?.toDateString() && (
+          {currentTime.toString() !== chosenDay?.toString() && (
             <Button
               text={'Сьогодні'}
               sx={{ width: 'min-content' }}
@@ -142,9 +143,7 @@ const ScheduleHeader = () => {
           <Box sx={styles.column} key={i}>
             <Typography
               sx={styles.dayName(
-                days[i]
-                  ? days[i].day.toDateString() === currentTime?.toDateString()
-                  : false,
+                days[i] ? dayjs(days[i].day).isSame(currentTime) : false,
               )}
             >
               {dayName}
@@ -152,9 +151,8 @@ const ScheduleHeader = () => {
             {days[i] && (
               <Typography
                 sx={styles.dayNumber(
-                  days[i]
-                    ? days[i].day.toDateString() === currentTime?.toDateString()
-                    : false,
+                  dayjs(days[i].day).tz().isSame(currentTime, 'day'),
+                  dayjs(days[i].day).tz().isSame(chosenDay, 'day'),
                 )}
               >
                 {days[i].day.getDate()}
