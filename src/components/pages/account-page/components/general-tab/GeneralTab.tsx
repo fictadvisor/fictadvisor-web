@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import { Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
@@ -84,12 +85,10 @@ const GeneralTab: FC = () => {
         <Box sx={stylesMui.avatar}>
           <label htmlFor="avatar">
             <img src={avatarUrl} alt="avatar" />
-            <input
-              type="file"
-              id="avatar"
-              onChange={handleFileChange}
-              style={{ display: 'none' }}
-            />
+            <input type="file" id="avatar" onChange={handleFileChange} />
+            <Box>
+              <PencilIcon />
+            </Box>
           </label>
         </Box>
         <Button
