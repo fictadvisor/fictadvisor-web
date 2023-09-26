@@ -3,23 +3,23 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
-import * as yup from 'yup';
-import { AnyObject, StringSchema } from 'yup';
 
 import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
+import { createValidationSchema } from '@/components/pages/poll-page/components/answers-sheet/validation';
 import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import SingleQuestion from '@/components/pages/poll-page/components/single-question/SingleQuestion';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { usePollStore } from '@/store/poll-page/usePollStore';
-import { Answer, Category, Question, QuestionType } from '@/types/poll';
+import { Answer, Question, QuestionType } from '@/types/poll';
 
 import * as sxStyles from './AnswerSheet.style';
 import AnswersSaved from './AnswersSaved';
 
 import styles from './AnswersSheet.module.scss';
+
 interface AnswersSheetProps {
   setProgress: React.Dispatch<React.SetStateAction<number[]>>;
   isTheLast: boolean;
@@ -95,20 +95,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
           }, {} as Record<string, string>);
   }, []);
 
-  const createValidationSchema = (currentQuestions: Category) => {
-    const validationSchemaObject: Record<
-      string,
-      yup.StringSchema<string | undefined, AnyObject, undefined, ''>
-    > = {};
-
-    currentQuestions?.questions.forEach((question: Question) => {
-      validationSchemaObject[question.id] = yup
-        .string()
-        .min(4, 'Текст повинен містити не менше 4 символів');
-    });
-
-    return yup.object().shape(validationSchemaObject);
-  };
   const handleFormEvent = (
     event: FormEvent<HTMLFormElement>,
     values: Record<string, string>,
@@ -206,7 +192,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
             </Box>
             <Box sx={sxStyles.answersWrapper}>
               <Formik
-                validationSchema={createValidationSchema}
+                validationSchema={createValidationSchema(currentQuestions)}
                 validateOnMount
                 validateOnChange
                 initialValues={initialValues}
@@ -224,7 +210,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                   >
                     {currentQuestions?.questions.map((question, key) => (
                       <SingleQuestion
-                        key={key}
+                        key={question.id}
                         question={question}
                         id={key}
                         count={currentQuestions.count}
