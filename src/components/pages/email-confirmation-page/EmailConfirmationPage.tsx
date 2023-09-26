@@ -32,7 +32,7 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
     : `Ми надіслали листа для зміни пароля на адресу ${email}`;
   const returnRegister = () => {
     void router.push(
-      apiMethodName === 'forgotPassword' ? '/register' : '/login',
+      apiMethodName === 'forgotPassword' ? '/login' : '/register',
     );
   };
 
