@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
@@ -13,7 +13,9 @@ import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import ContactsBlock from '@/components/pages/account-page/components/general-tab/components/contacts-block/ContactsBlock';
 import PersonalInfoBlock from '@/components/pages/account-page/components/general-tab/components/personal-info';
 import * as stylesMui from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
+import { isValidFile } from '@/components/pages/account-page/components/general-tab/utils/isValidFile';
 import useAuthentication from '@/hooks/use-authentication';
+import useToast from '@/hooks/use-toast';
 import userAPI from '@/lib/api/user/UserAPI';
 import AuthService from '@/lib/services/auth';
 import theme from '@/styles/theme';
@@ -21,45 +23,47 @@ import theme from '@/styles/theme';
 const GeneralTab: FC = () => {
   const { user } = useAuthentication();
   const router = useRouter();
+  const toast = useToast();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
-  const [selectedFile, setSelectedFile] = useState<string | Blob>('');
-  const [avatarUrl, setAvatarUrl] = useState<string | undefined>('');
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(
+    //kostil
+    'https://apidev' + user.avatar.slice(11),
+  );
 
   const buttonText = user.telegramId
     ? 'Telegram під’єднано'
     : "Під'єднати Telegram";
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files) {
       const file = event.target.files[0];
-      setSelectedFile(file);
+
+      if (!isValidFile(file)) {
+        toast.error(
+          'Неправильне розширення файлу файлу',
+          'Підтримуванні розширення: .png, .jpg, .jpeg, .webp',
+          4000,
+        );
+        return;
+      }
+
+      if (file.size > 1.5 * 1024 * 1024) {
+        toast.error('Розмір файлу не повинен бути більше 1.5МБ', '', 4000);
+        return;
+      }
+
       const fileUrl = URL.createObjectURL(file);
       setAvatarUrl(fileUrl);
+
+      const formData = new FormData();
+      formData.append('avatar', file);
+      const res = await userAPI.changeAvatar(user.id, formData);
+      setAvatarUrl('https://apidev' + res.avatar.slice(11));
+      toast.success('Аватарка успішно змінена!', '', 4000);
     }
   };
-
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      console.error('No file selected.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', selectedFile);
-
-    try {
-      await userAPI.changeAvatar(user.id, formData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (user.avatar) {
-      console.log(user.avatar);
-      setAvatarUrl(user.avatar);
-    }
-  }, [user.avatar]);
 
   const handleConnectTelegram = () => {
     void AuthService.redirectToRegisterBot(router);
@@ -79,9 +83,14 @@ const GeneralTab: FC = () => {
       <Box sx={stylesMui.avatarAndTelegramInfo}>
         <Box sx={stylesMui.avatar}>
           <label htmlFor="avatar">
-            <img onClick={handleUpload} src={avatarUrl} alt="avatar" />
+            <img src={avatarUrl} alt="avatar" />
+            <input
+              type="file"
+              id="avatar"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
           </label>
-          <input type="file" id="avatar" onChange={handleFileChange} />
         </Box>
         <Button
           sx={stylesMui.telegramButton}

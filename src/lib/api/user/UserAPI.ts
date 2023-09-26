@@ -1,4 +1,5 @@
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
+import { ChangeAvatarResponse } from '@/lib/api/user/types/ChangeAvatarResponse';
 import { ChangeInfoBody } from '@/lib/api/user/types/ChangeInfoBody';
 import { GetContactsResponse } from '@/lib/api/user/types/GetContactsResponse';
 import { GetSelectiveDisciplinesBySemesterResponse } from '@/lib/api/user/types/GetSelectiveDisciplinesBySemesterResponse';
@@ -96,11 +97,12 @@ class UserAPI {
     return data;
   }
 
-  async changeAvatar(userId: string, avatar: FormData) {
-    const { data } = await client.patch(`/users/${userId}/avatar`, {
-      ...getAuthorizationHeader(),
-      params: { avatar },
-    });
+  async changeAvatar(userId: string, body: FormData) {
+    const { data } = await client.patch<ChangeAvatarResponse>(
+      `/users/${userId}/avatar`,
+      body,
+      getAuthorizationHeader(),
+    );
     return data;
   }
 }
