@@ -59,24 +59,25 @@ const GroupTab: FC = () => {
 
   if (!data || !user?.group || !user?.group.role) return null;
   return (
-    <>
-      <Box>
-        <Typography variant="h4">Список групи {user.group.code}</Typography>
-      </Box>
-      {showRequests && (
-        <RequestsTable
-          refetch={refetch}
-          rows={transformRequestsData(data.requests)}
-        />
-      )}
-      {
-        <StudentsTable
-          refetch={refetch}
-          role={user.group.role}
-          rows={transformStudentsData(data.students)}
-        />
-      }
-    </>
+    <NoGroupBlock />
+    // <>
+    //   <Box>
+    //     <Typography variant="h4">Список групи {user.group.code}</Typography>
+    //   </Box>
+    //   {showRequests && (
+    //     <RequestsTable
+    //       refetch={refetch}
+    //       rows={transformRequestsData(data.requests)}
+    //     />
+    //   )}
+    //   {
+    //     <StudentsTable
+    //       refetch={refetch}
+    //       role={user.group.role}
+    //       rows={transformStudentsData(data.students)}
+    //     />
+    //   }
+    // </>
   );
 };
 
