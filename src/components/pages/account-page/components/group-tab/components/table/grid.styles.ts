@@ -6,7 +6,7 @@ export const studentsGrid: SxProps<Theme> = {
   borderRadius: '6px',
   border: '1px solid',
   borderColor: 'grey.200',
-  mb: '58px',
+  mb: '28px',
 };
 export const row: SxProps<Theme> = {
   p: '12px 16px',

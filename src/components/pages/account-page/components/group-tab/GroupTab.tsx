@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import { useQuery } from 'react-query';
 import { Box, Typography } from '@mui/material';
 
-import Divider from '@/components/common/ui/divider';
-import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import Progress from '@/components/common/ui/progress';
 import NoGroupBlock from '@/components/pages/account-page/components/group-tab/components/no-group-block';
 import RequestsTable from '@/components/pages/account-page/components/group-tab/components/table/requests-table';
@@ -64,11 +62,6 @@ const GroupTab: FC = () => {
     <>
       <Box>
         <Typography variant="h4">Список групи {user.group.code}</Typography>
-        <Divider
-          sx={styles.groupDivider}
-          textAlign={DividerTextAlign.LEFT}
-          text={`Студенти`}
-        />
       </Box>
       {showRequests && (
         <RequestsTable

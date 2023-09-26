@@ -1,7 +1,7 @@
 export enum AccountPageTab {
-  GENERAL = 'GROUP',
+  GENERAL = 'GENERAL',
   SECURITY = 'SECURITY',
-  GROUP = 'GENERAL',
+  GROUP = 'GROUP',
   SELECTIVE = 'SELECTIVE',
 }
 
