@@ -13,6 +13,7 @@ import {
   ButtonVariant,
 } from '@/components/common/ui/button-mui/types';
 import useToast from '@/hooks/use-toast';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 
@@ -25,6 +26,7 @@ type EmailConfirmationPageProps = {
 const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
   apiMethodName,
 }) => {
+  const { displayError } = useToastError();
   const router = useRouter();
   const email = String(router.query.email).toLowerCase();
   const emailText =
@@ -43,7 +45,13 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
       await AuthAPI[apiMethodName]({ email });
     } catch (error) {
       const message = getErrorMessage(error);
-      toast.error(message || 'Щось пішло не так, спробуй пізніше!');
+      message
+        ? toast.error(message)
+        : toast.error('Щось пішло не так, спробуй пізніше!');
+      // const errorName =
+      //   (error as AxiosError<{ error: string }>).response?.data.error || '';
+      // toast.error(chooseMessageError(errorName, tries));
+      displayError(error);
     }
   };
 
