@@ -30,8 +30,8 @@ export const avatar: SxProps<Theme> = {
   borderRadius: '100%',
 
   img: {
-    maxWidth: { mobile: '100%' },
-    maxHeight: { mobile: '100%' },
+    width: 'fit-content',
+    height: '100%',
     borderRadius: '100%',
     cursor: 'pointer',
   },
@@ -40,33 +40,11 @@ export const avatar: SxProps<Theme> = {
     position: 'relative',
   },
 
-  div: {
-    display: 'none',
-    cursor: 'pointer',
-    width: { mobile: '24px', desktopSemiMedium: '100%' },
-    height: { mobile: '24px', desktopSemiMedium: '40%' },
-    opacity: { mobile: 1, desktopSemiMedium: '0.75' },
-    position: 'absolute',
-    border: {
-      mobile: '2px solid',
-      desktopSemiMedium: 'none',
-    },
-    color: 'backgroundDark.100',
-    borderRadius: { mobile: '100%', desktopSemiMedium: 0 },
-    top: { mobile: 0, desktopSemiMedium: 82 },
-    left: { mobile: 44, desktopSemiMedium: 0 },
-    transition: 'all 0.1s',
-  },
+  div: {},
 
-  '&:hover div': {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: { mobile: 'grey.300', desktopSemiMedium: 'grey.100' },
-  },
+  '&:hover div': {},
 
-  '&:active div': {
-    backgroundColor: { mobile: 'primary.200', desktopSemiMedium: 'grey.50' },
-  },
+  '&:active div': {},
 
   svg: {
     color: 'grey.800',
@@ -78,6 +56,34 @@ export const avatar: SxProps<Theme> = {
 
   input: {
     display: 'none',
+  },
+};
+
+export const changeAvatarButton: SxProps<Theme> = {
+  display: 'none',
+  cursor: 'pointer',
+  width: { mobile: '24px', desktopSemiMedium: '100%' },
+  height: { mobile: '24px', desktopSemiMedium: '40%' },
+  opacity: { mobile: 1, desktopSemiMedium: '0.75' },
+  position: 'absolute',
+  border: {
+    mobile: '2px solid',
+    desktopSemiMedium: 'none',
+  },
+  color: 'backgroundDark.100',
+  borderRadius: { mobile: '100%', desktopSemiMedium: 0 },
+  top: { mobile: 0, desktopSemiMedium: 82 },
+  left: { mobile: 44, desktopSemiMedium: 0 },
+  transition: 'all 0.1s',
+
+  '&:hover': {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: { mobile: 'grey.300', desktopSemiMedium: 'grey.100' },
+  },
+
+  '&:active': {
+    backgroundColor: { mobile: 'primary.200', desktopSemiMedium: 'grey.50' },
   },
 };
 
