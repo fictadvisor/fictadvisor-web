@@ -83,6 +83,17 @@ export const avatar: SxProps<Theme> = {
   },
 };
 
+export const confirmButton: SxProps<Theme> = {
+  width: { mobile: 'fit-content', desktopSemiMedium: '50%' },
+  margin: { mobile: '0 0 36px 0', desktopSemiMedium: '5px 0 36px 0' },
+  display: { mobile: 'block', desktop: '' },
+};
+
+export const input: SxProps<Theme> = {
+  marginBottom: { mobile: '22px', desktopSemiMedium: '24px' },
+  marginTop: '1.5%',
+};
+
 export const avatarAndTelegramInfo: SxProps<Theme> = {
   display: 'flex',
   height: 'fit-content',
