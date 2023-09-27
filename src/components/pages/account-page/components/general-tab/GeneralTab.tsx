@@ -38,26 +38,28 @@ const GeneralTab: FC = () => {
     if (event.target.files) {
       const file = event.target.files[0];
 
+      if (!isValidFile(file)) {
+        toast.error(
+          'Неправильне розширення файлу файлу',
+          'Підтримуванні розширення: .png, .jpg, .jpeg, .webp',
+          4000,
+        );
+        return;
+      }
+
+      if (file.size > 1.5 * 1024 * 1024) {
+        toast.error('Розмір файлу не повинен бути більше 1.5 МБ', '', 4000);
+        return;
+      }
+
       try {
-        if (!isValidFile(file)) {
-          toast.error(
-            'Неправильне розширення файлу файлу',
-            'Підтримуванні розширення: .png, .jpg, .jpeg, .webp',
-            4000,
-          );
-          return;
-        }
-
-        if (file.size > 1.5 * 1024 * 1024) {
-          toast.error('Розмір файлу не повинен бути більше 1.5МБ', '', 4000);
-          return;
-        }
-
         const formData = new FormData();
         formData.append('avatar', file);
         await userAPI.changeAvatar(user.id, formData);
-        toast.success('Аватарка успішно змінена!', '', 4000);
-        router.reload();
+        toast.success('Аватарка успішно змінена!', '', 1000);
+        setTimeout(() => {
+          router.reload();
+        }, 1000);
       } catch (e) {
         toastError.displayError(e);
       }
@@ -89,7 +91,7 @@ const GeneralTab: FC = () => {
               id="avatar"
               onChange={handleFileChange}
             />
-            <Box sx={stylesMui.changeAvatarButton}>
+            <Box>
               <PencilIcon />
             </Box>
           </label>
