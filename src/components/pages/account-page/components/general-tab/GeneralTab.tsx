@@ -14,7 +14,7 @@ import { DividerTextAlign } from '@/components/common/ui/divider/types';
 import ContactsBlock from '@/components/pages/account-page/components/general-tab/components/contacts-block/ContactsBlock';
 import PersonalInfoBlock from '@/components/pages/account-page/components/general-tab/components/personal-info';
 import * as stylesMui from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
-import { avatarValidation } from '@/components/pages/account-page/components/general-tab/validation/avatarValidation';
+import { isValidFile } from '@/components/pages/account-page/components/general-tab/utils/isValidFile';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
@@ -38,7 +38,20 @@ const GeneralTab: FC = () => {
     if (event.target.files) {
       const file = event.target.files[0];
 
-      avatarValidation(file, toast);
+      if (!isValidFile(file)) {
+        toast.error(
+          'Неправильне розширення файлу файлу',
+          'Підтримуванні розширення: .png, .jpg, .jpeg, .webp',
+          4000,
+        );
+        return;
+      }
+
+      if (file.size > 1.5 * 1024 * 1024) {
+        console.log(file.size);
+        toast.error('Розмір файлу не повинен бути більше 1.5 МБ', '', 4000);
+        return;
+      }
 
       const formData = new FormData();
       formData.append('avatar', file);
