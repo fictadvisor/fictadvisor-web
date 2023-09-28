@@ -32,9 +32,6 @@ export const avatar: SxProps<Theme> = {
   borderRadius: '100%',
 
   img: {
-    width: 'fit-content',
-    height: '100%',
-    borderRadius: '100%',
     cursor: 'pointer',
   },
 
@@ -42,7 +39,7 @@ export const avatar: SxProps<Theme> = {
     position: 'relative',
   },
 
-  div: {
+  '& .MuiBox-root': {
     display: 'none',
     cursor: 'pointer',
     width: { mobile: '24px', desktopSemiMedium: '100%' },

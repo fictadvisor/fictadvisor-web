@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { Box, useMediaQuery } from '@mui/material';
+import { Avatar, Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import { TelegramForAccount } from '@/components/common/icons/TelegramForAccount';
@@ -73,7 +73,11 @@ const GeneralTab: FC = () => {
       <Box sx={stylesMui.avatarAndTelegramInfo}>
         <Box sx={stylesMui.avatar}>
           <label htmlFor="avatar">
-            <img src={user.avatar} alt="avatar" />
+            <Avatar
+              src={user.avatar}
+              alt="Фото профілю"
+              sx={stylesMui.avatar}
+            />
             <input
               accept=".png, .jpg, .jpeg, .webp"
               type="file"
