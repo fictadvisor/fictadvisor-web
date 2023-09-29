@@ -35,6 +35,7 @@ const QuestionScale: FC<QuestionProps> = ({ question, ...rest }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   return (
     <FormikSlider
+      sx={{ mt: '10px' }}
       name={question.id}
       size={isMobile ? SliderSize.SMALL : SliderSize.MEDIUM}
     />

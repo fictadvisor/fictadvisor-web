@@ -16,7 +16,6 @@ export const questionTitle: SxProps<Theme> = {
 
 export const questionDescription: SxProps<Theme> = {
   marginTop: '10px',
-  marginBottom: '20px',
   typography: theme.typography.body1Medium,
   color: theme.palette.grey[700],
 };
@@ -28,9 +27,8 @@ export const questionCriteria: SxProps<Theme> = {
 };
 
 export const radioGroup: SxProps<Theme> = {
-  pt: '20px',
+  pt: '16px',
   display: 'flex',
   flexDirection: 'row',
-  // justifyContent: 'flex-start',
   gap: '36px',
 };

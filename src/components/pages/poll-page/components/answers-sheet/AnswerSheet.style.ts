@@ -91,7 +91,6 @@ export const toQuestionsList: SxProps<Theme> = {
   [theme.breakpoints.down('desktop')]: {
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'center',
   },
 };
 
