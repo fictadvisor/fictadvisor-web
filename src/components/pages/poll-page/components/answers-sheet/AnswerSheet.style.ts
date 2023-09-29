@@ -3,7 +3,6 @@ import { SxProps, Theme } from '@mui/material/styles';
 import theme from '@/styles/theme';
 
 export const wrapper: SxProps<Theme> = {
-  width: '632px',
   paddingLeft: {
     desktopSemiMedium: '124px',
     desktop: '30px',
@@ -39,15 +38,23 @@ export const successWrapper: SxProps<Theme> = {
 };
 
 export const answersWrapper: SxProps<Theme> = {
-  width: '100%',
+  width: '632px',
 
   [theme.breakpoints.down('desktop')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     margin: 0,
+    width: '100%',
     height: '100%',
   },
+};
+
+export const chevronIcon: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer',
 };
 
 export const loaderWrapper: SxProps<Theme> = {
@@ -64,21 +71,6 @@ export const answersSavedWrapper: SxProps<Theme> = {
   width: '100vw',
   height: '100%',
   margin: 0,
-};
-
-export const form: SxProps<Theme> = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '40px',
-
-  [theme.breakpoints.down('desktop')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '32px',
-    width: '100%',
-    height: '100%',
-    padding: '24px 16px',
-  },
 };
 
 export const toQuestionsList: SxProps<Theme> = {
@@ -99,7 +91,7 @@ export const toQuestionsList: SxProps<Theme> = {
   [theme.breakpoints.down('desktop')]: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
 };
 
@@ -114,6 +106,7 @@ export const button: SxProps<Theme> = {
 };
 
 export const questionName: SxProps<Theme> = {
+  margin: '0 auto',
   width: 'fit-content',
   typography: theme.typography.body1Bold,
 };

@@ -84,15 +84,12 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
 
   const initialValues: Record<string, string> = useMemo(() => {
-    const localStorageAnswers = localStorage.getItem('formikPoll');
-    return localStorageAnswers
-      ? JSON.parse(localStorageAnswers)
-      : currentQuestions?.questions
-          .filter(question => question.type === QuestionType.SCALE)
-          .reduce((initialVals, question) => {
-            initialVals[question.id] = '1';
-            return initialVals;
-          }, {} as Record<string, string>);
+    return currentQuestions?.questions
+      .filter(question => question.type === QuestionType.SCALE)
+      .reduce((initialVals, question) => {
+        initialVals[question.id] = '1';
+        return initialVals;
+      }, {} as Record<string, string>);
   }, []);
 
   const handleFormEvent = (
@@ -101,11 +98,6 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   ) => {
     const name = (event.target as HTMLFormElement).name;
     const value = (event.target as HTMLFormElement).value;
-    localStorage.setItem(
-      'formikPoll',
-      JSON.stringify({ ...values, [name]: value }),
-    );
-
     if (name && value) {
       updateAnswer({ ...values, [name]: value });
     }
@@ -185,7 +177,9 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
                 setQuestionsListOpened(true);
               }}
             >
-              <ChevronLeftIcon height="20px" />
+              <Box sx={sxStyles.chevronIcon}>
+                <ChevronLeftIcon height="20px" />
+              </Box>
               <Typography sx={sxStyles.questionName}>
                 {currentCategory + 1} . {currentQuestions?.name}
               </Typography>
