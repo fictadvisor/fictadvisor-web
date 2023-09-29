@@ -15,15 +15,20 @@ export const lastColumn: SxProps<Theme> = {
 };
 
 export const divider: SxProps<Theme> = {
-  mt: '24px',
   pb: '20px',
   typography: theme.typography.body1,
 };
 
 export const fullName: SxProps<Theme> = {
-  typography: theme.typography.body2Bold,
+  typography: {
+    mobile: theme.typography.overline,
+    desktop: theme.typography.body2Bold,
+  },
 };
 
 export const email: SxProps<Theme> = {
-  typography: theme.typography.body2Medium,
+  typography: {
+    mobile: theme.typography.body1Bold,
+    desktop: theme.typography.body2Medium,
+  },
 };

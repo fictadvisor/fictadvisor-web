@@ -89,6 +89,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     return (
       <>
         <Popup
+          hasCross
           open={changePopupOpen}
           title={
             student.role === UserGroupRole.MODERATOR
@@ -122,6 +123,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
         />
         <Popup
           open={deletePopupOpen}
+          hasCross
           title="Видалити користувача"
           text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
           onClose={() => setDeletePopupOpen(false)}
@@ -181,6 +183,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
       <>
         <Popup
           open={deletePopupOpen}
+          hasCross
           title="Видалити користувача"
           text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
           onClose={() => setDeletePopupOpen(false)}

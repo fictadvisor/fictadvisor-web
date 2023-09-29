@@ -56,8 +56,12 @@ const AccountPage = () => {
     await replace({ query: { ...query, tab: value } }, undefined, {
       shallow: true,
     });
+    console.log(value);
     setIndex(value);
   };
+  useEffect(() => {
+    console.log(index);
+  }, [index]);
 
   return (
     <>

@@ -7,6 +7,6 @@ export const progress: SxProps<Theme> = {
   alignItems: 'center',
 };
 
-export const groupDivider: SxProps<Theme> = {
-  padding: '36px 0 36px 0',
+export const group: SxProps<Theme> = {
+  pb: '20px',
 };

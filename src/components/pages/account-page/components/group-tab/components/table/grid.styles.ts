@@ -10,7 +10,7 @@ export const studentsGrid: SxProps<Theme> = {
 };
 export const row: SxProps<Theme> = {
   p: '12px 16px',
-  height: { mobile: '60px', desktop: '72px' },
+  height: { mobile: '63px', desktop: '72px' },
   '&:not(&:last-child)': {
     borderBottom: '1px solid',
     borderColor: 'grey.200',
