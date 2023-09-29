@@ -10,7 +10,6 @@ type Action = {
   setAnswers: (newAnswers: Answer[]) => void;
   setCurrentCategory: (newCategory: number) => void;
   setIsSendingStatus: (newStatus: SendingStatus) => void;
-  reset: () => void;
 };
 
 type State = {
@@ -59,7 +58,4 @@ export const usePollStore = create<State & Action>()(set => ({
     set({ currentCategory: newCategory }),
   setIsSendingStatus: (newStatus: SendingStatus) =>
     set({ sendingStatus: newStatus }),
-  reset: () => {
-    set(initialValue);
-  },
 }));
