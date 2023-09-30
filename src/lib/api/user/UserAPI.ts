@@ -8,6 +8,11 @@ import { PostSelectiveDisciplinesBody } from '@/lib/api/user/types/PostSelective
 import { RequestNewGroupBody } from '@/lib/api/user/types/RequestNewGroupBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 import { TelegramUser } from '@/types/telegram';
+import { ChangeRoleBody } from '@/lib/api/user/types/ChangeRoleBody';
+import { GetSelective } from '@/lib/api/user/types/GetSelective';
+import { PostSuperheroBody } from '@/lib/api/user/types/PostSuperheroBody';
+import { VerifySuperheroBody } from '@/lib/api/user/types/VerifySuperheroBody';
+import { VerifyStudentBody } from '@/lib/api/user/types/VerifyStudentBody';
 
 import { client } from '../instance';
 
@@ -100,6 +105,50 @@ class UserAPI {
   async changeAvatar(userId: string, body: FormData) {
     const { data } = await client.patch<ChangeAvatarResponse>(
       `/users/${userId}/avatar`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async setRole(userId: string, body: ChangeRoleBody) {
+    const { data } = await client.post(
+      `/users/${userId}/roles`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async getSelective(userId: string) {
+    const { data } = await client.get<GetSelective>(
+      `/users/${userId}/selective`,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async postSuperhero(userId: string, body: PostSuperheroBody) {
+    const { data } = await client.post(
+      `/users/${userId}/superhero`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async verifySuperhero(userId: string, body: VerifySuperheroBody) {
+    const { data } = await client.patch(
+      `/users/${userId}/verifySuperhero`,
+      body,
+      getAuthorizationHeader(),
+    );
+    return data;
+  }
+
+  async verifyStudent(userId: string, body: VerifyStudentBody) {
+    const { data } = await client.patch(
+      `/users/${userId}/verifyStudent`,
       body,
       getAuthorizationHeader(),
     );
