@@ -72,7 +72,7 @@ export const CheckboxesDropdown = () => {
             ? value !== 'isSelective' && value !== 'otherEvents'
             : true;
         }),
-    [groupId, checkboxes],
+    [checkboxes, user, groupId],
   );
 
   return (
@@ -88,7 +88,7 @@ export const CheckboxesDropdown = () => {
       >
         <Autocomplete
           disableCloseOnSelect
-          onChange={async (event, value, reason, details) => {
+          onChange={async (event, value) => {
             const selectedCheckboxes = Object.fromEntries(
               value.map(option => [option.value, true]),
             );
@@ -104,6 +104,11 @@ export const CheckboxesDropdown = () => {
           isOptionEqualToValue={(option, value) => {
             return option.value === value.value;
           }}
+          sx={{
+            '& .Mui-focused': {
+              paddingTop: '15px',
+            },
+          }}
           multiple
           fullWidth
           disablePortal
@@ -113,11 +118,14 @@ export const CheckboxesDropdown = () => {
               label={'Оберіть фільтри'}
               sx={MergeSx(styles.input(FieldState.DEFAULT, FieldSize.MEDIUM), {
                 '& .MuiInputBase-root': {
-                  height: 'unset',
+                  height: '100%',
                   WebkitTransform: 'unset',
                 },
                 '& .MuiFormLabel-root.MuiInputLabel-root': {
-                  top: 0,
+                  top: -3,
+                  '&.Mui-focused': {
+                    top: -15,
+                  },
                 },
               })}
             />
@@ -140,20 +148,18 @@ export const CheckboxesDropdown = () => {
           componentsProps={{
             popper: popperProps,
           }}
-          renderTags={(value, getTagProps, ownerState) => {
-            return value.map((option, index) => {
-              return (
-                <Tag
-                  text={option.label}
-                  {...getTagProps({ index })}
-                  key={index}
-                  size={TagSize.SMALL}
-                  sx={{ mr: '6px' }}
-                  color={TagColorMapper[option.value]}
-                />
-              );
-            });
-          }}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Tag
+                text={option.label}
+                {...getTagProps({ index })}
+                key={index}
+                size={TagSize.SMALL}
+                sx={{ mr: '6px' }}
+                color={TagColorMapper[option.value]}
+              />
+            ))
+          }
           limitTags={2}
         />
       </Box>
