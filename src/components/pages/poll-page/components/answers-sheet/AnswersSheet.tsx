@@ -55,9 +55,9 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 };
 
 const AnswersSheet: React.FC<AnswersSheetProps> = ({
-                                                     setProgress,
-                                                     isTheLast,
-                                                   }) => {
+  setProgress,
+  isTheLast,
+}) => {
   const {
     setCurrentCategory,
     currentCategory,
