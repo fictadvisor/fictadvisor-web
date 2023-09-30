@@ -46,15 +46,7 @@ const PollForm: FC<PollFormProps> = ({ data }) => {
     setIsSendingStatus,
     setCurrentQuestions,
     isQuestionsListOpened,
-  } = usePollStore(state => ({
-    setIsValid: state.setIsValid,
-    answers: state.answers,
-    currentCategory: state.currentCategory,
-    sendingStatus: state.sendingStatus,
-    setIsSendingStatus: state.setIsSendingStatus,
-    setCurrentQuestions: state.setCurrentQuestions,
-    isQuestionsListOpened: state.isQuestionsListOpened,
-  }));
+  } = usePollStore();
   const { categories } = data;
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [questionsArray, setQuestionsArray] = useState<Question[]>([]);
