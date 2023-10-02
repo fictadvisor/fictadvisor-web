@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 
 import Button from '@/components/common/ui/button-mui';
 import {
@@ -17,6 +17,7 @@ import {
 } from '@/components/common/ui/button-mui/types';
 import { handleFileSelect } from '@/components/pages/account-page/components/general-tab/components/change-avatar-window/components/avatar-dropzone/utils/handleFileSelect';
 import useToast from '@/hooks/use-toast';
+import theme from '@/styles/theme';
 
 import * as styles from './AvatarDropzone.styles';
 
@@ -62,31 +63,55 @@ const AvatarDropzone: FC<AvatarDropzoneProps> = ({ setFile, setAvatarURL }) => {
     }
   };
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('mobileMedium'));
+
   return (
-    <Box
-      sx={styles.wrapper(isDragging)}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={event => event.preventDefault()}
-      onDrop={handleDropOrFileChange}
-    >
-      <ArrowDownTrayIcon />
-      <Typography variant="h6Bold">Перетягніть сюди</Typography>
-      <Typography variant="body2Medium">або</Typography>
-      <Button
-        text={'Обрати файл'}
-        size={ButtonSize.MEDIUM}
-        variant={ButtonVariant.FILLED}
-        sx={styles.button}
-        onClick={openFileInput}
-      />
-      <input
-        ref={fileInputRef}
-        accept=".png, .jpg, .jpeg, .webp"
-        type="file"
-        onChange={handleDropOrFileChange}
-      />
-    </Box>
+    <>
+      {isMobile ? (
+        <>
+          <Button
+            text={'Обрати файл'}
+            size={ButtonSize.MEDIUM}
+            variant={ButtonVariant.FILLED}
+            sx={styles.button}
+            onClick={openFileInput}
+          />
+          <input
+            style={styles.input}
+            ref={fileInputRef}
+            accept=".png, .jpg, .jpeg, .webp"
+            type="file"
+            onChange={handleDropOrFileChange}
+          />
+        </>
+      ) : (
+        <Box
+          sx={styles.wrapper(isDragging)}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDragOver={event => event.preventDefault()}
+          onDrop={handleDropOrFileChange}
+        >
+          <ArrowDownTrayIcon />
+          <Typography variant="h6Bold">Перетягніть сюди</Typography>
+          <Typography variant="body2Medium">або</Typography>
+          <Button
+            text={'Обрати файл'}
+            size={ButtonSize.MEDIUM}
+            variant={ButtonVariant.FILLED}
+            sx={styles.button}
+            onClick={openFileInput}
+          />
+          <input
+            ref={fileInputRef}
+            accept=".png, .jpg, .jpeg, .webp"
+            type="file"
+            style={styles.input}
+            onChange={handleDropOrFileChange}
+          />
+        </Box>
+      )}
+    </>
   );
 };
 

@@ -2,7 +2,10 @@ import { SxProps, Theme } from '@mui/material/styles';
 
 export const wrapper = (isDragging: boolean): SxProps<Theme> => ({
   display: 'flex',
-  width: '463px',
+  width: {
+    mobile: '375px',
+    tablet: '463px',
+  },
   height: '259px',
   marginTop: '15px',
   flexDirection: 'column',
@@ -24,11 +27,11 @@ export const wrapper = (isDragging: boolean): SxProps<Theme> => ({
     width: '32.5px',
     height: '32.5px',
   },
-
-  input: {
-    display: 'none',
-  },
 });
+
+export const input = {
+  display: 'none',
+};
 
 export const button: SxProps<Theme> = {
   borderRadius: '8px',
