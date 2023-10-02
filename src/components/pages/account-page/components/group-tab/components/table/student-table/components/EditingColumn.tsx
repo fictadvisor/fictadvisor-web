@@ -22,7 +22,6 @@ import Popup from '@/components/common/ui/pop-ups/Popup';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import MobileDropdown from '@/components/pages/account-page/components/group-tab/components/table/student-table/components/MobileDropdown';
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
-import useToast from '@/hooks/use-toast';
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import theme from '@/styles/theme';
@@ -42,7 +41,6 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   const [changePopupOpen, setChangePopupOpen] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
-  const toast = useToast();
   const handleDelete = async () => {
     try {
       setDeletePopupOpen(false);
@@ -146,7 +144,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             />
           }
         />
-        {!isMobile && (
+        {student.role === UserGroupRole.STUDENT && !isMobile && (
           <Button
             text={buttonText}
             sx={{ width: 'fit-content', whiteSpace: 'nowrap' }}
@@ -177,7 +175,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
 
   if (
     user.group?.role === UserGroupRole.MODERATOR &&
-    student.role == UserGroupRole.STUDENT
+    student.role === UserGroupRole.STUDENT
   ) {
     return (
       <>

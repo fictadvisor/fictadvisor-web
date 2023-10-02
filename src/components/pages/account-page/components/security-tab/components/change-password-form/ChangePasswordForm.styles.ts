@@ -4,8 +4,8 @@ import { SxProps } from '@mui/system';
 import theme from '@/styles/theme';
 
 export const formContainer: SxProps<Theme> = {
-  width: '40%',
-  minWidth: '400px',
+  width: { mobile: '100%', desktop: '440px' },
+  // minWidth: '400px',
   [theme.breakpoints.down('mobile')]: { width: '100%', minWidth: '0' },
 };
 export const input: SxProps<Theme> = {
@@ -20,7 +20,9 @@ export const confirmButton: SxProps<Theme> = {
 };
 export const changePasswordButton: SxProps<Theme> = {
   typography: theme.typography.body2,
+  width: '100%',
   [theme.breakpoints.down('desktopSemiMedium')]: {
     typography: theme.typography.body1,
+    width: '200px',
   },
 };

@@ -7,6 +7,10 @@ export const container: SxProps<Theme> = {
   width: '100%',
 };
 
+export const wrapper: SxProps<Theme> = {
+  maxWidth: '760px',
+};
+
 export const divider: SxProps<Theme> = {
   paddingBottom: '20px',
 };
@@ -21,8 +25,7 @@ export const button: SxProps<Theme> = {
 
 export const userInformation: SxProps<Theme> = {
   marginTop: '0px',
-  width: { mobile: '40%', desktop: 'fit-content' },
-  minWidth: '400px',
+  width: { mobile: '100%', desktop: 'fit-content' },
   div: {
     marginBottom: '16px',
   },
@@ -30,6 +33,6 @@ export const userInformation: SxProps<Theme> = {
 };
 
 export const exitButton: SxProps<Theme> = {
-  width: { mobile: '60%', desktop: 'fit-content' },
-  margin: '24px 0 38px 0',
+  width: { mobile: '230px', desktop: 'fit-content' },
+  marginBottom: '38px',
 };
