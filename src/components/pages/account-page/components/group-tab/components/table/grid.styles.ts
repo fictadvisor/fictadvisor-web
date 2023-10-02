@@ -23,7 +23,10 @@ export const row: SxProps<Theme> = {
       gap: '8px',
     },
     '&:nth-of-type(1)': {
-      pr: '16px',
+      pr: {
+        mobile: '25px',
+        desktop: '16px',
+      },
       gap: {
         mobile: '8px',
         desktop: '16px',
