@@ -94,7 +94,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
               ? 'Зробити студентом'
               : 'Зробити заст. старости'
           }
-          text={`Ви дійсно бажаєте зробити користувача ${student.fullName} ${
+          content={`Ви дійсно бажаєте зробити користувача ${student.fullName} ${
             student.role === UserGroupRole.MODERATOR
               ? 'студентом'
               : 'заст. старости'
@@ -123,7 +123,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
           open={deletePopupOpen}
           hasCross
           title="Видалити користувача"
-          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
+          content={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
           onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button
@@ -183,7 +183,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
           open={deletePopupOpen}
           hasCross
           title="Видалити користувача"
-          text={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
+          content={`Чи дійсно ви бажаєте видалити користувача ${student.fullName}? Якщо ви випадково видалите користувача, йому треба буде відправити повторний запит до групи.`}
           onClose={() => setDeletePopupOpen(false)}
           firstButton={
             <Button

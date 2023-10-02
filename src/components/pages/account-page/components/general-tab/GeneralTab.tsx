@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { Avatar, Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ import {
 } from '@/components/common/ui/button-mui/types';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
+import ChangeAvatarWindow from '@/components/pages/account-page/components/general-tab/components/change-avatar-window';
 import ContactsBlock from '@/components/pages/account-page/components/general-tab/components/contacts-block/ContactsBlock';
 import PersonalInfoBlock from '@/components/pages/account-page/components/general-tab/components/personal-info';
 import * as stylesMui from '@/components/pages/account-page/components/general-tab/GeneralTab.styles';
@@ -31,6 +32,7 @@ const GeneralTab: FC = () => {
   const buttonText = user.telegramId
     ? 'Telegram під’єднано'
     : "Під'єднати Telegram";
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -84,23 +86,11 @@ const GeneralTab: FC = () => {
         <ContactsBlock />
       </Box>
       <Box sx={stylesMui.avatarAndTelegramInfo}>
-        <Box sx={stylesMui.avatar}>
-          <label htmlFor="avatar">
-            <Avatar
-              src={user.avatar}
-              alt="Фото профілю"
-              sx={stylesMui.avatar}
-            />
-            <input
-              accept=".png, .jpg, .jpeg, .webp"
-              type="file"
-              id="avatar"
-              onChange={handleFileChange}
-            />
-            <Box>
-              <PencilIcon />
-            </Box>
-          </label>
+        <Box onClick={() => setPopupOpen(true)} sx={stylesMui.avatar}>
+          <Avatar src={user.avatar} alt="Фото профілю" sx={stylesMui.avatar} />
+          <Box>
+            <PencilIcon />
+          </Box>
         </Box>
         <Button
           sx={stylesMui.telegramButton}
@@ -112,6 +102,8 @@ const GeneralTab: FC = () => {
           onClick={handleConnectTelegram}
         />
       </Box>
+
+      {popupOpen && <ChangeAvatarWindow setPopupOpen={setPopupOpen} />}
     </Box>
   );
 };
