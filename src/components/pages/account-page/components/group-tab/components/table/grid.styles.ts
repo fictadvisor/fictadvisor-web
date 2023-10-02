@@ -24,7 +24,10 @@ export const row: SxProps<Theme> = {
     },
     '&:nth-of-type(1)': {
       pr: '16px',
-      gap: '16px',
+      gap: {
+        mobile: '8px',
+        desktop: '16px',
+      },
       '& img': {
         borderRadius: '50%',
         width: { mobile: '36px', desktop: '48px' },
