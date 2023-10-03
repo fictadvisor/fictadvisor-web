@@ -93,19 +93,6 @@ export const divider: SxProps<Theme> = {
   paddingBottom: '20px',
 };
 
-export const contactItem: SxProps<Theme> = {
-  display: 'flex',
-  alignItems: 'flex-start',
-  gap: '2.5%',
-  marginBottom: '26px',
-  a: {
-    flexGrow: 1,
-  },
-  '& button': {
-    marginTop: '10px',
-  },
-};
-
 export const addSocialLinksContainer: SxProps<Theme> = {
   border: `2px solid ${theme.palette.backgroundDark[300]}`,
   padding: '26px 25px',

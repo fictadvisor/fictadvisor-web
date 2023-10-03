@@ -3,8 +3,9 @@ import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/G
 
 class StudentResourcesAPI {
   async getAll() {
-    const { data } =
-      await client.get<GetStudentResourcesResponse>('/studentResources');
+    const { data } = await client.get<GetStudentResourcesResponse>(
+      '/studentResources',
+    );
     return data;
   }
 }

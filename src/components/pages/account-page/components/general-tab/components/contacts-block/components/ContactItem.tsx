@@ -1,63 +1,43 @@
-import React, { FC, useState } from 'react';
-import { useQuery } from 'react-query';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { Box, useMediaQuery } from '@mui/material';
+import React, { FC } from 'react';
+import { QueryObserverBaseResult } from 'react-query';
+import { Box } from '@mui/material';
+import Link from 'next/link';
 
-import Button from '@/components/common/ui/button-mui';
-import {
-  ButtonSize,
-  ButtonVariant,
-} from '@/components/common/ui/button-mui/types';
-import ContactForm from '@/components/pages/account-page/components/general-tab/components/contacts-block/components/ContactForm';
-import ContactItem from '@/components/pages/account-page/components/general-tab/components/contacts-block/components/ContactItem';
+import Input from '@/components/common/ui/form/input-mui';
+import { TrashBucketButton } from '@/components/common/ui/icon-button-mui/variants';
+import * as styles from '@/components/pages/account-page/components/general-tab/components/contacts-block/ContactsBlock.styles';
 import { Contact } from '@/components/pages/account-page/components/general-tab/components/contacts-block/types';
 import useAuthentication from '@/hooks/use-authentication';
 import UserAPI from '@/lib/api/user/UserAPI';
-import theme from '@/styles/theme';
-
-import * as styles from './ContactsBlock.styles';
-
-const ContactsBlock: FC = () => {
-  const [isOpened, setIsOpened] = useState(false);
+interface ContactProps extends Contact {
+  refetchContacts: QueryObserverBaseResult['refetch'];
+}
+const ContactItem: FC<ContactProps> = ({
+  refetchContacts,
+  link,
+  name,
+  displayName,
+}) => {
   const { user } = useAuthentication();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktopSemiMedium'));
-
-  const { data, refetch } = useQuery(
-    'contacts',
-    () => UserAPI.getContacts(user.id),
-    { refetchOnWindowFocus: false },
-  );
-  const contacts = data?.contacts || [];
-  const handleClick = () => setIsOpened(!isOpened);
+  const handleDeleteClick = async () => {
+    await UserAPI.deleteContact(user.id, name);
+    refetchContacts();
+  };
 
   return (
-    <>
-      <Box sx={styles.contactItemContainer}>
-        {contacts?.map((contact: Contact, index) => (
-          <ContactItem key={index} refetchContacts={refetch} {...contact} />
-        ))}
-      </Box>
-      <Box sx={styles.confirmButton}>
-        <Button
-          text="Додати посилання"
-          startIcon={<PlusIcon className={'icon'} />}
-          size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
-          variant={ButtonVariant.OUTLINE}
-          type="submit"
-          onClick={handleClick}
+    <Box sx={styles.contactItem}>
+      <Link href={link}>
+        <Input
+          readOnly
+          onChange={() => {}}
+          name={name}
+          value={displayName}
+          label={name}
         />
-      </Box>
-
-      {isOpened && (
-        <ContactForm
-          refetchContacts={async () => {
-            setIsOpened(false);
-            await refetch();
-          }}
-        />
-      )}
-    </>
+      </Link>
+      <TrashBucketButton onClick={handleDeleteClick} />
+    </Box>
   );
 };
 
-export default ContactsBlock;
+export default ContactItem;
