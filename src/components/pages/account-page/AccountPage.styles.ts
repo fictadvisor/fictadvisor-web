@@ -35,7 +35,11 @@ export const tabList: SxProps<Theme> = {
 
 export const tabPanelsList: SxProps<Theme> = {
   marginTop: '8px',
-  width: '100%',
+  width: {
+    desktop: '100%',
+    mobile: '100%',
+    desktopSemiMedium: 'calc(100% - 250px)',
+  },
 };
 
 export const tabPanel: SxProps<Theme> = {

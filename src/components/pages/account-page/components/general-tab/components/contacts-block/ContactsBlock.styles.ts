@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const confirmButton: SxProps<Theme> = {
-  width: { mobile: 'fit-content', desktopSemiMedium: '50%' },
+  width: { mobile: 'fit-content', desktopSemiMedium: '262px' },
   margin: { mobile: '0 0 36px 0', desktopSemiMedium: '5px 0 36px 0' },
   display: { mobile: 'block', desktop: '' },
 };
