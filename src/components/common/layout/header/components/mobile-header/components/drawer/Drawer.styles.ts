@@ -1,5 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
-import theme from "@/styles/theme";
+
+import theme from '@/styles/theme';
 
 export const menu: SxProps<Theme> = {
   display: 'flex',
