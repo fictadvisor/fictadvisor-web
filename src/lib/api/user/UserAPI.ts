@@ -1,4 +1,5 @@
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
+import { ChangeAvatarResponse } from '@/lib/api/user/types/ChangeAvatarResponse';
 import { ChangeInfoBody } from '@/lib/api/user/types/ChangeInfoBody';
 import { GetContactsResponse } from '@/lib/api/user/types/GetContactsResponse';
 import { GetSelectiveDisciplinesBySemesterResponse } from '@/lib/api/user/types/GetSelectiveDisciplinesBySemesterResponse';
@@ -46,9 +47,9 @@ class UserAPI {
     return data;
   }
 
-  async deleteContact(userId: string, contactName: string) {
+  async deleteContact(userId: string, id: string) {
     const { data } = await client.delete(
-      `/users/${userId}/contacts/${contactName}`,
+      `/users/${userId}/contacts/${id}`,
       getAuthorizationHeader(),
     );
     return data;
@@ -92,6 +93,15 @@ class UserAPI {
     const { data } = await client.get<GetSelectiveDisciplinesResponse>(
       `/users/${userId}/selectiveDisciplines?`,
       { ...getAuthorizationHeader(), params: { year, semester } },
+    );
+    return data;
+  }
+
+  async changeAvatar(userId: string, body: FormData) {
+    const { data } = await client.patch<ChangeAvatarResponse>(
+      `/users/${userId}/avatar`,
+      body,
+      getAuthorizationHeader(),
     );
     return data;
   }
