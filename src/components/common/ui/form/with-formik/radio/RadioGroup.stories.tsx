@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Form, Formik } from 'formik';
 
@@ -13,8 +12,6 @@ type RadioGroupStoryType = {
 const RadioGroupStory: React.FC<RadioGroupStoryType> = (
   args: RadioGroupStoryType,
 ) => {
-  const [name, setName] = useState('Name');
-
   return (
     <Box sx={{ padding: '20px', backgroundColor: 'backgroundDark.300' }}>
       <Formik initialValues={{}} onSubmit={() => {}}>
@@ -27,7 +24,7 @@ const RadioGroupStory: React.FC<RadioGroupStoryType> = (
 };
 
 const meta = {
-  title: 'Ui Kit/Components/form/with-formik/radio/FormikRadioGroup',
+  title: 'Ui Kit/Components/form/Formik/radio/FormikRadioGroup',
   component: RadioGroupStory,
   parameters: {
     layout: 'centered',
