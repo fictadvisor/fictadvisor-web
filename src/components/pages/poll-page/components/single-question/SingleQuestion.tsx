@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 
 import { TextArea } from '@/components/common/ui/form';
-import RadioGroup from '@/components/common/ui/form/radio';
 import { SliderSize } from '@/components/common/ui/form/slider/types';
+import FormikRadioGroup from '@/components/common/ui/form/with-formik/radio/FormikRadioGroup';
 import FormikSlider from '@/components/common/ui/form/with-formik/slider';
 import theme from '@/styles/theme';
 import { Question, QuestionType } from '@/types/poll';
@@ -16,19 +16,16 @@ interface QuestionProps {
   question: Question;
 }
 
+const optionsRadioGroup = [
+  { value: '1', label: 'так' },
+  { value: '0', label: 'ні' },
+];
+
 const QuestionToggle: FC<QuestionProps> = ({ question, ...rest }) => {
   return (
-    <RadioGroup
-      //TODO move to constants somehow
-      options={[
-        { value: '1', label: 'так' },
-        { value: '0', label: 'ні' },
-      ]}
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        gap: '36px',
-      }} //TODO remove inline styles when refactor
+    <FormikRadioGroup
+      options={optionsRadioGroup}
+      sx={styles.radioGroup}
       name={question.id}
     />
   );
@@ -38,6 +35,7 @@ const QuestionScale: FC<QuestionProps> = ({ question, ...rest }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   return (
     <FormikSlider
+      sx={{ mt: '10px' }}
       name={question.id}
       size={isMobile ? SliderSize.SMALL : SliderSize.MEDIUM}
     />
@@ -53,7 +51,6 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
       : `Питання ${id + 1} / ${count}`;
 
   return (
-    // className={styles['question']
     <Box key={question.id}>
       <Typography component="p" sx={styles.questionNumber}>
         {questionNumber}
@@ -73,10 +70,9 @@ const SingleQuestion: FC<QuestionProps> = ({ id, question, count }) => {
         <QuestionToggle question={question} id={id} />
       )}
       {question.type === QuestionType.TEXT && (
-        //TODO add validation (4+ symbol, write about this to Riia)
         <TextArea
+          showRemark
           rowsNumber={numberRowsTextArea}
-          // sx={styles.textArea}
           name={question.id}
         />
       )}

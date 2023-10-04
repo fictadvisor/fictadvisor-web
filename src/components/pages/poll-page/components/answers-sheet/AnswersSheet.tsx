@@ -1,18 +1,20 @@
 import React, { FormEvent, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
 import { useRouter } from 'next/router';
 
-import Button from '@/components/common/ui/button/Button';
+import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
+import * as sxStyles from '@/components/pages/poll-page/components/answers-sheet/AnswerSheet.style';
+import { createValidationSchema } from '@/components/pages/poll-page/components/answers-sheet/validation';
+import { SendingStatus } from '@/components/pages/poll-page/components/poll-form/types';
 import SingleQuestion from '@/components/pages/poll-page/components/single-question/SingleQuestion';
 import useToast from '@/hooks/use-toast';
 import PollAPI from '@/lib/api/poll/PollAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
 import { usePollStore } from '@/store/poll-page/usePollStore';
 import { Answer, Question, QuestionType } from '@/types/poll';
-
-import { SendingStatus } from '../poll-form/PollForm';
 
 import AnswersSaved from './AnswersSaved';
 
@@ -42,7 +44,7 @@ const setCollectAnswers = (answers: Answer[], values: FormikValues) => {
 
   for (const [valueId, value] of Object.entries(values)) {
     const existingAnswer = resultAnswersMap.get(valueId);
-    if (existingAnswer !== undefined) {
+    if (existingAnswer) {
       existingAnswer.value = value;
     } else {
       resultAnswersMap.set(valueId, { value, questionId: valueId });
@@ -66,7 +68,17 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
     setIsSendingStatus,
     currentQuestions,
     setQuestionsListOpened,
-  } = usePollStore();
+  } = usePollStore(state => ({
+    setCurrentCategory: state.setCurrentCategory,
+    currentCategory: state.currentCategory,
+    answers: state.answers,
+    setAnswers: state.setAnswers,
+    isValid: state.isValid,
+    sendingStatus: state.sendingStatus,
+    setIsSendingStatus: state.setIsSendingStatus,
+    currentQuestions: state.currentQuestions,
+    setQuestionsListOpened: state.setQuestionsListOpened,
+  }));
   const toast = useToast();
   const router = useRouter();
   const disciplineTeacherId = router.query.disciplineTeacherId as string;
@@ -74,10 +86,13 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   const initialValues: Record<string, string> = useMemo(() => {
     return currentQuestions?.questions
       .filter(question => question.type === QuestionType.SCALE)
-      .reduce((initialVals, question) => {
-        initialVals[question.id] = '1';
-        return initialVals;
-      }, {} as Record<string, string>);
+      .reduce(
+        (initialVals, question) => {
+          initialVals[question.id] = '1';
+          return initialVals;
+        },
+        {} as Record<string, string>,
+      );
   }, []);
 
   const handleFormEvent = (
@@ -118,7 +133,7 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       const formattedAnswers = answers
         .map(answer => ({
           ...answer,
-          value: answer.value.trim(),
+          value: answer.value.toString().trim(),
         }))
         .filter(answer => !!answer.value);
 
@@ -129,85 +144,90 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
       setIsSendingStatus(SendingStatus.SUCCESS);
     } catch (error) {
       const message = getErrorMessage(error);
-      const errorMessage = message
-        ? message
-        : 'Щось пішло не так, спробуй пізніше!';
+      const errorMessage =
+        message === 'Value is wrong'
+          ? 'Текст повинен містити не менше 4 символів'
+          : message || 'Щось пішло не так, спробуй пізніше!';
       toast.error('Помилка!', errorMessage);
       setIsSendingStatus(SendingStatus.ERROR);
     }
   };
 
   return (
-    <div
-      className={
+    <Box
+      sx={
         sendingStatus === SendingStatus.SUCCESS
-          ? styles.successWrapper
-          : styles.wrapper
+          ? sxStyles.successWrapper
+          : sxStyles.wrapper
       }
     >
-      {sendingStatus === SendingStatus.LOADING ? (
-        <div className={styles.loaderWrapper}>
+      {sendingStatus === SendingStatus.LOADING && (
+        <Box sx={sxStyles.loaderWrapper}>
           <Progress />
-        </div>
-      ) : sendingStatus === SendingStatus.SUCCESS ? (
-        <div className={styles.wrapper}>
-          <AnswersSaved />
-        </div>
-      ) : (
-        <>
-          <div
-            className={styles.toQuestionsList}
-            onClick={() => {
-              setQuestionsListOpened(true);
-            }}
-          >
-            <ChevronLeftIcon style={{ height: '20px' }} />
-            <b>
-              {currentCategory + 1} . {currentQuestions?.name}
-            </b>
-          </div>
-          <div className={styles.answersWrapper}>
-            <Formik
-              validateOnMount
-              validateOnChange
-              initialValues={initialValues}
-              enableReinitialize
-              onSubmit={handleSubmit}
-            >
-              {({ values }) => (
-                <Form
-                  onClick={(event: FormEvent<HTMLFormElement>) =>
-                    handleFormEvent(event, values)
-                  }
-                  onChange={(event: FormEvent<HTMLFormElement>) =>
-                    handleFormEvent(event, values)
-                  }
-                  className={styles['form']}
-                >
-                  {currentQuestions?.questions.map((question, key) => (
-                    <SingleQuestion
-                      key={key}
-                      question={question}
-                      id={key}
-                      count={currentQuestions.count}
-                    />
-                  ))}
-                  <Button
-                    className={styles['button']}
-                    text={
-                      isTheLast ? 'Завершити опитування' : 'Наступні питання'
-                    }
-                    type="submit"
-                    disabled={isTheLast && !isValid}
-                  />
-                </Form>
-              )}
-            </Formik>
-          </div>
-        </>
+        </Box>
       )}
-    </div>
+      {sendingStatus === SendingStatus.SUCCESS && (
+        <Box sx={sxStyles.answersSavedWrapper}>
+          <AnswersSaved />
+        </Box>
+      )}
+      {sendingStatus != SendingStatus.LOADING &&
+        sendingStatus != SendingStatus.SUCCESS && (
+          <>
+            <Box
+              sx={sxStyles.toQuestionsList}
+              onClick={() => {
+                setQuestionsListOpened(true);
+              }}
+            >
+              <Box sx={sxStyles.chevronIcon}>
+                <ChevronLeftIcon height="20px" />
+              </Box>
+              <Typography sx={sxStyles.questionName}>
+                {currentCategory + 1} . {currentQuestions?.name}
+              </Typography>
+            </Box>
+            <Box sx={sxStyles.answersWrapper}>
+              <Formik
+                validationSchema={createValidationSchema(currentQuestions)}
+                validateOnMount
+                validateOnChange
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+              >
+                {({ values }) => (
+                  <Form
+                    onClick={(event: FormEvent<HTMLFormElement>) =>
+                      handleFormEvent(event, values)
+                    }
+                    onChange={(event: FormEvent<HTMLFormElement>) =>
+                      handleFormEvent(event, values)
+                    }
+                    className={styles['form']}
+                  >
+                    {currentQuestions?.questions.map((question, key) => (
+                      <SingleQuestion
+                        key={question.id}
+                        question={question}
+                        id={key}
+                        count={currentQuestions.count}
+                      />
+                    ))}
+                    <Button
+                      sx={sxStyles.button}
+                      text={
+                        isTheLast ? 'Завершити опитування' : 'Наступні питання'
+                      }
+                      type="submit"
+                      disabled={isTheLast && !isValid}
+                    />
+                  </Form>
+                )}
+              </Formik>
+            </Box>
+          </>
+        )}
+    </Box>
   );
 };
-
 export default AnswersSheet;

@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { Box, Typography } from '@mui/material';
+import List from '@mui/material/List';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { TeacherCard } from '@/components/common/ui/cards/teacher-card';
 import { Teacher } from '@/types/teacher';
 
-import * as stylesMUI from './SubjectTeacherSearchList.styles';
+import * as styles from './SubjectTeacherSearchList.styles';
 
-import styles from './SubjectTeacherSearchList.module.scss';
 export interface SubjectTeacherSearchListProps {
   subjectId: string;
   teachers: Omit<Teacher, 'contacts'>[];
@@ -21,7 +21,7 @@ export const SubjectTeacherSearchList: FC<SubjectTeacherSearchListProps> = ({
   return (
     <>
       {teachers.length === 0 && (
-        <Box sx={stylesMUI.wrapper}>
+        <Box sx={styles.wrapper}>
           <Image
             src="/gifs/grey-frog.gif"
             alt="Frogs complete the poll"
@@ -29,12 +29,12 @@ export const SubjectTeacherSearchList: FC<SubjectTeacherSearchListProps> = ({
             height={220}
             quality={100}
           />
-          <Typography sx={stylesMUI.headText}>
+          <Typography sx={styles.headText}>
             Немає викладачів на цей предмет
           </Typography>
         </Box>
       )}
-      <ul className={styles[`subject-teacher-search-list`]}>
+      <List sx={styles.searchList}>
         {teachers &&
           teachers.map((teacher, index) => (
             <Link
@@ -47,11 +47,11 @@ export const SubjectTeacherSearchList: FC<SubjectTeacherSearchListProps> = ({
                 name={`${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}
                 roles={teacher.roles}
                 rating={teacher.rating / 20}
-                isSubjectCard={true}
+                isSubjectCard
               />
             </Link>
           ))}
-      </ul>
+      </List>
     </>
   );
 };

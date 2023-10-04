@@ -1,26 +1,34 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
+import PollCard from '@/components/common/ui/cards/poll-card';
+import TeacherHeaderCard from '@/components/common/ui/cards/teacher-header-card';
 import { GetTeacherQuestionsResponse } from '@/lib/api/poll/types/GetTeacherQuestionsResponse';
 import { usePollStore } from '@/store/poll-page/usePollStore';
 
-import PollCard from './components/poll-card';
-import TeacherHeaderCard from './components/teacher-header-card';
-
-import styles from './QuestionsList.module.scss';
+import * as styles from './QuestionsList.styles';
 
 interface QuestionListProps {
   data: GetTeacherQuestionsResponse;
   progress: number[];
 }
-
 const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
   const { subject, teacher, categories } = data;
   const { lastName, firstName, middleName, avatar } = teacher;
   const { currentCategory, setCurrentCategory, setQuestionsListOpened } =
-    usePollStore();
+    usePollStore(state => ({
+      currentCategory: state.currentCategory,
+      setCurrentCategory: state.setCurrentCategory,
+      setQuestionsListOpened: state.setQuestionsListOpened,
+    }));
+
+  const handleClick = (id: number) => {
+    if (currentCategory !== id) setCurrentCategory(id);
+    setQuestionsListOpened(false);
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <Box sx={styles.wrapper}>
       <TeacherHeaderCard
         name={`${lastName} ${firstName} ${middleName}`}
         description={subject.name}
@@ -37,13 +45,12 @@ const QuestionsList: React.FC<QuestionListProps> = ({ data, progress }) => {
             numberOfAnswered={progress[id]}
             isActive={currentCategory === id}
             onClick={() => {
-              if (currentCategory !== id) setCurrentCategory(id);
-              setQuestionsListOpened(false);
+              handleClick(id);
             }}
           />
         </Box>
       ))}
-    </div>
+    </Box>
   );
 };
 

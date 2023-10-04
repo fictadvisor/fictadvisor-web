@@ -229,7 +229,7 @@ export const useSchedule = create<State & Action>((set, get) => {
         const isUsingSelective = user && user.group?.id === id;
         set(state => ({ isUsingSelective }));
         setUrlParams('group', id);
-
+        localStorage.setItem(LOCAL_STORAGE_SCHEDULE_KEY, id);
         get().handleWeekChange();
       };
     },

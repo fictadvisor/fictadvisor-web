@@ -26,7 +26,7 @@ const CommentTab: FC<TeacherTabProps> = ({ teacherId, subjectId }) => {
   } = useContext(teacherContext);
   const {
     teacher: teacherSubject,
-    floatingCardShowed: teacherSubjectFloatingShowed,
+    subjectFloatingCardShowed: teacherSubjectFloatingShowed,
   } = useContext(teacherSubjectContext);
   const [sort, setSort] = useState('newest');
   const { data } = useQuery(
@@ -71,10 +71,11 @@ const CommentTab: FC<TeacherTabProps> = ({ teacherId, subjectId }) => {
           />
         </Box>
 
-        {data?.questions?.map(question =>
-          question?.comments?.map((comment, index) => (
-            <Comment key={index} {...comment} />
-          )),
+        {data?.questions?.map(
+          question =>
+            question?.comments?.map((comment, index) => (
+              <Comment key={index} {...comment} />
+            )),
         )}
       </Box>
       {teacherSubject && floatingCardShowed && (

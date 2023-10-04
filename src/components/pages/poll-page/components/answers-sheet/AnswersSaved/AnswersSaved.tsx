@@ -19,18 +19,18 @@ const AnswersSaved = () => {
           Дякуємо за відповіді!
         </Typography>
         <Typography sx={styles.paragraph}>
-          Ваші відповіді допоможуть покращити якість навчання на нашому
-          факультеті. Також Ви можете оцінити інших викладачів.
+          Твої відповіді допоможуть покращити якість навчання на нашому
+          факультеті. Також ти можеш оцінити інших викладачів.
         </Typography>
         <Box sx={styles.buttons}>
           <Button
-            sx={styles.toOtherPolls}
+            sx={styles.button}
             text={'Пройти нове опитування'}
             type="submit"
             onClick={() => router.push('/poll')}
           />
           <Button
-            sx={styles.toMain}
+            sx={styles.button}
             text={'Повернутись на головну'}
             type="submit"
             variant={ButtonVariant.OUTLINE}
