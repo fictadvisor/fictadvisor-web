@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Form, Formik } from 'formik';
@@ -13,13 +13,18 @@ type RadioGroupStoryType = {
 const RadioGroupStory: React.FC<RadioGroupStoryType> = (
   args: RadioGroupStoryType,
 ) => {
-  const [name, setName] = useState('Name');
-
+  const [selectedValue, setSelectedValue] = useState('');
   return (
     <Box sx={{ padding: '20px', backgroundColor: 'backgroundDark.300' }}>
       <Formik initialValues={{}} onSubmit={() => {}}>
         <Form>
-          <RadioGroup {...args}></RadioGroup>
+          <RadioGroup
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              setSelectedValue(event.target.value);
+            }}
+            {...args}
+            {...{ selectedValue: selectedValue }}
+          ></RadioGroup>
         </Form>
       </Formik>
     </Box>
@@ -27,7 +32,7 @@ const RadioGroupStory: React.FC<RadioGroupStoryType> = (
 };
 
 const meta = {
-  title: 'Ui Kit/Components/form/radio/RadioGroup',
+  title: 'Ui Kit/Components/form/RadioGroup',
   component: RadioGroupStory,
   parameters: {
     layout: 'centered',
@@ -56,7 +61,6 @@ export const Base: Story = {
         value: '126',
       },
     ],
-    selectedValue: '123',
     sx: {
       display: 'flex',
       justifyContent: 'column',
