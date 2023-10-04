@@ -62,7 +62,7 @@ const Drawer: FC<DrawerProps> = ({
                   textPosition={TabTextPosition.LEFT}
                   icon={button.icon}
                   sx={
-                    router.pathname === button.link
+                    router.asPath === button.link
                       ? styles.activeMenuTab
                       : styles.menuTab
                   }
