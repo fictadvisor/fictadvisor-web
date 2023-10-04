@@ -2,9 +2,23 @@ import { Box, Typography } from '@mui/material';
 
 import * as styles from '@/components/pages/main-page/completely-normal-folder/GreetingBlock.styles';
 
+import artem from '../../../../../public/images/main-page/avatars/artem.png';
+import danya from '../../../../../public/images/main-page/avatars/danya.png';
+import dima from '../../../../../public/images/main-page/avatars/dima.png';
+import illia from '../../../../../public/images/main-page/avatars/illia.png';
+import katya from '../../../../../public/images/main-page/avatars/katya.png';
+import oleg from '../../../../../public/images/main-page/avatars/oleg.png';
+import pasha from '../../../../../public/images/main-page/avatars/pasha.png';
+import sasha from '../../../../../public/images/main-page/avatars/sasha.png';
+import stas from '../../../../../public/images/main-page/avatars/stas.png';
+import svyat from '../../../../../public/images/main-page/avatars/svyat.png';
+import vovka from '../../../../../public/images/main-page/avatars/vovka.png';
+
 import stylesCSS from './GreetingBlock.module.scss';
 
 const GreetingBlock = () => {
+  const imgScr = '/images/main-page/avatars/';
+
   const avatars = [
     '/images/main-page/avatars/stat.png',
     '/images/main-page/avatars/svyat.png',
@@ -61,7 +75,7 @@ const GreetingBlock = () => {
               className={stylesCSS['kitten-image']}
               width={200}
               height={200}
-              src={avatars[index]}
+              src={imgScr + avatars[index] + '.png'}
               alt={name}
             />
             <Typography sx={styles.kittenName}>{name}</Typography>
