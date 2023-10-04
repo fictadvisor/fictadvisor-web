@@ -26,10 +26,9 @@ export const kittensBlock: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
   flexWrap: 'wrap',
-  padding: '14px 100px',
-  [theme.breakpoints.down('desktopSemiLarge')]: {
-    padding: '14px 0',
-  },
+  maxWidth: '1300px',
+  padding: '14px 0',
+  margin: '0 auto',
 };
 
 export const kittenCard: SxProps<Theme> = {
