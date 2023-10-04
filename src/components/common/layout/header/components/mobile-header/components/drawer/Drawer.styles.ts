@@ -25,9 +25,7 @@ export const activeMenuTab: SxProps<Theme> = {
     desktopSemiMedium: `2px solid ${theme.palette.backgroundDark[200]}`,
   },
   color: 'inherit',
-  maxWidth: {
-    mobile: '100%',
-  },
+  maxWidth: '100%',
 };
 
 export const divider = (isLoggined: boolean): SxProps<Theme> => ({
