@@ -3,33 +3,21 @@ import Image from 'next/image';
 
 import * as styles from '@/components/pages/main-page/completely-normal-folder/GreetingBlock.styles';
 
-import artem from '../../../../../public/images/main-page/avatars/artem.png';
-import danya from '../../../../../public/images/main-page/avatars/danya.png';
-import dima from '../../../../../public/images/main-page/avatars/dima.png';
-import illia from '../../../../../public/images/main-page/avatars/illia.png';
-import katya from '../../../../../public/images/main-page/avatars/katya.png';
-import oleg from '../../../../../public/images/main-page/avatars/oleg.png';
-import pasha from '../../../../../public/images/main-page/avatars/pasha.png';
-import sasha from '../../../../../public/images/main-page/avatars/sasha.png';
-import stas from '../../../../../public/images/main-page/avatars/stas.png';
-import svyat from '../../../../../public/images/main-page/avatars/svyat.png';
-import vovka from '../../../../../public/images/main-page/avatars/vovka.png';
-
 import stylesCSS from './GreetingBlock.module.scss';
 
 const GreetingBlock = () => {
   const avatars = [
-    stas,
-    svyat,
-    oleg,
-    danya,
-    katya,
-    pasha,
-    dima,
-    illia,
-    vovka,
-    artem,
-    sasha,
+    '/images/main-page/avatars/stas.png',
+    '/images/main-page/avatars/svyat.png',
+    '/images/main-page/avatars/oleg.png',
+    '/images/main-page/avatars/danya.png',
+    '/images/main-page/avatars/katya.png',
+    '/images/main-page/avatars/pasha.png',
+    '/images/main-page/avatars/dima.png',
+    '/images/main-page/avatars/illia.png',
+    '/images/main-page/avatars/vovka.png',
+    '/images/main-page/avatars/artem.png',
+    '/images/main-page/avatars/sasha.png',
   ];
   const names = [
     'Стасік',
@@ -70,7 +58,7 @@ const GreetingBlock = () => {
       <Box sx={styles.kittensBlock}>
         {names.map((name, index) => (
           <Box key={index} sx={styles.kittenCard}>
-            <Image
+            <img
               className={stylesCSS['kitten-image']}
               width={200}
               height={200}
