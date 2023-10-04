@@ -60,7 +60,9 @@ const GreetingBlock = () => {
 
   return (
     <Box sx={styles.greetingWrapper}>
-      <Typography sx={styles.greetingTitle}>1000 коміт на Back-end</Typography>
+      <Typography sx={styles.greetingTitle}>
+        1000-ний коміт на Back-end
+      </Typography>
       <Typography sx={styles.greetingSubtitle}>
         Вітаємо цих чудових котиків!!!
       </Typography>
