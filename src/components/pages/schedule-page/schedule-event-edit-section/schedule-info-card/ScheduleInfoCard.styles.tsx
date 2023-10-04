@@ -55,5 +55,5 @@ export const linkContainer: SxProps<Theme> = {
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  maxWidth: '250px',
+  maxWidth: '255px',
 };
