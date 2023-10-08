@@ -3,6 +3,7 @@ import { QueryObserverBaseResult } from 'react-query';
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
+  CheckCircleIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
 import { useMediaQuery } from '@mui/material';
@@ -89,14 +90,14 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     return (
       <>
         <Popup
-          hasCross
+          icon={<CheckCircleIcon />}
           open={changePopupOpen}
           title={
             student.role === UserGroupRole.MODERATOR
               ? 'Зробити студентом'
               : 'Зробити заст. старости'
           }
-          content={`Ви дійсно бажаєте зробити користувача ${student.fullName} ${
+          content={`Ти дійсно бажаєш зробити ${student.fullName} ${
             student.role === UserGroupRole.MODERATOR
               ? 'студентом'
               : 'заст. старости'
