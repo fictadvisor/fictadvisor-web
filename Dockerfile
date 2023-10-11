@@ -6,6 +6,8 @@ FROM node:18-alpine3.17 as build
 
 WORKDIR /app
 
+ARG NODE_ENV=${NODE_ENV}
+
 COPY . ./
 
 RUN yarn install --prod && yarn build
@@ -26,5 +28,6 @@ COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
 
 ENV PORT 80
+ENV NODE_ENV ${NODE_ENV}
 
 CMD [ "node", "server.js" ]
