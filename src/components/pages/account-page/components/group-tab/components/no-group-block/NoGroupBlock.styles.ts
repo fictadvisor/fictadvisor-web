@@ -4,6 +4,10 @@ import { SxProps } from '@mui/system';
 import theme from '@/styles/theme';
 
 export const content: SxProps<Theme> = {
+  paddingBottom: {
+    mobile: '36px',
+    mobileMedium: '363px',
+  },
   width: {
     mobile: '100%;',
     mobileMedium: 'fit-content',
