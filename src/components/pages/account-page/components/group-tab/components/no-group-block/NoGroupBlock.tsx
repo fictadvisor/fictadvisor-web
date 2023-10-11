@@ -62,7 +62,7 @@ const NoGroupBlock: FC = () => {
           <Box>
             <Divider
               sx={muiStyles.divider}
-              text="Або вибери іншу групу"
+              text="Або обери іншу групу"
               textAlign={
                 isTablet ? DividerTextAlign.LEFT : DividerTextAlign.CENTER
               }
