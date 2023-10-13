@@ -518,7 +518,7 @@ export const LectPract13Desktop = () => {
           height="542.353"
           rx="271.177"
           stroke="#404040"
-          stroke-width="1.37305"
+          strokeWidth="1.37305"
         />
       </g>
       <defs>
