@@ -55,14 +55,14 @@ const NoGroupBlock: FC = () => {
           </Box>
           <Box sx={muiStyles.alertDesktopPending}>
             <Alert
-              title="Ваша заявка ще не прийнята, очікуйте підтвердження"
+              title="Твоя заявка ще не прийнята, очікуй підтвердження"
               type={AlertType.INFO}
             />
           </Box>
           <Box>
             <Divider
               sx={muiStyles.divider}
-              text="Або виберіть іншу групу"
+              text="Або обери іншу групу"
               textAlign={
                 isTablet ? DividerTextAlign.LEFT : DividerTextAlign.CENTER
               }
@@ -73,13 +73,13 @@ const NoGroupBlock: FC = () => {
         <>
           <Box sx={muiStyles.alertDesktop}>
             <Alert
-              title={'Ваша заявка відхилена'}
+              title={'Твоя заявка відхилена'}
               type={AlertType.ERROR}
-              description={'Оберіть іншу групу нижче та надішліть новий запит'}
+              description={'Обери іншу групу нижче та надішли новий запит'}
             />
           </Box>
           <Box sx={muiStyles.alertMobile}>
-            <Alert title={'Ваша заявка відхилена'} type={AlertType.ERROR} />
+            <Alert title={'Твоя заявка відхилена'} type={AlertType.ERROR} />
           </Box>
         </>
       )}
