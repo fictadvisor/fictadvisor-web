@@ -36,11 +36,19 @@ export const TeacherSearchPage = () => {
     setQueryObj(prev => ({ ...prev, ...query }));
     setCurPage(0);
   }, []);
+  
+  const [loadedTeachers, setLoadedTeachers] = useState( [] );
+
 
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetTeachersResponse>(
       'lecturers',
-      () => TeacherAPI.getAll(queryObj, PAGE_SIZE * (curPage + 1)),
+      () => {
+        if (curPage > 0) {
+          setLoadedTeachers([...((data) ? data.teachers : []), ...((loadedTeachers) ?  loadedTeachers : [])]);
+        }
+        return TeacherAPI.getPage(queryObj, PAGE_SIZE, curPage+1);
+      },
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
 
@@ -58,14 +66,17 @@ export const TeacherSearchPage = () => {
         initialValues={initialValues}
         localStorageName={localStorageName}
       />
-      {data && <TeacherSearchList teachers={data.teachers} />}
+      {data && <TeacherSearchList teachers={[...data.teachers, ...loadedTeachers ?? []]} />}
       {isLoading ||
         (isFetching && (
           <Box sx={styles.pageLoader}>
             <Progress />
           </Box>
         ))}
-      {data?.teachers.length === (curPage + 1) * PAGE_SIZE && (
+
+      { //[ ...((data) ? data.teachers : []), ...((loadedTeachers) ? loadedTeachers : []) ].length === (PAGE_SIZE*curPage+1) && (//* PAGE_SIZE && (
+        true && (
+        
         <Button
           sx={styles.loadBtn}
           text="Завантажити ще"
