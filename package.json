@@ -64,5 +64,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "storybook": "^7.4.0",
     "typescript": "^5.2.2"
-  }
+  },
+  "packageManager": "yarn@3.6.4"
 }
