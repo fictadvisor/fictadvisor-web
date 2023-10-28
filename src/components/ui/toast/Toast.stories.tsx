@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { AlertType } from '@/components/common/ui/alert/types';
-import Toast from '@/components/common/ui/toast/Toast';
+import Toast from '@/components/ui/toast/Toast';
 
 const meta = {
   title: 'Ui Kit/Components/Toast',
