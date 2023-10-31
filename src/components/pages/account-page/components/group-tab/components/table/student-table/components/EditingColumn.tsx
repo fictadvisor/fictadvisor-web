@@ -27,6 +27,7 @@ import MobileDropdown from '@/components/pages/account-page/components/group-tab
 import UseAuthentication from '@/hooks/use-authentication/useAuthentication';
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import GroupAPI from '@/lib/api/group/GroupAPI';
+import { PERMISSION, PermissionResponse } from '@/lib/services/permisson/types';
 import theme from '@/styles/theme';
 import { UserGroupRole } from '@/types/user';
 
@@ -34,10 +35,15 @@ import { StudentsTableItem } from '../../types';
 
 interface EditingColumnProps {
   student: StudentsTableItem;
+  permissions: PermissionResponse;
   refetch: QueryObserverBaseResult['refetch'];
 }
 
-const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
+const EditingColumn: FC<EditingColumnProps> = ({
+  student,
+  permissions,
+  refetch,
+}) => {
   const { user } = UseAuthentication();
   const { displayError } = useToastError();
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
@@ -84,7 +90,8 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
     );
 
   if (
-    user.group?.role === UserGroupRole.CAPTAIN &&
+    permissions[PERMISSION.GROUPS_$GROUPID_STUDENTS_REMOVE] &&
+    permissions[PERMISSION.GROUPS_$GROUPID_TRANSFER] &&
     student.role !== UserGroupRole.CAPTAIN
   ) {
     return (
@@ -162,6 +169,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             arrowIcon={buttonIcon}
             setDeletePopupOpen={setDeletePopupOpen}
             setChangePopupOpen={setChangePopupOpen}
+            permissions={permissions}
             student={student}
           />
         ) : (
@@ -177,7 +185,8 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
   }
 
   if (
-    user.group?.role === UserGroupRole.MODERATOR &&
+    permissions[PERMISSION.GROUPS_$GROUPID_STUDENTS_REMOVE] &&
+    !permissions[PERMISSION.GROUPS_$GROUPID_TRANSFER] &&
     student.role === UserGroupRole.STUDENT
   ) {
     return (
@@ -212,6 +221,7 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             arrowIcon={buttonIcon}
             setDeletePopupOpen={setDeletePopupOpen}
             setChangePopupOpen={setChangePopupOpen}
+            permissions={permissions}
             student={student}
           />
         ) : (

@@ -13,6 +13,7 @@ import IconButton from '@/components/common/ui/icon-button-mui/IconButton';
 import { IconButtonColor } from '@/components/common/ui/icon-button-mui/types';
 import roleNamesMapper from '@/components/pages/account-page/components/group-tab/components/table/constants';
 import useAuthentication from '@/hooks/use-authentication';
+import { PERMISSION, PermissionResponse } from '@/lib/services/permisson/types';
 import { UserGroupRole } from '@/types/user';
 
 import { StudentsTableItem } from '../../types';
@@ -23,6 +24,7 @@ export interface MobileStudentTableButtonsProps {
   setDeletePopupOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setChangePopupOpen: React.Dispatch<React.SetStateAction<boolean>>;
   student: StudentsTableItem;
+  permissions: PermissionResponse;
   arrowIcon: ReactNode;
 }
 
@@ -30,6 +32,7 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
   setDeletePopupOpen,
   setChangePopupOpen,
   student,
+  permissions,
   arrowIcon,
 }) => {
   const { user } = useAuthentication();
@@ -59,7 +62,7 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
           anchorEl={EllipsisIconRef.current}
         >
           <Stack sx={styles.dropdown}>
-            {user.group?.role === UserGroupRole.CAPTAIN &&
+            {permissions[PERMISSION.GROUPS_$GROUPID_TRANSFER] &&
               student.role == UserGroupRole.STUDENT && (
                 <Button
                   size={ButtonSize.SMALL}
@@ -69,9 +72,10 @@ const MobileStudentsTableButtons: FC<MobileStudentTableButtonsProps> = ({
                   onClick={() => setChangePopupOpen(true)}
                 />
               )}
-            {((user.group?.role === UserGroupRole.CAPTAIN &&
+            {((permissions[PERMISSION.GROUPS_$GROUPID_STUDENTS_REMOVE] &&
               student.role !== UserGroupRole.CAPTAIN) ||
               (user.group?.role === UserGroupRole.MODERATOR &&
+                permissions[PERMISSION.GROUPS_$GROUPID_STUDENTS_REMOVE] &&
                 student.role == UserGroupRole.STUDENT)) && (
               <Button
                 size={ButtonSize.SMALL}
