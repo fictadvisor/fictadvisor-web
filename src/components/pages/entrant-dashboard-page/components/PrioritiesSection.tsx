@@ -36,8 +36,8 @@ const educationProgramMapper: Record<string, string> = {
 const errorMapper = {
   InvalidBodyException: 'Неправильно введені дані',
   DataNotFoundException: 'Даних не було знайдено',
-  UnauthorizedException: 'Ви не зареєстровані',
-  NoPermissionException: 'У вас не має доступу до цього ресурсу',
+  UnauthorizedException: 'Ти не зареєстрований',
+  NoPermissionException: 'У тебе не має доступу до цього ресурсу',
 };
 export const PrioritiesSection: FC<PrioritiesSectionProps> = ({
   data,
@@ -55,7 +55,7 @@ export const PrioritiesSection: FC<PrioritiesSectionProps> = ({
         };
         return newData as EntrantFuIlResponse;
       });
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const handleApprove = async () => {

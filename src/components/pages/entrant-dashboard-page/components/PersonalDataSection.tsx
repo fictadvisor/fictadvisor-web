@@ -30,7 +30,7 @@ interface PersonalDataSectionProps {
 const errorMapper = {
   InvalidEntityIdException: 'Користувача з таким id не існує',
   DataNotFoundException: 'Даних не знайдено',
-  NoPermissionException: 'У вас не має прав виконувати цю дію',
+  NoPermissionException: 'У тебе не має прав виконувати цю дію',
 };
 
 const specialtyMapper = {
@@ -60,7 +60,7 @@ export const PersonalDataSection: FC<PersonalDataSectionProps> = ({
         };
         return newData as EntrantFuIlResponse;
       });
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const createContract = async () => {
@@ -88,9 +88,8 @@ export const PersonalDataSection: FC<PersonalDataSectionProps> = ({
         text="Вступник"
         sx={styles.divider}
       />
-      <Typography variant={'h6Bold'}>{`${data.lastName} ${data.firstName} ${
-        data.middleName ?? ''
-      }`}</Typography>
+      <Typography variant={'h6Bold'}>{`${data.lastName} ${data.firstName} ${data.middleName ?? ''
+        }`}</Typography>
       <Typography variant={'body2Medium'}>
         Спеціальність: {specialtyMapper[data.specialty]}
       </Typography>
