@@ -29,7 +29,7 @@ const SecurityTab = () => {
   return (
     <Box sx={styles.wrapper}>
       <Box>
-        <Divider text={'Зміна паролю'} textAlign={DividerTextAlign.LEFT} />
+        <Divider text={'Зміна пароля'} textAlign={DividerTextAlign.LEFT} />
         <ChangePasswordForm />
       </Box>
       <Divider
@@ -40,11 +40,11 @@ const SecurityTab = () => {
       <Box sx={styles.userInformation}>
         <Input
           readOnly
-          onChange={() => {}}
+          onChange={() => { }}
           label="Юзернейм"
           value={user.username}
         />
-        <Input readOnly onChange={() => {}} label="Пошта" value={user.email} />
+        <Input readOnly onChange={() => { }} label="Пошта" value={user.email} />
       </Box>
       <Divider sx={styles.divider} />
       <Button
