@@ -13,10 +13,10 @@ export interface CardRolesProps {
 }
 
 const TagText: Record<TeacherRole, string> = {
-  [TeacherRole.LABORANT]: 'Лабораторні',
-  [TeacherRole.LECTURER]: 'Лекції',
-  [TeacherRole.PRACTICIAN]: 'Практики',
-  [TeacherRole.EXAMINER]: 'Екзамени',
+  [TeacherRole.LABORANT]: 'Лаборант',
+  [TeacherRole.LECTURER]: 'Лектор',
+  [TeacherRole.PRACTICIAN]: 'Практик',
+  [TeacherRole.EXAMINER]: 'Екзаменатор',
   [TeacherRole.OTHER]: 'Інше',
 };
 
