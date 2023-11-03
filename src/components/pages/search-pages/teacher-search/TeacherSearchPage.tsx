@@ -18,6 +18,7 @@ import {
 } from '@/components/pages/search-pages/teacher-search/constants';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import { GetTeachersResponse } from '@/lib/api/teacher/types/GetTeachersResponse';
+import { Teacher } from '@/types/teacher';
 
 import { TeacherInitialValues } from '../search-form/constants';
 import SearchForm from '../search-form/SearchForm';
@@ -32,29 +33,42 @@ export const TeacherSearchPage = () => {
   const localStorageName = 'teachersForm';
   const [queryObj, setQueryObj] = useState<SearchFormFields>(initialValues);
   const [curPage, setCurPage] = useState(0);
+
+  const [reloadTeachers, setReloadTeachers] = useState(true);
   const submitHandler: SearchFormProps['onSubmit'] = useCallback(query => {
+    setReloadTeachers(true);
+    setLoadedTeachers([]);
     setQueryObj(prev => ({ ...prev, ...query }));
-    setCurPage(0);
   }, []);
-  
-  const [loadedTeachers, setLoadedTeachers] = useState( [] );
 
-
+  const [loadedTeachers, setLoadedTeachers] = useState<Omit<Teacher, 'role'>[]>(
+    [],
+  );
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetTeachersResponse>(
       'lecturers',
       () => {
-        if (curPage > 0) {
-          setLoadedTeachers([...((data) ? data.teachers : []), ...((loadedTeachers) ?  loadedTeachers : [])]);
+        if (reloadTeachers) {
+          return TeacherAPI.getAll(queryObj, PAGE_SIZE * (curPage + 1));
+        } else {
+          setLoadedTeachers([
+            ...(loadedTeachers ? loadedTeachers : []),
+            ...(data ? data.teachers : []),
+          ]);
+          return TeacherAPI.getPage(queryObj, PAGE_SIZE, curPage + 1);
         }
-        return TeacherAPI.getPage(queryObj, PAGE_SIZE, curPage+1);
       },
       { keepPreviousData: true, refetchOnWindowFocus: false },
     );
 
+  const downloadHandler = () => {
+    setReloadTeachers(false);
+    setCurPage(pr => pr + 1);
+  };
+
   useEffect(() => {
     void refetch();
-  }, [queryObj, curPage, refetch]);
+  }, [queryObj, curPage, refetch, reloadTeachers]);
 
   return (
     <Box sx={styles.layout}>
@@ -66,25 +80,25 @@ export const TeacherSearchPage = () => {
         initialValues={initialValues}
         localStorageName={localStorageName}
       />
-      {data && <TeacherSearchList teachers={[...data.teachers, ...loadedTeachers ?? []]} />}
+      {data && (
+        <TeacherSearchList
+          teachers={[...(loadedTeachers ?? []), ...data.teachers]}
+        />
+      )}
       {isLoading ||
         (isFetching && (
           <Box sx={styles.pageLoader}>
             <Progress />
           </Box>
         ))}
-
-      { //[ ...((data) ? data.teachers : []), ...((loadedTeachers) ? loadedTeachers : []) ].length === (PAGE_SIZE*curPage+1) && (//* PAGE_SIZE && (
-        true && (
-        
-        <Button
-          sx={styles.loadBtn}
-          text="Завантажити ще"
-          variant={ButtonVariant.FILLED}
-          color={ButtonColor.SECONDARY}
-          onClick={() => setCurPage(pr => pr + 1)}
-        />
-      )}
+      <Button
+        sx={styles.loadBtn}
+        text="Завантажити ще"
+        variant={ButtonVariant.FILLED}
+        color={ButtonColor.SECONDARY}
+        onClick={() => downloadHandler}
+      />{' '}
+      )
     </Box>
   );
 };
