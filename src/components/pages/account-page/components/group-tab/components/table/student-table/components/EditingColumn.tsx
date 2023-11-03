@@ -155,6 +155,16 @@ const EditingColumn: FC<EditingColumnProps> = ({ student, refetch }) => {
             onClick={() => setChangePopupOpen(true)}
           />
         )}
+        {student.role === UserGroupRole.MODERATOR && !isMobile && (
+          <Button
+            text={buttonText}
+            sx={{ width: 'fit-content', borderRadius: '8px' }}
+            size={ButtonSize.SMALL}
+            variant={ButtonVariant.OUTLINE}
+            startIcon={buttonIcon}
+            onClick={() => setChangePopupOpen(true)}
+          />
+        )}
         {isMobile ? (
           <MobileDropdown
             arrowIcon={buttonIcon}
