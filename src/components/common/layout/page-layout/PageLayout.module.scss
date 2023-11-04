@@ -21,6 +21,15 @@
   height: 64px;
 }
 
+.content-wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
 .footer {
   width: 100%;
   margin-top: auto;

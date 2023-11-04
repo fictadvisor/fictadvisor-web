@@ -8,6 +8,8 @@ import Footer from '../footer/Footer';
 import Header from '../header/Header';
 
 import styles from './PageLayout.module.scss';
+import AdminPanel from "@/components/common/layout/admin-panel/AdminPanel";
+import { Box } from "@mui/material";
 
 interface PageLayoutProps {
   title?: string;
@@ -64,7 +66,10 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             <div className={styles['header']}>{hasHeader && <Header />}</div>
           </>
         )}
-        {children}
+        <div className={styles['content-wrapper']}>
+          <AdminPanel />
+          <main className={styles['main-content']}>{children}</main>
+        </div>
         {hasFooter && (
           <div className={styles['footer']}>
             <Footer />
