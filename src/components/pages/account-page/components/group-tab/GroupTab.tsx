@@ -13,24 +13,21 @@ import {
 import useAuthentication from '@/hooks/use-authentication';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import PermissionService from '@/lib/services/permisson/PermissionService';
-import { PERMISSION } from '@/lib/services/permisson/types';
+import { PERMISSION, PermissionData } from '@/lib/services/permisson/types';
 import { PendingStudent } from '@/types/student';
 import { User, UserGroupState } from '@/types/user';
 
 import * as styles from './GroupTab.styles';
 
 const getGroupData = async (user: User) => {
-  const permissionRequest = [];
-  for (const permission of Object.values(PERMISSION)) {
-    if (permission.split('.')[0] === 'groups') {
-      permissionRequest.push(permission);
-    }
-  }
-  const permissions = await PermissionService.getPermissionList(
-    permissionRequest,
-    user,
-  );
   const groupId = user.group?.id as string;
+  const permissionValues: PermissionData = {
+    groupId: groupId,
+  };
+  const permissions = await PermissionService.getPermissionList(
+    user.id,
+    permissionValues,
+  );
   const { students } = await GroupAPI.getGroupStudents(groupId);
   const requests: PendingStudent[] = !permissions[
     PERMISSION.GROUPS_$GROUPID_STUDENTS_UNVERIFIED_GET

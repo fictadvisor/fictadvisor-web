@@ -11,7 +11,7 @@ import {
 import { GroupsDropDown } from '@/components/pages/schedule-page/calendar-section/components/groups-dropdown/GroupsDropDown';
 import useAuthentication from '@/hooks/use-authentication';
 import PermissionService from '@/lib/services/permisson/PermissionService';
-import { PERMISSION } from '@/lib/services/permisson/types';
+import { PERMISSION, PermissionData } from '@/lib/services/permisson/types';
 import { useSchedule } from '@/store/schedule/useSchedule';
 import { Group } from '@/types/group';
 
@@ -26,16 +26,13 @@ export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
   const { user } = useAuthentication();
   const groupId = useSchedule(state => state.groupId);
 
-  const permissions: PERMISSION[] = [];
-  for (const permission of Object.values(PERMISSION)) {
-    if (permission.split('.')[0] === 'groups') {
-      permissions.push(permission);
-    }
-  }
+  const permissionValues: PermissionData = {
+    groupId: user.group?.id,
+  };
 
   const { data } = useQuery(
     [],
-    () => PermissionService.getPermissionList(permissions, user),
+    () => PermissionService.getPermissionList(user.id, permissionValues),
     {
       retry: false,
       refetchOnWindowFocus: false,

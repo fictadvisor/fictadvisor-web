@@ -18,7 +18,7 @@ import { getStringTime } from '@/components/pages/schedule-page/utils/getStringT
 import useAuthentication from '@/hooks/use-authentication';
 import { DetailedEventBody } from '@/lib/api/schedule/types/DetailedEventBody';
 import PermissionService from '@/lib/services/permisson/PermissionService';
-import { PERMISSION } from '@/lib/services/permisson/types';
+import { PERMISSION, PermissionData } from '@/lib/services/permisson/types';
 import { TDiscipline } from '@/types/schedule';
 
 import { skeletonProps } from '../utils/skeletonProps';
@@ -61,23 +61,20 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
   const [tabValue, setTabValue] = useState<InfoCardTabs>(InfoCardTabs.EVENT);
   const { user } = useAuthentication();
 
-  const permissions: PERMISSION[] = [];
-  for (const permission of Object.values(PERMISSION)) {
-    if (permission.split('.')[0] === 'groups') {
-      permissions.push(permission);
-    }
-  }
+  const permissionValues: PermissionData = {
+    groupId: user.group?.id,
+  };
 
   const { data } = useQuery(
     [],
-    () => PermissionService.getPermissionList(permissions, user),
+    () => PermissionService.getPermissionList(user.id, permissionValues),
     {
       retry: false,
       refetchOnWindowFocus: false,
     },
   );
 
-  const canEdit =
+  const validPrivilege =
     data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_CREATE] &&
     data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_DELETE] &&
     data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_UPDATE];
@@ -95,7 +92,7 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
           </Typography>
         )}
         <Box sx={{ display: 'flex' }}>
-          {canEdit && (
+          {validPrivilege && (
             <IconButton
               color={IconButtonColor.TRANSPARENT}
               icon={<PencilSquareIcon width={36} height={36} />}

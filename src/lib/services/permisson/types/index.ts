@@ -93,13 +93,10 @@ export enum PERMISSION {
 }
 
 export interface PermissionData {
-  permissions: PERMISSION[];
-  values: {
-    userId?: User['id'];
-    groupId?: Group['id'];
-    roleId?: UserGroupRole;
-    teacherId?: Teacher['id'];
-  };
+  userId?: User['id'];
+  groupId?: Group['id'];
+  roleId?: UserGroupRole;
+  teacherId?: Teacher['id'];
 }
 
 export type PermissionResponse = {
