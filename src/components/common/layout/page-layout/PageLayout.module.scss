@@ -23,10 +23,12 @@
 
 .content-wrapper {
   display: flex;
-  flex-grow: 1;
+  width: 100%;
+
 }
 
 .main-content {
+  margin-left: 240px;
   flex-grow: 1;
 }
 
