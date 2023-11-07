@@ -12,6 +12,7 @@ export const drawer: SxProps<Theme> = {
 };
 
 export const tabList: SxProps<Theme> = {
+  color: 'grey.800',
   padding: '8px 16px',
   '.MuiTabs-flexContainer': {
     flexDirection: 'column',
@@ -20,7 +21,7 @@ export const tabList: SxProps<Theme> = {
 };
 
 export const tab: SxProps<Theme> = {
-  backgroundColor: theme.palette.backgroundDark[100],
+  backgroundColor: 'backgroundDark.100',
   border: {
     mobile: 'none',
     desktopSemiMedium: 'none',
@@ -30,29 +31,19 @@ export const tab: SxProps<Theme> = {
     desktopSemiMedium: '208px',
   },
   padding: {
-    mobile: '6px 16px',
+    mobile: '8px 16px',
     desktopSemiMedium: '8px 16px',
   },
-  '&:hover': {
-    backgroundColor: theme.palette.backgroundDark[200],
-    color: 'grey.800',
-    border: {
-      mobile: 'none',
-      desktopSemiMedium: 'none',
-    },
-  },
-  '&.Mui-selected': {
+  '&:hover, &.Mui-selected': {
     backgroundColor: 'backgroundDark.200',
     border: {
       mobile: 'none',
       desktopSemiMedium: 'none',
     },
-    color: 'grey.800',
   },
 };
 
-export const pollPart: SxProps<Theme> = {
-  typography: theme.typography.body2Medium,
-  color: 'grey.800',
-  padding: '4px 0',
+export const pollPartHeader: SxProps<Theme> = {
+  typography: 'body2Medium',
+  padding: '4px 0 0',
 };

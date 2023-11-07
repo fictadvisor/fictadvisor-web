@@ -27,7 +27,7 @@ import TabList from '../../ui/tab/tab-list';
 import * as styles from './AdminPanel.styles';
 
 const AdminPanel = () => {
-  const [index, setIndex] = useState('Хуй1');
+  const [index, setIndex] = useState('Ролі');
   const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
     console.log(value);
     setIndex(value);
@@ -47,86 +47,86 @@ const AdminPanel = () => {
       <TabContext value={index}>
         <TabList onChange={handleChange} sx={styles.tabList}>
           <Tab
-            label="Хуй1"
-            value="Хуй1"
+            label="Ролі"
+            value="Ролі"
             icon={<Captain />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй2"
-            value="Хуй2"
+            label="Користувач"
+            value="Користувач"
             icon={<UserCircleIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй3"
-            value="Хуй3"
+            label="Студенти"
+            value="Студенти"
             icon={<IdentificationIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй4"
-            value="Хуй4"
+            label="Групи"
+            value="Групи"
             icon={<UserGroupIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй5"
-            value="Хуй5"
+            label="Кафедри"
+            value="Кафедри"
             icon={<BuildingLibraryIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй6"
-            value="Хуй6"
+            label="Викладачі"
+            value="Викладачі"
             icon={<BriefcaseIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй7"
-            value="Хуй7"
+            label="Дисципліни"
+            value="Дисципліни"
             icon={<NewspaperIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй8"
-            value="Хуй8"
+            label="Предмети"
+            value="Предмети"
             icon={<AcademicCapIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
           <Tab
-            label="Хуй9"
-            value="Хуй9"
+            label="Розклад"
+            value="Розклад"
             icon={<CalendarIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
           />
-          <Typography sx={styles.pollPart}>Опитування</Typography>
+          <Typography sx={styles.pollPartHeader}>Опитування</Typography>
           <Tab
-            label="Хуй10"
-            value="Хуй10"
+            label="База питань"
+            value="База питань"
             icon={<PencilSquareIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={mergeSx(styles.tab, { marginLeft: '14px', width: '194px' })}
           />
           <Tab
-            label="Хуй11"
-            value="Хуй11"
+            label="База відповідей"
+            value="База відповідей"
             icon={<ClipboardDocumentListIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={mergeSx(styles.tab, { marginLeft: '14px', width: '194px' })}
           />
           <Tab
-            label="Хуй12"
-            value="Хуй12"
+            label="Головна сторінка"
+            value="Головна сторінка"
             icon={<HomeIcon />}
             textPosition={TabTextPosition.LEFT}
             sx={styles.tab}
