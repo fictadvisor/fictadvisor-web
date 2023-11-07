@@ -18,6 +18,7 @@ import {
 } from '@/components/pages/search-pages/subject-search/constants';
 import SubjectsAPI from '@/lib/api/subject/SubjectAPI';
 import { GetListOfSubjectsResponse } from '@/lib/api/subject/types/GetListOfSubjectsResponse';
+import { Subject } from '@/types/subject';
 
 import { SubjectInitialValues } from '../search-form/constants';
 import SearchForm from '../search-form/SearchForm';
@@ -47,7 +48,7 @@ const SubjectSearchPage = () => {
     setCurPage(prev => prev + 1);
   };
   // useState<Omit<Teacher, 'role'>[]>
-  const [loadedSubjects, setLoadedSubjects] = useState([]);
+  const [loadedSubjects, setLoadedSubjects] = useState<Subject[]>([]);
   const [reloadSubjects, setReloadSubjects] = useState(true);
   const { data, isLoading, refetch, isFetching } =
     useQuery<GetListOfSubjectsResponse>(
@@ -56,9 +57,6 @@ const SubjectSearchPage = () => {
         if (reloadSubjects) {
           return SubjectsAPI.getAll(queryObj, PAGE_SIZE * (curPage + 1));
         } else {
-          // linter error
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           setLoadedSubjects([
             ...(loadedSubjects ?? []),
             ...(data?.subjects ?? []),

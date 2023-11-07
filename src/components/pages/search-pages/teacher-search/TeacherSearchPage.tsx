@@ -52,7 +52,7 @@ export const TeacherSearchPage = () => {
           return TeacherAPI.getAll(queryObj, PAGE_SIZE * (curPage + 1));
         } else {
           setLoadedTeachers([
-            ...(loadedTeachers ? loadedTeachers : []),
+            ...(loadedTeachers ?? []),
             ...(data ? data.teachers : []),
           ]);
           return TeacherAPI.getPage(queryObj, PAGE_SIZE, curPage + 1);
@@ -96,9 +96,8 @@ export const TeacherSearchPage = () => {
         text="Завантажити ще"
         variant={ButtonVariant.FILLED}
         color={ButtonColor.SECONDARY}
-        onClick={() => downloadHandler}
+        onClick={downloadHandler}
       />{' '}
-      )
     </Box>
   );
 };
