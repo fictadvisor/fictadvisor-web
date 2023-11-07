@@ -47,7 +47,6 @@ const SubjectSearchPage = () => {
     setReloadSubjects(false);
     setCurPage(prev => prev + 1);
   };
-  // useState<Omit<Teacher, 'role'>[]>
   const [loadedSubjects, setLoadedSubjects] = useState<Subject[]>([]);
   const [reloadSubjects, setReloadSubjects] = useState(true);
   const { data, isLoading, refetch, isFetching } =
