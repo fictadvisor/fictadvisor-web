@@ -2,14 +2,13 @@ import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 
+import AdminPanel from '@/components/common/layout/admin-panel/AdminPanel';
 import config from '@/config';
 
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
 
 import styles from './PageLayout.module.scss';
-import AdminPanel from "@/components/common/layout/admin-panel/AdminPanel";
-import { Box } from "@mui/material";
 
 interface PageLayoutProps {
   title?: string;
@@ -67,7 +66,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           </>
         )}
         <AdminPanel />
-        <Box className={styles['main-content']}>{children}</Box>
+        <div className={styles['main-content']}>{children}</div>
         {!hasFooter && (
           <div className={styles['footer']}>
             <Footer />
