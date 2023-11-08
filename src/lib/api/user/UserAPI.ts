@@ -1,18 +1,18 @@
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
 import { ChangeAvatarResponse } from '@/lib/api/user/types/ChangeAvatarResponse';
 import { ChangeInfoBody } from '@/lib/api/user/types/ChangeInfoBody';
+import { ChangeRoleBody } from '@/lib/api/user/types/ChangeRoleBody';
 import { GetContactsResponse } from '@/lib/api/user/types/GetContactsResponse';
 import { GetSelectiveDisciplinesBySemesterResponse } from '@/lib/api/user/types/GetSelectiveDisciplinesBySemesterResponse';
 import { GetSelectiveDisciplinesResponse } from '@/lib/api/user/types/GetSelectiveDisciplinesResponse';
+import { GetSelectiveResponse } from '@/lib/api/user/types/GetSelectiveResponse';
 import { PostSelectiveDisciplinesBody } from '@/lib/api/user/types/PostSelectiveDisciplinesBody';
+import { PostSuperheroBody } from '@/lib/api/user/types/PostSuperheroBody';
 import { RequestNewGroupBody } from '@/lib/api/user/types/RequestNewGroupBody';
+import { VerifyStudentBody } from '@/lib/api/user/types/VerifyStudentBody';
+import { VerifySuperheroBody } from '@/lib/api/user/types/VerifySuperheroBody';
 import { getAuthorizationHeader } from '@/lib/api/utils';
 import { TelegramUser } from '@/types/telegram';
-import { ChangeRoleBody } from '@/lib/api/user/types/ChangeRoleBody';
-import { GetSelective } from '@/lib/api/user/types/GetSelective';
-import { PostSuperheroBody } from '@/lib/api/user/types/PostSuperheroBody';
-import { VerifySuperheroBody } from '@/lib/api/user/types/VerifySuperheroBody';
-import { VerifyStudentBody } from '@/lib/api/user/types/VerifyStudentBody';
 
 import { client } from '../instance';
 
@@ -121,7 +121,7 @@ class UserAPI {
   }
 
   async getSelective(userId: string) {
-    const { data } = await client.get<GetSelective>(
+    const { data } = await client.get<GetSelectiveResponse>(
       `/users/${userId}/selective`,
       getAuthorizationHeader(),
     );
