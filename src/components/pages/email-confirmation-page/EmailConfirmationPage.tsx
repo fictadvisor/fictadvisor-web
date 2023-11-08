@@ -75,7 +75,11 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
           />
         </Box>
         <Alert
-          title="Лист реєстрації діє 1 годину"
+          title={
+            apiMethodName === 'forgotPassword'
+              ? 'Лист для зміни пароля діє 1 годину'
+              : 'Лист реєстрації діє 1 годину'
+          }
           type={AlertType.INFO}
           variant={AlertVariant.DARKER}
         />
