@@ -14,66 +14,68 @@ import {
 
 import { Captain } from '@/components/common/icons/Captain';
 
+const BASE_URL = '/admin';
+
 export const adminPanelTabs = [
   {
-    link: '/roles',
+    link: BASE_URL + '/roles',
     text: 'Ролі',
     icon: <Captain />,
   },
 
   {
-    link: '/users',
+    link: BASE_URL + '/users',
     text: 'Користувачі',
     icon: <UserCircleIcon />,
   },
   {
-    link: '/students',
+    link: BASE_URL + '/students',
     text: 'Студенти',
     icon: <IdentificationIcon />,
   },
   {
-    link: '/groups',
+    link: BASE_URL + '/groups',
     text: 'Групи',
     icon: <UserGroupIcon />,
   },
   {
-    link: '/departments',
+    link: BASE_URL + '/departments',
     text: 'Кафедри',
     icon: <BuildingLibraryIcon />,
   },
   {
-    link: '/teachers',
+    link: BASE_URL + '/teachers',
     text: 'Викладачі',
     icon: <BriefcaseIcon />,
   },
   {
-    link: '/disciplines',
+    link: BASE_URL + '/disciplines',
     text: 'Дисципліни',
     icon: <NewspaperIcon />,
   },
   {
-    link: '/subjects',
+    link: BASE_URL + '/subjects',
     text: 'Предмети',
     icon: <AcademicCapIcon />,
   },
   {
-    link: '/',
+    link: BASE_URL + '/',
     text: 'Розклад',
     icon: <CalendarIcon />,
   },
   'Опитування',
   {
-    link: '/',
+    link: BASE_URL + '/',
     text: 'База питань',
     icon: <PencilSquareIcon />,
   },
   {
-    link: '/',
+    link: BASE_URL + '/',
     text: 'База відповідей',
     icon: <ClipboardDocumentListIcon />,
   },
   {
-    link: '/',
+    link: BASE_URL + '/',
     text: 'Головна сторінка',
     icon: <HomeIcon />,
   },
