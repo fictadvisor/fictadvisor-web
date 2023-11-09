@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 
-import AdminPanel from '@/components/common/layout/admin-panel/AdminPanel';
+import AdminPanelLayout from '@/components/common/layout/admin-panel-layout/AdminPanelLayout';
 import config from '@/config';
 
 import Footer from '../footer/Footer';
@@ -65,8 +65,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             <div className={styles['header']}>{hasHeader && <Header />}</div>
           </>
         )}
-        <AdminPanel />
-        <div className={styles['main-content']}>{children}</div>
+        <AdminPanelLayout>{children}</AdminPanelLayout>
         {!hasFooter && (
           <div className={styles['footer']}>
             <Footer />
