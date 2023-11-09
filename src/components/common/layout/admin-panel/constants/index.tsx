@@ -16,43 +16,43 @@ import { Captain } from '@/components/common/icons/Captain';
 
 export const adminPanelTabs = [
   {
-    link: '/',
+    link: '/roles',
     text: 'Ролі',
     icon: <Captain />,
   },
 
   {
-    link: '/',
-    text: 'Користувач',
+    link: '/users',
+    text: 'Користувачі',
     icon: <UserCircleIcon />,
   },
   {
-    link: '/',
+    link: '/students',
     text: 'Студенти',
     icon: <IdentificationIcon />,
   },
   {
-    link: '/',
+    link: '/groups',
     text: 'Групи',
     icon: <UserGroupIcon />,
   },
   {
-    link: '/',
+    link: '/departments',
     text: 'Кафедри',
     icon: <BuildingLibraryIcon />,
   },
   {
-    link: '/',
+    link: '/teachers',
     text: 'Викладачі',
     icon: <BriefcaseIcon />,
   },
   {
-    link: '/',
+    link: '/disciplines',
     text: 'Дисципліни',
     icon: <NewspaperIcon />,
   },
   {
-    link: '/',
+    link: '/subjects',
     text: 'Предмети',
     icon: <AcademicCapIcon />,
   },

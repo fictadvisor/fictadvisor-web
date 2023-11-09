@@ -65,7 +65,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             <div className={styles['header']}>{hasHeader && <Header />}</div>
           </>
         )}
-        <AdminPanelLayout>{children}</AdminPanelLayout>
+        {children}
         {!hasFooter && (
           <div className={styles['footer']}>
             <Footer />
