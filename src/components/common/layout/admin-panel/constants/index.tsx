@@ -14,7 +14,7 @@ import {
 
 import { Captain } from '@/components/common/icons/Captain';
 
-const BASE_URL = '/admin';
+export const BASE_URL = '/admin';
 
 export const adminPanelTabs = [
   {
@@ -75,7 +75,7 @@ export const adminPanelTabs = [
     icon: <ClipboardDocumentListIcon />,
   },
   {
-    link: BASE_URL + '/',
+    link: BASE_URL,
     text: 'Головна сторінка',
     icon: <HomeIcon />,
   },
