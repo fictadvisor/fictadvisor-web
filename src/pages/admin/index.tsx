@@ -1,13 +1,14 @@
 import React from 'react';
 
 import AdminPanelLayout from '@/components/common/layout/admin-panel-layout/AdminPanelLayout';
+import AdminMainPage from '@/components/pages/admin/admin-default/AdminMainPage';
 
-const Index = () => {
+const AdminMain = () => {
   return (
     <AdminPanelLayout>
-      <div></div>
+      <AdminMainPage />
     </AdminPanelLayout>
   );
 };
 
-export default Index;
+export default AdminMain;

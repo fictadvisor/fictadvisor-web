@@ -8,19 +8,20 @@ import { adminPanelTabs } from './constants';
 
 const AdminPanel = () => {
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
     <Drawer anchor="left" variant="permanent" sx={styles.drawer}>
-      <Image
-        src={'/icons/logo.svg'}
-        alt="FA logo"
-        width={197}
-        height={28}
-        style={{
-          margin: '16px 21px',
-        }}
-      />
+      <Link href="/">
+        <Image
+          src={'/icons/logo.svg'}
+          alt="FA logo"
+          width={197}
+          height={28}
+          style={{
+            margin: '16px 21px',
+          }}
+        />
+      </Link>
       <Box sx={styles.tabList}>
         {adminPanelTabs.map((tab, index) => {
           return typeof tab !== 'string' ? (

@@ -75,7 +75,7 @@ export const adminPanelTabs = [
     icon: <ClipboardDocumentListIcon />,
   },
   {
-    link: BASE_URL,
+    link: BASE_URL + '/',
     text: 'Головна сторінка',
     icon: <HomeIcon />,
   },
