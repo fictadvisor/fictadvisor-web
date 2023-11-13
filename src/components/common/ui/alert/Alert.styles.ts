@@ -40,7 +40,7 @@ export const alert = (
   }),
 
   '.MuiAlert-icon': {
-    color: 'grey.800',
+    color: 'theme.palette.grey[800]',
     margin: '4px 0 0 0',
     padding: '0',
     svg: {
@@ -51,8 +51,8 @@ export const alert = (
   },
   '.MuiAlert-action': {
     cursor: 'pointer',
-    color: 'grey.800',
-    margin: '0 0 0 0',
+    color: 'theme.palette.grey[800]',
+    margin: '0',
     padding: '0',
     svg: {
       strokeWidth: '1.5px',
