@@ -18,8 +18,8 @@ export const alert = (
 
   ...(variant !== AlertVariant.BORDER_LEFT &&
     variant !== AlertVariant.BORDER_TOP && {
-      borderRadius: '8px',
-    }),
+    borderRadius: '8px',
+  }),
 
   ...(variant !== AlertVariant.OUTLINED && {
     backgroundColor: getColor(color, variant),
@@ -39,7 +39,7 @@ export const alert = (
     borderColor: getColor(color, AlertVariant.OUTLINED),
   }),
 
-  '.MuiAlert-icon, .MuiAlert-action': {
+  '.MuiAlert-icon': {
     color: 'grey.800',
     margin: '4px 0 0 0',
     padding: '0',
@@ -49,9 +49,16 @@ export const alert = (
       height: '16px',
     },
   },
-
   '.MuiAlert-action': {
     cursor: 'pointer',
+    color: 'grey.800',
+    margin: '0 0 0 0',
+    padding: '0',
+    svg: {
+      strokeWidth: '1.5px',
+      width: '16px',
+      height: '16px',
+    },
   },
 
   '.MuiAlert-message': {
