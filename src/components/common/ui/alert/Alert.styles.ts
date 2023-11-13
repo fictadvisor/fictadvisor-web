@@ -18,8 +18,8 @@ export const alert = (
 
   ...(variant !== AlertVariant.BORDER_LEFT &&
     variant !== AlertVariant.BORDER_TOP && {
-      borderRadius: '8px',
-    }),
+    borderRadius: '8px',
+  }),
 
   ...(variant !== AlertVariant.OUTLINED && {
     backgroundColor: getColor(color, variant),
