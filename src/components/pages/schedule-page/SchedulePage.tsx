@@ -78,7 +78,13 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
 
   return (
-    <PageLayout title={'Розклад'}>
+    <PageLayout
+      title={'Розклад'}
+      description="FICT Advisor Розклад - зручний інструмент для студента на кожен день. Переглядай розклад з
+       відслідковуванням поточного часу, особисті вибіркові предмети а також додавай нові події для всієї групи.
+       Розклад надає зручний та зрозумілий інтерфейс, де ти можеш переглядати поточний розклад всіх груп факультету,
+       фільтрувати пари за типом, додавати посилання на конференції та вносити зміни в загальний розклад своєї групи."
+    >
       <Box sx={styles.schedulePage}>
         {isMobile ? (
           <CalendarSectionMobile groups={groups} />
