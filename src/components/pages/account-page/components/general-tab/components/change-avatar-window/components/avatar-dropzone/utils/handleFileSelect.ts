@@ -13,7 +13,7 @@ export const handleFileSelect = (
     toast.error(
       'Invalid file extension',
       'Supported file extensions: .png, .jpg, .jpeg, .webp',
-      2000000,
+      4000,
     );
     return;
   }
