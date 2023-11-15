@@ -123,9 +123,11 @@ export const useSchedule = create<State & Action>((set, get) => {
       const startWeek = findFirstOf5(week);
 
       if (!eventBodies[startWeek])
-        get().isUsingSelective
-          ? await get().loadNext5Auth(startWeek)
-          : await get().loadNext5(startWeek);
+        if (get().isUsingSelective) {
+          await get().loadNext5Auth(startWeek);
+        } else {
+          await get().loadNext5(startWeek);
+        }
     },
     loadNext5Auth: async (week: number) => {
       set(state => ({ isLoading: true }));
@@ -190,20 +192,15 @@ export const useSchedule = create<State & Action>((set, get) => {
         }
       }
 
-      const selectiveChanged =
-        get().checkboxes.isSelective !== checkboxes.isSelective;
-
       set(_ => ({
         checkboxes,
         disciplineTypes: _disciplineTypes,
       }));
 
-      if (selectiveChanged) {
-        set(_ => ({
-          eventsBody: [],
-        }));
-        get().handleWeekChange();
-      }
+      set(_ => ({
+        eventsBody: [],
+      }));
+      get().handleWeekChange();
     },
     setWeek(_week: number) {
       set(_ => ({
@@ -294,7 +291,7 @@ export const useSchedule = create<State & Action>((set, get) => {
             ? checkboxesInitialValues
             : checkboxesInitialValuesNotAuth,
         }));
-
+        get().updateCheckboxes(get().checkboxes);
         get().setChosenDay(
           getFirstDayOfAWeek(get().semester as GetCurrentSemester, week),
         );
