@@ -23,9 +23,7 @@ export const TimeScheduleDropdown: FC<TimeScheduleDropdownProps> = ({
     useField(name);
 
   React.useEffect(() => {
-    if (date) {
-      setValue(getDateWithTimeSetted(date, value));
-    }
+    setValue(getDateWithTimeSetted(date, value))
   }, [date]);
 
   const onChange = (option: string) => {
