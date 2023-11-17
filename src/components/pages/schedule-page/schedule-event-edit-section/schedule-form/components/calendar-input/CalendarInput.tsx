@@ -25,10 +25,15 @@ const CalendarIcon = () => {
 };
 
 const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
-  const [_, { touched, error }, { setTouched }] = useField('startTime');
+  const [, { touched, error }, { setTouched: setTouchedStartTime }] =
+    useField('startTime');
+  const [, , { setTouched: setTouchedEndTime }] = useField('endTime');
 
   const onChange = (value: dayjs.Dayjs | null) => {
-    setTouched(true);
+    if (!date) {
+      setTouchedStartTime(false);
+      setTouchedEndTime(false);
+    }
     setDate(value && value.valueOf() > 0 ? value : null);
   };
 
@@ -53,9 +58,11 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
         closeOnSelect
         desktopModeMediaQuery="@media (min-width: 0px)"
       />
-      <Typography sx={styles.remark} paragraph>
-        {touched && error ? "Обов'язкове поле" : ''}
-      </Typography>
+      {touched && error && !date && (
+        <Typography sx={styles.remark} paragraph>
+          'Обов\'язкове поле'
+        </Typography>
+      )}
     </Box>
   );
 };
