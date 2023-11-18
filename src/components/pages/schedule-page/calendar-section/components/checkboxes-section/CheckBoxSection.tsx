@@ -1,11 +1,10 @@
-import { FormEvent, Fragment, useRef } from 'react';
+import { Fragment } from 'react';
 import { Stack } from '@mui/system';
-import { Form, Formik, FormikProps } from 'formik';
 
 import Checkbox from '@/components/common/ui/form/checkbox';
 import { CheckboxColor } from '@/components/common/ui/form/checkbox/types';
 import useAuthentication from '@/hooks/use-authentication';
-import { Checkboxes, useSchedule } from '@/store/schedule/useSchedule';
+import { useSchedule } from '@/store/schedule/useSchedule';
 
 import * as styles from './CheckBoxSection.styles';
 

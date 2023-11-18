@@ -123,10 +123,8 @@ export const useSchedule = create<State & Action>((set, get) => {
 
       if (get().isUsingSelective) {
         await get().loadNext5Auth(startWeek);
-        console.log('auth');
       } else {
         await get().loadNext5(startWeek);
-        console.log('not auth');
       }
     },
     loadNext5Auth: async (week: number) => {
