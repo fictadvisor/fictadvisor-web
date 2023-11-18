@@ -34,7 +34,7 @@ import theme from '@/styles/theme';
 import CloseButton from '../../../../common/ui/icon-button-mui/variants/CloseButton/CloseButton';
 
 import { ScheduleFormikDropdown } from './components/schedule-dropdown/ScheduleDropdown';
-import { TimeScheduleDropdown } from './components/schedule-dropdown/TimeScheduleDropdown';
+import TimeScheduleDropdown from './components/schedule-dropdown/TimeScheduleDropdown';
 import Input from './components/schedule-input';
 import TextArea from './components/text-area';
 import { eventTypeList, periodOptions } from './constants';
