@@ -16,8 +16,6 @@ export function transformEvents({
 
   for (const event of events) {
     if (new Date(event.startTime).getTime() < firstDayDateMs) {
-      console.error(event);
-
       throw new Error(
         `An event cannot occur before start of the week, wrong information from backend`,
       );
