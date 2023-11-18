@@ -119,15 +119,15 @@ export const useSchedule = create<State & Action>((set, get) => {
       get().setError(null);
 
       const week = get().week;
-      const eventBodies = get().eventsBody;
       const startWeek = findFirstOf5(week);
 
-      if (!eventBodies[startWeek])
-        if (get().isUsingSelective) {
-          await get().loadNext5Auth(startWeek);
-        } else {
-          await get().loadNext5(startWeek);
-        }
+      if (get().isUsingSelective) {
+        await get().loadNext5Auth(startWeek);
+        console.log('auth');
+      } else {
+        await get().loadNext5(startWeek);
+        console.log('not auth');
+      }
     },
     loadNext5Auth: async (week: number) => {
       set(state => ({ isLoading: true }));
@@ -185,22 +185,26 @@ export const useSchedule = create<State & Action>((set, get) => {
 
     updateCheckboxes(checkboxes) {
       const _disciplineTypes: (TDiscipline | null)[] = [];
-
       for (const [key, value] of Object.entries(checkboxes)) {
         if (value && key !== 'isSelective') {
           _disciplineTypes.push(...CheckboxesMapper[key]);
         }
       }
 
+      const selectiveChanged =
+        get().checkboxes.isSelective !== checkboxes.isSelective;
+
       set(_ => ({
         checkboxes,
         disciplineTypes: _disciplineTypes,
       }));
 
-      set(_ => ({
-        eventsBody: [],
-      }));
-      get().handleWeekChange();
+      if (selectiveChanged) {
+        set(_ => ({
+          eventsBody: [],
+        }));
+        get().handleWeekChange();
+      }
     },
     setWeek(_week: number) {
       set(_ => ({

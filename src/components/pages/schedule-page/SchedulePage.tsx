@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 
@@ -55,6 +55,12 @@ const SchedulePage: FC<SchedulePageProps> = ({ semester, groups }) => {
   ]);
 
   useInitialise(semester, groups);
+  useEffect(() => {
+    const getEvents = async () => {
+      await handleWeekChange();
+    };
+    getEvents();
+  }, []);
   const { displayError } = useToastError();
   const closeForm = () => {
     useSchedule.setState({ isNewEventAdded: false });
