@@ -3,7 +3,7 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Divider, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 import LoginForm from 'src/components/pages/login-page/components/login-form-block/components/login-form';
 
 import CustomTelegram from '@/components/common/icons/CustomTelegram';
@@ -22,7 +22,9 @@ import styles from './LoginFormBlock.module.scss';
 
 const LoginFormBlock = () => {
   const router = useRouter();
-  const redirect = router.query.redirect as string;
+  const searchParams = useSearchParams();
+  const redirect = searchParams?.get('redirect');
+  // const redirect = router.query.redirect as string;
   const { update } = useAuthentication();
   const handleClick = async () => {
     const isSuccess = await AuthService.loginTelegram();
