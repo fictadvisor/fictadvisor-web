@@ -1,9 +1,7 @@
-import { FC } from 'react';
-
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import TeacherSearchPage from '@/components/pages/search-pages/teacher-search';
 
-const TeacherPage: FC = () => {
+export default function TeacherPage() {
   return (
     <PageLayout
       title="Викладачі"
@@ -12,6 +10,4 @@ const TeacherPage: FC = () => {
       <TeacherSearchPage />
     </PageLayout>
   );
-};
-
-export default TeacherPage;
+}

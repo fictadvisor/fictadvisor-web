@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/common/ui/button-mui';
 import {
@@ -18,12 +18,12 @@ import AuthService from '@/lib/services/auth';
 import * as styles from './SecurityTab.styles';
 
 const SecurityTab = () => {
-  const { replace, reload } = useRouter();
+  const { replace, refresh } = useRouter();
   const { user, update } = useAuthentication();
   const handleLogout = async () => {
     await AuthService.logout();
     update();
-    reload();
+    refresh();
     await replace('/login');
   };
   return (

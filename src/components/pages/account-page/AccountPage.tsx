@@ -1,3 +1,5 @@
+'use client';
+
 import { SyntheticEvent, useEffect, useState } from 'react';
 import {
   AcademicCapIcon,
@@ -6,7 +8,8 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline';
 import { Box } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Tab from '@/components/common/ui/tab/tab';
@@ -27,41 +30,18 @@ import useAuthentication from '@/hooks/use-authentication';
 import * as stylesMui from './AccountPage.styles';
 
 const AccountPage = () => {
-  const { replace, query, isReady } = useRouter();
+  const { replace } = useRouter();
+  const query = useSearchParams();
   const { isLoggedIn } = useAuthentication();
-  const { tab } = query;
   const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
-
-  useEffect(() => {
-    if (!isReady) return;
-
-    if (!Object.values(AccountPageTab).includes(tab as AccountPageTab)) {
-      void replace(
-        { query: { ...query, tab: AccountPageTab.GENERAL } },
-        undefined,
-        {
-          shallow: true,
-        },
-      );
-    } else {
-      setIndex(tab as AccountPageTab);
-    }
-  }, [tab, isReady, query, replace]);
 
   useEffect(() => {
     if (!isLoggedIn) void replace('/login?~account');
   }, [isLoggedIn, replace]);
 
   const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
-    await replace({ query: { ...query, tab: value } }, undefined, {
-      shallow: true,
-    });
-    console.log(value);
     setIndex(value);
   };
-  useEffect(() => {
-    console.log(index);
-  }, [index]);
 
   return (
     <>
