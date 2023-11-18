@@ -40,7 +40,7 @@ const ContractAdminPage = () => {
         sx={styles.breadcrumbs}
         items={[
           { label: 'Головна', href: '/' },
-          { label: 'Договір про навчання', href: '/contract-admin' },
+          { label: 'Договір про навчання', href: '/_contract-admin' },
         ]}
       />
       <Formik

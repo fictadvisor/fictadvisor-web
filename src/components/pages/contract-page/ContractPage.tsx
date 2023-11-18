@@ -20,7 +20,7 @@ const ContractPage: FC = () => {
         sx={styles.breadcrumbs}
         items={[
           { label: 'Головна', href: '/' },
-          { label: 'Договір про навчання', href: '/contract' },
+          { label: 'Договір про навчання', href: '/_contract' },
         ]}
       />
       <Box sx={styles.form}>

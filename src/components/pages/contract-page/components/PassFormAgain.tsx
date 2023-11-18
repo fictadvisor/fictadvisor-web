@@ -37,7 +37,7 @@ export const PassFormAgain = () => {
           }}
         >
           <Button
-            href={'/contract'}
+            href={'/_contract'}
             sx={{ width: '80%' }}
             size={isMobile ? ButtonSize.SMALL : ButtonSize.MEDIUM}
             text="Подати дані на ще один договір"

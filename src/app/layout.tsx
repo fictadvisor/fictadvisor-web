@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@mui/system';
@@ -7,7 +9,6 @@ import dayjs from 'dayjs';
 import uk from 'dayjs/locale/uk';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { AppProps } from 'next/app';
 
 import AuthenticationProvider from '@/hooks/use-authentication/authentication-context';
 import ToastContextProvider from '@/hooks/use-toast/toast-context';
@@ -21,9 +22,10 @@ dayjs.extend(timezone);
 dayjs.extend(utc);
 dayjs.tz.setDefault('Europe/Kiev');
 dayjs.locale({ ...uk, weekStart: 1 });
+const queryClient = new QueryClient();
+
+if (!process.browser) React.useLayoutEffect = React.useEffect;
 export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
   children,
 }: {
   children: React.ReactNode;
@@ -31,7 +33,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'uk'}>
+            <QueryClientProvider client={queryClient}>
+              <AuthenticationProvider>
+                <ToastContextProvider>{children}</ToastContextProvider>
+              </AuthenticationProvider>
+            </QueryClientProvider>
+          </LocalizationProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
