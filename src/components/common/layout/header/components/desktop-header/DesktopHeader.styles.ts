@@ -38,7 +38,10 @@ export const logoContainer: SxProps<Theme> = {
   alignItems: 'center',
 };
 
-export const button = (currentPath: string, link: string): SxProps<Theme> => ({
+export const button = (
+  currentPath: string | null,
+  link: string,
+): SxProps<Theme> => ({
   typography: 'body1Medium',
   textUnderlineOffset: '5px',
   textDecoration: currentPath === link ? 'underline' : 'none',

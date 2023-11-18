@@ -1,10 +1,8 @@
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-
 import MainPage from '@/components/pages/main-page';
 import { MainPageProps } from '@/components/pages/main-page/MainPage';
 import StudentResourcesAPI from '@/lib/api/student-resources/StudentResourcesAPI';
 
-export const getStaticProps: GetStaticProps<MainPageProps> = async () => {
+export default async function Main() {
   let data: MainPageProps['data'];
 
   try {
@@ -13,15 +11,5 @@ export const getStaticProps: GetStaticProps<MainPageProps> = async () => {
     data = null;
   }
 
-  return {
-    props: {
-      data,
-    },
-  };
-};
-
-const Main = (props: InferGetStaticPropsType<typeof getStaticProps>) => (
-  <MainPage {...props} />
-);
-
-export default Main;
+  return <MainPage data={data} />;
+}
