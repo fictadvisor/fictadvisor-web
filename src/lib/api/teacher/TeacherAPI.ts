@@ -122,6 +122,10 @@ class TeacherAPI {
       getAuthorizationHeader(),
     );
   }
+
+  async delete(teacherId: string): Promise<void> {
+    await client.delete(`/teachers/${teacherId}`, getAuthorizationHeader());
+  }
 }
 
 export default new TeacherAPI();
