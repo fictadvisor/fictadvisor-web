@@ -8,17 +8,17 @@ const GreetingBlock = () => {
   const imgScr = '/images/admin-default/avatars/';
 
   const avatars = [
-    '/images/admin-default/avatars/stas.png',
-    '/images/admin-default/avatars/svyat.png',
-    '/images/admin-default/avatars/oleg.png',
-    '/images/admin-default/avatars/danya.png',
-    '/images/admin-default/avatars/katya.png',
-    '/images/admin-default/avatars/pasha.png',
-    '/images/admin-default/avatars/dima.png',
-    '/images/admin-default/avatars/illia.png',
-    '/images/admin-default/avatars/vovka.png',
-    '/images/admin-default/avatars/artem.png',
-    '/images/admin-default/avatars/sasha.png',
+    '/images/main-page/avatars/stas.png',
+    '/images/main-page/avatars/svyat.png',
+    '/images/main-page/avatars/oleg.png',
+    '/images/main-page/avatars/danya.png',
+    '/images/main-page/avatars/katya.png',
+    '/images/main-page/avatars/pasha.png',
+    '/images/main-page/avatars/dima.png',
+    '/images/main-page/avatars/illia.png',
+    '/images/main-page/avatars/vovka.png',
+    '/images/main-page/avatars/artem.png',
+    '/images/main-page/avatars/sasha.png',
   ];
   const names = [
     'Стасік',
