@@ -60,7 +60,7 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
       />
       {touched && error && !date && (
         <Typography sx={styles.remark} paragraph>
-          Обов\'язкове поле
+          Обов'язкове поле
         </Typography>
       )}
     </Box>
