@@ -34,10 +34,6 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
       setTouchedStartTime(false);
       setTouchedEndTime(false);
     }
-    if (!date) {
-      setTouchedStartTime(false);
-      setTouchedEndTime(false);
-    }
     setDate(value && value.valueOf() > 0 ? value : null);
   };
 
