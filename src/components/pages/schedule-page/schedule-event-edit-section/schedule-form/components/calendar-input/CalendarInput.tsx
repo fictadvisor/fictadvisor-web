@@ -34,6 +34,10 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
       setTouchedStartTime(false);
       setTouchedEndTime(false);
     }
+    if (!date) {
+      setTouchedStartTime(false);
+      setTouchedEndTime(false);
+    }
     setDate(value && value.valueOf() > 0 ? value : null);
   };
 
@@ -60,7 +64,7 @@ const CalendarInput: FC<CalendarInputProps> = ({ date, setDate }) => {
       />
       {touched && error && !date && (
         <Typography sx={styles.remark} paragraph>
-          'Обов\'язкове поле'
+          Обов\'язкове поле
         </Typography>
       )}
     </Box>
