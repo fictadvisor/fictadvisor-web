@@ -1,7 +1,9 @@
+'use client';
+
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/common/ui/button-mui';
 

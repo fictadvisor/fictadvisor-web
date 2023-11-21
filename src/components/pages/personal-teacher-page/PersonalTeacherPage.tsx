@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import PersonalTeacherCard from '@/components/common/ui/cards/personal-teacher-card';
@@ -46,8 +46,8 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
   const { push } = router;
   const toast = useToast();
   const [floatingCardShowed, setFloatingCardShowed] = useState(false);
-
-  const { tab } = query;
+  const tab = query?.get('tab') as string;
+  // const { tab } = query;
 
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,

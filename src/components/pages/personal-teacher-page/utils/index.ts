@@ -1,5 +1,6 @@
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-import { NextRouter } from 'next/router';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 
 import { TeacherPageInfo } from '@/lib/services/teacher/types';
 import { Teacher } from '@/types/teacher';
@@ -15,7 +16,7 @@ export interface PersonalTeacherPageProps {
   isError: boolean;
   teacher: Teacher;
   data: TeacherPageInfo | undefined;
-  query: NextParsedUrlQuery;
+  query: ReadonlyURLSearchParams | null;
   teacherId: string;
-  router: NextRouter;
+  router: AppRouterInstance;
 }

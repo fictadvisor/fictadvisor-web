@@ -1,6 +1,6 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Avatar, Box, useMediaQuery } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/common/ui/button-mui';
 import {
@@ -43,7 +43,7 @@ const ChangeAvatarWindow: FC<ChangeAvatarWindowProps> = ({
         await userAPI.changeAvatar(userId, formData);
         toast.success('Аватарка успішно змінена!', '', 1000);
         setTimeout(() => {
-          router.reload();
+          window.location.reload();
         }, 1000);
       } catch (error) {
         toastError.displayError(error);

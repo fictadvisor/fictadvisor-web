@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import PersonalTeacherPage from '@/components/pages/personal-teacher-page';
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<
 
 const PersonalTeacher: FC<PersonalTeacherProps> = ({ info }) => {
   const router = useRouter();
-  const { query } = router;
+  const query = useSearchParams();
   const teacherId = info?.id as string;
   const { user } = useAuthentication();
 

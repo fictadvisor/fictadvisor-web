@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import PersonalTeacherCard from '@/components/common/ui/cards/personal-teacher-card';
@@ -35,10 +35,10 @@ export const teacherSubjectContext = createContext<TeacherSubjectContext>({
 
 const PersonalTeacherSubjectPage = () => {
   const router = useRouter();
-  const { query, push } = router;
-
-  const teacherId = router.query.teacherId as string;
-  const subjectId = router.query.subjectId as string;
+  const { push } = router;
+  const searchParams = useSearchParams();
+  const teacherId = searchParams?.get('teacherId') as string;
+  const subjectId = searchParams?.get('subjectId') as string;
   const { user } = useAuthentication();
   const [subjectFloatingCardShowed, setSubjectFloatingCardShowed] =
     useState(false);
@@ -65,7 +65,7 @@ const PersonalTeacherSubjectPage = () => {
     }
   }, [isError]);
 
-  const { tab } = query;
+  const tab = searchParams?.get('tab') as string;
   const [index, setIndex] = useState<TeachersPageTabs>(
     TeachersPageTabs.GENERAL,
   );

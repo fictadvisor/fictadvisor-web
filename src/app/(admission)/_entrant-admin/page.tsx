@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import PageLayout from '@/components/common/layout/page-layout';
 import EntrantAdminPage from '@/components/pages/entrant-admin-page';

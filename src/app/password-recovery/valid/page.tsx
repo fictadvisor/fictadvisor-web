@@ -1,3 +1,5 @@
+'use client';
+
 import PageLayout from '@/components/common/layout/page-layout';
 import PasswordResetValidLinkPage from '@/components/pages/password-recovery/link-valid';
 

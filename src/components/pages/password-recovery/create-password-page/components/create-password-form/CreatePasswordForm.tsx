@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
-import { useRouter } from 'next/router';
+import {
+  ReadonlyURLSearchParams,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 
 import Button from '@/components/common/ui/button';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
@@ -14,8 +18,9 @@ import useToast from '@/hooks/use-toast';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 
 const CreatePasswordForm: FC = () => {
-  const { query, push } = useRouter();
-  const token = query.token as string;
+  const { push } = useRouter();
+  const searchParams = useSearchParams() as ReadonlyURLSearchParams;
+  const token = searchParams.get('token') as string;
   const toast = useToast();
   const handleSubmit = async (data: CreatePasswordFormFields) => {
     try {

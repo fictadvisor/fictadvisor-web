@@ -2,7 +2,7 @@ import React, { FormEvent, useMemo } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { Form, Formik, FormikValues } from 'formik';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Button from '@/components/common/ui/button-mui/Button';
 import Progress from '@/components/common/ui/progress';
@@ -81,7 +81,8 @@ const AnswersSheet: React.FC<AnswersSheetProps> = ({
   }));
   const toast = useToast();
   const router = useRouter();
-  const disciplineTeacherId = router.query.disciplineTeacherId as string;
+  const query = useSearchParams();
+  const disciplineTeacherId = query?.get('disciplineTeacherId') as string;
 
   const initialValues: Record<string, string> = useMemo(() => {
     return currentQuestions?.questions

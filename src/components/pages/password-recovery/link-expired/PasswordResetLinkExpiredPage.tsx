@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronLeftIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/common/ui/button-mui';
 import {

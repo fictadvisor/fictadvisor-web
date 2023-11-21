@@ -1,3 +1,5 @@
+'use client';
+
 import PageLayout from '@/components/common/layout/page-layout';
 import AboutPage from '@/components/pages/about-page';
 

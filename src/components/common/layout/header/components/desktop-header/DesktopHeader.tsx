@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { AppBar, Link, Toolbar } from '@mui/material';
 import Image from 'next/image';

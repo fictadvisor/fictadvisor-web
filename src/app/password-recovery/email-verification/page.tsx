@@ -1,3 +1,5 @@
+'use client';
+
 import PageLayout from '@/components/common/layout/page-layout';
 import PasswordResetEmailConfirmationPage from '@/components/pages/password-recovery/email-confirmation-page';
 

@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { useMediaQuery } from '@mui/material';
 import dynamic from 'next/dynamic';

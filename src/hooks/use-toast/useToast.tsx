@@ -1,3 +1,5 @@
+'use client';
+
 import { AlertType } from '@/components/common/ui/alert/types';
 
 import { useToastContext } from './toast-context';

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
 import Alert from '@/components/common/ui/alert';
@@ -28,7 +28,10 @@ const EmailConfirmationPage: FC<EmailConfirmationPageProps> = ({
 }) => {
   const { displayError } = useToastError();
   const router = useRouter();
-  const email = decodeURIComponent(String(router.query.email)).toLowerCase();
+  const searchParams = useSearchParams();
+  const email = decodeURIComponent(
+    String(searchParams?.get('email')),
+  ).toLowerCase();
   const emailText =
     apiMethodName === 'forgotPassword'
       ? `Ми надіслали лист для зміни пароля на адресу ${email}`

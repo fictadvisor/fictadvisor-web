@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useMediaQuery } from '@mui/material';

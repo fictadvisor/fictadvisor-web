@@ -1,3 +1,5 @@
+'use client';
+
 import PageLayout from '@/components/common/layout/page-layout';
 import CreatePasswordPage from '@/components/pages/password-recovery/create-password-page/CreatePasswordPage';
 

@@ -47,25 +47,6 @@ export const subject: SxProps<Theme> = {
   fontSize: '24px',
 };
 
-/*.subject{
-  display: flex;
-  min-width: unset;
-  width: 100%;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  flex-direction: column;
-  align-items: flex-start;
-  overflow-wrap: anywhere;
-  padding-right: 42px;
-  h5{
-  @include h5--bold;
-  }
-  padding-bottom: 18px;
-  padding-top: 21px;
-}*/
-
 export const rating: SxProps<Theme> = {
   marginTop: '10px',
 };

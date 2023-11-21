@@ -1,5 +1,4 @@
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { NextRouter } from 'next/router';
 
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import { AuthBody } from '@/lib/api/auth/types/AuthBody';
