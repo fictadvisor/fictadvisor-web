@@ -10,6 +10,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { isAxiosError } from 'axios';
 
 import Button from '@/components/common/ui/button-mui';
 import {
@@ -23,6 +24,8 @@ import {
   TagSize,
   TagVariant,
 } from '@/components/common/ui/tag/types';
+import TeachersSkeleton from '@/components/pages/admin/teachers-admin-page/components/teachers-table/components/teachers-skeleton';
+import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
 import { Teacher } from '@/types/teacher';
@@ -31,14 +34,25 @@ import * as styles from './TeachersTable.styles';
 
 interface TeachersAdminSearchProps {
   teachers?: Omit<Teacher, 'role'>[];
+  isLoading?: boolean;
+  count: number;
 }
 
-const TeachersTable: FC<TeachersAdminSearchProps> = ({ teachers }) => {
+const TeachersTable: FC<TeachersAdminSearchProps> = ({
+  teachers,
+  isLoading,
+  count,
+}) => {
+  const toast = useToastError();
+
   const deleteTeacher = async (id: string) => {
     try {
       await TeacherAPI.delete(id);
     } catch (e) {
-      console.log(e);
+      if (isAxiosError(e)) {
+        console.log(e.response?.data);
+        toast.displayError(e.response?.data.message);
+      }
     }
   };
 
@@ -53,6 +67,13 @@ const TeachersTable: FC<TeachersAdminSearchProps> = ({ teachers }) => {
         <TableCell sx={styles.headItem} />
       </TableHead>
       <TableBody>
+        {isLoading && (
+          <>
+            {Array.from({ length: count }, (_, index) => (
+              <TeachersSkeleton key={index} />
+            ))}
+          </>
+        )}
         {teachers &&
           teachers.map((teacher, index) => (
             <TableRow key={index}>

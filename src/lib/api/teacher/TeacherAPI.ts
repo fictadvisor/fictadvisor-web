@@ -18,11 +18,16 @@ class TeacherAPI {
     return data;
   }
 
-  async getAll(params: Partial<SearchFormFields> = {}, pageSize?: number) {
+  async getAll(
+    params: Partial<SearchFormFields> = {},
+    pageSize?: number,
+    page?: number,
+  ) {
     const { data } = await client.get<GetTeachersResponse>('/teachers', {
       params: {
         ...params,
         pageSize,
+        page,
       },
     });
     return data;
