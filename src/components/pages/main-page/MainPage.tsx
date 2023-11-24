@@ -42,7 +42,7 @@ const MainPage: FC<MainPageProps> = ({ data }) => {
      Зустрічай твій студентський портал, який надає багато корисних інструментів для студентів.
      Тут ти знайдеш опитування про викладачів, багатофункціональний розклад, можливість керувати групою,
       набори в активне ком’юніті та багато інших цікавих інструментів."
-      className={styles['admin-default']}
+      className={styles['main-page']}
     >
       <Box sx={stylesMUI.mainPageContent}>
         {token && isReady && <TokenPopup token={token} />}
