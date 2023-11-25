@@ -9,7 +9,7 @@ export default function DeleteEntrantAdmin() {
 
   if (!isLoggedIn) router.push('/login');
   return (
-    <PageLayout title="Менеджент вступника | FICT Advisor">
+    <PageLayout /*title="Менеджент вступника | FICT Advisor"*/>
       <EntrantDashboardPage />
     </PageLayout>
   );

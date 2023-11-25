@@ -5,7 +5,7 @@ import EntrantPriorityPage from '@/components/pages/priority-approve-page';
 
 const PriorityApprove = () => {
   return (
-    <PageLayout title="Дисципліна">
+    <PageLayout /*title="Дисципліна"*/>
       <EntrantPriorityPage />
     </PageLayout>
   );

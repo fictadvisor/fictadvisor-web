@@ -46,16 +46,16 @@ export default function RootLayout({
 
             gtag("config", "G-XEDY9ZSF2S");`}
         </Script>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-GXYG7SJKYT"
-        />
         <script async src="https://telegram.org/js/telegram-widget.js" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
           rel="stylesheet"
+        />
+        <meta
+          name="google-site-verification"
+          content="M93dY9EuPcQ5AzSYwxc6_el0GwZp_XlDHBhphP6z-7g"
         />
       </Head>
       <body>

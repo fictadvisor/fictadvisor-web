@@ -12,8 +12,8 @@ export enum TeachersPageTabs {
 }
 
 export interface PersonalTeacherPageProps {
-  isLoading: boolean;
-  isError: boolean;
+  // isLoading: boolean;
+  // isError: boolean;
   teacher: Teacher;
   data: TeacherPageInfo | undefined;
   query: ReadonlyURLSearchParams | null;

@@ -37,16 +37,16 @@ export const teacherContext = createContext<TeacherContext>({
 });
 
 const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
-  isLoading,
-  isError,
+  // isLoading,
+  // isError,
   data,
   teacher,
   query,
   teacherId,
 }) => {
   const router = useRouter();
-  const { push } = router;
-  const toast = useToast();
+  // const { push } = router;
+  // const toast = useToast();
   const [floatingCardShowed, setFloatingCardShowed] = useState(false);
   const tab = query?.get('tab') as string;
   // const { tab } = query;
@@ -57,12 +57,12 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
 
   const handleChange = useTabState({ tab, router, setIndex });
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (isError) {
       toast.error('Куди ти лізеш, цієї людини не існує');
       void push('/teachers');
     }
-  }, [isError, push]);
+  }, [isError, push]);*/
 
   if (!data) return null;
   return (
@@ -74,43 +74,34 @@ const PersonalTeacherPage: FC<PersonalTeacherPageProps> = ({
       }}
     >
       <div className={styles['personal-teacher-page']}>
-        {isLoading ? (
-          <div className={styles['personal-teacher-page-content']}>
-            <div className={styles['loader']}>
-              <Progress />
-            </div>
+        <div className={styles['personal-teacher-page-content']}>
+          <Breadcrumbs
+            sx={{ margin: '16px 0px 16px 0px' }} //TODO move inline styles when refactor
+            items={[
+              {
+                label: 'Головна',
+                href: '/',
+              },
+              { label: 'Викладачі', href: '/teachers' },
+              {
+                label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
+                href: `/teachers/${teacherId}`,
+              },
+            ]}
+          />
+          <div className={styles['card-wrapper']}>
+            <PersonalTeacherCard {...teacher} />
           </div>
-        ) : (
-          !isError && (
-            <div className={styles['personal-teacher-page-content']}>
-              <Breadcrumbs
-                sx={{ margin: '16px 0px 16px 0px' }} //TODO move inline styles when refactor
-                items={[
-                  {
-                    label: 'Головна',
-                    href: '/',
-                  },
-                  { label: 'Викладачі', href: '/teachers' },
-                  {
-                    label: `${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`,
-                    href: `/teachers/${teacherId}`,
-                  },
-                ]}
-              />
-              <div className={styles['card-wrapper']}>
-                <PersonalTeacherCard {...teacher} />
-              </div>
-              <div className={styles['tabs']}>
-                <PersonalTeacherTabs
-                  data={data}
-                  tabIndex={index}
-                  handleChange={handleChange}
-                  teacher={teacher}
-                />
-              </div>
-            </div>
-          )
-        )}
+          <div className={styles['tabs']}>
+            <PersonalTeacherTabs
+              data={data}
+              tabIndex={index}
+              handleChange={handleChange}
+              teacher={teacher}
+            />
+          </div>
+        </div>
+        )
       </div>
     </teacherContext.Provider>
   );

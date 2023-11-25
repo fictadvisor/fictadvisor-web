@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Box, Divider } from '@mui/material';
 import Image from 'next/image';
