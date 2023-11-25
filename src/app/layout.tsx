@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <>
       <Head>
         <Script
           strategy="afterInteractive"
@@ -69,6 +69,6 @@ export default function RootLayout({
           </LocalizationProvider>
         </ThemeProvider>
       </body>
-    </html>
+    </>
   );
 }

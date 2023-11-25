@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';

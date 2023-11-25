@@ -46,7 +46,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^13.4.19",
+    "@next/eslint-plugin-next": "^14.0.3",
     "@storybook/addon-essentials": "^7.4.0",
     "@storybook/addon-interactions": "^7.4.0",
     "@storybook/addon-links": "^7.4.0",
@@ -55,11 +55,11 @@
     "@storybook/nextjs": "^7.4.0",
     "@storybook/react": "^7.4.0",
     "@storybook/testing-library": "^0.2.0",
-    "@types/node": "20.8.9",
+    "@types/node": "20.10.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/parser": "^6.5.0",
-    "eslint": "^8.54.0",
+    "eslint": "^8.48.0",
     "eslint-config-next": "^14.0.3",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",

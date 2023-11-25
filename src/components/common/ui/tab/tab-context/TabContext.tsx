@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { TabContext as MuiTabContext, TabContextProps } from '@mui/lab';
 
