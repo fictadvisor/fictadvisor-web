@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Box, useMediaQuery } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button-mui';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import Input from '@/components/common/ui/form/with-formik/input';
@@ -12,6 +11,8 @@ import useAuthentication from '@/hooks/use-authentication';
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import UserAPI from '@/lib/api/user/UserAPI';
 import theme from '@/styles/theme';
+
+import { CustomCheck } from '../../../../../../../../components/icons/CustomCheck';
 
 import * as styles from './PersonalInfo.styles';
 

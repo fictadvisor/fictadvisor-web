@@ -3,7 +3,6 @@ import { PencilIcon } from '@heroicons/react/24/outline';
 import { Avatar, Box, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-import { TelegramForAccount } from '@/components/common/icons/TelegramForAccount';
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonSize,
@@ -18,6 +17,8 @@ import * as stylesMui from '@/components/pages/account-page/components/general-t
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth';
 import theme from '@/styles/theme';
+
+import { TelegramForAccount } from '../../../../../../components/icons/TelegramForAccount';
 
 const GeneralTab: FC = () => {
   const { user } = useAuthentication();

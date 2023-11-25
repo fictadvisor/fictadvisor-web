@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import LoginForm from 'src/components/pages/login-page/components/login-form-block/components/login-form';
 
-import CustomTelegram from '@/components/common/icons/CustomTelegram';
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonColor,
@@ -15,6 +14,8 @@ import {
 } from '@/components/common/ui/button-mui/types';
 import useAuthentication from '@/hooks/use-authentication';
 import AuthService from '@/lib/services/auth/AuthService';
+
+import CustomTelegram from '../../../../../../components/icons/CustomTelegram';
 
 import * as sxStyles from './LoginFormBlock.styles';
 

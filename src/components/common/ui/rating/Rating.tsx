@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { Box, Icon, Rating as MuiRating, SxProps, Theme } from '@mui/material';
 
-import StarsEmpty from '@/components/common/icons/StarsEmpty';
-import StarsFull from '@/components/common/icons/StarsFull';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
+
+import StarsEmpty from '../../../../../components/icons/StarsEmpty';
+import StarsFull from '../../../../../components/icons/StarsFull';
 
 import * as styles from './Rating.styles';
 import { RatingVariant } from './types';

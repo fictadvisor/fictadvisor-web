@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import CustomTelegram from '@/components/common/icons/CustomTelegram';
 import Button from '@/components/common/ui/button-mui';
 import {
   ButtonColor,
@@ -17,6 +16,8 @@ import RegisterForm from '@/components/pages/register/register-page/components/r
 import { GetAllResponse } from '@/lib/api/group/types/GetAllResponse';
 import AuthService from '@/lib/services/auth/AuthService';
 import StorageUtil from '@/lib/utils/StorageUtil';
+
+import CustomTelegram from '../../../../../../../components/icons/CustomTelegram';
 
 import * as stylesMUI from './LeftBlock.styles';
 

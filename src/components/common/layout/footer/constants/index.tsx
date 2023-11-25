@@ -1,8 +1,8 @@
-import { Discord } from '@/components/common/icons/Discord';
-import { GitHub } from '@/components/common/icons/GitHub';
-import { Instagram } from '@/components/common/icons/Instagram';
-import { Telegram } from '@/components/common/icons/Telegram';
-import { TikTok } from '@/components/common/icons/TikTok';
+import { Discord } from '../../../../../../components/icons/Discord';
+import { GitHub } from '../../../../../../components/icons/GitHub';
+import { Instagram } from '../../../../../../components/icons/Instagram';
+import { Telegram } from '../../../../../../components/icons/Telegram';
+import { TikTok } from '../../../../../../components/icons/TikTok';
 
 export const mainLinks = [
   {

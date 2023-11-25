@@ -6,7 +6,6 @@ import {
   validationSchema,
 } from 'src/components/pages/account-page/components/general-tab/components/contacts-block/validation';
 
-import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button';
 import {
   ButtonColor,
@@ -21,6 +20,8 @@ import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import { AddContactBody } from '@/lib/api/user/types/AddContactBody';
 import UserAPI from '@/lib/api/user/UserAPI';
 import { ContactType } from '@/types/contact';
+
+import { CustomCheck } from '../../../../../../../../../components/icons/CustomCheck';
 
 interface ContactFormProps {
   refetchContacts: () => Promise<void>;

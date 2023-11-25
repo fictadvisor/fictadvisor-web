@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/solid';
 import { Avatar, Box, Grid, Typography, useMediaQuery } from '@mui/material';
 
-import { Captain } from '@/components/common/icons/Captain';
-import { Moderator } from '@/components/common/icons/Moderator';
 import Button from '@/components/common/ui/button-mui';
 import Divider from '@/components/common/ui/divider';
 import { DividerTextAlign } from '@/components/common/ui/divider/types';
@@ -20,6 +18,8 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import theme from '@/styles/theme';
 import { UserGroupRole } from '@/types/user';
 
+import { Captain } from '../../../../../../../../../components/icons/Captain';
+import { Moderator } from '../../../../../../../../../components/icons/Moderator';
 import * as gridStyles from '../grid.styles';
 import { StudentsTableProps } from '../types';
 

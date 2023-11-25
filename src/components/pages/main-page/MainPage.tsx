@@ -10,7 +10,7 @@ import TokenPopup from '@/components/pages/main-page/components/token-popup';
 import * as stylesMUI from '@/components/pages/main-page/MainPage.styles';
 import { GetStudentResourcesResponse } from '@/lib/api/student-resources/types/GetStudentResourcesResponse';
 
-import BannerImage from '../../common/icons/BannerImage';
+import BannerImage from '../../../../components/icons/BannerImage';
 
 import ResourceCard from './components/resource-card/ResourceCard';
 

@@ -12,7 +12,7 @@ import {
   UserGroupIcon,
 } from '@heroicons/react/24/outline';
 
-import { Captain } from '@/components/common/icons/Captain';
+import { Captain } from '../../../../../../components/icons/Captain';
 
 export const BASE_URL = '/admin';
 
