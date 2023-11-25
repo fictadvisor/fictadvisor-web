@@ -27,7 +27,13 @@ const DesktopHeader: FC<DesktopHeaderProps> = ({ isLoggedIn, user }) => {
   return (
     <AppBar sx={styles.headerContainer}>
       <Link href="/" component={NextLink} sx={styles.logoContainer}>
-        <Image src={'/icons/logo.svg'} alt="FA logo" width={197} height={28} />
+        <Image
+          priority
+          src={'/icons/logo.svg'}
+          alt="FA logo"
+          width={197}
+          height={28}
+        />
       </Link>
       <Toolbar sx={styles.menu}>
         {mainLinks.map((record, index) => (

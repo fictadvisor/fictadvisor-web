@@ -11,13 +11,13 @@ import PollAPI from '@/lib/api/poll/PollAPI';
 
 import PollForm from './components/poll-form';
 import * as styles from './PollPage.styles';
-const PollPage = () => {
+const PollPage = ({ disciplineTeacherId }: { disciplineTeacherId: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoggedIn } = useAuthentication();
   const { displayError } = useToastError();
   const router = useRouter();
   const query = useSearchParams();
-  const disciplineTeacherId = query?.get('disciplineTeacherId') as string;
+  // const disciplineTeacherId = query?.get('disciplineTeacherId') as string;
   const {
     error,
     isSuccess: isSuccessFetching,
