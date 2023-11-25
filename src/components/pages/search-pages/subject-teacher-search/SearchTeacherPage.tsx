@@ -25,10 +25,10 @@ const breadcrumbs: Breadcrumb[] = [
     href: '/subjects',
   },
 ];
-
-const SearchTeacherPage: FC = () => {
-  const query = useSearchParams();
-  const subjectId = query?.get('subjectId') as string;
+interface SearchTeacherPageProps {
+  subjectId: string;
+}
+const SearchTeacherPage: FC<SearchTeacherPageProps> = ({ subjectId }) => {
   const { data, isLoading } = useQuery<GetTeachersBySubjectResponse>(
     ['teacher-by-subject', subjectId],
     () => SubjectsAPI.getTeachersBySubject(subjectId),

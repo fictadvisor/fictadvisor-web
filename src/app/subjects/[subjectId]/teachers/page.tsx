@@ -4,11 +4,15 @@ import { FC } from 'react';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import SubjectTeacherPage from '@/components/pages/search-pages/subject-teacher-search';
-
-const SubjectPage: FC = () => {
+interface SubjectTeacherPage {
+  params: {
+    subjectId: string;
+  };
+}
+const SubjectPage: FC<SubjectTeacherPage> = ({ params }) => {
   return (
     <PageLayout title="Предмет">
-      <SubjectTeacherPage />
+      <SubjectTeacherPage subjectId={params.subjectId} />
     </PageLayout>
   );
 };

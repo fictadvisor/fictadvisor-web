@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Box } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import Breadcrumbs from '@/components/common/ui/breadcrumbs';
 import Progress from '@/components/common/ui/progress';
@@ -11,13 +11,14 @@ import PollAPI from '@/lib/api/poll/PollAPI';
 
 import PollForm from './components/poll-form';
 import * as styles from './PollPage.styles';
-const PollPage = ({ disciplineTeacherId }: { disciplineTeacherId: string }) => {
+interface PollPageProps {
+  disciplineTeacherId: string;
+}
+const PollPage: FC<PollPageProps> = ({ disciplineTeacherId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoggedIn } = useAuthentication();
   const { displayError } = useToastError();
   const router = useRouter();
-  const query = useSearchParams();
-  // const disciplineTeacherId = query?.get('disciplineTeacherId') as string;
   const {
     error,
     isSuccess: isSuccessFetching,
