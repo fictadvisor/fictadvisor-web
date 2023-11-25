@@ -1,4 +1,5 @@
 'use client';
+
 import { ukUA as MaterialLocale } from '@mui/material/locale';
 import { createTheme } from '@mui/material/styles';
 import { ukUA as DatePickerLocale } from '@mui/x-date-pickers';

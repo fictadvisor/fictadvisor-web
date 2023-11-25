@@ -1,12 +1,12 @@
 import React from 'react';
 import NextLink from 'next/link';
 
-import { GitHub } from '../../../../../components/icons/GitHub';
-import { Instagram } from '../../../../../components/icons/Instagram';
-import { Mail } from '../../../../../components/icons/Mail';
-import { Telegram } from '../../../../../components/icons/Telegram';
-import { Twitter } from '../../../../../components/icons/Twitter';
-import { YouTube } from '../../../../../components/icons/YouTube';
+import { GitHub } from '@/components/common/icons/GitHub';
+import { Instagram } from '@/components/common/icons/Instagram';
+import { Mail } from '@/components/common/icons/Mail';
+import { Telegram } from '@/components/common/icons/Telegram';
+import { Twitter } from '@/components/common/icons/Twitter';
+import { YouTube } from '@/components/common/icons/YouTube';
 
 import styles from './Contact.module.scss';
 

@@ -3,6 +3,7 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Box, Typography } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { CustomEnvelopeOpen } from '@/components/common/icons/CustomEnvelopeOpen';
 import Alert from '@/components/common/ui/alert';
 import { AlertType, AlertVariant } from '@/components/common/ui/alert/types';
 import Button from '@/components/common/ui/button-mui';
@@ -15,8 +16,6 @@ import useToast from '@/hooks/use-toast';
 import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import getErrorMessage from '@/lib/utils/getErrorMessage';
-
-import { CustomEnvelopeOpen } from '../../../../components/icons/CustomEnvelopeOpen';
 
 import * as styles from './EmailConfirmationPage.module';
 

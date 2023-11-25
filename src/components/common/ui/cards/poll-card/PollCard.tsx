@@ -1,12 +1,8 @@
 import React from 'react';
 import { Box, Button, SxProps, Theme, Typography } from '@mui/material';
 
+import { CheckIcon, DoubleCheck } from '@/components/common/icons/DoubleCheck';
 import mergeSx from '@/lib/utils/MergeSxStylesUtil';
-
-import {
-  CheckIcon,
-  DoubleCheck,
-} from '../../../../../../components/icons/DoubleCheck';
 
 import * as styles from './PollCard.styles';
 

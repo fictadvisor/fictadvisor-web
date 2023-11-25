@@ -3,6 +3,7 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 
+import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import Button from '@/components/common/ui/button-mui';
 import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import CustomLink from '@/components/common/ui/custom-link';
@@ -14,8 +15,6 @@ import { useToastError } from '@/hooks/use-toast-error/useToastError';
 import AuthAPI from '@/lib/api/auth/AuthAPI';
 import StorageUtil from '@/lib/utils/StorageUtil';
 import theme from '@/styles/theme';
-
-import { CustomCheck } from '../../../../../../../../components/icons/CustomCheck';
 
 import * as styles from './ChangePasswordForm.styles';
 import { initialValues } from './constants';

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 
+import { CustomCheck } from '@/components/common/icons/CustomCheck';
 import AlertButton from '@/components/common/ui/alert-button/AlertButton';
 import { AlertButtonVariant } from '@/components/common/ui/alert-button/types';
 import Divider from '@/components/common/ui/divider';
@@ -12,7 +13,6 @@ import GroupAPI from '@/lib/api/group/GroupAPI';
 import theme from '@/styles/theme';
 import { UserGroupState } from '@/types/user';
 
-import { CustomCheck } from '../../../../../../../../../components/icons/CustomCheck';
 import * as gridStyles from '../grid.styles';
 import { RequestsTableProps } from '../types';
 

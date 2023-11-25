@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useRef } from 'react';
 import { Box } from '@mui/material';
 import { Form, Formik, FormikProps } from 'formik';
