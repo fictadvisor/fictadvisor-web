@@ -1,7 +1,9 @@
+'use client';
+
 import { Box, Drawer, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import * as styles from './AdminPanel.styles';
 import { adminPanelTabs } from './constants';

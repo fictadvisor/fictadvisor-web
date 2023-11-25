@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { Typography } from '@mui/material';
