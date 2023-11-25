@@ -1,50 +1,34 @@
+'use client';
+
 import { FC } from 'react';
 import { useQuery } from 'react-query';
-import { GetStaticProps } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
 import PersonalTeacherPage from '@/components/pages/personal-teacher-page';
 import useAuthentication from '@/hooks/use-authentication';
-import { client } from '@/lib/api/instance';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import TeacherService from '@/lib/services/teacher/TeacherService';
 import { Teacher } from '@/types/teacher';
-export interface PersonalTeacherProps {
-  info: Teacher | undefined;
+interface PersonalTeacherProps {
+  params: {
+    teacherId: string;
+  };
 }
-export const getStaticPaths = async () => {
-  const { data } = await client.get('/teachers');
-  const paths = data.teachers.map((teacher: { id: string }) => ({
-    params: { teacherId: teacher.id },
-  }));
 
-  return { paths, fallback: false };
-};
-export const getStaticProps: GetStaticProps<
-  PersonalTeacherProps
-> = async context => {
-  const teacherId = context.params?.teacherId as string;
-
-  try {
-    const info = await TeacherAPI.get(teacherId);
-    return {
-      props: {
-        info,
-      },
-      revalidate: 60 * 60 * 6, // Revalidate every 6 hours
-    };
-  } catch (error) {
-    return { props: { info: undefined } };
-  }
-};
-
-const PersonalTeacher: FC<PersonalTeacherProps> = ({ info }) => {
+const PersonalTeacher: FC<PersonalTeacherProps> = ({ params }) => {
   const router = useRouter();
   const query = useSearchParams();
-  const teacherId = info?.id as string;
+  const teacherId = params.teacherId;
   const { user } = useAuthentication();
-
+  const { data: info } = useQuery(
+    ['teacher', teacherId],
+    () => TeacherAPI.get(teacherId),
+    {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  );
   const { isLoading, isError, data } = useQuery(
     ['teacher', teacherId],
     () => TeacherService.getTeacherPageInfo(teacherId, user?.id),
@@ -58,7 +42,6 @@ const PersonalTeacher: FC<PersonalTeacherProps> = ({ info }) => {
     router.push('/teachers');
     return null;
   }
-
   return (
     <PageLayout
       title={info?.lastName + ' ' + info?.firstName + ' ' + info?.middleName}

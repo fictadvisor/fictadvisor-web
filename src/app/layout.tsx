@@ -9,6 +9,8 @@ import dayjs from 'dayjs';
 import uk from 'dayjs/locale/uk';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import Head from 'next/head';
+import Script from 'next/script';
 
 import AuthenticationProvider from '@/hooks/use-authentication/authentication-context';
 import ToastContextProvider from '@/hooks/use-toast/toast-context';
@@ -32,6 +34,30 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XEDY9ZSF2S"
+        ></Script>
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+
+            gtag("config", "G-XEDY9ZSF2S");`}
+        </Script>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GXYG7SJKYT"
+        />
+        <script async src="https://telegram.org/js/telegram-widget.js" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <body>
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'uk'}>

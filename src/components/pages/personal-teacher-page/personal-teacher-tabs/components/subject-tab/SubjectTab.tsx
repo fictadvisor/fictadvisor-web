@@ -14,7 +14,7 @@ interface SubjectTabProps extends GetTeacherSubjectsResponse {
 const SubjectTab: FC<SubjectTabProps> = ({ subjects, teacherId }) => {
   return (
     <Box sx={styles.wrapper} component="ul">
-      {subjects.map(subject => (
+      {subjects?.map(subject => (
         <Box sx={styles.listItem} key={subject.id} component="li">
           <Link
             href={`/discipline?teacherId=${teacherId}&subjectId=${subject.id}`}
