@@ -87,7 +87,7 @@ const StudentsTable: React.FC<StudentsTableProps> = ({
           <Grid container key={index} sx={gridStyles.row}>
             {row.imgSrc && (
               <Grid item desktop={4} mobile={9}>
-                <img width={48} height={48} src={row.imgSrc} alt="avatar" />
+                <img src={row.imgSrc} alt="avatar" />
                 {!isMobile && (
                   <Typography className="name">{row.fullName}</Typography>
                 )}
