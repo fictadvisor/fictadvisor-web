@@ -35,6 +35,7 @@ export const row: SxProps<Theme> = {
         borderRadius: '50%',
         width: { mobile: '36px', desktop: '48px' },
         height: { mobile: '36px', desktop: '48px' },
+        flex: '0 0 auto',
       },
       '& .MuiBox-root': {
         width: '100%',
