@@ -21,6 +21,7 @@ interface ButtonProps {
   type?: 'button' | 'reset' | 'submit';
 }
 
+
 const Button: FC<ButtonProps> = ({
   text,
   color = ButtonColor.PRIMARY,

@@ -5,7 +5,7 @@ import AdminPanelLayout from '@/components/common/layout/admin-panel-layout/Admi
 const Create = () => {
   return (
     <AdminPanelLayout>
-      <div></div>
+        <h1> 1 1 1 </h1>
     </AdminPanelLayout>
   );
 };

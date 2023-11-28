@@ -42,11 +42,11 @@ const FormObserver = (props: { name?: string }) => {
   return null;
 };
 const SearchForm: FC<SearchFormProps> = ({
-  onSubmit,
-  initialValues,
-  filterDropDownOptions,
-  searchPlaceholder,
-  localStorageName,
+    onSubmit,
+    initialValues,
+    filterDropDownOptions,
+    searchPlaceholder,
+    localStorageName,
 }) => {
   const isTablet = useMediaQuery(theme.breakpoints.down('tablet'));
   const [collapsed, setCollapsed] = useState(false);
