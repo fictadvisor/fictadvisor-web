@@ -37,14 +37,14 @@ export default function RootLayout({
       <Head>
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-XEDY9ZSF2S"
-        ></Script>
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GTM}`}
+        />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag("js", new Date());
 
-            gtag("config", "G-XEDY9ZSF2S");`}
+            gtag("config", ${process.env.GTM});`}
         </Script>
         <script async src="https://telegram.org/js/telegram-widget.js" />
         <link rel="icon" href="/favicon.ico" />
