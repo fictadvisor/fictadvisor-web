@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import PrivacyPage from '@/components/pages/privacy-page';
+import PrivacyPage from '@/components/templates/privacy-page';
 
 export const metadata: Metadata = {
   title: 'Політика конфіденційності | FICT Advisor',

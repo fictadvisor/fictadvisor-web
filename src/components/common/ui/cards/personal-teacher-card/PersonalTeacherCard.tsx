@@ -8,12 +8,11 @@ import Button from '@/components/common/ui/button-mui';
 import { ButtonVariant } from '@/components/common/ui/button-mui/types';
 import { CardRoles } from '@/components/common/ui/cards/card-roles';
 import Rating from '@/components/common/ui/rating';
-import { teacherContext } from '@/components/pages/personal-teacher-page/PersonalTeacherPage';
-import { teacherSubjectContext } from '@/components/pages/personal-teacher-subject-page/PersonalTeacherSubjectPage';
+import Contacts from '@/components/templates/personal-teacher-page/contacts/Contact';
+import { teacherContext } from '@/components/templates/personal-teacher-page/PersonalTeacherPage';
+import { teacherSubjectContext } from '@/components/templates/personal-teacher-subject-page/PersonalTeacherSubjectPage';
 import { Contact } from '@/types/contact';
 import { TeacherRole, TeacherSubject } from '@/types/teacher';
-
-import Contacts from '../../../../pages/personal-teacher-page/contacts/Contact';
 
 import * as styles from './PersonalTeacherCard.styles';
 

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import TeacherSearchPage from '@/components/pages/search-pages/teacher-search';
+import TeacherSearchPage from '@/components/templates/search-pages/teacher-search';
 export const metadata: Metadata = {
   title: 'Викладачі',
   description:

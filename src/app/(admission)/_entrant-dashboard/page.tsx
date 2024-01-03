@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import EntrantDashboardPage from '@/components/pages/entrant-dashboard-page';
+import EntrantDashboardPage from '@/components/templates/entrant-dashboard-page';
 import useAuthentication from '@/hooks/use-authentication';
 export default function DeleteEntrantAdmin() {
   const { isLoggedIn } = useAuthentication();

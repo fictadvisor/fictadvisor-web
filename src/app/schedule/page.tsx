@@ -1,4 +1,4 @@
-import SchedulePage from '@/components/pages/schedule-page/SchedulePage';
+import SchedulePage from '@/components/templates/schedule-page/SchedulePage';
 import DatesAPI from '@/lib/api/dates/DatesAPI';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 import { Group } from '@/types/group';

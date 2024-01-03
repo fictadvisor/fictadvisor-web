@@ -1,5 +1,5 @@
-import MainPage from '@/components/pages/main-page';
-import { MainPageProps } from '@/components/pages/main-page/MainPage';
+import MainPage from '@/components/templates/main-page';
+import { MainPageProps } from '@/components/templates/main-page/MainPage';
 import StudentResourcesAPI from '@/lib/api/student-resources/StudentResourcesAPI';
 
 export default async function Main() {

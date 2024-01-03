@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, SyntheticEvent, useEffect } from 'react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useSearchParams } from 'next/navigation';
 
-import { TeachersPageTabs } from '@/components/pages/personal-teacher-page/utils';
+import { TeachersPageTabs } from '@/components/templates/personal-teacher-page/utils';
 
 // TODO: refactor this hook
 export interface UseTabStateProps<T> {

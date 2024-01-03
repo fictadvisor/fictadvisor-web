@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import PersonalTeacherPage from '@/components/pages/personal-teacher-page';
+import PersonalTeacherPage from '@/components/templates/personal-teacher-page';
 import useAuthentication from '@/hooks/use-authentication';
 import TeacherAPI from '@/lib/api/teacher/TeacherAPI';
 import TeacherService from '@/lib/services/teacher/TeacherService';

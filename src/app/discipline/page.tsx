@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import PersonalTeacherSubjectPage from '@/components/pages/personal-teacher-subject-page';
+import PersonalTeacherSubjectPage from '@/components/templates/personal-teacher-subject-page';
 export const metadata: Metadata = {
   title: 'Дисципліна',
 };

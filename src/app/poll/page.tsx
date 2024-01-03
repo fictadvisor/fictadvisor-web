@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import PollTeacherPage from '@/components/pages/search-pages/poll-teachers-page';
+import PollTeacherPage from '@/components/templates/search-pages/poll-teachers-page';
 export const metadata: Metadata = {
   title: 'Опитування викладачів | FICT Advisor',
 };

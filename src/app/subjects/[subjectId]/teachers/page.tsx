@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import SubjectTeacherPage from '@/components/pages/search-pages/subject-teacher-search';
+import SubjectTeacherPage from '@/components/templates/search-pages/subject-teacher-search';
 interface SubjectTeacherPage {
   params: {
     subjectId: string;

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import NotFoundPage from '@/components/pages/404-page';
+import NotFoundPage from '@/components/templates/404-page';
 
 export const metadata: Metadata = {
   title: 'Сторінку не знайдено',

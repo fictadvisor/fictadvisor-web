@@ -7,7 +7,7 @@ import { create } from 'zustand';
 import {
   LOCAL_STORAGE_SCHEDULE_KEY,
   MAX_WEEK_NUMBER,
-} from '@/components/pages/schedule-page/constants';
+} from '@/components/templates/schedule-page/constants';
 import useAuthentication from '@/hooks/use-authentication';
 import useToast from '@/hooks/use-toast';
 import { GetCurrentSemester } from '@/lib/api/dates/types/GetCurrentSemester';

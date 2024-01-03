@@ -1,4 +1,4 @@
-import { SearchFormFields } from '@/components/pages/search-pages/search-form/types';
+import { SearchFormFields } from '@/components/templates/search-pages/search-form/types';
 import { GetTeacherCommentsResponse } from '@/lib/api/teacher/types/GetTeacherCommentsResponse';
 import { GetTeacherDisciplinesResponse } from '@/lib/api/teacher/types/GetTeacherDisciplinesResponse';
 import { GetTeacherMarksResponse } from '@/lib/api/teacher/types/GetTeacherMarksResponse';

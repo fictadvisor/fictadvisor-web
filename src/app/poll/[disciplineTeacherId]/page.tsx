@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import PollPage from '@/components/pages/poll-page';
+import PollPage from '@/components/templates/poll-page';
 interface PollPage {
   params: {
     disciplineTeacherId: string;

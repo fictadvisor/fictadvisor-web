@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import AccountPage from '@/components/pages/account-page';
+import AccountPage from '@/components/templates/account-page';
 export const metadata: Metadata = {
   title: 'Персональний акаунт FICT Advisor',
 };

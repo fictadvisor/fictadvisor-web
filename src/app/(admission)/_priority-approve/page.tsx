@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import EntrantPriorityPage from '@/components/pages/priority-approve-page';
+import EntrantPriorityPage from '@/components/templates/priority-approve-page';
 
 const PriorityApprove = () => {
   return (

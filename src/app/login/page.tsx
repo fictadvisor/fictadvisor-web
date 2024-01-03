@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import LoginPage from '@/components/pages/login-page';
+import LoginPage from '@/components/templates/login-page';
 export const metadata: Metadata = {
   title: 'Авторизація у FICT Advisor',
 };

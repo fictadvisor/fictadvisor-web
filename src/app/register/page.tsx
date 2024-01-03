@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 import PageLayout from '@/components/common/layout/page-layout/PageLayout';
-import RegisterPage from '@/components/pages/register/register-page';
-import type { RegisterPageProps } from '@/components/pages/register/register-page/RegisterPage';
+import RegisterPage from '@/components/templates/register/register-page';
+import type { RegisterPageProps } from '@/components/templates/register/register-page/RegisterPage';
 import GroupAPI from '@/lib/api/group/GroupAPI';
 export const metadata: Metadata = {
   title: 'Реєстрація у FICT Advisor',

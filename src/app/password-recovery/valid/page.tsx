@@ -1,7 +1,7 @@
 'use client';
 
 import PageLayout from '@/components/common/layout/page-layout';
-import PasswordResetValidLinkPage from '@/components/pages/password-recovery/link-valid';
+import PasswordResetValidLinkPage from '@/components/templates/password-recovery/link-valid';
 
 const PasswordResetValidLink = () => (
   <PageLayout hasHeader={false} hasFooter={false} robots="noindex">

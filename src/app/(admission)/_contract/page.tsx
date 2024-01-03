@@ -1,2 +1,2 @@
-import ContractPage from '@/components/pages/contract-page';
+import ContractPage from '@/components/templates/contract-page';
 export default ContractPage;
