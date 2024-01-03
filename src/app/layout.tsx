@@ -26,7 +26,6 @@ dayjs.tz.setDefault('Europe/Kiev');
 dayjs.locale({ ...uk, weekStart: 1 });
 const queryClient = new QueryClient();
 
-if (!process.browser) React.useLayoutEffect = React.useEffect;
 export default function RootLayout({
   children,
 }: {

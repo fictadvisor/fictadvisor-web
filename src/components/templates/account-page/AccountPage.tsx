@@ -31,7 +31,6 @@ import * as stylesMui from './AccountPage.styles';
 
 const AccountPage = () => {
   const { replace } = useRouter();
-  const query = useSearchParams();
   const { isLoggedIn } = useAuthentication();
   const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
 
@@ -39,7 +38,7 @@ const AccountPage = () => {
     if (!isLoggedIn) void replace('/login?~account');
   }, [isLoggedIn, replace]);
 
-  const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
+  const handleChange = async (_: SyntheticEvent, value: AccountPageTab) => {
     setIndex(value);
   };
 
