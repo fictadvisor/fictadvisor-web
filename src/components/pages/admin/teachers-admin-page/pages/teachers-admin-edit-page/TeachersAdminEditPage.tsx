@@ -1,10 +1,20 @@
 import { FC } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import * as styles from './TeachersAdminEditPage.styles';
 
-const TeachersAdminEditPage: FC = () => {
-  return <Box></Box>;
+interface TeachersAdminEditPageProps {
+  teacherId: string;
+}
+
+const TeachersAdminEditPage: FC<TeachersAdminEditPageProps> = ({
+  teacherId,
+}) => {
+  return (
+    <Box>
+      <Typography>{teacherId}</Typography>
+    </Box>
+  );
 };
 
 export default TeachersAdminEditPage;
