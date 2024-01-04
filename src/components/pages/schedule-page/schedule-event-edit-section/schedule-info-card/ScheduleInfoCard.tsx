@@ -75,7 +75,6 @@ const ScheduleInfoCard: FC<ScheduleInfoCardProps> = ({
   );
 
   const validPrivilege =
-    data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_CREATE] &&
     data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_DELETE] &&
     data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_UPDATE];
 

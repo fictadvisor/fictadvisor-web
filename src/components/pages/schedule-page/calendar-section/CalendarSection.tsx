@@ -39,10 +39,7 @@ export const CalendarSection: FC<CalendarSectionProps> = ({ groups }) => {
     },
   );
 
-  const validPrivilege =
-    data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_CREATE] &&
-    data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_DELETE] &&
-    data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_UPDATE];
+  const validPrivilege = data?.[PERMISSION.GROUPS_$GROUPID_EVENTS_CREATE];
 
   const showButton = validPrivilege && user.group?.id === groupId;
 

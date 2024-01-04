@@ -3,19 +3,19 @@ import { PERMISSION, PermissionData } from '../types';
 const createPermissionRequest = (values: PermissionData) => {
   const permissions: PERMISSION[] = [];
   for (const permission of Object.values(PERMISSION)) {
-    if (permission.split('.')[1] === '$userId' && values.userId) {
+    if (permission.includes('$userId') && values.userId) {
       permissions.push(permission);
     }
-    if (permission.split('.')[1] === '$groupId' && values.groupId) {
+    if (permission.includes('$groupId') && values.groupId) {
       permissions.push(permission);
     }
-    if (permission.split('.')[1] === '$roleId' && values.roleId) {
+    if (permission.includes('$roleId') && values.roleId) {
       permissions.push(permission);
     }
-    if (permission.split('.')[1] === '$teacherId' && values.teacherId) {
+    if (permission.includes('$teacherId') && values.teacherId) {
       permissions.push(permission);
     }
-    if (permission.split('.')[1][0] !== '$') {
+    if (!permission.includes('$')) {
       permissions.push(permission);
     }
   }
