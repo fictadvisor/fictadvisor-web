@@ -23,6 +23,7 @@ interface TextAreaProps {
   disabled?: boolean;
   showRemark?: boolean;
   rowsNumber?: number;
+  value?: string;
   sx?: SxProps<Theme>;
 }
 const TextArea: React.FC<TextAreaProps> = ({
@@ -33,6 +34,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   disabled = false,
   showRemark = false,
   rowsNumber = 4,
+  value = '',
   sx = {},
 }) => {
   const [field, { touched, error }] = useField(name);
@@ -58,6 +60,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         rows={rowsNumber}
         inputProps={{ maxLength: MAX_LENGTH }}
         color="warning"
+        value={value}
         placeholder={placeholder}
       />
       {showRemark && (
