@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useState } from 'react';
-import { useQuery } from 'react-query';
 import {
   BarsArrowDownIcon,
   BarsArrowUpIcon,
@@ -7,6 +6,8 @@ import {
 import { Box, Divider } from '@mui/material';
 import { Form, Formik } from 'formik';
 
+import Button from '@/components/common/ui/button-mui';
+import { ButtonSize } from '@/components/common/ui/button-mui/types';
 import { Input, InputSize, InputType } from '@/components/common/ui/form';
 import {
   IconButtonColor,
@@ -16,7 +17,6 @@ import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
 import { initialValues } from '@/components/pages/admin/teachers-admin-page/components/teachers-admin-search/constants';
 import { AdminSearchFormFields } from '@/components/pages/admin/teachers-admin-page/components/teachers-admin-search/types';
-import CathedraAPI from '@/lib/api/cathedras/CathedraAPI';
 
 import * as styles from './TeachersAdminSearch.styles';
 
@@ -38,48 +38,47 @@ const TeachersAdminSearch: FC<TeachersAdminSearchProps> = ({ onSubmit }) => {
     handleFormSubmit(values);
   };
 
-  const { data: cathedras } = useQuery('cathedras', CathedraAPI.getAll, {
-    staleTime: Infinity,
-    onError: err => {
-      console.log(err);
-    },
-  });
-
-  console.log(cathedras);
-
   return (
     <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
       {({ values }) => (
         <Form>
-          <Box sx={styles.form}>
-            <Box>
-              <Input
-                value={values.search}
-                onChange={() => onSubmit(values)}
-                size={InputSize.LARGE}
-                type={InputType.SEARCH}
-                width={344}
-                name="search"
-                placeholder="Пошук"
-                showRemark={false}
-              />
+          <Box sx={styles.header}>
+            <Box sx={styles.form}>
+              <Box>
+                <Input
+                  value={values.search}
+                  onChange={() => onSubmit(values)}
+                  size={InputSize.LARGE}
+                  type={InputType.SEARCH}
+                  width={344}
+                  name="search"
+                  placeholder="Пошук"
+                  showRemark={false}
+                />
+              </Box>
+              <Divider orientation="vertical" sx={styles.divider} />
+              <Box>
+                <IconButton
+                  onClick={() => handleOrderChange(values)}
+                  shape={IconButtonShape.SQUARE}
+                  color={IconButtonColor.SECONDARY}
+                  size={IconButtonSize.LARGE}
+                  icon={
+                    values.order === 'asc' ? (
+                      <BarsArrowDownIcon />
+                    ) : (
+                      <BarsArrowUpIcon />
+                    )
+                  }
+                />
+              </Box>
             </Box>
-            <Divider orientation="vertical" sx={styles.divider} />
-            <Box>
-              <IconButton
-                onClick={() => handleOrderChange(values)}
-                shape={IconButtonShape.SQUARE}
-                color={IconButtonColor.SECONDARY}
-                size={IconButtonSize.LARGE}
-                icon={
-                  values.order === 'asc' ? (
-                    <BarsArrowDownIcon />
-                  ) : (
-                    <BarsArrowUpIcon />
-                  )
-                }
-              />
-            </Box>
+            <Button
+              size={ButtonSize.MEDIUM}
+              sx={styles.button}
+              text="Створити"
+              href="/admin/teachers/create"
+            />
           </Box>
         </Form>
       )}
