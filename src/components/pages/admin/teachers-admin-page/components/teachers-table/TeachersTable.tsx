@@ -132,7 +132,7 @@ const TeachersTable: FC<TeachersAdminSearchProps> = ({
               <TableCell sx={styles.bodyItem}>
                 <Stack sx={styles.tableColumn}>
                   <Button
-                    href={`/admin/teachers/${teacher.id}`}
+                    href={`/admin/teachers/edit/${teacher.id}`}
                     text="Редагувати"
                     variant={ButtonVariant.OUTLINE}
                     startIcon={<PencilSquareIcon />}
