@@ -16,6 +16,7 @@ import IconButton from '@/components/common/ui/icon-button-mui';
 import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
 import { initialValues } from '@/components/pages/admin/teachers-admin-page/components/teachers-admin-search/constants';
 import { AdminSearchFormFields } from '@/components/pages/admin/teachers-admin-page/components/teachers-admin-search/types';
+import CathedraAPI from '@/lib/api/cathedras/CathedraAPI';
 
 import * as styles from './TeachersAdminSearch.styles';
 
@@ -37,7 +38,14 @@ const TeachersAdminSearch: FC<TeachersAdminSearchProps> = ({ onSubmit }) => {
     handleFormSubmit(values);
   };
 
-  const { data: cathedras } = useQuery('cathedras');
+  const { data: cathedras } = useQuery('cathedras', CathedraAPI.getAll, {
+    staleTime: Infinity,
+    onError: err => {
+      console.log(err);
+    },
+  });
+
+  console.log(cathedras);
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
