@@ -62,6 +62,10 @@ class TeacherAPI {
     return data;
   }
 
+  async delete(teacherId: string) {
+    await client.delete(`/teachers/${teacherId}`, getAuthorizationHeader());
+  }
+
   async getTeacherMarks(
     teacherId: string,
     subjectId?: string,
