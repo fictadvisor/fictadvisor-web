@@ -1,9 +1,10 @@
 import React, { FC, useCallback, useState } from 'react';
+import { useQuery } from 'react-query';
 import {
   BarsArrowDownIcon,
   BarsArrowUpIcon,
 } from '@heroicons/react/24/outline';
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { Form, Formik } from 'formik';
 
 import { Input, InputSize, InputType } from '@/components/common/ui/form';
@@ -12,6 +13,7 @@ import {
   IconButtonShape,
 } from '@/components/common/ui/icon-button';
 import IconButton from '@/components/common/ui/icon-button-mui';
+import { IconButtonSize } from '@/components/common/ui/icon-button-mui/types';
 import { initialValues } from '@/components/pages/admin/teachers-admin-page/components/teachers-admin-search/constants';
 import { AdminSearchFormFields } from '@/components/pages/admin/teachers-admin-page/components/teachers-admin-search/types';
 
@@ -31,39 +33,45 @@ const TeachersAdminSearch: FC<TeachersAdminSearchProps> = ({ onSubmit }) => {
   );
 
   const handleOrderChange = (values: AdminSearchFormFields) => {
-    if (values.order === 'asc') {
-      setOrder('desc');
-    } else {
-      setOrder('asc');
-    }
+    setOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
+    handleFormSubmit(values);
   };
+
+  const { data: cathedras } = useQuery('cathedras');
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
       {({ values }) => (
         <Form>
-          <Input
-            value={values.search}
-            onChange={() => onSubmit(values)}
-            size={InputSize.LARGE}
-            type={InputType.SEARCH}
-            name="search"
-            placeholder="Пошук"
-            showRemark={false}
-          />
-          <Box>
-            <IconButton
-              onClick={() => handleOrderChange(values)}
-              shape={IconButtonShape.SQUARE}
-              color={IconButtonColor.SECONDARY}
-              icon={
-                values.order === 'asc' ? (
-                  <BarsArrowDownIcon />
-                ) : (
-                  <BarsArrowUpIcon />
-                )
-              }
-            />
+          <Box sx={styles.form}>
+            <Box>
+              <Input
+                value={values.search}
+                onChange={() => onSubmit(values)}
+                size={InputSize.LARGE}
+                type={InputType.SEARCH}
+                width={344}
+                name="search"
+                placeholder="Пошук"
+                showRemark={false}
+              />
+            </Box>
+            <Divider orientation="vertical" sx={styles.divider} />
+            <Box>
+              <IconButton
+                onClick={() => handleOrderChange(values)}
+                shape={IconButtonShape.SQUARE}
+                color={IconButtonColor.SECONDARY}
+                size={IconButtonSize.LARGE}
+                icon={
+                  values.order === 'asc' ? (
+                    <BarsArrowDownIcon />
+                  ) : (
+                    <BarsArrowUpIcon />
+                  )
+                }
+              />
+            </Box>
           </Box>
         </Form>
       )}
