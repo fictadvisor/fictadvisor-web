@@ -126,7 +126,6 @@ const ScheduleHeader = () => {
             icon={<ChevronRightIcon />}
             onClick={() => updateWeek(1)}
           />
-          {currentTime.toString() !== chosenDay?.toString() && (
             <Button
               text={'Сьогодні'}
               sx={{ width: 'min-content' }}
@@ -135,7 +134,6 @@ const ScheduleHeader = () => {
               size={ButtonSize.SMALL}
               onClick={handleClick}
             />
-          )}
         </Box>
       </Box>
       <Box sx={styles.columns}>
